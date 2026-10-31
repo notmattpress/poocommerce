@@ -55,7 +55,7 @@ describe( 'ProductTaxonomyControl', () => {
 	test( 'renders product counts and accessible labels', () => {
 		renderControl( {
 			countType: 'product',
-			itemClassName: 'woocommerce-product-terms__item',
+			itemClassName: 'poocommerce-product-terms__item',
 		} );
 
 		expect( screen.getByText( '2 products' ) ).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe( 'ProductTaxonomyControl', () => {
 			} )
 		).toBeInTheDocument();
 		expect(
-			document.querySelector( '.woocommerce-product-terms__item' )
+			document.querySelector( '.poocommerce-product-terms__item' )
 		).toBeInTheDocument();
 	} );
 
@@ -191,7 +191,7 @@ describe( 'ProductTaxonomyControl', () => {
 		} );
 
 		expect(
-			container.querySelector( '.woocommerce-search-list.is-compact' )
+			container.querySelector( '.poocommerce-search-list.is-compact' )
 		).toBeInTheDocument();
 		expect(
 			screen.getByRole( 'radio', {
@@ -233,7 +233,7 @@ describe( 'ProductTaxonomyControl', () => {
 	test( 'uses the raw selected count to show the operator', () => {
 		const onChange = jest.fn();
 		const operator = {
-			className: 'woocommerce-product-terms__operator',
+			className: 'poocommerce-product-terms__operator',
 			labels: {
 				all: 'All selected terms',
 				any: 'Any selected terms',
@@ -249,7 +249,7 @@ describe( 'ProductTaxonomyControl', () => {
 		const select = screen.getByLabelText( 'Display products matching' );
 		const options = screen.getAllByRole( 'option', { hidden: true } );
 		const operatorControl = container.querySelector(
-			'.woocommerce-product-taxonomy-control__operator'
+			'.poocommerce-product-taxonomy-control__operator'
 		);
 
 		expect( select ).toHaveValue( 'any' );
@@ -261,8 +261,8 @@ describe( 'ProductTaxonomyControl', () => {
 		expect( options[ 1 ] ).toHaveTextContent( 'All selected terms' );
 		expect( screen.getByText( 'Select two terms.' ) ).toBeInTheDocument();
 		expect( operatorControl ).toHaveClass(
-			'woocommerce-product-taxonomy-control__operator',
-			'woocommerce-product-terms__operator'
+			'poocommerce-product-taxonomy-control__operator',
+			'poocommerce-product-terms__operator'
 		);
 
 		rerender(

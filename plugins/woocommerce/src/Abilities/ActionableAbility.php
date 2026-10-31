@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Abilities;
+namespace Automattic\PooCommerce\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -91,7 +91,7 @@ abstract class ActionableAbility extends \WP_Ability {
 		} catch ( \Exception $e ) {
 			wc_get_logger()->error(
 				sprintf( 'Ability "%s" failed to save: %s', $this->get_name(), $e->getMessage() ),
-				array( 'source' => 'woocommerce-abilities' )
+				array( 'source' => 'poocommerce-abilities' )
 			);
 			return self::save_failed();
 		}
@@ -175,9 +175,9 @@ abstract class ActionableAbility extends \WP_Ability {
 				$args = $registered[ $namespace ][ $field ] ?? array();
 				if ( ! isset( $args['update_callback'] ) ) {
 					return new \WP_Error(
-						'woocommerce_ability_field_not_writable',
+						'poocommerce_ability_field_not_writable',
 						/* translators: 1: Extension namespace. 2: Field name. */
-						sprintf( __( 'The extension field "%1$s.%2$s" cannot be written.', 'woocommerce' ), $namespace, $field ),
+						sprintf( __( 'The extension field "%1$s.%2$s" cannot be written.', 'poocommerce' ), $namespace, $field ),
 						array( 'status' => 400 )
 					);
 				}
@@ -254,8 +254,8 @@ abstract class ActionableAbility extends \WP_Ability {
 				array( 'source' => 'extensible-abilities' )
 			);
 			$result = new \WP_Error(
-				'woocommerce_ability_extension_failed',
-				__( 'An extension failed while checking this change.', 'woocommerce' ),
+				'poocommerce_ability_extension_failed',
+				__( 'An extension failed while checking this change.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -275,7 +275,7 @@ abstract class ActionableAbility extends \WP_Ability {
 	private function add_extensions_input_schema( array $schema ): array {
 		$extensions = array(
 			'type'                 => 'object',
-			'description'          => __( 'Values to write to the fields that extensions add, keyed by extension namespace, then field. A null value deletes the value.', 'woocommerce' ),
+			'description'          => __( 'Values to write to the fields that extensions add, keyed by extension namespace, then field. A null value deletes the value.', 'poocommerce' ),
 			'additionalProperties' => false,
 		);
 		foreach ( ExtensibleAbilities::get_fields( $this->get_resource() ) as $namespace => $fields ) {
@@ -312,7 +312,7 @@ abstract class ActionableAbility extends \WP_Ability {
 			foreach ( array_keys( $schema[ $keyword ] ?? array() ) as $index ) {
 				$schema[ $keyword ][ $index ]['properties']['extensions'] = array(
 					'type'        => 'object',
-					'description' => __( 'The fields are listed in the top-level extensions property.', 'woocommerce' ),
+					'description' => __( 'The fields are listed in the top-level extensions property.', 'poocommerce' ),
 				);
 			}
 		}
@@ -326,8 +326,8 @@ abstract class ActionableAbility extends \WP_Ability {
 	 */
 	private static function save_failed(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_save_failed',
-			__( 'The change could not be saved.', 'woocommerce' ),
+			'poocommerce_ability_save_failed',
+			__( 'The change could not be saved.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}

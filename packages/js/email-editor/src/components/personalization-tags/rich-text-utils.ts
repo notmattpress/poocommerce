@@ -200,7 +200,7 @@ const insertPersonalizationTag = (
 		...applyFormat(
 			inserted,
 			{
-				type: 'woocommerce-email-editor/link-shortcode',
+				type: 'poocommerce-email-editor/link-shortcode',
 				// @ts-expect-error attributes property is missing in build type for WPFormat type
 				attributes: {
 					'data-link-href': tag,

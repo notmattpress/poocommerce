@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
 
 class Comment implements Positionable, Renderable
 {

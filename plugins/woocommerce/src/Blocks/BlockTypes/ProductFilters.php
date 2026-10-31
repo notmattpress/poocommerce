@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Internal\Features\BlockEditorUnifiedAssets;
-use Automattic\WooCommerce\Internal\ProductFilters\Params;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Internal\Features\BlockEditorUnifiedAssets;
+use Automattic\PooCommerce\Internal\ProductFilters\Params;
 use WP_Block;
 
 /**
@@ -54,7 +54,7 @@ class ProductFilters extends AbstractBlock {
 			$this->asset_data_registry->add( 'globalStylesColors', StyleAttributesUtils::get_global_styles( array( 'color' ) ) );
 		}
 
-		BlocksSharedState::load_store_config( 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce' );
+		BlocksSharedState::load_store_config( 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce' );
 
 		// Classic themes do not support client-side navigation on product
 		// archive pages, so disable it globally for the Interactivity Router.
@@ -193,7 +193,7 @@ CSS;
 		 *
 		 * @since 9.7.0
 		 */
-		$active_filters = apply_filters( 'woocommerce_blocks_product_filters_selected_items', array(), $filter_params );
+		$active_filters = apply_filters( 'poocommerce_blocks_product_filters_selected_items', array(), $filter_params );
 
 		usort(
 			$active_filters,
@@ -235,7 +235,7 @@ CSS;
 		$has_overlay      = 'off' !== $overlay_mode;
 		$overlay_position = isset( $attributes['overlayPosition'] ) && 'right' === $attributes['overlayPosition'] ? 'right' : 'left';
 
-		$state               = wp_interactivity_state( 'woocommerce/product-filters' );
+		$state               = wp_interactivity_state( 'poocommerce/product-filters' );
 		$filter_empty_states = $state['filterEmptyStates'][ $product_filters_key ] ?? array();
 		$wrapper_classes     = array( 'wc-block-product-filters' );
 		if ( ! empty( $filter_empty_states ) && ! in_array( false, $filter_empty_states, true ) ) {
@@ -279,14 +279,14 @@ CSS;
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M10 17.5H14V16H10V17.5ZM6 6V7.5H18V6H6ZM8 12.5H16V11H8V12.5Z" fill="currentColor"/>
 					</svg>
-					<span><?php echo esc_html__( 'Filter products', 'woocommerce' ); ?></span>
+					<span><?php echo esc_html__( 'Filter products', 'poocommerce' ); ?></span>
 				</button>
 				<div class="wc-block-product-filters__overlay">
 					<div class="wc-block-product-filters__overlay-wrapper" data-wp-on--click="actions.closeOverlayOnBackdrop">
 						<section
 							class="wc-block-product-filters__overlay-dialog"
 							data-wp-bind--role="state.overlayDialogRole"
-							aria-label="<?php echo esc_attr__( 'Product Filters', 'woocommerce' ); ?>"
+							aria-label="<?php echo esc_attr__( 'Product Filters', 'poocommerce' ); ?>"
 							data-wp-bind--aria-modal="state.overlayDialogAriaModal"
 							data-wp-on-document--keydown="actions.handleOverlayKeydown"
 							data-wp-watch="callbacks.focusOverlay"
@@ -296,7 +296,7 @@ CSS;
 									type="button"
 									class="wc-block-product-filters__close-overlay"
 									data-wp-on--click="actions.closeOverlay"
-									title="<?php echo esc_attr( __( 'Close', 'woocommerce' ) ); ?>"
+									title="<?php echo esc_attr( __( 'Close', 'poocommerce' ) ); ?>"
 								>
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
 										<path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path>
@@ -315,7 +315,7 @@ CSS;
 									data-wp-interactive="<?php echo esc_attr( $this->get_full_block_name() ); ?>"
 									data-wp-on--click="actions.closeOverlay"
 								>
-									<span><?php echo esc_html__( 'Apply', 'woocommerce' ); ?></span>
+									<span><?php echo esc_html__( 'Apply', 'poocommerce' ); ?></span>
 								</button>
 							</footer>
 						</section>

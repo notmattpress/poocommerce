@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Traits;
+namespace Automattic\PooCommerce\Internal\Traits;
 
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\CallbackUtil;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\CallbackUtil;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -127,7 +127,7 @@ trait RestApiCache {
 	 *
 	 * @var string
 	 */
-	private static string $cache_group = 'woocommerce_rest_api_cache';
+	private static string $cache_group = 'poocommerce_rest_api_cache';
 
 	/**
 	 * Response headers that are always excluded from caching.
@@ -151,7 +151,7 @@ trait RestApiCache {
 	 *
 	 * @var string
 	 */
-	private static string $warning_cache_group = 'woocommerce_rest_api_cache_warnings';
+	private static string $warning_cache_group = 'poocommerce_rest_api_cache_warnings';
 
 	/**
 	 * TTL for suppressing duplicate file tracking warnings (1 hour).
@@ -188,9 +188,9 @@ trait RestApiCache {
 	 * @since 10.5.0
 	 */
 	protected function initialize_rest_api_cache(): void {
-		// Guard against early instantiation before WooCommerce is fully initialized.
+		// Guard against early instantiation before PooCommerce is fully initialized.
 		// Some third-party plugins instantiate REST controllers during plugin loading,
-		// before the WooCommerce container is available.
+		// before the PooCommerce container is available.
 		if ( ! function_exists( 'wc_get_container' ) ) {
 			return;
 		}
@@ -204,7 +204,7 @@ trait RestApiCache {
 
 		$generator = wc_get_container()->get( VersionStringGenerator::class );
 
-		$backend_caching_enabled        = 'yes' === get_option( 'woocommerce_rest_api_enable_backend_caching', 'no' );
+		$backend_caching_enabled        = 'yes' === get_option( 'poocommerce_rest_api_enable_backend_caching', 'no' );
 		$this->version_string_generator = ( $backend_caching_enabled && $generator->can_use() ) ? $generator : null;
 
 		add_filter( 'rest_send_nocache_headers', array( $this, 'handle_rest_send_nocache_headers' ), 10, 1 );
@@ -253,7 +253,7 @@ trait RestApiCache {
 	 */
 	private function handle_cacheable_request( WP_REST_Request $request, callable $callback, array $config ) { // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint
 		$backend_caching_enabled = ! is_null( $this->version_string_generator );
-		$cache_headers_enabled   = 'yes' === get_option( 'woocommerce_rest_api_enable_cache_headers', 'yes' );
+		$cache_headers_enabled   = 'yes' === get_option( 'poocommerce_rest_api_enable_cache_headers', 'yes' );
 
 		if ( ! $backend_caching_enabled && ! $cache_headers_enabled ) {
 			return call_user_func( $callback, $request );
@@ -310,7 +310,7 @@ trait RestApiCache {
 		 * @return bool True to enable response caching, false to disable.
 		 */
 		return apply_filters(
-			'woocommerce_rest_api_enable_response_caching',
+			'poocommerce_rest_api_enable_response_caching',
 			$should_cache,
 			$this,
 			$request
@@ -504,7 +504,7 @@ trait RestApiCache {
 		 * @param WP_REST_Request        $request     The request object.
 		 * @param string|null            $endpoint_id The endpoint identifier.
 		 */
-		$filtered_response = apply_filters( 'woocommerce_rest_api_not_modified_response', $response, $request, $endpoint_id );
+		$filtered_response = apply_filters( 'poocommerce_rest_api_not_modified_response', $response, $request, $endpoint_id );
 
 		return false === $filtered_response ? null : rest_ensure_response( $filtered_response );
 	}
@@ -769,7 +769,7 @@ trait RestApiCache {
 	 * 1. If $include_headers is an array, only those headers are included (case-insensitive).
 	 *    If $include_headers is false, all headers are included except those in $exclude_headers.
 	 * 2. Always-excluded headers (X-WC-Cache, Set-Cookie, Date, etc.) are removed.
-	 * 3. The woocommerce_rest_api_cached_headers filter is applied, receiving both the candidate
+	 * 3. The poocommerce_rest_api_cached_headers filter is applied, receiving both the candidate
 	 *    headers list and all available headers. This allows filters to both add and remove
 	 *    headers from the caching list.
 	 * 4. Always-excluded headers are enforced again post-filter to prevent filters from
@@ -830,7 +830,7 @@ trait RestApiCache {
 		 * @return array Filtered list of header names to cache.
 		 */
 		$filtered_header_names = apply_filters(
-			'woocommerce_rest_api_cached_headers',
+			'poocommerce_rest_api_cached_headers',
 			$cached_header_names,
 			$all_header_names,
 			$request,
@@ -853,7 +853,7 @@ trait RestApiCache {
 				__METHOD__,
 				sprintf(
 					/* translators: %s: comma-separated list of header names */
-					'The woocommerce_rest_api_cached_headers filter attempted to cache always-excluded headers: %s. These headers have been removed for security reasons.',
+					'The poocommerce_rest_api_cached_headers filter attempted to cache always-excluded headers: %s. These headers have been removed for security reasons.',
 					implode( ', ', $reintroduced_headers )
 				),
 				'10.5.0'
@@ -935,7 +935,7 @@ trait RestApiCache {
 		 * @return array Filtered cache key information parts.
 		 */
 		$cache_key_parts = apply_filters(
-			'woocommerce_rest_api_cache_key_info',
+			'poocommerce_rest_api_cache_key_info',
 			$cache_key_parts,
 			$request,
 			$vary_by_user,
@@ -978,7 +978,7 @@ trait RestApiCache {
 		 * @param object $controller      Controller instance.
 		 */
 		$cache_hash_data = apply_filters(
-			'woocommerce_rest_api_cache_hooks_hash_data',
+			'poocommerce_rest_api_cache_hooks_hash_data',
 			$cache_hash_data,
 			$hook_names,
 			$this
@@ -1024,7 +1024,7 @@ trait RestApiCache {
 		 * @param object $controller         Controller instance.
 		 */
 		$version_data = apply_filters(
-			'woocommerce_rest_api_cache_version_strings_hash_data',
+			'poocommerce_rest_api_cache_version_strings_hash_data',
 			$version_data,
 			$version_string_ids,
 			$this
@@ -1043,7 +1043,7 @@ trait RestApiCache {
 	 * Get the filtered list of allowed directories for file-based response caching.
 	 *
 	 * This method retrieves the allowed directories from the protected method
-	 * and applies the woocommerce_rest_api_cache_allowed_file_directories filter.
+	 * and applies the poocommerce_rest_api_cache_allowed_file_directories filter.
 	 *
 	 * @since 10.6.0
 	 *
@@ -1067,7 +1067,7 @@ trait RestApiCache {
 		 * @return array Filtered array of directory paths.
 		 */
 		return apply_filters(
-			'woocommerce_rest_api_cache_allowed_file_directories',
+			'poocommerce_rest_api_cache_allowed_file_directories',
 			$allowed_directories,
 			$this
 		);
@@ -1136,7 +1136,7 @@ trait RestApiCache {
 		 * @param object $controller Controller instance.
 		 */
 		$files_data = apply_filters(
-			'woocommerce_rest_api_cache_files_hash_data',
+			'poocommerce_rest_api_cache_files_hash_data',
 			$files_data,
 			$file_paths,
 			$this
@@ -1274,7 +1274,7 @@ trait RestApiCache {
 		 * @param string $reason    The reason the file couldn't be tracked.
 		 */
 		$suppression_ttl = apply_filters(
-			'woocommerce_rest_api_cache_file_warning_suppression_ttl',
+			'poocommerce_rest_api_cache_file_warning_suppression_ttl',
 			self::$file_warning_suppression_ttl,
 			$file_path,
 			$reason

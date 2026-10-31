@@ -5,20 +5,20 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesCategories;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderAddNote;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductDelete;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesCategories;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderAddNote;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductDelete;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
- * Tests for the canonical WooCommerce domain abilities and their loader.
+ * Tests for the canonical PooCommerce domain abilities and their loader.
  */
 class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 
@@ -32,14 +32,14 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	private static $administrator_id;
 
 	private const CANONICAL_ABILITY_IDS = array(
-		'woocommerce/products-query',
-		'woocommerce/product-create',
-		'woocommerce/product-update',
-		'woocommerce/product-delete',
-		'woocommerce/orders-query',
-		'woocommerce/order-update-status',
-		'woocommerce/order-add-note',
-		'woocommerce/order-notes-query',
+		'poocommerce/products-query',
+		'poocommerce/product-create',
+		'poocommerce/product-update',
+		'poocommerce/product-delete',
+		'poocommerce/orders-query',
+		'poocommerce/order-update-status',
+		'poocommerce/order-add-note',
+		'poocommerce/order-notes-query',
 	);
 
 	/**
@@ -118,7 +118,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 
 		wp_set_current_user( self::$administrator_id );
 
-		$this->register_woocommerce_category();
+		$this->register_poocommerce_category();
 		$this->register_domain_abilities();
 	}
 
@@ -185,14 +185,14 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 */
 
 	/**
-	 * @testdox Should register every canonical ability with WooCommerce metadata.
+	 * @testdox Should register every canonical ability with PooCommerce metadata.
 	 */
-	public function test_canonical_abilities_register_with_woocommerce_metadata(): void {
+	public function test_canonical_abilities_register_with_poocommerce_metadata(): void {
 		foreach ( self::CANONICAL_ABILITY_IDS as $ability_id ) {
 			$ability = wp_get_ability( $ability_id );
 
 			$this->assertNotNull( $ability, "{$ability_id} should be registered." );
-			$this->assertSame( 'woocommerce', $ability->get_category(), "{$ability_id} should belong to the woocommerce category." );
+			$this->assertSame( 'poocommerce', $ability->get_category(), "{$ability_id} should belong to the poocommerce category." );
 
 			$meta = $ability->get_meta();
 			$this->assertTrue( $meta['show_in_rest'] ?? false, "{$ability_id} should be exposed in REST." );
@@ -201,7 +201,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			$this->assertArrayHasKey( 'readonly', $meta['annotations'] );
 			$this->assertArrayHasKey( 'destructive', $meta['annotations'] );
 			$this->assertArrayHasKey( 'idempotent', $meta['annotations'] );
-			$this->assertArrayNotHasKey( 'expose_in_deprecated_woocommerce_mcp', $meta );
+			$this->assertArrayNotHasKey( 'expose_in_deprecated_poocommerce_mcp', $meta );
 		}
 	}
 
@@ -210,42 +210,42 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_canonical_ability_annotations_match_intent(): void {
 		$expectations = array(
-			'woocommerce/products-query'      => array(
+			'poocommerce/products-query'      => array(
 				'readonly'    => true,
 				'idempotent'  => true,
 				'destructive' => false,
 			),
-			'woocommerce/product-create'      => array(
+			'poocommerce/product-create'      => array(
 				'readonly'    => false,
 				'idempotent'  => false,
 				'destructive' => false,
 			),
-			'woocommerce/product-update'      => array(
+			'poocommerce/product-update'      => array(
 				'readonly'    => false,
 				'idempotent'  => false,
 				'destructive' => true,
 			),
-			'woocommerce/product-delete'      => array(
+			'poocommerce/product-delete'      => array(
 				'readonly'    => false,
 				'idempotent'  => true,
 				'destructive' => true,
 			),
-			'woocommerce/orders-query'        => array(
+			'poocommerce/orders-query'        => array(
 				'readonly'    => true,
 				'idempotent'  => true,
 				'destructive' => false,
 			),
-			'woocommerce/order-update-status' => array(
+			'poocommerce/order-update-status' => array(
 				'readonly'    => false,
 				'idempotent'  => false,
 				'destructive' => true,
 			),
-			'woocommerce/order-add-note'      => array(
+			'poocommerce/order-add-note'      => array(
 				'readonly'    => false,
 				'idempotent'  => false,
 				'destructive' => false,
 			),
-			'woocommerce/order-notes-query'   => array(
+			'poocommerce/order-notes-query'   => array(
 				'readonly'    => true,
 				'idempotent'  => true,
 				'destructive' => false,
@@ -269,7 +269,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should advertise product statuses that product responses can return.
 	 */
 	public function test_product_output_schema_allows_response_statuses(): void {
-		$output_schema = wp_get_ability( 'woocommerce/product-create' )->get_output_schema();
+		$output_schema = wp_get_ability( 'poocommerce/product-create' )->get_output_schema();
 		$status_enum   = $output_schema['properties']['product']['properties']['status']['enum'] ?? array();
 
 		$this->assertContains( 'auto-draft', $status_enum );
@@ -278,15 +278,15 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should describe product output primitives using WooCommerce registries.
+	 * @testdox Should describe product output primitives using PooCommerce registries.
 	 */
-	public function test_product_output_schema_uses_woocommerce_primitive_constraints(): void {
-		$output_schema = wp_get_ability( 'woocommerce/product-create' )->get_output_schema();
+	public function test_product_output_schema_uses_poocommerce_primitive_constraints(): void {
+		$output_schema = wp_get_ability( 'poocommerce/product-create' )->get_output_schema();
 		$product       = $output_schema['properties']['product']['properties'] ?? array();
 
 		$this->assertSame( 'uri', $product['permalink']['format'] ?? null );
 		$this->assertSame( array( 'string', 'null' ), $product['permalink']['type'] ?? null );
-		$this->assertContains( get_woocommerce_currency(), $product['currency']['enum'] ?? array() );
+		$this->assertContains( get_poocommerce_currency(), $product['currency']['enum'] ?? array() );
 		$this->assertSame(
 			array( wc_is_stock_amount_integer() ? 'integer' : 'number', 'null' ),
 			$product['stock_quantity']['type'] ?? null
@@ -298,8 +298,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_collection_output_schemas_describe_pagination_metadata(): void {
 		$schemas = array(
-			'woocommerce/products-query' => 'products',
-			'woocommerce/orders-query'   => 'orders',
+			'poocommerce/products-query' => 'products',
+			'poocommerce/orders-query'   => 'orders',
 		);
 
 		foreach ( $schemas as $ability_id => $collection_key ) {
@@ -321,9 +321,9 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should expose agent-friendly product type alias inputs for product operations.
 	 */
 	public function test_product_schema_uses_agent_friendly_product_types(): void {
-		$query_schema  = wp_get_ability( 'woocommerce/products-query' )->get_input_schema();
-		$create_schema = wp_get_ability( 'woocommerce/product-create' )->get_input_schema();
-		$update_schema = wp_get_ability( 'woocommerce/product-update' )->get_input_schema();
+		$query_schema  = wp_get_ability( 'poocommerce/products-query' )->get_input_schema();
+		$create_schema = wp_get_ability( 'poocommerce/product-create' )->get_input_schema();
+		$update_schema = wp_get_ability( 'poocommerce/product-update' )->get_input_schema();
 
 		$expected_aliases = array( 'physical', 'virtual', 'digital', 'affiliate', 'grouped' );
 
@@ -336,7 +336,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotContains( 'variable', $this->get_product_type_aliases_from_schema_branches( $create_schema ) );
 		$this->assertArrayNotHasKey(
 			'product_type_alias',
-			wp_get_ability( 'woocommerce/product-create' )->get_output_schema()['properties']['product']['properties'] ?? array()
+			wp_get_ability( 'poocommerce/product-create' )->get_output_schema()['properties']['product']['properties'] ?? array()
 		);
 		$this->assertArrayNotHasKey( 'default', $create_schema );
 		$this->assertArrayNotHasKey( 'default', $update_schema );
@@ -346,8 +346,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should expose only alias-relevant product fields in mutation schema branches.
 	 */
 	public function test_product_mutation_schema_branches_only_include_alias_relevant_fields(): void {
-		$create_schema = wp_get_ability( 'woocommerce/product-create' )->get_input_schema();
-		$update_schema = wp_get_ability( 'woocommerce/product-update' )->get_input_schema();
+		$create_schema = wp_get_ability( 'poocommerce/product-create' )->get_input_schema();
+		$update_schema = wp_get_ability( 'poocommerce/product-update' )->get_input_schema();
 
 		$physical_properties  = $this->get_product_type_alias_schema_branch( $create_schema, 'physical' )['properties'];
 		$affiliate_properties = $this->get_product_type_alias_schema_branch( $create_schema, 'affiliate' )['properties'];
@@ -373,16 +373,16 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should describe order output primitives using WooCommerce registries.
+	 * @testdox Should describe order output primitives using PooCommerce registries.
 	 */
-	public function test_order_output_schema_uses_woocommerce_primitive_constraints(): void {
-		$output_schema = wp_get_ability( 'woocommerce/orders-query' )->get_output_schema();
+	public function test_order_output_schema_uses_poocommerce_primitive_constraints(): void {
+		$output_schema = wp_get_ability( 'poocommerce/orders-query' )->get_output_schema();
 		$order         = $output_schema['properties']['orders']['items']['properties'] ?? array();
 
 		$this->assertContains( 'auto-draft', $order['status']['enum'] ?? array() );
 		$this->assertContains( 'trash', $order['status']['enum'] ?? array() );
 		$this->assertContains( 'checkout-draft', $order['status']['enum'] ?? array() );
-		$this->assertContains( get_woocommerce_currency(), $order['currency']['enum'] ?? array() );
+		$this->assertContains( get_poocommerce_currency(), $order['currency']['enum'] ?? array() );
 		$this->assertSame( array( 'string', 'null' ), $order['billing_email']['type'] ?? null );
 		$this->assertSame( 'email', $order['billing_email']['format'] ?? null );
 		$this->assertNotEmpty( $order['line_items']['description'] ?? '' );
@@ -395,8 +395,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should exclude checkout-draft from order status inputs.
 	 */
 	public function test_order_status_input_schemas_exclude_checkout_draft(): void {
-		$query_schema  = wp_get_ability( 'woocommerce/orders-query' )->get_input_schema();
-		$update_schema = wp_get_ability( 'woocommerce/order-update-status' )->get_input_schema();
+		$query_schema  = wp_get_ability( 'poocommerce/orders-query' )->get_input_schema();
+		$update_schema = wp_get_ability( 'poocommerce/order-update-status' )->get_input_schema();
 
 		$this->assertNotContains( 'checkout-draft', $query_schema['properties']['status']['anyOf'][0]['enum'] ?? array() );
 		$this->assertNotContains( 'checkout-draft', $update_schema['properties']['status']['enum'] ?? array() );
@@ -406,7 +406,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should list shop_order by default, and not refunds or HPOS placeholders.
 	 */
 	public function test_orders_query_type_defaults_to_shop_order(): void {
-		$schema = wp_get_ability( 'woocommerce/orders-query' )->get_input_schema();
+		$schema = wp_get_ability( 'poocommerce/orders-query' )->get_input_schema();
 		$types  = $schema['properties']['type']['enum'] ?? array();
 
 		$this->assertSame( 'shop_order', $schema['properties']['type']['default'] ?? null );
@@ -446,7 +446,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		try {
 			$this->register_domain_abilities();
 
-			$ability = wp_get_ability( 'woocommerce/orders-query' );
+			$ability = wp_get_ability( 'poocommerce/orders-query' );
 			$input   = $ability->get_input_schema()['properties'];
 			$output  = $ability->get_output_schema()['properties']['orders']['items']['properties'];
 
@@ -515,7 +515,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		try {
 			$this->register_domain_abilities();
 
-			$ability = wp_get_ability( 'woocommerce/orders-query' );
+			$ability = wp_get_ability( 'poocommerce/orders-query' );
 			$input   = $ability->get_input_schema()['properties'];
 			$output  = $ability->get_output_schema()['properties']['orders']['items']['properties'];
 
@@ -543,7 +543,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 
 		$this->assertSame( array( 'on-hold', 'processing' ), $query_args['status'] ?? null );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'status' => array( 'processing', 'not-a-status' ) ) );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'status' => array( 'processing', 'not-a-status' ) ) );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -569,7 +569,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		try {
 			$this->register_domain_abilities();
 
-			$ability = wp_get_ability( 'woocommerce/order-update-status' );
+			$ability = wp_get_ability( 'poocommerce/order-update-status' );
 			$this->assertContains( 'test-active', $ability->get_input_schema()['properties']['status']['enum'] );
 
 			$result = $ability->execute(
@@ -585,7 +585,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_status_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_order_status_invalid', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] ?? null );
 		$this->assertSame( $status_before, wc_get_order( $order->get_id() )->get_status() );
 	}
@@ -594,7 +594,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject an order type that is not registered.
 	 */
 	public function test_orders_query_rejects_unknown_order_type(): void {
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'type' => 'shop_order_refund' ) );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'type' => 'shop_order_refund' ) );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -613,7 +613,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'   => $refund->get_id(),
 				'type' => 'shop_order',
@@ -637,11 +637,11 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_order_query_args', $capture );
+		add_filter( 'poocommerce_order_query_args', $capture );
 		try {
-			$result = wp_get_ability( 'woocommerce/orders-query' )->execute( $input );
+			$result = wp_get_ability( 'poocommerce/orders-query' )->execute( $input );
 		} finally {
-			remove_filter( 'woocommerce_order_query_args', $capture );
+			remove_filter( 'poocommerce_order_query_args', $capture );
 		}
 
 		$this->assertNotWPError( $result );
@@ -653,15 +653,15 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should register extension ability classes appended via the loader filter.
 	 */
 	public function test_loader_filter_accepts_valid_extension_classes(): void {
-		add_filter( 'woocommerce_ability_definition_classes', array( $this, 'add_test_extension_ability_definition_class' ) );
+		add_filter( 'poocommerce_ability_definition_classes', array( $this, 'add_test_extension_ability_definition_class' ) );
 		$this->register_domain_abilities();
-		remove_filter( 'woocommerce_ability_definition_classes', array( $this, 'add_test_extension_ability_definition_class' ) );
+		remove_filter( 'poocommerce_ability_definition_classes', array( $this, 'add_test_extension_ability_definition_class' ) );
 
 		$this->registered_ability_ids[] = TestExtensionAbilityDefinition::ABILITY_ID;
 		$ability                        = wp_get_ability( TestExtensionAbilityDefinition::ABILITY_ID );
 
 		$this->assertNotNull( $ability, 'Extension ability should be registered.' );
-		$this->assertSame( 'woocommerce', $ability->get_category() );
+		$this->assertSame( 'poocommerce', $ability->get_category() );
 
 		$result = $ability->execute();
 
@@ -670,12 +670,12 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should skip extension ability classes that use the reserved WooCommerce namespace.
+	 * @testdox Should skip extension ability classes that use the reserved PooCommerce namespace.
 	 */
-	public function test_loader_filter_skips_extension_classes_using_reserved_woocommerce_namespace(): void {
-		add_filter( 'woocommerce_ability_definition_classes', array( $this, 'add_reserved_woocommerce_ability_definition_class' ) );
+	public function test_loader_filter_skips_extension_classes_using_reserved_poocommerce_namespace(): void {
+		add_filter( 'poocommerce_ability_definition_classes', array( $this, 'add_reserved_poocommerce_ability_definition_class' ) );
 		$this->register_domain_abilities();
-		remove_filter( 'woocommerce_ability_definition_classes', array( $this, 'add_reserved_woocommerce_ability_definition_class' ) );
+		remove_filter( 'poocommerce_ability_definition_classes', array( $this, 'add_reserved_poocommerce_ability_definition_class' ) );
 
 		$ability = wp_get_ability( TestReservedWooAbilityDefinition::ABILITY_ID );
 
@@ -683,7 +683,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should preserve core WooCommerce definitions when the reserved namespace was registered first.
+	 * @testdox Should preserve core PooCommerce definitions when the reserved namespace was registered first.
 	 */
 	public function test_loader_preserves_core_definition_when_reserved_namespace_ability_exists(): void {
 		$this->unregister_domain_abilities();
@@ -707,22 +707,22 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 				$this->callback(
 					static function ( $context ): bool {
 						return is_array( $context )
-							&& 'woocommerce-abilities' === ( $context['source'] ?? null )
+							&& 'poocommerce-abilities' === ( $context['source'] ?? null )
 							&& TestReservedWooAbilityDefinition::ABILITY_ID === ( $context['ability_name'] ?? null )
 							&& ProductsQuery::class === ( $context['definition_class'] ?? null )
-							&& 'woocommerce/' === ( $context['reserved_prefix'] ?? null );
+							&& 'poocommerce/' === ( $context['reserved_prefix'] ?? null );
 					}
 				)
 			);
 
-		add_filter( 'woocommerce_logging_class', $logger_filter );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
 		add_action( 'wp_abilities_api_init', $shadow_callback, 5 );
 		add_action( 'wp_abilities_api_init', array( AbilitiesLoader::class, 'register_abilities' ), 10 );
 
 		try {
 			do_action( 'wp_abilities_api_init' );
 		} finally {
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 			remove_action( 'wp_abilities_api_init', $shadow_callback, 5 );
 			remove_action( 'wp_abilities_api_init', array( AbilitiesLoader::class, 'register_abilities' ), 10 );
 		}
@@ -745,12 +745,12 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			->expects( $this->never() )
 			->method( 'warning' );
 
-		add_filter( 'woocommerce_logging_class', $logger_filter );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
 
 		try {
 			$this->register_domain_abilities();
 		} finally {
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 		}
 
 		foreach ( self::CANONICAL_ABILITY_IDS as $ability_id ) {
@@ -772,9 +772,9 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			return $classes;
 		};
 
-		add_filter( 'woocommerce_ability_definition_classes', $callback );
+		add_filter( 'poocommerce_ability_definition_classes', $callback );
 		$this->register_domain_abilities();
-		remove_filter( 'woocommerce_ability_definition_classes', $callback );
+		remove_filter( 'poocommerce_ability_definition_classes', $callback );
 
 		// Canonical abilities should still register; nothing extra.
 		foreach ( self::CANONICAL_ABILITY_IDS as $ability_id ) {
@@ -792,9 +792,9 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			return 'not-a-class-list';
 		};
 
-		add_filter( 'woocommerce_ability_definition_classes', $callback );
+		add_filter( 'poocommerce_ability_definition_classes', $callback );
 		$this->register_domain_abilities();
-		remove_filter( 'woocommerce_ability_definition_classes', $callback );
+		remove_filter( 'poocommerce_ability_definition_classes', $callback );
 
 		foreach ( self::CANONICAL_ABILITY_IDS as $ability_id ) {
 			$this->assertNotNull( wp_get_ability( $ability_id ), "{$ability_id} should remain registered." );
@@ -802,7 +802,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should register WooCommerce ability categories idempotently.
+	 * @testdox Should register PooCommerce ability categories idempotently.
 	 */
 	public function test_ability_category_registration_is_idempotent(): void {
 		if ( ! function_exists( 'wp_register_ability_category' ) || ! function_exists( 'wp_has_ability_category' ) ) {
@@ -818,9 +818,9 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		do_action( 'wp_abilities_api_categories_init' );
 		remove_action( 'wp_abilities_api_categories_init', $callback );
 
-		$this->assertTrue( wp_has_ability_category( 'woocommerce' ) );
-		$this->assertTrue( wp_has_ability_category( 'woocommerce-rest' ) );
-		$this->registered_category_ids[] = 'woocommerce-rest';
+		$this->assertTrue( wp_has_ability_category( 'poocommerce' ) );
+		$this->assertTrue( wp_has_ability_category( 'poocommerce-rest' ) );
+		$this->registered_category_ids[] = 'poocommerce-rest';
 	}
 
 	/*
@@ -872,52 +872,52 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		// Valid-shape input only — permission check should fire before execute.
 		return array(
 			'products-query'      => array(
-				'woocommerce/products-query',
+				'poocommerce/products-query',
 				array(
 					'id' => 1,
 				),
 			),
 			'product-create'      => array(
-				'woocommerce/product-create',
+				'poocommerce/product-create',
 				array(
 					'name' => 'Forbidden',
 				),
 			),
 			'product-update'      => array(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'   => 1,
 					'name' => 'Forbidden',
 				),
 			),
 			'product-delete'      => array(
-				'woocommerce/product-delete',
+				'poocommerce/product-delete',
 				array(
 					'id' => 1,
 				),
 			),
 			'orders-query'        => array(
-				'woocommerce/orders-query',
+				'poocommerce/orders-query',
 				array(
 					'id' => 1,
 				),
 			),
 			'order-update-status' => array(
-				'woocommerce/order-update-status',
+				'poocommerce/order-update-status',
 				array(
 					'id'     => 1,
 					'status' => 'processing',
 				),
 			),
 			'order-add-note'      => array(
-				'woocommerce/order-add-note',
+				'poocommerce/order-add-note',
 				array(
 					'id'   => 1,
 					'note' => 'denied',
 				),
 			),
 			'order-notes-query'   => array(
-				'woocommerce/order-notes-query',
+				'poocommerce/order-notes-query',
 				array(
 					'id' => 1,
 				),
@@ -944,11 +944,11 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( $limited_product_manager_id );
 
 		$cases = array(
-			'woocommerce/product-update' => array(
+			'poocommerce/product-update' => array(
 				'id'   => $product_to_update->get_id(),
 				'name' => 'Unauthorized update',
 			),
-			'woocommerce/product-delete' => array(
+			'poocommerce/product-delete' => array(
 				'id' => $product_to_delete->get_id(),
 			),
 		);
@@ -976,11 +976,11 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( $limited_order_manager_id );
 
 		$cases = array(
-			'woocommerce/order-update-status' => array(
+			'poocommerce/order-update-status' => array(
 				'id'     => $order->get_id(),
 				'status' => 'processing',
 			),
-			'woocommerce/order-add-note'      => array(
+			'poocommerce/order-add-note'      => array(
 				'id'   => $order->get_id(),
 				'note' => 'Unauthorized note',
 			),
@@ -1012,7 +1012,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$user->add_cap( 'edit_published_products' );
 		wp_set_current_user( $user_id );
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'     => $product->get_id(),
 				'status' => $status,
@@ -1020,7 +1020,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result, "A user without publish_products should not be able to set status {$status}." );
-		$this->assertSame( 'woocommerce_product_publish_forbidden', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_publish_forbidden', $result->get_error_code() );
 	}
 
 	/**
@@ -1037,7 +1037,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$user->add_cap( 'edit_published_products' );
 		wp_set_current_user( $user_id );
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Updated Published Product',
@@ -1075,7 +1075,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order                     = \WC_Helper_Order::create_order();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'totally-bogus',
@@ -1090,7 +1090,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject product creation with a status not in the allowed enum.
 	 */
 	public function test_product_create_rejects_unknown_status(): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'   => 'Bad Status Product',
 				'status' => 'not-a-real-status',
@@ -1105,7 +1105,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject auto-draft as a product mutation status.
 	 */
 	public function test_product_create_rejects_auto_draft_status(): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'   => 'Auto Draft Product',
 				'status' => 'auto-draft',
@@ -1120,7 +1120,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject extra unknown fields on product create input.
 	 */
 	public function test_product_create_rejects_unknown_input_field(): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'        => 'Mass Assigned',
 				'invoice_url' => 'https://attacker.example.com',
@@ -1136,7 +1136,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject orders-query orderby values outside the allowed enum.
 	 */
 	public function test_orders_query_rejects_unknown_orderby(): void {
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array( 'orderby' => 'malicious_field' )
 		);
 
@@ -1148,7 +1148,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject uppercase order directions.
 	 */
 	public function test_orders_query_rejects_uppercase_order_direction(): void {
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array( 'order' => 'ASC' )
 		);
 
@@ -1164,7 +1164,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @param string $price Invalid price input.
 	 */
 	public function test_product_create_rejects_non_numeric_prices( string $price ): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'          => 'Invalid Price Product',
 				'regular_price' => $price,
@@ -1189,19 +1189,19 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should accept the configured WooCommerce decimal separator for product prices.
+	 * @testdox Should accept the configured PooCommerce decimal separator for product prices.
 	 */
 	public function test_product_create_accepts_configured_decimal_separator_for_prices(): void {
-		$original_decimal_separator = get_option( 'woocommerce_price_decimal_sep' );
+		$original_decimal_separator = get_option( 'poocommerce_price_decimal_sep' );
 		$created                    = null;
 
 		$this->unregister_domain_abilities();
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		try {
 			$this->register_domain_abilities();
 
-			$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+			$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 				array(
 					'name'          => 'Localized Price Product',
 					'regular_price' => '10,99',
@@ -1209,7 +1209,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			);
 		} finally {
 			$this->unregister_domain_abilities();
-			update_option( 'woocommerce_price_decimal_sep', $original_decimal_separator );
+			update_option( 'poocommerce_price_decimal_sep', $original_decimal_separator );
 			$this->register_domain_abilities();
 		}
 
@@ -1225,7 +1225,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order                     = \WC_Helper_Order::create_order();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/order-add-note' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-add-note' )->execute(
 			array(
 				'id'   => $order->get_id(),
 				'note' => '   ',
@@ -1259,40 +1259,40 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function provider_negative_entity_id_inputs(): array {
 		return array(
 			'products-query'      => array(
-				'woocommerce/products-query',
+				'poocommerce/products-query',
 				array( 'id' => -123 ),
 			),
 			'product-update'      => array(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'   => -123,
 					'name' => 'Invalid',
 				),
 			),
 			'product-delete'      => array(
-				'woocommerce/product-delete',
+				'poocommerce/product-delete',
 				array( 'id' => -123 ),
 			),
 			'orders-query'        => array(
-				'woocommerce/orders-query',
+				'poocommerce/orders-query',
 				array( 'id' => -123 ),
 			),
 			'order-update-status' => array(
-				'woocommerce/order-update-status',
+				'poocommerce/order-update-status',
 				array(
 					'id'     => -123,
 					'status' => 'processing',
 				),
 			),
 			'order-add-note'      => array(
-				'woocommerce/order-add-note',
+				'poocommerce/order-add-note',
 				array(
 					'id'   => -123,
 					'note' => 'Invalid',
 				),
 			),
 			'order-notes-query'   => array(
-				'woocommerce/order-notes-query',
+				'poocommerce/order-notes-query',
 				array( 'id' => -123 ),
 			),
 		);
@@ -1306,7 +1306,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @param array $input Ability input.
 	 */
 	public function test_orders_query_filter_id_schemas_reject_negative_ids( array $input ): void {
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( $input );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( $input );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -1339,7 +1339,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order->save();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'customer_id'   => 0,
 				'billing_email' => $email,
@@ -1387,7 +1387,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 		$this->created_product_ids[] = $draft->get_id();
 
-		$result = wp_get_ability( 'woocommerce/products-query' )->execute( array() );
+		$result = wp_get_ability( 'poocommerce/products-query' )->execute( array() );
 
 		$this->assertNotWPError( $result );
 		$ids = array_column( $result['products'], 'id' );
@@ -1409,7 +1409,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 		$this->created_product_ids[] = $draft->get_id();
 
-		$result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'status' => 'draft',
 				'sku'    => 'hidden-draft-sku',
@@ -1425,7 +1425,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should include currency context in product responses.
 	 */
 	public function test_product_response_includes_currency_context(): void {
-		$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'          => 'Priced Product',
 				'regular_price' => '12.34',
@@ -1435,7 +1435,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $created );
 		$this->created_product_ids[] = $created['product']['id'];
 
-		$this->assertSame( get_woocommerce_currency(), $created['product']['currency'] );
+		$this->assertSame( get_poocommerce_currency(), $created['product']['currency'] );
 		$this->assertNotEmpty( $created['product']['currency_symbol'] );
 		$this->assertSame( '12.34', $created['product']['regular_price'] );
 	}
@@ -1444,7 +1444,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should map digital products to simple virtual downloadable products.
 	 */
 	public function test_product_create_maps_digital_product_type_to_simple_downloadable_product(): void {
-		$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Digital Product',
 				'product_type_alias' => 'digital',
@@ -1463,7 +1463,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should map virtual products to simple virtual non-downloadable products.
 	 */
 	public function test_product_create_maps_virtual_product_type_alias_to_simple_virtual_product(): void {
-		$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Virtual Product',
 				'product_type_alias' => 'virtual',
@@ -1487,7 +1487,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$digital_sku  = wp_unique_id( 'abilities-digital-' );
 		$hybrid_sku   = wp_unique_id( 'abilities-downloadable-shippable-' );
 
-		$physical = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$physical = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Physical Query Product',
 				'product_type_alias' => 'physical',
@@ -1498,7 +1498,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $physical );
 		$this->created_product_ids[] = $physical['product']['id'];
 
-		$virtual = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$virtual = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Virtual Query Product',
 				'product_type_alias' => 'virtual',
@@ -1509,7 +1509,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $virtual );
 		$this->created_product_ids[] = $virtual['product']['id'];
 
-		$digital = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$digital = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Digital Query Product',
 				'product_type_alias' => 'digital',
@@ -1527,7 +1527,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$hybrid->save();
 		$this->created_product_ids[] = $hybrid->get_id();
 
-		$physical_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$physical_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'product_type_alias' => 'physical',
 				'sku'                => $physical_sku,
@@ -1538,7 +1538,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 1, $physical_result['total_pages'] );
 		$this->assertSame( $physical['product']['id'], $physical_result['products'][0]['id'] );
 
-		$virtual_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$virtual_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'product_type_alias' => 'virtual',
 				'sku'                => $virtual_sku,
@@ -1549,7 +1549,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 1, $virtual_result['total_pages'] );
 		$this->assertSame( $virtual['product']['id'], $virtual_result['products'][0]['id'] );
 
-		$digital_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$digital_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'product_type_alias' => 'digital',
 				'sku'                => $digital_sku,
@@ -1560,7 +1560,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 1, $digital_result['total_pages'] );
 		$this->assertSame( $digital['product']['id'], $digital_result['products'][0]['id'] );
 
-		$mismatched_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$mismatched_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'product_type_alias' => 'physical',
 				'sku'                => $digital_sku,
@@ -1570,7 +1570,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $mismatched_result );
 		$this->assertSame( 0, $mismatched_result['total_pages'] );
 
-		$unfiltered_hybrid_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$unfiltered_hybrid_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'sku' => $hybrid_sku,
 			)
@@ -1579,7 +1579,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $unfiltered_hybrid_result );
 		$this->assertSame( $hybrid->get_id(), $unfiltered_hybrid_result['products'][0]['id'] );
 
-		$physical_hybrid_result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$physical_hybrid_result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'product_type_alias' => 'physical',
 				'sku'                => $hybrid_sku,
@@ -1594,7 +1594,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should map affiliate products to external products.
 	 */
 	public function test_product_create_maps_affiliate_product_type_to_external_product(): void {
-		$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Affiliate Product',
 				'product_type_alias' => 'affiliate',
@@ -1612,13 +1612,13 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should map grouped products to grouped WooCommerce products with children.
+	 * @testdox Should map grouped products to grouped PooCommerce products with children.
 	 */
 	public function test_product_create_maps_grouped_product_type_to_grouped_product(): void {
 		$child                       = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $child->get_id();
 
-		$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'               => 'Grouped Product',
 				'product_type_alias' => 'grouped',
@@ -1633,10 +1633,10 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should support the WooCommerce SKU wildcard for products with any non-empty SKU.
+	 * @testdox Should support the PooCommerce SKU wildcard for products with any non-empty SKU.
 	 */
 	public function test_products_query_supports_sku_wildcard_for_products_with_any_sku(): void {
-		$sku_product = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$sku_product = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name' => 'SKU Product',
 				'sku'  => wp_unique_id( 'abilities-any-sku-' ),
@@ -1646,7 +1646,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $sku_product );
 		$this->created_product_ids[] = $sku_product['product']['id'];
 
-		$no_sku_product = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$no_sku_product = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name' => 'No SKU Product',
 			)
@@ -1655,7 +1655,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $no_sku_product );
 		$this->created_product_ids[] = $no_sku_product['product']['id'];
 
-		$result = wp_get_ability( 'woocommerce/products-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/products-query' )->execute(
 			array(
 				'sku'      => '*',
 				'per_page' => 100,
@@ -1673,7 +1673,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject invalid grouped product IDs before setting children.
 	 */
 	public function test_product_create_rejects_invalid_grouped_product_ids(): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute_change(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute_change(
 			array(
 				'name'               => 'Invalid Grouped Product',
 				'product_type_alias' => 'grouped',
@@ -1682,14 +1682,14 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_grouped_products_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_grouped_products_invalid', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should reject fields that are unsupported by the selected product type alias.
 	 */
 	public function test_product_create_rejects_fields_not_supported_by_product_type_alias(): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute_change(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute_change(
 			array(
 				'name'               => 'Invalid Grouped Product',
 				'product_type_alias' => 'grouped',
@@ -1698,7 +1698,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $result->get_error_code() );
 	}
 
 	/**
@@ -1708,7 +1708,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		add_filter( 'wp_insert_post_empty_content', '__return_true' );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 				array(
 					'name' => 'Failed Product',
 				)
@@ -1718,22 +1718,22 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_create_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_create_failed', $result->get_error_code() );
 	}
 
 	/**
-	 * @testdox Should support fractional product stock quantities when WooCommerce is configured for them.
+	 * @testdox Should support fractional product stock quantities when PooCommerce is configured for them.
 	 */
 	public function test_product_stock_quantity_schema_allows_fractional_stock_amounts(): void {
 		$this->unregister_domain_abilities();
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', array( $this, 'preserve_fractional_stock_amount' ) );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', array( $this, 'preserve_fractional_stock_amount' ) );
 
 		try {
 			$this->register_domain_abilities();
 
-			$input_schema  = wp_get_ability( 'woocommerce/product-create' )->get_input_schema();
-			$output_schema = wp_get_ability( 'woocommerce/product-create' )->get_output_schema();
+			$input_schema  = wp_get_ability( 'poocommerce/product-create' )->get_input_schema();
+			$output_schema = wp_get_ability( 'poocommerce/product-create' )->get_output_schema();
 
 			$this->assertSame( 'number', $this->get_product_type_alias_schema_branch( $input_schema, 'physical' )['properties']['stock_quantity']['type'] ?? null );
 			$this->assertSame(
@@ -1741,7 +1741,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 				$output_schema['properties']['product']['properties']['stock_quantity']['type'] ?? null
 			);
 
-			$created = wp_get_ability( 'woocommerce/product-create' )->execute(
+			$created = wp_get_ability( 'poocommerce/product-create' )->execute(
 				array(
 					'name'           => 'Fractional Stock Product',
 					'manage_stock'   => true,
@@ -1753,8 +1753,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			$this->created_product_ids[] = $created['product']['id'];
 			$this->assertSame( 1.5, $created['product']['stock_quantity'] );
 		} finally {
-			remove_filter( 'woocommerce_stock_amount', array( $this, 'preserve_fractional_stock_amount' ) );
-			add_filter( 'woocommerce_stock_amount', 'intval' );
+			remove_filter( 'poocommerce_stock_amount', array( $this, 'preserve_fractional_stock_amount' ) );
+			add_filter( 'poocommerce_stock_amount', 'intval' );
 		}
 	}
 
@@ -1765,7 +1765,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$product                     = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $product->get_id();
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'                 => $product->get_id(),
 				'product_type_alias' => 'physical',
@@ -1801,8 +1801,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 				$this->callback(
 					static function ( $context ) use ( $product ): bool {
 						return is_array( $context )
-							&& 'woocommerce-abilities' === ( $context['source'] ?? null )
-							&& 'woocommerce_product_update_failed' === ( $context['failure_code'] ?? null )
+							&& 'poocommerce-abilities' === ( $context['source'] ?? null )
+							&& 'poocommerce_product_update_failed' === ( $context['failure_code'] ?? null )
 							&& $product->get_id() === ( $context['product_id'] ?? null )
 							&& \Exception::class === ( $context['exception'] ?? null )
 							&& 'Generic product save failure.' === ( $context['error_message'] ?? null );
@@ -1810,23 +1810,23 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 				)
 			);
 
-		add_filter( 'woocommerce_logging_class', $logger_filter );
-		add_action( 'woocommerce_update_product', $throw_on_update );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
+		add_action( 'poocommerce_update_product', $throw_on_update );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 				array(
 					'id'   => $product->get_id(),
 					'name' => 'Updated Name',
 				)
 			);
 		} finally {
-			remove_action( 'woocommerce_update_product', $throw_on_update );
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_action( 'poocommerce_update_product', $throw_on_update );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_update_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_update_failed', $result->get_error_code() );
 		$this->assertSame( 'Failed to save product.', $result->get_error_message() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 	}
@@ -1838,7 +1838,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$product                     = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $product->get_id();
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'                 => $product->get_id(),
 				'product_type_alias' => 'digital',
@@ -1858,14 +1858,14 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$product                     = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $product->get_id();
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id' => $product->get_id(),
 			)
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_update_no_fields', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_update_no_fields', $result->get_error_code() );
 	}
 
 	/**
@@ -1874,7 +1874,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function test_product_delete_force_true_hard_deletes(): void {
 		$product = \WC_Helper_Product::create_simple_product();
 
-		$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 			array(
 				'id'    => $product->get_id(),
 				'force' => true,
@@ -1893,7 +1893,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function test_product_delete_rejects_variation_ids(): void {
 		$variation_id = $this->create_variation_product_id_for_test();
 
-		$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 			array(
 				'id'    => $variation_id,
 				'force' => true,
@@ -1901,7 +1901,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_type_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $result->get_error_code() );
 		$this->assertNotNull( wc_get_product( $variation_id ) );
 	}
 
@@ -1912,7 +1912,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$product                     = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $product->get_id();
 
-		$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 			array(
 				'id' => $product->get_id(),
 			)
@@ -1930,20 +1930,20 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$product                     = \WC_Helper_Product::create_simple_product();
 		$this->created_product_ids[] = $product->get_id();
 
-		add_filter( 'woocommerce_product_object_trashable', '__return_false' );
+		add_filter( 'poocommerce_product_object_trashable', '__return_false' );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 				array(
 					'id' => $product->get_id(),
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_product_object_trashable', '__return_false' );
+			remove_filter( 'poocommerce_product_object_trashable', '__return_false' );
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_trash_not_supported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_trash_not_supported', $result->get_error_code() );
 		$this->assertNotSame( 'trash', get_post_status( $product->get_id() ) );
 	}
 
@@ -1958,20 +1958,20 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			return false;
 		};
 
-		add_filter( 'woocommerce_pre_delete_product', $callback );
+		add_filter( 'poocommerce_pre_delete_product', $callback );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 				array(
 					'id' => $product->get_id(),
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_pre_delete_product', $callback );
+			remove_filter( 'poocommerce_pre_delete_product', $callback );
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_delete_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_delete_failed', $result->get_error_code() );
 		$this->assertNotSame( 'trash', get_post_status( $product->get_id() ) );
 	}
 
@@ -1979,10 +1979,10 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should return a not-found error when querying an unknown product ID.
 	 */
 	public function test_products_query_returns_not_found_for_unknown_id(): void {
-		$result = wp_get_ability( 'woocommerce/products-query' )->execute( array( 'id' => 999999 ) );
+		$result = wp_get_ability( 'poocommerce/products-query' )->execute( array( 'id' => 999999 ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_not_found', $result->get_error_code() );
 	}
 
 	/**
@@ -2008,14 +2008,14 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function provider_product_mutation_unknown_id_inputs(): array {
 		return array(
 			'product-update' => array(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'   => 999999,
 					'name' => 'Unknown Product',
 				),
 			),
 			'product-delete' => array(
-				'woocommerce/product-delete',
+				'poocommerce/product-delete',
 				array(
 					'id' => 999999,
 				),
@@ -2029,10 +2029,10 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function test_products_query_rejects_variation_ids(): void {
 		$variation_id = $this->create_variation_product_id_for_test();
 
-		$result = wp_get_ability( 'woocommerce/products-query' )->execute( array( 'id' => $variation_id ) );
+		$result = wp_get_ability( 'poocommerce/products-query' )->execute( array( 'id' => $variation_id ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_type_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $result->get_error_code() );
 	}
 
 	/**
@@ -2051,7 +2051,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		add_filter( 'post_type_link', $filter_permalink, 20, 2 );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/products-query' )->execute(
+			$result = wp_get_ability( 'poocommerce/products-query' )->execute(
 				array(
 					'id' => $product->get_id(),
 				)
@@ -2075,10 +2075,10 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	public function test_orders_query_returns_not_found_for_unknown_id( bool $hpos_enabled ): void {
 		$this->set_order_storage_for_test( $hpos_enabled );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'id' => 999999 ) );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'id' => 999999 ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_order_not_found', $result->get_error_code() );
 	}
 
 	/**
@@ -2090,7 +2090,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order->save();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email'      => 'domain-order-query@example.com',
 				'include_line_items' => true,
@@ -2131,7 +2131,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 
 		update_option( 'timezone_string', 'America/Sao_Paulo' );
 
-		$result = wp_get_ability( 'woocommerce/order-notes-query' )->execute( array( 'id' => $order->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/order-notes-query' )->execute( array( 'id' => $order->get_id() ) );
 
 		$this->assertNotWPError( $result );
 
@@ -2150,10 +2150,10 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should return a not-found error when order-notes-query receives an unknown order ID.
 	 */
 	public function test_order_notes_query_returns_not_found_for_unknown_id(): void {
-		$result = wp_get_ability( 'woocommerce/order-notes-query' )->execute( array( 'id' => 999999 ) );
+		$result = wp_get_ability( 'poocommerce/order-notes-query' )->execute( array( 'id' => 999999 ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_order_not_found', $result->get_error_code() );
 	}
 
 	/**
@@ -2169,7 +2169,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result = wp_get_ability( 'woocommerce/order-notes-query' )->execute( array( 'id' => $refund->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/order-notes-query' )->execute( array( 'id' => $refund->get_id() ) );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_permissions', $result->get_error_code() );
@@ -2197,7 +2197,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		clean_post_cache( $order->get_id() );
 		wp_cache_flush();
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
-		$ability = wp_get_ability( 'woocommerce/order-notes-query' );
+		$ability = wp_get_ability( 'poocommerce/order-notes-query' );
 
 		try {
 			$this->assertSame( 'shop_test_private', OrderUtil::get_order_type( $order->get_id() ) );
@@ -2241,7 +2241,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$checkout_draft->save();
 		$this->created_order_ids[] = $checkout_draft->get_id();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'per_page'      => 10,
@@ -2268,7 +2268,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$first  = $this->create_order_for_query_sorting( $email, '2025-01-01T12:00:00', '2025-01-01T12:00:00' );
 		$second = $this->create_order_for_query_sorting( $email, '2020-01-01T12:00:00', '2020-01-01T12:00:00' );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'orderby'       => 'id',
@@ -2298,7 +2298,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$first  = $this->create_order_for_query_sorting( $email, '2020-01-01T12:00:00', '2025-01-01T12:00:00' );
 		$second = $this->create_order_for_query_sorting( $email, '2025-01-01T12:00:00', '2020-01-01T12:00:00' );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'orderby'       => 'date_modified',
@@ -2323,7 +2323,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order->save();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id' => $order->get_id(),
 			)
@@ -2349,7 +2349,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$new_order->save();
 		$this->created_order_ids[] = $new_order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => 'date-range@example.com',
 				'date_after'    => '2024-01-01T00:00:00',
@@ -2378,7 +2378,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$early = $this->create_order_for_query_sorting( $email, '2025-07-15T09:00:00', '2025-07-15T09:00:00' );
 		$late  = $this->create_order_for_query_sorting( $email, '2025-07-15T11:00:00', '2025-07-15T11:00:00' );
 
-		$after = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$after = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_after'    => '2025-07-15T10:00:00',
@@ -2389,7 +2389,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $after );
 		$this->assertSame( array( $late->get_id() ), array_column( $after['orders'], 'id' ), 'date_after 10:00 should return only the order created at 11:00 store time.' );
 
-		$before = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$before = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_before'   => '2025-07-15T10:00:00',
@@ -2400,7 +2400,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $before );
 		$this->assertSame( array( $early->get_id() ), array_column( $before['orders'], 'id' ), 'date_before 10:00 should return only the order created at 09:00 store time.' );
 
-		$after_utc = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$after_utc = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_after'    => '2025-07-15T08:00:00Z',
@@ -2411,7 +2411,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $after_utc );
 		$this->assertSame( array( $late->get_id() ), array_column( $after_utc['orders'], 'id' ), 'date_after 08:00 UTC (10:00 store time) should return only the order created at 11:00 store time.' );
 
-		$after_millis_utc = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$after_millis_utc = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_after'    => '2025-07-15T08:00:00.000Z',
@@ -2422,7 +2422,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $after_millis_utc );
 		$this->assertSame( array( $late->get_id() ), array_column( $after_millis_utc['orders'], 'id' ), 'date_after 08:00 UTC with fractional seconds (the form JavaScript toISOString() produces) should match the plain UTC value.' );
 
-		$after_short_offset = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$after_short_offset = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_after'    => '2025-07-15T10:00:00+02',
@@ -2433,7 +2433,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$this->assertNotWPError( $after_short_offset );
 		$this->assertSame( array( $late->get_id() ), array_column( $after_short_offset['orders'], 'id' ), 'date_after 10:00 with a +02 offset (08:00 UTC) should return only the order created at 11:00 store time.' );
 
-		$range = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$range = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email' => $email,
 				'date_after'    => '2025-07-15T08:00:00',
@@ -2460,7 +2460,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$early = $this->create_order_for_query_sorting( $email, '2025-01-15T09:00:00', '2025-01-15T10:00:00' );
 		$late  = $this->create_order_for_query_sorting( $email, '2025-01-15T09:00:00', '2025-01-15T12:00:00' );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email'   => $email,
 				'modified_before' => '2025-01-15T11:00:00',
@@ -2490,7 +2490,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$early = $this->create_order_for_query_sorting( $email, '2025-07-15T09:00:00', '2025-07-15T10:00:00' );
 		$late  = $this->create_order_for_query_sorting( $email, '2025-07-15T09:00:00', '2025-07-15T12:00:00' );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'billing_email'   => $email,
 				'modified_before' => '2025-07-15T09:00:00.000Z',
@@ -2511,7 +2511,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order                     = \WC_Helper_Order::create_order();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'processing',
@@ -2537,7 +2537,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 			array(
 				'id'     => $order->get_id(),
 				'status' => $order->get_status(),
@@ -2546,8 +2546,8 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_status_unchanged', $result->get_error_code() );
-		$this->assertStringContainsString( 'woocommerce/order-add-note', $result->get_error_message() );
+		$this->assertSame( 'poocommerce_order_status_unchanged', $result->get_error_code() );
+		$this->assertStringContainsString( 'poocommerce/order-add-note', $result->get_error_message() );
 		$this->assertSame(
 			$note_count_before,
 			count(
@@ -2574,17 +2574,17 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 			}
 		};
 
-		add_action( 'woocommerce_order_edit_status', $callback, 10, 2 );
+		add_action( 'poocommerce_order_edit_status', $callback, 10, 2 );
 
 		try {
-			$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+			$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 				array(
 					'id'     => $order->get_id(),
 					'status' => 'processing',
 				)
 			);
 		} finally {
-			remove_action( 'woocommerce_order_edit_status', $callback, 10 );
+			remove_action( 'poocommerce_order_edit_status', $callback, 10 );
 		}
 
 		$this->assertNotWPError( $result );
@@ -2595,7 +2595,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	 * @testdox Should reject status updates against unknown order IDs without leaking existence.
 	 */
 	public function test_order_update_status_rejects_unknown_id(): void {
-		$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 			array(
 				'id'     => 999999,
 				'status' => 'processing',
@@ -2621,7 +2621,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 		wp_set_current_user( $user_id );
 
-		$result = wp_get_ability( 'woocommerce/order-add-note' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-add-note' )->execute(
 			array(
 				'id'   => $order->get_id(),
 				'note' => 'Tracked by acting user.',
@@ -2642,7 +2642,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order                     = \WC_Helper_Order::create_order();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/order-add-note' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-add-note' )->execute(
 			array(
 				'id'   => $order->get_id(),
 				'note' => 'Packed with <strong>care</strong><script>alert("x")</script>.',
@@ -2671,7 +2671,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_note_required', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_order_note_required', $result->get_error_code() );
 	}
 
 	/**
@@ -2681,7 +2681,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		$order                     = \WC_Helper_Order::create_order();
 		$this->created_order_ids[] = $order->get_id();
 
-		$result = wp_get_ability( 'woocommerce/order-add-note' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-add-note' )->execute(
 			array(
 				'id'            => $order->get_id(),
 				'note'          => 'Visible to customer.',
@@ -2694,22 +2694,22 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Register the WooCommerce ability category for this test.
+	 * Register the PooCommerce ability category for this test.
 	 */
-	private function register_woocommerce_category(): void {
+	private function register_poocommerce_category(): void {
 		if ( ! function_exists( 'wp_register_ability_category' ) || ! function_exists( 'wp_has_ability_category' ) ) {
 			return;
 		}
 
-		if ( wp_has_ability_category( 'woocommerce' ) ) {
+		if ( wp_has_ability_category( 'poocommerce' ) ) {
 			return;
 		}
 
 		$callback = static function () {
 			wp_register_ability_category(
-				'woocommerce',
+				'poocommerce',
 				array(
-					'label'       => 'WooCommerce',
+					'label'       => 'PooCommerce',
 					'description' => 'Canonical store management abilities.',
 				)
 			);
@@ -2719,7 +2719,7 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 		do_action( 'wp_abilities_api_categories_init' );
 		remove_action( 'wp_abilities_api_categories_init', $callback );
 
-		$this->registered_category_ids[] = 'woocommerce';
+		$this->registered_category_ids[] = 'poocommerce';
 	}
 
 	/**
@@ -2830,12 +2830,12 @@ class AbilitiesLoaderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Add the test reserved WooCommerce ability definition class.
+	 * Add the test reserved PooCommerce ability definition class.
 	 *
 	 * @param array $classes Ability definition class names.
 	 * @return array
 	 */
-	public function add_reserved_woocommerce_ability_definition_class( array $classes ): array {
+	public function add_reserved_poocommerce_ability_definition_class( array $classes ): array {
 		$classes[] = TestReservedWooAbilityDefinition::class;
 
 		return $classes;

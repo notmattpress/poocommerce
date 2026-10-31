@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList\Document;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList\Document;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
 
 /**
  * This class parses CSS from text into a data structure.

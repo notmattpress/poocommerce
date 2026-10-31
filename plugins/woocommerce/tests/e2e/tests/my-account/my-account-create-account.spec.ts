@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -12,8 +12,8 @@ const customerEmailAddress = `john.doe.${ Date.now() }@example.com`;
 const originalSettingValues = new Map< string, string >();
 const accountSettingsPath = `${ WC_API_PATH }/settings/account`;
 const registrationSettingIds = [
-	'woocommerce_enable_myaccount_registration',
-	'woocommerce_registration_generate_password',
+	'poocommerce_enable_myaccount_registration',
+	'poocommerce_registration_generate_password',
 ];
 
 test.describe( 'Shopper My Account Create Account', () => {
@@ -26,13 +26,13 @@ test.describe( 'Shopper My Account Create Account', () => {
 		}
 
 		await restApi.put(
-			`${ accountSettingsPath }/woocommerce_enable_myaccount_registration`,
+			`${ accountSettingsPath }/poocommerce_enable_myaccount_registration`,
 			{
 				value: 'yes',
 			}
 		);
 		await restApi.put(
-			`${ accountSettingsPath }/woocommerce_registration_generate_password`,
+			`${ accountSettingsPath }/poocommerce_registration_generate_password`,
 			{
 				value: 'yes',
 			}
@@ -83,7 +83,7 @@ test.describe( 'Shopper My Account Create Account', () => {
 		await page.goto( 'my-account/' );
 
 		await expect(
-			page.locator( '.woocommerce-form-register' )
+			page.locator( '.poocommerce-form-register' )
 		).toBeVisible();
 
 		await page.locator( 'input#reg_email' ).fill( customerEmailAddress );
@@ -109,7 +109,7 @@ test.describe( 'Shopper My Account Create Account', () => {
 		try {
 			await page.goto( 'my-account/' );
 			await expect(
-				page.locator( '.woocommerce-form-register' )
+				page.locator( '.poocommerce-form-register' )
 			).toBeVisible();
 			await expect( page.locator( '#reg_password' ) ).toBeHidden();
 			await page.locator( '#reg_email' ).fill( email );

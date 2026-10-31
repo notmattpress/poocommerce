@@ -255,17 +255,17 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 			$callback_results[] = $product->get_available_variations();
 		};
-		add_action( 'woocommerce_product_thumbnails', $callback );
+		add_action( 'poocommerce_product_thumbnails', $callback );
 
 		ob_start();
 		try {
-			woocommerce_show_product_images();
+			poocommerce_show_product_images();
 			$markup = (string) ob_get_clean();
 		} finally {
 			while ( ob_get_level() > $buffer_level ) {
 				ob_end_clean();
 			}
-			remove_action( 'woocommerce_product_thumbnails', $callback );
+			remove_action( 'poocommerce_product_thumbnails', $callback );
 			$product = $previous_product;
 		}
 
@@ -292,12 +292,12 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 				$nested_result = $nested_product->get_available_variations();
 			}
 		};
-		add_action( 'woocommerce_product_thumbnails', $callback );
+		add_action( 'poocommerce_product_thumbnails', $callback );
 
 		try {
 			$outer_product->get_available_variations();
 		} finally {
-			remove_action( 'woocommerce_product_thumbnails', $callback );
+			remove_action( 'poocommerce_product_thumbnails', $callback );
 		}
 
 		$this->assertContains( $outer_product->get_id(), $rendered_product_ids, 'The outer product gallery should render.' );
@@ -385,9 +385,9 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		// A filter returning exactly the parent's featured image is indistinguishable from
 		// plain inheritance, so the variation-owned gallery takes priority by design.
 		$filter              = static fn() => $parent_featured_id;
-		add_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		add_filter( 'poocommerce_product_variation_get_image_id', $filter );
 		$available_variation = $product->get_available_variation( $variation );
-		remove_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		remove_filter( 'poocommerce_product_variation_get_image_id', $filter );
 
 		$this->assertSame( $variation_gallery_id, $available_variation['image_id'] );
 	}
@@ -400,9 +400,9 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$filtered_image_id           = $this->create_image_attachment( 'Filtered Variation Image', 'filtered-variation.jpg' );
 
 		$filter              = static fn() => $filtered_image_id;
-		add_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		add_filter( 'poocommerce_product_variation_get_image_id', $filter );
 		$available_variation = $product->get_available_variation( $variation );
-		remove_filter( 'woocommerce_product_variation_get_image_id', $filter );
+		remove_filter( 'poocommerce_product_variation_get_image_id', $filter );
 
 		$this->assertSame( $filtered_image_id, $available_variation['image_id'] );
 	}
@@ -423,7 +423,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 
 		// Ensure the store-level cache is not interfering the test.
 		$invalidate_cache = static fn ( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		try {
 			// First call: price data will be initially populated, including sorting. 3 is a number of sort calls on initial cache population.
@@ -462,27 +462,27 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$sut->get_variation_prices();
 			$this->assertSame( 6, $sut->sort_count );
 		} finally {
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );
 	}
 
 	/**
-	 * @testdox get_variation_prices returns a valid array structure when the woocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
+	 * @testdox get_variation_prices returns a valid array structure when the poocommerce_variation_prices filter returns malformed data (null or false), restoring the pre-refactor foreach behaviour that tolerated non-array filter output.
 	 * @dataProvider provider_malformed_variation_prices_filter_values
 	 *
-	 * @param mixed $malformed_value The malformed value for returning via woocommerce_get_variation_prices_hash filter.
+	 * @param mixed $malformed_value The malformed value for returning via poocommerce_get_variation_prices_hash filter.
 	 */
 	public function test_get_variation_prices_tolerates_malformed_filter_output( $malformed_value ): void {
 		$product = WC_Helper_Product::create_variation_product();
 
-		// Bust the transient so read_price_data() always reaches the woocommerce_variation_prices filter.
+		// Bust the transient so read_price_data() always reaches the poocommerce_variation_prices filter.
 		$invalidate_cache = static fn( array $hash ) => array( ...$hash, wp_rand() );
-		add_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+		add_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 
 		$bad_filter = static fn() => $malformed_value;
-		add_filter( 'woocommerce_variation_prices', $bad_filter );
+		add_filter( 'poocommerce_variation_prices', $bad_filter );
 
 		$this->setExpectedIncorrectUsage( 'WC_Product_Variable_Data_Store_CPT::prime_price_data_cache' );
 
@@ -490,8 +490,8 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 			$prices = $product->get_variation_prices();
 			$this->assertSame( $malformed_value, $prices );
 		} finally {
-			remove_filter( 'woocommerce_variation_prices', $bad_filter );
-			remove_filter( 'woocommerce_get_variation_prices_hash', $invalidate_cache );
+			remove_filter( 'poocommerce_variation_prices', $bad_filter );
+			remove_filter( 'poocommerce_get_variation_prices_hash', $invalidate_cache );
 		}
 
 		$product->delete( true );
@@ -521,7 +521,7 @@ class WC_Product_Variable_Test extends \WC_Unit_Test_Case {
 		$product->set_image_id( $parent_featured_id );
 		$product->save();
 
-		wc_get_container()->get( Automattic\WooCommerce\Internal\Caches\ProductCache::class )->flush();
+		wc_get_container()->get( Automattic\PooCommerce\Internal\Caches\ProductCache::class )->flush();
 		$variation = wc_get_product( $product->get_children()[0] );
 		$variation->set_gallery_image_ids( array( $variation_gallery_id ) );
 		$variation->save();

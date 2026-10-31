@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Tests\Helpers\InterleavedStatusOrdersTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Tests\Helpers\InterleavedStatusOrdersTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Product;
 use WC_Order;
 
@@ -65,7 +65,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			wc_get_container()->get( DatabaseUtil::class )->drop_fts_index_order_address_table();
 		}
 		if ( self::$created_item_index ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_order_items DROP INDEX order_item_fts" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name uses the trusted WordPress prefix and a fixed suffix.
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_order_items DROP INDEX order_item_fts" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name uses the trusted WordPress prefix and a fixed suffix.
 		}
 	}
 
@@ -201,8 +201,8 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_query_suppress_filters() {
 		$hooks = array(
-			'woocommerce_orders_table_query_clauses',
-			'woocommerce_orders_table_query_sql',
+			'poocommerce_orders_table_query_clauses',
+			'poocommerce_orders_table_query_sql',
 		);
 
 		$filters_called  = 0;
@@ -257,9 +257,9 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			return $clauses;
 		};
 
-		add_filter( 'woocommerce_orders_table_query_clauses', $filter_callback );
+		add_filter( 'poocommerce_orders_table_query_clauses', $filter_callback );
 		$this->assertCount( 0, wc_get_orders( array() ) );
-		remove_all_filters( 'woocommerce_orders_table_query_clauses' );
+		remove_all_filters( 'poocommerce_orders_table_query_clauses' );
 
 		// Force a query that sorts orders by id ASC (as opposed to the default date DESC) if a query arg is present.
 		$filter_callback = function ( $clauses, $query, $query_args ) {
@@ -270,7 +270,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			return $clauses;
 		};
 
-		add_filter( 'woocommerce_orders_table_query_clauses', $filter_callback, 10, 3 );
+		add_filter( 'poocommerce_orders_table_query_clauses', $filter_callback, 10, 3 );
 		$this->assertEquals(
 			wc_get_orders(
 				array(
@@ -294,7 +294,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 				$order1->get_id(),
 			)
 		);
-		remove_all_filters( 'woocommerce_orders_table_query_clauses' );
+		remove_all_filters( 'poocommerce_orders_table_query_clauses' );
 	}
 
 	/**
@@ -323,7 +323,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			$order_ids = array( $order1->get_id() );
 			return array( $order_ids, null, null );
 		};
-		add_filter( 'woocommerce_hpos_pre_query', $callback, 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', $callback, 10, 3 );
 
 		$query = new OrdersTableQuery( array() );
 		$this->assertCount( 1, $query->orders );
@@ -335,7 +335,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertCount( 1, $orders );
 		$this->assertEquals( $order1->get_id(), $orders[0]->get_id() );
 
-		remove_all_filters( 'woocommerce_hpos_pre_query' );
+		remove_all_filters( 'poocommerce_hpos_pre_query' );
 	}
 
 	/**
@@ -366,7 +366,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			$max_num_pages = 23;
 			return array( $order_ids, $found_orders, $max_num_pages );
 		};
-		add_filter( 'woocommerce_hpos_pre_query', $callback, 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', $callback, 10, 3 );
 
 		$query = new OrdersTableQuery( array() );
 		$this->assertCount( 1, $query->orders );
@@ -378,7 +378,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertCount( 1, $orders );
 		$this->assertEquals( $order1->get_id(), $orders[0]->get_id() );
 
-		remove_all_filters( 'woocommerce_hpos_pre_query' );
+		remove_all_filters( 'poocommerce_hpos_pre_query' );
 	}
 
 	/**
@@ -394,7 +394,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			$order_ids = array( $order1->get_id() );
 			return array( $order_ids, 10, null );
 		};
-		add_filter( 'woocommerce_hpos_pre_query', $callback, 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', $callback, 10, 3 );
 
 		$query = new OrdersTableQuery(
 			array(
@@ -405,14 +405,14 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 10, $query->found_orders );
 		$this->assertEquals( 2, $query->max_num_pages );
 
-		remove_all_filters( 'woocommerce_hpos_pre_query' );
+		remove_all_filters( 'poocommerce_hpos_pre_query' );
 	}
 
 	/**
 	 * @testdox A regular query will still work even if the pre-query escape hook returns null for the whole 3-tuple.
 	 */
 	public function test_pre_query_escape_hook_return_null() {
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null', 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null', 10, 3 );
 
 		// Query with no results.
 		$query = new OrdersTableQuery();
@@ -433,7 +433,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 1, $query->found_orders );
 		$this->assertEquals( null, $query->max_num_pages );
 
-		remove_all_filters( 'woocommerce_hpos_pre_query' );
+		remove_all_filters( 'poocommerce_hpos_pre_query' );
 	}
 
 	/**
@@ -448,7 +448,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			// Just return null.
 			return null;
 		};
-		add_filter( 'woocommerce_hpos_pre_query', $callback, 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', $callback, 10, 3 );
 
 		$query = new OrdersTableQuery(
 			array(
@@ -459,7 +459,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 1, $query->found_orders );
 		$this->assertEquals( 1, $query->max_num_pages );
 
-		remove_all_filters( 'woocommerce_hpos_pre_query' );
+		remove_all_filters( 'poocommerce_hpos_pre_query' );
 	}
 
 	/**
@@ -566,7 +566,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		// The address search only adds the phone column to its MATCH() list when the stored database version is 9.4.0 or later.
 		// The full-text index this class creates always includes phone, so a lower stored version builds a column list that matches no index and fails.
 		// Pin the version in memory instead of writing the option.
-		add_filter( 'pre_option_woocommerce_db_version', static fn() => WC_VERSION );
+		add_filter( 'pre_option_poocommerce_db_version', static fn() => WC_VERSION );
 		add_filter( 'pre_option_' . CustomOrdersTableController::HPOS_FTS_INDEX_OPTION, static fn() => $fts_enabled ? 'yes' : 'no' );
 		add_filter( 'pre_option_' . CustomOrdersTableController::HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION, static fn() => 'yes' );
 		add_filter( 'pre_option_' . CustomOrdersTableController::HPOS_FTS_ORDER_ITEM_INDEX_CREATED_OPTION, static fn() => 'yes' );
@@ -762,22 +762,22 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * WooCommerce query filters, each with a callback that makes a harmless change.
+	 * PooCommerce query filters, each with a callback that makes a harmless change.
 	 *
 	 * @return array<string, array{string, callable}>
 	 */
 	public static function provider_query_changing_filters(): array {
 		return array(
 			'clauses'   => array(
-				'woocommerce_orders_table_query_clauses',
+				'poocommerce_orders_table_query_clauses',
 				static fn( array $clauses ) => array_merge( $clauses, array( 'where' => $clauses['where'] . ' AND 1=1' ) ),
 			),
 			'list SQL'  => array(
-				'woocommerce_orders_table_query_sql',
+				'poocommerce_orders_table_query_sql',
 				static fn( string $sql ) => $sql . ' ',
 			),
 			'count SQL' => array(
-				'woocommerce_orders_table_query_count_sql',
+				'poocommerce_orders_table_query_count_sql',
 				static fn( string $sql ) => $sql . ' ',
 			),
 		);
@@ -1456,9 +1456,9 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			return $result;
 		};
 
-		add_filter( 'woocommerce_hpos_pre_query', $callback, 10, 3 );
+		add_filter( 'poocommerce_hpos_pre_query', $callback, 10, 3 );
 		$ids = wc_get_orders( array_merge( $args, array( 'return' => 'ids' ) ) );
-		remove_filter( 'woocommerce_hpos_pre_query', $callback );
+		remove_filter( 'poocommerce_hpos_pre_query', $callback );
 
 		return array( $ids, $captured_sql );
 	}
@@ -1468,14 +1468,14 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 	 * Helper function to force-enable the status union rewrite, which by default is gated by store size.
 	 */
 	private function force_enable_status_union_rewrite(): void {
-		add_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_true' );
+		add_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_true' );
 	}
 
 	/**
 	 * Helper function to remove the force-enablement of the status union rewrite.
 	 */
 	private function reset_status_union_rewrite(): void {
-		remove_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_true' );
+		remove_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_true' );
 	}
 
 	/**
@@ -1497,11 +1497,11 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'UNION ALL', $sql, 'Eligible multi-status queries should be rewritten as a UNION of single-status queries' );
 		$this->assertSame( array_slice( $ids, 0, 4 ), $queried_ids, 'The rewritten query should return the most recent orders across all statuses' );
 
-		add_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_false' );
+		add_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_false' );
 		list( $unoptimized_ids, $unoptimized_sql ) = $this->get_orders_and_capture_sql( $args );
-		remove_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_false' );
+		remove_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_false' );
 
-		$this->assertStringNotContainsString( 'UNION ALL', $unoptimized_sql, 'The rewrite should be disabled by the woocommerce_orders_table_query_status_union_optimization filter' );
+		$this->assertStringNotContainsString( 'UNION ALL', $unoptimized_sql, 'The rewrite should be disabled by the poocommerce_orders_table_query_status_union_optimization filter' );
 		$this->assertSame( $unoptimized_ids, $queried_ids, 'Rewritten and regular queries should return identical results' );
 	}
 
@@ -1539,9 +1539,9 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 
 				list( $queried_ids, $sql ) = $this->get_orders_and_capture_sql( $args );
 
-				add_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_false' );
+				add_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_false' );
 				list( $unoptimized_ids ) = $this->get_orders_and_capture_sql( $args );
-				remove_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_false' );
+				remove_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_false' );
 
 				$this->assertStringContainsString( 'UNION ALL', $sql, "Page {$page} ({$order}) should be served by the rewritten query" );
 				$this->assertSame( $unoptimized_ids, $queried_ids, "Page {$page} ({$order}) of the rewritten query should match the regular query" );
@@ -1605,7 +1605,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			return $clauses;
 		};
 
-		add_filter( 'woocommerce_orders_table_query_clauses', $filter_callback );
+		add_filter( 'poocommerce_orders_table_query_clauses', $filter_callback );
 		list( $queried_ids, $sql ) = $this->get_orders_and_capture_sql(
 			array(
 				'status'  => array( OrderStatus::PENDING, OrderStatus::PROCESSING ),
@@ -1614,7 +1614,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 				'limit'   => 4,
 			)
 		);
-		remove_filter( 'woocommerce_orders_table_query_clauses', $filter_callback );
+		remove_filter( 'poocommerce_orders_table_query_clauses', $filter_callback );
 
 		$this->reset_status_union_rewrite();
 
@@ -1633,7 +1633,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 			return $sql . ' -- modified';
 		};
 
-		add_filter( 'woocommerce_orders_table_query_sql', $filter_callback );
+		add_filter( 'poocommerce_orders_table_query_sql', $filter_callback );
 		list( $queried_ids, $sql ) = $this->get_orders_and_capture_sql(
 			array(
 				'status'  => array( OrderStatus::PENDING, OrderStatus::PROCESSING ),
@@ -1642,7 +1642,7 @@ class OrdersTableQueryTests extends \WC_Unit_Test_Case {
 				'limit'   => 4,
 			)
 		);
-		remove_filter( 'woocommerce_orders_table_query_sql', $filter_callback );
+		remove_filter( 'poocommerce_orders_table_query_sql', $filter_callback );
 
 		$this->reset_status_union_rewrite();
 

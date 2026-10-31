@@ -59,12 +59,12 @@ describe( 'clearTrackingCookies', () => {
 	it( 'leaves other cookies alone', () => {
 		document.cookie = 'tk_or=1; domain=.example.co.uk; path=/';
 		document.cookie = 'wp_consent_statistics=deny; path=/';
-		document.cookie = 'woocommerce_cart_hash=abc; domain=.example.co.uk; path=/';
+		document.cookie = 'poocommerce_cart_hash=abc; domain=.example.co.uk; path=/';
 
 		clearTrackingCookies();
 
 		expect( document.cookie.split( '; ' ).sort() ).toEqual( [
-			'woocommerce_cart_hash=abc',
+			'poocommerce_cart_hash=abc',
 			'wp_consent_statistics=deny',
 		] );
 	} );

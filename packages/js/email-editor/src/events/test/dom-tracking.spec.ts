@@ -109,7 +109,7 @@ describe( 'initDomTracking', () => {
 
 		it( 'records nothing when another sidebar is active', () => {
 			document.body.innerHTML = markup;
-			setActiveSidebar( 'woocommerce/email-editor-styles' );
+			setActiveSidebar( 'poocommerce/email-editor-styles' );
 			click( '[role="tablist"] > :first-child' );
 			expect( recordEvent ).not.toHaveBeenCalled();
 		} );

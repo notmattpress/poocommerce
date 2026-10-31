@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { decodeHtmlEntities } from '@woocommerce/utils';
+import { decodeHtmlEntities } from '@poocommerce/utils';
 import { Disabled } from '@wordpress/components';
 import { useRefEffect } from '@wordpress/compose';
 import {
@@ -20,7 +20,7 @@ import type { BlockAttributes, BlockEditProps } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
-import type { SelectableItemsBlockContext } from '@woocommerce/types';
+import type { SelectableItemsBlockContext } from '@poocommerce/types';
 import { getSelectionSummary } from './utils';
 import {
 	getVisualAttributeTermStyle,
@@ -58,7 +58,7 @@ function getOptionLabel( item: {
 
 const Edit = ( props: EditProps ) => {
 	const { context, attributes, isSelected, clientId } = props;
-	const selectableItems = context?.[ 'woocommerce/selectableItems' ];
+	const selectableItems = context?.[ 'poocommerce/selectableItems' ];
 	const isLoading = selectableItems?.isLoading ?? false;
 	const items = Array.isArray( selectableItems?.items )
 		? selectableItems.items
@@ -125,7 +125,7 @@ const Edit = ( props: EditProps ) => {
 						<span className="wc-block-dropdown__summary">
 							{ getSelectionSummary(
 								items,
-								__( 'Choose options', 'woocommerce' )
+								__( 'Choose options', 'poocommerce' )
 							) }
 						</span>
 						<span
@@ -226,7 +226,7 @@ const Edit = ( props: EditProps ) => {
 			<Disabled>
 				<fieldset className="wc-block-dropdown__fieldset">
 					<legend className="screen-reader-text">
-						{ __( 'Choose an option', 'woocommerce' ) }
+						{ __( 'Choose an option', 'poocommerce' ) }
 					</legend>
 					{ isLoading ? (
 						<div className="wc-block-dropdown__skeleton">
@@ -242,7 +242,7 @@ const Edit = ( props: EditProps ) => {
 							aria-label={ selectableItems?.groupLabel }
 						>
 							<option value="">
-								{ __( 'Choose an option', 'woocommerce' ) }
+								{ __( 'Choose an option', 'poocommerce' ) }
 							</option>
 							{ items.map( ( item, index ) => {
 								const optionLabel = getOptionLabel( item );

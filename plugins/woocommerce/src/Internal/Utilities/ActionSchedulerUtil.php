@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Enums\ActionSchedulerFeature;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Enums\ActionSchedulerFeature;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Compatibility layer over whichever copy of Action Scheduler is loaded.
@@ -19,7 +19,7 @@ use Automattic\WooCommerce\Proxies\LegacyProxy;
  *             ActionSchedulerUtil::supports() ↔ as_supports()
  *
  * This aims to reduce problems when an unexpectedly old version of Action Scheduler is loaded instead of
- * the version actually bundled with WooCommerce (though unusual, it is known to happen). Additionally, this
+ * the version actually bundled with PooCommerce (though unusual, it is known to happen). Additionally, this
  * class can report on which version and feature set from Action Scheduler is actually available.
  */
 final class ActionSchedulerUtil {
@@ -32,7 +32,7 @@ final class ActionSchedulerUtil {
 	private const DEFAULT_PRIORITY = 10;
 
 	/**
-	 * The main file of the Action Scheduler copy bundled with WooCommerce, relative to WC_ABSPATH.
+	 * The main file of the Action Scheduler copy bundled with PooCommerce, relative to WC_ABSPATH.
 	 *
 	 * @var string
 	 */
@@ -66,7 +66,7 @@ final class ActionSchedulerUtil {
 	private static ?string $loaded_version = null;
 
 	/**
-	 * The version of Action Scheduler actually bundled with WooCommerce.
+	 * The version of Action Scheduler actually bundled with PooCommerce.
 	 *
 	 * @var string|null
 	 */
@@ -142,7 +142,7 @@ final class ActionSchedulerUtil {
 	}
 
 	/**
-	 * The version of the Action Scheduler copy bundled with WooCommerce, read from its plugin file header.
+	 * The version of the Action Scheduler copy bundled with PooCommerce, read from its plugin file header.
 	 *
 	 * @since 11.4.0
 	 *
@@ -179,7 +179,7 @@ final class ActionSchedulerUtil {
 	 * @since 11.4.0
 	 *
 	 * @return array {
-	 *     @type string $type     One of 'woocommerce', 'mu-plugin', 'plugin', 'theme' or 'other'.
+	 *     @type string $type     One of 'poocommerce', 'mu-plugin', 'plugin', 'theme' or 'other'.
 	 *     @type string $name     The display name of the owner, or an empty string when unknown.
 	 *     @type string $basename The plugin basename, mu-plugin directory or theme slug, or an empty string.
 	 * }
@@ -632,7 +632,7 @@ final class ActionSchedulerUtil {
 	 */
 	private static function resolve_source( string $path ): array {
 		if ( null !== self::relative_to( $path, WC_ABSPATH . 'packages/action-scheduler' ) ) {
-			return self::source( 'woocommerce', 'WooCommerce', plugin_basename( WC_PLUGIN_FILE ) );
+			return self::source( 'poocommerce', 'PooCommerce', plugin_basename( WC_PLUGIN_FILE ) );
 		}
 
 		$path = self::map_real_path( $path );

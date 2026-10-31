@@ -2,15 +2,15 @@
 /**
  * Visual attribute term admin tests.
  *
- * @package WooCommerce\Tests\Internal\ProductAttributes
+ * @package PooCommerce\Tests\Internal\ProductAttributes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributes;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermAdmin;
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermAdmin;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 use WC_Unit_Test_Case;
 
 /**
@@ -38,9 +38,9 @@ class VisualAttributeTermAdminTest extends WC_Unit_Test_Case {
 		// wc-visual requires block theme + feature. Enable for the duration
 		// of the test so wc_create_attribute accepts/stores type 'wc-visual'.
 		switch_theme( 'twentytwentyfour' );
-		delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+		delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 		wc_get_container()
-			->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )
+			->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )
 			->change_feature_enable( 'wc-visual-attribute', true );
 	}
 
@@ -51,7 +51,7 @@ class VisualAttributeTermAdminTest extends WC_Unit_Test_Case {
 		if ( $this->original_theme ) {
 			switch_theme( $this->original_theme );
 		}
-		delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+		delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 		parent::tearDown();
 	}
 
@@ -112,7 +112,7 @@ class VisualAttributeTermAdminTest extends WC_Unit_Test_Case {
 
 			$black_term = get_term_by( 'slug', 'black', $taxonomy );
 			$this->assertInstanceOf( \WP_Term::class, $black_term, 'Black term should be seeded with the canonical English slug.' );
-			$this->assertSame( __( 'Black', 'woocommerce' ), $black_term->name, 'Term name should be the translated label, not hardcoded English.' );
+			$this->assertSame( __( 'Black', 'poocommerce' ), $black_term->name, 'Term name should be the translated label, not hardcoded English.' );
 
 			$expected_colors = array(
 				'black'  => '#121212',
@@ -247,9 +247,9 @@ class VisualAttributeTermAdminTest extends WC_Unit_Test_Case {
 	public function test_does_not_fatal_on_non_string_screen_id(): void {
 		// We need the wc-visual attribute type available, same setup as other tests.
 		switch_theme( 'twentytwentyfour' );
-		delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+		delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 		wc_get_container()
-			->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class )
+			->get( \Automattic\PooCommerce\Internal\Features\FeaturesController::class )
 			->change_feature_enable( 'wc-visual-attribute', true );
 
 		$instance = wc_get_container()->get( VisualAttributeTermAdmin::class );
@@ -273,7 +273,7 @@ class VisualAttributeTermAdminTest extends WC_Unit_Test_Case {
 			$this->fail( 'TypeError thrown: ' . $e->getMessage() );
 		} finally {
 			$GLOBALS['current_screen'] = $original_screen; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			delete_option( 'woocommerce_feature_wc_visual_attribute_enabled' );
+			delete_option( 'poocommerce_feature_wc_visual_attribute_enabled' );
 			switch_theme( $this->original_theme );
 		}
 	}

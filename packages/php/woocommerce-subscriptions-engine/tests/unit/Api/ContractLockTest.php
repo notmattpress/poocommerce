@@ -2,12 +2,12 @@
 /**
  * Unit tests for the opaque ContractLock and the lock exceptions.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Api;
 
 use Closure;
 use LogicException;
@@ -16,15 +16,15 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionProperty;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState
  */
 class ContractLockTest extends TestCase {
 

@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import sanitizeHTML from '~/lib/sanitize-html';
 const connect = ( createNotice, setIsBusy ) => {
 	const errorMessage = __(
 		'There was an error connecting to WooPayments. Please try again or connect later in store settings.',
-		'woocommerce'
+		'poocommerce'
 	);
 	setIsBusy( true );
 	apiFetch( {
@@ -45,16 +45,16 @@ const WoocommercePaymentsHeader = ( { task, trackClick } ) => {
 	};
 
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Payment illustration', 'woocommerce' ) }
+				alt={ __( 'Payment illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL + 'images/task_list/payment-illustration.svg'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
-				<h1>{ __( 'It’s time to get paid', 'woocommerce' ) }</h1>
+			<div className="poocommerce-task-header__contents">
+				<h1>{ __( 'It’s time to get paid', 'poocommerce' ) }</h1>
 				{ incentive?.task_header_content ? (
 					<p
 						dangerouslySetInnerHTML={ sanitizeHTML(
@@ -64,8 +64,8 @@ const WoocommercePaymentsHeader = ( { task, trackClick } ) => {
 				) : (
 					<p>
 						{ __(
-							'Power your payments with a simple, all-in-one option. Verify your business details to start managing transactions with WooCommerce Payments.',
-							'woocommerce'
+							'Power your payments with a simple, all-in-one option. Verify your business details to start managing transactions with PooCommerce Payments.',
+							'poocommerce'
 						) }
 					</p>
 				) }
@@ -76,7 +76,7 @@ const WoocommercePaymentsHeader = ( { task, trackClick } ) => {
 					disabled={ isBusy }
 					onClick={ onClick }
 				>
-					{ __( 'Get paid', 'woocommerce' ) }
+					{ __( 'Get paid', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

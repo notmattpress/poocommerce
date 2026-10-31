@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 use DateTime;
 use Exception;
@@ -56,7 +56,7 @@ class MobileMessagingHandler {
 	 * @return ?DateTime
 	 */
 	private static function get_closer_mobile_usage_date(): ?DateTime {
-		$mobile_usage = WC_Tracker::get_woocommerce_mobile_usage();
+		$mobile_usage = WC_Tracker::get_poocommerce_mobile_usage();
 
 		if ( ! $mobile_usage ) {
 			return null;
@@ -106,14 +106,14 @@ class MobileMessagingHandler {
 				),
 				self::prepare_utm_parameters( 'deeplinks_payments', $blog_id, $domain )
 			),
-			'https://woocommerce.com/mobile/payments'
+			'https://poocommerce.com/mobile/payments'
 		);
 
 		return sprintf(
 			/* translators: 1: opening link tag 2: closing link tag. */
 			esc_html__(
 				'%1$sCollect payments easily%2$s from your customers anywhere with our mobile app.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'<a href="' . esc_url( $deep_link_url ) . '">',
 			'</a>'
@@ -138,14 +138,14 @@ class MobileMessagingHandler {
 				),
 				self::prepare_utm_parameters( 'deeplinks_orders_details', $blog_id, $domain )
 			),
-			'https://woocommerce.com/mobile/orders/details'
+			'https://poocommerce.com/mobile/orders/details'
 		);
 
 		return sprintf(
 			/* translators: 1: opening link tag 2: closing link tag. */
 			esc_html__(
 				'%1$sManage the order%2$s with the app.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'<a href="' . esc_url( $deep_link_url ) . '">',
 			'</a>'
@@ -168,13 +168,13 @@ class MobileMessagingHandler {
 				),
 				self::prepare_utm_parameters( 'deeplinks_promote_app', $blog_id, $domain )
 			),
-			'https://woocommerce.com/mobile'
+			'https://poocommerce.com/mobile'
 		);
 		return sprintf(
 			/* translators: 1: opening link tag 2: closing link tag. */
 			esc_html__(
 				'Process your orders on the go. %1$sGet the app%2$s.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'<a href="' . esc_url( $deep_link_url ) . '">',
 			'</a>'
@@ -182,7 +182,7 @@ class MobileMessagingHandler {
 	}
 
 	/**
-	 * Prepares array of parameters used by WooCommerce.com for tracking.
+	 * Prepares array of parameters used by PooCommerce.com for tracking.
 	 *
 	 * @param string   $campaign name of the deep link campaign.
 	 * @param int|null $blog_id blog id of the current site.

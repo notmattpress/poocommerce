@@ -31,7 +31,7 @@ export async function enableTestPlugin(
 ) {
 	await context.addCookies( [
 		{
-			name: `woocommerce-blocks-test-${ plugin }`,
+			name: `poocommerce-blocks-test-${ plugin }`,
 			value: '1',
 			url: BASE_URL,
 		},

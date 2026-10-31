@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for linked products saved through the classic product data meta box.
  *
- * @package WooCommerce\Tests\Admin\MetaBoxes
+ * @package PooCommerce\Tests\Admin\MetaBoxes
  */
 
 /**
@@ -27,7 +27,7 @@ class WC_Meta_Box_Product_Data_Linked_Products_Test extends WC_Unit_Test_Case {
 	private $original_post_data;
 
 	/**
-	 * Original WooCommerce cart.
+	 * Original PooCommerce cart.
 	 *
 	 * @var WC_Cart|null
 	 */
@@ -49,7 +49,7 @@ class WC_Meta_Box_Product_Data_Linked_Products_Test extends WC_Unit_Test_Case {
 		$this->original_post_data = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Test snapshots request state before exercising the real admin save seam.
 		$this->original_cart      = WC()->cart;
 
-		foreach ( array( 'post', 'product', 'woocommerce_loop' ) as $global_name ) {
+		foreach ( array( 'post', 'product', 'poocommerce_loop' ) as $global_name ) {
 			$this->original_globals[ $global_name ] = array(
 				'present' => array_key_exists( $global_name, $GLOBALS ),
 				'value'   => $GLOBALS[ $global_name ] ?? null,
@@ -264,7 +264,7 @@ class WC_Meta_Box_Product_Data_Linked_Products_Test extends WC_Unit_Test_Case {
 
 		return $this->capture_output(
 			static function (): void {
-				woocommerce_upsell_display( -1, 4, 'none', 'asc' );
+				poocommerce_upsell_display( -1, 4, 'none', 'asc' );
 			}
 		);
 	}
@@ -273,7 +273,7 @@ class WC_Meta_Box_Product_Data_Linked_Products_Test extends WC_Unit_Test_Case {
 	 * Put the main product in a real cart and return the cross-sell IDs it exposes.
 	 *
 	 * The rendered `cart/cross-sells.php` section is deliberately not asserted here.
-	 * Its renderer, woocommerce_cross_sell_display(), returns early when is_checkout()
+	 * Its renderer, poocommerce_cross_sell_display(), returns early when is_checkout()
 	 * is true, and is_checkout() consults the WOOCOMMERCE_CHECKOUT constant, which
 	 * tests/legacy/unit-tests/coupon/coupon.php defines for the remainder of the
 	 * process. phpunit.xml runs the legacy suite before this one, so by the time these

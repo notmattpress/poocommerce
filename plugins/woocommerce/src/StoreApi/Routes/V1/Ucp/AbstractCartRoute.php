@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute as StoreApiCartRoute;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\UcpCartMapper;
-use Automattic\WooCommerce\StoreApi\Utilities\UcpUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute as StoreApiCartRoute;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpCartMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpUtils;
 
 /**
  * Shared behaviour of the UCP cart routes.
@@ -77,7 +77,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			return parent::get_response( $request );
 		} finally {
 			$this->restore_request_cart_token( $inherited_token );
-			remove_filter( 'woocommerce_session_handler', array( self::class, 'session_handler_class' ) );
+			remove_filter( 'poocommerce_session_handler', array( self::class, 'session_handler_class' ) );
 		}
 	}
 
@@ -88,12 +88,12 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 */
 	private function restore_request_cart_token( string $token ): void {
 		if ( '' === $token ) {
-			// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobal -- Clearing the slot, not reading the token from it.
+			// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobal -- Clearing the slot, not reading the token from it.
 			unset( $_SERVER['HTTP_CART_TOKEN'] );
 			return;
 		}
 
-		// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Restoring the value the request arrived with, already validated by whatever read it.
+		// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Restoring the value the request arrived with, already validated by whatever read it.
 		$_SERVER['HTTP_CART_TOKEN'] = $token;
 	}
 
@@ -121,13 +121,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		}
 
 		$request->set_header( 'Cart-Token', $cart_id );
-		// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Either the route's own path segment, signature checked in validated_cart_id(), or a token minted just above; promoted to the slot PHP would have filled from a Cart-Token header.
+		// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Either the route's own path segment, signature checked in validated_cart_id(), or a token minted just above; promoted to the slot PHP would have filled from a Cart-Token header.
 		$_SERVER['HTTP_CART_TOKEN'] = $cart_id;
 
 		// The parent promotes the token handler only for a request that carries a token,
 		// which would leave cart creation on the cookie handler. UCP has no cookie to
 		// trust: the id is the only credential, so the handler is fixed for every route.
-		add_filter( 'woocommerce_session_handler', array( self::class, 'session_handler_class' ) );
+		add_filter( 'poocommerce_session_handler', array( self::class, 'session_handler_class' ) );
 
 		// An extension that calls wc_load_cart() on init leaves a session already in memory, so
 		// load_cart() below keeps it and the filter above never binds: the request would act on
@@ -153,7 +153,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		WC()->customer = null; // @phpstan-ignore assign.propertyType (Same.)
 		WC()->cart     = null; // @phpstan-ignore assign.propertyType (Same.)
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Clears the per-process marker so load_cart() reloads.
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 	}
 
 	/**
@@ -327,7 +327,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 
 		return $this->ucp_error(
 			UcpUtils::cart_error_code( (string) $error->get_error_code(), 'TRANSPORT_ERROR' ),
-			'' !== $message ? $message : __( 'The cart could not be loaded. Please try again.', 'woocommerce' ),
+			'' !== $message ? $message : __( 'The cart could not be loaded. Please try again.', 'poocommerce' ),
 			$status >= 500 ? 'unrecoverable' : 'recoverable',
 			$status
 		);
@@ -342,7 +342,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 * @return \WP_REST_Response
 	 */
 	protected function ucp_not_found(): \WP_REST_Response {
-		return UcpUtils::error_response( UcpUtils::CAPABILITY_CART, 'not_found', __( 'Cart not found.', 'woocommerce' ), 'unrecoverable', 200, '$.id' );
+		return UcpUtils::error_response( UcpUtils::CAPABILITY_CART, 'not_found', __( 'Cart not found.', 'poocommerce' ), 'unrecoverable', 200, '$.id' );
 	}
 
 	/**
@@ -360,14 +360,14 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 */
 	protected function parse_line_items( $line_items ) {
 		if ( ! is_array( $line_items ) ) {
-			return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items must be an array.', 'woocommerce' ), 'recoverable', 400, '$.line_items' );
+			return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items must be an array.', 'poocommerce' ), 'recoverable', 400, '$.line_items' );
 		}
 
 		if ( count( $line_items ) > self::LINE_ITEMS_MAX ) {
 			return $this->ucp_error(
 				'VALIDATION_ERROR',
 				/* translators: %d: maximum number of line items accepted in one request. */
-				sprintf( __( 'line_items may hold at most %d entries.', 'woocommerce' ), self::LINE_ITEMS_MAX ),
+				sprintf( __( 'line_items may hold at most %d entries.', 'poocommerce' ), self::LINE_ITEMS_MAX ),
 				'recoverable',
 				400,
 				'$.line_items'
@@ -384,13 +384,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			$path = sprintf( '$.line_items[%d]', (int) $index );
 
 			if ( ! is_array( $line_item ) || ! isset( $line_item['item']['id'] ) || ! is_scalar( $line_item['item']['id'] ) ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each line item requires item.id.', 'woocommerce' ), 'recoverable', 400, $path . '.item.id' );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each line item requires item.id.', 'poocommerce' ), 'recoverable', 400, $path . '.item.id' );
 			}
 
 			$quantity = isset( $line_item['quantity'] ) ? (int) $line_item['quantity'] : 1;
 
 			if ( $quantity < 1 ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Line item quantity must be at least 1.', 'woocommerce' ), 'recoverable', 400, $path . '.quantity' );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Line item quantity must be at least 1.', 'poocommerce' ), 'recoverable', 400, $path . '.quantity' );
 			}
 
 			$item_key = isset( $line_item['id'] ) && is_scalar( $line_item['id'] ) ? (string) $line_item['id'] : '';
@@ -411,13 +411,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			// variable parent, grouped, external or otherwise unpurchasable — exists but is
 			// unavailable.
 			if ( ! $product instanceof \WC_Product ) {
-				return $this->ucp_error( 'not_found', __( 'Product not found.', 'woocommerce' ), 'unrecoverable', 200, $path . '.item.id' );
+				return $this->ucp_error( 'not_found', __( 'Product not found.', 'poocommerce' ), 'unrecoverable', 200, $path . '.item.id' );
 			}
 
 			if ( $product instanceof \WC_Product_Variable || ! $product->is_purchasable() ) {
 				$message = $product instanceof \WC_Product_Variable
-					? __( 'This product is only orderable as one of its variants. Use a variant id from the catalog.', 'woocommerce' )
-					: __( 'This product cannot be added to a cart.', 'woocommerce' );
+					? __( 'This product is only orderable as one of its variants. Use a variant id from the catalog.', 'poocommerce' )
+					: __( 'This product cannot be added to a cart.', 'poocommerce' );
 
 				return $this->ucp_error( 'item_unavailable', $message, 'recoverable', 200, $path . '.item.id' );
 			}

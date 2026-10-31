@@ -4,7 +4,7 @@
 import type { BlockVariation } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
 
-// These areas require their owning WooCommerce block to render correctly.
+// These areas require their owning PooCommerce block to render correctly.
 const INCOMPATIBLE_TEMPLATE_PART_AREAS = [
 	'mini-cart',
 	'add-to-cart-with-options',
@@ -12,7 +12,7 @@ const INCOMPATIBLE_TEMPLATE_PART_AREAS = [
 
 addFilter(
 	'blocks.registerBlockType',
-	'woocommerce/hide-incompatible-template-parts',
+	'poocommerce/hide-incompatible-template-parts',
 	(
 		blockSettings: { variations?: BlockVariation< { area?: string } >[] },
 		blockName: string

@@ -5,7 +5,7 @@ import {
 	cartStore,
 	checkoutStore,
 	paymentStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 
 /**

@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
 
 /**
  * Integration test for Settings_Controller class

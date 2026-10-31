@@ -177,7 +177,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_structured_data_context receives the string grouping key and complete @type array.
+	 * @testdox poocommerce_structured_data_context receives the string grouping key and complete @type array.
 	 */
 	public function test_structured_data_context_receives_array_type_and_string_grouping_key(): void {
 		$markup           = array(
@@ -187,7 +187,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$filter_arguments = array();
 
 		add_filter(
-			'woocommerce_structured_data_context',
+			'poocommerce_structured_data_context',
 			static function ( $context, $data, $type, $value ) use ( &$filter_arguments ) {
 				$filter_arguments = array(
 					'type'  => $type,
@@ -364,7 +364,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$this->assertSame( '' === $mpn ? null : $mpn, $sut->get_data()[0]['mpn'] ?? null );
 
 		add_filter(
-			'woocommerce_structured_data_product',
+			'poocommerce_structured_data_product',
 			static function ( $markup ) {
 				$markup['mpn'] = 'EXTENSION-MPN';
 				return $markup;
@@ -426,8 +426,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 * @param string $dimension_code Expected dimension code.
 	 */
 	public function test_product_measurement_unit_codes( string $weight_unit, string $weight_code, string $dimension_unit, string $dimension_code ): void {
-		update_option( 'woocommerce_weight_unit', $weight_unit );
-		update_option( 'woocommerce_dimension_unit', $dimension_unit );
+		update_option( 'poocommerce_weight_unit', $weight_unit );
+		update_option( 'poocommerce_dimension_unit', $dimension_unit );
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_weight( '2.5' );
 		$product->set_length( '3' );
@@ -484,25 +484,25 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	public function test_invalid_product_measurements_are_omitted( string $value ): void {
 		$product = WC_Helper_Product::create_simple_product();
 		add_filter(
-			'woocommerce_product_get_weight',
+			'poocommerce_product_get_weight',
 			static function () use ( $value ) {
 				return $value;
 			}
 		);
 		add_filter(
-			'woocommerce_product_get_length',
+			'poocommerce_product_get_length',
 			static function () use ( $value ) {
 				return $value;
 			}
 		);
 		add_filter(
-			'woocommerce_product_get_width',
+			'poocommerce_product_get_width',
 			static function () use ( $value ) {
 				return $value;
 			}
 		);
 		add_filter(
-			'woocommerce_product_get_height',
+			'poocommerce_product_get_height',
 			static function () use ( $value ) {
 				return $value;
 			}
@@ -526,8 +526,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 * @param bool   $has_dimensions Whether dimensions are expected.
 	 */
 	public function test_unsupported_measurement_units( string $weight_unit, string $dimension_unit, bool $has_weight, bool $has_dimensions ): void {
-		update_option( 'woocommerce_weight_unit', $weight_unit );
-		update_option( 'woocommerce_dimension_unit', $dimension_unit );
+		update_option( 'poocommerce_weight_unit', $weight_unit );
+		update_option( 'poocommerce_dimension_unit', $dimension_unit );
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_weight( '2' );
 		$product->set_length( '3' );
@@ -542,8 +542,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 * @testdox Selected variations use their own measurements and inherit missing values from the parent.
 	 */
 	public function test_selected_variation_measurements(): void {
-		update_option( 'woocommerce_weight_unit', 'kg' );
-		update_option( 'woocommerce_dimension_unit', 'cm' );
+		update_option( 'poocommerce_weight_unit', 'kg' );
+		update_option( 'poocommerce_dimension_unit', 'cm' );
 		$product = WC_Helper_Product::create_variation_product();
 		$product->set_weight( '2' );
 		$product->set_length( '3' );
@@ -619,8 +619,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$offer = $data[0]['offers'][0];
 
 		$this->assertEquals( '97.00', $offer['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceSpecification'][0]['priceCurrency'] );
 	}
 
 	/**
@@ -643,7 +643,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		// The offer-level `price` should reflect the sale price, matching `priceSpecification[0]['price']`.
 		$this->assertEquals( '70.00', $offer['price'] );
 		$this->assertEquals( '70.00', $offer['priceSpecification'][0]['price'] );
-		$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
+		$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
 	}
 
 	/**
@@ -653,8 +653,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_product_structured_data_includes_vat_when_taxes_enabled(): void {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		// Create a simple product with a price.
 		$product = WC_Helper_Product::create_simple_product();
@@ -695,7 +695,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_product_structured_data_excludes_vat_when_taxes_disabled(): void {
 		// Disable taxes.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// Create a simple product with a price.
 		$product = WC_Helper_Product::create_simple_product();
@@ -737,8 +737,8 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_structured_data_includes_vat_when_taxes_enabled(): void {
 		// Enable taxes with prices inclusive of tax.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
 
 		// Create a simple product and order.
 		$product = WC_Helper_Product::create_simple_product();
@@ -774,7 +774,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_structured_data_excludes_vat_when_taxes_disabled(): void {
 		// Disable taxes.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// Create a simple product and order.
 		$product = WC_Helper_Product::create_simple_product();
@@ -829,7 +829,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( '16.00', $offer['price'] );
 			$this->assertArrayNotHasKey( 'lowPrice', $offer );
 			$this->assertArrayNotHasKey( 'highPrice', $offer );
-			$this->assertEquals( get_woocommerce_currency(), $offer['priceCurrency'] );
+			$this->assertEquals( get_poocommerce_currency(), $offer['priceCurrency'] );
 
 			// The variation is grouped under the parent product (Google `item_group_id`).
 			$this->assertEquals( $product->get_sku(), $data[0]['inProductGroupWithID'] );
@@ -978,7 +978,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_refund_returns_page_id', $page_id );
+		update_option( 'poocommerce_refund_returns_page_id', $page_id );
 		$this->go_to( get_permalink( $page_id ) );
 
 		$this->assertSame( 9, has_action( 'wp_footer', array( $this->structured_data, 'generate_online_store_data' ) ), 'Policy data must be generated before the footer output at priority 10.' );
@@ -1004,10 +1004,10 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 		$output = ob_get_clean();
 		$this->assertStringContainsString( '"merchantReturnLink":"' . get_permalink( $page_id ) . '"', $output, 'The footer should output the policy link.' );
 
-		remove_all_actions( 'woocommerce_email_order_details' );
-		add_action( 'woocommerce_email_order_details', array( $this->structured_data, 'output_email_structured_data' ), 30, 3 );
+		remove_all_actions( 'poocommerce_email_order_details' );
+		add_action( 'poocommerce_email_order_details', array( $this->structured_data, 'output_email_structured_data' ), 30, 3 );
 		ob_start();
-		do_action( 'woocommerce_email_order_details', null, false, false );
+		do_action( 'poocommerce_email_order_details', null, false, false );
 		$email = ob_get_clean();
 		$this->assertStringNotContainsString( 'OnlineStore', $email, 'The policy node must not appear in an order email, even after the footer.' );
 	}
@@ -1028,7 +1028,7 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_refund_returns_page_id', $page_id );
+		update_option( 'poocommerce_refund_returns_page_id', $page_id );
 		$this->go_to( get_permalink( $other_id ) );
 		$this->structured_data->generate_online_store_data();
 		$this->assertSame( array(), $this->structured_data->get_data(), 'Other pages must not advertise the policy.' );
@@ -1066,9 +1066,9 @@ class WC_Structured_Data_Test extends \WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_refund_returns_page_id', $page_id );
+		update_option( 'poocommerce_refund_returns_page_id', $page_id );
 		add_filter(
-			'woocommerce_get_refund_returns_page_permalink',
+			'poocommerce_get_refund_returns_page_permalink',
 			static function () {
 				return 'javascript:alert(1)';
 			}

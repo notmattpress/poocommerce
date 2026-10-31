@@ -135,7 +135,7 @@ describe( 'Experimental List', () => {
 			);
 
 			const listItem = container.querySelector(
-				'.woocommerce-experimental-list__item'
+				'.poocommerce-experimental-list__item'
 			);
 
 			if ( listItem ) {

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Session;
+namespace Automattic\PooCommerce\Internal\Session;
 
 /**
  * Saves a session row without reverting changes another request saved after this one loaded the session.

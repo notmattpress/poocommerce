@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * ArchiveProductTemplatesCompatibility class.
@@ -84,7 +84,7 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 		);
 
 		// We want to inject hooks to the core/post-template or product template block only when the products exist:
-		// https://github.com/woocommerce/woocommerce-blocks/issues/9463.
+		// https://github.com/poocommerce/poocommerce-blocks/issues/9463.
 		if ( $this->is_post_or_product_template( $block_name ) && ! empty( $block_content ) ) {
 			$this->restore_default_hooks();
 			$content = sprintf(
@@ -179,84 +179,84 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 	 */
 	protected function set_hook_data() {
 		$this->hook_data = array(
-			'woocommerce_before_main_content'         => array(
-				'block_names' => array( 'core/query', 'woocommerce/product-collection' ),
+			'poocommerce_before_main_content'         => array(
+				'block_names' => array( 'core/query', 'poocommerce/product-collection' ),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_output_content_wrapper' => 10,
-					'woocommerce_breadcrumb'             => 20,
+					'poocommerce_output_content_wrapper' => 10,
+					'poocommerce_breadcrumb'             => 20,
 				),
 			),
-			'woocommerce_after_main_content'          => array(
-				'block_names' => array( 'core/query', 'woocommerce/product-collection' ),
+			'poocommerce_after_main_content'          => array(
+				'block_names' => array( 'core/query', 'poocommerce/product-collection' ),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_output_content_wrapper_end' => 10,
+					'poocommerce_output_content_wrapper_end' => 10,
 				),
 			),
-			'woocommerce_before_shop_loop_item_title' => array(
+			'poocommerce_before_shop_loop_item_title' => array(
 				'block_names' => array( 'core/post-title' ),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_show_product_loop_sale_flash' => 10,
-					'woocommerce_template_loop_product_thumbnail' => 10,
+					'poocommerce_show_product_loop_sale_flash' => 10,
+					'poocommerce_template_loop_product_thumbnail' => 10,
 				),
 			),
-			'woocommerce_shop_loop_item_title'        => array(
+			'poocommerce_shop_loop_item_title'        => array(
 				'block_names' => array( 'core/post-title' ),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_template_loop_product_title' => 10,
+					'poocommerce_template_loop_product_title' => 10,
 				),
 			),
-			'woocommerce_after_shop_loop_item_title'  => array(
+			'poocommerce_after_shop_loop_item_title'  => array(
 				'block_names' => array( 'core/post-title' ),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_template_loop_rating' => 5,
-					'woocommerce_template_loop_price'  => 10,
+					'poocommerce_template_loop_rating' => 5,
+					'poocommerce_template_loop_price'  => 10,
 				),
 			),
-			'woocommerce_before_shop_loop_item'       => array(
+			'poocommerce_before_shop_loop_item'       => array(
 				'block_names' => array( self::LOOP_ITEM_ID ),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_template_loop_product_link_open' => 10,
+					'poocommerce_template_loop_product_link_open' => 10,
 				),
 			),
-			'woocommerce_after_shop_loop_item'        => array(
+			'poocommerce_after_shop_loop_item'        => array(
 				'block_names' => array( self::LOOP_ITEM_ID ),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_template_loop_product_link_close' => 5,
-					'woocommerce_template_loop_add_to_cart' => 10,
+					'poocommerce_template_loop_product_link_close' => 5,
+					'poocommerce_template_loop_add_to_cart' => 10,
 				),
 			),
-			'woocommerce_before_shop_loop'            => array(
-				'block_names'                 => array( 'core/post-template', 'woocommerce/product-template' ),
+			'poocommerce_before_shop_loop'            => array(
+				'block_names'                 => array( 'core/post-template', 'poocommerce/product-template' ),
 				'position'                    => 'before',
 				'hooked'                      => array(
-					'woocommerce_output_all_notices' => 10,
-					'woocommerce_result_count'       => 20,
-					'woocommerce_catalog_ordering'   => 30,
+					'poocommerce_output_all_notices' => 10,
+					'poocommerce_result_count'       => 20,
+					'poocommerce_catalog_ordering'   => 30,
 				),
 				'permanently_removed_actions' => array(
-					'woocommerce_output_all_notices',
-					'woocommerce_result_count',
-					'woocommerce_catalog_ordering',
+					'poocommerce_output_all_notices',
+					'poocommerce_result_count',
+					'poocommerce_catalog_ordering',
 				),
 			),
-			'woocommerce_after_shop_loop'             => array(
-				'block_names'                 => array( 'core/post-template', 'woocommerce/product-template' ),
+			'poocommerce_after_shop_loop'             => array(
+				'block_names'                 => array( 'core/post-template', 'poocommerce/product-template' ),
 				'position'                    => 'after',
 				'hooked'                      => array(
-					'woocommerce_pagination' => 10,
+					'poocommerce_pagination' => 10,
 				),
 				'permanently_removed_actions' => array(
-					'woocommerce_pagination',
+					'poocommerce_pagination',
 				),
 			),
-			'woocommerce_no_products_found'           => array(
+			'poocommerce_no_products_found'           => array(
 				'block_names'                 => array( 'core/query-no-results' ),
 				'position'                    => 'before',
 				'hooked'                      => array(
@@ -266,12 +266,12 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 					'wc_no_products_found',
 				),
 			),
-			'woocommerce_archive_description'         => array(
+			'poocommerce_archive_description'         => array(
 				'block_names' => array( 'core/term-description' ),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_taxonomy_archive_description' => 10,
-					'woocommerce_product_archive_description'  => 10,
+					'poocommerce_taxonomy_archive_description' => 10,
+					'poocommerce_product_archive_description'  => 10,
 				),
 			),
 		);
@@ -327,7 +327,7 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 	private function is_block_within_namespace( $block ) {
 		$attributes = $block['attrs'];
 
-		return isset( $attributes['__woocommerceNamespace'] ) && 'woocommerce/product-query/product-template' === $attributes['__woocommerceNamespace'];
+		return isset( $attributes['__poocommerceNamespace'] ) && 'poocommerce/product-query/product-template' === $attributes['__poocommerceNamespace'];
 	}
 
 	/**
@@ -371,7 +371,7 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 	 * @param string $block_name Block name.
 	 */
 	private function is_product_template( $block_name ) {
-		return 'woocommerce/product-template' === $block_name;
+		return 'poocommerce/product-template' === $block_name;
 	}
 
 	/**
@@ -391,7 +391,7 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 	private function is_products_block_with_inherit_query( $block ) {
 		return 'core/query' === $block['blockName'] &&
 		isset( $block['attrs']['namespace'] ) &&
-		'woocommerce/product-query' === $block['attrs']['namespace'] &&
+		'poocommerce/product-query' === $block['attrs']['namespace'] &&
 		isset( $block['attrs']['query']['inherit'] ) &&
 		$block['attrs']['query']['inherit'];
 	}
@@ -402,7 +402,7 @@ class ArchiveProductTemplatesCompatibility extends AbstractTemplateCompatibility
 	 * @param array $block Parsed block data.
 	 */
 	private function is_product_collection_block_with_inherit_query( $block ) {
-		return 'woocommerce/product-collection' === $block['blockName'] &&
+		return 'poocommerce/product-collection' === $block['blockName'] &&
 		isset( $block['attrs']['query']['inherit'] ) &&
 		$block['attrs']['query']['inherit'];
 	}

@@ -3,17 +3,17 @@
  * ContractLock - a held per-contract lock, as returned by {@see Contracts::lock()},
  * {@see Contracts::create()} and the due dispatcher.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use LogicException;
 use Serializable;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractLockState;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -62,7 +62,7 @@ final class ContractLock implements Serializable {
 	 */
 	public function __construct( int $contract_id, string $operation, string $token ) {
 		if ( ! self::is_called_by_repository() ) {
-			_doing_it_wrong( __METHOD__, esc_html__( 'Take a contract lock with Contracts::lock() or Contracts::create(); a lock built from a stored token bypasses the lock lifetime.', 'woocommerce' ), '0.0.1' );
+			_doing_it_wrong( __METHOD__, esc_html__( 'Take a contract lock with Contracts::lock() or Contracts::create(); a lock built from a stored token bypasses the lock lifetime.', 'poocommerce' ), '0.0.1' );
 		}
 
 		$this->contract_id = $contract_id;
@@ -90,7 +90,7 @@ final class ContractLock implements Serializable {
 	 */
 	public function get_state(): ContractLockState {
 		if ( ! self::is_called_by_repository() ) {
-			_doing_it_wrong( __METHOD__, esc_html__( 'The lock state is engine-only; pass the lock to Contracts write methods instead.', 'woocommerce' ), '0.0.1' );
+			_doing_it_wrong( __METHOD__, esc_html__( 'The lock state is engine-only; pass the lock to Contracts write methods instead.', 'poocommerce' ), '0.0.1' );
 		}
 
 		return $this->state;

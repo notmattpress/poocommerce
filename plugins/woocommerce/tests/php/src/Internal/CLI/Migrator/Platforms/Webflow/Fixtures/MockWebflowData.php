@@ -2,12 +2,12 @@
 /**
  * Mock Webflow API response data for use in unit tests.
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures;
 
 /**
  * Canned Webflow API payloads used across mapper/fetcher tests.

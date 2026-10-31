@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared helpers for WooCommerce domain abilities.
+ * Shared helpers for PooCommerce domain abilities.
  */
 trait DomainAbilityHelpers {
 
@@ -29,22 +29,22 @@ trait DomainAbilityHelpers {
 					'type'        => 'array',
 					'description' => sprintf(
 						/* translators: %s: Collection key, such as products or orders. */
-						__( 'Returned %s for the current page.', 'woocommerce' ),
+						__( 'Returned %s for the current page.', 'poocommerce' ),
 						$collection_key
 					),
 					'items'       => $item_schema,
 				),
 				'total_pages'   => array(
 					'type'        => 'integer',
-					'description' => __( 'Total number of result pages available for the current query.', 'woocommerce' ),
+					'description' => __( 'Total number of result pages available for the current query.', 'poocommerce' ),
 				),
 				'page'          => array(
 					'type'        => 'integer',
-					'description' => __( 'Current result page.', 'woocommerce' ),
+					'description' => __( 'Current result page.', 'poocommerce' ),
 				),
 				'per_page'      => array(
 					'type'        => 'integer',
-					'description' => __( 'Maximum number of items requested per page.', 'woocommerce' ),
+					'description' => __( 'Maximum number of items requested per page.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

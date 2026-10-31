@@ -1,20 +1,20 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Product;
 use WC_Helper_Product;
 
@@ -76,7 +76,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_stock_notificationmeta" );
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_stock_notifications" );
 		$this->restore_stock_notifications_feature_option();
-		remove_all_filters( 'woocommerce_customer_stock_notifications_product_is_valid' );
+		remove_all_filters( 'poocommerce_customer_stock_notifications_product_is_valid' );
 		parent::tearDown();
 	}
 
@@ -424,8 +424,8 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_marks_sent_only_when_email_is_sent( bool $email_enabled, bool $wp_mail_result, string $expected_status, int $expected_sent, int $expected_failed ): void {
 		// Batch size 1 keeps the cycle state around after the first run, so the counters can be inspected.
-		add_filter( 'woocommerce_customer_stock_notifications_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
+		add_filter( 'poocommerce_customer_stock_notifications_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
 		$this->wp_mail_result = $wp_mail_result;
 
 		$product      = WC_Helper_Product::create_simple_product();
@@ -511,7 +511,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_multiple_batches() {
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}
@@ -594,7 +594,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	public function test_process_batch_skipped() {
 
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}
@@ -707,7 +707,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 
 		add_filter(
-			'woocommerce_customer_stock_notifications_product_is_valid',
+			'poocommerce_customer_stock_notifications_product_is_valid',
 			function () {
 				throw new \RuntimeException( 'Callback failed.' );
 			}

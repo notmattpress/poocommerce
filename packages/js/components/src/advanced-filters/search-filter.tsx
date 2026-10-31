@@ -158,7 +158,7 @@ class SearchFilter extends Component< SearchFilterProps, SearchFilterState > {
 					__next40pxDefaultSize
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -172,7 +172,7 @@ class SearchFilter extends Component< SearchFilterProps, SearchFilterState > {
 				<Search
 					className={ clsx(
 						className,
-						'woocommerce-filters-advanced__input'
+						'poocommerce-filters-advanced__input'
 					) }
 					onChange={ this.onSearchChange }
 					type={ input.type as SearchType }
@@ -190,7 +190,7 @@ class SearchFilter extends Component< SearchFilterProps, SearchFilterState > {
 
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex={ 0 }
 			>
 				<legend className="screen-reader-text">
@@ -198,7 +198,7 @@ class SearchFilter extends Component< SearchFilterProps, SearchFilterState > {
 				</legend>
 				<div
 					className={ clsx(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

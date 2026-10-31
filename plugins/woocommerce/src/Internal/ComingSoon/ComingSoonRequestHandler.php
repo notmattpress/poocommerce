@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Internal\ComingSoon;
 
 use Automattic\Jetpack\Constants;
 
@@ -153,19 +153,19 @@ class ComingSoonRequestHandler {
 		 * The candidate list is empty because WordPress's template hierarchy is not searched here.
 		 */
 		/** This filter is documented in wp-includes/template.php */
-		$selected = apply_filters( 'coming-soon_template', $selected, 'coming-soon', array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores, WooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress names and documents this hook.
+		$selected = apply_filters( 'coming-soon_template', $selected, 'coming-soon', array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores, PooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress names and documents this hook.
 		if ( ! is_string( $selected ) || ! is_file( $selected ) || ! is_readable( $selected ) ) {
 			// Never fall back to protected content when a template override cannot be loaded.
 			return '';
 		}
 
 		wp_enqueue_style(
-			'woocommerce-coming-soon-classic',
+			'poocommerce-coming-soon-classic',
 			WC()->plugin_url() . '/assets/css/coming-soon-classic.css',
 			array(),
 			Constants::get_constant( 'WC_VERSION' )
 		);
-		wp_style_add_data( 'woocommerce-coming-soon-classic', 'rtl', 'replace' );
+		wp_style_add_data( 'poocommerce-coming-soon-classic', 'rtl', 'replace' );
 		$this->add_coming_soon_meta();
 
 		// WordPress copies the product query var, a slug, into $product. Theme code expects a WC_Product or nothing.
@@ -217,7 +217,7 @@ class ComingSoonRequestHandler {
 	 */
 	private function decide_show_coming_soon() {
 		// Early exit if the user is logged in as administrator / shop manager.
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			return false;
 		}
 
@@ -238,19 +238,19 @@ class ComingSoonRequestHandler {
 		 *
 		 * @param bool $is_excluded If the request should be excluded from Coming soon mode. Defaults to false.
 		 */
-		if ( apply_filters( 'woocommerce_coming_soon_exclude', false ) ) {
+		if ( apply_filters( 'poocommerce_coming_soon_exclude', false ) ) {
 			return false;
 		}
 
 		// Check if the private link option is enabled.
-		if ( get_option( 'woocommerce_private_link' ) === 'yes' ) {
+		if ( get_option( 'poocommerce_private_link' ) === 'yes' ) {
 			// Exclude users with a private link.
-			if ( isset( $_GET['woo-share'] ) && get_option( 'woocommerce_share_key' ) === $_GET['woo-share'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( isset( $_GET['woo-share'] ) && get_option( 'poocommerce_share_key' ) === $_GET['woo-share'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// Persist the share link with a cookie for 90 days.
 				setcookie( 'woo-share', sanitize_text_field( wp_unslash( $_GET['woo-share'] ) ), time() + 60 * 60 * 24 * 90, '/' ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return false;
 			}
-			if ( isset( $_COOKIE['woo-share'] ) && get_option( 'woocommerce_share_key' ) === $_COOKIE['woo-share'] ) {
+			if ( isset( $_COOKIE['woo-share'] ) && get_option( 'poocommerce_share_key' ) === $_COOKIE['woo-share'] ) {
 				return false;
 			}
 		}
@@ -329,7 +329,7 @@ class ComingSoonRequestHandler {
 			),
 		);
 
-		// Add WooCommerce fonts if they don't already exist.
+		// Add PooCommerce fonts if they don't already exist.
 		foreach ( $fonts_to_add as $font_to_add ) {
 			$found      = false;
 			$slug_index = null;
@@ -432,7 +432,7 @@ class ComingSoonRequestHandler {
 	 */
 	public function enqueue_styles() {
 		// Early exit if the user is not logged in as administrator / shop manager.
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -441,7 +441,7 @@ class ComingSoonRequestHandler {
 		}
 
 		wp_enqueue_style(
-			'woocommerce-coming-soon',
+			'poocommerce-coming-soon',
 			WC()->plugin_url() . '/assets/css/coming-soon' . ( is_rtl() ? '-rtl' : '' ) . '.css',
 			array(),
 			Constants::get_constant( 'WC_VERSION' )

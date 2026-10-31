@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce products query ability.
+ * Registers the PooCommerce products query ability.
  */
 class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -30,7 +30,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/products-query';
+		return 'poocommerce/products-query';
 	}
 
 	/**
@@ -42,12 +42,12 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query products', 'woocommerce' ),
+			'label'               => __( 'Query products', 'poocommerce' ),
 			'description'         => __(
 				'Find products by ID or common catalog filters.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_collection_output_schema( 'products', self::get_product_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -78,8 +78,8 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	public static function execute( array $input ) {
 		if ( ! empty( $input['id'] ) && ! empty( $input['filters'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_filters_with_id',
-				__( 'Send either an id or filters, not both.', 'woocommerce' ),
+				'poocommerce_ability_filters_with_id',
+				__( 'Send either an id or filters, not both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -93,8 +93,8 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 
 			if ( $product->is_type( ProductType::VARIATION ) ) {
 				return new \WP_Error(
-					'woocommerce_product_type_unsupported',
-					__( 'Product type is not supported by this ability.', 'woocommerce' ),
+					'poocommerce_product_type_unsupported',
+					__( 'Product type is not supported by this ability.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -191,7 +191,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 				'search'             => array( 'type' => 'string' ),
 				'sku'                => array(
 					'type'        => 'string',
-					'description' => __( 'Limit results to products with SKUs that partially match this string. Use * to match products with any non-empty SKU.', 'woocommerce' ),
+					'description' => __( 'Limit results to products with SKUs that partially match this string. Use * to match products with any non-empty SKU.', 'poocommerce' ),
 				),
 				'status'             => array(
 					'type' => 'string',
@@ -201,7 +201,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 					'type'        => 'string',
 					'description' => __(
 						'Filter by supported agent-facing product type alias. physical maps to simple shippable, non-downloadable products; virtual maps to simple non-shipping, non-downloadable products; digital maps to simple virtual/downloadable products; affiliate maps to the external product type; grouped maps to grouped.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'enum'        => self::get_supported_product_type_aliases(),
 				),

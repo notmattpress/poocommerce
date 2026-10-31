@@ -3,7 +3,7 @@
  */
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useShippingData, useStoreCart } from '@woocommerce/base-context/hooks';
+import { useShippingData, useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -14,10 +14,10 @@ import {
 	generateShippingRate,
 } from '../../../../../mocks/shipping-package';
 
-jest.mock( '@woocommerce/base-context/hooks' );
+jest.mock( '@poocommerce/base-context/hooks' );
 
 // getting rid of the slot fill
-jest.mock( '@woocommerce/blocks-checkout', () => {
+jest.mock( '@poocommerce/blocks-checkout', () => {
 	const PassthroughComponent = ( {
 		children,
 	}: {
@@ -35,8 +35,8 @@ jest.mock( '@woocommerce/blocks-checkout', () => {
 // Can't rely on setting it through allSettings.collectableMethodIds = [...]
 // as getSettings is used when the module is initialized (so before attempts
 // to overwrite setting in beforeEach/All)
-jest.mock( '@woocommerce/settings', () => {
-	const actualModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const actualModule = jest.requireActual( '@poocommerce/settings' );
 	return {
 		...actualModule,
 		getSetting: ( name: string, ...rest: unknown[] ) => {
@@ -50,7 +50,7 @@ jest.mock( '@woocommerce/settings', () => {
 } );
 
 ( useStoreCart as jest.Mock ).mockImplementation( () =>
-	jest.requireActual( '@woocommerce/base-context/hooks' ).useStoreCart()
+	jest.requireActual( '@poocommerce/base-context/hooks' ).useStoreCart()
 );
 
 const testPackageData = generateShippingPackage( {

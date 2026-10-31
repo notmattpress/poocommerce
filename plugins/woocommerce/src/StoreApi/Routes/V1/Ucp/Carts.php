@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
 /**
  * UCP `POST /carts` route.
@@ -45,7 +45,7 @@ class Carts extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'line_items' => array(
-						'description' => __( 'Items to put in the new cart.', 'woocommerce' ),
+						'description' => __( 'Items to put in the new cart.', 'poocommerce' ),
 						'type'        => 'array',
 					),
 				),
@@ -88,7 +88,7 @@ class Carts extends AbstractCartRoute {
 		if ( '' === $cart_id ) {
 			return $this->ucp_error(
 				'TRANSPORT_ERROR',
-				__( 'The cart session could not be created.', 'woocommerce' ),
+				__( 'The cart session could not be created.', 'poocommerce' ),
 				'recoverable',
 				500
 			);

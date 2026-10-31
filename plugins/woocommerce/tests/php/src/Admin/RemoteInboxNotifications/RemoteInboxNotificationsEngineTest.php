@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Tests\Admin\RemoteInboxNotifications;
 
 use ActionScheduler;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Action_Queue;
 use WC_Queue;
 use WC_Queue_Interface;
@@ -18,24 +18,24 @@ use WP_Error;
 /**
  * Tests for upgrade-triggered remote inbox scheduling and withdrawn alert reconciliation.
  *
- * @covers \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine
+ * @covers \Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine
  */
 class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 
 	/**
 	 * The upgrade action hook.
 	 */
-	private const HOOK = 'woocommerce_run_on_woocommerce_admin_updated';
+	private const HOOK = 'poocommerce_run_on_poocommerce_admin_updated';
 
 	/**
 	 * The engine's action group.
 	 */
-	private const GROUP = 'woocommerce-remote-inbox-engine';
+	private const GROUP = 'poocommerce-remote-inbox-engine';
 
 	/**
 	 * Transient holding the latest complete feed read.
 	 */
-	private const SNAPSHOT_TRANSIENT = 'woocommerce_admin_remote_inbox_notifications_published_snapshot';
+	private const SNAPSHOT_TRANSIENT = 'poocommerce_admin_remote_inbox_notifications_published_snapshot';
 
 	/**
 	 * Initialize only the engine's update listener. The parent restores hooks and database fixtures.
@@ -54,7 +54,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 		foreach ( $action_ids as $action_id ) {
 			$store->delete_action( $action_id );
 		}
-		remove_all_actions( 'woocommerce_updated' );
+		remove_all_actions( 'poocommerce_updated' );
 		RemoteInboxNotificationsEngine::init();
 	}
 
@@ -256,7 +256,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	private function fire_updates(): void {
 		for ( $i = 0; $i < 10; $i++ ) {
-			do_action( 'woocommerce_updated' );
+			do_action( 'poocommerce_updated' );
 		}
 	}
 
@@ -280,16 +280,16 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A complete feed read hides only unactioned WooCommerce.com alerts it no longer contains.
+	 * @testdox A complete feed read hides only unactioned PooCommerce.com alerts it no longer contains.
 	 */
 	public function test_run_hides_only_withdrawn_remote_alerts(): void {
 		$published   = $this->create_note( 'remote-alert-published' );
 		$withdrawn   = $this->create_note( 'remote-alert-withdrawn' );
-		$error       = $this->create_note( 'remote-error-withdrawn', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_ERROR );
-		$local       = $this->create_note( 'local-alert', 'woocommerce' );
-		$information = $this->create_note( 'remote-information', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
-		$actioned    = $this->create_note( 'remote-alert-actioned', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_ACTIONED );
-		$snoozed     = $this->create_note( 'remote-alert-snoozed', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_SNOOZED );
+		$error       = $this->create_note( 'remote-error-withdrawn', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_ERROR );
+		$local       = $this->create_note( 'local-alert', 'poocommerce' );
+		$information = $this->create_note( 'remote-information', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
+		$actioned    = $this->create_note( 'remote-alert-actioned', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_ACTIONED );
+		$snoozed     = $this->create_note( 'remote-alert-snoozed', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_SNOOZED );
 		$deleted     = $this->create_note( 'remote-alert-deleted' );
 		$deleted->set_is_deleted( true );
 		$deleted->save();
@@ -324,9 +324,9 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	public function test_run_does_not_hide_alerts_newer_than_the_published_snapshot(): void {
 		$fetched_at       = time() - 2 * HOUR_IN_SECONDS;
-		$after_read       = $this->create_note( 'remote-alert-after-read', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at + 60 );
-		$shortly_before   = $this->create_note( 'remote-alert-shortly-before-read', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at - 30 * MINUTE_IN_SECONDS );
-		$well_before_read = $this->create_note( 'remote-alert-well-before-read', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at - 2 * HOUR_IN_SECONDS );
+		$after_read       = $this->create_note( 'remote-alert-after-read', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at + 60 );
+		$shortly_before   = $this->create_note( 'remote-alert-shortly-before-read', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at - 30 * MINUTE_IN_SECONDS );
+		$well_before_read = $this->create_note( 'remote-alert-well-before-read', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_UNACTIONED, $fetched_at - 2 * HOUR_IN_SECONDS );
 		$this->arrange_feed( array( $this->create_spec( 'remote-alert-published' ) ), $fetched_at );
 
 		RemoteInboxNotificationsEngine::run();
@@ -401,7 +401,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	public function test_republished_alert_returns_without_undoing_merchant_actions(): void {
 		$withdrawn = $this->create_note( 'remote-alert-withdrawn' );
-		$dismissed = $this->create_note( 'remote-alert-dismissed', 'woocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_ACTIONED );
+		$dismissed = $this->create_note( 'remote-alert-dismissed', 'poocommerce.com', Note::E_WC_ADMIN_NOTE_UPDATE, Note::E_WC_ADMIN_NOTE_ACTIONED );
 		$this->arrange_feed( array( $this->create_spec( 'remote-alert-published' ) ), time() );
 		RemoteInboxNotificationsEngine::run();
 		$this->assertSame( Note::E_WC_ADMIN_NOTE_PENDING, $this->get_status( $withdrawn ) );
@@ -524,7 +524,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 				}
 			)
 		);
-		add_filter( 'woocommerce_logging_class', static fn() => $logger );
+		add_filter( 'poocommerce_logging_class', static fn() => $logger );
 
 		RemoteInboxNotificationsEngine::run();
 		RemoteInboxNotificationsEngine::run();
@@ -540,7 +540,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	private function arrange_feed( array $specs, ?int $fetched_at ): void {
 		$keyed_specs = array_column( $specs, null, 'slug' );
-		set_transient( 'woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs', array( get_user_locale() => $keyed_specs ), DAY_IN_SECONDS );
+		set_transient( 'poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs', array( get_user_locale() => $keyed_specs ), DAY_IN_SECONDS );
 
 		if ( null === $fetched_at ) {
 			delete_transient( self::SNAPSHOT_TRANSIENT );
@@ -580,7 +580,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 */
 	private function create_note(
 		string $name,
-		string $source = 'woocommerce.com',
+		string $source = 'poocommerce.com',
 		string $type = Note::E_WC_ADMIN_NOTE_UPDATE,
 		string $status = Note::E_WC_ADMIN_NOTE_UNACTIONED,
 		int $date_created = 0
@@ -617,7 +617,7 @@ class RemoteInboxNotificationsEngineTest extends WC_Unit_Test_Case {
 	 * @param string|null $source Spec source, or null to omit it.
 	 * @return object Remote spec.
 	 */
-	private function create_spec( string $slug, ?string $source = 'woocommerce.com' ): object {
+	private function create_spec( string $slug, ?string $source = 'poocommerce.com' ): object {
 		$spec = (object) array(
 			'slug'    => $slug,
 			'status'  => Note::E_WC_ADMIN_NOTE_UNACTIONED,

@@ -10,8 +10,8 @@ import {
 	InspectorControls,
 } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
-import { useProduct } from '@woocommerce/entities';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
+import { useProduct } from '@poocommerce/entities';
 import {
 	Disabled,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -43,13 +43,13 @@ function WidthPanel( {
 } ) {
 	return (
 		<ToolsPanel
-			label={ __( 'Width settings', 'woocommerce' ) }
+			label={ __( 'Width settings', 'poocommerce' ) }
 			resetAll={ () =>
 				setAttributes( { width: DEFAULT_ATTRIBUTES.width } )
 			}
 		>
 			<ToolsPanelItem
-				label={ __( 'Button width', 'woocommerce' ) }
+				label={ __( 'Button width', 'poocommerce' ) }
 				hasValue={ () => selectedWidth !== DEFAULT_ATTRIBUTES.width }
 				onDeselect={ () =>
 					setAttributes( { width: DEFAULT_ATTRIBUTES.width } )
@@ -60,7 +60,7 @@ function WidthPanel( {
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
 					hideLabelFromVision
-					label={ __( 'Button width', 'woocommerce' ) }
+					label={ __( 'Button width', 'poocommerce' ) }
 					value={ selectedWidth }
 					isDeselectable
 					onChange={ ( value?: number ) =>

@@ -2,34 +2,34 @@
 /**
  * Integration tests for the DueDispatcher (find, lock, notify).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Dispatch;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Dispatch;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use EngineIntegrationTestCase;
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
  */
 class DueDispatcherTest extends EngineIntegrationTestCase {
 
 	private const OWNER = 'engine-tests';
 
-	private const SCHEDULE_CHECK_OPTION = 'woocommerce_subscriptions_engine_due_dispatch_scheduled_check';
+	private const SCHEDULE_CHECK_OPTION = 'poocommerce_subscriptions_engine_due_dispatch_scheduled_check';
 
 	/**
 	 * The System Under Test.
@@ -615,7 +615,7 @@ class DueDispatcherTest extends EngineIntegrationTestCase {
 		// The booted engine registers its own dispatcher; route the tick only to the SUT.
 		remove_all_actions( DueDispatcher::HOOK );
 		$this->sut->register_hooks();
-		do_action( DueDispatcher::HOOK ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( DueDispatcher::HOOK ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertCount( 1, $this->calls );
 	}

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Tour In-App Marketplace task
@@ -25,7 +25,7 @@ class TourInAppMarketplace extends Task {
 	public function get_title() {
 		return __(
 			'Discover ways of extending your store with a tour of the Woo Marketplace',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -53,7 +53,7 @@ class TourInAppMarketplace extends Task {
 	 * @return bool
 	 */
 	public function is_complete() {
-		return get_option( 'woocommerce_admin_dismissed_in_app_marketplace_tour' ) === 'yes';
+		return get_option( 'poocommerce_admin_dismissed_in_app_marketplace_tour' ) === 'yes';
 	}
 
 	/**

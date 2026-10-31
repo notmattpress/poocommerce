@@ -2,16 +2,16 @@
 /**
  * Entire-site Coming Soon document for classic themes.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/coming-soon/coming-soon-entire-site.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/coming-soon/coming-soon-entire-site.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 11.4.0
  */
 
@@ -28,25 +28,25 @@ defined( 'ABSPATH' ) || exit;
 	<?php endif; ?>
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class( 'woocommerce-coming-soon-classic-page' ); ?>>
+<body <?php body_class( 'poocommerce-coming-soon-classic-page' ); ?>>
 <?php wp_body_open(); ?>
-<div class="woocommerce-coming-soon-classic woocommerce-coming-soon-classic--entire-site">
-	<header class="woocommerce-coming-soon-classic__header">
-		<div class="woocommerce-coming-soon-classic__identity">
+<div class="poocommerce-coming-soon-classic poocommerce-coming-soon-classic--entire-site">
+	<header class="poocommerce-coming-soon-classic__header">
+		<div class="poocommerce-coming-soon-classic__identity">
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php endif; ?>
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a>
 		</div>
-		<a class="woocommerce-coming-soon-classic__login button" href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Log in', 'woocommerce' ); ?></a>
+		<a class="poocommerce-coming-soon-classic__login button" href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Log in', 'poocommerce' ); ?></a>
 	</header>
-	<main class="woocommerce-coming-soon-classic__content">
-		<h1 class="woocommerce-coming-soon-banner">
+	<main class="poocommerce-coming-soon-classic__content">
+		<h1 class="poocommerce-coming-soon-banner">
 			<?php
 			echo esc_html(
 				sprintf(
 					/* translators: %s is the site name. */
-					__( '%s is coming soon', 'woocommerce' ),
+					__( '%s is coming soon', 'poocommerce' ),
 					get_bloginfo( 'name' )
 				)
 			);

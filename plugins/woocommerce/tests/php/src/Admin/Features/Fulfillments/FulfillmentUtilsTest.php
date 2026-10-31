@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\USPSShippingProvider;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\USPSShippingProvider;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 
 /**
  * FulfillmentUtilsTest class.
@@ -18,7 +18,7 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	private function register_known_provider(): void {
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) {
 				$providers[] = new USPSShippingProvider();
 				return $providers;
@@ -37,9 +37,9 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -49,9 +49,9 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -61,9 +61,9 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_fulfillment_statuses_extension() {
 		add_filter(
-			'woocommerce_fulfillment_order_fulfillment_statuses',
+			'poocommerce_fulfillment_order_fulfillment_statuses',
 			function ( $statuses ) {
-				$statuses['custom_status'] = __( 'Custom Status', 'woocommerce' );
+				$statuses['custom_status'] = __( 'Custom Status', 'poocommerce' );
 				return $statuses;
 			}
 		);
@@ -84,10 +84,10 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_fulfillment_statuses() {
 		add_filter(
-			'woocommerce_fulfillment_fulfillment_statuses',
+			'poocommerce_fulfillment_fulfillment_statuses',
 			function ( $statuses ) {
 				$statuses['custom_status'] = array(
-					'label'            => __( 'Custom Status', 'woocommerce' ),
+					'label'            => __( 'Custom Status', 'poocommerce' ),
 					'is_fulfilled'     => false,
 					'background_color' => '#f0f0f0',
 					'text_color'       => '#000000',
@@ -322,7 +322,7 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox get_provider_display_name passes the resolved label through the woocommerce_fulfillment_shipment_provider_label filter.
+	 * @testdox get_provider_display_name passes the resolved label through the poocommerce_fulfillment_shipment_provider_label filter.
 	 */
 	public function test_get_provider_display_name_applies_label_filter(): void {
 		$this->register_known_provider();
@@ -342,7 +342,7 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 		$reloaded = new Fulfillment( $fulfillment->get_id() );
 
 		add_filter(
-			'woocommerce_fulfillment_shipment_provider_label',
+			'poocommerce_fulfillment_shipment_provider_label',
 			static function ( $label ) {
 				return $label . ' (via API)';
 			}
@@ -372,7 +372,7 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 		$reloaded = new Fulfillment( $fulfillment->get_id() );
 
 		add_filter(
-			'woocommerce_fulfillment_shipment_provider_label',
+			'poocommerce_fulfillment_shipment_provider_label',
 			static function () {
 				return array( 'unexpected' );
 			}

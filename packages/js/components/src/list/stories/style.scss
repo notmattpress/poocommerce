@@ -3,18 +3,18 @@
 	border-radius: 2px;
 	padding: 0;
 
-	.woocommerce-list__item {
+	.poocommerce-list__item {
 		&:not(:first-child) {
 			border-top: 1px solid $gray-200;
 		}
 
-		.woocommerce-list__item-before {
+		.poocommerce-list__item-before {
 			.gridicon {
 				fill: $studio-pink;
 			}
 		}
 
-		.woocommerce-list__item-title {
+		.poocommerce-list__item-title {
 			color: $studio-pink;
 		}
 	}

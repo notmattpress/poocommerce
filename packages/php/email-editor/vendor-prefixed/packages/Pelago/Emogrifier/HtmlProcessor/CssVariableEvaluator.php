@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\HtmlProcessor;
+namespace Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\HtmlProcessor;
 
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\DeclarationBlockParser;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
 
 /**
  * This class can evaluate CSS custom properties that are defined and used in inline style attributes.

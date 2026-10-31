@@ -8,13 +8,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\EmailImprovements\EmailImprovements as EmailImprovementsFeature;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\EmailImprovements\EmailImprovements as EmailImprovementsFeature;
 /**
  * EmailImprovements
  */
@@ -48,14 +48,14 @@ class EmailImprovements {
 	 */
 	private static function get_email_improvements_enabled_note() {
 		$note = new Note();
-		$note->set_title( __( 'Your store emails have had an upgrade!', 'woocommerce' ) );
-		$note->set_content( __( 'We’ve made some exciting improvements to your email templates, including modern, shopper-friendly designs and new customization options. And if you’re using a block theme, you can automatically sync your theme styles! Head to your email settings to explore the new changes.', 'woocommerce' ) );
+		$note->set_title( __( 'Your store emails have had an upgrade!', 'poocommerce' ) );
+		$note->set_content( __( 'We’ve made some exciting improvements to your email templates, including modern, shopper-friendly designs and new customization options. And if you’re using a block theme, you can automatically sync your theme styles! Head to your email settings to explore the new changes.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'customize-your-emails',
-			__( 'Customize your emails', 'woocommerce' ),
+			__( 'Customize your emails', 'poocommerce' ),
 			'?page=wc-settings&tab=email'
 		);
 		return $note;
@@ -68,14 +68,14 @@ class EmailImprovements {
 	 */
 	private static function get_try_email_improvements_note() {
 		$note = new Note();
-		$note->set_title( __( 'Store emails have had an upgrade!', 'woocommerce' ) );
-		$note->set_content( __( 'We’ve made some exciting improvements to our email templates, including modern, shopper-friendly designs and new customization options. And if you’re using a block theme, you can automatically sync your theme styles! Head to your email settings to explore the new features.', 'woocommerce' ) );
+		$note->set_title( __( 'Store emails have had an upgrade!', 'poocommerce' ) );
+		$note->set_content( __( 'We’ve made some exciting improvements to our email templates, including modern, shopper-friendly designs and new customization options. And if you’re using a block theme, you can automatically sync your theme styles! Head to your email settings to explore the new features.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'try-the-new-templates',
-			__( 'Try the new templates', 'woocommerce' ),
+			__( 'Try the new templates', 'poocommerce' ),
 			'?page=wc-settings&tab=email&try-new-templates'
 		);
 		return $note;

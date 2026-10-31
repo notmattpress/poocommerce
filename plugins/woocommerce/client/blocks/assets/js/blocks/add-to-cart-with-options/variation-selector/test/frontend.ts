@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import type { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -45,11 +45,11 @@ const mockProductsState = {
 };
 
 const mockStore = jest.fn( ( namespace, definition ) => {
-	if ( namespace === 'woocommerce/products' ) {
+	if ( namespace === 'poocommerce/products' ) {
 		return { state: mockProductsState };
 	}
 
-	if ( namespace === 'woocommerce/add-to-cart-with-options' ) {
+	if ( namespace === 'poocommerce/add-to-cart-with-options' ) {
 		if ( definition?.state ) {
 			Object.defineProperties(
 				mockAddToCartStore.state,
@@ -74,7 +74,7 @@ jest.mock(
 	() => ( {
 		store: mockStore,
 		getContext: jest.fn( ( namespace?: string ) =>
-			namespace === 'woocommerce/products'
+			namespace === 'poocommerce/products'
 				? mockProductContext
 				: mockContext
 		),
@@ -84,7 +84,7 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ) );
 
 const getRegisteredStore = (): RegisteredStore => {
 	if ( ! mockRegisteredStore ) {

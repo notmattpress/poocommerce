@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Product Usage Rule.
+ * PooCommerce Product Usage Rule.
  *
- * This class defines the DTO for passing product feature restriction rules to WooCommerce extensions.
+ * This class defines the DTO for passing product feature restriction rules to PooCommerce extensions.
  *
- * @package WooCommerce\Admin\ProductUsage
+ * @package PooCommerce\Admin\ProductUsage
  */
 
 declare( strict_types = 1 );

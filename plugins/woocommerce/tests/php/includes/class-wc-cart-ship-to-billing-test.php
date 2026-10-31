@@ -2,7 +2,7 @@
 /**
  * Tests for forced billing deciding whether a separate shipping address is collected.
  *
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 
 declare( strict_types = 1 );
@@ -43,7 +43,7 @@ class WC_Cart_Ship_To_Billing_Test extends WC_Unit_Test_Case {
 	 * @testdox A cart that needs shipping asks for a shipping address when the destination is the shipping address.
 	 */
 	public function test_a_separate_shipping_address_is_asked_for_when_the_destination_is_shipping(): void {
-		update_option( 'woocommerce_ship_to_destination', 'shipping' );
+		update_option( 'poocommerce_ship_to_destination', 'shipping' );
 
 		$this->assertTrue( WC()->cart->needs_shipping(), 'The fixture cart should need shipping, or this proves nothing.' );
 		$this->assertTrue(
@@ -59,7 +59,7 @@ class WC_Cart_Ship_To_Billing_Test extends WC_Unit_Test_Case {
 	 * @testdox Forcing shipping to the billing address stops the cart asking for a separate one.
 	 */
 	public function test_forced_billing_stops_asking_for_a_shipping_address(): void {
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		$this->assertTrue( WC()->cart->needs_shipping(), 'The cart still needs shipping; only the address question changes.' );
 		$this->assertFalse(
@@ -75,7 +75,7 @@ class WC_Cart_Ship_To_Billing_Test extends WC_Unit_Test_Case {
 	 * @testdox Defaulting to billing without forcing still asks for a shipping address.
 	 */
 	public function test_defaulting_to_billing_without_forcing_still_asks(): void {
-		update_option( 'woocommerce_ship_to_destination', 'billing' );
+		update_option( 'poocommerce_ship_to_destination', 'billing' );
 
 		$this->assertTrue( WC()->cart->needs_shipping(), 'The cart should need shipping, or the address question below proves nothing.' );
 		$this->assertTrue(

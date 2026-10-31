@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperList;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperList;
 
 /**
  * GET /shopper-lists — collection of the current user's shopper lists.

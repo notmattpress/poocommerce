@@ -2,7 +2,7 @@
  * External dependencies
  */
 import moment from 'moment';
-import { getShortDateFormat } from '@woocommerce/date';
+import { getShortDateFormat } from '@poocommerce/date';
 import type { Reducer } from 'redux';
 
 /**

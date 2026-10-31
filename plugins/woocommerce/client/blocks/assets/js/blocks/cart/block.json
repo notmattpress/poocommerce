@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart",
+	"name": "poocommerce/cart",
 	"title": "Cart",
 	"description": "Shopping cart.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"align": [ "wide" ],
 		"html": false,
@@ -26,7 +26,7 @@
 			"type": "string"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

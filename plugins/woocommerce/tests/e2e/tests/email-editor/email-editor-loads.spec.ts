@@ -20,7 +20,7 @@ import { setOption } from '../../utils/options';
 const PREVIEW_IN_NEW_TAB = /^Preview (in new tab|\(opens in a new tab\))$/;
 
 test.describe(
-	'WooCommerce Email Editor Core',
+	'PooCommerce Email Editor Core',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -73,7 +73,7 @@ test.describe(
 				const verification = await setOption(
 					request,
 					baseURL,
-					'woocommerce_feature_block_email_editor_enabled',
+					'poocommerce_feature_block_email_editor_enabled',
 					'no'
 				);
 				// The e2e test-helper plugin answers a no-op option write with this
@@ -113,7 +113,7 @@ test.describe(
 					.locator( 'iframe[name="editor-canvas"]' )
 					.contentFrame()
 					.getByLabel( 'Block: Heading' )
-			).toContainText( `New order: #[woocommerce/order-number]` );
+			).toContainText( `New order: #[poocommerce/order-number]` );
 		} );
 
 		test( 'Can preview in new tab', async ( { page } ) => {
@@ -178,7 +178,7 @@ test.describe(
 					( candidate ) =>
 						candidate.request().method() === 'POST' &&
 						decodeURIComponent( candidate.url() ).includes(
-							'/woocommerce-email-editor/v1/send_preview_email'
+							'/poocommerce-email-editor/v1/send_preview_email'
 						)
 				),
 				sendButton.click(),
@@ -309,7 +309,7 @@ test.describe(
 			).toBeVisible();
 			await page
 				.locator(
-					'.woocommerce-personalization-tags-modal-category-group-item'
+					'.poocommerce-personalization-tags-modal-category-group-item'
 				)
 				.filter( { hasText: 'Payment URL' } )
 				.getByRole( 'button', { name: 'Set as URL' } )
@@ -327,7 +327,7 @@ test.describe(
 								.getSelectedBlock()?.attributes?.url
 					)
 				)
-				.toBe( '[woocommerce/order-payment-url]' );
+				.toBe( '[poocommerce/order-payment-url]' );
 		} );
 	}
 );

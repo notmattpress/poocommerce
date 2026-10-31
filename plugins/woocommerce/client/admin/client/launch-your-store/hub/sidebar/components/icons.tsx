@@ -21,7 +21,7 @@ export const taskIcons: Record< string, JSX.Element > = {
 	shipping,
 	'customize-store': brush,
 	payments: payment,
-	'woocommerce-payments': payment,
+	'poocommerce-payments': payment,
 	products: tag,
 	activePaymentStep: ActiveStep,
 	completedPaymentStep: CompletedStep,

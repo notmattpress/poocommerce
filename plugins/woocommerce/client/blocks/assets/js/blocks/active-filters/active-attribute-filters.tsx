@@ -5,17 +5,17 @@ import { useEffect } from '@wordpress/element';
 import {
 	useCollection,
 	useQueryStateByKey,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import {
 	AttributeObject,
 	AttributeTerm,
 	isAttributeQueryCollection,
 	isAttributeTermCollection,
 	isBoolean,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -99,7 +99,7 @@ const ActiveAttributeFilters = ( {
 					if ( index > 0 && operator === 'and' ) {
 						prefix = (
 							<span className="wc-block-active-filters__list-item-operator">
-								{ __( 'All', 'woocommerce' ) }
+								{ __( 'All', 'poocommerce' ) }
 							</span>
 						);
 					}

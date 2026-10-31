@@ -58,7 +58,7 @@ function ExistingCouponSettings( {
 
 	const handleCreateCoupon = () => {
 		const createCouponHandler = applyFilters(
-			'woocommerce_email_editor_create_coupon_handler',
+			'poocommerce_email_editor_create_coupon_handler',
 			() => {
 				window.open(
 					'/wp-admin/post-new.php?post_type=shop_coupon',
@@ -110,7 +110,7 @@ function ExistingCouponSettings( {
 					dispatch( 'core/notices' ).createErrorNotice(
 						__(
 							'You do not have permission to view coupons.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							id: 'coupon-code-permission-error',
@@ -162,13 +162,13 @@ function ExistingCouponSettings( {
 	}
 
 	return (
-		<PanelBody title={ __( 'Coupon', 'woocommerce' ) } initialOpen={ true }>
+		<PanelBody title={ __( 'Coupon', 'poocommerce' ) } initialOpen={ true }>
 			<div style={ { marginBottom: '16px' } }>
 				<div>
-					{ __( 'Search for an existing coupon', 'woocommerce' ) }
+					{ __( 'Search for an existing coupon', 'poocommerce' ) }
 				</div>
 				<ComboboxControl
-					label={ __( 'Search coupons', 'woocommerce' ) }
+					label={ __( 'Search coupons', 'poocommerce' ) }
 					hideLabelFromVision
 					value={ couponCode }
 					onChange={ ( value ) => {
@@ -184,7 +184,7 @@ function ExistingCouponSettings( {
 					__next40pxDefaultSize
 					help={ ( () => {
 						if ( isLoading ) {
-							return __( 'Searching coupons…', 'woocommerce' );
+							return __( 'Searching coupons…', 'poocommerce' );
 						}
 						if (
 							searchValue.length > 0 &&
@@ -192,7 +192,7 @@ function ExistingCouponSettings( {
 						) {
 							return __(
 								'Type at least 2 characters to search',
-								'woocommerce'
+								'poocommerce'
 							);
 						}
 						return null;
@@ -216,7 +216,7 @@ function ExistingCouponSettings( {
 					onClick={ handleCreateCoupon }
 					style={ { padding: 0, height: 'auto' } }
 				>
-					{ __( 'Create new coupon', 'woocommerce' ) }
+					{ __( 'Create new coupon', 'poocommerce' ) }
 				</Button>
 			</div>
 		</PanelBody>
@@ -313,21 +313,21 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Coupon source', 'woocommerce' ) }
+					title={ __( 'Coupon source', 'poocommerce' ) }
 					initialOpen={ true }
 				>
 					<SelectControl
-						label={ __( 'Coupon source', 'woocommerce' ) }
+						label={ __( 'Coupon source', 'poocommerce' ) }
 						hideLabelFromVision
 						value={ source }
 						options={ [
 							{
 								value: 'createNew',
-								label: __( 'Create new', 'woocommerce' ),
+								label: __( 'Create new', 'poocommerce' ),
 							},
 							{
 								value: 'existing',
-								label: __( 'Use existing', 'woocommerce' ),
+								label: __( 'Use existing', 'poocommerce' ),
 							},
 						] }
 						onChange={ ( value ) => {
@@ -378,7 +378,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 					{ displayCode ||
 						__(
 							'Coupon Code block – No coupon selected',
-							'woocommerce'
+							'poocommerce'
 						) }
 				</span>
 				{ source === 'createNew' && (
@@ -391,7 +391,7 @@ export default function Edit( props: BlockEditProps ): JSX.Element {
 					>
 						{ __(
 							'A coupon code will be automatically generated at send time.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				) }

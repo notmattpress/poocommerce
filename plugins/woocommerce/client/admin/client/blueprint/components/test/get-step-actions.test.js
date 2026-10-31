@@ -9,7 +9,7 @@ describe( 'getStepActions', () => {
 		const steps = [
 			{
 				step: 'setSiteOptions',
-				options: { woocommerce_store_address: '' },
+				options: { poocommerce_store_address: '' },
 			},
 		];
 

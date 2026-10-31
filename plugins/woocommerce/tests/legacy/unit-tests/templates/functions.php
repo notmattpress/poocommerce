@@ -2,11 +2,11 @@
 /**
  * Test template functions.
  *
- * @package WooCommerce\Tests\Templates
+ * @package PooCommerce\Tests\Templates
  * @since   3.4.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * WC_Tests_Template_Functions class.
@@ -51,7 +51,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( $expected, $actual, print_r( $actual, true ) );
 
 		// All taxonomies.
-		add_filter( 'woocommerce_get_product_class_include_taxonomies', '__return_true' );
+		add_filter( 'poocommerce_get_product_class_include_taxonomies', '__return_true' );
 		$expected = array(
 			'foo',
 			'product',
@@ -68,7 +68,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 		$actual   = array_values( wc_get_product_class( 'foo', $product ) );
 
 		$this->assertEquals( $expected, $actual, print_r( $actual, true ) );
-		add_filter( 'woocommerce_get_product_class_include_taxonomies', '__return_false' );
+		add_filter( 'poocommerce_get_product_class_include_taxonomies', '__return_false' );
 
 		$product->delete( true );
 		wp_delete_term( $category['term_id'], 'product_cat' );
@@ -269,7 +269,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 
 		// Include a payment gateway that supports "pay button".
 		add_filter(
-			'woocommerce_payment_gateways',
+			'poocommerce_payment_gateways',
 			function ( $gateways ) {
 				$gateways[] = 'WC_Mock_Payment_Gateway';
 
@@ -285,7 +285,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 
 		$gateway       = new WC_Mock_Payment_Gateway();
 		$expected_html = sprintf(
-			'<div class="woocommerce-pay-buttons"><div class="woocommerce-pay-button__%1$s %1$s" id="%1$s"></div></div>',
+			'<div class="poocommerce-pay-buttons"><div class="poocommerce-pay-button__%1$s %1$s" id="%1$s"></div></div>',
 			$gateway->get_pay_button_id()
 		);
 
@@ -340,14 +340,14 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 
 	/**
 	 * Calls wc_get_formatted_cart_item_data with the shared fixture hooked into
-	 * the woocommerce_get_item_data filter.
+	 * the poocommerce_get_item_data filter.
 	 *
 	 * @param bool $flat Whether to request flat output.
 	 * @return string
 	 */
 	private function get_formatted_cart_item_data_with_fixture( $flat ) {
 		$filter = array( $this, 'get_cart_item_data_fixture' );
-		add_filter( 'woocommerce_get_item_data', $filter );
+		add_filter( 'poocommerce_get_item_data', $filter );
 
 		try {
 			return wc_get_formatted_cart_item_data(
@@ -358,7 +358,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 				$flat
 			);
 		} finally {
-			remove_filter( 'woocommerce_get_item_data', $filter );
+			remove_filter( 'poocommerce_get_item_data', $filter );
 		}
 	}
 
@@ -393,7 +393,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	}
 
 	public function test_hidden_field() {
-		$actual_html   = woocommerce_form_field(
+		$actual_html   = poocommerce_form_field(
 			'test',
 			array(
 				'type'              => 'hidden',
@@ -404,7 +404,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 			),
 			'test value'
 		);
-		$expected_html = '<p class="form-row " id="test_field_field" data-priority=""><span class="woocommerce-input-wrapper"><input type="hidden" class="input-hidden test-field" name="test" id="test_field" value="test value" data-total="10" /></span></p>';
+		$expected_html = '<p class="form-row " id="test_field_field" data-priority=""><span class="poocommerce-input-wrapper"><input type="hidden" class="input-hidden test-field" name="test" id="test_field" value="test value" data-total="10" /></span></p>';
 
 		$this->assertEquals( $expected_html, $actual_html );
 	}
@@ -413,7 +413,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	 * Test: test_radio_not_required_field.
 	 */
 	public function test_radio_not_required_field() {
-		$actual_html = woocommerce_form_field(
+		$actual_html = poocommerce_form_field(
 			'test',
 			array(
 				'type'     => 'radio',
@@ -435,7 +435,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	 * Test: test_radio_required_field.
 	 */
 	public function test_radio_required_field() {
-		$actual_html   = woocommerce_form_field(
+		$actual_html   = poocommerce_form_field(
 			'test',
 			array(
 				'type'     => 'radio',
@@ -449,7 +449,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 			),
 			'1'
 		);
-		$expected_html = '<p class="form-row validate-required" id="test_radio_field" data-priority=""><span class="woocommerce-input-wrapper"><input type="radio" class="input-radio " value="1" name="test" aria-required="true" id="test_radio_1" checked=\'checked\' /><label for="test_radio_1" class="radio required_field">Option 1&nbsp;<span class="required" aria-hidden="true">*</span></label><input type="radio" class="input-radio " value="2" name="test" aria-required="true" id="test_radio_2" /><label for="test_radio_2" class="radio required_field">Option 2&nbsp;<span class="required" aria-hidden="true">*</span></label></span></p>';
+		$expected_html = '<p class="form-row validate-required" id="test_radio_field" data-priority=""><span class="poocommerce-input-wrapper"><input type="radio" class="input-radio " value="1" name="test" aria-required="true" id="test_radio_1" checked=\'checked\' /><label for="test_radio_1" class="radio required_field">Option 1&nbsp;<span class="required" aria-hidden="true">*</span></label><input type="radio" class="input-radio " value="2" name="test" aria-required="true" id="test_radio_2" /><label for="test_radio_2" class="radio required_field">Option 2&nbsp;<span class="required" aria-hidden="true">*</span></label></span></p>';
 
 		$this->assertEquals( $expected_html, $actual_html );
 	}
@@ -458,7 +458,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	 * Test: test_checkbox_not_required_field.
 	 */
 	public function test_checkbox_not_required_field() {
-		$actual_html = woocommerce_form_field(
+		$actual_html = poocommerce_form_field(
 			'test',
 			array(
 				'type'     => 'checkbox',
@@ -476,7 +476,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	 * Test: test_checkbox_required_field.
 	 */
 	public function test_checkbox_required_field() {
-		$actual_html   = woocommerce_form_field(
+		$actual_html   = poocommerce_form_field(
 			'test',
 			array(
 				'type'     => 'checkbox',
@@ -486,7 +486,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 			),
 			'1'
 		);
-		$expected_html = '<p class="form-row validate-required" id="test_field" data-priority=""><span class="woocommerce-input-wrapper"><label class="checkbox " ><input type="checkbox" name="test" id="test" value="1" class="input-checkbox "  checked=\'checked\' aria-required="true" /> Checkbox&nbsp;<span class="required" aria-hidden="true">*</span></label></span></p>';
+		$expected_html = '<p class="form-row validate-required" id="test_field" data-priority=""><span class="poocommerce-input-wrapper"><label class="checkbox " ><input type="checkbox" name="test" id="test" value="1" class="input-checkbox "  checked=\'checked\' aria-required="true" /> Checkbox&nbsp;<span class="required" aria-hidden="true">*</span></label></span></p>';
 
 		$this->assertEquals( $expected_html, $actual_html );
 	}
@@ -555,7 +555,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 	 * Test that hidden field with label does not have "for" attribute.
 	 */
 	public function test_hidden_field_with_label() {
-		$actual_html = woocommerce_form_field(
+		$actual_html = poocommerce_form_field(
 			'test_hidden',
 			array(
 				'type'   => 'hidden',
@@ -588,7 +588,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 		$original_countries = WC()->countries;
 		WC()->countries     = $mock_countries;
 
-		$actual_html = woocommerce_form_field(
+		$actual_html = poocommerce_form_field(
 			'billing_country',
 			array(
 				'type'   => 'country',
@@ -637,7 +637,7 @@ class WC_Tests_Template_Functions extends WC_Unit_Test_Case {
 		$original_countries = WC()->countries;
 		WC()->countries     = $mock_countries;
 
-		$actual_html = woocommerce_form_field(
+		$actual_html = poocommerce_form_field(
 			'billing_country',
 			array(
 				'type'   => 'country',

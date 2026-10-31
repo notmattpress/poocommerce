@@ -1,17 +1,17 @@
 <?php
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 require_once __DIR__ . '/Fixtures/class-wc-rest-orders-controller-rejecting-order-item-product.php';
 
@@ -154,7 +154,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
 
-		$order    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/orders/' . $order->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -179,7 +179,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		}
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
-		$order                    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order                    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v3/orders/' . $order->get_id() );
@@ -254,7 +254,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests creating an order.
 	 */
 	public function test_orders_create(): void {
-		$product                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$order_params             = array(
 			'payment_method'       => WC_Gateway_BACS::ID,
 			'payment_method_title' => 'Direct Bank Transfer',
@@ -313,11 +313,11 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * @param float $expected_rate Tax rate the line price should exclude.
 	 */
 	public function test_orders_create_keeps_tax_inclusive_price_when_non_base_prices_are_not_adjusted( array $extra_params, bool $has_customer, float $expected_rate ): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_default_country', 'BE' );
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_default_country', 'BE' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 
 		$rates = array(
 			'BE' => '6.0000',
@@ -502,12 +502,12 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 *
 	 * @param int    $order_id         Order ID.
 	 * @param string $requested_status Status supplied in the request.
-	 * @return array<int, array{string, string}> The from and to statuses of each `woocommerce_order_status_changed` call.
+	 * @return array<int, array{string, string}> The from and to statuses of each `poocommerce_order_status_changed` call.
 	 */
 	private function update_order_status_and_record_changes( int $order_id, string $requested_status ): array {
 		$status_changes = array();
 		add_action(
-			'woocommerce_order_status_changed',
+			'poocommerce_order_status_changed',
 			function ( $changed_order_id, $from, $to ) use ( &$status_changes ) {
 				$status_changes[] = array( $from, $to );
 			},
@@ -539,7 +539,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$status_changes = $this->update_order_status_and_record_changes( $order_id, OrderStatus::AUTO_DRAFT );
 
-		$this->assertSame( array(), $status_changes, 'An auto-draft order saved as auto-draft should not fire woocommerce_order_status_changed.' );
+		$this->assertSame( array(), $status_changes, 'An auto-draft order saved as auto-draft should not fire poocommerce_order_status_changed.' );
 		$this->assertSame( array(), wc_get_order_notes( array( 'order_id' => $order_id ) ), 'An auto-draft order saved as auto-draft should not get a status change note.' );
 	}
 
@@ -921,7 +921,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests that the created_via parameter is properly stored when creating orders.
 	 */
 	public function test_order_created_via_param(): void {
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$order_params = array(
 			'line_items'  => array(
@@ -951,7 +951,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests that the created_via parameter is set to 'rest-api' when empty.
 	 */
 	public function test_order_empty_created_via_param_is_set_to_rest_api() {
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$order_params = array(
 			'line_items'  => array(
@@ -999,7 +999,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_shop_order_invalid_id', $data['code'] );
 
 		// The persisted record must be untouched: same post type, no added customer_note.
 		$this->assertSame( 'shop_test', get_post_type( $post_id ) );
@@ -1031,7 +1031,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_shop_order_invalid_id', $data['code'] );
 
 		// The persisted record must be untouched: type still 'shop_order_refund'.
 		$this->assertSame( 'shop_order_refund', OrderUtil::get_order_type( $refund->get_id() ) );
@@ -1062,7 +1062,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_shop_order_invalid_id', $response->get_data()['code'] );
 		$this->assertSame( 'shop_test', OrderUtil::get_order_type( $order->get_id() ) );
 	}
 
@@ -1078,7 +1078,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_rest_shop_order_invalid_id', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_shop_order_invalid_id', $data['code'] );
 	}
 
 	/**
@@ -1153,7 +1153,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not created, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 
 		// Repeat the last test, except by performing an order update (instead of order creation).
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/orders/' . $order_id );
@@ -1161,7 +1161,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not updated, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 	}
 
 	/**
@@ -1833,12 +1833,12 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 			return $product;
 		};
-		add_filter( 'woocommerce_get_product_from_item', $delete_variation, 10, 2 );
+		add_filter( 'poocommerce_get_product_from_item', $delete_variation, 10, 2 );
 
 		try {
 			return $this->dispatch_line_item_update( $order_id, array_merge( array( 'id' => $item_id ), $line_item ) );
 		} finally {
-			remove_filter( 'woocommerce_get_product_from_item', $delete_variation, 10 );
+			remove_filter( 'poocommerce_get_product_from_item', $delete_variation, 10 );
 		}
 	}
 
@@ -1884,7 +1884,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$variation_id_filter    = static function ( $variation_id, $order_item ) use ( $item_id ) {
 			return $item_id === $order_item->get_id() ? 0 : $variation_id;
 		};
-		$variation_id_hook_name = 'woocommerce_order_item_get_variation_id';
+		$variation_id_hook_name = 'poocommerce_order_item_get_variation_id';
 		add_filter( $variation_id_hook_name, $variation_id_filter, 10, 2 );
 
 		try {
@@ -1958,8 +1958,8 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 			return $product;
 		};
 
-		add_filter( 'woocommerce_get_order_item_classname', $filter_item_class, 10, 3 );
-		add_filter( 'woocommerce_get_product_from_item', $reject_restoration, 10, 2 );
+		add_filter( 'poocommerce_get_order_item_classname', $filter_item_class, 10, 3 );
+		add_filter( 'poocommerce_get_product_from_item', $reject_restoration, 10, 2 );
 		wc_get_container()->get( OrderCache::class )->remove( $order->get_id() );
 
 		try {
@@ -1971,8 +1971,8 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_get_order_item_classname', $filter_item_class, 10 );
-			remove_filter( 'woocommerce_get_product_from_item', $reject_restoration, 10 );
+			remove_filter( 'poocommerce_get_order_item_classname', $filter_item_class, 10 );
+			remove_filter( 'poocommerce_get_product_from_item', $reject_restoration, 10 );
 			WC_REST_Orders_Controller_Rejecting_Order_Item_Product::$reject_variation_restoration = false;
 		}
 
@@ -2007,8 +2007,8 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 			return $product;
 		};
 
-		add_filter( 'woocommerce_get_order_item_classname', $filter_item_class, 10, 3 );
-		add_filter( 'woocommerce_get_product_from_item', $arm_and_delete, 10, 2 );
+		add_filter( 'poocommerce_get_order_item_classname', $filter_item_class, 10, 3 );
+		add_filter( 'poocommerce_get_product_from_item', $arm_and_delete, 10, 2 );
 		wc_get_container()->get( OrderCache::class )->remove( $order->get_id() );
 
 		try {
@@ -2020,8 +2020,8 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_get_order_item_classname', $filter_item_class, 10 );
-			remove_filter( 'woocommerce_get_product_from_item', $arm_and_delete, 10 );
+			remove_filter( 'poocommerce_get_order_item_classname', $filter_item_class, 10 );
+			remove_filter( 'poocommerce_get_product_from_item', $arm_and_delete, 10 );
 			WC_REST_Orders_Controller_Rejecting_Order_Item_Product::$reject_variation_restoration = false;
 		}
 
@@ -2441,7 +2441,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		// Request argument validation wraps the failure in `rest_invalid_param`, under `details`.
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertSame( 'rest_invalid_param', $data['code'] );
-		$this->assertSame( 'woocommerce_rest_invalid_order_item_meta_key', $data['data']['details'][ $line_type ]['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_order_item_meta_key', $data['data']['details'][ $line_type ]['code'] );
 
 		$item = WC_Order_Factory::get_order_item( $item_id );
 		$this->assertSame( $expected_taxes, $item->get_taxes(), 'The line taxes should be unchanged.' );
@@ -2481,7 +2481,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertSame( 200, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_invalid_order_item_meta_key', $data['update'][0]['error']['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_order_item_meta_key', $data['update'][0]['error']['code'] );
 
 		$item = WC_Order_Factory::get_order_item( $item_id );
 		$this->assertSame( $expected_taxes, $item->get_taxes(), 'The line taxes should be unchanged.' );

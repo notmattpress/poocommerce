@@ -11,7 +11,7 @@ import {
 /**
  * Internal dependencies
  */
-import type { SelectableItem } from '@woocommerce/types';
+import type { SelectableItem } from '@poocommerce/types';
 import { getSelectionSummary } from './utils';
 import {
 	getVisualAttributeTermStyleString,
@@ -52,7 +52,7 @@ function isToggleableItem(
 }
 
 store(
-	'woocommerce/dropdown',
+	'poocommerce/dropdown',
 	{
 		state: {
 			get triggerStyle(): string {

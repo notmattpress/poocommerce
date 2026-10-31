@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\User_Theme;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\User_Theme;
 
 /**
  * Integration test for Theme_Controller class
@@ -43,8 +43,8 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 			),
 		);
 		$post_data   = array(
-			'post_title'   => __( 'Custom Email Styles', 'woocommerce' ),
-			'post_name'    => 'wp-global-styles-woocommerce-email',
+			'post_title'   => __( 'Custom Email Styles', 'poocommerce' ),
+			'post_name'    => 'wp-global-styles-poocommerce-email',
 			'post_content' => (string) wp_json_encode( $styles_data, JSON_FORCE_OBJECT ),
 			'post_status'  => 'publish',
 			'post_type'    => 'wp_global_styles',
@@ -52,7 +52,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 		wp_insert_post( $post_data );
 
 		// By default, disable Site active theme sync.
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 
 		$this->theme_controller = $this->di_container->get( Theme_Controller::class );
 	}
@@ -141,7 +141,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test if the theme controller translates font family slug to font family name
 	 */
 	public function testItCanTranslateColorSlug(): void {
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_true' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_true' );
 		$this->assertEquals( '#000000', $this->theme_controller->translate_slug_to_color( 'black' ) );
 		$this->assertEquals( '#ffffff', $this->theme_controller->translate_slug_to_color( 'white' ) );
 		$this->assertEquals( '#abb8c3', $this->theme_controller->translate_slug_to_color( 'cyan-bluish-gray' ) );
@@ -156,7 +156,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 	 * costs the block its color.
 	 */
 	public function testItReturnsNoColorForUnknownSlug(): void {
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_true' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_true' );
 		$this->assertSame( '', $this->theme_controller->translate_slug_to_color( 'theme-4' ) );
 	}
 
@@ -167,7 +167,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 	 * reads the first, so one definition per slug is what keeps the two routes agreeing.
 	 */
 	public function testItGeneratesPresetClassesThatAgreeWithTheColorLookup(): void {
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 
 		// `black` is in core's default palette, so defining it again here duplicates the slug.
 		$duplicate = static function ( $theme ) {
@@ -191,7 +191,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 			);
 			return $theme;
 		};
-		add_filter( 'woocommerce_email_editor_theme_json', $duplicate, 20 );
+		add_filter( 'poocommerce_email_editor_theme_json', $duplicate, 20 );
 
 		$controller = $this->di_container->get( Theme_Controller::class );
 		$stylesheet = $controller->get_stylesheet_for_rendering();
@@ -203,7 +203,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 		// One rule per slug, not one per origin that defines it.
 		$this->assertSame( 1, substr_count( $stylesheet, '.has-black-color {' ) );
 
-		remove_filter( 'woocommerce_email_editor_theme_json', $duplicate, 20 );
+		remove_filter( 'poocommerce_email_editor_theme_json', $duplicate, 20 );
 	}
 
 	/**
@@ -213,7 +213,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 	 * rely on getting it back unchanged.
 	 */
 	public function testItPassesLiteralColorsThrough(): void {
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_true' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_true' );
 		$this->assertSame( '#012345', $this->theme_controller->translate_slug_to_color( '#012345' ) );
 		$this->assertSame( 'rgba(1, 2, 3, 0.5)', $this->theme_controller->translate_slug_to_color( 'rgba(1, 2, 3, 0.5)' ) );
 	}
@@ -250,7 +250,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test if the theme controller returns correct color palette
 	 */
 	public function testItLoadsColorPaletteFromSiteTheme(): void {
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_true' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_true' );
 		$settings = $this->theme_controller->get_settings();
 		$this->assertNotEmpty( $settings['color']['palette']['theme'] );
 	}
@@ -293,7 +293,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 			);
 			return $theme;
 		};
-		add_filter( 'woocommerce_email_editor_theme_json', $add_caption_color, 20 );
+		add_filter( 'poocommerce_email_editor_theme_json', $add_caption_color, 20 );
 
 		$stylesheet = $this->di_container->get( Theme_Controller::class )->get_stylesheet_for_rendering();
 
@@ -301,7 +301,7 @@ class Theme_Controller_Test extends \Email_Editor_Integration_Test_Case {
 		$this->assertMatchesRegularExpression( '/\.wp-element-caption\s*\{[^}]*#f78da7/', $stylesheet );
 		$this->assertDoesNotMatchRegularExpression( '/(^|[\s,}])caption\s*\{/', $stylesheet );
 
-		remove_filter( 'woocommerce_email_editor_theme_json', $add_caption_color, 20 );
+		remove_filter( 'poocommerce_email_editor_theme_json', $add_caption_color, 20 );
 	}
 
 	/**

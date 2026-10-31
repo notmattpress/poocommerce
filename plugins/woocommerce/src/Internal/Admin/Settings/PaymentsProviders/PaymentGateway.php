@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Throwable;
 use WC_HTTPS;
 use WC_Payment_Gateway;
@@ -26,11 +26,11 @@ class PaymentGateway {
 	// It means that the payment extension will handle the onboarding.
 	const ONBOARDING_TYPE_EXTERNAL = 'external';
 
-	// This is the onboarding type for gateways that have a WooCommerce-tailored onboarding flow.
-	// This might mean just having the payment methods select step in the WooCommerce settings.
+	// This is the onboarding type for gateways that have a PooCommerce-tailored onboarding flow.
+	// This might mean just having the payment methods select step in the PooCommerce settings.
 	const ONBOARDING_TYPE_NATIVE = 'native';
 
-	// This is the onboarding type for gateways that have a WooCommerce in-context onboarding flow.
+	// This is the onboarding type for gateways that have a PooCommerce in-context onboarding flow.
 	const ONBOARDING_TYPE_NATIVE_IN_CONTEXT = 'native_in_context';
 
 	// Payment method categories to inform the UI about grouping or the emphasis of payment methods.
@@ -151,7 +151,7 @@ class PaymentGateway {
 		}
 		// If we still couldn't get the title, return a default value.
 		if ( ! is_string( $title ) || empty( $title ) ) {
-			return esc_html__( 'Unknown', 'woocommerce' );
+			return esc_html__( 'Unknown', 'poocommerce' );
 		}
 
 		// No HTML tags allowed in the title.

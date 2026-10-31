@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests for WC_Comments class.

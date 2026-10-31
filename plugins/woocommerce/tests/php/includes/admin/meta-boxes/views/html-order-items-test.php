@@ -2,7 +2,7 @@
 /**
  * Tests for the order items meta box view.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
@@ -98,7 +98,7 @@ class WC_Admin_Meta_Box_Order_Items_View_Test extends WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_order_is_paid_statuses',
+			'poocommerce_order_is_paid_statuses',
 			static function ( $statuses ) {
 				$statuses[] = 'ready-for-pickup';
 				return $statuses;
@@ -118,7 +118,7 @@ class WC_Admin_Meta_Box_Order_Items_View_Test extends WC_Unit_Test_Case {
 
 		$this->assertStringContainsString( 'Paid:', $render_order_items(), 'The "Paid" totals section should show for a custom paid status.' );
 
-		add_filter( 'woocommerce_admin_order_should_render_paid_totals', '__return_false' );
+		add_filter( 'poocommerce_admin_order_should_render_paid_totals', '__return_false' );
 
 		$this->assertStringNotContainsString( 'Paid:', $render_order_items(), 'The filter should be able to hide the "Paid" totals section.' );
 	}
@@ -160,8 +160,8 @@ class WC_Admin_Meta_Box_Order_Items_View_Test extends WC_Unit_Test_Case {
 	 * @testdox The refund quantity input's max keeps fractional remainders when stock amounts allow decimals.
 	 */
 	public function test_refund_quantity_max_keeps_fractional_remainder(): void {
-		remove_filter( 'woocommerce_stock_amount', 'intval' );
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		remove_filter( 'poocommerce_stock_amount', 'intval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 
 		try {
 			$order   = wc_create_order();
@@ -187,8 +187,8 @@ class WC_Admin_Meta_Box_Order_Items_View_Test extends WC_Unit_Test_Case {
 			include WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-items.php';
 			$order_items_html = ob_get_clean();
 		} finally {
-			remove_filter( 'woocommerce_stock_amount', 'floatval' );
-			add_filter( 'woocommerce_stock_amount', 'intval' );
+			remove_filter( 'poocommerce_stock_amount', 'floatval' );
+			add_filter( 'poocommerce_stock_amount', 'intval' );
 		}
 
 		$qty_inputs = $this->get_xpath_for_html( $order_items_html )->query( "//input[@name='refund_order_item_qty[{$item_id}]']" );

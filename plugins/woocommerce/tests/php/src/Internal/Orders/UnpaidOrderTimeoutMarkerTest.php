@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
 use WC_Helper_Order;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -13,7 +13,7 @@ use WC_Unit_Test_Case;
 /**
  * Tests for the UnpaidOrderTimeoutMarker class.
  *
- * @covers \Automattic\WooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker
+ * @covers \Automattic\PooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker
  */
 class UnpaidOrderTimeoutMarkerTest extends WC_Unit_Test_Case {
 
@@ -37,7 +37,7 @@ class UnpaidOrderTimeoutMarkerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_all_actions( 'woocommerce_order_status_cancelled' );
+		remove_all_actions( 'poocommerce_order_status_cancelled' );
 		parent::tearDown();
 	}
 
@@ -134,7 +134,7 @@ class UnpaidOrderTimeoutMarkerTest extends WC_Unit_Test_Case {
 		$sut     = $this->sut;
 
 		add_action(
-			'woocommerce_order_status_cancelled',
+			'poocommerce_order_status_cancelled',
 			function ( $order_id ) use ( $order_a, $order_b, $sut ) {
 				if ( $order_id === $order_a->get_id() ) {
 					$sut->cancel_unpaid_order( $order_b, 'Nested.' );

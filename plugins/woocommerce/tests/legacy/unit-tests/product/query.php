@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Test WC_Product_Query
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  */
 class WC_Tests_WC_Product_Query extends WC_Unit_Test_Case {
 

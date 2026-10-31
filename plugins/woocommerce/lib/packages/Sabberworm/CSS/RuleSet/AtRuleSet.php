@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\AtRule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\AtRule;
 
 /**
  * This class represents rule sets for generic at-rules which are not covered by specific classes, i.e., not

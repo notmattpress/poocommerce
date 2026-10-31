@@ -9,32 +9,32 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Purple is a WooCommerce starter theme made for the Site Editor and modern commerce. Its clean styles and adaptable color system suit any catalog: fashion and clothing, jewelry, beauty, home decor, food and drink, or digital downloads. Commerce-ready templates and curated patterns cover the storefront from product pages and filterable shop views to cart and checkout. Ten color palettes and ten font pairings make it easy to match your brand in a click, and the theme works well with Jetpack blocks, supports RTL languages, and is fully translation-ready. Whether you’re launching your first online store or refreshing an established one, Purple is a versatile foundation for selling with WordPress and WooCommerce.
+Purple is a PooCommerce starter theme made for the Site Editor and modern commerce. Its clean styles and adaptable color system suit any catalog: fashion and clothing, jewelry, beauty, home decor, food and drink, or digital downloads. Commerce-ready templates and curated patterns cover the storefront from product pages and filterable shop views to cart and checkout. Ten color palettes and ten font pairings make it easy to match your brand in a click, and the theme works well with Jetpack blocks, supports RTL languages, and is fully translation-ready. Whether you’re launching your first online store or refreshing an established one, Purple is a versatile foundation for selling with WordPress and PooCommerce.
 
 == Requirements ==
 
 Purple requires:
 - WordPress 7.1 or newer,
 - PHP 7.4 or newer,
-- WooCommerce 11.1 or newer.
+- PooCommerce 11.1 or newer.
 
-Install and activate WooCommerce before activating the theme.
+Install and activate PooCommerce before activating the theme.
 
 == Changelog ==
 
 = 1.0.3 =
-* Purple: declare WooCommerce 11.2 compatibility (#476)
+* Purple: declare PooCommerce 11.2 compatibility (#476)
 
 = 1.0.2 =
 * Load fall back styles only in relevant WC versions (#460)
 * Update several instances of the Search block with Product Search (#468)
 * Purple: give palette colors semantic names (#469)
-* Make Purple WooCommerce notices permanently dismissible (#471)
+* Make Purple PooCommerce notices permanently dismissible (#471)
 * Decrease header whitespace in several screens (#470)
 
 = 1.0.1 =
 * Remove the unregistered is-style-default class from Purple (#457)
-* Document and warn about Purple’s WooCommerce requirements (#456)
+* Document and warn about Purple’s PooCommerce requirements (#456)
 * Use Chips blockGap support instead of hardcoded CSS (#453)
 * Small CSS cleanup (#459)
 * Purple: show active filters on mobile and tablet (outside of popover) (#458)

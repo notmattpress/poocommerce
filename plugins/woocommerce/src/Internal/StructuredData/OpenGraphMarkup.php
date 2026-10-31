@@ -2,12 +2,12 @@
 /**
  * Product Open Graph metadata.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
 use WP_HTML_Tag_Processor;
 use WP_HTML_Text_Replacement;

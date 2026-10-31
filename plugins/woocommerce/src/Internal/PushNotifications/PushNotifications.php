@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\PushNotifications;
+namespace Automattic\PooCommerce\Internal\PushNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\NotificationPreferencesRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushNotificationRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\StepLogRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationRetryHandler;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\UserDataCleanupService;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewReviewNotificationTrigger;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\StockNotificationRecoveryHandler;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\StockNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\NotificationPreferencesRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushNotificationRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushNotificationStatusRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\StepLogRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\DriverAvailabilityService;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationRetryHandler;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\UserDataCleanupService;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewReviewNotificationTrigger;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\StockNotificationRecoveryHandler;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\StockNotificationTrigger;
 
 /**
  * WC Push Notifications
  *
- * Class for setting up the WooCommerce-driven push notifications.
+ * Class for setting up the PooCommerce-driven push notifications.
  *
  * @since 10.4.0
  */
@@ -41,7 +41,7 @@ class PushNotifications {
 	 *
 	 * @since 11.4.0
 	 */
-	const ENABLED_AT_OPTION = 'woocommerce_push_notifications_enabled_at';
+	const ENABLED_AT_OPTION = 'poocommerce_push_notifications_enabled_at';
 
 	/**
 	 * Roles that can receive push notifications.
@@ -137,8 +137,8 @@ class PushNotifications {
 			PushToken::POST_TYPE,
 			array(
 				'labels'             => array(
-					'name'          => __( 'Push Tokens', 'woocommerce' ),
-					'singular_name' => __( 'Push Token', 'woocommerce' ),
+					'name'          => __( 'Push Tokens', 'poocommerce' ),
+					'singular_name' => __( 'Push Token', 'poocommerce' ),
 				),
 				'public'             => false,
 				'publicly_queryable' => false,

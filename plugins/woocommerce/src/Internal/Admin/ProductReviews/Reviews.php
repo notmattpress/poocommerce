@@ -3,7 +3,7 @@
  * Products > Reviews
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 use WP_Ajax_Response;
 use WP_Comment;
@@ -28,7 +28,7 @@ class Reviews {
 	 *
 	 * @var string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	const PER_PAGE_USER_OPTION_KEY = 'edit_product_reviews_per_page';
 
@@ -84,7 +84,7 @@ class Reviews {
 		 * @param string $capability The capability (defaults to `moderate_comments` for viewing and `edit_products` for editing).
 		 * @param string $context    The context for which the capability is needed.
 		 */
-		return (string) apply_filters( 'woocommerce_product_reviews_page_capability', 'view' === $context ? 'moderate_comments' : 'edit_products', $context );
+		return (string) apply_filters( 'poocommerce_product_reviews_page_capability', 'view' === $context ? 'moderate_comments' : 'edit_products', $context );
 	}
 
 	/**
@@ -92,14 +92,14 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_reviews_page(): void {
 
 		$this->reviews_page_hook = add_submenu_page(
 			'edit.php?post_type=product',
-			__( 'Reviews', 'woocommerce' ),
-			__( 'Reviews', 'woocommerce' ) . $this->get_pending_count_bubble(),
+			__( 'Reviews', 'poocommerce' ),
+			__( 'Reviews', 'poocommerce' ) . $this->get_pending_count_bubble(),
 			static::get_capability(),
 			static::MENU_SLUG,
 			array( $this, 'render_reviews_list_table' )
@@ -141,7 +141,7 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function load_javascript(): void {
 		if ( $this->is_reviews_page() ) {
@@ -170,7 +170,7 @@ class Reviews {
 		 * @param bool             $is_review_or_reply Whether the object in context is a review or a reply to a review.
 		 * @param WP_Comment|mixed $object             The object in context.
 		 */
-		return (bool) apply_filters( 'woocommerce_product_reviews_is_product_review_or_reply', $is_review_or_reply, $object );
+		return (bool) apply_filters( 'poocommerce_product_reviews_is_product_review_or_reply', $is_review_or_reply, $object );
 	}
 
 	// phpcs:enable Universal.NamingConventions.NoReservedKeywordParameterNames.objectFound
@@ -188,7 +188,7 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_edit_review(): void {
 		// Don't interfere with comment functionality relating to the reviews meta box within the product editor.
@@ -216,7 +216,7 @@ class Reviews {
 		}
 
 		if ( empty( $_POST['content'] ) ) {
-			wp_die( esc_html__( 'Error: Please type your review text.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Error: Please type your review text.', 'poocommerce' ) );
 		}
 
 		if ( isset( $_POST['status'] ) ) {
@@ -262,7 +262,7 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_reply_to_review(): void {
 		// Don't interfere with comment functionality relating to the reviews meta box within the product editor.
@@ -296,7 +296,7 @@ class Reviews {
 		if ( empty( $post->post_status ) ) {
 			wp_die( 1 );
 		} elseif ( in_array( $post->post_status, array( 'draft', 'pending', 'trash' ), true ) ) {
-			wp_die( esc_html__( 'Error: You can\'t reply to a review on a draft product.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Error: You can\'t reply to a review on a draft product.', 'poocommerce' ) );
 		}
 
 		$user = wp_get_current_user();
@@ -323,11 +323,11 @@ class Reviews {
 				}
 			}
 		} else {
-			wp_die( esc_html__( 'Sorry, you must be logged in to reply to a review.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Sorry, you must be logged in to reply to a review.', 'poocommerce' ) );
 		}
 
 		if ( '' === $comment_content ) {
-			wp_die( esc_html__( 'Error: Please type your reply text.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Error: Please type your reply text.', 'poocommerce' ) );
 		}
 
 		$comment_parent = 0;
@@ -385,12 +385,12 @@ class Reviews {
 			'in_moderation'        => $counts->moderated,
 			'i18n_comments_text'   => sprintf(
 			/* translators: %s: Number of reviews. */
-				_n( '%s Review', '%s Reviews', $counts->approved, 'woocommerce' ),
+				_n( '%s Review', '%s Reviews', $counts->approved, 'poocommerce' ),
 				number_format_i18n( $counts->approved )
 			),
 			'i18n_moderation_text' => sprintf(
 			/* translators: %s: Number of reviews. */
-				_n( '%s Review in moderation', '%s Reviews in moderation', $counts->moderated, 'woocommerce' ),
+				_n( '%s Review in moderation', '%s Reviews in moderation', $counts->moderated, 'poocommerce' ),
 				number_format_i18n( $counts->moderated )
 			),
 		);
@@ -410,7 +410,7 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function display_notices(): void {
 		if ( $this->is_reviews_page() ) {
@@ -449,39 +449,39 @@ class Reviews {
 
 		if ( $approved > 0 ) {
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review approved', '%s reviews approved', $approved, 'woocommerce' ), $approved );
+			$messages[] = sprintf( _n( '%s review approved', '%s reviews approved', $approved, 'poocommerce' ), $approved );
 		}
 
 		if ( $unapproved > 0 ) {
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review unapproved', '%s reviews unapproved', $unapproved, 'woocommerce' ), $unapproved );
+			$messages[] = sprintf( _n( '%s review unapproved', '%s reviews unapproved', $unapproved, 'poocommerce' ), $unapproved );
 		}
 
 		if ( $spammed > 0 ) {
 			$ids = isset( $_REQUEST['ids'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ids'] ) ) : 0;
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review marked as spam.', '%s reviews marked as spam.', $spammed, 'woocommerce' ), $spammed ) . ' <a href="' . esc_url( wp_nonce_url( "edit-comments.php?doaction=undo&action=unspam&ids=$ids", 'bulk-comments' ) ) . '">' . __( 'Undo', 'woocommerce' ) . '</a><br />';
+			$messages[] = sprintf( _n( '%s review marked as spam.', '%s reviews marked as spam.', $spammed, 'poocommerce' ), $spammed ) . ' <a href="' . esc_url( wp_nonce_url( "edit-comments.php?doaction=undo&action=unspam&ids=$ids", 'bulk-comments' ) ) . '">' . __( 'Undo', 'poocommerce' ) . '</a><br />';
 		}
 
 		if ( $unspammed > 0 ) {
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review restored from the spam', '%s reviews restored from the spam', $unspammed, 'woocommerce' ), $unspammed );
+			$messages[] = sprintf( _n( '%s review restored from the spam', '%s reviews restored from the spam', $unspammed, 'poocommerce' ), $unspammed );
 		}
 
 		if ( $trashed > 0 ) {
 			$ids = isset( $_REQUEST['ids'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ids'] ) ) : 0;
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review moved to the Trash.', '%s reviews moved to the Trash.', $trashed, 'woocommerce' ), $trashed ) . ' <a href="' . esc_url( wp_nonce_url( "edit-comments.php?doaction=undo&action=untrash&ids=$ids", 'bulk-comments' ) ) . '">' . __( 'Undo', 'woocommerce' ) . '</a><br />';
+			$messages[] = sprintf( _n( '%s review moved to the Trash.', '%s reviews moved to the Trash.', $trashed, 'poocommerce' ), $trashed ) . ' <a href="' . esc_url( wp_nonce_url( "edit-comments.php?doaction=undo&action=untrash&ids=$ids", 'bulk-comments' ) ) . '">' . __( 'Undo', 'poocommerce' ) . '</a><br />';
 		}
 
 		if ( $untrashed > 0 ) {
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review restored from the Trash', '%s reviews restored from the Trash', $untrashed, 'woocommerce' ), $untrashed );
+			$messages[] = sprintf( _n( '%s review restored from the Trash', '%s reviews restored from the Trash', $untrashed, 'poocommerce' ), $untrashed );
 		}
 
 		if ( $deleted > 0 ) {
 			/* translators: %s is an integer higher than 0 (1, 2, 3...) */
-			$messages[] = sprintf( _n( '%s review permanently deleted', '%s reviews permanently deleted', $deleted, 'woocommerce' ), $deleted );
+			$messages[] = sprintf( _n( '%s review permanently deleted', '%s reviews permanently deleted', $deleted, 'poocommerce' ), $deleted );
 		}
 
 		return $messages;
@@ -493,7 +493,7 @@ class Reviews {
 	 * @return string Empty string if there are no pending reviews, or bubble HTML if there are.
 	 */
 	protected function get_pending_count_bubble(): string {
-		// Quirks related to https://github.com/woocommerce/woocommerce/issues/37464.
+		// Quirks related to https://github.com/poocommerce/poocommerce/issues/37464.
 		if ( method_exists( \WC_Comments::class, 'get_products_reviews_pending_moderation_counter' ) ) {
 			$count = \WC_Comments::get_products_reviews_pending_moderation_counter();
 		} else {
@@ -515,7 +515,7 @@ class Reviews {
 		 *
 		 * @param array $count Current count of comments pending review.
 		 */
-		$count = apply_filters( 'woocommerce_product_reviews_pending_count', $count );
+		$count = apply_filters( 'poocommerce_product_reviews_pending_count', $count );
 
 		if ( empty( $count ) ) {
 			return '';
@@ -532,7 +532,7 @@ class Reviews {
 	 * @param string|mixed $parent_file Parent menu item.
 	 * @return string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function edit_review_parent_file( $parent_file ) {
 		global $submenu_file, $current_screen;
@@ -570,7 +570,7 @@ class Reviews {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function load_reviews_screen(): void {
 		$this->add_screen_options();
@@ -587,7 +587,7 @@ class Reviews {
 		add_screen_option(
 			'per_page',
 			array(
-				'label'   => __( 'Number of reviews per page:', 'woocommerce' ),
+				'label'   => __( 'Number of reviews per page:', 'poocommerce' ),
 				'default' => 20,
 				'option'  => self::PER_PAGE_USER_OPTION_KEY,
 			)
@@ -604,7 +604,7 @@ class Reviews {
 	 * @param int    $value         The number of reviews to show per page.
 	 * @return mixed
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function set_reviews_per_page_option( $screen_option, $option, $value ) {
 		if ( self::PER_PAGE_USER_OPTION_KEY !== $option ) {
@@ -628,10 +628,10 @@ class Reviews {
 	 * @param int $per_page Number of reviews to show per page.
 	 * @return int
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function apply_legacy_reviews_per_page_filter( $per_page ): int {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core hook retained for compatibility.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core hook retained for compatibility.
 		return (int) apply_filters( 'edit_comments_per_page', $per_page );
 	}
 
@@ -659,7 +659,7 @@ class Reviews {
 				<input type="hidden" name="post_type" value="product" />
 				<input type="hidden" name="pagegen_timestamp" value="<?php echo esc_attr( current_time( 'mysql', true ) ); ?>" />
 
-				<?php $this->reviews_list_table->search_box( __( 'Search Reviews', 'woocommerce' ), 'reviews' ); ?>
+				<?php $this->reviews_list_table->search_box( __( 'Search Reviews', 'poocommerce' ), 'reviews' ); ?>
 
 				<?php $this->reviews_list_table->display(); ?>
 			</form>
@@ -676,6 +676,6 @@ class Reviews {
 		 * @param string           $output             The HTML output of the list table.
 		 * @param ReviewsListTable $reviews_list_table The reviews list table instance.
 		 */
-		echo apply_filters( 'woocommerce_product_reviews_list_table', ob_get_clean(), $this->reviews_list_table ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo apply_filters( 'poocommerce_product_reviews_list_table', ob_get_clean(), $this->reviews_list_table ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

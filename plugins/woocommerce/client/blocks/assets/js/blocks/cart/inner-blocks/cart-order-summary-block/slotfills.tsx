@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ExperimentalOrderMeta } from '@woocommerce/blocks-checkout';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { ExperimentalOrderMeta } from '@poocommerce/blocks-checkout';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 export const OrderMetaSlotFill = (): JSX.Element => {
 	// Prepare props to pass to the ExperimentalOrderMeta slot fill. We need to pluck out receiveCart.
@@ -11,7 +11,7 @@ export const OrderMetaSlotFill = (): JSX.Element => {
 	const slotFillProps = {
 		extensions,
 		cart,
-		context: 'woocommerce/cart',
+		context: 'poocommerce/cart',
 	};
 
 	return <ExperimentalOrderMeta.Slot { ...slotFillProps } />;

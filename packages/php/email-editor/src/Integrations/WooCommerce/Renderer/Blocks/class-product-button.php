@@ -1,19 +1,19 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
- * Renders a WooCommerce product button block for email.
+ * Renders a PooCommerce product button block for email.
  */
 class Product_Button extends Abstract_Product_Block_Renderer {
 	/**
@@ -71,14 +71,14 @@ class Product_Button extends Abstract_Product_Block_Renderer {
 
 		// Check if this is a cart-contents collection to customize button text and link.
 		$collection       = $parsed_block['context']['collection'] ?? '';
-		$is_cart_contents = 'woocommerce/product-collection/cart-contents' === $collection;
+		$is_cart_contents = 'poocommerce/product-collection/cart-contents' === $collection;
 
 		if ( $is_cart_contents ) {
 			// For cart contents, link to cart page instead of product page.
-			$button_text = __( 'Finish checkout', 'woocommerce' );
+			$button_text = __( 'Finish checkout', 'poocommerce' );
 			$button_url  = wc_get_cart_url();
 		} else {
-			$button_text = $product->add_to_cart_text() ? $product->add_to_cart_text() : __( 'Add to cart', 'woocommerce' );
+			$button_text = $product->add_to_cart_text() ? $product->add_to_cart_text() : __( 'Add to cart', 'poocommerce' );
 
 			if ( $product->is_type( 'external' ) && $product instanceof \WC_Product_External ) {
 				$external_url = $product->get_product_url();

@@ -2,15 +2,15 @@
 /**
  * Product Shape Mapper Interface.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Mapping;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Mapping;
 
 /**
- * Minimal contract for mapping a WooCommerce product to an arbitrary array shape.
+ * Minimal contract for mapping a PooCommerce product to an arbitrary array shape.
  *
  * This interface carries no delivery semantics: implementations may produce feed
  * rows, REST payloads, live query results, or any other shape. It can be consumed

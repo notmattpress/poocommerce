@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Tests relating to WC_REST_Orders_V1_Controller.
@@ -24,15 +24,15 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 		parent::setUpBeforeClass();
 
 		// Store the previous HPOS state.
-		self::$hpos_prev_state = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( false );
+		self::$hpos_prev_state = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( false );
 	}
 
 	/**
 	 * Restore previous state (including HPOS) after all tests have run.
 	 */
 	public static function tearDownAfterClass(): void {
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( self::$hpos_prev_state );
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( self::$hpos_prev_state );
 		parent::tearDownAfterClass();
 	}
 
@@ -87,7 +87,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 			return $product;
 		};
-		add_filter( 'woocommerce_get_product_from_item', $delete_variation, 10, 2 );
+		add_filter( 'poocommerce_get_product_from_item', $delete_variation, 10, 2 );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v1/orders/' . $order->get_id() );
 		$request->set_body_params( array( 'line_items' => array( array_merge( array( 'id' => $item->get_id() ), $line_item ) ) ) );
@@ -95,14 +95,14 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 		try {
 			return $this->server->dispatch( $request );
 		} finally {
-			remove_filter( 'woocommerce_get_product_from_item', $delete_variation, 10 );
+			remove_filter( 'poocommerce_get_product_from_item', $delete_variation, 10 );
 		}
 	}
 
 	/**
 	 * Test that an order can be fetched via REST API V1 without triggering a deprecation notice.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/39006
+	 * @see https://github.com/poocommerce/poocommerce/issues/39006
 	 *
 	 * @return void
 	 */
@@ -163,7 +163,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not created, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 
 		// Repeat the last test, except by performing an order update (instead of order creation).
 		$request = new WP_REST_Request( 'PUT', '/wc/v1/orders/' . $order_id );
@@ -171,7 +171,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not updated, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 	}
 
 	/**
@@ -189,7 +189,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$product_id_filter    = static function ( $product_id, $order_item ) use ( $filtered_product, $item ) {
 			return $item->get_id() === $order_item->get_id() ? $filtered_product->get_id() : $product_id;
 		};
-		$product_id_hook_name = 'woocommerce_order_item_get_product_id';
+		$product_id_hook_name = 'poocommerce_order_item_get_product_id';
 		add_filter( $product_id_hook_name, $product_id_filter, 10, 2 );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v1/orders/' . $order->get_id() );

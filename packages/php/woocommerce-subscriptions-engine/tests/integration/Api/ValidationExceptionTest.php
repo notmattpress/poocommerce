@@ -2,22 +2,22 @@
 /**
  * Integration tests for the facade validation exception and its message map.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
 use InvalidArgumentException;
 use ReflectionClass;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ValidationException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ValidationException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\ValidationException
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\ValidationException
  */
 class ValidationExceptionTest extends EngineIntegrationTestCase {
 
@@ -206,13 +206,13 @@ class ValidationExceptionTest extends EngineIntegrationTestCase {
 	}
 
 	/**
-	 * @testdox The message is translated in the woocommerce text domain.
+	 * @testdox The message is translated in the poocommerce text domain.
 	 */
 	public function test_the_message_is_translated(): void {
 		add_filter(
 			'gettext',
 			static function ( $translation, $text, $domain ) {
-				return 'woocommerce' === $domain && 'This field is required.' === $text ? 'Ce champ est obligatoire.' : $translation;
+				return 'poocommerce' === $domain && 'This field is required.' === $text ? 'Ce champ est obligatoire.' : $translation;
 			},
 			10,
 			3

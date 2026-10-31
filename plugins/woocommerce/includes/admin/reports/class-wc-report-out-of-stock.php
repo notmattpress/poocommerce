@@ -2,7 +2,7 @@
 /**
  * WC_Report_Out_Of_Stock.
  *
- * @package WooCommerce\Admin\Reports
+ * @package PooCommerce\Admin\Reports
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ class WC_Report_Out_Of_Stock extends WC_Report_Stock {
 	 * No items found text.
 	 */
 	public function no_items() {
-		esc_html_e( 'No out of stock products found.', 'woocommerce' );
+		esc_html_e( 'No out of stock products found.', 'poocommerce' );
 	}
 
 	/**
@@ -35,10 +35,10 @@ class WC_Report_Out_Of_Stock extends WC_Report_Stock {
 		$this->max_items = 0;
 		$this->items     = array();
 
-		$stock = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
+		$stock = absint( max( get_option( 'poocommerce_notify_no_stock_amount' ), 0 ) );
 
 		$query_from = apply_filters(
-			'woocommerce_report_out_of_stock_query_from',
+			'poocommerce_report_out_of_stock_query_from',
 			$wpdb->prepare(
 				"
 				FROM {$wpdb->posts} as posts

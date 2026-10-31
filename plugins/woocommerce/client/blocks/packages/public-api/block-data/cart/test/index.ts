@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { dispatch as wpDispatch } from '@wordpress/data';
-import { getSetting } from '@woocommerce/settings';
-import type { Cart } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { Cart } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -16,12 +16,12 @@ import {
 
 // Mock all dependencies before importing the module that contains the event listener
 jest.mock( '@wordpress/data' );
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	isSiteEditorPage: jest.fn().mockReturnValue( true ),
 } ) );
 jest.mock( '../persistence-layer' );
-jest.mock( '@woocommerce/settings', () => {
-	const actual = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const actual = jest.requireActual( '@poocommerce/settings' );
 	return {
 		...actual,
 		getSetting: jest.fn( actual.getSetting ),

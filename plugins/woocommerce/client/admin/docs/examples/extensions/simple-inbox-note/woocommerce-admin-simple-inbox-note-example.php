@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin Simple Inbox Note Example
+ * Plugin Name: PooCommerce Admin Simple Inbox Note Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**

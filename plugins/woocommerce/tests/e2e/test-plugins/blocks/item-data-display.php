@@ -1,25 +1,25 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Item Data Display
+ * Plugin Name: PooCommerce Blocks Test Item Data Display
  * Description: Adds custom item_data to cart items for testing HTML rendering and entity decoding.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-item-data-display
+ * @package poocommerce-blocks-test-item-data-display
  */
 
 declare(strict_types=1);
 
 // Only requests from specs that enable this plugin send the cookie.
-if ( ! isset( $_COOKIE['woocommerce-blocks-test-item-data-display'] ) ) {
+if ( ! isset( $_COOKIE['poocommerce-blocks-test-item-data-display'] ) ) {
 	return;
 }
 
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function () {
 		add_filter(
-			'woocommerce_get_item_data',
+			'poocommerce_get_item_data',
 			function ( $item_data ) {
 				// Plain text item data.
 				$item_data[] = array(

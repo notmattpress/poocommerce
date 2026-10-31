@@ -1,14 +1,14 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\DataRetentionController;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\DataRetentionController;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
 
 /**
  * DataRetentionControllerTests tests.
@@ -38,7 +38,7 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$this->controller->clear_daily_task();
-		delete_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold' );
+		delete_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold' );
 		$this->restore_stock_notifications_feature_option();
 		parent::tearDown();
 	}
@@ -51,13 +51,13 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 		$schedule = wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK );
 		$this->assertFalse( $schedule );
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			30
 		);
 		$schedule = wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK );
 		$this->assertEquals( 'daily', $schedule );
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			0
 		);
 		$schedule = wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK );
@@ -69,13 +69,13 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_schedule_or_unschedule_daily_task_bogus_data() {
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			'banana'
 		);
 		$schedule = wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK );
 		$this->assertFalse( $schedule );
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			false
 		);
 		$schedule = wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK );
@@ -86,10 +86,10 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 	 * Test that an already stored negative threshold turns the cleanup off and unschedules the daily task.
 	 */
 	public function test_negative_threshold_is_treated_as_zero() {
-		update_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
+		update_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
 		$this->assertEquals( 'daily', wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ) );
 
-		update_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', '-5' );
+		update_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', '-5' );
 
 		$this->assertSame( 0, Config::get_unverified_deletion_days_threshold() );
 		$this->assertFalse( wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ) );
@@ -104,7 +104,7 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 	public function test_dail_task_only_deletes_expired_notifications() {
 		$days_until_deletion = 5;
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			$days_until_deletion
 		);
 
@@ -145,7 +145,7 @@ class DataRetentionControllerTests extends \WC_Unit_Test_Case {
 	public function test_daily_task_keeps_overdue_notification_with_recent_verification_resend(): void {
 		$days_until_deletion = 5;
 		update_option(
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold',
 			$days_until_deletion
 		);
 		$expired_time = time() - ( ( $days_until_deletion + 1 ) * DAY_IN_SECONDS );

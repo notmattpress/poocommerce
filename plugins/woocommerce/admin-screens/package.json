@@ -1,5 +1,5 @@
 {
-	"name": "@woocommerce/admin-screens",
+	"name": "@poocommerce/admin-screens",
 	"private": true,
 	"scripts": {
 		"build": "rm -rf build ../assets/client/routes && mkdir -p ../assets/client/routes && ln -s ../assets/client/routes build && wp-build",
@@ -50,9 +50,9 @@
 		"@types/jest": "29.5.x",
 		"@types/react": "18.3.x",
 		"@typescript-eslint/eslint-plugin": "^8.63.0",
-		"@woocommerce/eslint-config": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"@wordpress/build": "catalog:tooling",
 		"eslint": "^10.0.0",
@@ -65,14 +65,14 @@
 		"extends @wordpress/browserslist-config"
 	],
 	"wpPlugin": {
-		"name": "woocommerce_routes",
+		"name": "poocommerce_routes",
 		"scriptGlobal": false,
-		"packageNamespace": "woocommerce",
+		"packageNamespace": "poocommerce",
 		"handlePrefix": "wc-routes",
 		"pages": [
 			{
 				"id": "wc-settings-screen",
-				"capability": "manage_woocommerce"
+				"capability": "manage_poocommerce"
 			}
 		]
 	}

@@ -3,15 +3,15 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { updateQueryString } from '@woocommerce/navigation';
+import { updateQueryString } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
  */
 import ReportFilters from '../';
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	updateQueryString: jest.fn(),
 } ) );
 

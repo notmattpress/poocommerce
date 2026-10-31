@@ -2,7 +2,7 @@
 /**
  * Data Store tests
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  */
 
 /**
@@ -54,12 +54,12 @@ class WC_Tests_Data_Store extends WC_Unit_Test_Case {
 		$store = new WC_Data_Store( 'dummy' );
 		$this->assertEquals( 'WC_Dummy_Data_Store_CPT', $store->get_current_class_name() );
 
-		add_filter( 'woocommerce_dummy_data_store', array( $this, 'set_dummy_store' ) );
+		add_filter( 'poocommerce_dummy_data_store', array( $this, 'set_dummy_store' ) );
 
 		$store = new WC_Data_Store( 'dummy' );
 		$this->assertEquals( 'WC_Dummy_Data_Store_Custom_Table', $store->get_current_class_name() );
 
-		add_filter( 'woocommerce_dummy_data_store', array( $this, 'set_default_dummy_store' ) );
+		add_filter( 'poocommerce_dummy_data_store', array( $this, 'set_default_dummy_store' ) );
 	}
 
 	/**
@@ -89,13 +89,13 @@ class WC_Tests_Data_Store extends WC_Unit_Test_Case {
 	/* Helper Functions. */
 
 	/**
-	 * Loads two dummy data store classes that can be swapped out for each other. Adds to the `woocommerce_data_stores` filter.
+	 * Loads two dummy data store classes that can be swapped out for each other. Adds to the `poocommerce_data_stores` filter.
 	 *
 	 * @since 3.0.0
 	 */
 	private function load_dummy_store() {
 		include_once dirname( dirname( dirname( __FILE__ ) ) ) . '/framework/class-wc-dummy-data-store.php';
-		add_filter( 'woocommerce_data_stores', array( $this, 'add_dummy_data_store' ) );
+		add_filter( 'poocommerce_data_stores', array( $this, 'add_dummy_data_store' ) );
 	}
 
 	/**

@@ -5,13 +5,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

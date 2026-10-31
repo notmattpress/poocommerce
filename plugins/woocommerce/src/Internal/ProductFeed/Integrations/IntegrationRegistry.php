@@ -4,12 +4,12 @@
  *
  * Stores all provider integrations that are available.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

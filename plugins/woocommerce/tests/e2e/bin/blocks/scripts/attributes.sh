@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # `wp site empty` does not remove product attributes: they live in the
-# woocommerce_attribute_taxonomies table rather than being terms, so they
+# poocommerce_attribute_taxonomies table rather than being terms, so they
 # survive it. Creating them again on a re-seed fails with
 # `Slug "color" is already in use`, which is why this script only creates the
 # attributes that are missing.

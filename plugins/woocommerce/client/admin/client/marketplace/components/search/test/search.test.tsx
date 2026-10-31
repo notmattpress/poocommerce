@@ -3,11 +3,11 @@
  */
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { navigateTo } from '@woocommerce/navigation';
+import { navigateTo } from '@poocommerce/navigation';
 
 let mockQuery: Record< string, string > = {};
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn(
 		( query: Record< string, string > ) =>
 			'/extensions?' + new URLSearchParams( query ).toString()
@@ -16,7 +16,7 @@ jest.mock( '@woocommerce/navigation', () => ( {
 	useQuery: jest.fn( () => mockQuery ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

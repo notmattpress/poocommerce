@@ -7,18 +7,18 @@
  * version-gated install check on boot: cheap in the common case (a single
  * option read) and self-healing if the tables are missing or behind.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\PlansController;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ContractCapabilities;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\PlansController;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 defined( 'ABSPATH' ) || exit;
 

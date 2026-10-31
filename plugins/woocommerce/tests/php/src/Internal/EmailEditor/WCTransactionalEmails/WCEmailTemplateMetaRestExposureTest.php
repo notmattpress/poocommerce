@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
 use WP_REST_Request;
 
 /**
@@ -48,8 +48,8 @@ class WCEmailTemplateMetaRestExposureTest extends \WC_REST_Unit_Test_Case {
 	 * type's REST routes never get registered and GET wp/v2/woo_email returns 404.
 	 */
 	public function setUp(): void {
-		$this->previous_feature_flag_value = get_option( 'woocommerce_feature_block_email_editor_enabled', false );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		$this->previous_feature_flag_value = get_option( 'poocommerce_feature_block_email_editor_enabled', false );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Package::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();
 		Email_Editor_Container::container()->get( Bootstrap::class )->initialize();
@@ -69,9 +69,9 @@ class WCEmailTemplateMetaRestExposureTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false === $this->previous_feature_flag_value ) {
-			delete_option( 'woocommerce_feature_block_email_editor_enabled' );
+			delete_option( 'poocommerce_feature_block_email_editor_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_block_email_editor_enabled', $this->previous_feature_flag_value );
+			update_option( 'poocommerce_feature_block_email_editor_enabled', $this->previous_feature_flag_value );
 		}
 		parent::tearDown();
 	}

@@ -2,34 +2,34 @@
 /**
  * Integration tests for the lean ContractRepository and its targeted cycle access.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PaymentInstrumentRef;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\DuplicateCycleException;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SnapshotStore;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ContractRepository
  */
 class ContractRepositoryTest extends EngineIntegrationTestCase {
 
@@ -64,7 +64,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 				'selling_plan_id'      => 7,
 				'origin_order_id'      => 1001,
 				'extension_slug'       => 'lite',
-				'payment_method'       => 'woocommerce_payments',
+				'payment_method'       => 'poocommerce_payments',
 				'payment_method_title' => 'Credit card',
 				'payment_token_id'     => 55,
 				'start_gmt'            => '2026-06-15 00:00:00',
@@ -220,7 +220,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 
 		$instrument = $fetched->get_payment_instrument();
 		$this->assertSame( 55, $instrument->get_token_id() );
-		$this->assertSame( 'woocommerce_payments', $instrument->get_gateway() );
+		$this->assertSame( 'poocommerce_payments', $instrument->get_gateway() );
 
 		$items = $fetched->get_items();
 		$this->assertCount( 1, $items );
@@ -1365,7 +1365,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 
 		$stored = $this->sut->find( $id );
 		$this->assertInstanceOf( Contract::class, $stored );
-		$this->assertSame( 'woocommerce_payments', $stored->get_payment_instrument()->get_gateway(), 'update_fields() wrote nothing.' );
+		$this->assertSame( 'poocommerce_payments', $stored->get_payment_instrument()->get_gateway(), 'update_fields() wrote nothing.' );
 		$this->assertSame( 'Credit card', $stored->get_payment_instrument()->get_title() );
 		$this->assertSame( ContractStatus::ACTIVE, $stored->get_status() );
 
@@ -1405,7 +1405,7 @@ class ContractRepositoryTest extends EngineIntegrationTestCase {
 	public function provide_over_long_payment_instruments(): array {
 		return array(
 			'payment method over 100'       => array( str_repeat( 'm', 101 ), 'Credit card' ),
-			'payment method title over 200' => array( 'woocommerce_payments', str_repeat( 't', 201 ) ),
+			'payment method title over 200' => array( 'poocommerce_payments', str_repeat( 't', 201 ) ),
 		);
 	}
 

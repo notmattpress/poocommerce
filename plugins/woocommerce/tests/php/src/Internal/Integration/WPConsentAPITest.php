@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Integration;
+namespace Automattic\PooCommerce\Tests\Internal\Integration;
 
-use Automattic\WooCommerce\Internal\Integrations\WPConsentAPI;
+use Automattic\PooCommerce\Internal\Integrations\WPConsentAPI;
 use Closure;
 use WP_UnitTestCase;
 

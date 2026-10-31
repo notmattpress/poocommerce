@@ -3,7 +3,7 @@
  */
 import { SVG, Path } from '@wordpress/components';
 import { registerBlockType } from '@wordpress/blocks';
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

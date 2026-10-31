@@ -4,18 +4,18 @@
  *
  * Handles requests to the /data/countries endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
-use Automattic\WooCommerce\Internal\Traits\RestApiCache;
+use Automattic\PooCommerce\Internal\Traits\RestApiCache;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST API Data countries controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
@@ -71,7 +71,7 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 					'permission_callback' => array( $this, 'get_items_permissions_check' ),
 					'args'                => array(
 						'location' => array(
-							'description' => __( 'ISO3166 alpha-2 country code.', 'woocommerce' ),
+							'description' => __( 'ISO3166 alpha-2 country code.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 					),
@@ -145,7 +145,7 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 	public function get_item( $request ) {
 		$data = $this->get_country( strtoupper( $request['location'] ), $request );
 		if ( empty( $data ) ) {
-			return new WP_Error( 'woocommerce_rest_data_invalid_location', __( 'There are no locations matching these parameters.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_data_invalid_location', __( 'There are no locations matching these parameters.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 		return $this->prepare_item_for_response( $data, $request );
 	}
@@ -176,7 +176,7 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 		 * @param array            $data     The original country's states list.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_data_country', $response, $item, $request );
+		return apply_filters( 'poocommerce_rest_prepare_data_country', $response, $item, $request );
 	}
 
 	/**
@@ -214,19 +214,19 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 			'properties' => array(
 				'code'   => array(
 					'type'        => 'string',
-					'description' => __( 'ISO3166 alpha-2 country code.', 'woocommerce' ),
+					'description' => __( 'ISO3166 alpha-2 country code.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'   => array(
 					'type'        => 'string',
-					'description' => __( 'Full name of country.', 'woocommerce' ),
+					'description' => __( 'Full name of country.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'states' => array(
 					'type'        => 'array',
-					'description' => __( 'List of states in this country.', 'woocommerce' ),
+					'description' => __( 'List of states in this country.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'items'       => array(
@@ -236,13 +236,13 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 						'properties' => array(
 							'code' => array(
 								'type'        => 'string',
-								'description' => __( 'State code.', 'woocommerce' ),
+								'description' => __( 'State code.', 'poocommerce' ),
 								'context'     => array( 'view' ),
 								'readonly'    => true,
 							),
 							'name' => array(
 								'type'        => 'string',
-								'description' => __( 'Full name of state.', 'woocommerce' ),
+								'description' => __( 'Full name of state.', 'poocommerce' ),
 								'context'     => array( 'view' ),
 								'readonly'    => true,
 							),
@@ -284,10 +284,10 @@ class WC_REST_Data_Countries_Controller extends WC_REST_Data_Controller {
 	 */
 	protected function get_hooks_relevant_to_caching( WP_REST_Request $request, ?string $endpoint_id = null ): array { // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint
 		return array(
-			'woocommerce_countries',
-			'woocommerce_states',
-			'woocommerce_sort_countries',
-			'woocommerce_rest_prepare_data_country',
+			'poocommerce_countries',
+			'poocommerce_states',
+			'poocommerce_sort_countries',
+			'poocommerce_rest_prepare_data_country',
 		);
 	}
 

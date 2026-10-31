@@ -1,12 +1,12 @@
-# WooCommerce Blocks public API packages
+# PooCommerce Blocks public API packages
 
-This directory contains JavaScript package entry points that WooCommerce
+This directory contains JavaScript package entry points that PooCommerce
 extensions may consume. Stable exports from each package root are public
 contracts and require backward-compatibility handling.
 
 ## API contract
 
-- Import packages through their `@woocommerce/*` package root.
+- Import packages through their `@poocommerce/*` package root.
 - Treat stable root exports as public API.
 - Add new APIs instead of renaming or removing existing APIs.
 - Deprecate an existing API before removing it.
@@ -21,24 +21,24 @@ publication. It does not make these browser APIs private.
 
 | Package | Script handle | Browser global |
 | --- | --- | --- |
-| `@woocommerce/block-data` | `wc-blocks-data-store` | `wc.wcBlocksData` |
-| `@woocommerce/blocks-checkout` | `wc-blocks-checkout` | `wc.blocksCheckout` |
-| `@woocommerce/blocks-checkout-events` | `wc-blocks-checkout-events` | `wc.blocksCheckoutEvents` |
-| `@woocommerce/blocks-components` | `wc-blocks-components` | `wc.blocksComponents` |
-| `@woocommerce/blocks-registry` | `wc-blocks-registry` | `wc.wcBlocksRegistry` |
-| `@woocommerce/price-format` | `wc-price-format` | `wc.priceFormat` |
-| `@woocommerce/settings` | `wc-settings` | `wc.wcSettings` |
-| `@woocommerce/shared-context` | `wc-blocks-shared-context` | `wc.wcBlocksSharedContext` |
-| `@woocommerce/shared-hocs` | `wc-blocks-shared-hocs` | `wc.wcBlocksSharedHocs` |
-| `@woocommerce/types` | `wc-types` | `wc.wcTypes` |
+| `@poocommerce/block-data` | `wc-blocks-data-store` | `wc.wcBlocksData` |
+| `@poocommerce/blocks-checkout` | `wc-blocks-checkout` | `wc.blocksCheckout` |
+| `@poocommerce/blocks-checkout-events` | `wc-blocks-checkout-events` | `wc.blocksCheckoutEvents` |
+| `@poocommerce/blocks-components` | `wc-blocks-components` | `wc.blocksComponents` |
+| `@poocommerce/blocks-registry` | `wc-blocks-registry` | `wc.wcBlocksRegistry` |
+| `@poocommerce/price-format` | `wc-price-format` | `wc.priceFormat` |
+| `@poocommerce/settings` | `wc-settings` | `wc.wcSettings` |
+| `@poocommerce/shared-context` | `wc-blocks-shared-context` | `wc.wcBlocksSharedContext` |
+| `@poocommerce/shared-hocs` | `wc-blocks-shared-hocs` | `wc.wcBlocksSharedHocs` |
+| `@poocommerce/types` | `wc-types` | `wc.wcTypes` |
 
 ## Loading the scripts
 
-WooCommerce does not guarantee that these scripts will be enqueued on any
+PooCommerce does not guarantee that these scripts will be enqueued on any
 particular page. Any plugin, extension, or custom code that uses these APIs
 must enqueue the corresponding script handle listed above.
 
-The independently published `@woocommerce/data` and `@woocommerce/sanitize`
+The independently published `@poocommerce/data` and `@poocommerce/sanitize`
 packages remain in the monorepo-level `packages/js` directory.
 
 Being externalized is not, by itself, evidence that a package is public. See

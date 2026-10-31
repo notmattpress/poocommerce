@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\UcpUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpUtils;
 
 /**
  * UCP `POST /catalog/lookup` route.
@@ -66,7 +66,7 @@ class CatalogLookup extends AbstractCatalogRoute {
 			parent::get_request_args(),
 			array(
 				'ids' => array(
-					'description' => __( 'Product or variant identifiers to look up.', 'woocommerce' ),
+					'description' => __( 'Product or variant identifiers to look up.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array( 'type' => array( 'string', 'integer' ) ),
 				),
@@ -87,7 +87,7 @@ class CatalogLookup extends AbstractCatalogRoute {
 		$raw_ids = $request->get_param( 'ids' );
 
 		if ( ! is_array( $raw_ids ) || empty( $raw_ids ) ) {
-			return $this->ucp_error( 'VALIDATION_ERROR', __( 'ids is required.', 'woocommerce' ), 'recoverable', 400 );
+			return $this->ucp_error( 'VALIDATION_ERROR', __( 'ids is required.', 'poocommerce' ), 'recoverable', 400 );
 		}
 
 		// Deduplicate before counting: repeating one id is not a reason to reject,
@@ -101,7 +101,7 @@ class CatalogLookup extends AbstractCatalogRoute {
 				'request_too_large',
 				sprintf(
 					/* translators: %d: maximum number of ids accepted per lookup request. */
-					__( 'ids accepts at most %d entries per request.', 'woocommerce' ),
+					__( 'ids accepts at most %d entries per request.', 'poocommerce' ),
 					self::MAX_LOOKUP_IDS
 				),
 				'recoverable',
@@ -130,7 +130,7 @@ class CatalogLookup extends AbstractCatalogRoute {
 					'code'         => 'not_found',
 					'content'      => sprintf(
 						/* translators: %s: product identifier. */
-						__( 'Product "%s" not found.', 'woocommerce' ),
+						__( 'Product "%s" not found.', 'poocommerce' ),
 						$id
 					),
 					'path'         => '$.ids',

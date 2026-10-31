@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
-use Automattic\WooCommerce\StoreApi\Utilities\UnexpectedErrorResponse;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
+use Automattic\PooCommerce\StoreApi\Utilities\UnexpectedErrorResponse;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Logger_Interface;
 use WC_Unit_Test_Case;
 use WP_Error;
@@ -133,7 +133,7 @@ class UnexpectedErrorResponseTest extends WC_Unit_Test_Case {
 		$context['backtrace'] = array( '#0 ' . WP_PLUGIN_DIR . '/fixture-extension/error.php(1): fail()' );
 		$filter_calls         = 0;
 		add_filter(
-			'woocommerce_remote_logging_is_third_party_error',
+			'poocommerce_remote_logging_is_third_party_error',
 			static function ( $is_third_party, $message, $context ) use ( &$filter_calls ) {
 				unset( $is_third_party, $message );
 				++$filter_calls;
@@ -189,7 +189,7 @@ class UnexpectedErrorResponseTest extends WC_Unit_Test_Case {
 		$logger
 			->method( 'critical' )
 			->willThrowException( new \RuntimeException( 'Fixture logger failure.' ) );
-		add_filter( 'woocommerce_logging_class', fn() => $logger );
+		add_filter( 'poocommerce_logging_class', fn() => $logger );
 
 		$error_log          = tempnam( sys_get_temp_dir(), 'wc-store-api-error-log' );
 		$previous_error_log = ini_set( 'error_log', $error_log ); // phpcs:ignore WordPress.PHP.IniSet.Risky
@@ -223,7 +223,7 @@ class UnexpectedErrorResponseTest extends WC_Unit_Test_Case {
 
 		$received_default = null;
 		add_filter(
-			'woocommerce_store_api_expose_error_details',
+			'poocommerce_store_api_expose_error_details',
 			static function ( $expose ) use ( $filter_value, &$received_default ) {
 				$received_default = $expose;
 				return $filter_value;
@@ -244,13 +244,13 @@ class UnexpectedErrorResponseTest extends WC_Unit_Test_Case {
 	 * @param string   $failure_message Assertion message.
 	 */
 	private function assert_error_response( WP_Error $result, bool $details_shown, string $failure_message ): void {
-		$expected_message = $details_shown ? 'Fixture engine failure.' : __( 'Internal server error', 'woocommerce' );
+		$expected_message = $details_shown ? 'Fixture engine failure.' : __( 'Internal server error', 'poocommerce' );
 		$expected_data    = array( 'status' => 500 );
 		if ( $details_shown ) {
 			$expected_data['exception_class'] = \TypeError::class;
 		}
 
-		$this->assertSame( 'woocommerce_rest_unknown_server_error', $result->get_error_code(), 'Engine failures should use the established error code.' );
+		$this->assertSame( 'poocommerce_rest_unknown_server_error', $result->get_error_code(), 'Engine failures should use the established error code.' );
 		$this->assertSame( $expected_message, $result->get_error_message(), $failure_message );
 		$this->assertSame( $expected_data, $result->get_error_data(), 'Response data must follow the same gate as the message.' );
 	}

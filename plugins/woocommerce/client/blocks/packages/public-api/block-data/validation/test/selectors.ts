@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { FieldValidationStatus } from '@woocommerce/types';
+import { FieldValidationStatus } from '@poocommerce/types';
 
 /**
  * Internal dependencies

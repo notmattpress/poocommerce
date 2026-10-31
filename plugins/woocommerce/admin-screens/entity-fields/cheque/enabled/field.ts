@@ -13,5 +13,5 @@ export const field: Field< ChequeSettings > = {
 	id: 'enabled',
 	type: 'boolean',
 	Edit: 'toggle',
-	label: __( 'Enable check payments', 'woocommerce' ),
+	label: __( 'Enable check payments', 'poocommerce' ),
 };

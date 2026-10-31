@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing;
 
 /**
  * @internal since 8.7.0
@@ -13,13 +13,13 @@ class Anchor
     private $iPosition;
 
     /**
-     * @var \Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState
+     * @var \Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState
      */
     private $oParserState;
 
     /**
      * @param int $iPosition
-     * @param \Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState $oParserState
+     * @param \Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState $oParserState
      */
     public function __construct($iPosition, ParserState $oParserState)
     {

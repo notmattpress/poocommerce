@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Analytics_Tracking::record_event() cookie-less skip behavior.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;

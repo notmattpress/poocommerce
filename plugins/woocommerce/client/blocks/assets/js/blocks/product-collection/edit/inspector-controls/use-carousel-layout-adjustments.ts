@@ -5,7 +5,7 @@ import { useRef, useEffect } from '@wordpress/element';
 import { select as selectData, useSelect, useDispatch } from '@wordpress/data';
 import { createBlock, type BlockInstance } from '@wordpress/blocks';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { getInnerBlockBy, getInnerBlockByName } from '@woocommerce/utils';
+import { getInnerBlockBy, getInnerBlockByName } from '@poocommerce/utils';
 
 /**
  * Internal dependencies

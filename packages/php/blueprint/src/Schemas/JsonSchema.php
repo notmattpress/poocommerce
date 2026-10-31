@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Schemas;
+namespace Automattic\PooCommerce\Blueprint\Schemas;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class JsonSchema

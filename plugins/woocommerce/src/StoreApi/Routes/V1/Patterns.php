@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Blocks\BlockPatterns;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Patterns\PTKClient;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Blocks\BlockPatterns;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Patterns\PTKClient;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 use Exception;
 use WP_Error;
 use WP_REST_Request;

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Reports;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Reports;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Reports\HposLegacyOrderReportQueryBuilder;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Reports\HposLegacyOrderReportQueryBuilder;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -219,8 +219,8 @@ class HposLegacyOrderReportQueryBuilderTest extends WC_Unit_Test_Case {
 			0
 		);
 
-		$this->assertStringContainsString( 'woocommerce_order_items AS order_items', $query['join'] );
-		$this->assertStringContainsString( 'woocommerce_order_itemmeta AS order_item_meta_tax_amount', $query['join'] );
+		$this->assertStringContainsString( 'poocommerce_order_items AS order_items', $query['join'] );
+		$this->assertStringContainsString( 'poocommerce_order_itemmeta AS order_item_meta_tax_amount', $query['join'] );
 		$this->assertStringContainsString( 'orders.id = order_items.order_id', $query['join'] );
 		$this->assertStringContainsString( "order_item_meta__line_tax_array.meta_key   IN ('_line_tax','_line_subtotal')", $query['where'] );
 		$this->assertStringContainsString( "order_item_meta__line_tax_array.meta_value != '0'", $query['where'] );
@@ -257,7 +257,7 @@ class HposLegacyOrderReportQueryBuilderTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertStringContainsString( 'COUNT( order_items.order_item_id) as order_coupon_count', $query['select'] );
-		$this->assertStringContainsString( 'woocommerce_order_items AS order_items', $query['join'] );
+		$this->assertStringContainsString( 'poocommerce_order_items AS order_items', $query['join'] );
 		$this->assertStringContainsString( "AND order_item_type = 'coupon'", $query['where'] );
 	}
 
@@ -437,7 +437,7 @@ class HposLegacyOrderReportQueryBuilderTest extends WC_Unit_Test_Case {
 			0
 		);
 
-		$this->assertStringContainsString( 'woocommerce_order_items AS order_items ON orders.id = order_items.order_id', $query['join'] );
+		$this->assertStringContainsString( 'poocommerce_order_items AS order_items ON orders.id = order_items.order_id', $query['join'] );
 		$this->assertStringContainsString( "AND order_items.order_item_type = 'coupon'", $query['where'] );
 		$this->assertStringNotContainsString( 'order_items', $query['select'] );
 	}
@@ -539,7 +539,7 @@ class HposLegacyOrderReportQueryBuilderTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Legacy report consumers often leave `post_data` columns unqualified (e.g. WooCommerce
+	 * Legacy report consumers often leave `post_data` columns unqualified (e.g. PooCommerce
 	 * Subscriptions before 7.8.0 passed a bare `post_status` where-key), which used to reach
 	 * SQL untranslated against a column `wc_orders` does not have.
 	 *

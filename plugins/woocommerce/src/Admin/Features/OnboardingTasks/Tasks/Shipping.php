@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 use WC_Data_Store;
 
 /**
@@ -11,7 +11,7 @@ use WC_Data_Store;
  */
 class Shipping extends Task {
 
-	const ZONE_COUNT_TRANSIENT_NAME = 'woocommerce_shipping_task_zone_count_transient';
+	const ZONE_COUNT_TRANSIENT_NAME = 'poocommerce_shipping_task_zone_count_transient';
 
 	/**
 	 * Constructor
@@ -20,13 +20,13 @@ class Shipping extends Task {
 	 */
 	public function __construct( $task_list = null ) {
 		parent::__construct( $task_list );
-		// wp_ajax_woocommerce_shipping_zone_methods_save_changes
-		// and wp_ajax_woocommerce_shipping_zones_save_changes get fired
+		// wp_ajax_poocommerce_shipping_zone_methods_save_changes
+		// and wp_ajax_poocommerce_shipping_zones_save_changes get fired
 		// when a new zone is added or an existing one has been changed.
-		add_action( 'wp_ajax_woocommerce_shipping_zones_save_changes', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
-		add_action( 'wp_ajax_woocommerce_shipping_zone_methods_save_changes', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
-		add_action( 'woocommerce_shipping_zone_method_added', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
-		add_action( 'woocommerce_after_shipping_zone_object_save', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
+		add_action( 'wp_ajax_poocommerce_shipping_zones_save_changes', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
+		add_action( 'wp_ajax_poocommerce_shipping_zone_methods_save_changes', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
+		add_action( 'poocommerce_shipping_zone_method_added', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
+		add_action( 'poocommerce_after_shipping_zone_object_save', array( __CLASS__, 'delete_zone_count_transient' ), 9 );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Shipping extends Task {
 	 * @return string
 	 */
 	public function get_image_alt() {
-		return __( 'Shipping illustration', 'woocommerce' );
+		return __( 'Shipping illustration', 'poocommerce' );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Shipping extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Select your shipping options', 'woocommerce' );
+		return __( 'Select your shipping options', 'poocommerce' );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Shipping extends Task {
 	public function get_content() {
 		return __(
 			"Set your store location and where you'll ship to.",
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -83,7 +83,7 @@ class Shipping extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '1 minute', 'woocommerce' );
+		return __( '1 minute', 'poocommerce' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Shipping extends Task {
 	 * @return bool
 	 */
 	public function can_view() {
-		if ( 'yes' === get_option( 'woocommerce_admin_created_default_shipping_zones' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_admin_created_default_shipping_zones' ) ) {
 			// If the user has already created a default shipping zone, we don't need to show the task.
 			return false;
 		}
@@ -118,12 +118,12 @@ class Shipping extends Task {
 			return false;
 		}
 
-		$default_store_country = wc_format_country_state_string( get_option( 'woocommerce_default_country', '' ) )['country'];
+		$default_store_country = wc_format_country_state_string( get_option( 'poocommerce_default_country', '' ) )['country'];
 
-		// Check if a store address is set so that we don't default to WooCommerce's default country US.
-		// Similar logic: https://github.com/woocommerce/woocommerce/blob/059d542394b48468587f252dcb6941c6425cd8d3/plugins/woocommerce-admin/client/profile-wizard/steps/store-details/index.js#L511-L516.
+		// Check if a store address is set so that we don't default to PooCommerce's default country US.
+		// Similar logic: https://github.com/poocommerce/poocommerce/blob/059d542394b48468587f252dcb6941c6425cd8d3/plugins/poocommerce-admin/client/profile-wizard/steps/store-details/index.js#L511-L516.
 		$store_country = '';
-		if ( ! empty( get_option( 'woocommerce_store_address', '' ) ) || 'US' !== $default_store_country ) {
+		if ( ! empty( get_option( 'poocommerce_store_address', '' ) ) || 'US' !== $default_store_country ) {
 			$store_country = $default_store_country;
 		}
 

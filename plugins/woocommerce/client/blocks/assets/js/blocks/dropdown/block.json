@@ -1,21 +1,21 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/dropdown",
+	"name": "poocommerce/dropdown",
 	"title": "Dropdown",
 	"description": "Display options in a dropdown.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"ancestor": [
-		"woocommerce/add-to-cart-with-options-variation-selector-attribute",
-		"woocommerce/product-filter-attribute",
-		"woocommerce/product-filter-taxonomy",
-		"woocommerce/product-filter-status"
+		"poocommerce/add-to-cart-with-options-variation-selector-attribute",
+		"poocommerce/product-filter-attribute",
+		"poocommerce/product-filter-taxonomy",
+		"poocommerce/product-filter-status"
 	],
 	"supports": {
 		"interactivity": true,
-		"woocommerce": {
+		"poocommerce": {
 			"innerBlockDisplayStyle": true
 		},
 		"color": {
@@ -32,11 +32,11 @@
 		}
 	},
 	"selectors": {
-		"root": ".wp-block-woocommerce-dropdown :is(.wc-block-dropdown__select, .wc-block-dropdown__trigger, .wc-block-dropdown__panel)"
+		"root": ".wp-block-poocommerce-dropdown :is(.wc-block-dropdown__select, .wc-block-dropdown__trigger, .wc-block-dropdown__panel)"
 	},
-	"usesContext": [ "woocommerce/selectableItems", "woocommerce/attributeId" ],
+	"usesContext": [ "poocommerce/selectableItems", "poocommerce/attributeId" ],
 	"attributes": {},
-	"viewScriptModule": "woocommerce/dropdown",
-	"style": "file:../woocommerce/dropdown-style.css",
-	"editorStyle": "file:../woocommerce/dropdown-editor.css"
+	"viewScriptModule": "poocommerce/dropdown",
+	"style": "file:../poocommerce/dropdown-style.css",
+	"editorStyle": "file:../poocommerce/dropdown-editor.css"
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce New Functions Checker
+ * PooCommerce New Functions Checker
  *
  * This script checks for new functions added in the "includes" or "src"
  * directories between two git branches.
@@ -8,7 +8,7 @@
  * Usage: php check_new_functions.php <pr_branch> <compare_branch>
  * Example: php check_new_functions.php feature/new-functions trunk
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 // This is a CLI-only script: it shells out to git via exec() and writes plain text to stdout.
@@ -51,8 +51,8 @@ $repo_root = current( $output );
 // when the repository lives under a path that contains spaces. The two escaped refs are joined
 // around the literal "..." so the shell collapses them into a single "<base>...<head>" argument.
 $diff_command = 'git diff ' . escapeshellarg( $compare_branch ) . '...' . escapeshellarg( $pr_branch )
-	. ' -- ' . escapeshellarg( "$repo_root/plugins/woocommerce/includes/" )
-	. ' ' . escapeshellarg( "$repo_root/plugins/woocommerce/src/" );
+	. ' -- ' . escapeshellarg( "$repo_root/plugins/poocommerce/includes/" )
+	. ' ' . escapeshellarg( "$repo_root/plugins/poocommerce/src/" );
 $output       = array();
 $return_code  = 0;
 
@@ -74,11 +74,11 @@ $added_function_file_map = array();
 $deleted_functions       = array();
 
 // Files that are allowed to define standalone functions and are therefore not checked.
-// WooCommerce database updates must be global functions: they are registered by name in
+// PooCommerce database updates must be global functions: they are registered by name in
 // WC_Install::$db_updates and invoked dynamically, so they cannot be class methods.
 $excluded_files = array(
-	'plugins/woocommerce/includes/wc-update-functions.php',
-	'plugins/woocommerce/includes/react-admin/wc-admin-update-functions.php',
+	'plugins/poocommerce/includes/wc-update-functions.php',
+	'plugins/poocommerce/includes/react-admin/wc-admin-update-functions.php',
 );
 
 $current_file = '';
@@ -171,8 +171,8 @@ foreach ( $added_function_file_map as $function => $file_path ) {
 		continue;
 	}
 
-	// Remove "plugins/woocommerce/" prefix from file path.
-	$plugin_path_prefix = 'plugins/woocommerce/';
+	// Remove "plugins/poocommerce/" prefix from file path.
+	$plugin_path_prefix = 'plugins/poocommerce/';
 	if ( strpos( $file_path, $plugin_path_prefix ) === 0 ) {
 		$file_path = substr( $file_path, strlen( $plugin_path_prefix ) );
 	}
@@ -200,7 +200,7 @@ foreach ( $net_function_file_map as $function => $file ) {
 	printf( "%-{$column_width}s | %s\n", $function, $file );
 }
 
-echo "\nNo new functions are allowed in WooCommerce. All the new code should go into classes in the src directory.\n\n";
+echo "\nNo new functions are allowed in PooCommerce. All the new code should go into classes in the src directory.\n\n";
 echo "If any of these is actually a new class method, add a visibility modifier (public, private or protected) to it.\n";
 
 exit( 1 );

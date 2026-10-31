@@ -1,6 +1,6 @@
 # Remote Inbox Notifications
 
-This is a remote inbox notifications engine in WooCommerce admin, which polls some JSON feeds (see `DataSourcePoller.php`) containing specifications of remote inbox notifications, including rules that, when satisfied, display the notification in the WooCommerce Admin screens.
+This is a remote inbox notifications engine in PooCommerce admin, which polls some JSON feeds (see `DataSourcePoller.php`) containing specifications of remote inbox notifications, including rules that, when satisfied, display the notification in the PooCommerce Admin screens.
 
 The interesting entry points are the poller (`DataSourcePoller.php`) which fetches the rule specifications from a number of feeds, and the engine (`RemoteInboxNotificationsEngine.php`), both of which run daily as part of the `wc-admin-daily` cron task.
 
@@ -65,7 +65,7 @@ The status will usually be `unactioned`, as this will get the note to appear.
 
 There are other note statuses but we just use them **internally**:
 
--   `pending`: the note is hidden but not actioned. Notes can become pending when their spec or rules are invalid, or when an unactioned WooCommerce.com Store Alert is no longer listed in a complete canonical feed response.
+-   `pending`: the note is hidden but not actioned. Notes can become pending when their spec or rules are invalid, or when an unactioned PooCommerce.com Store Alert is no longer listed in a complete canonical feed response.
 -   `sent`: the note has been sent by email to the user.
 
 ### Locale

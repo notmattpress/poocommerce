@@ -2,16 +2,16 @@
 /**
  * Product Variation
  *
- * The WooCommerce product variation class handles product variation data.
+ * The PooCommerce product variation class handles product variation data.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Internal\ProductCustoms\CustomsDataValidator;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Internal\ProductCustoms\CustomsDataValidator;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -70,7 +70,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return string
 	 */
 	protected function get_hook_prefix() {
-		return 'woocommerce_product_variation_get_';
+		return 'poocommerce_product_variation_get_';
 	}
 
 	/**
@@ -98,7 +98,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return string
 	 */
 	public function get_title() {
-		return apply_filters( 'woocommerce_product_title', $this->parent_data['title'], $this );
+		return apply_filters( 'poocommerce_product_title', $this->parent_data['title'], $this );
 	}
 
 	/**
@@ -209,7 +209,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 				$this->get_permalink()
 			)
 		) : $this->get_permalink();
-		return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_url', $url, $this );
 	}
 
 	/**
@@ -275,8 +275,8 @@ class WC_Product_Variation extends WC_Product_Simple {
 		$value = $this->get_prop( $prop, $context );
 		if ( 'view' === $context && null === $value ) {
 			/**
-			 * Filters a resolved customs value: woocommerce_product_variation_get_customs_commodity_code,
-			 * woocommerce_product_variation_get_customs_country_of_origin, or woocommerce_product_variation_get_customs_description.
+			 * Filters a resolved customs value: poocommerce_product_variation_get_customs_commodity_code,
+			 * poocommerce_product_variation_get_customs_country_of_origin, or poocommerce_product_variation_get_customs_description.
 			 *
 			 * The dynamic portion of the hook name, `$prop`, refers to the customs prop name. Runs for the variation's
 			 * own value via get_prop() (may be null), and again with the parent value when the variation inherits it.
@@ -645,7 +645,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 		 * @param bool $purchasable If the variation is purchasable.
 		 * @param object $variation The variation object.
 		 */
-		return apply_filters( 'woocommerce_variation_is_purchasable', $this->variation_is_visible() && parent::is_purchasable(), $this );
+		return apply_filters( 'poocommerce_variation_is_purchasable', $this->variation_is_visible() && parent::is_purchasable(), $this );
 	}
 
 	/**
@@ -656,7 +656,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return bool
 	 */
 	public function variation_is_active() {
-		return apply_filters( 'woocommerce_variation_is_active', true, $this );
+		return apply_filters( 'poocommerce_variation_is_active', true, $this );
 	}
 
 	/**
@@ -676,7 +676,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 		 * @param int $product_id The product ID.
 		 * @param object $variation The variation object.
 		 */
-		return apply_filters( 'woocommerce_variation_is_visible', ProductStatus::PUBLISH === get_post_status( $this->get_id() ) && '' !== $this->get_price(), $this->get_id(), $this->get_parent_id(), $this );
+		return apply_filters( 'poocommerce_variation_is_visible', ProductStatus::PUBLISH === get_post_status( $this->get_id() ) && '' !== $this->get_price(), $this->get_id(), $this->get_parent_id(), $this );
 	}
 
 	/**

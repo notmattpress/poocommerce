@@ -2,16 +2,16 @@
 /**
  * Order functions tests
  *
- * @package WooCommerce\Tests\Order.
+ * @package PooCommerce\Tests\Order.
  */
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Class WC_Order_Functions_Test
@@ -218,7 +218,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 
 		// Load the order with a data store that lacks the coupon usage methods of WC_Order_Data_Store_Interface.
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) {
 				$stores['test-basic-order'] = new class() extends Abstract_WC_Order_Data_Store_CPT {
 				};
@@ -238,7 +238,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_order_class',
+			'poocommerce_order_class',
 			function () use ( $order_class ) {
 				return $order_class;
 			}
@@ -352,7 +352,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 1, ( new WC_Coupon( $coupon ) )->get_usage_count() );
 		$this->assertTrue( $order->get_data_store()->get_recorded_coupon_usage_counts( $order ) );
 
-		\Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore::sync_order_coupons( $order->get_id() );
+		\Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore::sync_order_coupons( $order->get_id() );
 		global $wpdb;
 		$rows = $wpdb->get_var(
 			$wpdb->prepare(
@@ -474,7 +474,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 		// Track if fully refunded action was triggered.
 		$fully_refunded_triggered = false;
 		add_action(
-			'woocommerce_order_fully_refunded',
+			'poocommerce_order_fully_refunded',
 			function () use ( &$fully_refunded_triggered ) {
 				$fully_refunded_triggered = true;
 			}
@@ -483,7 +483,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 		// Track if partially refunded action was triggered.
 		$partially_refunded_triggered = false;
 		add_action(
-			'woocommerce_order_partially_refunded',
+			'poocommerce_order_partially_refunded',
 			function () use ( &$partially_refunded_triggered ) {
 				$partially_refunded_triggered = true;
 			}
@@ -771,7 +771,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Should attribute a refund to nobody when no user is logged in, rather than to user 1.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/36329
+	 * @see https://github.com/poocommerce/poocommerce/issues/36329
 	 */
 	public function test_wc_create_refund_records_no_user_when_nobody_is_logged_in(): void {
 		wp_set_current_user( 0 );
@@ -799,11 +799,11 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_get_order_notes_pagination(): void {
 		$order = WC_Helper_Order::create_order();
 		$order->add_order_note( 'First internal note' );
-		add_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+		add_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		try {
 			$order->add_order_note( 'Customer note', 1 );
 		} finally {
-			remove_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+			remove_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		}
 		$order->add_order_note( 'Last internal note' );
 
@@ -830,7 +830,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Should show an order note's time in the current site timezone after the timezone changes.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/48953
+	 * @see https://github.com/poocommerce/poocommerce/issues/48953
 	 */
 	public function test_wc_get_order_note_uses_current_site_timezone(): void {
 		update_option( 'timezone_string', 'America/New_York' );
@@ -858,10 +858,10 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_cancel_unpaid_orders_marks_orders_cancelled_by_timeout(): void {
 		global $wpdb;
 
-		$original_manage_stock = get_option( 'woocommerce_manage_stock' );
-		$original_hold_minutes = get_option( 'woocommerce_hold_stock_minutes' );
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
+		$original_manage_stock = get_option( 'poocommerce_manage_stock' );
+		$original_hold_minutes = get_option( 'poocommerce_hold_stock_minutes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
 
 		$order_cache = wc_get_container()->get( OrderCache::class );
 		$expired     = time() - 3 * HOUR_IN_SECONDS;
@@ -893,14 +893,14 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 			$order_cache->remove( $order_id );
 			$marked_in_hook = UnpaidOrderTimeoutMarker::is_marked( wc_get_order( $order_id ) );
 		};
-		add_action( 'woocommerce_order_status_pending_to_cancelled', $callback );
+		add_action( 'poocommerce_order_status_pending_to_cancelled', $callback );
 
 		wc_cancel_unpaid_orders();
 
-		remove_action( 'woocommerce_order_status_pending_to_cancelled', $callback );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-		update_option( 'woocommerce_manage_stock', $original_manage_stock );
-		update_option( 'woocommerce_hold_stock_minutes', $original_hold_minutes );
+		remove_action( 'poocommerce_order_status_pending_to_cancelled', $callback );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+		update_option( 'poocommerce_manage_stock', $original_manage_stock );
+		update_option( 'poocommerce_hold_stock_minutes', $original_hold_minutes );
 
 		$order_cache->remove( $orders['checkout'] );
 		$order_cache->remove( $orders['admin'] );

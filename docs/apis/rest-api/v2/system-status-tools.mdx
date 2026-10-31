@@ -39,7 +39,7 @@ curl https://example.com/wp-json/wc/v2/system_status/tools/clear_transients \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("system_status/tools/clear_transients")
+PooCommerce.get("system_status/tools/clear_transients")
   .then((response) => {
     console.log(response.data);
   })
@@ -52,7 +52,7 @@ WooCommerce.get("system_status/tools/clear_transients")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('system_status/tools/clear_transients')); ?>
+<?php print_r($poocommerce->get('system_status/tools/clear_transients')); ?>
 ```
 
   </TabItem>
@@ -66,7 +66,7 @@ print(wcapi.get("system_status/tools/clear_transients").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("system_status/tools/clear_transients").parsed_response
+poocommerce.get("system_status/tools/clear_transients").parsed_response
 ```
 
   </TabItem>
@@ -115,7 +115,7 @@ curl https://example.com/wp-json/wc/v2/system_status/tools \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("system_status/tools")
+PooCommerce.get("system_status/tools")
   .then((response) => {
     console.log(response.data);
   })
@@ -128,7 +128,7 @@ WooCommerce.get("system_status/tools")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('system_status/tools')); ?>
+<?php print_r($poocommerce->get('system_status/tools')); ?>
 ```
 
   </TabItem>
@@ -142,7 +142,7 @@ print(wcapi.get("system_status/tools").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("system_status/tools").parsed_response
+poocommerce.get("system_status/tools").parsed_response
 ```
 
   </TabItem>
@@ -280,7 +280,7 @@ woocommerce.get("system_status/tools").parsed_response
     "id": "reset_roles",
     "name": "Capabilities",
     "action": "Reset capabilities",
-    "description": "This tool will reset the admin, customer and shop_manager roles to default. Use this if your users cannot access all of the WooCommerce admin pages.",
+    "description": "This tool will reset the admin, customer and shop_manager roles to default. Use this if your users cannot access all of the PooCommerce admin pages.",
     "_links": {
       "self": [
         {
@@ -350,9 +350,9 @@ woocommerce.get("system_status/tools").parsed_response
   },
   {
     "id": "install_pages",
-    "name": "Install WooCommerce pages",
+    "name": "Install PooCommerce pages",
     "action": "Install pages",
-    "description": "<strong class=\"red\">Note:</strong> This tool will install all the missing WooCommerce pages. Pages already defined and set up will not be replaced.",
+    "description": "<strong class=\"red\">Note:</strong> This tool will install all the missing PooCommerce pages. Pages already defined and set up will not be replaced.",
     "_links": {
       "self": [
         {
@@ -368,7 +368,7 @@ woocommerce.get("system_status/tools").parsed_response
   },
   {
     "id": "delete_taxes",
-    "name": "Delete all WooCommerce tax rates",
+    "name": "Delete all PooCommerce tax rates",
     "action": "Delete ALL tax rates",
     "description": "<strong class=\"red\">Note:</strong> This option will delete ALL of your tax rates, use with caution.",
     "_links": {
@@ -406,7 +406,7 @@ woocommerce.get("system_status/tools").parsed_response
     "id": "db_update_routine",
     "name": "Update database",
     "action": "Update database",
-    "description": "<strong class=\"red\">Note:</strong> This tool will update your WooCommerce database to the latest version. Please ensure you make sufficient backups before proceeding.",
+    "description": "<strong class=\"red\">Note:</strong> This tool will update your PooCommerce database to the latest version. Please ensure you make sufficient backups before proceeding.",
     "_links": {
       "self": [
         {
@@ -489,7 +489,7 @@ const data = {
   confirm: true
 };
 
-WooCommerce.put("system_status/tools/clear_transients", data)
+PooCommerce.put("system_status/tools/clear_transients", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -507,7 +507,7 @@ $data = [
     'confirm' => true
 ];
 
-print_r($woocommerce->put('system_status/tools/clear_transients', $data));
+print_r($poocommerce->put('system_status/tools/clear_transients', $data));
 ?>
 ```
 
@@ -530,7 +530,7 @@ data = {
   confirm: true
 }
 
-woocommerce.put("system_status/tools/clear_transients", data).parsed_response
+poocommerce.put("system_status/tools/clear_transients", data).parsed_response
 ```
 
   </TabItem>

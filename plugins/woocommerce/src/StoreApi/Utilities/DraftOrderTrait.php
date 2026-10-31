@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * DraftOrderTrait
@@ -96,7 +96,7 @@ trait DraftOrderTrait {
 		 * @param array     $valid_order_statuses Array of valid order statuses for payment.
 		 * @param \WC_Order $order                Order object.
 		 */
-		$payable_statuses = array_filter( (array) apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order_object ) );
+		$payable_statuses = array_filter( (array) apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order_object ) );
 
 		return $order_object->has_status( $payable_statuses );
 	}

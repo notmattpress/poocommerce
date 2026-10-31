@@ -2,7 +2,7 @@
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Geolocation
+ * @package PooCommerce\Tests\Geolocation
  */
 
 /**
@@ -111,7 +111,7 @@ class WC_Tests_Geolocation extends WC_Unit_Test_Case {
 			$data['country'] = '';
 			return $data;
 		};
-		add_filter( 'woocommerce_get_geolocation', $force_empty_geolocation, 999 );
+		add_filter( 'poocommerce_get_geolocation', $force_empty_geolocation, 999 );
 
 		// Intercept the outgoing request; the body is valid for both configured providers.
 		$intercept_request = function ( $pre, $args, $url ) use ( &$requested_url ) {
@@ -126,7 +126,7 @@ class WC_Tests_Geolocation extends WC_Unit_Test_Case {
 		$geolocation = WC_Geolocation::geolocate_ip( $ip_address, false, true );
 
 		remove_filter( 'pre_http_request', $intercept_request, 10 );
-		remove_filter( 'woocommerce_get_geolocation', $force_empty_geolocation, 999 );
+		remove_filter( 'poocommerce_get_geolocation', $force_empty_geolocation, 999 );
 		delete_transient( 'geoip_' . $ip_address );
 
 		$this->assertEquals( 'US', $geolocation['country'], 'The country code from the API response should be returned' );

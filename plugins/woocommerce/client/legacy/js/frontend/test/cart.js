@@ -4,7 +4,7 @@
 
 // Fixtures match jQuery 3 serialize(): encodeURIComponent per field, spaces as
 // %20, apostrophes literal. cart.js hands this to $.ajax() untouched and opts in
-// to the apostrophe encoding that the woocommerce.js prefilter applies.
+// to the apostrophe encoding that the poocommerce.js prefilter applies.
 const CART_URL = 'https://example.test/cart/';
 const COUPON_CODE = "SAVE'10";
 
@@ -19,7 +19,7 @@ const SHIPPING_FORM_SERIALIZED =
 	"&calc_shipping_state=O'State" +
 	'&calc_shipping_postcode=63366' +
 	"&calc_shipping_city=O'Fallon" +
-	'&woocommerce-shipping-calculator-nonce=abc123' +
+	'&poocommerce-shipping-calculator-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F' +
 	'&calc_shipping=x';
 
@@ -28,7 +28,7 @@ const CART_FORM_SERIALIZED =
 	"&coupon_code=SAVE'10" +
 	"&order'note=Leave%20at%20O'Brien's%20door" +
 	'&reference=already%2527encoded' +
-	'&woocommerce-cart-nonce=abc123' +
+	'&poocommerce-cart-nonce=abc123' +
 	'&_wp_http_referer=%2Fcart%2F';
 
 // quantity_update() appends a hidden update_cart input before serialize().
@@ -122,7 +122,7 @@ describe( 'cart.js request data', () => {
 		// cart_submit() bails unless the target is a form with cart contents.
 		$cartForm.is = jest.fn( ( selector ) => selector === 'form' );
 		$cartForm.find = jest.fn( ( selector ) =>
-			selector === '.woocommerce-cart-form__contents'
+			selector === '.poocommerce-cart-form__contents'
 				? { length: 1 }
 				: createDefaultMock()
 		);
@@ -164,7 +164,7 @@ describe( 'cart.js request data', () => {
 				return $document;
 			}
 			if (
-				arg === '.woocommerce-cart-form' ||
+				arg === '.poocommerce-cart-form' ||
 				arg === cartFormElement ||
 				arg === $cartForm
 			) {
@@ -228,13 +228,13 @@ describe( 'cart.js request data', () => {
 
 	// Every request site passes the data to $.ajax() as jQuery would get it from
 	// the shopper (the serialized form, or the data object) and sets the
-	// wc_form_encoding option, so the woocommerce.js prefilter encodes the body
+	// wc_form_encoding option, so the poocommerce.js prefilter encodes the body
 	// like a browser form post. Passing objects keeps undefined fields out of
 	// the body and lets other prefilters read originalOptions.data.
 	test( 'should send the serialized shipping calculator form with the encoding opt-in', () => {
 		const submit = findDocumentHandler(
 			'submit',
-			'form.woocommerce-shipping-calculator'
+			'form.poocommerce-shipping-calculator'
 		);
 		const evt = { preventDefault: jest.fn(), currentTarget: shippingFormElement };
 
@@ -269,7 +269,7 @@ describe( 'cart.js request data', () => {
 		// submit button is the Update cart button.
 		clickedSubmitName = 'update_cart';
 		$cartForm.serialize.mockReturnValue( QUANTITY_FORM_SERIALIZED );
-		const submit = findDocumentHandler( 'submit', '.woocommerce-cart-form' );
+		const submit = findDocumentHandler( 'submit', '.poocommerce-cart-form' );
 		const evt = { preventDefault: jest.fn(), currentTarget: cartFormElement };
 
 		submit( evt );
@@ -306,7 +306,7 @@ describe( 'cart.js request data', () => {
 
 	test( 'should send apply coupon data as an object with the encoding opt-in', () => {
 		clickedSubmitName = 'apply_coupon';
-		const submit = findDocumentHandler( 'submit', '.woocommerce-cart-form' );
+		const submit = findDocumentHandler( 'submit', '.poocommerce-cart-form' );
 		const evt = { preventDefault: jest.fn(), currentTarget: cartFormElement };
 
 		submit( evt );
@@ -327,7 +327,7 @@ describe( 'cart.js request data', () => {
 	} );
 
 	test( 'should send remove coupon data as an object with the encoding opt-in', () => {
-		const click = findDocumentHandler( 'click', 'a.woocommerce-remove-coupon' );
+		const click = findDocumentHandler( 'click', 'a.poocommerce-remove-coupon' );
 		const evt = {
 			preventDefault: jest.fn(),
 			currentTarget: removeCouponElement,

@@ -1,5 +1,5 @@
 {
-	"name": "@woocommerce/classic-assets",
+	"name": "@poocommerce/classic-assets",
 	"private": true,
 	"version": "1.0.0",
 	"author": "Automattic",
@@ -45,7 +45,7 @@
 		"stylelint": "catalog:tooling"
 	},
 	"dependencies": {
-		"sourcebuster": "github:woocommerce/sourcebuster-js#b28980f98d8ed3f35ac84974e603a6c3bd103752"
+		"sourcebuster": "github:poocommerce/sourcebuster-js#b28980f98d8ed3f35ac84974e603a6c3bd103752"
 	},
 	"config": {
 		"ci": {

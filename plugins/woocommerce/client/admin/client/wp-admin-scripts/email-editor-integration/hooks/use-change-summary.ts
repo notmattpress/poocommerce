@@ -55,7 +55,7 @@ export interface ChangeSummaryStructuralChange {
 
 /**
  * Full change-summary payload returned by
- * `GET /woocommerce-email-editor/v1/emails/{id}/change-summary`.
+ * `GET /poocommerce-email-editor/v1/emails/{id}/change-summary`.
  */
 export interface ChangeSummary {
 	version_from: string;
@@ -116,7 +116,7 @@ export function useChangeSummary(
 		setError( null );
 
 		apiFetch< ChangeSummary >( {
-			path: `/woocommerce-email-editor/v1/emails/${ postId }/change-summary`,
+			path: `/poocommerce-email-editor/v1/emails/${ postId }/change-summary`,
 		} )
 			.then( ( res ) => {
 				if ( ! cancelled ) {

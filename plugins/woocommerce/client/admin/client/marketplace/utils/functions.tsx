@@ -110,7 +110,7 @@ async function fetchJsonWithCache(
 	} );
 }
 
-// Fetch search results for a given set of URLSearchParams from the WooCommerce.com API
+// Fetch search results for a given set of URLSearchParams from the PooCommerce.com API
 async function fetchSearchResults(
 	params: URLSearchParams,
 	abortSignal?: AbortSignal
@@ -192,7 +192,7 @@ async function fetchSearchResults(
 	} );
 }
 
-// Fetch data for the discover page from the WooCommerce.com API
+// Fetch data for the discover page from the PooCommerce.com API
 async function fetchDiscoverPageData(): Promise< ProductGroup[] > {
 	let url = '/wc/v3/marketplace/featured';
 
@@ -394,7 +394,7 @@ function wpAjax(
 ): Promise< WpAjaxResponse > {
 	return new Promise( ( resolve, reject ) => {
 		if ( ! window.wp.updates ) {
-			reject( __( 'Please reload and try again', 'woocommerce' ) );
+			reject( __( 'Please reload and try again', 'poocommerce' ) );
 			return;
 		}
 
@@ -444,7 +444,7 @@ function activateProduct( subscription: Subscription ): Promise< void > {
 						// translators: %s is the product name.
 						__(
 							'%s could not be activated. Please activate it manually.',
-							'woocommerce'
+							'poocommerce'
 						),
 						subscription.product_name
 					),
@@ -548,7 +548,7 @@ const getRefreshErrorMessage = ( error: unknown ): string => {
 		( value ): value is string => typeof value === 'string' && value !== ''
 	);
 
-	return message ?? __( 'Unexpected error.', 'woocommerce' );
+	return message ?? __( 'Unexpected error.', 'poocommerce' );
 };
 
 /**
@@ -569,14 +569,14 @@ const getUpdateErrorNotice = (
 					// translators: %s is the product name.
 					__(
 						'%s couldn’t be updated. This version requires a newer version of WordPress.',
-						'woocommerce'
+						'poocommerce'
 					),
 					productName
 				),
 				actions: wccomSettings.updateCoreUrl
 					? [
 							{
-								label: __( 'Update WordPress', 'woocommerce' ),
+								label: __( 'Update WordPress', 'poocommerce' ),
 								url: wccomSettings.updateCoreUrl,
 							},
 						]
@@ -588,14 +588,14 @@ const getUpdateErrorNotice = (
 					// translators: %s is the product name.
 					__(
 						'%s couldn’t be updated. This version requires a newer version of PHP.',
-						'woocommerce'
+						'poocommerce'
 					),
 					productName
 				),
 				actions: wccomSettings.updatePhpUrl
 					? [
 							{
-								label: __( 'Learn more', 'woocommerce' ),
+								label: __( 'Learn more', 'poocommerce' ),
 								url: wccomSettings.updatePhpUrl,
 								openInNewTab: true,
 							},
@@ -606,7 +606,7 @@ const getUpdateErrorNotice = (
 
 	let message = sprintf(
 		// translators: %s is the product name.
-		__( '%s couldn’t be updated.', 'woocommerce' ),
+		__( '%s couldn’t be updated.', 'poocommerce' ),
 		productName
 	);
 	if ( wpMessage ) {
@@ -617,7 +617,7 @@ const getUpdateErrorNotice = (
 		message,
 		actions: [
 			{
-				label: __( 'Try again', 'woocommerce' ),
+				label: __( 'Try again', 'poocommerce' ),
 				onClick: onRetry,
 			},
 		],

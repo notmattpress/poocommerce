@@ -2,7 +2,7 @@
 /**
  * Stand-in for the WP Consent API plugin that reads the consent cookie as WP Consent API 2.0 does. Load it only in a separate process.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 if ( ! function_exists( 'wp_get_consent_type' ) ) {

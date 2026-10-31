@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared product helpers for WooCommerce domain ability definitions.
+ * Shared product helpers for PooCommerce domain ability definitions.
  */
 trait ProductAbilityTrait {
 
@@ -128,7 +128,7 @@ trait ProductAbilityTrait {
 			'type'        => 'string',
 			'description' => __(
 				'Supported agent-facing product type alias. physical maps to a simple shippable, non-downloadable product; virtual maps to a simple non-shipping, non-downloadable product; digital maps to a simple virtual/downloadable product; affiliate maps to the external product type; grouped maps to grouped.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'enum'        => null === $product_type_alias ? self::get_supported_product_type_aliases() : array( $product_type_alias ),
 		);
@@ -145,21 +145,21 @@ trait ProductAbilityTrait {
 			'sku'               => array( 'type' => 'string' ),
 			'regular_price'     => array(
 				'type'        => 'string',
-				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'woocommerce' ),
+				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'poocommerce' ),
 				'pattern'     => self::get_product_price_input_pattern(),
 			),
 			'sale_price'        => array(
 				'type'        => 'string',
-				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'woocommerce' ),
+				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'poocommerce' ),
 				'pattern'     => self::get_product_price_input_pattern(),
 			),
 			'description'       => array(
 				'type'        => 'string',
-				'description' => __( 'Product description content. Safe HTML is allowed.', 'woocommerce' ),
+				'description' => __( 'Product description content. Safe HTML is allowed.', 'poocommerce' ),
 			),
 			'short_description' => array(
 				'type'        => 'string',
-				'description' => __( 'Short product description content. Safe HTML is allowed.', 'woocommerce' ),
+				'description' => __( 'Short product description content. Safe HTML is allowed.', 'poocommerce' ),
 			),
 			'status'            => array(
 				'type' => 'string',
@@ -168,7 +168,7 @@ trait ProductAbilityTrait {
 			'manage_stock'      => array( 'type' => 'boolean' ),
 			'stock_quantity'    => array(
 				'type'        => self::get_product_stock_quantity_schema_type(),
-				'description' => __( 'Available stock quantity when product-level stock management is used.', 'woocommerce' ),
+				'description' => __( 'Available stock quantity when product-level stock management is used.', 'poocommerce' ),
 			),
 			'stock_status'      => array(
 				'type' => 'string',
@@ -176,16 +176,16 @@ trait ProductAbilityTrait {
 			),
 			'external_url'      => array(
 				'type'        => 'string',
-				'description' => __( 'External destination URL for affiliate products.', 'woocommerce' ),
+				'description' => __( 'External destination URL for affiliate products.', 'poocommerce' ),
 				'format'      => 'uri',
 			),
 			'button_text'       => array(
 				'type'        => 'string',
-				'description' => __( 'Button text for affiliate products.', 'woocommerce' ),
+				'description' => __( 'Button text for affiliate products.', 'poocommerce' ),
 			),
 			'grouped_products'  => array(
 				'type'        => 'array',
-				'description' => __( 'Product IDs to include as children of a grouped product.', 'woocommerce' ),
+				'description' => __( 'Product IDs to include as children of a grouped product.', 'poocommerce' ),
 				'items'       => array(
 					'type'    => 'integer',
 					'minimum' => 1,
@@ -234,8 +234,8 @@ trait ProductAbilityTrait {
 
 		if ( ! isset( $configs[ $product_type_alias ] ) ) {
 			return new \WP_Error(
-				'woocommerce_product_type_unsupported',
-				__( 'Product type is not supported by this ability.', 'woocommerce' ),
+				'poocommerce_product_type_unsupported',
+				__( 'Product type is not supported by this ability.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -313,8 +313,8 @@ trait ProductAbilityTrait {
 		}
 
 		return new \WP_Error(
-			'woocommerce_product_type_unsupported',
-			__( 'Product type is not supported by this ability.', 'woocommerce' ),
+			'poocommerce_product_type_unsupported',
+			__( 'Product type is not supported by this ability.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -332,7 +332,7 @@ trait ProductAbilityTrait {
 	 * Get product type alias configuration.
 	 *
 	 * The keys are agent-facing product type aliases. Each config maps the alias to a
-	 * WooCommerce product class plus the fields that can be applied to it.
+	 * PooCommerce product class plus the fields that can be applied to it.
 	 *
 	 * @return array<string, array{wc_type: string, fields: array<int, string>, product_props: array<string, mixed>, query_props?: array<string, mixed>}>
 	 */
@@ -456,8 +456,8 @@ trait ProductAbilityTrait {
 	protected static function get_product_from_input( array $input ) {
 		if ( empty( $input['id'] ) ) {
 			return new \WP_Error(
-				'woocommerce_product_id_required',
-				__( 'Product ID is required.', 'woocommerce' ),
+				'poocommerce_product_id_required',
+				__( 'Product ID is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -466,8 +466,8 @@ trait ProductAbilityTrait {
 
 		if ( $product_id < 1 ) {
 			return new \WP_Error(
-				'woocommerce_product_id_required',
-				__( 'Product ID is required.', 'woocommerce' ),
+				'poocommerce_product_id_required',
+				__( 'Product ID is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -476,8 +476,8 @@ trait ProductAbilityTrait {
 
 		if ( ! $product ) {
 			return new \WP_Error(
-				'woocommerce_product_not_found',
-				__( 'Product not found.', 'woocommerce' ),
+				'poocommerce_product_not_found',
+				__( 'Product not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -576,10 +576,10 @@ trait ProductAbilityTrait {
 		}
 
 		return new \WP_Error(
-			'woocommerce_product_field_unsupported',
+			'poocommerce_product_field_unsupported',
 			sprintf(
 				/* translators: %s is a comma-separated list of unsupported product fields. */
-				__( 'These fields are not supported for the selected product type: %s.', 'woocommerce' ),
+				__( 'These fields are not supported for the selected product type: %s.', 'poocommerce' ),
 				implode( ', ', $unsupported_field_keys )
 			),
 			array( 'status' => 400 )
@@ -613,8 +613,8 @@ trait ProductAbilityTrait {
 		if ( 'grouped_products' === $field ) {
 			if ( ! is_array( $value ) ) {
 				return new \WP_Error(
-					'woocommerce_product_grouped_products_invalid',
-					__( 'Grouped product IDs must be positive integers.', 'woocommerce' ),
+					'poocommerce_product_grouped_products_invalid',
+					__( 'Grouped product IDs must be positive integers.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -624,8 +624,8 @@ trait ProductAbilityTrait {
 			foreach ( $value as $product_id ) {
 				if ( ! rest_is_integer( $product_id ) || (int) $product_id < 1 ) {
 					return new \WP_Error(
-						'woocommerce_product_grouped_products_invalid',
-						__( 'Grouped product IDs must be positive integers.', 'woocommerce' ),
+						'poocommerce_product_grouped_products_invalid',
+						__( 'Grouped product IDs must be positive integers.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -681,7 +681,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * Get decimal separators accepted by WooCommerce decimal formatting.
+	 * Get decimal separators accepted by PooCommerce decimal formatting.
 	 *
 	 * @return array<int, string>
 	 */
@@ -711,14 +711,14 @@ trait ProductAbilityTrait {
 	 */
 	private static function get_invalid_product_price_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_product_price_invalid',
-			__( 'Product prices must be decimal strings without currency symbols or thousand separators.', 'woocommerce' ),
+			'poocommerce_product_price_invalid',
+			__( 'Product prices must be decimal strings without currency symbols or thousand separators.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
 
 	/**
-	 * Convert a WooCommerce data exception to a WordPress error.
+	 * Convert a PooCommerce data exception to a WordPress error.
 	 *
 	 * @param \WC_Data_Exception $exception Exception.
 	 * @return \WP_Error
@@ -732,7 +732,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * Save a product and return a failure if WooCommerce did not persist it.
+	 * Save a product and return a failure if PooCommerce did not persist it.
 	 *
 	 * @param \WC_Product $product      Product object.
 	 * @param string      $failure_code Error code to use when save returns no ID.
@@ -746,9 +746,9 @@ trait ProductAbilityTrait {
 		} catch ( \Exception $exception ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
 				wc_get_logger()->error(
-					'WooCommerce domain ability failed to save product.',
+					'PooCommerce domain ability failed to save product.',
 					array(
-						'source'        => 'woocommerce-abilities',
+						'source'        => 'poocommerce-abilities',
 						'failure_code'  => $failure_code,
 						'product_id'    => $product->get_id(),
 						'exception'     => get_class( $exception ),
@@ -759,7 +759,7 @@ trait ProductAbilityTrait {
 
 			return new \WP_Error(
 				$failure_code,
-				__( 'Failed to save product.', 'woocommerce' ),
+				__( 'Failed to save product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -767,7 +767,7 @@ trait ProductAbilityTrait {
 		if ( $product_id <= 0 || $product->get_id() <= 0 ) {
 			return new \WP_Error(
 				$failure_code,
-				__( 'Failed to save product.', 'woocommerce' ),
+				__( 'Failed to save product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -793,9 +793,9 @@ trait ProductAbilityTrait {
 			'type'              => $product->get_type(),
 			'status'            => $product->get_status(),
 			'sku'               => $product->get_sku(),
-			'currency'          => get_woocommerce_currency(),
+			'currency'          => get_poocommerce_currency(),
 			'currency_symbol'   => html_entity_decode(
-				get_woocommerce_currency_symbol(),
+				get_poocommerce_currency_symbol(),
 				ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
 			),
 			'price'             => $product->get_price(),
@@ -833,12 +833,12 @@ trait ProductAbilityTrait {
 					'slug'              => array( 'type' => 'string' ),
 					'permalink'         => array(
 						'type'        => array( 'string', 'null' ),
-						'description' => __( 'Product permalink, or null when no public permalink is available.', 'woocommerce' ),
+						'description' => __( 'Product permalink, or null when no public permalink is available.', 'poocommerce' ),
 						'format'      => 'uri',
 					),
 					'type'              => array(
 						'type'        => 'string',
-						'description' => __( 'Internal product type slug, such as simple, external, grouped, or variable.', 'woocommerce' ),
+						'description' => __( 'Internal product type slug, such as simple, external, grouped, or variable.', 'poocommerce' ),
 						'enum'        => array_keys( wc_get_product_types() ),
 					),
 					'status'            => array(
@@ -848,20 +848,20 @@ trait ProductAbilityTrait {
 					'sku'               => array( 'type' => 'string' ),
 					'currency'          => array(
 						'type' => 'string',
-						'enum' => array_keys( get_woocommerce_currencies() ),
+						'enum' => array_keys( get_poocommerce_currencies() ),
 					),
 					'currency_symbol'   => array( 'type' => 'string' ),
 					'price'             => array(
 						'type'        => 'string',
-						'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+						'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 					),
 					'regular_price'     => array(
 						'type'        => 'string',
-						'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+						'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 					),
 					'sale_price'        => array(
 						'type'        => 'string',
-						'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+						'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 					),
 					'stock_status'      => array(
 						'type' => 'string',
@@ -869,23 +869,23 @@ trait ProductAbilityTrait {
 					),
 					'stock_quantity'    => array(
 						'type'        => array( self::get_product_stock_quantity_schema_type(), 'null' ),
-						'description' => __( 'Current stock quantity, or null when no stock quantity is set.', 'woocommerce' ),
+						'description' => __( 'Current stock quantity, or null when no stock quantity is set.', 'poocommerce' ),
 					),
 					'manage_stock'      => array( 'type' => 'boolean' ),
 					'virtual'           => array( 'type' => 'boolean' ),
 					'downloadable'      => array( 'type' => 'boolean' ),
 					'external_url'      => array(
 						'type'        => array( 'string', 'null' ),
-						'description' => __( 'External product URL for external products.', 'woocommerce' ),
+						'description' => __( 'External product URL for external products.', 'poocommerce' ),
 						'format'      => 'uri',
 					),
 					'button_text'       => array(
 						'type'        => array( 'string', 'null' ),
-						'description' => __( 'Button text for external products.', 'woocommerce' ),
+						'description' => __( 'Button text for external products.', 'poocommerce' ),
 					),
 					'grouped_products'  => array(
 						'type'        => 'array',
-						'description' => __( 'Product IDs included as children of a grouped product.', 'woocommerce' ),
+						'description' => __( 'Product IDs included as children of a grouped product.', 'poocommerce' ),
 						'items'       => array( 'type' => 'integer' ),
 					),
 					'date_created'      => array(
@@ -914,7 +914,7 @@ trait ProductAbilityTrait {
 	/**
 	 * Get the schema type for product stock quantities.
 	 *
-	 * WooCommerce stock quantities can support fractional values when the
+	 * PooCommerce stock quantities can support fractional values when the
 	 * stock amount filter is configured to return non-integer amounts.
 	 *
 	 * @return string

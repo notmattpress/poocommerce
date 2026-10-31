@@ -1,19 +1,19 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
- * Integration tests for WooCommerce product renderer RTL defaults.
+ * Integration tests for PooCommerce product renderer RTL defaults.
  */
 class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	/**
@@ -74,10 +74,10 @@ class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test product button defaults to RTL alignment and preserves explicit alignment.
 	 */
 	public function testProductButtonRtlAlignment(): void {
-		$this->skip_if_woocommerce_is_unavailable();
+		$this->skip_if_poocommerce_is_unavailable();
 
 		$renderer = new Product_Button();
-		$block    = $this->get_product_block( 'woocommerce/product-button' );
+		$block    = $this->get_product_block( 'poocommerce/product-button' );
 
 		$ltr                         = $renderer->render( '', $block, $this->ltr_context );
 		$rtl                         = $renderer->render( '', $block, $this->rtl_context );
@@ -93,10 +93,10 @@ class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test product price defaults to RTL alignment and preserves explicit alignment.
 	 */
 	public function testProductPriceRtlAlignment(): void {
-		$this->skip_if_woocommerce_is_unavailable();
+		$this->skip_if_poocommerce_is_unavailable();
 
 		$renderer = new Product_Price();
-		$block    = $this->get_product_block( 'woocommerce/product-price' );
+		$block    = $this->get_product_block( 'poocommerce/product-price' );
 
 		$ltr                         = $renderer->render( '', $block, $this->ltr_context );
 		$rtl                         = $renderer->render( '', $block, $this->rtl_context );
@@ -112,10 +112,10 @@ class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test product sale badge defaults to RTL alignment and preserves explicit alignment.
 	 */
 	public function testProductSaleBadgeRtlAlignment(): void {
-		$this->skip_if_woocommerce_is_unavailable();
+		$this->skip_if_poocommerce_is_unavailable();
 
 		$renderer = new Product_Sale_Badge();
-		$block    = $this->get_product_block( 'woocommerce/product-sale-badge' );
+		$block    = $this->get_product_block( 'poocommerce/product-sale-badge' );
 
 		$ltr                     = $renderer->render( '', $block, $this->ltr_context );
 		$rtl                     = $renderer->render( '', $block, $this->rtl_context );
@@ -131,10 +131,10 @@ class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test product image defaults to RTL alignment and preserves explicit alignment.
 	 */
 	public function testProductImageRtlAlignment(): void {
-		$this->skip_if_woocommerce_is_unavailable();
+		$this->skip_if_poocommerce_is_unavailable();
 
 		$renderer = new Product_Image();
-		$block    = $this->get_product_block( 'woocommerce/product-image' );
+		$block    = $this->get_product_block( 'poocommerce/product-image' );
 
 		$ltr                     = $renderer->render( '', $block, $this->ltr_context );
 		$rtl                     = $renderer->render( '', $block, $this->rtl_context );
@@ -244,11 +244,11 @@ class Product_Renderers_Rtl_Test extends \Email_Editor_Integration_Test_Case {
 	}
 
 	/**
-	 * Skip product-specific renderer tests when WooCommerce is not loaded.
+	 * Skip product-specific renderer tests when PooCommerce is not loaded.
 	 */
-	private function skip_if_woocommerce_is_unavailable(): void {
+	private function skip_if_poocommerce_is_unavailable(): void {
 		if ( ! $this->product ) {
-			$this->markTestSkipped( 'WooCommerce product classes are not loaded in this package test environment.' );
+			$this->markTestSkipped( 'PooCommerce product classes are not loaded in this package test environment.' );
 		}
 	}
 }

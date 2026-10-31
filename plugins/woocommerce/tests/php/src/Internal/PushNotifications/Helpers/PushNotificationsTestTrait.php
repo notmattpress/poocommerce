@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 
@@ -20,7 +20,7 @@ use ReflectionClass;
  * push-notifications-related controller test needs in setUp. Also builds the
  * push tokens data store mock that PendingNotificationStore tests need.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 trait PushNotificationsTestTrait {
 	/**
@@ -81,7 +81,7 @@ trait PushNotificationsTestTrait {
 	}
 
 	/**
-	 * Removes new order trigger callbacks that WooCommerce registered when it booted.
+	 * Removes new order trigger callbacks that PooCommerce registered when it booted.
 	 * Push notifications are off in tests, so the off-state marker is registered and
 	 * would otherwise mark orders before the code under test does.
 	 *
@@ -90,7 +90,7 @@ trait PushNotificationsTestTrait {
 	protected function remove_trigger_callbacks_registered_at_boot(): void {
 		global $wp_filter;
 
-		foreach ( array( 'woocommerce_new_order', 'woocommerce_order_status_changed' ) as $hook ) {
+		foreach ( array( 'poocommerce_new_order', 'poocommerce_order_status_changed' ) as $hook ) {
 			$callbacks = isset( $wp_filter[ $hook ] ) ? $wp_filter[ $hook ]->callbacks : array();
 
 			foreach ( $callbacks as $priority => $by_priority ) {

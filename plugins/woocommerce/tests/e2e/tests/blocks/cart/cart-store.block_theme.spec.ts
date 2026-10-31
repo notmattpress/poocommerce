@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { APIResponse, Route } from '@playwright/test';
-import { test, expect, guestFile } from '@woocommerce/e2e-utils';
+import { test, expect, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

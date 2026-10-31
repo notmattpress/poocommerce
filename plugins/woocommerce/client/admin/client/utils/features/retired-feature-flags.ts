@@ -9,7 +9,7 @@ type RetiredFeatureFlagMetadata = {
 };
 
 // Keep this dictionary in sync with $retired_feature_compatibility_versions in
-// plugins/woocommerce/src/Admin/Features/Features.php.
+// plugins/poocommerce/src/Admin/Features/Features.php.
 export const RETIRED_FEATURE_FLAGS = {
 	'activity-panels': {
 		deprecatedSince: '11.1.0',
@@ -159,11 +159,11 @@ export const warnRetiredFeatureFlag = ( featureId: string ): void => {
 
 	deprecated( `wcAdminFeatures.${ featureId }`, {
 		since: deprecationVersion,
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 		hint: `The ${ featureId } WC Admin feature flag shim will be removed in ${
 			removalVersion
-				? `WooCommerce ${ removalVersion }`
-				: 'a future version of WooCommerce'
+				? `PooCommerce ${ removalVersion }`
+				: 'a future version of PooCommerce'
 		}.`,
 	} );
 };

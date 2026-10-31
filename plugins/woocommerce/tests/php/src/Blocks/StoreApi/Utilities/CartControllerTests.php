@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Unit tests for the CartController class.
@@ -40,7 +40,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		// Test maximum quantity after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 5 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_maximum',
+			'poocommerce_store_api_product_quantity_maximum',
 			function () {
 				return 2;
 			},
@@ -48,13 +48,13 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 2, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_maximum' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_maximum' );
 		wc()->cart->empty_cart();
 
 		// Test minimum quantity after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 1 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_minimum',
+			'poocommerce_store_api_product_quantity_minimum',
 			function () {
 				return 5;
 			},
@@ -62,13 +62,13 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 5, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_minimum' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_minimum' );
 		wc()->cart->empty_cart();
 
 		// Test multiple of after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 7 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_multiple_of',
+			'poocommerce_store_api_product_quantity_multiple_of',
 			function () {
 				return 3;
 			},
@@ -76,7 +76,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 6, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_multiple_of' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_multiple_of' );
 		wc()->cart->empty_cart();
 	}
 
@@ -133,7 +133,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 
 		// This function will force the $product->is_purchasable() function to return false for our $not_purchasable_product.
 		add_filter(
-			'woocommerce_is_purchasable',
+			'poocommerce_is_purchasable',
 			function ( $is_purchasable, $product ) use ( $not_purchasable_product ) {
 				if ( $product->get_id() === $not_purchasable_product->get_id() ) {
 					return false;
@@ -151,10 +151,10 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 
 		$error_codes     = $errors->get_error_codes();
 		$expected_errors = array(
-			'woocommerce_rest_product_partially_out_of_stock',
-			'woocommerce_rest_product_out_of_stock',
-			'woocommerce_rest_product_not_purchasable',
-			'woocommerce_rest_product_too_many_in_cart',
+			'poocommerce_rest_product_partially_out_of_stock',
+			'poocommerce_rest_product_out_of_stock',
+			'poocommerce_rest_product_not_purchasable',
+			'poocommerce_rest_product_too_many_in_cart',
 		);
 
 		foreach ( $expected_errors as $expected_error ) {
@@ -219,7 +219,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 
 		// Filter to create multiple packages.
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) {
 				$packages[] = $packages[0];
 				return $packages;
@@ -242,7 +242,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 1, $packages[1]['package_id'], 'Second package should have package_id of 1.' );
 		$this->assertStringContainsString( 'Shipment 2', $packages[1]['package_name'], 'Second package should have package_name containing "Shipment 2".' );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 
 		// Filter to add custom package_id.
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) {
 				$packages[0]['package_id'] = 'custom-package-123';
 				return $packages;
@@ -283,11 +283,11 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'custom-package-123', $packages[0]['package_id'], 'Package should use custom package_id from filter.' );
 		$this->assertArrayHasKey( 'package_name', $packages[0], 'Package should still have package_name.' );
 
-		remove_all_filters( 'woocommerce_cart_shipping_packages' );
+		remove_all_filters( 'poocommerce_cart_shipping_packages' );
 	}
 
 	/**
-	 * @testdox Add to cart applies woocommerce_add_to_cart_quantity to the requested quantity.
+	 * @testdox Add to cart applies poocommerce_add_to_cart_quantity to the requested quantity.
 	 */
 	public function test_add_to_cart_applies_quantity_filter(): void {
 		$fixtures = new FixtureData();
@@ -304,7 +304,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 			return 4;
 		};
 
-		add_filter( 'woocommerce_add_to_cart_quantity', $filter, 10, 3 );
+		add_filter( 'poocommerce_add_to_cart_quantity', $filter, 10, 3 );
 		try {
 			$cart_id = ( new CartController() )->add_to_cart(
 				array(
@@ -313,7 +313,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_add_to_cart_quantity', $filter, 10 );
+			remove_filter( 'poocommerce_add_to_cart_quantity', $filter, 10 );
 		}
 
 		$this->assertSame( array( 1, $product->get_id(), 0 ), $captured );
@@ -321,7 +321,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Add to cart passes the variation ID to woocommerce_add_to_cart_quantity.
+	 * @testdox Add to cart passes the variation ID to poocommerce_add_to_cart_quantity.
 	 */
 	public function test_add_to_cart_quantity_filter_receives_variation_id(): void {
 		$product   = \WC_Helper_Product::create_variation_product();
@@ -352,7 +352,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 			return 4;
 		};
 
-		add_filter( 'woocommerce_add_to_cart_quantity', $filter, 10, 3 );
+		add_filter( 'poocommerce_add_to_cart_quantity', $filter, 10, 3 );
 		try {
 			$cart_id = ( new CartController() )->add_to_cart(
 				array(
@@ -362,7 +362,7 @@ class CartControllerTests extends \WC_Unit_Test_Case {
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_add_to_cart_quantity', $filter, 10 );
+			remove_filter( 'poocommerce_add_to_cart_quantity', $filter, 10 );
 		}
 
 		$this->assertSame( array( 1, $product->get_id(), (int) $variation['variation_id'] ), $captured );

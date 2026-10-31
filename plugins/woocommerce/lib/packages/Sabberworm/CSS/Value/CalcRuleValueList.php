@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
 
 class CalcRuleValueList extends RuleValueList
 {

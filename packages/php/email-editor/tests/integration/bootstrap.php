@@ -66,7 +66,7 @@ class Email_Editor_Unit_Tests_Bootstrap {
 	}
 
 	/**
-	 * Load WooCommerce.
+	 * Load PooCommerce.
 	 */
 	public function load_plugin(): void {
 		require_once $this->plugin_dir . '/email-editor.php';

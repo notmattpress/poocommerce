@@ -16,7 +16,7 @@ export const CheckoutPaymentSkeleton = () => {
 			aria-live="polite"
 			aria-label={
 				// eslint-disable-next-line @wordpress/i18n-no-flanking-whitespace
-				__( 'Loading payment options… ', 'woocommerce' )
+				__( 'Loading payment options… ', 'poocommerce' )
 			}
 		>
 			<div className="wc-block-components-skeleton--checkout-payment-container">

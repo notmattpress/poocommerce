@@ -75,7 +75,7 @@
 					"scandir",
 					"file_exists",
 					"->debug(",
-					"woocommerce_init",
+					"poocommerce_init",
 					"plugins_loaded",
 					"::instance(",
 					"get_emails",
@@ -155,7 +155,7 @@
 	},
 	"exclude": [
 		"plugins/*/changelog/*",
-		"plugins/woocommerce/client/blocks/changelog/*",
+		"plugins/poocommerce/client/blocks/changelog/*",
 		"packages/js/*/changelog/*",
 		"packages/php/*/changelog/*"
 	],
@@ -164,11 +164,11 @@
 			"name": "hook-payload-contract",
 			"file": ".ai/review/guidelines/hook-payload-contract.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"apply_filters",
@@ -185,11 +185,11 @@
 			"name": "hook-firing-scope",
 			"file": ".ai/review/guidelines/hook-firing-scope.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"do_action",
@@ -217,11 +217,11 @@
 			"name": "php-loose-type-juggling",
 			"file": ".ai/review/guidelines/php-loose-type-juggling.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"strict_types",
@@ -251,8 +251,8 @@
 			"name": "public-php-api-bc",
 			"file": ".ai/review/guidelines/public-php-api-bc.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"interface ",
@@ -263,7 +263,7 @@
 				"protected function",
 				"public static function",
 				"function wc_",
-				"function woocommerce_",
+				"function poocommerce_",
 				"wc_deprecated_function",
 				"_deprecated_",
 				"final "
@@ -276,17 +276,17 @@
 			"name": "upgrade-time-class-load",
 			"file": ".ai/review/guidelines/upgrade-time-class-load.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php",
-				"plugins/woocommerce/src/Autoloader.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php",
+				"plugins/poocommerce/src/Autoloader.php"
 			],
 			"signals": [
 				"Enums\\",
 				"enum ",
-				"use Automattic\\WooCommerce",
+				"use Automattic\\PooCommerce",
 				"class_exists",
 				"require_once",
 				"include_once",
@@ -303,11 +303,11 @@
 			"name": "action-scheduler-lifecycle",
 			"file": ".ai/review/guidelines/action-scheduler-lifecycle.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"as_schedule_",
@@ -332,11 +332,11 @@
 			"name": "request-input-validation",
 			"file": ".ai/review/guidelines/request-input-validation.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"$_GET",
@@ -368,11 +368,11 @@
 			"name": "missing-object-deref",
 			"file": ".ai/review/guidelines/missing-object-deref.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"wc_get_product(",
@@ -387,7 +387,7 @@
 				"WC_Email",
 				"get_emails",
 				"template_html",
-				"woocommerce_email_classes",
+				"poocommerce_email_classes",
 				"get_variation_attributes",
 				"get_attribute_taxonomies",
 				"get_country_locale",
@@ -404,11 +404,11 @@
 			"name": "meta-option-value-semantics",
 			"file": ".ai/review/guidelines/meta-option-value-semantics.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"get_post_meta",
@@ -436,12 +436,12 @@
 			"name": "hpos-sync-on-read",
 			"file": ".ai/review/guidelines/hpos-sync-on-read.md",
 			"path": [
-				"plugins/woocommerce/src/Internal/DataStores/Orders/**/*.php",
-				"plugins/woocommerce/includes/data-stores/class-wc-order-data-store-cpt.php",
-				"plugins/woocommerce/includes/data-stores/abstract-wc-order-data-store-cpt.php",
-				"plugins/woocommerce/includes/class-wc-post-data.php",
-				"plugins/woocommerce/src/Internal/Utilities/COTMigrationUtil.php",
-				"plugins/woocommerce/src/Database/Migrations/**/*.php"
+				"plugins/poocommerce/src/Internal/DataStores/Orders/**/*.php",
+				"plugins/poocommerce/includes/data-stores/class-wc-order-data-store-cpt.php",
+				"plugins/poocommerce/includes/data-stores/abstract-wc-order-data-store-cpt.php",
+				"plugins/poocommerce/includes/class-wc-post-data.php",
+				"plugins/poocommerce/src/Internal/Utilities/COTMigrationUtil.php",
+				"plugins/poocommerce/src/Database/Migrations/**/*.php"
 			],
 			"personas": [
 				"regression"
@@ -451,9 +451,9 @@
 			"name": "order-storage-access",
 			"file": ".ai/review/guidelines/order-storage-access.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php"
 			],
 			"signals": [
 				"wp_count_posts",
@@ -482,9 +482,9 @@
 			"name": "payment-callbacks",
 			"file": ".ai/review/guidelines/payment-callbacks.md",
 			"path": [
-				"plugins/woocommerce/includes/gateways/**/*.php",
-				"plugins/woocommerce/src/Gateways/**/*.php",
-				"plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-paypal-*.php"
+				"plugins/poocommerce/includes/gateways/**/*.php",
+				"plugins/poocommerce/src/Gateways/**/*.php",
+				"plugins/poocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-paypal-*.php"
 			],
 			"personas": [
 				"security",
@@ -495,13 +495,13 @@
 			"name": "migration-upgrade-state",
 			"file": ".ai/review/guidelines/migration-upgrade-state.md",
 			"path": [
-				"plugins/woocommerce/includes/class-wc-install.php",
-				"plugins/woocommerce/includes/wc-update-functions.php",
-				"plugins/woocommerce/src/Database/**/*.php",
-				"plugins/woocommerce/src/Internal/Admin/Schedulers/**/*.php",
-				"plugins/woocommerce/src/Internal/DataStores/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/includes/class-wc-background-updater.php"
+				"plugins/poocommerce/includes/class-wc-install.php",
+				"plugins/poocommerce/includes/wc-update-functions.php",
+				"plugins/poocommerce/src/Database/**/*.php",
+				"plugins/poocommerce/src/Internal/Admin/Schedulers/**/*.php",
+				"plugins/poocommerce/src/Internal/DataStores/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/includes/class-wc-background-updater.php"
 			],
 			"signals": [
 				"wc_update_",
@@ -513,7 +513,7 @@
 				"CREATE TABLE",
 				"DROP ",
 				"update_db_version",
-				"woocommerce_db_version",
+				"poocommerce_db_version",
 				"migrat",
 				"KEY ",
 				"UNIQUE",
@@ -532,8 +532,8 @@
 			"name": "proxy-predicate-inference",
 			"file": ".ai/review/guidelines/proxy-predicate-inference.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"needs_shipping",
@@ -560,12 +560,12 @@
 			"name": "wc-query-shop-front-page",
 			"file": ".ai/review/guidelines/wc-query-shop-front-page.md",
 			"path": [
-				"plugins/woocommerce/includes/class-wc-query.php",
-				"plugins/woocommerce/includes/class-wc-template-loader.php",
-				"plugins/woocommerce/includes/class-wc-post-types.php",
-				"plugins/woocommerce/includes/wc-page-functions.php",
-				"plugins/woocommerce/src/Blocks/Templates/**/*.php",
-				"plugins/woocommerce/src/Internal/ComingSoon/**/*.php"
+				"plugins/poocommerce/includes/class-wc-query.php",
+				"plugins/poocommerce/includes/class-wc-template-loader.php",
+				"plugins/poocommerce/includes/class-wc-post-types.php",
+				"plugins/poocommerce/includes/wc-page-functions.php",
+				"plugins/poocommerce/src/Blocks/Templates/**/*.php",
+				"plugins/poocommerce/src/Internal/ComingSoon/**/*.php"
 			],
 			"personas": [
 				"regression"
@@ -575,16 +575,16 @@
 			"name": "request-lifecycle-state",
 			"file": ".ai/review/guidelines/request-lifecycle-state.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
-				"woocommerce_init",
+				"poocommerce_init",
 				"plugins_loaded",
-				"woocommerce_loaded",
+				"poocommerce_loaded",
 				"after_setup_theme",
 				"'init'",
 				"did_action",
@@ -608,10 +608,10 @@
 			"name": "template-and-js-default",
 			"file": ".ai/review/guidelines/template-and-js-default.md",
 			"path": [
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/includes/wc-template-functions.php",
-				"plugins/woocommerce/includes/wc-template-hooks.php",
-				"plugins/woocommerce/src/Blocks/BlockTypes/**/*.php"
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/includes/wc-template-functions.php",
+				"plugins/poocommerce/includes/wc-template-hooks.php",
+				"plugins/poocommerce/src/Blocks/BlockTypes/**/*.php"
 			],
 			"signals": [
 				"@version",
@@ -634,12 +634,12 @@
 			"name": "rest-response-contract",
 			"file": ".ai/review/guidelines/rest-response-contract.md",
 			"path": [
-				"plugins/woocommerce/src/StoreApi/**/*.php",
-				"plugins/woocommerce/includes/rest-api/**/*.php",
-				"plugins/woocommerce/src/Admin/API/**/*.php",
-				"plugins/woocommerce/src/Internal/RestApi/**/*.php",
-				"plugins/woocommerce/includes/class-wc-rest-*.php",
-				"plugins/woocommerce/includes/wc-rest-functions.php"
+				"plugins/poocommerce/src/StoreApi/**/*.php",
+				"plugins/poocommerce/includes/rest-api/**/*.php",
+				"plugins/poocommerce/src/Admin/API/**/*.php",
+				"plugins/poocommerce/src/Internal/RestApi/**/*.php",
+				"plugins/poocommerce/includes/class-wc-rest-*.php",
+				"plugins/poocommerce/includes/wc-rest-functions.php"
 			],
 			"signals": [
 				"get_item_schema",
@@ -667,23 +667,23 @@
 			"name": "session-cart-persistence",
 			"file": ".ai/review/guidelines/session-cart-persistence.md",
 			"path": [
-				"plugins/woocommerce/includes/class-wc-session-handler.php",
-				"plugins/woocommerce/includes/abstracts/abstract-wc-session.php",
-				"plugins/woocommerce/includes/class-wc-cart-session.php",
-				"plugins/woocommerce/includes/class-wc-cart.php",
-				"plugins/woocommerce/includes/class-wc-customer.php",
-				"plugins/woocommerce/includes/data-stores/class-wc-customer-data-store-session.php",
-				"plugins/woocommerce/src/StoreApi/**/*.php",
-				"plugins/woocommerce/includes/wc-user-functions.php",
-				"plugins/woocommerce/includes/class-wc-form-handler.php",
-				"plugins/woocommerce/src/Blocks/**/Cart*.php"
+				"plugins/poocommerce/includes/class-wc-session-handler.php",
+				"plugins/poocommerce/includes/abstracts/abstract-wc-session.php",
+				"plugins/poocommerce/includes/class-wc-cart-session.php",
+				"plugins/poocommerce/includes/class-wc-cart.php",
+				"plugins/poocommerce/includes/class-wc-customer.php",
+				"plugins/poocommerce/includes/data-stores/class-wc-customer-data-store-session.php",
+				"plugins/poocommerce/src/StoreApi/**/*.php",
+				"plugins/poocommerce/includes/wc-user-functions.php",
+				"plugins/poocommerce/includes/class-wc-form-handler.php",
+				"plugins/poocommerce/src/Blocks/**/Cart*.php"
 			],
 			"signals": [
 				"session",
 				"cart_token",
 				"Cart-Token",
 				"persistent_cart",
-				"_woocommerce_persistent_cart",
+				"_poocommerce_persistent_cart",
 				"wp_logout",
 				"wp_login",
 				"set_customer_session_cookie",
@@ -704,8 +704,8 @@
 			"name": "check-then-write-race",
 			"file": ".ai/review/guidelines/check-then-write-race.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"ReserveStock",
@@ -737,17 +737,17 @@
 			"name": "order-totals-recalc",
 			"file": ".ai/review/guidelines/order-totals-recalc.md",
 			"path": [
-				"plugins/woocommerce/includes/abstracts/abstract-wc-order.php",
-				"plugins/woocommerce/includes/class-wc-order*.php",
-				"plugins/woocommerce/includes/class-wc-cart*.php",
-				"plugins/woocommerce/includes/class-wc-discounts.php",
-				"plugins/woocommerce/includes/class-wc-tax.php",
-				"plugins/woocommerce/includes/class-wc-coupon.php",
-				"plugins/woocommerce/includes/wc-coupon-functions.php",
-				"plugins/woocommerce/includes/wc-order-functions.php",
-				"plugins/woocommerce/includes/admin/meta-boxes/**/*.php",
-				"plugins/woocommerce/includes/class-wc-ajax.php",
-				"plugins/woocommerce/src/StoreApi/Utilities/*.php"
+				"plugins/poocommerce/includes/abstracts/abstract-wc-order.php",
+				"plugins/poocommerce/includes/class-wc-order*.php",
+				"plugins/poocommerce/includes/class-wc-cart*.php",
+				"plugins/poocommerce/includes/class-wc-discounts.php",
+				"plugins/poocommerce/includes/class-wc-tax.php",
+				"plugins/poocommerce/includes/class-wc-coupon.php",
+				"plugins/poocommerce/includes/wc-coupon-functions.php",
+				"plugins/poocommerce/includes/wc-order-functions.php",
+				"plugins/poocommerce/includes/admin/meta-boxes/**/*.php",
+				"plugins/poocommerce/includes/class-wc-ajax.php",
+				"plugins/poocommerce/src/StoreApi/Utilities/*.php"
 			],
 			"signals": [
 				"calculate_",
@@ -776,18 +776,18 @@
 			"name": "shipping-rate-pipeline",
 			"file": ".ai/review/guidelines/shipping-rate-pipeline.md",
 			"path": [
-				"plugins/woocommerce/includes/class-wc-shipping*.php",
-				"plugins/woocommerce/includes/shipping/**/*.php",
-				"plugins/woocommerce/includes/abstracts/abstract-wc-shipping-method.php",
-				"plugins/woocommerce/includes/class-wc-cart.php",
-				"plugins/woocommerce/includes/class-wc-cart-totals.php",
-				"plugins/woocommerce/includes/class-wc-checkout.php",
-				"plugins/woocommerce/src/Blocks/Shipping/**/*.php",
-				"plugins/woocommerce/src/StoreApi/**/*.php",
-				"plugins/woocommerce/includes/wc-cart-functions.php"
+				"plugins/poocommerce/includes/class-wc-shipping*.php",
+				"plugins/poocommerce/includes/shipping/**/*.php",
+				"plugins/poocommerce/includes/abstracts/abstract-wc-shipping-method.php",
+				"plugins/poocommerce/includes/class-wc-cart.php",
+				"plugins/poocommerce/includes/class-wc-cart-totals.php",
+				"plugins/poocommerce/includes/class-wc-checkout.php",
+				"plugins/poocommerce/src/Blocks/Shipping/**/*.php",
+				"plugins/poocommerce/src/StoreApi/**/*.php",
+				"plugins/poocommerce/includes/wc-cart-functions.php"
 			],
 			"signals": [
-				"woocommerce_package_rates",
+				"poocommerce_package_rates",
 				"add_rate",
 				"WC_Shipping_Rate",
 				"needs_shipping",
@@ -796,7 +796,7 @@
 				"price_decimals",
 				"local_pickup",
 				"free_shipping",
-				"woocommerce_shipping_method_add_rate_args",
+				"poocommerce_shipping_method_add_rate_args",
 				"shipping_rates",
 				"chosen_shipping_methods",
 				"show_shipping",
@@ -813,18 +813,18 @@
 			"name": "sql-clause-filter-contract",
 			"file": ".ai/review/guidelines/sql-clause-filter-contract.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"posts_clauses",
 				"posts_join",
 				"posts_where",
 				"posts_orderby",
-				"woocommerce_admin_report_columns",
+				"poocommerce_admin_report_columns",
 				"pre_get_posts",
 				"append_product_sorting_table_join",
-				"woocommerce_get_catalog_ordering_args",
+				"poocommerce_get_catalog_ordering_args",
 				"ORDER BY",
 				"GROUP BY",
 				"report_columns",
@@ -843,11 +843,11 @@
 			"name": "cache-invalidation-and-poisoning",
 			"file": ".ai/review/guidelines/cache-invalidation-and-poisoning.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"wp_cache_get",
@@ -875,8 +875,8 @@
 			"name": "perf-refactor-semantic-drift",
 			"file": ".ai/review/guidelines/perf-refactor-semantic-drift.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"_prime_post_caches",
@@ -910,8 +910,8 @@
 			"name": "perf-sql-query-shape",
 			"file": ".ai/review/guidelines/perf-sql-query-shape.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"$wpdb->",
@@ -928,7 +928,7 @@
 				"UNION",
 				"->posts",
 				"->postmeta",
-				"woocommerce_attribute_lookup_enabled",
+				"poocommerce_attribute_lookup_enabled",
 				"product_lookup_table_is_generating",
 				"get_results",
 				"get_col",
@@ -943,11 +943,11 @@
 			"name": "perf-cache-option-priming",
 			"file": ".ai/review/guidelines/perf-cache-option-priming.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
 				"_prime_post_caches",
@@ -977,14 +977,14 @@
 			"name": "perf-hot-path-eager-work",
 			"file": ".ai/review/guidelines/perf-hot-path-eager-work.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php"
 			],
 			"signals": [
-				"woocommerce_init",
+				"poocommerce_init",
 				"'init'",
 				"plugins_loaded",
 				"wp_loaded",
@@ -1010,8 +1010,8 @@
 			"name": "perf-blocking-remote-call",
 			"file": ".ai/review/guidelines/perf-blocking-remote-call.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"wp_remote_",
@@ -1036,14 +1036,14 @@
 			"name": "script-handle-loading-contract",
 			"file": ".ai/review/guidelines/script-handle-loading-contract.md",
 			"path": [
-				"plugins/woocommerce/src/Blocks/AssetsController.php",
-				"plugins/woocommerce/src/Blocks/Assets/**/*.php",
-				"plugins/woocommerce/src/Blocks/BlockTypes/**/*.php",
-				"plugins/woocommerce/includes/class-wc-frontend-scripts.php",
-				"plugins/woocommerce/includes/admin/class-wc-admin-assets.php",
-				"plugins/woocommerce/src/Admin/**/*.php",
-				"plugins/woocommerce/src/Internal/**/*.php",
-				"plugins/woocommerce/includes/**/*.php"
+				"plugins/poocommerce/src/Blocks/AssetsController.php",
+				"plugins/poocommerce/src/Blocks/Assets/**/*.php",
+				"plugins/poocommerce/src/Blocks/BlockTypes/**/*.php",
+				"plugins/poocommerce/includes/class-wc-frontend-scripts.php",
+				"plugins/poocommerce/includes/admin/class-wc-admin-assets.php",
+				"plugins/poocommerce/src/Admin/**/*.php",
+				"plugins/poocommerce/src/Internal/**/*.php",
+				"plugins/poocommerce/includes/**/*.php"
 			],
 			"signals": [
 				"wp_register_script",
@@ -1074,7 +1074,7 @@
 			"name": "classic-jquery-contract",
 			"file": ".ai/review/guidelines/classic-jquery-contract.md",
 			"path": [
-				"plugins/woocommerce/client/legacy/js/**/*.js"
+				"plugins/poocommerce/client/legacy/js/**/*.js"
 			],
 			"signals": [
 				"$.ajax(",
@@ -1107,12 +1107,12 @@
 				"packages/js/**/*.jsx",
 				"packages/js/**/*.ts",
 				"packages/js/**/*.tsx",
-				"plugins/woocommerce/client/blocks/packages/**/*.ts",
-				"plugins/woocommerce/client/blocks/packages/**/*.tsx",
-				"plugins/woocommerce/client/blocks/assets/js/settings/**/*.ts",
-				"plugins/woocommerce/client/admin/client/**/*.tsx",
-				"plugins/woocommerce/src/Blocks/Assets/AssetDataRegistry.php",
-				"plugins/woocommerce/src/Internal/Admin/Settings.php"
+				"plugins/poocommerce/client/blocks/packages/**/*.ts",
+				"plugins/poocommerce/client/blocks/packages/**/*.tsx",
+				"plugins/poocommerce/client/blocks/assets/js/settings/**/*.ts",
+				"plugins/poocommerce/client/admin/client/**/*.tsx",
+				"plugins/poocommerce/src/Blocks/Assets/AssetDataRegistry.php",
+				"plugins/poocommerce/src/Internal/Admin/Settings.php"
 			],
 			"signals": [
 				") =>",
@@ -1142,16 +1142,16 @@
 			"name": "checkout-extensibility-payload",
 			"file": ".ai/review/guidelines/checkout-extensibility-payload.md",
 			"path": [
-				"plugins/woocommerce/client/blocks/assets/js/**/*.js",
-				"plugins/woocommerce/client/blocks/assets/js/**/*.jsx",
-				"plugins/woocommerce/client/blocks/assets/js/**/*.ts",
-				"plugins/woocommerce/client/blocks/assets/js/**/*.tsx",
-				"plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.js",
-				"plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.jsx",
-				"plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.ts",
-				"plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.tsx",
-				"plugins/woocommerce/src/Blocks/Domain/Services/CheckoutFields*.php",
-				"plugins/woocommerce/src/Blocks/Payments/**/*.php"
+				"plugins/poocommerce/client/blocks/assets/js/**/*.js",
+				"plugins/poocommerce/client/blocks/assets/js/**/*.jsx",
+				"plugins/poocommerce/client/blocks/assets/js/**/*.ts",
+				"plugins/poocommerce/client/blocks/assets/js/**/*.tsx",
+				"plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.js",
+				"plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.jsx",
+				"plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.ts",
+				"plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout/**/*.tsx",
+				"plugins/poocommerce/src/Blocks/Domain/Services/CheckoutFields*.php",
+				"plugins/poocommerce/src/Blocks/Payments/**/*.php"
 			],
 			"signals": [
 				"registerCheckoutFilters",
@@ -1180,11 +1180,11 @@
 			"name": "css-layout-regression",
 			"file": ".ai/review/guidelines/css-layout-regression.md",
 			"path": [
-				"plugins/woocommerce/client/**/*.scss",
-				"plugins/woocommerce/client/**/*.css",
+				"plugins/poocommerce/client/**/*.scss",
+				"plugins/poocommerce/client/**/*.css",
 				"packages/js/**/*.scss",
-				"plugins/woocommerce/client/legacy/css/**/*.scss",
-				"plugins/woocommerce/client/legacy/css/**/*.scss"
+				"plugins/poocommerce/client/legacy/css/**/*.scss",
+				"plugins/poocommerce/client/legacy/css/**/*.scss"
 			],
 			"personas": [
 				"frontend"
@@ -1194,10 +1194,10 @@
 			"name": "js-request-failure-handling",
 			"file": ".ai/review/guidelines/js-request-failure-handling.md",
 			"path": [
-				"plugins/woocommerce/client/**/*.js",
-				"plugins/woocommerce/client/**/*.jsx",
-				"plugins/woocommerce/client/**/*.ts",
-				"plugins/woocommerce/client/**/*.tsx",
+				"plugins/poocommerce/client/**/*.js",
+				"plugins/poocommerce/client/**/*.jsx",
+				"plugins/poocommerce/client/**/*.ts",
+				"plugins/poocommerce/client/**/*.tsx",
 				"packages/js/**/*.js",
 				"packages/js/**/*.jsx",
 				"packages/js/**/*.ts",
@@ -1228,8 +1228,8 @@
 			"name": "react-render-and-keyboard",
 			"file": ".ai/review/guidelines/react-render-and-keyboard.md",
 			"path": [
-				"plugins/woocommerce/client/**/*.jsx",
-				"plugins/woocommerce/client/**/*.tsx",
+				"plugins/poocommerce/client/**/*.jsx",
+				"plugins/poocommerce/client/**/*.tsx",
 				"packages/js/**/*.jsx",
 				"packages/js/**/*.tsx"
 			],
@@ -1259,20 +1259,20 @@
 			"name": "i18n-string-identity",
 			"file": ".ai/review/guidelines/i18n-string-identity.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php",
-				"plugins/woocommerce/client/**/*.js",
-				"plugins/woocommerce/client/**/*.jsx",
-				"plugins/woocommerce/client/**/*.ts",
-				"plugins/woocommerce/client/**/*.tsx",
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php",
+				"plugins/poocommerce/client/**/*.js",
+				"plugins/poocommerce/client/**/*.jsx",
+				"plugins/poocommerce/client/**/*.ts",
+				"plugins/poocommerce/client/**/*.tsx",
 				"packages/js/**/*.js",
 				"packages/js/**/*.jsx",
 				"packages/js/**/*.ts",
 				"packages/js/**/*.tsx",
-				"plugins/woocommerce/patterns/**/*.php"
+				"plugins/poocommerce/patterns/**/*.php"
 			],
 			"signals": [
 				"_x(",
@@ -1297,8 +1297,8 @@
 			"name": "sec-sql-prepare-and-identifiers",
 			"file": ".ai/review/guidelines/sec-sql-prepare-and-identifiers.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"$wpdb->",
@@ -1330,8 +1330,8 @@
 			"name": "sec-rest-and-ajax-permissions",
 			"file": ".ai/review/guidelines/sec-rest-and-ajax-permissions.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"permission_callback",
@@ -1341,7 +1341,7 @@
 				"__return_true",
 				"register_rest_route",
 				"wc_rest_check_",
-				"manage_woocommerce",
+				"manage_poocommerce",
 				"edit_shop_orders",
 				"wp_ajax_",
 				"wp_ajax_nopriv_",
@@ -1359,9 +1359,9 @@
 			"name": "sec-order-cart-ownership",
 			"file": ".ai/review/guidelines/sec-order-cart-ownership.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php"
 			],
 			"signals": [
 				"order_key",
@@ -1391,15 +1391,15 @@
 			"name": "sec-sanitize-and-escape",
 			"file": ".ai/review/guidelines/sec-sanitize-and-escape.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php",
-				"plugins/woocommerce/templates/**/*.php",
-				"plugins/woocommerce/uninstall.php",
-				"plugins/woocommerce/woocommerce.php",
-				"plugins/woocommerce/client/**/*.js",
-				"plugins/woocommerce/client/**/*.jsx",
-				"plugins/woocommerce/client/**/*.ts",
-				"plugins/woocommerce/client/**/*.tsx"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php",
+				"plugins/poocommerce/templates/**/*.php",
+				"plugins/poocommerce/uninstall.php",
+				"plugins/poocommerce/poocommerce.php",
+				"plugins/poocommerce/client/**/*.js",
+				"plugins/poocommerce/client/**/*.jsx",
+				"plugins/poocommerce/client/**/*.ts",
+				"plugins/poocommerce/client/**/*.tsx"
 			],
 			"signals": [
 				"esc_html",
@@ -1429,8 +1429,8 @@
 			"name": "sec-auth-tokens-and-cookies",
 			"file": ".ai/review/guidelines/sec-auth-tokens-and-cookies.md",
 			"path": [
-				"plugins/woocommerce/includes/**/*.php",
-				"plugins/woocommerce/src/**/*.php"
+				"plugins/poocommerce/includes/**/*.php",
+				"plugins/poocommerce/src/**/*.php"
 			],
 			"signals": [
 				"hash_equals",

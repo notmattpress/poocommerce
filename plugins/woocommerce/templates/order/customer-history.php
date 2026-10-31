@@ -4,8 +4,8 @@
  *
  * This template is used to display the customer history metabox on the edit order screen.
  *
- * @see     Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory
- * @package WooCommerce\Templates
+ * @see     Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory
+ * @package PooCommerce\Templates
  * @version 11.4.0
  */
 
@@ -32,13 +32,13 @@ $averages_per_currency = is_array( $averages_per_currency ?? null ) ? $averages_
 
 // A customer whose orders are all in the store currency gets a single total. Any other currency is listed and labelled.
 $has_several_currencies = count( $totals_per_currency ) > 1;
-$show_per_currency      = $has_several_currencies || ( 1 === count( $totals_per_currency ) && ! isset( $totals_per_currency[ get_woocommerce_currency() ] ) );
+$show_per_currency      = $has_several_currencies || ( 1 === count( $totals_per_currency ) && ! isset( $totals_per_currency[ get_poocommerce_currency() ] ) );
 ?>
 
 <div class="customer-history order-attribution-metabox">
 	<h4>
 		<?php
-		esc_html_e( 'Total orders', 'woocommerce' );
+		esc_html_e( 'Total orders', 'poocommerce' );
 		echo wp_kses_post( wc_help_tip( $tooltip ) );
 		?>
 	</h4>
@@ -49,12 +49,12 @@ $show_per_currency      = $has_several_currencies || ( 1 === count( $totals_per_
 
 	<h4>
 		<?php
-		esc_html_e( 'Total revenue', 'woocommerce' );
+		esc_html_e( 'Total revenue', 'poocommerce' );
 		echo wp_kses_post(
 			wc_help_tip(
 				$has_several_currencies
-					? __( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders. Orders in different currencies are totaled separately.", 'woocommerce' )
-					: __( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders.", 'woocommerce' )
+					? __( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders. Orders in different currencies are totaled separately.", 'poocommerce' )
+					: __( "This is the Customer Lifetime Value, or the total amount you have earned from this customer's orders.", 'poocommerce' )
 			)
 		);
 		?>
@@ -71,7 +71,7 @@ $show_per_currency      = $has_several_currencies || ( 1 === count( $totals_per_
 					echo esc_html(
 						sprintf(
 							/* translators: %s: number of orders in one currency */
-							_n( '(%s order)', '(%s orders)', $currency_orders_count, 'woocommerce' ),
+							_n( '(%s order)', '(%s orders)', $currency_orders_count, 'poocommerce' ),
 							number_format_i18n( $currency_orders_count )
 						)
 					);
@@ -86,7 +86,7 @@ $show_per_currency      = $has_several_currencies || ( 1 === count( $totals_per_
 	</span>
 <?php endif; ?>
 
-	<h4><?php esc_html_e( 'Average order value', 'woocommerce' ); ?></h4>
+	<h4><?php esc_html_e( 'Average order value', 'poocommerce' ); ?></h4>
 <?php if ( $show_per_currency ) : ?>
 	<?php foreach ( $averages_per_currency as $currency => $currency_average ) : ?>
 		<div class="order-attribution-currency-row" data-currency="<?php echo esc_attr( (string) $currency ); ?>">

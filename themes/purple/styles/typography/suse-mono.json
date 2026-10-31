@@ -83,7 +83,7 @@
 					"letterSpacing": "0.2em"
 				}
 			},
-			"woocommerce/product-summary": {
+			"poocommerce/product-summary": {
 				"typography": {
 					"lineHeight": "1.7"
 				}

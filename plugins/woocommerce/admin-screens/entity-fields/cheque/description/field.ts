@@ -13,9 +13,9 @@ export const field: Field< ChequeSettings > = {
 	id: 'description',
 	type: 'text',
 	Edit: 'textarea',
-	label: __( 'Description', 'woocommerce' ),
+	label: __( 'Description', 'poocommerce' ),
 	description: __(
 		'Payment method description that the customer will see during checkout.',
-		'woocommerce'
+		'poocommerce'
 	),
 };

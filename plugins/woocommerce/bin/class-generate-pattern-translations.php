@@ -2,10 +2,10 @@
 /**
  * Pattern header translation extraction.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
-namespace Automattic\WooCommerce\Tools;
+namespace Automattic\PooCommerce\Tools;
 
 use WP_CLI\I18n\FileDataExtractor;
 use WP_CLI\Utils;
@@ -50,7 +50,7 @@ class Generate_Pattern_Translations {
 					continue;
 				}
 				$strings[] = sprintf(
-					"\t_x( %s, %s, 'woocommerce' ),\n",
+					"\t_x( %s, %s, 'poocommerce' ),\n",
 					var_export( $text, true ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- Serialize PHP string literals for the generated file.
 					var_export( $context, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- Serialize PHP string literals for the generated file.
 				);
@@ -58,7 +58,7 @@ class Generate_Pattern_Translations {
 		}
 		sort( $strings, SORT_STRING );
 
-		return "<?php\n/**\n * Pattern metadata strings for translation extraction.\n *\n * Generated from pattern headers by `composer generate-pattern-translations`.\n * This file is not loaded at runtime.\n *\n * @package WooCommerce\n */\n\ndefined( 'ABSPATH' ) || exit;\n\nreturn array(\n"
+		return "<?php\n/**\n * Pattern metadata strings for translation extraction.\n *\n * Generated from pattern headers by `composer generate-pattern-translations`.\n * This file is not loaded at runtime.\n *\n * @package PooCommerce\n */\n\ndefined( 'ABSPATH' ) || exit;\n\nreturn array(\n"
 			. implode( '', $strings )
 			. ");\n";
 	}

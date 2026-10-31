@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/cart-items-block",
+	"name": "poocommerce/cart-items-block",
 	"title": "Cart Items",
 	"description": "Column containing cart items.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -21,9 +21,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/filled-cart-block"
+		"poocommerce/filled-cart-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

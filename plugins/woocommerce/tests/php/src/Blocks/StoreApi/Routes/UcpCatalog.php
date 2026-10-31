@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
 /**
  * Tests for the /wc/ucp/v1/catalog/* endpoints.
@@ -66,7 +66,7 @@ class UcpCatalog extends ControllerTestCase {
 	/**
 	 * Option behind the `ucp` feature.
 	 */
-	private const FEATURE_OPTION = 'woocommerce_feature_ucp_enabled';
+	private const FEATURE_OPTION = 'poocommerce_feature_ucp_enabled';
 
 	/**
 	 * Enable the UCP routes before the REST server is built.
@@ -122,7 +122,7 @@ class UcpCatalog extends ControllerTestCase {
 
 		$this->assertSame( 'UCP Nebula Mug', $product['title'] );
 		$this->assertSame( 1450, $product['price_range']['min']['amount'] );
-		$this->assertSame( get_woocommerce_currency(), $product['price_range']['min']['currency'] );
+		$this->assertSame( get_poocommerce_currency(), $product['price_range']['min']['currency'] );
 		// The regular price survives as the strike-through comparison.
 		$this->assertSame( 1999, $product['list_price_range']['min']['amount'] );
 
@@ -186,9 +186,9 @@ class UcpCatalog extends ControllerTestCase {
 		$data = $this->post( '/catalog/lookup', $body )->get_data();
 		$this->assertFalse( $data['products'][0]['variants'][0]['availability']['available'] );
 
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		$data = $this->post( '/catalog/lookup', $body )->get_data();
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 
 		$this->assertSame( array(), $data['products'] );
 		$this->assertSame( 'not_found', $data['messages'][0]['code'] );

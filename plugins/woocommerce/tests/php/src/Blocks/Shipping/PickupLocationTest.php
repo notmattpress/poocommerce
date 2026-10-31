@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Shipping\PickupLocation;
+use Automattic\PooCommerce\Blocks\Shipping\PickupLocation;
 use WC_Unit_Test_Case;
 
 /**
@@ -44,7 +44,7 @@ class PickupLocationTest extends WC_Unit_Test_Case {
 	 */
 	private function pickup_configured_with( array $locations, array $settings = array() ): void {
 		update_option(
-			'woocommerce_pickup_location_settings',
+			'poocommerce_pickup_location_settings',
 			array_merge(
 				array(
 					'enabled'    => 'yes',

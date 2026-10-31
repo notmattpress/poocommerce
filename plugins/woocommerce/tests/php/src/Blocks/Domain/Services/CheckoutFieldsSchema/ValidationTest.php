@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldsSchema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\Validation;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\Validation;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
 use WP_Error;
 use WP_UnitTestCase;
 

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Templates;
+namespace Automattic\PooCommerce\Tests\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCategoryTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductTagTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCategoryTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductTagTemplate;
 use WC_Unit_Test_Case;
 
 /**
@@ -48,7 +48,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->original_shop_page_id        = get_option( 'woocommerce_shop_page_id' );
+		$this->original_shop_page_id        = get_option( 'poocommerce_shop_page_id' );
 		$this->original_product_has_archive = get_post_type_object( 'product' )->has_archive;
 
 		foreach ( array( 'wp_query', 'wp_the_query' ) as $global_name ) {
@@ -73,9 +73,9 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 		}
 
 		if ( false === $this->original_shop_page_id ) {
-			delete_option( 'woocommerce_shop_page_id' );
+			delete_option( 'poocommerce_shop_page_id' );
 		} else {
-			update_option( 'woocommerce_shop_page_id', $this->original_shop_page_id );
+			update_option( 'poocommerce_shop_page_id', $this->original_shop_page_id );
 		}
 		if ( $this->shop_page_id ) {
 			wp_delete_post( $this->shop_page_id, true );
@@ -128,15 +128,15 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 	 */
 	public function supported_hook_provider(): array {
 		return array(
-			'before main content'         => array( 'woocommerce_before_main_content', 'woocommerce/product-collection', 'before' ),
-			'after main content'          => array( 'woocommerce_after_main_content', 'woocommerce/product-collection', 'after' ),
-			'before shop loop'            => array( 'woocommerce_before_shop_loop', 'woocommerce/product-template', 'before' ),
-			'after shop loop'             => array( 'woocommerce_after_shop_loop', 'woocommerce/product-template', 'after' ),
-			'before shop loop item title' => array( 'woocommerce_before_shop_loop_item_title', 'core/post-title', 'before' ),
-			'shop loop item title'        => array( 'woocommerce_shop_loop_item_title', 'core/post-title', 'after' ),
-			'after shop loop item title'  => array( 'woocommerce_after_shop_loop_item_title', 'core/post-title', 'after' ),
-			'before shop loop item'       => array( 'woocommerce_before_shop_loop_item', 'core/null', 'before' ),
-			'after shop loop item'        => array( 'woocommerce_after_shop_loop_item', 'core/null', 'after' ),
+			'before main content'         => array( 'poocommerce_before_main_content', 'poocommerce/product-collection', 'before' ),
+			'after main content'          => array( 'poocommerce_after_main_content', 'poocommerce/product-collection', 'after' ),
+			'before shop loop'            => array( 'poocommerce_before_shop_loop', 'poocommerce/product-template', 'before' ),
+			'after shop loop'             => array( 'poocommerce_after_shop_loop', 'poocommerce/product-template', 'after' ),
+			'before shop loop item title' => array( 'poocommerce_before_shop_loop_item_title', 'core/post-title', 'before' ),
+			'shop loop item title'        => array( 'poocommerce_shop_loop_item_title', 'core/post-title', 'after' ),
+			'after shop loop item title'  => array( 'poocommerce_after_shop_loop_item_title', 'core/post-title', 'after' ),
+			'before shop loop item'       => array( 'poocommerce_before_shop_loop_item', 'core/null', 'before' ),
+			'after shop loop item'        => array( 'poocommerce_after_shop_loop_item', 'core/null', 'after' ),
 		);
 	}
 
@@ -146,11 +146,11 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 	public function test_marks_inherited_product_collection_tree(): void {
 		$sut  = $this->initialize_archive_compatibility();
 		$tree = array(
-			'blockName'   => 'woocommerce/product-collection',
+			'blockName'   => 'poocommerce/product-collection',
 			'attrs'       => array( 'query' => array( 'inherit' => true ) ),
 			'innerBlocks' => array(
 				array(
-					'blockName'   => 'woocommerce/product-template',
+					'blockName'   => 'poocommerce/product-template',
 					'attrs'       => array(),
 					'innerBlocks' => array(
 						array(
@@ -183,13 +183,13 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 	public function test_skips_unsupported_context(): void {
 		$sut = $this->initialize_archive_compatibility();
 		add_action(
-			'woocommerce_before_main_content',
+			'poocommerce_before_main_content',
 			static function () {
 				echo esc_html( '__HOOK_MARKER__' );
 			}
 		);
 		add_action(
-			'woocommerce_before_shop_loop',
+			'poocommerce_before_shop_loop',
 			static function () {
 				echo esc_html( '__HOOK_MARKER__' );
 			}
@@ -199,7 +199,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 		$GLOBALS['wp_the_query'] = $GLOBALS['wp_query']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Keep the conditional query globals aligned for the non-archive control.
 
 		$non_archive = array(
-			'blockName'   => 'woocommerce/product-collection',
+			'blockName'   => 'poocommerce/product-collection',
 			'attrs'       => array( 'query' => array( 'inherit' => true ) ),
 			'innerBlocks' => array(),
 		);
@@ -208,7 +208,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 
 		$this->establish_shop_query();
 		$supported_not_inherited = array(
-			'blockName' => 'woocommerce/product-collection',
+			'blockName' => 'poocommerce/product-collection',
 			'attrs'     => array(),
 		);
 		$this->assertSame( '__BLOCK_SENTINEL__', $sut->inject_hooks( '__BLOCK_SENTINEL__', $supported_not_inherited ) );
@@ -220,7 +220,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 		$this->assertSame( '__BLOCK_SENTINEL__', $sut->inject_hooks( '__BLOCK_SENTINEL__', $unsupported_inherited ) );
 
 		$empty_product_template = array(
-			'blockName' => 'woocommerce/product-template',
+			'blockName' => 'poocommerce/product-template',
 			'attrs'     => array( 'isInherited' => 1 ),
 		);
 		$this->assertSame( '', $sut->inject_hooks( '', $empty_product_template ) );
@@ -233,12 +233,12 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 		$sut    = $this->initialize_archive_compatibility();
 		$target = $this->get_marked_target_block( $sut, 'core/post-title' );
 		$tree   = array(
-			'blockName'   => 'woocommerce/product-collection',
+			'blockName'   => 'poocommerce/product-collection',
 			'attrs'       => array( 'query' => array( 'inherit' => true ) ),
 			'innerBlocks' => array(),
 		);
 		add_action(
-			'woocommerce_shop_loop_item_title',
+			'poocommerce_shop_loop_item_title',
 			static function () {
 				echo esc_html( '__HOOK_MARKER__' );
 			}
@@ -246,11 +246,11 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 
 		foreach ( array( false, true, false ) as $disabled ) {
 			if ( $disabled ) {
-				add_filter( 'woocommerce_disable_compatibility_layer', '__return_true', 99 );
+				add_filter( 'poocommerce_disable_compatibility_layer', '__return_true', 99 );
 			} else {
-				remove_filter( 'woocommerce_disable_compatibility_layer', '__return_true', 99 );
+				remove_filter( 'poocommerce_disable_compatibility_layer', '__return_true', 99 );
 			}
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
 			$marked = apply_filters( 'render_block_data', $tree, $tree, null );
 			if ( $disabled ) {
 				$this->assertArrayNotHasKey( 'isInherited', $marked['attrs'], 'Disabled compatibility must not mark inherited blocks.' );
@@ -258,7 +258,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 				$this->assertSame( 1, $marked['attrs']['isInherited'], 'Enabled compatibility must mark inherited blocks.' );
 			}
 
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
 			$output = apply_filters( 'render_block', '__BLOCK_SENTINEL__', $target, new \WP_Block( $target ) );
 			$this->assertSame( $disabled ? 0 : 1, substr_count( $output, '__HOOK_MARKER__' ), 'The rendering callback must check the disable filter even for an already-marked block.' );
 			$this->assertSame( 1, substr_count( $output, '__BLOCK_SENTINEL__' ), 'The rendering callback must preserve block content.' );
@@ -303,7 +303,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 
 		$item_ids = array();
 		add_action(
-			'woocommerce_after_shop_loop_item',
+			'poocommerce_after_shop_loop_item',
 			static function () use ( &$item_ids ) {
 				$item_ids[] = get_the_ID();
 				echo '<span class="compatibility-item-marker"></span>';
@@ -311,7 +311,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 			99
 		);
 		add_action(
-			'woocommerce_before_shop_loop',
+			'poocommerce_before_shop_loop',
 			static function () {
 				echo '<span class="compatibility-loop-marker"></span>';
 			},
@@ -322,7 +322,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 			$hook_snapshot[ $hook ] = clone $callbacks;
 		}
 		// Static inner content avoids Featured Item's unrelated core/post-title global-post reset.
-		$markup = '<!-- wp:woocommerce/product-collection {"query":{"postType":"product","inherit":true}} --><div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template --><!-- wp:paragraph --><p>__PRODUCT_CONTENT__</p><!-- /wp:paragraph --><!-- /wp:woocommerce/product-template --></div><!-- /wp:woocommerce/product-collection -->';
+		$markup = '<!-- wp:poocommerce/product-collection {"query":{"postType":"product","inherit":true}} --><div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template --><!-- wp:paragraph --><p>__PRODUCT_CONTENT__</p><!-- /wp:paragraph --><!-- /wp:poocommerce/product-template --></div><!-- /wp:poocommerce/product-collection -->';
 
 		foreach ( array( 'initial', 'repeated setup', 'hook reset' ) as $stage ) {
 			if ( 'hook reset' === $stage ) {
@@ -332,7 +332,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 			foreach ( array( ProductCatalogTemplate::class, ProductCategoryTemplate::class, ProductTagTemplate::class, ProductSearchResultsTemplate::class ) as $template_class ) {
 				( new $template_class() )->render_block_template();
 			}
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this filter.
 			apply_filters( 'template_include', 'index.php' );
 			$output = do_blocks( $markup );
 			$this->assertSame( $product_ids, $item_ids, $stage . ': each product hook should fire once.' );
@@ -365,7 +365,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 		$this->establish_shop_query();
 		$sut = new ArchiveProductTemplatesCompatibility();
 		$sut->init();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this hook; the test applies the real callback registered by init().
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress owns this hook; the test applies the real callback registered by init().
 		apply_filters( 'template_include', 'index.php' );
 
 		return $sut;
@@ -384,7 +384,7 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 					'post_name'   => 'compatibility-layer-shop',
 				)
 			);
-			update_option( 'woocommerce_shop_page_id', $this->shop_page_id );
+			update_option( 'poocommerce_shop_page_id', $this->shop_page_id );
 		}
 
 		$this->go_to( get_permalink( $this->shop_page_id ) );
@@ -406,12 +406,12 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 			'innerBlocks' => array(),
 		);
 
-		if ( 'woocommerce/product-collection' === $block_name ) {
+		if ( 'poocommerce/product-collection' === $block_name ) {
 			$tree                   = $target;
 			$tree['attrs']['query'] = array( 'inherit' => true );
 		} else {
 			$tree = array(
-				'blockName'   => 'woocommerce/product-collection',
+				'blockName'   => 'poocommerce/product-collection',
 				'attrs'       => array( 'query' => array( 'inherit' => true ) ),
 				'innerBlocks' => array( $target ),
 			);
@@ -419,6 +419,6 @@ class ArchiveProductTemplatesCompatibilityTest extends WC_Unit_Test_Case {
 
 		$marked = $sut->update_render_block_data( $tree, $tree, null );
 
-		return 'woocommerce/product-collection' === $block_name ? $marked : $marked['innerBlocks'][0];
+		return 'poocommerce/product-collection' === $block_name ? $marked : $marked['innerBlocks'][0];
 	}
 }

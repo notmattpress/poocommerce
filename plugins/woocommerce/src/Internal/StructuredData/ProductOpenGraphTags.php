@@ -2,15 +2,15 @@
 /**
  * Product Open Graph metadata.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;
@@ -167,7 +167,7 @@ class ProductOpenGraphTags {
 		}
 
 		$price    = wc_format_decimal( wc_get_price_to_display( $product ), wc_get_price_decimals() );
-		$currency = get_woocommerce_currency();
+		$currency = get_poocommerce_currency();
 		$tags     = array(
 			'product:price:amount'   => $price,
 			'product:price:currency' => $currency,

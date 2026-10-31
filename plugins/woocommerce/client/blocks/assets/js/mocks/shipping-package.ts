@@ -4,7 +4,7 @@
 import {
 	CartShippingRate,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/type-defs/cart';
+} from '@poocommerce/type-defs/cart';
 
 export const generateShippingRate = ( {
 	rateId,

@@ -44,7 +44,7 @@ export function getTaxCode( tax: Tax ) {
 	return [
 		tax.country,
 		tax.state,
-		tax.name || __( 'TAX', 'woocommerce' ),
+		tax.name || __( 'TAX', 'poocommerce' ),
 		tax.priority,
 	]
 		.filter( Boolean )

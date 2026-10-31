@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { SelectableItem } from '@woocommerce/types';
+import type { SelectableItem } from '@poocommerce/types';
 
 export function getSelectionSummary(
 	items: readonly SelectableItem[],

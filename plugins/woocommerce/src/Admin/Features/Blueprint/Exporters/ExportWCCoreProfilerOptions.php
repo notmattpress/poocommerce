@@ -2,12 +2,12 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * ExportWCCoreProfilerOptions class
@@ -24,9 +24,9 @@ class ExportWCCoreProfilerOptions implements StepExporter, HasAlias {
 		return new SetSiteOptions(
 			array(
 				'blogname'                       => $this->wp_get_option( 'blogname' ),
-				'woocommerce_allow_tracking'     => $this->wp_get_option( 'woocommerce_allow_tracking' ),
-				'woocommerce_onboarding_profile' => $this->wp_get_option( 'woocommerce_onboarding_profile', array() ),
-				'woocommerce_default_country'    => $this->wp_get_option( 'woocommerce_default_country' ),
+				'poocommerce_allow_tracking'     => $this->wp_get_option( 'poocommerce_allow_tracking' ),
+				'poocommerce_onboarding_profile' => $this->wp_get_option( 'poocommerce_onboarding_profile', array() ),
+				'poocommerce_default_country'    => $this->wp_get_option( 'poocommerce_default_country' ),
 			)
 		);
 	}
@@ -55,7 +55,7 @@ class ExportWCCoreProfilerOptions implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Onboarding Configuration', 'woocommerce' );
+		return __( 'Onboarding Configuration', 'poocommerce' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class ExportWCCoreProfilerOptions implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes onboarding configuration options', 'woocommerce' );
+		return __( 'Includes onboarding configuration options', 'poocommerce' );
 	}
 
 	/**
@@ -73,6 +73,6 @@ class ExportWCCoreProfilerOptions implements StepExporter, HasAlias {
 	 * @return bool True if the user has the required capabilities. False otherwise.
 	 */
 	public function check_step_capabilities(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 }

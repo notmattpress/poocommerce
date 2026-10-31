@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the order item meta rows rendered inside the order items meta box.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class Html_Order_Item_Meta_Test extends WC_Unit_Test_Case {
 

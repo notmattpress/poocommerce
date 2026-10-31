@@ -2,16 +2,16 @@
 /**
  * Class WC_Tests_REST_System_Status file.
  *
- * @package Automattic/WooCommerce/Tests
+ * @package Automattic/PooCommerce/Tests
  */
 
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 /**
  * System Status REST Tests.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.0
  */
 class WC_Tests_REST_System_Status_V2 extends WC_REST_Unit_Test_Case {
@@ -127,12 +127,12 @@ class WC_Tests_REST_System_Status_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( WC()->version, $environment['version'] );
 		$this->assertEquals( wp_get_environment_type(), $environment['wp_environment_type'] );
 
-		// The test environment loads the Action Scheduler copy bundled with WooCommerce.
+		// The test environment loads the Action Scheduler copy bundled with PooCommerce.
 		$action_scheduler = (array) $environment['action_scheduler'];
 		$this->assertSame( ActionSchedulerUtil::get_bundled_version(), $action_scheduler['loaded_version'] );
 		$this->assertSame( ActionSchedulerUtil::get_highest_registered_version(), $action_scheduler['registered_version'] );
-		$this->assertSame( 'woocommerce', $action_scheduler['source_type'] );
-		$this->assertSame( 'WooCommerce', $action_scheduler['source_name'] );
+		$this->assertSame( 'poocommerce', $action_scheduler['source_type'] );
+		$this->assertSame( 'PooCommerce', $action_scheduler['source_name'] );
 		$this->assertSame( trailingslashit( wp_normalize_path( ActionScheduler::plugin_path( '' ) ) ), $action_scheduler['source_path'] );
 		$this->assertFalse( $action_scheduler['is_risky'] );
 	}
@@ -146,11 +146,11 @@ class WC_Tests_REST_System_Status_V2 extends WC_REST_Unit_Test_Case {
 		global $wpdb;
 		$database = (array) $this->fetch_or_get_system_status_data_for_user( self::$administrator_user )['database'];
 
-		$this->assertEquals( get_option( 'woocommerce_db_version' ), $database['wc_database_version'] );
+		$this->assertEquals( get_option( 'poocommerce_db_version' ), $database['wc_database_version'] );
 		$this->assertEquals( $wpdb->prefix, $database['database_prefix'] );
 		//phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r
-		$this->assertArrayHasKey( 'woocommerce', $database['database_tables'], print_r( $database, true ) );
-		$this->assertArrayHasKey( $wpdb->prefix . 'woocommerce_payment_tokens', $database['database_tables']['woocommerce'], print_r( $database, true ) );
+		$this->assertArrayHasKey( 'poocommerce', $database['database_tables'], print_r( $database, true ) );
+		$this->assertArrayHasKey( $wpdb->prefix . 'poocommerce_payment_tokens', $database['database_tables']['poocommerce'], print_r( $database, true ) );
 		//phpcs:enable WordPress.PHP.DevelopmentFunctions.error_log_print_r
 	}
 
@@ -218,7 +218,7 @@ class WC_Tests_REST_System_Status_V2 extends WC_REST_Unit_Test_Case {
 
 		$this->assertEquals( 31, count( $settings ) );
 		$this->assertEquals( WC()->legacy_rest_api_is_available(), $settings['api_enabled'] );
-		$this->assertEquals( get_woocommerce_currency(), $settings['currency'] );
+		$this->assertEquals( get_poocommerce_currency(), $settings['currency'] );
 		$this->assertEquals( $term_response, $settings['taxonomies'] );
 	}
 
@@ -377,7 +377,7 @@ class WC_Tests_REST_System_Status_V2 extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 'Recount terms', $data['action'] );
 		$this->assertEquals( 'This tool will recount product terms - useful when changing your settings in a way which hides products from the catalog.', $data['description'] );
 		$this->assertTrue( $data['success'] );
-		$this->assertEquals( 1, did_action( 'woocommerce_rest_insert_system_status_tool' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_rest_insert_system_status_tool' ) );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'POST', '/wc/v2/system_status/tools/not_a_real_tool' ) );
 		$this->assertEquals( 404, $response->get_status() );

@@ -1,6 +1,6 @@
-# @woocommerce/extend-cart-checkout-block
+# @poocommerce/extend-cart-checkout-block
 
-This is a template to be used with `@wordpress/create-block` to create a WooCommerce Blocks extension starting point.
+This is a template to be used with `@wordpress/create-block` to create a PooCommerce Blocks extension starting point.
 
 ## Installation
 
@@ -13,7 +13,7 @@ e.g. `nvm install 20 && nvm use 20` or `fnm install 20 && fnm use 20`
 From your `plugins` directory run:
 
 ```sh
-npx @wordpress/create-block -t @woocommerce/extend-cart-checkout-block your_extension_name
+npx @wordpress/create-block -t @poocommerce/extend-cart-checkout-block your_extension_name
 ```
 
 When this has completed, go to your WordPress plugins page and activate the plugin.
@@ -24,14 +24,14 @@ Add some items to your cart and visit the Checkout block, notice there is additi
 
 The generated extension registers its Checkout inner block on both the server and the client. Keep both registrations when adapting the example:
 
-- Server registration allows WooCommerce to inspect the block's `parent` metadata, add the HTML `data-*` attributes used by the frontend component, and load translations.
+- Server registration allows PooCommerce to inspect the block's `parent` metadata, add the HTML `data-*` attributes used by the frontend component, and load translations.
 - Client registration makes the block available in the editor and connects its frontend component through `registerCheckoutBlock`.
 
-Registering the block only in JavaScript can appear to work in the editor while leaving the frontend component without the block's saved attributes. See the [Checkout Blocks Registry documentation](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/packages/public-api/blocks-checkout/blocks-registry/README.md#registering-a-block) for details.
+Registering the block only in JavaScript can appear to work in the editor while leaving the frontend component without the block's saved attributes. See the [Checkout Blocks Registry documentation](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/packages/public-api/blocks-checkout/blocks-registry/README.md#registering-a-block) for details.
 
 ## Linting
 
-You can lint the project according to the [WordPress coding standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/) by running `npm run lint:js`. The configuration is ultimately read from the [WooCommerce recommended eslint config](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/eslint-plugin/configs/recommended.js). To modify the rules edit the `eslint.config.mjs` file.
+You can lint the project according to the [WordPress coding standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/) by running `npm run lint:js`. The configuration is ultimately read from the [PooCommerce recommended eslint config](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/eslint-plugin/configs/recommended.js). To modify the rules edit the `eslint.config.mjs` file.
 
 ## Installing `wp-env` (optional)
 

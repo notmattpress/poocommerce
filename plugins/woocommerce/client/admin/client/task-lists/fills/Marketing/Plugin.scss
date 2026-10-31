@@ -1,4 +1,4 @@
-.woocommerce-plugin-list__plugin {
+.poocommerce-plugin-list__plugin {
 	display: flex;
 	padding: $gap-large;
 	border-top: 1px solid $gray-200;
@@ -19,7 +19,7 @@
 	}
 }
 
-.woocommerce-plugin-list__plugin-logo {
+.poocommerce-plugin-list__plugin-logo {
 	margin-right: 45px;
 	display: flex;
 	align-items: center;
@@ -29,16 +29,16 @@
 	}
 }
 
-.woocommerce-plugin-list__plugin-text {
+.poocommerce-plugin-list__plugin-text {
 	max-width: 370px;
 	margin-right: $gap;
-	.woocommerce-pill {
+	.poocommerce-pill {
 		color: $studio-gray-50;
 		margin-left: $gap-small;
 	}
 }
 
-.woocommerce-plugin-list__plugin-action {
+.poocommerce-plugin-list__plugin-action {
 	display: flex;
 	align-items: center;
 	margin-left: auto;

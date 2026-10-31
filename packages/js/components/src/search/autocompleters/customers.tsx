@@ -14,7 +14,7 @@ import { AutoCompleter } from './types';
 const completer: AutoCompleter = {
 	...customerNames,
 	name: 'customers',
-	className: 'woocommerce-search__customers-result',
+	className: 'poocommerce-search__customers-result',
 };
 
 export default completer;

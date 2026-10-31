@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
-use Automattic\WooCommerce\StoreApi\Utilities\UcpUtils;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpUtils;
 
 /**
  * UCP `POST /catalog/search` route.
@@ -74,15 +74,15 @@ class CatalogSearch extends AbstractCatalogRoute {
 			parent::get_request_args(),
 			array(
 				'query'      => array(
-					'description' => __( 'Free-text search query.', 'woocommerce' ),
+					'description' => __( 'Free-text search query.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 				'filters'    => array(
-					'description' => __( 'Filter criteria to narrow search results.', 'woocommerce' ),
+					'description' => __( 'Filter criteria to narrow search results.', 'poocommerce' ),
 					'type'        => 'object',
 				),
 				'pagination' => array(
-					'description' => __( 'Requested page size and cursor.', 'woocommerce' ),
+					'description' => __( 'Requested page size and cursor.', 'poocommerce' ),
 					'type'        => 'object',
 				),
 			)
@@ -175,7 +175,7 @@ class CatalogSearch extends AbstractCatalogRoute {
 				'VALIDATION_ERROR',
 				sprintf(
 					/* translators: %d: maximum accepted query length in characters. */
-					__( 'query exceeds the maximum length of %d characters.', 'woocommerce' ),
+					__( 'query exceeds the maximum length of %d characters.', 'poocommerce' ),
 					self::MAX_QUERY_LENGTH
 				),
 				'recoverable',
@@ -191,7 +191,7 @@ class CatalogSearch extends AbstractCatalogRoute {
 		if ( '' === $query && ! $has_categories && ! $has_price ) {
 			return $this->ucp_error(
 				'VALIDATION_ERROR',
-				__( 'A query or at least one supported filter (categories, price) is required.', 'woocommerce' ),
+				__( 'A query or at least one supported filter (categories, price) is required.', 'poocommerce' ),
 				'recoverable',
 				400
 			);
@@ -215,7 +215,7 @@ class CatalogSearch extends AbstractCatalogRoute {
 					'VALIDATION_ERROR',
 					sprintf(
 						/* translators: %s: price filter bound name, `min` or `max`. */
-						__( 'filters.price.%s must be a non-negative amount in minor units.', 'woocommerce' ),
+						__( 'filters.price.%s must be a non-negative amount in minor units.', 'poocommerce' ),
 						$bound
 					),
 					'recoverable',
@@ -229,7 +229,7 @@ class CatalogSearch extends AbstractCatalogRoute {
 		if ( isset( $bounds['min'], $bounds['max'] ) && $bounds['min'] > $bounds['max'] ) {
 			return $this->ucp_error(
 				'VALIDATION_ERROR',
-				__( 'filters.price.min must not exceed filters.price.max.', 'woocommerce' ),
+				__( 'filters.price.min must not exceed filters.price.max.', 'poocommerce' ),
 				'recoverable',
 				400
 			);

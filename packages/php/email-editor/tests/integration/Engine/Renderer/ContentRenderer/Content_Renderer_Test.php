@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer as Core_Initializer;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer as Core_Initializer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
 
 require_once __DIR__ . '/Dummy_Block_Renderer.php';
 
@@ -81,7 +81,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->assertIsInt( $email_post_id );
 		update_post_meta(
 			$email_post_id,
-			'woocommerce_email_theme',
+			'poocommerce_email_theme',
 			array(
 				'styles' => array(
 					'elements' => array(
@@ -201,19 +201,19 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$track = function () use ( &$fired ) {
 			$fired[] = current_action();
 		};
-		add_action( 'woocommerce_email_editor_render_start', $track );
-		add_action( 'woocommerce_email_editor_render_end', $track );
+		add_action( 'poocommerce_email_editor_render_start', $track );
+		add_action( 'poocommerce_email_editor_render_end', $track );
 
 		$template          = new \WP_Block_Template();
 		$template->id      = 'template-id';
 		$template->content = '<!-- wp:post-content /-->';
 		$this->renderer->render_without_css_inline( $this->email_post, $template );
 
-		remove_action( 'woocommerce_email_editor_render_start', $track );
-		remove_action( 'woocommerce_email_editor_render_end', $track );
+		remove_action( 'poocommerce_email_editor_render_start', $track );
+		remove_action( 'poocommerce_email_editor_render_end', $track );
 
 		$this->assertSame(
-			array( 'woocommerce_email_editor_render_start', 'woocommerce_email_editor_render_end' ),
+			array( 'poocommerce_email_editor_render_start', 'poocommerce_email_editor_render_end' ),
 			$fired,
 			'Each render should fire the start action and then the end action, once each.'
 		);
@@ -230,8 +230,8 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$fail  = function (): void {
 			throw new \RuntimeException( 'Rendering failed' );
 		};
-		add_action( 'woocommerce_email_editor_render_end', $count );
-		add_action( 'woocommerce_email_editor_render_start', $fail );
+		add_action( 'poocommerce_email_editor_render_end', $count );
+		add_action( 'poocommerce_email_editor_render_start', $fail );
 
 		$template          = new \WP_Block_Template();
 		$template->id      = 'template-id';
@@ -242,8 +242,8 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		} catch ( \RuntimeException $e ) {
 			$this->assertSame( 'Rendering failed', $e->getMessage() );
 		} finally {
-			remove_action( 'woocommerce_email_editor_render_start', $fail );
-			remove_action( 'woocommerce_email_editor_render_end', $count );
+			remove_action( 'poocommerce_email_editor_render_start', $fail );
+			remove_action( 'poocommerce_email_editor_render_end', $count );
 		}
 
 		$this->assertSame( 1, $ended, 'The end action should fire even when the render throws.' );
@@ -283,7 +283,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 				'custom_key' => 'preserved',
 			);
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 
 		try {
 			$template          = new \WP_Block_Template();
@@ -291,7 +291,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			$template->content = '<!-- wp:post-content /-->';
 			$this->renderer->render_without_css_inline( $email_post, $template );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 			\WP_Block_Type_Registry::get_instance()->unregister( 'test/context-block' );
 		}
 
@@ -321,7 +321,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			++$filter_calls;
 			return array( 'is_rtl' => true );
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 
 		try {
 			$template          = new \WP_Block_Template();
@@ -329,7 +329,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			$template->content = '<!-- wp:post-content /-->';
 			$this->renderer->render( $this->email_post, $template );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 		}
 
 		$this->assertSame( 1, $filter_calls );
@@ -350,12 +350,12 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			$this->assertSame( $template, $received_template );
 			return $email_context;
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter, 10, 3 );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter, 10, 3 );
 
 		try {
 			$this->renderer->render_without_css_inline( $this->email_post, $template );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 		}
 
 		$this->assertSame( 1, $filter_calls );
@@ -481,7 +481,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 
 	/**
 	 * Test preprocess_parsed_blocks treats a group with its own padding wrapping
-	 * post-content as a box (WooCommerce template pattern): the box takes the root
+	 * post-content as a box (PooCommerce template pattern): the box takes the root
 	 * inset itself and distributes its own padding to the user blocks as container
 	 * padding in the second pass — so root and container padding nest (30 outer +
 	 * 20 own) instead of stacking to 50 on every block.
@@ -522,7 +522,7 @@ class Content_Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		// the signal the second pass uses to drop root padding for user blocks.
 		$post_content     = $box_group['innerBlocks'][0];
 		$post_content_num = (float) str_replace( 'px', '', $post_content['email_attrs']['width'] );
-		$theme_controller = $this->di_container->get( \Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller::class );
+		$theme_controller = $this->di_container->get( \Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller::class );
 		$content_size_num = (float) str_replace( 'px', '', $theme_controller->get_layout_settings()['contentSize'] );
 		$this->assertLessThan( $content_size_num, $post_content_num );
 

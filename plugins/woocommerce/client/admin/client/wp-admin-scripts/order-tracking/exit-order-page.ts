@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { addCustomerEffortScoreExitPageListener } from '@woocommerce/customer-effort-score';
+import { addCustomerEffortScoreExitPageListener } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies

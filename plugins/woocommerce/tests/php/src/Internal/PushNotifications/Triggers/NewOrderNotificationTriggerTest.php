@@ -2,19 +2,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\NewOrderNotificationTrigger;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use Exception;
 use WC_Logger;
 use WC_Order;
@@ -70,8 +70,8 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_action( 'woocommerce_new_order', array( $this->trigger, 'on_new_order' ) );
-		remove_action( 'woocommerce_order_status_changed', array( $this->trigger, 'on_order_status_changed' ) );
+		remove_action( 'poocommerce_new_order', array( $this->trigger, 'on_new_order' ) );
+		remove_action( 'poocommerce_order_status_changed', array( $this->trigger, 'on_order_status_changed' ) );
 		remove_action( 'shutdown', array( $this->store, 'dispatch_all' ) );
 
 		$this->reset_container_replacements();
@@ -194,7 +194,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_status_change_from_status_added_to_payment_complete_filter_notifies( string $filtered_status ): void {
 		add_filter(
-			'woocommerce_valid_order_statuses_for_payment_complete',
+			'poocommerce_valid_order_statuses_for_payment_complete',
 			static function ( array $statuses ) use ( $filtered_status ): array {
 				return array_merge( $statuses, array( $filtered_status, 123, null ) );
 			}
@@ -214,7 +214,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	public function test_payment_complete_filter_is_not_run_for_orders_created_after_enablement(): void {
 		$calls = 0;
 		add_filter(
-			'woocommerce_valid_order_statuses_for_payment_complete',
+			'poocommerce_valid_order_statuses_for_payment_complete',
 			function ( $statuses ) use ( &$calls ) {
 				++$calls;
 				return $statuses;
@@ -234,7 +234,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	 * @testdox Should fall back to the default unpaid statuses when the payment complete filter does not return an array.
 	 */
 	public function test_invalid_payment_complete_filter_value_falls_back_to_defaults(): void {
-		add_filter( 'woocommerce_valid_order_statuses_for_payment_complete', '__return_false', PHP_INT_MAX );
+		add_filter( 'poocommerce_valid_order_statuses_for_payment_complete', '__return_false', PHP_INT_MAX );
 		$order = wc_create_order();
 		update_option( PushNotifications::ENABLED_AT_OPTION, $order->get_date_created()->getTimestamp() + 60 );
 
@@ -293,7 +293,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_new_order_completed_from_processing_hook_adds_notification(): void {
 		add_action(
-			'woocommerce_order_status_processing',
+			'poocommerce_order_status_processing',
 			static function ( $order_id, $order ) {
 				unset( $order_id ); // Avoid parameter not used PHPCS errors.
 				$order->update_status( OrderStatus::COMPLETED );
@@ -404,7 +404,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should mark the order on HPOS without a full order save, so woocommerce_update_order does not fire.
+	 * @testdox Should mark the order on HPOS without a full order save, so poocommerce_update_order does not fire.
 	 * @testWith [false]
 	 *           [true]
 	 *
@@ -429,7 +429,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 			$order->save();
 			$update_order_count = 0;
 			add_action(
-				'woocommerce_update_order',
+				'poocommerce_update_order',
 				function () use ( &$update_order_count ) {
 					++$update_order_count;
 				}
@@ -438,7 +438,7 @@ class NewOrderNotificationTriggerTest extends WC_Unit_Test_Case {
 			$this->trigger->on_order_status_changed_while_disabled( $order->get_id(), OrderStatus::PENDING, OrderStatus::PROCESSING, $order );
 
 			$this->assertTrue( wc_get_order( $order->get_id() )->meta_exists( NewOrderNotificationTrigger::NOTIFIABLE_META_KEY ), 'The order should be marked as notifiable' );
-			$this->assertSame( 0, $update_order_count, 'Marking the order should not fire woocommerce_update_order' );
+			$this->assertSame( 0, $update_order_count, 'Marking the order should not fire poocommerce_update_order' );
 			if ( $sync_enabled ) {
 				$this->assertNotEmpty( get_post_meta( $order->get_id(), NewOrderNotificationTrigger::NOTIFIABLE_META_KEY, true ), 'The marker should be copied to the posts table when sync is on' );
 			}

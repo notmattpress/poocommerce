@@ -4,14 +4,14 @@
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import type { ReactNode } from 'react';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { noticeContexts } from '@woocommerce/base-context';
-import { NoticeType } from '@woocommerce/types';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { noticeContexts } from '@poocommerce/base-context';
+import { NoticeType } from '@poocommerce/types';
 import {
 	DerivedStateReturn,
 	ReactError,
-} from '@woocommerce/base-components/block-error-boundary/types';
+} from '@poocommerce/base-components/block-error-boundary/types';
 
 interface PaymentMethodErrorBoundaryProps {
 	isEditor: boolean;
@@ -41,7 +41,7 @@ class PaymentMethodErrorBoundary extends Component< PaymentMethodErrorBoundaryPr
 			}
 			let errorText = __(
 				'We are experiencing difficulties with this payment method. Please contact us for assistance.',
-				'woocommerce'
+				'poocommerce'
 			);
 			if ( isEditor || CURRENT_USER_IS_ADMIN ) {
 				if ( errorMessage ) {
@@ -49,7 +49,7 @@ class PaymentMethodErrorBoundary extends Component< PaymentMethodErrorBoundaryPr
 				} else {
 					errorText = __(
 						"There was an error with this payment method. Please verify it's configured correctly.",
-						'woocommerce'
+						'poocommerce'
 					);
 				}
 			}

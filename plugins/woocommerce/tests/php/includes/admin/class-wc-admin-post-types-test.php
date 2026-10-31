@@ -2,14 +2,14 @@
 /**
  * Tests for the WC_Admin_Post_Types class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Class WC_Admin_Post_Types_Test.
@@ -74,7 +74,7 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 			)
 		);
 		$other_id = $this->factory->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_refund_returns_page_id', $page_id );
+		update_option( 'poocommerce_refund_returns_page_id', $page_id );
 
 		$this->assertSame(
 			array(
@@ -120,12 +120,12 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 			$existing_drafts = get_posts( $draft_query );
 
 			try {
-				do_action( 'load-post-new.php' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Simulate the existing WordPress page-load hook.
+				do_action( 'load-post-new.php' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment, WordPress.NamingConventions.ValidHookName.UseUnderscores -- Simulate the existing WordPress page-load hook.
 			} catch ( RuntimeException $error ) {
 				$this->assertSame( 'Order redirect intercepted.', $error->getMessage() );
 			}
 
-			$this->assertSame( '', $redirected_to, 'WooCommerce must let WordPress continue handling the Add Order request.' );
+			$this->assertSame( '', $redirected_to, 'PooCommerce must let WordPress continue handling the Add Order request.' );
 			$this->assertSame( $existing_drafts, get_posts( $draft_query ), 'Loading the screen must not pre-create an order.' );
 
 			$post     = get_default_post_to_edit( 'shop_order', true );
@@ -338,7 +338,7 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 	 * @testdox Bulk Edit applies percentage price and stock changes to each edited product.
 	 *
 	 * Deliberately not a "leaves unselected products alone" test. Selection happens in
-	 * core's bulk-edit loop over $_REQUEST['post'], which calls the WooCommerce handler
+	 * core's bulk-edit loop over $_REQUEST['post'], which calls the PooCommerce handler
 	 * once per selected post; this test drives that handler directly, so an untouched
 	 * third product would only ever read back the values the test itself wrote.
 	 */
@@ -358,7 +358,7 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 		$second_product->set_stock_quantity( 4 );
 		$second_product->save();
 
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$this->bulk_edit(
 			array( $first_product, $second_product ),
@@ -558,8 +558,8 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 	private function quick_edit( WC_Product $product, array $request_data ): void {
 		$_REQUEST = array_merge(
 			array(
-				'woocommerce_quick_edit'       => '1',
-				'woocommerce_quick_edit_nonce' => wp_create_nonce( 'woocommerce_quick_edit_nonce' ),
+				'poocommerce_quick_edit'       => '1',
+				'poocommerce_quick_edit_nonce' => wp_create_nonce( 'poocommerce_quick_edit_nonce' ),
 				'_stock_status'                => 'instock',
 			),
 			$request_data
@@ -577,8 +577,8 @@ class WC_Admin_Post_Types_Test extends WC_Unit_Test_Case {
 	private function bulk_edit( array $products, array $request_data ): void {
 		$_REQUEST = array_merge(
 			array(
-				'woocommerce_bulk_edit'        => '1',
-				'woocommerce_quick_edit_nonce' => wp_create_nonce( 'woocommerce_quick_edit_nonce' ),
+				'poocommerce_bulk_edit'        => '1',
+				'poocommerce_quick_edit_nonce' => wp_create_nonce( 'poocommerce_quick_edit_nonce' ),
 				'change_regular_price'         => '',
 				'_regular_price'               => '',
 				'change_sale_price'            => '',

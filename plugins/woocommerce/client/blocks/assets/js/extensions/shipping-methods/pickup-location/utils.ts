@@ -3,8 +3,8 @@
  */
 import { cleanForSlug } from '@wordpress/url';
 import { __ } from '@wordpress/i18n';
-import { isObject } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import { isObject } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 /**
  * Internal dependencies
  */
@@ -27,7 +27,7 @@ export const indexLocationsById = (
 
 export const defaultSettings = {
 	enabled: false,
-	title: __( 'Pickup', 'woocommerce' ),
+	title: __( 'Pickup', 'poocommerce' ),
 	tax_status: 'taxable',
 	cost: '',
 };

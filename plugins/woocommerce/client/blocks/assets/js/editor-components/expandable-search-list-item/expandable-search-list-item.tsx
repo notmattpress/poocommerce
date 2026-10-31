@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { Spinner } from '@wordpress/components';
-import { SearchListItem } from '@woocommerce/editor-components/search-list-control';
-import { RenderItemArgs } from '@woocommerce/editor-components/search-list-control/types';
+import { SearchListItem } from '@poocommerce/editor-components/search-list-control';
+import { RenderItemArgs } from '@poocommerce/editor-components/search-list-control/types';
 import clsx from 'clsx';
 
 interface ExpandableSearchListItemProps extends RenderItemArgs {
@@ -34,8 +34,8 @@ const ExpandableSearchListItem = ( {
 				<div
 					key="loading"
 					className={ clsx(
-						'woocommerce-search-list__item',
-						'woocommerce-product-attributes__item',
+						'poocommerce-search-list__item',
+						'poocommerce-product-attributes__item',
 						'depth-1',
 						'is-loading',
 						'is-not-active'

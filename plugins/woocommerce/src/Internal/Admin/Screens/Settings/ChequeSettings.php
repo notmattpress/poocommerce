@@ -2,15 +2,15 @@
 /**
  * Form layout for the experimental cheque settings screen.
  *
- * @package WooCommerce\Internal\Admin\Screens\Settings
+ * @package PooCommerce\Internal\Admin\Screens\Settings
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Screens\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Screens\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\Screens\AdminScreens;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Screens\AdminScreens;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +49,7 @@ final class ChequeSettings {
 					'fields' => array(
 						array(
 							'id'       => 'general',
-							'label'    => __( 'General', 'woocommerce' ),
+							'label'    => __( 'General', 'poocommerce' ),
 							'layout'   => array(
 								'type'          => 'card',
 								'isCollapsible' => false,

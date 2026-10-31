@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
 
 /**
  * Cart schema the UCP cart routes read from.
@@ -62,7 +62,7 @@ class UcpCartSchema extends CartSchema {
 	/**
 	 * Get cart validation errors, with messages left raw.
 	 *
-	 * The parent runs each error through {@see \Automattic\WooCommerce\StoreApi\Schemas\V1\ErrorSchema},
+	 * The parent runs each error through {@see \Automattic\PooCommerce\StoreApi\Schemas\V1\ErrorSchema},
 	 * which texturizes the message; agents get the plain wording.
 	 *
 	 * @param \WC_Cart $cart Cart class instance.

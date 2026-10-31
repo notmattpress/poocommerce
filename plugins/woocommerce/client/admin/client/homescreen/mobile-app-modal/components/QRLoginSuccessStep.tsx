@@ -4,7 +4,7 @@
 import React, { useState } from '@wordpress/element';
 import { Button, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -69,12 +69,12 @@ export const QRLoginSuccessStep = ( {
 				aria-live="polite"
 			>
 				<h2 className="qr-login-success-step__heading">
-					{ __( 'Access revoked', 'woocommerce' ) }
+					{ __( 'Access revoked', 'poocommerce' ) }
 				</h2>
 				<p className="qr-login-success-step__description">
 					{ __(
 						'The mobile app will be signed out the next time it makes a request.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -96,7 +96,7 @@ export const QRLoginSuccessStep = ( {
 
 				<div className="qr-login-success-step__revoke-row">
 					<p className="qr-login-success-step__challenge">
-						{ __( "It wasn't you?", 'woocommerce' ) }
+						{ __( "It wasn't you?", 'poocommerce' ) }
 					</p>
 					<Button
 						variant="primary"
@@ -104,7 +104,7 @@ export const QRLoginSuccessStep = ( {
 						onClick={ openConfirmDialog }
 						disabled={ ! apUuid }
 					>
-						{ __( 'Revoke access', 'woocommerce' ) }
+						{ __( 'Revoke access', 'poocommerce' ) }
 					</Button>
 				</div>
 
@@ -117,7 +117,7 @@ export const QRLoginSuccessStep = ( {
 
 			{ isConfirmingRevoke && (
 				<Modal
-					title={ __( 'Revoke access?', 'woocommerce' ) }
+					title={ __( 'Revoke access?', 'poocommerce' ) }
 					onRequestClose={ closeConfirmDialog }
 					className="qr-login-success-step__confirm-modal"
 					shouldCloseOnEsc={ ! isRevoking }
@@ -126,7 +126,7 @@ export const QRLoginSuccessStep = ( {
 					<p>
 						{ __(
 							'The mobile app will be signed out the next time it tries to reach your store. You can sign in again any time by scanning a new QR code.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<div className="qr-login-success-step__confirm-actions">
@@ -135,7 +135,7 @@ export const QRLoginSuccessStep = ( {
 							onClick={ closeConfirmDialog }
 							disabled={ isRevoking }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -144,7 +144,7 @@ export const QRLoginSuccessStep = ( {
 							disabled={ isRevoking }
 							className="qr-login-success-step__confirm-revoke-button"
 						>
-							{ __( 'Revoke access', 'woocommerce' ) }
+							{ __( 'Revoke access', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

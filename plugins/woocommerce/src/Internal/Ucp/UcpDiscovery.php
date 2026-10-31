@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Ucp;
+namespace Automattic\PooCommerce\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\StoreApi\Utilities\UcpUtils;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\StoreApi\Utilities\UcpUtils;
 
 /**
  * Serves the UCP discovery profile at `/.well-known/ucp`.
@@ -65,7 +65,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	 */
 	public function maybe_flush_rewrite_rules( string $feature_id ): void {
 		if ( UcpUtils::FEATURE_ID === $feature_id ) {
-			update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+			update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		}
 	}
 

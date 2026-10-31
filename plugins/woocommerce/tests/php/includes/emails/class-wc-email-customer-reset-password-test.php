@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * WC_Email_Customer_Reset_Password test.
@@ -37,7 +37,7 @@ class WC_Email_Customer_Reset_Password_Test extends \WC_Unit_Test_Case {
 		WC()->mailer();
 
 		update_option(
-			'woocommerce_customer_reset_password_settings',
+			'poocommerce_customer_reset_password_settings',
 			array(
 				'cc'  => 'cc@example.com',
 				'bcc' => 'copy@example.com',

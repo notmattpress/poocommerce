@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { productFilterRating as icon } from '@woocommerce/icons';
+import { productFilterRating as icon } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

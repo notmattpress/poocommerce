@@ -3,12 +3,12 @@
  * InvalidInputException - a refused input value, reported as a stable error code,
  * the field it concerns and the values a message needs. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Support;
 
 use DomainException;
 use LogicException;

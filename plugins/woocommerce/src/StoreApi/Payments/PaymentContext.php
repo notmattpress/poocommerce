@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Payments;
+namespace Automattic\PooCommerce\StoreApi\Payments;
 
 /**
  * PaymentContext class.

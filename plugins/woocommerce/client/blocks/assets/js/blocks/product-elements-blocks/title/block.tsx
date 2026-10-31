@@ -5,11 +5,11 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import ProductName from '@woocommerce/base-components/product-name';
-import { useStoreEvents } from '@woocommerce/base-context/hooks';
-import { useStyleProps } from '@woocommerce/base-hooks';
+} from '@poocommerce/shared-context';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import ProductName from '@poocommerce/base-components/product-name';
+import { useStoreEvents } from '@poocommerce/base-context/hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import type { HTMLAttributes } from 'react';
 
 /**

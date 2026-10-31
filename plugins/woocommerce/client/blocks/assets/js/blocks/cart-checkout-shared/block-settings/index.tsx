@@ -18,11 +18,11 @@ export const BlockSettings = ( {
 	const { hasDarkControls, showFormStepNumbers } = attributes;
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Style', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Style', 'poocommerce' ) }>
 				{ blockType === 'checkout' && (
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Show form step numbers', 'woocommerce' ) }
+						label={ __( 'Show form step numbers', 'poocommerce' ) }
 						checked={ showFormStepNumbers }
 						onChange={ () =>
 							setAttributes( {
@@ -33,10 +33,10 @@ export const BlockSettings = ( {
 				) }
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Dark mode inputs', 'woocommerce' ) }
+					label={ __( 'Dark mode inputs', 'poocommerce' ) }
 					help={ __(
 						'Inputs styled specifically for use on dark background colors.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ hasDarkControls }
 					onChange={ () =>

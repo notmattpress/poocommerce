@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS;
 
 interface Renderable
 {

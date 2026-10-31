@@ -3,7 +3,7 @@
  */
 import { store, withSyncEvent } from '@wordpress/interactivity';
 
-const BLOCK_NAME = 'woocommerce/catalog-sorting';
+const BLOCK_NAME = 'poocommerce/catalog-sorting';
 
 const catalogSortingStore = {
 	actions: {

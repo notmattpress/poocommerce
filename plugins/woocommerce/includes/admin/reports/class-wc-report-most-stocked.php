@@ -2,7 +2,7 @@
 /**
  * WC_Report_Most_Stocked.
  *
- * @package WooCommerce\Admin\Reports
+ * @package PooCommerce\Admin\Reports
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,10 +28,10 @@ class WC_Report_Most_Stocked extends WC_Report_Stock {
 		$this->max_items = 0;
 		$this->items     = array();
 
-		$stock = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 0 ) );
+		$stock = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 0 ) );
 
 		$query_from = apply_filters(
-			'woocommerce_report_most_stocked_query_from',
+			'poocommerce_report_most_stocked_query_from',
 			$wpdb->prepare(
 				"
 				FROM {$wpdb->posts} as posts

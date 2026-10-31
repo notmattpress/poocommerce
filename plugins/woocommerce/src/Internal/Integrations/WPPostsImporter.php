@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Integrations;
+namespace Automattic\PooCommerce\Internal\Integrations;
 
 /**
  * Class WPPostsImporter
@@ -67,10 +67,10 @@ class WPPostsImporter {
 				register_taxonomy(
 					$term['domain'],
 					// phpcs:ignore
-					apply_filters( 'woocommerce_taxonomy_objects_' . $term['domain'], array( 'product' ) ),
+					apply_filters( 'poocommerce_taxonomy_objects_' . $term['domain'], array( 'product' ) ),
 					// phpcs:ignore
 					apply_filters(
-						'woocommerce_taxonomy_args_' . $term['domain'],
+						'poocommerce_taxonomy_args_' . $term['domain'],
 						array(
 							'hierarchical' => true,
 							'show_ui'      => false,

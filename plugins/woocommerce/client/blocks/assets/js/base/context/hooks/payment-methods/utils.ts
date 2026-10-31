@@ -6,7 +6,7 @@ import {
 	CartResponseTotals,
 	objectHasProp,
 	isString,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 export interface CartTotalItem {
 	key: string;
@@ -48,25 +48,25 @@ export const prepareTotalItems = (
 	};
 
 	newTotals.push(
-		factory( __( 'Subtotal:', 'woocommerce' ), 'total_items' )
+		factory( __( 'Subtotal:', 'poocommerce' ), 'total_items' )
 	);
 
-	newTotals.push( factory( __( 'Fees:', 'woocommerce' ), 'total_fees' ) );
+	newTotals.push( factory( __( 'Fees:', 'poocommerce' ), 'total_fees' ) );
 
 	newTotals.push(
-		factory( __( 'Discount:', 'woocommerce' ), 'total_discount' )
+		factory( __( 'Discount:', 'poocommerce' ), 'total_discount' )
 	);
 
 	newTotals.push( {
 		key: 'total_tax',
-		label: __( 'Taxes:', 'woocommerce' ),
+		label: __( 'Taxes:', 'poocommerce' ),
 		value: parseInt( totals.total_tax, 10 ),
 		valueWithTax: parseInt( totals.total_tax, 10 ),
 	} );
 
 	if ( needsShipping ) {
 		newTotals.push(
-			factory( __( 'Shipping:', 'woocommerce' ), 'total_shipping' )
+			factory( __( 'Shipping:', 'poocommerce' ), 'total_shipping' )
 		);
 	}
 

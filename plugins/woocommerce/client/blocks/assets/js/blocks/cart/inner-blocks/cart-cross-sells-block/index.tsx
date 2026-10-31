@@ -17,7 +17,7 @@ import crossSells from '../../../product-collection/collections/cross-sells';
 
 export const createCrossSellsProductCollection = () => {
 	return createBlock(
-		'woocommerce/product-collection',
+		'poocommerce/product-collection',
 		{
 			...crossSells.attributes,
 			displayLayout: {
@@ -28,7 +28,7 @@ export const createCrossSellsProductCollection = () => {
 				...crossSells.attributes.query,
 				perPage: 3,
 			},
-			collection: 'woocommerce/product-collection/cross-sells',
+			collection: 'poocommerce/product-collection/cross-sells',
 		},
 		createBlocksFromInnerBlocksTemplate( crossSells.innerBlocks )
 	);
@@ -50,7 +50,7 @@ registerBlockType( metadata, {
 		to: [
 			{
 				type: 'block',
-				blocks: [ 'woocommerce/product-collection' ],
+				blocks: [ 'poocommerce/product-collection' ],
 				transform: createCrossSellsProductCollection,
 			},
 		],

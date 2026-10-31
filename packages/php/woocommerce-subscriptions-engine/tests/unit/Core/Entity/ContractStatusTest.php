@@ -2,19 +2,19 @@
 /**
  * Unit tests for the registry-backed ContractStatus helpers.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus
  */
 class ContractStatusTest extends TestCase {
 

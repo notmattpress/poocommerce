@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
 /**
  * Example class with a dependency that is to be resolved by the Store API.

@@ -19,7 +19,7 @@ reviews:
         regardless of whether it lives in the `Internal` namespace — third-party code implements and consumes some of
         these contracts in practice. Flag such changes and ask the author to state the backwards-compatibility impact in
         the PR description. Call out explicitly when a method is added to an interface that external code can implement:
-        this is a backwards-incompatible change because existing implementers fatal on load (e.g. WooCommerce 10.9.0 was
+        this is a backwards-incompatible change because existing implementers fatal on load (e.g. PooCommerce 10.9.0 was
         reverted on WP Cloud after a required method was added to `FeedInterface`). Suggest a non-breaking alternative
         such as adding the method to a concrete class, introducing a new interface, or providing a default via an
         abstract base class. For renames or removals of existing public symbols, follow the deprecate-don't-rename

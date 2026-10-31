@@ -1,4 +1,4 @@
-/*global inlineEditPost, woocommerce_admin, woocommerce_quick_edit */
+/*global inlineEditPost, poocommerce_admin, poocommerce_quick_edit */
 jQuery(
 	function( $ ) {
 		function init_sale_datepickers( $row ) {
@@ -39,7 +39,7 @@ jQuery(
 
 				post_id = post_id.replace( 'post-', '' );
 
-				var $wc_inline_data = $( '#woocommerce_inline_' + post_id );
+				var $wc_inline_data = $( '#poocommerce_inline_' + post_id );
 
 				var sku          = $wc_inline_data.find( '.sku' ).text(),
 				regular_price    = $wc_inline_data.find( '.regular_price' ).text(),
@@ -62,12 +62,12 @@ jQuery(
 				backorders       = $wc_inline_data.find( '.backorders' ).text(),
 				product_type     = $wc_inline_data.find( '.product_type' ).text();
 
-				var formatted_regular_price = regular_price.replace( '.', woocommerce_admin.mon_decimal_point ),
-				formatted_sale_price        = sale_price.replace( '.', woocommerce_admin.mon_decimal_point );
+				var formatted_regular_price = regular_price.replace( '.', poocommerce_admin.mon_decimal_point ),
+				formatted_sale_price        = sale_price.replace( '.', poocommerce_admin.mon_decimal_point );
 
 				var cogs_data = $wc_inline_data.find( '.cogs_value ' );
 				if( cogs_data.length > 0 ) {
-					var formatted_cogs_value = cogs_data.text().replace( '.', woocommerce_admin.mon_decimal_point );
+					var formatted_cogs_value = cogs_data.text().replace( '.', poocommerce_admin.mon_decimal_point );
 					$( 'input[name="_cogs_value"]', '.inline-edit-row' ).val( formatted_cogs_value );
 				}
 
@@ -79,10 +79,10 @@ jQuery(
 				setTimeout( function() {
 					init_sale_datepickers( $( '#edit-' + post_id ) );
 				}, 0 );
-				$( 'input[name="_weight"]', '.inline-edit-row' ).val( weight.replace( '.', woocommerce_admin.decimal_point ) );
-				$( 'input[name="_length"]', '.inline-edit-row' ).val( length.replace( '.', woocommerce_admin.decimal_point ) );
-				$( 'input[name="_width"]', '.inline-edit-row' ).val( width.replace( '.', woocommerce_admin.decimal_point ) );
-				$( 'input[name="_height"]', '.inline-edit-row' ).val( height.replace( '.', woocommerce_admin.decimal_point ) );
+				$( 'input[name="_weight"]', '.inline-edit-row' ).val( weight.replace( '.', poocommerce_admin.decimal_point ) );
+				$( 'input[name="_length"]', '.inline-edit-row' ).val( length.replace( '.', poocommerce_admin.decimal_point ) );
+				$( 'input[name="_width"]', '.inline-edit-row' ).val( width.replace( '.', poocommerce_admin.decimal_point ) );
+				$( 'input[name="_height"]', '.inline-edit-row' ).val( height.replace( '.', poocommerce_admin.decimal_point ) );
 
 				$( 'select[name="_shipping_class"] option:selected', '.inline-edit-row' ).attr( 'selected', false ).trigger( 'change' );
 				$( 'select[name="_shipping_class"] option[value="' + shipping_class + '"]' ).attr( 'selected', 'selected' )
@@ -152,7 +152,7 @@ jQuery(
 				}
 
 				// Rename core strings.
-				$( 'input[name="comment_status"]' ).parent().find( '.checkbox-title' ).text( woocommerce_quick_edit.strings.allow_reviews );
+				$( 'input[name="comment_status"]' ).parent().find( '.checkbox-title' ).text( poocommerce_quick_edit.strings.allow_reviews );
 			}
 		);
 
@@ -177,14 +177,14 @@ jQuery(
 			'#doaction, #doaction2',
 			function() {
 				$( 'input.text', '.inline-edit-row' ).val( '' );
-				$( '#woocommerce-fields' ).find( 'select' ).prop( 'selectedIndex', 0 );
-				$( '#woocommerce-fields-bulk' ).find( '.inline-edit-group .change-input' ).hide();
+				$( '#poocommerce-fields' ).find( 'select' ).prop( 'selectedIndex', 0 );
+				$( '#poocommerce-fields-bulk' ).find( '.inline-edit-group .change-input' ).hide();
 			}
 		);
 
 		$( '#wpbody' ).on(
 			'change',
-			'#woocommerce-fields-bulk .inline-edit-group .change_to',
+			'#poocommerce-fields-bulk .inline-edit-group .change_to',
 			function() {
 
 				if ( 0 < $( this ).val() ) {
@@ -200,7 +200,7 @@ jQuery(
 			'click',
 			'.trash-product',
 			function() {
-				return window.confirm( woocommerce_admin.i18n_delete_product_notice );
+				return window.confirm( poocommerce_admin.i18n_delete_product_notice );
 			}
 		);
 	}

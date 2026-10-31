@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 
 /**
  * Utility methods used for the Product Gallery block.
@@ -275,7 +275,7 @@ class ProductGalleryUtils {
 			'sizes'      => $sizes ? $sizes : '',
 			'alt'        => $alt ? $alt : sprintf(
 				/* translators: 1: Product title 2: Image number */
-				__( '%1$s - Image %2$d', 'woocommerce' ),
+				__( '%1$s - Image %2$d', 'poocommerce' ),
 				$product_title,
 				$index + 1
 			),
@@ -307,7 +307,7 @@ class ProductGalleryUtils {
 			$alt         = $video_title
 				? sprintf(
 					/* translators: %s is the video title. */
-					__( 'Video: %s', 'woocommerce' ),
+					__( 'Video: %s', 'poocommerce' ),
 					$video_title
 				)
 				: '';
@@ -316,7 +316,7 @@ class ProductGalleryUtils {
 		if ( empty( $alt ) && $product_title ) {
 			$alt = sprintf(
 				/* translators: %s is the product title. */
-				__( 'Product video: %s', 'woocommerce' ),
+				__( 'Product video: %s', 'poocommerce' ),
 				$product_title
 			);
 		}

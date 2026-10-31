@@ -22,8 +22,8 @@ jest.mock( '@wordpress/data', () => {
 } );
 
 // pushChanges only runs on a page with the Checkout block.
-jest.mock( '@woocommerce/settings', () => {
-	const actual = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const actual = jest.requireActual( '@poocommerce/settings' );
 	return {
 		...actual,
 		getSetting: ( name: string, fallback: unknown ) =>
@@ -70,7 +70,7 @@ describe( 'pushChanges', () => {
 
 	beforeAll( () => {
 		// pushChanges needs a cart session to push at all.
-		document.cookie = 'woocommerce_cart_hash=abc';
+		document.cookie = 'poocommerce_cart_hash=abc';
 		mockStores();
 		// The first call only records the starting data.
 		pushChanges( false );

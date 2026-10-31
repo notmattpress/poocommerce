@@ -28,8 +28,8 @@ export function getCoreEntities(): SettingsEntityConfig[] {
 			name: 'cheque',
 			baseURL: '/wc/v3/payment_gateways',
 			key: 'id',
-			label: __( 'Check payments', 'woocommerce' ),
-			getTitle: () => __( 'Check payments', 'woocommerce' ),
+			label: __( 'Check payments', 'poocommerce' ),
+			getTitle: () => __( 'Check payments', 'poocommerce' ),
 		},
 	];
 }

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fireEvent, render, screen } from '@testing-library/react';
-import { reportsStore, settingsStore } from '@woocommerce/data';
+import { reportsStore, settingsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -80,7 +80,7 @@ const mockSelect = jest.fn( ( store ) => {
 	if ( store === settingsStore ) {
 		return {
 			getSetting: jest.fn().mockReturnValue( {
-				woocommerce_default_date_range:
+				poocommerce_default_date_range:
 					'period=month&compare=previous_year',
 			} ),
 		};
@@ -99,30 +99,30 @@ jest.mock( '@wordpress/data', () => ( {
 // Load only the real component modules used by StorePerformance. Importing the
 // package barrel eagerly loads unrelated search code whose linked dependency is
 // not collectable in this package's Jest runtime.
-jest.mock( '@woocommerce/components', () => ( {
-	EllipsisMenu: jest.requireActual( '@woocommerce/components/ellipsis-menu' )
+jest.mock( '@poocommerce/components', () => ( {
+	EllipsisMenu: jest.requireActual( '@poocommerce/components/ellipsis-menu' )
 		.default,
 	MenuItem: jest.requireActual(
-		'@woocommerce/components/ellipsis-menu/menu-item'
+		'@poocommerce/components/ellipsis-menu/menu-item'
 	).default,
 	MenuTitle: jest.requireActual(
-		'@woocommerce/components/ellipsis-menu/menu-title'
+		'@poocommerce/components/ellipsis-menu/menu-title'
 	).default,
 	SectionHeader: jest.requireActual(
-		'@woocommerce/components/section-header'
+		'@poocommerce/components/section-header'
 	).default,
-	SummaryList: jest.requireActual( '@woocommerce/components/summary' )
+	SummaryList: jest.requireActual( '@poocommerce/components/summary' )
 		.default,
 	SummaryListPlaceholder: jest.requireActual(
-		'@woocommerce/components/summary/placeholder'
+		'@poocommerce/components/summary/placeholder'
 	).SummaryListPlaceholder,
 	SummaryNumber: jest.requireActual(
-		'@woocommerce/components/summary/number'
+		'@poocommerce/components/summary/number'
 	).default,
 } ) );
 
-jest.mock( '@woocommerce/date', () => ( {
-	...jest.requireActual( '@woocommerce/date' ),
+jest.mock( '@poocommerce/date', () => ( {
+	...jest.requireActual( '@poocommerce/date' ),
 	appendTimestamp: ( value, position ) => `${ value.key }-${ position }`,
 	getCurrentDates: () => ( {
 		primary: {
@@ -138,8 +138,8 @@ jest.mock( '@woocommerce/date', () => ( {
 	getStoreTimeZoneMoment: () => ( {} ),
 } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getNewPath: ( query, path, extras ) =>
 		`${ path }?chart=${ extras.chart }&persisted=${ query.persisted }`,
 	getPersistedQuery: () => ( { persisted: 'yes' } ),

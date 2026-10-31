@@ -41,27 +41,27 @@ const getRequestQueryParams = ( {
 	/**
 	 * List of URL query parameters to be sent to the server.
 	 *
-	 * @filter woocommerce_explat_request_args
+	 * @filter poocommerce_explat_request_args
 	 * @example
 	 * addFilter(
-	 * 	'woocommerce_explat_request_args',
-	 * 	'woocommerce_explat_request_args',
+	 * 	'poocommerce_explat_request_args',
+	 * 	'poocommerce_explat_request_args',
 	 * ( args ) => {
 	 * 	args.experimentName = 'my-experiment';
 	 * 	return args;
 	 * });
 	 */
-	const queryParams = applyFilters( 'woocommerce_explat_request_args', {
+	const queryParams = applyFilters( 'poocommerce_explat_request_args', {
 		experiment_name: experimentName,
 		anon_id: anonId ?? undefined,
 		woo_country_code:
 			window.wcSettings?.preloadSettings?.general
-				?.woocommerce_default_country ||
+				?.poocommerce_default_country ||
 			window.wcSettings?.admin?.preloadSettings?.general
-				?.woocommerce_default_country,
+				?.poocommerce_default_country,
 		woo_wcadmin_install_timestamp:
 			window.wcSettings?.admin?.preloadOptions
-				?.woocommerce_admin_install_timestamp,
+				?.poocommerce_admin_install_timestamp,
 	} );
 
 	if ( ! isValidQueryParams( queryParams ) ) {
@@ -100,7 +100,7 @@ export const fetchExperimentAssignment = async ( {
 	}
 
 	const response = await window.fetch(
-		`https://public-api.wordpress.com/wpcom/v2/experiments/${ EXPLAT_VERSION }/assignments/woocommerce?${ stringify(
+		`https://public-api.wordpress.com/wpcom/v2/experiments/${ EXPLAT_VERSION }/assignments/poocommerce?${ stringify(
 			queryParams
 		) }`
 	);

@@ -2,10 +2,10 @@
 /**
  * Test the API controller class that handles the telemetry REST endpoints.
  *
- * @package WooCommerce\Admin\Tests\Internal\Telemetry
+ * @package PooCommerce\Admin\Tests\Internal\Telemetry
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\Telemetry;
+namespace Automattic\PooCommerce\Tests\Internal\Telemetry;
 
 use Nette\Utils\DateTime;
 use WC_REST_Unit_Test_Case;
@@ -24,7 +24,7 @@ class TelemetryControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	const ENDPOINT = '/wc-telemetry/tracker';
 
-	const MOBILE_USAGE_OPTION_KEY = 'woocommerce_mobile_app_usage';
+	const MOBILE_USAGE_OPTION_KEY = 'poocommerce_mobile_app_usage';
 
 	/**
 	 * Set up.

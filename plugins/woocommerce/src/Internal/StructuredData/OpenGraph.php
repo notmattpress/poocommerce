@@ -2,14 +2,14 @@
 /**
  * Product Open Graph metadata.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;
@@ -49,13 +49,13 @@ class OpenGraph {
 	 */
 	public function handle_template_redirect(): void {
 		/**
-		 * Filters whether WooCommerce may output Open Graph metadata.
+		 * Filters whether PooCommerce may output Open Graph metadata.
 		 *
 		 * @since 11.4.0
 		 *
 		 * @param bool $enabled Whether metadata is enabled.
 		 */
-		if ( ! apply_filters( 'woocommerce_enable_open_graph', true ) || is_preview() ) {
+		if ( ! apply_filters( 'poocommerce_enable_open_graph', true ) || is_preview() ) {
 			return;
 		}
 
@@ -90,7 +90,7 @@ class OpenGraph {
 		 * @param array<array<string, string>> $tags Ordered groups of og:, twitter:, or product: tags with string values. Removing the og:type group preserves an existing provider's type.
 		 * @param WC_Product|\WP_Post|\WP_Term|\WP_Post_Type|null $context Product or queried object; null when no object is available.
 		 */
-		$tags = apply_filters( 'woocommerce_open_graph_tags', $tags, $context );
+		$tags = apply_filters( 'poocommerce_open_graph_tags', $tags, $context );
 		if ( ! is_array( $tags ) ) {
 			return array();
 		}

@@ -2,19 +2,19 @@
 /**
  * Unit tests for the ContractView DTO.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView
  */
 class ContractViewTest extends TestCase {
 

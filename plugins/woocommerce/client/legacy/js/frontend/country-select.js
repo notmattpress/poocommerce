@@ -82,10 +82,10 @@ jQuery( function( $ ) {
 	/* State/Country select boxes */
 	var states_json       = wc_country_select_params.countries.replace( /&quot;/g, '"' ),
 		states            = JSON.parse( states_json ),
-		wrapper_selectors = '.woocommerce-billing-fields,' +
-			'.woocommerce-shipping-fields,' +
-			'.woocommerce-address-fields,' +
-			'.woocommerce-shipping-calculator';
+		wrapper_selectors = '.poocommerce-billing-fields,' +
+			'.poocommerce-shipping-fields,' +
+			'.poocommerce-address-fields,' +
+			'.poocommerce-shipping-calculator';
 
 	$( document.body ).on( 'change refresh', 'select.country_to_state, input.country_to_state', function() {
 		// Grab wrapping element to target only stateboxes in same 'group'

@@ -6,17 +6,17 @@ import type { JSX } from 'react';
 import { SelectControl } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __, _n, sprintf } from '@wordpress/i18n';
-import ErrorMessage from '@woocommerce/editor-components/error-placeholder/error-message';
+import ErrorMessage from '@poocommerce/editor-components/error-placeholder/error-message';
 import {
 	SearchListControl,
 	SearchListItem,
-} from '@woocommerce/editor-components/search-list-control';
-import type { ErrorObject } from '@woocommerce/editor-components/error-placeholder';
+} from '@poocommerce/editor-components/search-list-control';
+import type { ErrorObject } from '@poocommerce/editor-components/error-placeholder';
 import type {
 	RenderItemArgs,
 	SearchListControlProps,
 	SearchListItem as SearchListItemProps,
-} from '@woocommerce/editor-components/search-list-control/types';
+} from '@poocommerce/editor-components/search-list-control/types';
 
 /**
  * Internal dependencies
@@ -68,12 +68,12 @@ const getCountLabel = ( count: number, countType: 'product' | 'review' ) =>
 	countType === 'review'
 		? sprintf(
 				/* translators: %d is the count of reviews. */
-				_n( '%d review', '%d reviews', count, 'woocommerce' ),
+				_n( '%d review', '%d reviews', count, 'poocommerce' ),
 				count
 			)
 		: sprintf(
 				/* translators: %d is the count of products. */
-				_n( '%d product', '%d products', count, 'woocommerce' ),
+				_n( '%d product', '%d products', count, 'poocommerce' ),
 				count
 			);
 
@@ -95,7 +95,7 @@ const getAriaLabel = (
 					'%1$s, has %2$d review',
 					'%1$s, has %2$d reviews',
 					count,
-					'woocommerce'
+					'poocommerce'
 				),
 				name,
 				count
@@ -106,7 +106,7 @@ const getAriaLabel = (
 					'%1$s, has %2$d product',
 					'%1$s, has %2$d products',
 					count,
-					'woocommerce'
+					'poocommerce'
 				),
 				name,
 				count
@@ -152,12 +152,12 @@ const ProductTaxonomyControl = < T extends object = object >( {
 				<div hidden={ operator.selectedCount < 2 }>
 					<SelectControl< string >
 						className={ clsx(
-							'woocommerce-product-taxonomy-control__operator',
+							'poocommerce-product-taxonomy-control__operator',
 							operator.className
 						) }
 						label={ __(
 							'Display products matching',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ operator.labels.help }
 						value={ operator.value }

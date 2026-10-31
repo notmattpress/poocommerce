@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { EditorBlock } from '@woocommerce/types';
+import type { EditorBlock } from '@poocommerce/types';
 
 export type ButtonPositionProps =
 	'button-outside' | 'button-inside' | 'no-button' | 'button-only';

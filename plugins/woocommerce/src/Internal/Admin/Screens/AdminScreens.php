@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Screens;
+namespace Automattic\PooCommerce\Internal\Admin\Screens;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 defined( 'ABSPATH' ) || exit;
 

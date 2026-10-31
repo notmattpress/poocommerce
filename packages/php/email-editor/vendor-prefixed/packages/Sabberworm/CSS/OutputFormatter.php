@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\OutputException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\OutputException;
 
 /**
  * @internal since 8.8.0

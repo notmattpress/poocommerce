@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ testAsNewAdmin(
 			name: 'Choose which metrics to display',
 		} );
 		const performanceMenu = page
-			.locator( '.woocommerce-section-header', {
+			.locator( '.poocommerce-section-header', {
 				has: page.getByRole( 'heading', { name: 'Performance' } ),
 			} )
 			.getByRole( 'button', { name: 'Choose which' } );
@@ -71,7 +71,7 @@ testAsNewAdmin(
 				await expect( tourHeading ).toBeVisible();
 
 				const tourBox = await page
-					.locator( '.woocommerce-tour-kit-step' )
+					.locator( '.poocommerce-tour-kit-step' )
 					.boundingBox();
 				const menuBox = await performanceMenu.boundingBox();
 
@@ -112,7 +112,7 @@ testAsNewAdmin(
 							`${ WP_API_PATH }/users/${ newAdmin.id }`,
 							{ context: 'edit' }
 						);
-						return data.woocommerce_meta
+						return data.poocommerce_meta
 							.dashboard_performance_tour_shown;
 					} )
 					.toBe( 'yes' );

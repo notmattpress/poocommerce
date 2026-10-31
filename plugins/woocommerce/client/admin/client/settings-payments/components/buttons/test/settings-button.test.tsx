@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import {
@@ -9,14 +9,14 @@ import {
 	PaymentsProviderState,
 	PaymentsProviderOnboardingState,
 	PluginData,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { SettingsButton } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

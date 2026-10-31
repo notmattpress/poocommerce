@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-payment-block",
+	"name": "poocommerce/checkout-payment-block",
 	"title": "Payment Options",
 	"description": "Payment options for your store.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -21,9 +21,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-fields-block"
+		"poocommerce/checkout-fields-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

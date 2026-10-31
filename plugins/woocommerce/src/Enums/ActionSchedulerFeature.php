@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the Action Scheduler features WooCommerce core relies on and that an older loaded copy may lack.
+ * Enum class for the Action Scheduler features PooCommerce core relies on and that an older loaded copy may lack.
  *
- * Probed by {@see \Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil::supports()}.
+ * Probed by {@see \Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil::supports()}.
  */
 final class ActionSchedulerFeature {
 

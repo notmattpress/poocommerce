@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState } from '@wordpress/element';
-import { ImageUpload } from '@woocommerce/components';
+import { ImageUpload } from '@poocommerce/components';
 
 const ImageUploadExample = () => {
 	const [ image, setImage ] = useState( null );
