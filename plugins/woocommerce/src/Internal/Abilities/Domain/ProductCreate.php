@@ -5,19 +5,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductFieldRefusalsTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductFieldRefusalsTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce product create ability. It runs the steps of ActionableAbility.
+ * The PooCommerce product create ability. It runs the steps of ActionableAbility.
  */
 class ProductCreate extends ActionableAbility {
 
@@ -28,7 +28,7 @@ class ProductCreate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/product-create';
+	public const ABILITY_NAME = 'poocommerce/product-create';
 
 	/**
 	 * The variations that change() planned, saved after their parent by save().
@@ -56,12 +56,12 @@ class ProductCreate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create product', 'woocommerce' ),
+			'label'               => __( 'Create product', 'poocommerce' ),
 			'description'         => __(
 				'Create a product using supported catalog fields.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_product_mutation_output_schema(),
 			'permission_callback' => array( __CLASS__, 'can_create_product' ),
@@ -107,8 +107,8 @@ class ProductCreate extends ActionableAbility {
 
 		if ( ProductType::VARIATION !== $product_type && '' === trim( $input['name'] ?? '' ) ) {
 			return new \WP_Error(
-				'woocommerce_product_name_required',
-				__( 'A product needs a name.', 'woocommerce' ),
+				'poocommerce_product_name_required',
+				__( 'A product needs a name.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -117,8 +117,8 @@ class ProductCreate extends ActionableAbility {
 			$parent = wc_get_product( $input['parent_id'] ?? 0 );
 			if ( ! $parent instanceof \WC_Product_Variable ) {
 				return new \WP_Error(
-					'woocommerce_product_parent_invalid',
-					__( 'The parent must be a variable product.', 'woocommerce' ),
+					'poocommerce_product_parent_invalid',
+					__( 'The parent must be a variable product.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -187,13 +187,13 @@ class ProductCreate extends ActionableAbility {
 	 * @return null|\WP_Error
 	 */
 	protected function save( $subject ) {
-		$error = self::save_product( $subject, 'woocommerce_product_create_failed' );
+		$error = self::save_product( $subject, 'poocommerce_product_create_failed' );
 		if ( is_wp_error( $error ) ) {
 			return $error;
 		}
 
 		if ( $subject instanceof \WC_Product_Variable ) {
-			return self::save_variations( $subject, $this->variations, 'woocommerce_product_create_failed' );
+			return self::save_variations( $subject, $this->variations, 'poocommerce_product_create_failed' );
 		}
 
 		if ( null !== $this->variation_parent ) {

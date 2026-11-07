@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Keep regular upload filenames unchanged when files are sent to the WooCommerce download folder.
+Keep regular upload filenames unchanged when files are sent to the PooCommerce download folder.

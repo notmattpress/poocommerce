@@ -15,7 +15,7 @@ const FrequentlyAskedQuestionsSimple = () => {
 			<Icon icon={ help } />
 			<span>{ strings.faq.haveQuestions } </span>
 			<a
-				href="https://woocommerce.com/my-account/tickets/"
+				href="https://poocommerce.com/my-account/tickets/"
 				target="_blank"
 				rel="noreferrer"
 			>

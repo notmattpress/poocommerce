@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Integrations;
+namespace Automattic\PooCommerce\Blocks\Integrations;
 
 /**
  * Class used for tracking registered integrations with various Block types.
@@ -47,7 +47,7 @@ class IntegrationRegistry {
 		 *
 		 * @param IntegrationRegistry $registry Instance of the IntegrationRegistry class which exposes the IntegrationRegistry::register() method.
 		 */
-		do_action( 'woocommerce_blocks_' . $this->registry_identifier . '_registration', $this );
+		do_action( 'poocommerce_blocks_' . $this->registry_identifier . '_registration', $this );
 
 		foreach ( $this->get_all_registered() as $registered_integration ) {
 			$registered_integration->initialize();

@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import type { CartItem } from '@woocommerce/types';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
+import type { CartItem } from '@poocommerce/types';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
  */
 import CartLineItemRow from '../cart-line-item-row';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	// Default implementations return the provided defaultValue so module-load
 	// time calls (e.g. `getSetting( 'wcBlocksConfig', { pluginUrl: '', ... } )`
 	// in the settings constants module) still receive a usable shape. Per-test
@@ -24,8 +24,8 @@ jest.mock( '@woocommerce/settings', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
-	...jest.requireActual( '@woocommerce/base-context/hooks' ),
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
+	...jest.requireActual( '@poocommerce/base-context/hooks' ),
 	useStoreCartItemQuantity: jest.fn( () => ( {
 		quantity: 1,
 		setItemQuantity: jest.fn(),
@@ -45,8 +45,8 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-checkout', () => ( {
-	...jest.requireActual( '@woocommerce/blocks-checkout' ),
+jest.mock( '@poocommerce/blocks-checkout', () => ( {
+	...jest.requireActual( '@poocommerce/blocks-checkout' ),
 	applyCheckoutFilter: jest.fn( ( { defaultValue } ) => defaultValue ),
 	productPriceValidation: jest.fn(),
 } ) );

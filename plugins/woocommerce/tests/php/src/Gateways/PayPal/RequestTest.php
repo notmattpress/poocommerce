@@ -2,15 +2,15 @@
 /**
  * Unit tests for PayPal Request class.
  *
- * @package WooCommerce\Tests\Gateways\PayPal
+ * @package PooCommerce\Tests\Gateways\PayPal
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -97,7 +97,7 @@ class RequestTest extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_create_paypal_order_params_are_correct(): void {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$order = \WC_Helper_Order::create_order();
 		$order->set_cart_tax( 10 );
@@ -133,11 +133,11 @@ class RequestTest extends \WC_Unit_Test_Case {
 		$order->set_shipping_postcode( '12345' );
 		$order->save();
 
-		$previous_settings            = get_option( 'woocommerce_paypal_settings', array() );
+		$previous_settings            = get_option( 'poocommerce_paypal_settings', array() );
 		$settings                     = $previous_settings;
 		$settings['address_override'] = 'yes';
 		$settings['send_shipping']    = 'yes';
-		update_option( 'woocommerce_paypal_settings', $settings );
+		update_option( 'poocommerce_paypal_settings', $settings );
 
 		add_filter( 'pre_http_request', array( $this, 'create_paypal_order_success' ), 10, 3 );
 
@@ -145,7 +145,7 @@ class RequestTest extends \WC_Unit_Test_Case {
 		$result  = $request->create_paypal_order( $order );
 
 		remove_filter( 'pre_http_request', array( $this, 'create_paypal_order_success' ) );
-		update_option( 'woocommerce_paypal_settings', $previous_settings );
+		update_option( 'poocommerce_paypal_settings', $previous_settings );
 
 		$this->assertNull( $result, 'create_paypal_order should return null when SET_PROVIDED_ADDRESS is set but the selected shipping country is unsupported' );
 	}

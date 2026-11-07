@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal;
 
 /**
  * Prepares order withdrawal template data.
@@ -52,10 +52,10 @@ final class OrderWithdrawalFormView {
 		foreach ( $this->get_form_field_schema() as $field_key => $field ) {
 			$field['name']        = OrderWithdrawalFormProcessor::get_field_name( $field_key );
 			$field['id']          = OrderWithdrawalFormProcessor::get_field_name( $field_key );
-			$field['input_class'] = array( 'woocommerce-Input', 'woocommerce-Input--' . (string) $field['type'] );
+			$field['input_class'] = array( 'poocommerce-Input', 'poocommerce-Input--' . (string) $field['type'] );
 
 			if ( isset( $errors[ $field_key ] ) ) {
-				$field['class'][]                                = 'woocommerce-invalid';
+				$field['class'][]                                = 'poocommerce-invalid';
 				$field['custom_attributes']['aria-invalid']      = 'true';
 				$field['custom_attributes']['aria-errormessage'] = OrderWithdrawalFormProcessor::get_field_name( $field_key ) . '_error';
 			}
@@ -98,24 +98,24 @@ final class OrderWithdrawalFormView {
 	private function get_review_rows( array $data ): array {
 		return array(
 			array(
-				'label' => __( 'Name', 'woocommerce' ),
+				'label' => __( 'Name', 'poocommerce' ),
 				'value' => $this->get_customer_name( $data ),
 			),
 			array(
-				'label' => __( 'Email address', 'woocommerce' ),
+				'label' => __( 'Email address', 'poocommerce' ),
 				'value' => $data[ OrderWithdrawalFormProcessor::FIELD_EMAIL ],
 			),
 			array(
-				'label' => __( 'Order number', 'woocommerce' ),
+				'label' => __( 'Order number', 'poocommerce' ),
 				'value' => $data[ OrderWithdrawalFormProcessor::FIELD_ORDER_NUMBER ],
 			),
 			array(
-				'label' => __( 'Withdrawing', 'woocommerce' ),
+				'label' => __( 'Withdrawing', 'poocommerce' ),
 				'value' => $this->get_withdrawal_type_label( $data[ OrderWithdrawalFormProcessor::FIELD_WITHDRAWAL_TYPE ] ),
 			),
 			array(
-				'label' => __( 'Additional details', 'woocommerce' ),
-				'value' => '' === $data[ OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS ] ? __( 'None provided', 'woocommerce' ) : $data[ OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS ],
+				'label' => __( 'Additional details', 'poocommerce' ),
+				'value' => '' === $data[ OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS ] ? __( 'None provided', 'poocommerce' ) : $data[ OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS ],
 			),
 		);
 	}
@@ -128,48 +128,48 @@ final class OrderWithdrawalFormView {
 	private function get_form_field_schema(): array {
 		return array(
 			OrderWithdrawalFormProcessor::FIELD_FIRST_NAME => array(
-				'label'        => __( 'First name', 'woocommerce' ),
+				'label'        => __( 'First name', 'poocommerce' ),
 				'type'         => 'text',
-				'class'        => array( 'woocommerce-form-row', 'woocommerce-form-row--first', 'form-row-first' ),
+				'class'        => array( 'poocommerce-form-row', 'poocommerce-form-row--first', 'form-row-first' ),
 				'autocomplete' => 'given-name',
 				'required'     => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_LAST_NAME  => array(
-				'label'        => __( 'Last name', 'woocommerce' ),
+				'label'        => __( 'Last name', 'poocommerce' ),
 				'type'         => 'text',
-				'class'        => array( 'woocommerce-form-row', 'woocommerce-form-row--last', 'form-row-last' ),
+				'class'        => array( 'poocommerce-form-row', 'poocommerce-form-row--last', 'form-row-last' ),
 				'autocomplete' => 'family-name',
 				'required'     => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_EMAIL      => array(
-				'label'        => __( 'Email address', 'woocommerce' ),
+				'label'        => __( 'Email address', 'poocommerce' ),
 				'type'         => 'email',
-				'class'        => array( 'woocommerce-form-row', 'woocommerce-form-row--wide', 'form-row-wide' ),
+				'class'        => array( 'poocommerce-form-row', 'poocommerce-form-row--wide', 'form-row-wide' ),
 				'autocomplete' => 'email',
 				'required'     => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_EMAIL_CONFIRMATION => array(
-				'label'        => __( 'Confirm email address', 'woocommerce' ),
+				'label'        => __( 'Confirm email address', 'poocommerce' ),
 				'type'         => 'email',
-				'class'        => array( 'woocommerce-form-row', 'woocommerce-form-row--wide', 'form-row-wide' ),
+				'class'        => array( 'poocommerce-form-row', 'poocommerce-form-row--wide', 'form-row-wide' ),
 				'autocomplete' => 'email',
 				'required'     => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_ORDER_NUMBER => array(
-				'label'    => __( 'Order number', 'woocommerce' ),
+				'label'    => __( 'Order number', 'poocommerce' ),
 				'type'     => 'text',
-				'class'    => array( 'woocommerce-form-row', 'woocommerce-form-row--wide', 'form-row-wide' ),
+				'class'    => array( 'poocommerce-form-row', 'poocommerce-form-row--wide', 'form-row-wide' ),
 				'required' => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_WITHDRAWAL_TYPE => array(
-				'label'    => __( 'What do you want to withdraw?', 'woocommerce' ),
+				'label'    => __( 'What do you want to withdraw?', 'poocommerce' ),
 				'type'     => 'radio',
 				'required' => true,
 			),
 			OrderWithdrawalFormProcessor::FIELD_ADDITIONAL_DETAILS => array(
-				'label'    => __( 'Additional details', 'woocommerce' ),
+				'label'    => __( 'Additional details', 'poocommerce' ),
 				'type'     => 'textarea',
-				'class'    => array( 'woocommerce-form-row', 'woocommerce-form-row--wide', 'form-row-wide' ),
+				'class'    => array( 'poocommerce-form-row', 'poocommerce-form-row--wide', 'form-row-wide' ),
 				'required' => false,
 			),
 		);
@@ -182,8 +182,8 @@ final class OrderWithdrawalFormView {
 	 */
 	private function get_withdrawal_type_options(): array {
 		return array(
-			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'woocommerce' ),
-			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'woocommerce' ),
+			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_FULL     => __( 'The full order', 'poocommerce' ),
+			OrderWithdrawalFormProcessor::WITHDRAWAL_TYPE_SPECIFIC => __( 'Specific items only', 'poocommerce' ),
 		);
 	}
 

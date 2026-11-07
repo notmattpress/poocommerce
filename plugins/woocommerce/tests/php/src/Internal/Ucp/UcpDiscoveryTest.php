@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Ucp;
+namespace Automattic\PooCommerce\Tests\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Tests for the `/.well-known/ucp` discovery profile.
@@ -35,7 +35,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 		unset( $wp_rewrite->extra_rules_top[ self::RULE ] );
 		remove_filter( 'query_vars', array( $this->sut, 'add_query_var' ), 0 );
 		remove_action( 'parse_request', array( $this->sut, 'maybe_render' ), 0 );
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		parent::tearDown();
 	}
 
@@ -68,7 +68,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_rewrite_rule_registration( string $enabled, string $structure, bool $expected ): void {
 		global $wp_rewrite;
-		update_option( 'woocommerce_feature_ucp_enabled', $enabled );
+		update_option( 'poocommerce_feature_ucp_enabled', $enabled );
 		$this->set_permalink_structure( $structure );
 
 		$this->sut->register_feature_hooks();
@@ -90,31 +90,31 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 * @param bool   $expected Whether a flush should be queued.
 	 */
 	public function test_register_feature_hooks_heals_stale_rewrite_rules( string $enabled, string $stored, bool $expected ): void {
-		update_option( 'woocommerce_feature_ucp_enabled', $enabled );
+		update_option( 'poocommerce_feature_ucp_enabled', $enabled );
 		$this->set_permalink_structure( '/%postname%/' );
 		$rules = array( '^shop/?$' => 'index.php?post_type=product' );
 		if ( 'present' === $stored ) {
 			$rules[ self::RULE ] = 'index.php?' . UcpDiscovery::QUERY_VAR . '=1';
 		}
 		update_option( 'rewrite_rules', 'empty' === $stored ? array() : $rules );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 
 		$this->sut->register_feature_hooks();
 
-		$this->assertSame( $expected ? 'yes' : 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( $expected ? 'yes' : 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**
 	 * @testdox Toggling the UCP feature queues a rewrite rules flush.
 	 */
 	public function test_feature_toggle_queues_flush(): void {
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 
 		$this->sut->maybe_flush_rewrite_rules( 'some_other_feature' );
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
 		$this->sut->maybe_flush_rewrite_rules( Utils::FEATURE_ID );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**

@@ -2,14 +2,14 @@
 /**
  * Product gallery video sources.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;

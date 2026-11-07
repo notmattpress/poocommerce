@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ComponentType, JSX, ReactNode } from 'react';
 
-type WooCommerceData = Record< string, unknown >;
+type PooCommerceData = Record< string, unknown >;
 type RichTextWithButtonProps = {
 	attributeName: string;
 	attributeValue: string;
@@ -29,11 +29,11 @@ const mockRegisteredPlugins = new Map<
 const mockSidebarFilters: SidebarFilter[] = [];
 
 const mockEntityState: {
-	woocommerceData: WooCommerceData;
-	editedWooCommerceData: Record< string, unknown >;
+	poocommerceData: PooCommerceData;
+	editedPooCommerceData: Record< string, unknown >;
 } = {
-	woocommerceData: {},
-	editedWooCommerceData: {},
+	poocommerceData: {},
+	editedPooCommerceData: {},
 };
 const mockEditEntityRecord = jest.fn();
 const mockEmailEditorRecordEvent = jest.fn();
@@ -49,7 +49,7 @@ jest.mock( '@wordpress/core-data', () => ( {
 			mockEntitySubscribers.add( refresh );
 			return () => mockEntitySubscribers.delete( refresh );
 		}, [ refresh ] );
-		return [ mockEntityState.woocommerceData ];
+		return [ mockEntityState.poocommerceData ];
 	},
 } ) );
 
@@ -57,7 +57,7 @@ jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
 	select: () => ( {
 		getEditedEntityRecord: () => ( {
-			woocommerce_data: mockEntityState.editedWooCommerceData,
+			poocommerce_data: mockEntityState.editedPooCommerceData,
 		} ),
 	} ),
 	dispatch: () => ( {
@@ -73,7 +73,7 @@ jest.mock( '@wordpress/hooks', () => ( {
 	) => {
 		if (
 			filterName ===
-			'woocommerce_email_editor_setting_sidebar_extension_component'
+			'poocommerce_email_editor_setting_sidebar_extension_component'
 		) {
 			mockSidebarFilters.push( callback );
 		}
@@ -85,7 +85,7 @@ jest.mock( '@wordpress/plugins', () => ( {
 		mockRegisteredPlugins.set( name, settings ),
 } ) );
 
-jest.mock( '@woocommerce/email-editor', () => ( {
+jest.mock( '@poocommerce/email-editor', () => ( {
 	EmailActionsFill: ( { children }: { children: ReactNode } ) => children,
 	TemplateSelection: () => null,
 	recordEvent: mockEmailEditorRecordEvent,
@@ -96,7 +96,7 @@ jest.mock( '@woocommerce/email-editor', () => ( {
  */
 import { modifySidebar } from '../sidebar_settings';
 
-const defaultWooCommerceData: WooCommerceData = {
+const defaultPooCommerceData: PooCommerceData = {
 	recipient: 'merchant@example.com',
 	cc: '',
 	bcc: '',
@@ -148,7 +148,7 @@ const renderSettings = ( {
 		debouncedRecordEvent,
 	} );
 	const EmailStatus = mockRegisteredPlugins.get(
-		'woocommerce-email-editor-email-status'
+		'poocommerce-email-editor-email-status'
 	)!.render;
 
 	return {
@@ -176,20 +176,20 @@ describe( 'Email editor sidebar settings', () => {
 				_kind: string,
 				_name: string,
 				_id: string,
-				{ woocommerce_data }: { woocommerce_data: WooCommerceData }
+				{ poocommerce_data }: { poocommerce_data: PooCommerceData }
 			) => {
-				mockEntityState.woocommerceData = woocommerce_data;
-				mockEntityState.editedWooCommerceData = woocommerce_data;
+				mockEntityState.poocommerceData = poocommerce_data;
+				mockEntityState.editedPooCommerceData = poocommerce_data;
 				mockEntitySubscribers.forEach( ( refresh ) => refresh() );
 			}
 		);
 		mockEmailEditorRecordEvent.mockClear();
-		mockEntityState.woocommerceData = { ...defaultWooCommerceData };
-		mockEntityState.editedWooCommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.poocommerceData = { ...defaultPooCommerceData };
+		mockEntityState.editedPooCommerceData = {
+			...defaultPooCommerceData,
 			unrelated_setting: 'preserved',
 		};
-		window.WooCommerceEmailEditor = {
+		window.PooCommerceEmailEditor = {
 			current_post_id: '42',
 			current_post_type: 'woo_email',
 			email_types: [],
@@ -199,8 +199,8 @@ describe( 'Email editor sidebar settings', () => {
 
 	it( 'updates email status and tracks it', async () => {
 		const { rerender } = renderSettings();
-		const initialEditedWooCommerceData = {
-			...mockEntityState.editedWooCommerceData,
+		const initialEditedPooCommerceData = {
+			...mockEntityState.editedPooCommerceData,
 		};
 
 		expect(
@@ -219,8 +219,8 @@ describe( 'Email editor sidebar settings', () => {
 			'woo_email',
 			'42',
 			{
-				woocommerce_data: {
-					...initialEditedWooCommerceData,
+				poocommerce_data: {
+					...initialEditedPooCommerceData,
 					unrelated_setting: 'preserved',
 					enabled: false,
 				},
@@ -233,14 +233,14 @@ describe( 'Email editor sidebar settings', () => {
 
 		// The edit goes through `editEntityRecord`, which is mocked, so the saved
 		// record has to be moved on by hand before the toggle can reflect it.
-		mockEntityState.woocommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.poocommerceData = {
+			...defaultPooCommerceData,
 			enabled: false,
 		};
 		rerender(
 			<>
 				{ mockRegisteredPlugins
-					.get( 'woocommerce-email-editor-email-status' )!
+					.get( 'poocommerce-email-editor-email-status' )!
 					.render() }
 			</>
 		);
@@ -249,14 +249,14 @@ describe( 'Email editor sidebar settings', () => {
 			screen.getByRole( 'button', { name: 'Change status: Inactive' } )
 		).toBeEnabled();
 
-		mockEntityState.woocommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.poocommerceData = {
+			...defaultPooCommerceData,
 			is_manual: true,
 		};
 		rerender(
 			<>
 				{ mockRegisteredPlugins
-					.get( 'woocommerce-email-editor-email-status' )!
+					.get( 'poocommerce-email-editor-email-status' )!
 					.render() }
 			</>
 		);
@@ -270,8 +270,8 @@ describe( 'Email editor sidebar settings', () => {
 
 	it( 'passes subject and preheader values through the sidebar data owner', async () => {
 		renderSettings();
-		const initialEditedWooCommerceData = {
-			...mockEntityState.editedWooCommerceData,
+		const initialEditedPooCommerceData = {
+			...mockEntityState.editedPooCommerceData,
 		};
 
 		const subject = screen.getByRole( 'textbox', { name: 'Subject' } );
@@ -289,8 +289,8 @@ describe( 'Email editor sidebar settings', () => {
 			'woo_email',
 			'42',
 			{
-				woocommerce_data: {
-					...initialEditedWooCommerceData,
+				poocommerce_data: {
+					...initialEditedPooCommerceData,
 					subject: '',
 				},
 			}
@@ -300,8 +300,8 @@ describe( 'Email editor sidebar settings', () => {
 			'woo_email',
 			'42',
 			{
-				woocommerce_data: {
-					...initialEditedWooCommerceData,
+				poocommerce_data: {
+					...initialEditedPooCommerceData,
 					subject: 'Your order is on its way',
 					preheader: 'Track it from your account',
 				},
@@ -312,14 +312,14 @@ describe( 'Email editor sidebar settings', () => {
 	it( 'updates and clears CC and BCC recipients', async () => {
 		const recordEvent = jest.fn();
 		const debouncedRecordEvent = jest.fn();
-		mockEntityState.woocommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.poocommerceData = {
+			...defaultPooCommerceData,
 			recipient: null,
 			cc: '',
 			bcc: '',
 		};
-		mockEntityState.editedWooCommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.editedPooCommerceData = {
+			...defaultPooCommerceData,
 			recipient: null,
 			cc: '',
 			bcc: '',
@@ -329,8 +329,8 @@ describe( 'Email editor sidebar settings', () => {
 			recordEvent,
 			debouncedRecordEvent,
 		} );
-		const initialEditedWooCommerceData = {
-			...mockEntityState.editedWooCommerceData,
+		const initialEditedPooCommerceData = {
+			...mockEntityState.editedPooCommerceData,
 		};
 
 		expect(
@@ -368,8 +368,8 @@ describe( 'Email editor sidebar settings', () => {
 			'woo_email',
 			'42',
 			{
-				woocommerce_data: {
-					...initialEditedWooCommerceData,
+				poocommerce_data: {
+					...initialEditedPooCommerceData,
 					cc: 'copy@example.com',
 					bcc: 'hidden@example.com',
 				},
@@ -396,8 +396,8 @@ describe( 'Email editor sidebar settings', () => {
 			'woo_email',
 			'42',
 			{
-				woocommerce_data: {
-					...initialEditedWooCommerceData,
+				poocommerce_data: {
+					...initialEditedPooCommerceData,
 					cc: '',
 					bcc: '',
 				},
@@ -411,8 +411,8 @@ describe( 'Email editor sidebar settings', () => {
 			{ isEnabled: false }
 		);
 
-		mockEntityState.woocommerceData = {
-			...defaultWooCommerceData,
+		mockEntityState.poocommerceData = {
+			...defaultPooCommerceData,
 			recipient: 'team@example.com',
 		};
 		rerender(
@@ -431,12 +431,12 @@ describe( 'Email editor sidebar settings', () => {
 			'Send this email when an unpaid order is cancelled automatically';
 
 		const setSendOnUnpaidTimeout = ( value: boolean ) => {
-			mockEntityState.woocommerceData = {
-				...defaultWooCommerceData,
+			mockEntityState.poocommerceData = {
+				...defaultPooCommerceData,
 				send_on_unpaid_timeout: value,
 			};
-			mockEntityState.editedWooCommerceData = {
-				...defaultWooCommerceData,
+			mockEntityState.editedPooCommerceData = {
+				...defaultPooCommerceData,
 				send_on_unpaid_timeout: value,
 				unrelated_setting: 'preserved',
 			};
@@ -459,8 +459,8 @@ describe( 'Email editor sidebar settings', () => {
 		it( 'saves the toggle as a boolean and keeps other settings', async () => {
 			setSendOnUnpaidTimeout( true );
 			renderSettings();
-			const initialEditedWooCommerceData = {
-				...mockEntityState.editedWooCommerceData,
+			const initialEditedPooCommerceData = {
+				...mockEntityState.editedPooCommerceData,
 			};
 
 			await userEvent.click(
@@ -472,8 +472,8 @@ describe( 'Email editor sidebar settings', () => {
 				'woo_email',
 				'42',
 				{
-					woocommerce_data: {
-						...initialEditedWooCommerceData,
+					poocommerce_data: {
+						...initialEditedPooCommerceData,
 						send_on_unpaid_timeout: false,
 					},
 				}
@@ -489,13 +489,13 @@ describe( 'Email editor sidebar settings', () => {
 		] )(
 			'hides the toggle when the email has no such setting (%s)',
 			( _label, value ) => {
-				const data: WooCommerceData = { ...defaultWooCommerceData };
+				const data: PooCommerceData = { ...defaultPooCommerceData };
 				if ( value === undefined ) {
 					delete data.send_on_unpaid_timeout;
 				} else {
 					data.send_on_unpaid_timeout = value;
 				}
-				mockEntityState.woocommerceData = data;
+				mockEntityState.poocommerceData = data;
 				renderSettings();
 
 				expect(

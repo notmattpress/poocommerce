@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { recordMarketplaceView } from '../tracking';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

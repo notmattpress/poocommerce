@@ -2,19 +2,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Class EmailActionController
  *
  * Handles email actions such as verification and unsubscribe.
  *
- * @package Automattic\WooCommerce\Internal\StockNotifications\Emails
+ * @package Automattic\PooCommerce\Internal\StockNotifications\Emails
  */
 class EmailActionController {
 
@@ -159,13 +159,13 @@ class EmailActionController {
 		$status = $notification->get_status();
 		if ( NotificationStatus::PENDING !== $status ) {
 			$notice_text = NotificationStatus::CANCELLED === $status
-				? esc_html__( 'This sign-up has been cancelled, so it can no longer be verified.', 'woocommerce' )
-				: esc_html__( 'This sign-up has already been verified.', 'woocommerce' );
+				? esc_html__( 'This sign-up has been cancelled, so it can no longer be verified.', 'poocommerce' )
+				: esc_html__( 'This sign-up has already been verified.', 'poocommerce' );
 			$this->redirect_with_notice( self::ACTION_VERIFY, $notice_text, 'notice' );
 		}
 
 		if ( $notification->is_verification_key_expired() ) {
-			$this->redirect_with_notice( self::ACTION_VERIFY, esc_html__( 'This verification link has expired. Sign up again to request a new one.', 'woocommerce' ), 'error' );
+			$this->redirect_with_notice( self::ACTION_VERIFY, esc_html__( 'This verification link has expired. Sign up again to request a new one.', 'poocommerce' ), 'error' );
 		}
 
 		$notification->set_status( NotificationStatus::ACTIVE );
@@ -173,23 +173,23 @@ class EmailActionController {
 		$notification->save();
 
 		/**
-		 * Action: woocommerce_customer_stock_notifications_verified
+		 * Action: poocommerce_customer_stock_notifications_verified
 		 *
 		 * Fires after a stock-notification signup has been verified via the
-		 * double opt-in email link. Mirrors `woocommerce_customer_stock_notifications_signup`.
+		 * double opt-in email link. Mirrors `poocommerce_customer_stock_notifications_signup`.
 		 *
 		 * @since 10.9.0
 		 *
 		 * @param Notification $notification The notification.
 		 */
-		do_action( 'woocommerce_customer_stock_notifications_verified', $notification );
+		do_action( 'poocommerce_customer_stock_notifications_verified', $notification );
 
 		$this->email_manager->send_verified_email( $notification );
 
 		$product = wc_get_product( $notification->get_product_id() );
 
 		/* translators: %s is product name */
-		$notice_text = sprintf( esc_html__( 'Successfully verified stock notifications for "%s".', 'woocommerce' ), $product->get_name() );
+		$notice_text = sprintf( esc_html__( 'Successfully verified stock notifications for "%s".', 'poocommerce' ), $product->get_name() );
 		$this->redirect_with_notice( self::ACTION_VERIFY, $notice_text );
 	}
 
@@ -210,11 +210,11 @@ class EmailActionController {
 		$status = $notification->get_status();
 
 		if ( NotificationStatus::SENT === $status ) {
-			$this->redirect_with_notice( self::ACTION_UNSUBSCRIBE, esc_html__( 'This notification has already been sent, so there is nothing to unsubscribe from.', 'woocommerce' ), 'notice' );
+			$this->redirect_with_notice( self::ACTION_UNSUBSCRIBE, esc_html__( 'This notification has already been sent, so there is nothing to unsubscribe from.', 'poocommerce' ), 'notice' );
 		}
 
 		if ( NotificationStatus::ACTIVE !== $status && NotificationStatus::PENDING !== $status ) {
-			$this->redirect_with_notice( self::ACTION_UNSUBSCRIBE, esc_html__( 'You are already unsubscribed from this notification.', 'woocommerce' ), 'notice' );
+			$this->redirect_with_notice( self::ACTION_UNSUBSCRIBE, esc_html__( 'You are already unsubscribed from this notification.', 'poocommerce' ), 'notice' );
 		}
 
 		$notification->set_status( NotificationStatus::CANCELLED );
@@ -225,7 +225,7 @@ class EmailActionController {
 		$product = wc_get_product( $notification->get_product_id() );
 
 		/* translators: %2$s product name, %1$s user email */
-		$notice_text = sprintf( esc_html__( 'Successfully unsubscribed %1$s. You will not receive a notification when "%2$s" becomes available.', 'woocommerce' ), $notification->get_user_email(), $product->get_name() );
+		$notice_text = sprintf( esc_html__( 'Successfully unsubscribed %1$s. You will not receive a notification when "%2$s" becomes available.', 'poocommerce' ), $notification->get_user_email(), $product->get_name() );
 		$this->redirect_with_notice( self::ACTION_UNSUBSCRIBE, $notice_text );
 	}
 
@@ -239,8 +239,8 @@ class EmailActionController {
 	 */
 	private function get_invalid_link_notice_text( string $action ): string {
 		return self::ACTION_VERIFY === $action
-			? esc_html__( 'This verification link is no longer valid. Please use the link in the most recent verification email.', 'woocommerce' )
-			: esc_html__( 'This unsubscribe link is no longer valid.', 'woocommerce' );
+			? esc_html__( 'This verification link is no longer valid. Please use the link in the most recent verification email.', 'poocommerce' )
+			: esc_html__( 'This unsubscribe link is no longer valid.', 'poocommerce' );
 	}
 
 	/**
@@ -265,24 +265,24 @@ class EmailActionController {
 
 		if ( self::ACTION_VERIFY === $action ) {
 			/**
-			 * `woocommerce_customer_stock_notification_verified_redirect_url` filter.
+			 * `poocommerce_customer_stock_notification_verified_redirect_url` filter.
 			 *
 			 * @since 10.2.0
 			 *
 			 * @param  string  $url
 			 * @return string
 			 */
-			$url = apply_filters( 'woocommerce_customer_stock_notification_verified_redirect_url', $url );
+			$url = apply_filters( 'poocommerce_customer_stock_notification_verified_redirect_url', $url );
 		} else {
 			/**
-			 * `woocommerce_customer_stock_notification_unsubscribe_redirect_url` filter.
+			 * `poocommerce_customer_stock_notification_unsubscribe_redirect_url` filter.
 			 *
 			 * @since 10.2.0
 			 *
 			 * @param  string  $url
 			 * @return string
 			 */
-			$url = apply_filters( 'woocommerce_customer_stock_notification_unsubscribe_redirect_url', $url );
+			$url = apply_filters( 'poocommerce_customer_stock_notification_unsubscribe_redirect_url', $url );
 		}
 
 		wp_safe_redirect( $url );

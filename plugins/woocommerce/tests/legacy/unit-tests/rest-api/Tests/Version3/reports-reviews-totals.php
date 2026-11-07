@@ -2,7 +2,7 @@
 /**
  * Tests for the reports reviews totals REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
@@ -44,7 +44,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	 * comment_type, which is what lets WC_Comments::update_comment_type() promote the comment to a
 	 * review on preprocess_comment and WC_Comments::add_comment_rating() store the rating meta on
 	 * comment_post. The comment_type has to be passed: wp_new_comment() only defaults it after
-	 * preprocess_comment has run, so omitting it leaves WooCommerce's callback nothing to promote.
+	 * preprocess_comment has run, so omitting it leaves PooCommerce's callback nothing to promote.
 	 *
 	 * @param int    $product_id Product being reviewed.
 	 * @param int    $rating     Rating from 1 to 5.
@@ -54,7 +54,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	private function submit_review_through_comment_form( $product_id, $rating, $status = 'approve' ) {
 		++$this->review_sequence;
 
-		$original_post = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- The superglobal is saved and restored, not read as form data; the review form's fields are set below to drive WooCommerce's own comment hooks.
+		$original_post = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- The superglobal is saved and restored, not read as form data; the review form's fields are set below to drive PooCommerce's own comment hooks.
 
 		try {
 			$_POST['comment_post_ID'] = $product_id;
@@ -192,7 +192,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	public function test_get_reports_counts_only_rated_product_comments() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$page    = $this->factory->post->create( array( 'post_type' => 'page' ) );
 
 		// Read the empty totals first so the reviews added below have to invalidate them.
@@ -242,7 +242,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	public function test_get_reports_applies_comments_clauses_filter() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$this->submit_review_through_comment_form( $product->get_id(), 5 );
 		$this->create_rated_comment( $product->get_id(), '4', array( 'comment_type' => '' ) );
@@ -289,7 +289,7 @@ class WC_Tests_API_Reports_Reviews_Totals extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_review_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/reports/reviews/totals' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();

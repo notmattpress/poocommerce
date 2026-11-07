@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the My Account password-reset flow.
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**
@@ -353,7 +353,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 		$nonce    = wp_create_nonce( 'reset_password' );
 
 		$_POST = array(
-			'woocommerce-reset-password-nonce' => $nonce,
+			'poocommerce-reset-password-nonce' => $nonce,
 			'_wpnonce'                         => 'extension-nonce-that-must-not-win',
 			'wc_reset_password'                => 'true',
 			'password_1'                       => 'first-password',
@@ -411,7 +411,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 		$tampered = substr( $token, 0, -1 ) . ( 'a' === substr( $token, -1 ) ? 'b' : 'a' );
 
 		$_POST = array(
-			'woocommerce-reset-password-nonce' => wp_create_nonce( 'reset_password' ),
+			'poocommerce-reset-password-nonce' => wp_create_nonce( 'reset_password' ),
 			'wc_reset_password'                => 'true',
 			'password_1'                       => 'a-valid-password',
 			'password_2'                       => 'a-valid-password',
@@ -435,7 +435,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 		$count_errors         = static function () use ( &$rendered_error_count ): void {
 			$rendered_error_count ??= wc_notice_count( 'error' );
 		};
-		add_action( 'woocommerce_before_template_part', $count_errors, 10, 0 );
+		add_action( 'poocommerce_before_template_part', $count_errors, 10, 0 );
 
 		$rerendered = $this->render_lost_password_page();
 
@@ -453,7 +453,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 
 		$_GET  = array( 'show-reset-form' => 'true' );
 		$_POST = array(
-			'woocommerce-reset-password-nonce' => 'invalid-woocommerce-nonce',
+			'poocommerce-reset-password-nonce' => 'invalid-poocommerce-nonce',
 			'_wpnonce'                         => 'invalid-generic-nonce',
 			'reset_key'                        => $token,
 			'reset_login'                      => $this->user->user_login,
@@ -660,30 +660,30 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 			);
 		};
 
-		add_action( 'woocommerce_before_template_part', $capture, 10, 4 );
+		add_action( 'poocommerce_before_template_part', $capture, 10, 4 );
 		try {
 			ob_start();
 			WC_Shortcode_My_Account::lost_password();
 			ob_end_clean();
 		} finally {
-			remove_action( 'woocommerce_before_template_part', $capture, 10 );
+			remove_action( 'poocommerce_before_template_part', $capture, 10 );
 		}
 
 		return $rendered;
 	}
 
 	/**
-	 * Run a callback with WooCommerce treating the request as an account page.
+	 * Run a callback with PooCommerce treating the request as an account page.
 	 *
 	 * @param callable $callback Callback to run.
 	 * @return mixed The callback's return value.
 	 */
 	private function on_account_page( callable $callback ) {
-		add_filter( 'woocommerce_is_account_page', '__return_true' );
+		add_filter( 'poocommerce_is_account_page', '__return_true' );
 		try {
 			return $callback();
 		} finally {
-			remove_filter( 'woocommerce_is_account_page', '__return_true' );
+			remove_filter( 'poocommerce_is_account_page', '__return_true' );
 		}
 	}
 
@@ -736,7 +736,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 	 * @return string Redirect location.
 	 */
 	private function intercept_reset_link_redirect(): string {
-		add_filter( 'woocommerce_is_account_page', '__return_true' );
+		add_filter( 'poocommerce_is_account_page', '__return_true' );
 		$location = '';
 		$abort    = static function ( string $redirect ) use ( &$location ): void {
 			$location = $redirect;
@@ -758,7 +758,7 @@ class WC_Shortcode_My_Account_Password_Reset_Test extends WC_Unit_Test_Case {
 		} finally {
 			restore_error_handler();
 			remove_filter( 'wp_redirect', $abort );
-			remove_filter( 'woocommerce_is_account_page', '__return_true' );
+			remove_filter( 'poocommerce_is_account_page', '__return_true' );
 		}
 
 		return $location;

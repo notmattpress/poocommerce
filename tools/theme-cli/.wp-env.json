@@ -5,7 +5,7 @@
 	"testsPort": 8891,
 	"testsEnvironment": false,
 	"plugins": [
-		"https://downloads.wordpress.org/plugin/woocommerce.zip",
+		"https://downloads.wordpress.org/plugin/poocommerce.zip",
 		"https://downloads.wordpress.org/plugin/theme-check.zip"
 	],
 	"themes": [],

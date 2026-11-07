@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
 /**
  * An extension's write ability that stages the payment of an order.

@@ -6,7 +6,7 @@ import {
 	test as base,
 	enableTestPlugin,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ test.describe( 'Checkout Block → Locale hides address fields but not country',
 		await enableTestPlugin( context, 'locale-hide-country' );
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_guest_checkout',
+			path: 'wc/v3/settings/account/poocommerce_enable_guest_checkout',
 			data: { value: 'yes' },
 		} );
 

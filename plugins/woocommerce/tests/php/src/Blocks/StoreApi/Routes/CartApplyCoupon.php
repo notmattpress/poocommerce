@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Cart Apply Coupon Controller Tests.
@@ -208,7 +208,7 @@ class CartApplyCoupon extends ControllerTestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cart_coupon_error', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cart_coupon_error', $data['code'] );
 		$this->assertStringContainsString( 'already been applied', $data['message'] );
 	}
 
@@ -246,7 +246,7 @@ class CartApplyCoupon extends ControllerTestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cart_coupon_error', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cart_coupon_error', $data['code'] );
 		$this->assertStringContainsString( 'Usage limit', html_entity_decode( $data['message'] ) );
 	}
 
@@ -257,7 +257,7 @@ class CartApplyCoupon extends ControllerTestCase {
 		wc()->cart->remove_coupons();
 
 		// Disable coupons.
-		update_option( 'woocommerce_enable_coupons', 'no' );
+		update_option( 'poocommerce_enable_coupons', 'no' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/apply-coupon' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -271,10 +271,10 @@ class CartApplyCoupon extends ControllerTestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 404, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cart_coupon_disabled', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cart_coupon_disabled', $data['code'] );
 
 		// Re-enable coupons for other tests.
-		update_option( 'woocommerce_enable_coupons', 'yes' );
+		update_option( 'poocommerce_enable_coupons', 'yes' );
 	}
 
 	/**
@@ -295,7 +295,7 @@ class CartApplyCoupon extends ControllerTestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cart_coupon_error', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cart_coupon_error', $data['code'] );
 	}
 
 	/**

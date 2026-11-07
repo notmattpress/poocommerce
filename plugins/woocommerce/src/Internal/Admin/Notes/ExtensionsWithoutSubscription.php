@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
- * Inbox note for active WooCommerce.com extensions that have no subscription on this store.
+ * Inbox note for active PooCommerce.com extensions that have no subscription on this store.
  */
 class ExtensionsWithoutSubscription {
 	use NoteTraits;
@@ -22,14 +22,14 @@ class ExtensionsWithoutSubscription {
 	const NOTE_NAME = 'wc-admin-extensions-without-subscription';
 
 	/**
-	 * Option holding when the note last fetched the subscription list from WooCommerce.com.
+	 * Option holding when the note last fetched the subscription list from PooCommerce.com.
 	 */
-	const LAST_FETCH_OPTION_KEY = 'woocommerce_admin-extensions-without-subscription-last-fetch';
+	const LAST_FETCH_OPTION_KEY = 'poocommerce_admin-extensions-without-subscription-last-fetch';
 
 	/**
 	 * Option holding the plugin files the note was last refreshed for, so unchanged page loads skip the notes table.
 	 */
-	const LAST_PLUGINS_OPTION_KEY = 'woocommerce_admin-extensions-without-subscription-last-plugins';
+	const LAST_PLUGINS_OPTION_KEY = 'poocommerce_admin-extensions-without-subscription-last-plugins';
 
 	/**
 	 * Hook the note refresh.
@@ -41,9 +41,9 @@ class ExtensionsWithoutSubscription {
 	}
 
 	/**
-	 * Add, update or remove the note on WooCommerce admin pages, so it follows the installed extensions.
+	 * Add, update or remove the note on PooCommerce admin pages, so it follows the installed extensions.
 	 *
-	 * Runs on every WooCommerce admin page, so it only touches the notes table when the set of
+	 * Runs on every PooCommerce admin page, so it only touches the notes table when the set of
 	 * extensions without a subscription differs from the last refresh.
 	 *
 	 * @since 11.3.0
@@ -97,13 +97,13 @@ class ExtensionsWithoutSubscription {
 		if ( 1 === count( $plugins ) ) {
 			$title = sprintf(
 				/* translators: %s: extension name */
-				__( '%s doesn\'t have an active subscription', 'woocommerce' ),
+				__( '%s doesn\'t have an active subscription', 'poocommerce' ),
 				wp_strip_all_tags( current( $plugins )['Name'] )
 			);
-			$content = __( 'Without one, it won\'t receive security updates, product improvements, or support. Subscribe on WooCommerce.com to keep it protected.', 'woocommerce' );
+			$content = __( 'Without one, it won\'t receive security updates, product improvements, or support. Subscribe on PooCommerce.com to keep it protected.', 'poocommerce' );
 		} else {
-			$title   = __( 'Some of your extensions don\'t have an active subscription', 'woocommerce' );
-			$content = __( 'Without one, they won\'t receive security updates, product improvements, or support. Subscribe on WooCommerce.com to keep them protected.', 'woocommerce' );
+			$title   = __( 'Some of your extensions don\'t have an active subscription', 'poocommerce' );
+			$content = __( 'Without one, they won\'t receive security updates, product improvements, or support. Subscribe on PooCommerce.com to keep them protected.', 'poocommerce' );
 		}
 
 		$note = new Note();
@@ -112,10 +112,10 @@ class ExtensionsWithoutSubscription {
 		$note->set_content_data( (object) array( 'plugins' => array_keys( $plugins ) ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_WARNING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'subscribe',
-			__( 'Subscribe', 'woocommerce' ),
+			__( 'Subscribe', 'poocommerce' ),
 			add_query_arg(
 				array(
 					'page'         => 'wc-admin',
@@ -165,7 +165,7 @@ class ExtensionsWithoutSubscription {
 	}
 
 	/**
-	 * Whether this page load may fetch the subscription list from WooCommerce.com.
+	 * Whether this page load may fetch the subscription list from PooCommerce.com.
 	 *
 	 * The fetch blocks the page, so only a connected store without a cached list fetches: once a day,
 	 * or right after it connects.
@@ -198,9 +198,9 @@ class ExtensionsWithoutSubscription {
 	}
 
 	/**
-	 * Active WooCommerce.com extensions without a subscription, or null when that can't be known.
+	 * Active PooCommerce.com extensions without a subscription, or null when that can't be known.
 	 *
-	 * @param bool $fetch Whether the subscription list may be fetched from WooCommerce.com when it isn't cached.
+	 * @param bool $fetch Whether the subscription list may be fetched from PooCommerce.com when it isn't cached.
 	 * @return array|null
 	 */
 	private static function get_plugins( bool $fetch = true ): ?array {

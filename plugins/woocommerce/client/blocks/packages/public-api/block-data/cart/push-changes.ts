@@ -4,9 +4,9 @@
 import {
 	debounce,
 	isAddressFieldForShippingRates,
-} from '@woocommerce/base-utils';
-import { STATES } from '@woocommerce/block-settings';
-import { CartBillingAddress, CartShippingAddress } from '@woocommerce/types';
+} from '@poocommerce/base-utils';
+import { STATES } from '@poocommerce/block-settings';
+import { CartBillingAddress, CartShippingAddress } from '@poocommerce/types';
 import { select, dispatch } from '@wordpress/data';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 

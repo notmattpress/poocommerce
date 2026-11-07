@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
 use WC_Unit_Test_Case;
 
 /**

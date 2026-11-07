@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,41 +50,41 @@ class StoreConditions {
 				'id'     => 'launched',
 				'ok'     => $this->coming_soon_helper->is_site_live(),
 				'blocks' => 'listing',
-				'label'  => __( 'Store is in coming soon mode', 'woocommerce' ),
-				'why'    => __( 'Visitors, crawlers and shopping agents see a holding page instead of your products.', 'woocommerce' ),
-				'fix'    => __( 'Launch the store under WooCommerce > Settings > Site visibility.', 'woocommerce' ),
+				'label'  => __( 'Store is in coming soon mode', 'poocommerce' ),
+				'why'    => __( 'Visitors, crawlers and shopping agents see a holding page instead of your products.', 'poocommerce' ),
+				'fix'    => __( 'Launch the store under PooCommerce > Settings > Site visibility.', 'poocommerce' ),
 			),
 			array(
 				'id'     => 'search_visible',
 				'ok'     => '0' !== (string) get_option( 'blog_public', '1' ),
 				'blocks' => 'listing',
-				'label'  => __( 'Store is hidden from search engines', 'woocommerce' ),
-				'why'    => __( '"Discourage search engines" asks crawlers, including AI shopping crawlers, to skip your store.', 'woocommerce' ),
-				'fix'    => __( 'Clear "Discourage search engines from indexing this site" under Settings > Reading.', 'woocommerce' ),
+				'label'  => __( 'Store is hidden from search engines', 'poocommerce' ),
+				'why'    => __( '"Discourage search engines" asks crawlers, including AI shopping crawlers, to skip your store.', 'poocommerce' ),
+				'fix'    => __( 'Clear "Discourage search engines from indexing this site" under Settings > Reading.', 'poocommerce' ),
 			),
 			array(
 				'id'     => 'ucp_on',
 				'ok'     => Utils::is_enabled(),
 				'blocks' => 'ucp',
-				'label'  => __( 'Universal Commerce Protocol (UCP) is off', 'woocommerce' ),
-				'why'    => __( 'Shopping agents that use UCP cannot read your catalog.', 'woocommerce' ),
-				'fix'    => __( 'Turn on agentic commerce in the extension that connects your store to AI agents.', 'woocommerce' ),
+				'label'  => __( 'Universal Commerce Protocol (UCP) is off', 'poocommerce' ),
+				'why'    => __( 'Shopping agents that use UCP cannot read your catalog.', 'poocommerce' ),
+				'fix'    => __( 'Turn on agentic commerce in the extension that connects your store to AI agents.', 'poocommerce' ),
 			),
 			array(
 				'id'     => 'pretty_permalinks',
 				'ok'     => $wp_rewrite->using_permalinks(),
 				'blocks' => 'ucp',
-				'label'  => __( 'Permalinks are set to Plain', 'woocommerce' ),
-				'why'    => __( 'Your store does not serve the UCP discovery file at /.well-known/ucp, so agents cannot find your catalog and checkout.', 'woocommerce' ),
-				'fix'    => __( 'Choose any permalink structure other than Plain under Settings > Permalinks.', 'woocommerce' ),
+				'label'  => __( 'Permalinks are set to Plain', 'poocommerce' ),
+				'why'    => __( 'Your store does not serve the UCP discovery file at /.well-known/ucp, so agents cannot find your catalog and checkout.', 'poocommerce' ),
+				'fix'    => __( 'Choose any permalink structure other than Plain under Settings > Permalinks.', 'poocommerce' ),
 			),
 			array(
 				'id'     => 'guest_checkout',
 				'ok'     => ! $this->registration_required(),
 				'blocks' => 'checkout',
-				'label'  => __( 'Guest checkout is off', 'woocommerce' ),
-				'why'    => __( 'Shopping agents check out for shoppers without an account on your store, so they cannot place orders.', 'woocommerce' ),
-				'fix'    => __( 'Tick "Enable guest checkout" under WooCommerce > Settings > Accounts & Privacy.', 'woocommerce' ),
+				'label'  => __( 'Guest checkout is off', 'poocommerce' ),
+				'why'    => __( 'Shopping agents check out for shoppers without an account on your store, so they cannot place orders.', 'poocommerce' ),
+				'fix'    => __( 'Tick "Enable guest checkout" under PooCommerce > Settings > Accounts & Privacy.', 'poocommerce' ),
 			),
 		);
 	}
@@ -94,7 +94,7 @@ class StoreConditions {
 	 * answers it, without starting the checkout in a background scan.
 	 */
 	private function registration_required(): bool {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Checkout.
-		return (bool) apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Checkout.
+		return (bool) apply_filters( 'poocommerce_checkout_registration_required', 'yes' !== get_option( 'poocommerce_enable_guest_checkout' ) );
 	}
 }

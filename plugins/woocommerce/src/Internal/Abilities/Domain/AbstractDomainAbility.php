@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared helpers for WooCommerce domain ability definitions.
+ * Shared helpers for PooCommerce domain ability definitions.
  */
 abstract class AbstractDomainAbility {
 

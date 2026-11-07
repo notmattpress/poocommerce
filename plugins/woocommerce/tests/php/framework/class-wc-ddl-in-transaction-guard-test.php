@@ -2,7 +2,7 @@
 /**
  * Tests for the guard against DDL inside the per-test transaction.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 declare( strict_types = 1 );

@@ -1,12 +1,12 @@
 ---
-post_title: WooCommerce Payment Gateway API
+post_title: PooCommerce Payment Gateway API
 sidebar_label: Payment Gateway API
 sidebar_position: 1
 ---
 
-# WooCommerce Payment Gateway API
+# PooCommerce Payment Gateway API
 
-Payment gateways in WooCommerce are class based and can be added through traditional plugins. This guide provides an intro to gateway development.
+Payment gateways in PooCommerce are class based and can be added through traditional plugins. This guide provides an intro to gateway development.
 
 ## Types of payment gateway
 
@@ -17,19 +17,19 @@ Payment gateways come in several varieties:
 3.  **Direct** - This is when the payment fields are shown directly on the checkout page and the payment is made when 'place order' is pressed. _Example_: PayPal Pro, Authorize.net AIM
 4.  **Offline** - No online payment is made. _Example_: Cheque, Bank Transfer
 
-Form and iFrame based gateways post data offsite, meaning there are less security issues for you to think about. Direct gateways, however, require server security to be implemented ([SSL certificates](https://woocommerce.com/document/ssl-and-https/), etc.) and may also require a level of [PCI compliance](https://woocommerce.com/document/pci-dss-compliance-and-woocommerce/).
+Form and iFrame based gateways post data offsite, meaning there are less security issues for you to think about. Direct gateways, however, require server security to be implemented ([SSL certificates](https://poocommerce.com/document/ssl-and-https/), etc.) and may also require a level of [PCI compliance](https://poocommerce.com/document/pci-dss-compliance-and-poocommerce/).
 
 ## Creating a basic payment gateway
 
 **Note:** The instructions below are for the default Checkout page. If you're looking to add a custom payment method for the new Checkout block, check out [the payment method integration documentation](/docs/block-development/extensible-blocks/cart-and-checkout-blocks/checkout-payment-methods/payment-method-integration).
 
-Payment gateways should be created as additional plugins that hook into WooCommerce. Inside the plugin, you need to create a class after plugins are loaded. Example:
+Payment gateways should be created as additional plugins that hook into PooCommerce. Inside the plugin, you need to create a class after plugins are loaded. Example:
 
 ```php
 add_action( 'plugins_loaded', 'init_your_gateway_class' );
 ```
 
-It is also important that your gateway class extends the WooCommerce base gateway class, so you have access to important methods and the [settings API](https://developer.woocommerce.com/docs/settings-api/):
+It is also important that your gateway class extends the PooCommerce base gateway class, so you have access to important methods and the [settings API](https://developer.poocommerce.com/docs/settings-api/):
 
 ```php
 function init_your_gateway_class() {
@@ -37,9 +37,9 @@ function init_your_gateway_class() {
 }
 ```
 
-You can view the [WC_Payment_Gateway class in the API Docs](https://woocommerce.github.io/code-reference/classes/WC-Payment-Gateway.html).
+You can view the [WC_Payment_Gateway class in the API Docs](https://poocommerce.github.io/code-reference/classes/WC-Payment-Gateway.html).
 
-As well as defining your class, you need to also tell WooCommerce (WC) that it exists. Do this by filtering _woocommerce_payment_gateways_:
+As well as defining your class, you need to also tell PooCommerce (WC) that it exists. Do this by filtering _poocommerce_payment_gateways_:
 
 ```php
 function add_your_gateway_class( $methods ) {
@@ -49,7 +49,7 @@ function add_your_gateway_class( $methods ) {
 ```
 
 ```php
-add_filter( 'woocommerce_payment_gateways', 'add_your_gateway_class' );
+add_filter( 'poocommerce_payment_gateways', 'add_your_gateway_class' );
 ```
 
 ### Required Methods
@@ -84,7 +84,7 @@ $this->title = $this->get_option( 'title' );
 Finally, you need to add a save hook for your settings:
 
 ```php
-add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 ```
 
 ##### Display in the Payments settings page
@@ -93,7 +93,7 @@ The Payments settings page uses the gateway's admin-facing details to build the 
 
 | Provider detail | Source | Notes |
 | ----------------- | -------- | ------- |
-| Icon | `$this->icon` | Must be a valid image URL. Use a square image for the best fit. If the value is empty, invalid, or contains an `<img>` tag instead of a URL, WooCommerce shows the default payments icon. |
+| Icon | `$this->icon` | Must be a valid image URL. Use a square image for the best fit. If the value is empty, invalid, or contains an `<img>` tag instead of a URL, PooCommerce shows the default payments icon. |
 | Title | `PaymentsProviders\PaymentGateway::get_title()` | Uses `WC_Payment_Gateway::get_method_title()` as a `$this->method_title` accessor. If it is empty, the provider falls back to the gateway's customer-facing `WC_Payment_Gateway::get_title()`, strips HTML, and truncates the display value to 75 characters. |
 | Description | `PaymentsProviders\PaymentGateway::get_description()` | Uses `WC_Payment_Gateway::get_method_description()` as a `$this->method_description` accessor. If it is empty, the provider falls back to the gateway's customer-facing `WC_Payment_Gateway::get_description()`, strips HTML, and truncates the display value to 130 characters. |
 
@@ -119,27 +119,27 @@ public function __construct() {
 
 #### init_form_fields()
 
-Use this method to set `$this->form_fields` - these are options you'll show in admin on your gateway settings page and make use of the [WC Settings API](https://developer.woocommerce.com/docs/settings-api/).
+Use this method to set `$this->form_fields` - these are options you'll show in admin on your gateway settings page and make use of the [WC Settings API](https://developer.poocommerce.com/docs/settings-api/).
 
 A basic set of settings for your gateway would consist of _enabled_, _title_ and _description_:
 
 ```php
 $this->form_fields = array(
     'enabled' => array(
-        'title' => __( 'Enable/Disable', 'woocommerce' ),
+        'title' => __( 'Enable/Disable', 'poocommerce' ),
         'type' => 'checkbox',
-        'label' => __( 'Enable Cheque Payment', 'woocommerce' ),
+        'label' => __( 'Enable Cheque Payment', 'poocommerce' ),
         'default' => 'yes'
     ),
     'title' => array(
-        'title' => __( 'Title', 'woocommerce' ),
+        'title' => __( 'Title', 'poocommerce' ),
         'type' => 'text',
-        'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-        'default' => __( 'Cheque Payment', 'woocommerce' ),
+        'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+        'default' => __( 'Cheque Payment', 'poocommerce' ),
         'desc_tip' => true,
     ),
     'description' => array(
-        'title' => __( 'Customer Message', 'woocommerce' ),
+        'title' => __( 'Customer Message', 'poocommerce' ),
         'type' => 'textarea',
         'default' => ''
     )
@@ -154,14 +154,14 @@ Here is an example of a process_payment function from the Cheque gateway:
 
 ```php
 function process_payment( $order_id ) {
-global $woocommerce;
+global $poocommerce;
 $order = new WC_Order( $order_id );
 
     // Mark as on-hold (we're awaiting the cheque)
-    $order->update_status(\Automattic\WooCommerce\Enums\OrderStatus::ON_HOLD, __( 'Awaiting cheque payment', 'woocommerce' ));
+    $order->update_status(\Automattic\PooCommerce\Enums\OrderStatus::ON_HOLD, __( 'Awaiting cheque payment', 'poocommerce' ));
 
     // Remove cart
-    $woocommerce->cart->empty_cart();
+    $poocommerce->cart->empty_cart();
 
     // Return thankyou redirect
     return array(
@@ -194,9 +194,9 @@ return array(
 );
 ```
 
-WooCommerce will catch this error and show it on the checkout page.
+PooCommerce will catch this error and show it on the checkout page.
 
-Stock levels are updated via actions (`woocommerce_payment_complete` and in transitions between order statuses), so it's no longer needed to manually call the methods reducing stock levels while processing the payment.
+Stock levels are updated via actions (`poocommerce_payment_complete` and in transitions between order statuses), so it's no longer needed to manually call the methods reducing stock levels while processing the payment.
 
 ### Updating Order Status and Adding Notes
 
@@ -204,7 +204,7 @@ Updating the order status can be done using functions in the order class. You sh
 
 ```php
 $order = new WC_Order( $order_id );
-$order->update_status(\Automattic\WooCommerce\Enums\OrderStatus::ON_HOLD, __('Awaiting cheque payment', 'woothemes'));
+$order->update_status(\Automattic\PooCommerce\Enums\OrderStatus::ON_HOLD, __('Awaiting cheque payment', 'woothemes'));
 ```
 
 The above example updates the status to On-Hold and adds a note informing the owner that it is awaiting a Cheque. You can add notes without updating the order status; this is used for adding a debug message:
@@ -217,7 +217,7 @@ $order->add_order_note( __('IPN payment completed', 'woothemes') );
 
 - If the order has completed but the admin needs to manually verify payment, use **On-Hold**
 - If the order fails and has already been created, set to **Failed**
-- If payment is complete, let WooCommerce handle the status and use `$order->payment_complete()`. WooCommerce will use either **Completed** or **Processing** status and handle stock. Call it only after the payment provider confirms the payment: see [Retries and uncertain outcomes](#retries-and-uncertain-outcomes).
+- If payment is complete, let PooCommerce handle the status and use `$order->payment_complete()`. PooCommerce will use either **Completed** or **Processing** status and handle stock. Call it only after the payment provider confirms the payment: see [Retries and uncertain outcomes](#retries-and-uncertain-outcomes).
 
 ## Notes on Direct Gateways
 
@@ -265,15 +265,15 @@ A checkout request can end after the payment provider accepts a payment but befo
 
 ### Set the order status to match the payment
 
-WooCommerce reads an order's status to decide whether it still needs payment. Orders in a payable status, **Pending payment** or **Failed** by default, can be paid again when their total is above zero. From WooCommerce 11.4, once your gateway moves an order out of those statuses, for example with `$order->payment_complete()` or by setting it to **On-Hold**, checkout treats the payment step as done. If checkout fails after that point, or the shopper submits the same cart again, WooCommerce sends the shopper to the order received page of the existing order instead of asking them to pay again. The exceptions are draft, **Cancelled**, **Refunded** and trashed orders, for which checkout does not treat the payment step as done. On earlier versions, a repeat submit creates a new order and calls `process_payment()` again.
+PooCommerce reads an order's status to decide whether it still needs payment. Orders in a payable status, **Pending payment** or **Failed** by default, can be paid again when their total is above zero. From PooCommerce 11.4, once your gateway moves an order out of those statuses, for example with `$order->payment_complete()` or by setting it to **On-Hold**, checkout treats the payment step as done. If checkout fails after that point, or the shopper submits the same cart again, PooCommerce sends the shopper to the order received page of the existing order instead of asking them to pay again. The exceptions are draft, **Cancelled**, **Refunded** and trashed orders, for which checkout does not treat the payment step as done. On earlier versions, a repeat submit creates a new order and calls `process_payment()` again.
 
-While the shopper may still need to pay, for example after a lost response or a status lookup that could not finish, leave the order **Pending payment**. When stock management is on, WooCommerce cancels unpaid orders after the hold stock time, 60 minutes by default, so use **Pending payment** for short waits only. If the provider accepted the payment and will confirm it later, set the order to **On-Hold** and send the shopper to the order received page. If the payment fails, leave the order **Pending payment** or set it to **Failed**, so the shopper can pay again.
+While the shopper may still need to pay, for example after a lost response or a status lookup that could not finish, leave the order **Pending payment**. When stock management is on, PooCommerce cancels unpaid orders after the hold stock time, 60 minutes by default, so use **Pending payment** for short waits only. If the provider accepted the payment and will confirm it later, set the order to **On-Hold** and send the shopper to the order received page. If the payment fails, leave the order **Pending payment** or set it to **Failed**, so the shopper can pay again.
 
-Avoid holding an order in a custom status while the outcome is open. The `woocommerce_valid_order_statuses_for_payment` filter can make a custom status payable, but when the shopper submits checkout again, only the block checkout stays on the same order, setting it back to **Pending payment**. The classic checkout creates a new order, which does not carry the transaction ID saved on the earlier one.
+Avoid holding an order in a custom status while the outcome is open. The `poocommerce_valid_order_statuses_for_payment` filter can make a custom status payable, but when the shopper submits checkout again, only the block checkout stays on the same order, setting it back to **Pending payment**. The classic checkout creates a new order, which does not carry the transaction ID saved on the earlier one.
 
 ### Make process_payment() safe to repeat
 
-Within the shopper's checkout session, when an order with a total above zero is **Pending payment** or **Failed** and the cart has not changed, WooCommerce calls `process_payment()` for the same order each time the shopper submits checkout.
+Within the shopper's checkout session, when an order with a total above zero is **Pending payment** or **Failed** and the cart has not changed, PooCommerce calls `process_payment()` for the same order each time the shopper submits checkout.
 
 If an earlier request reached the provider but its response never came back, a new charge request can take a second payment. Use the provider's idempotency support, such as an idempotency key or one payment object reused for the order, so that a repeated request returns the first result instead of creating a new charge. Keep the key the same for every retry of an order until the provider confirms that the attempt failed, even if it returned no transaction ID. Remove any failed transaction ID at the same time, otherwise the next retry reads the old failed ID instead of checking the new attempt.
 
@@ -302,7 +302,7 @@ public function process_payment( $order_id ) {
 
         // The provider accepted the payment and will confirm it later.
         if ( 'pending' === $status ) {
-            $order->update_status( \Automattic\WooCommerce\Enums\OrderStatus::ON_HOLD, __( 'Awaiting payment confirmation', 'your-text-domain' ) );
+            $order->update_status( \Automattic\PooCommerce\Enums\OrderStatus::ON_HOLD, __( 'Awaiting payment confirmation', 'your-text-domain' ) );
 
             return array(
                 'result'   => 'success',
@@ -326,7 +326,7 @@ public function process_payment( $order_id ) {
 
 Before you call `$order->payment_complete()`, check that the amount paid matches the order total, because a merchant can change the total of an unpaid order. If they differ, do not complete the order or create a new charge: set it to **On-Hold** so the merchant can review it.
 
-The saved ID check reads the order, so it works only when the retry reaches the same order. WooCommerce creates a new order, without the saved ID, when the cart or its total changed, when the order was cancelled, or when the session ended. A shopper who switches to another gateway also skips the check.
+The saved ID check reads the order, so it works only when the retry reaches the same order. PooCommerce creates a new order, without the saved ID, when the cart or its total changed, when the order was cancelled, or when the session ended. A shopper who switches to another gateway also skips the check.
 
 ## Working with Payment Gateway Callbacks (such as PayPal IPN)
 
@@ -341,12 +341,12 @@ str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_Paypal', ho
 Then hooks in its handler to the hook:
 
 ```php
-add_action( 'woocommerce_api_wc_gateway_paypal', array( $this, 'check_ipn_response' ) );
+add_action( 'poocommerce_api_wc_gateway_paypal', array( $this, 'check_ipn_response' ) );
 ```
 
-WooCommerce will call your gateway and run the action when the URL is called.
+PooCommerce will call your gateway and run the action when the URL is called.
 
-For more information, see [WC_API - The WooCommerce API Callback](https://woocommerce.com/document/wc_api-the-woocommerce-api-callback/).
+For more information, see [WC_API - The PooCommerce API Callback](https://poocommerce.com/document/wc_api-the-poocommerce-api-callback/).
 
 ## Hooks in Gateways
 

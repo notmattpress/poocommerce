@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
-use Automattic\WooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
 
 /**
  * BlockTemplatesController class.
@@ -25,7 +25,7 @@ class BlockTemplatesController {
 	 */
 	public function init() {
 		add_filter( 'pre_get_block_file_template', array( $this, 'get_block_file_template' ), 10, 3 );
-		add_filter( 'pre_render_block', array( $this, 'pre_render_woocommerce_template_part' ), 10, 3 );
+		add_filter( 'pre_render_block', array( $this, 'pre_render_poocommerce_template_part' ), 10, 3 );
 		add_filter( 'get_block_template', array( $this, 'add_block_template_details' ), 10, 3 );
 		add_filter( 'get_block_templates', array( $this, 'add_db_templates_with_woo_slug' ), 10, 3 );
 		add_filter( 'rest_pre_insert_wp_template', array( $this, 'dont_load_templates_for_suggestions' ), 10, 1 );
@@ -48,7 +48,7 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * Short-circuits rendering of `core/template-part` blocks that belong to WooCommerce (header, footer, navigation etc. are skipped).
+	 * Short-circuits rendering of `core/template-part` blocks that belong to PooCommerce (header, footer, navigation etc. are skipped).
 	 *
 	 * @since 11.4.0
 	 * @internal
@@ -58,17 +58,17 @@ class BlockTemplatesController {
 	 * @param \WP_Block|null $parent_block The parent block, if any.
 	 * @return string|null
 	 */
-	public function pre_render_woocommerce_template_part( $pre_render, $parsed_block, $parent_block = null ) {
-		// Upstream render_block_core_template_part can't resolve plugin-shipped template parts. This intercepts only woocommerce/woocommerce
-		// parts via pre_render_block; non-WooCommerce parts (header, footer, etc.) reach core directly with zero overhead.
-		if ( null === $pre_render && 'core/template-part' === ( $parsed_block['blockName'] ?? null ) && 'woocommerce/woocommerce' === ( $parsed_block['attrs']['theme'] ?? null ) ) {
+	public function pre_render_poocommerce_template_part( $pre_render, $parsed_block, $parent_block = null ) {
+		// Upstream render_block_core_template_part can't resolve plugin-shipped template parts. This intercepts only poocommerce/poocommerce
+		// parts via pre_render_block; non-PooCommerce parts (header, footer, etc.) reach core directly with zero overhead.
+		if ( null === $pre_render && 'core/template-part' === ( $parsed_block['blockName'] ?? null ) && 'poocommerce/poocommerce' === ( $parsed_block['attrs']['theme'] ?? null ) ) {
 			global $post;
 
 			// BC (block_type_metadata_settings → pre_render_block migration): re-apply render_block() input filters.
 			// Skipped: enqueue_empty_block_content_assets (template parts always have content).
-			$parsed_block = apply_filters( 'render_block_data', $parsed_block, $parsed_block, $parent_block ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
+			$parsed_block = apply_filters( 'render_block_data', $parsed_block, $parsed_block, $parent_block ); // phpcs:ignore PooCommerce.Commenting.CommentHooks
 			$context      = $post instanceof \WP_Post ? array( 'postId' => $post->ID, 'postType' => $post->post_type ) : array(); // phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing
-			$context      = apply_filters( 'render_block_context', $context, $parsed_block, $parent_block ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
+			$context      = apply_filters( 'render_block_context', $context, $parsed_block, $parent_block ); // phpcs:ignore PooCommerce.Commenting.CommentHooks
 
 			if ( is_array( $context ) && is_array( $parsed_block ) && isset( $parsed_block['attrs']['theme'], $parsed_block['attrs']['slug'] ) ) {
 				$template_part = get_block_template( $parsed_block['attrs']['theme'] . '//' . $parsed_block['attrs']['slug'], 'wp_template_part' );
@@ -86,8 +86,8 @@ class BlockTemplatesController {
 					// BC (block_type_metadata_settings → pre_render_block migration): re-apply WP_Block::render() output filters.
 					// Skipped: interactivity_process_directives (template parts aren't interactive roots).
 					$block_instance = new \WP_Block( $parsed_block, $context );
-					$block_content  = apply_filters( 'render_block', $block_content, $parsed_block, $block_instance ); // phpcs:ignore WooCommerce.Commenting.CommentHooks
-					$block_content  = apply_filters( 'render_block_core/template-part', $block_content, $parsed_block, $block_instance ); // phpcs:ignore WordPress.NamingConventions.ValidHookName, WooCommerce.Commenting.CommentHooks
+					$block_content  = apply_filters( 'render_block', $block_content, $parsed_block, $block_instance ); // phpcs:ignore PooCommerce.Commenting.CommentHooks
+					$block_content  = apply_filters( 'render_block_core/template-part', $block_content, $parsed_block, $block_instance ); // phpcs:ignore WordPress.NamingConventions.ValidHookName, PooCommerce.Commenting.CommentHooks
 
 					return $block_content;
 				}
@@ -106,12 +106,12 @@ class BlockTemplatesController {
 	 * @param array $attributes The block attributes.
 	 * @return string
 	 */
-	public function render_woocommerce_template_part( $attributes ) {
-		// Superseded by pre_render_woocommerce_template_part. The old approach (add_plugin_templates_parts_support) replaced
-		// the render_callback for all core/template-part blocks, not just WooCommerce ones.
+	public function render_poocommerce_template_part( $attributes ) {
+		// Superseded by pre_render_poocommerce_template_part. The old approach (add_plugin_templates_parts_support) replaced
+		// the render_callback for all core/template-part blocks, not just PooCommerce ones.
 		wc_deprecated_function( __METHOD__, '11.4.0' );
 
-		if ( isset( $attributes['theme'] ) && 'woocommerce/woocommerce' === $attributes['theme'] ) {
+		if ( isset( $attributes['theme'] ) && 'poocommerce/poocommerce' === $attributes['theme'] ) {
 			$template_part = get_block_template( $attributes['theme'] . '//' . $attributes['slug'], 'wp_template_part' );
 
 			if ( $template_part && ! empty( $template_part->content ) ) {
@@ -149,7 +149,7 @@ class BlockTemplatesController {
 			'core/template-part' === $metadata['name'] &&
 			in_array( $settings['render_callback'], array( 'render_block_core_template_part', 'gutenberg_render_block_core_template_part' ), true )
 		) {
-			$settings['render_callback'] = array( $this, 'render_woocommerce_template_part' );
+			$settings['render_callback'] = array( $this, 'render_poocommerce_template_part' );
 		}
 		return $settings;
 	}
@@ -171,7 +171,7 @@ class BlockTemplatesController {
 			$settings['original_render_callback'] = $settings['render_callback'];
 			$settings['render_callback']          = function ( $attributes, $content ) use ( $settings ) {
 				// The shortcode has already been rendered, so look for the cart/checkout HTML.
-				if ( strstr( $content, 'woocommerce-cart-form' ) || strstr( $content, 'wc-empty-cart-message' ) || strstr( $content, 'woocommerce-checkout-form' ) ) {
+				if ( strstr( $content, 'poocommerce-cart-form' ) || strstr( $content, 'wc-empty-cart-message' ) || strstr( $content, 'poocommerce-checkout-form' ) ) {
 					// Return early before wpautop runs again.
 					return $content;
 				}
@@ -204,7 +204,7 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * This function checks if there's a block template file in `woocommerce/templates/templates/`
+	 * This function checks if there's a block template file in `poocommerce/templates/templates/`
 	 * to return to pre_get_posts short-circuiting the query in Gutenberg.
 	 *
 	 * @param \WP_Block_Template|null $template Return a block template object to short-circuit the default query,
@@ -237,7 +237,7 @@ class BlockTemplatesController {
 			}
 		}
 
-		// If we are not dealing with a WooCommerce template let's return early and let it continue through the process.
+		// If we are not dealing with a PooCommerce template let's return early and let it continue through the process.
 		if ( BlockTemplateUtils::PLUGIN_SLUG !== $template_id ) {
 			return $template;
 		}
@@ -261,7 +261,7 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * Add the template title and description to WooCommerce templates.
+	 * Add the template title and description to PooCommerce templates.
 	 *
 	 * @param WP_Block_Template|null $block_template The found block template, or null if there isn't one.
 	 * @param string                 $id             Template unique identifier (example: 'theme_slug//template_slug').
@@ -284,7 +284,7 @@ class BlockTemplatesController {
 		wc_deprecated_function( __METHOD__, '11.4.0' );
 
 		foreach ( $templates as $template ) {
-			if ( 'plugin' === $template->source && 'woocommerce' === $template->plugin ) {
+			if ( 'plugin' === $template->source && 'poocommerce' === $template->plugin ) {
 				$template->content = apply_block_hooks_to_content( $template->content, $template, 'insert_hooked_blocks_and_set_ignored_hooked_blocks_metadata' );
 			}
 		}
@@ -293,8 +293,8 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * Add the block template objects currently saved in the database with the WooCommerce slug.
-	 * That is, templates that have been customised before WooCommerce started to use the
+	 * Add the block template objects currently saved in the database with the PooCommerce slug.
+	 * That is, templates that have been customised before PooCommerce started to use the
 	 * Template Registration API.
 	 *
 	 * @param array  $query_result Array of template objects.
@@ -316,8 +316,8 @@ class BlockTemplatesController {
 		$new_templates  = array();
 
 		foreach ( $template_files as $template_file ) {
-			// Queries for a specific post must not inject other WooCommerce templates.
-			// See https://github.com/woocommerce/woocommerce/issues/67862.
+			// Queries for a specific post must not inject other PooCommerce templates.
+			// See https://github.com/poocommerce/poocommerce/issues/67862.
 			if ( isset( $query['wp_id'] ) && (int) ( $template_file->wp_id ?? 0 ) !== (int) $query['wp_id'] ) {
 				continue;
 			}
@@ -370,14 +370,14 @@ class BlockTemplatesController {
 		$query_result = array_merge( $new_templates, $query_result );
 
 		if ( count( $new_templates ) > 0 ) {
-			// If there are certain templates that have been customised with the `woocommerce/woocommerce` slug,
+			// If there are certain templates that have been customised with the `poocommerce/poocommerce` slug,
 			// We prioritize them over the theme and WC templates. That is, we remove the theme and WC templates
 			// from the results and only keep the customised ones.
 			$query_result = BlockTemplateUtils::remove_templates_with_custom_alternative( $query_result );
 
 			// There is the chance that the user customized the default template, installed a theme with a custom template
 			// and customized that one as well. When that happens, duplicates might appear in the list.
-			// See: https://github.com/woocommerce/woocommerce/issues/42220.
+			// See: https://github.com/poocommerce/poocommerce/issues/42220.
 			$query_result = BlockTemplateUtils::remove_duplicate_customized_templates( $query_result );
 		}
 
@@ -397,7 +397,7 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * When creating a template from the WP suggestion, don't load the templates with the WooCommerce slug.
+	 * When creating a template from the WP suggestion, don't load the templates with the PooCommerce slug.
 	 * Otherwise they take precedence and the new template can't be created.
 	 *
 	 * @param stdClass $prepared_post An object representing a single post prepared
@@ -411,16 +411,16 @@ class BlockTemplatesController {
 	}
 
 	/**
-	 * Gets the templates from the WooCommerce blocks directory, skipping those for which a template already exists
+	 * Gets the templates from the PooCommerce blocks directory, skipping those for which a template already exists
 	 * in the theme directory.
 	 *
 	 * @param string[] $slugs An array of slugs to filter templates by. Templates whose slug does not match will not be returned.
 	 * @param array    $already_found_templates Templates that have already been found, these are customised templates that are loaded from the database.
 	 * @param string   $template_type wp_template or wp_template_part.
 	 *
-	 * @return array Templates from the WooCommerce blocks plugin directory.
+	 * @return array Templates from the PooCommerce blocks plugin directory.
 	 */
-	public function get_block_templates_from_woocommerce( $slugs, $already_found_templates, $template_type = 'wp_template' ) {
+	public function get_block_templates_from_poocommerce( $slugs, $already_found_templates, $template_type = 'wp_template' ) {
 		$template_files = BlockTemplateUtils::get_template_paths( $template_type );
 		$templates      = array();
 
@@ -471,7 +471,7 @@ class BlockTemplatesController {
 	 */
 	public function get_block_templates( $slugs = array(), $template_type = 'wp_template' ) {
 		$templates_from_db  = BlockTemplateUtils::get_block_templates_from_db( $slugs, $template_type );
-		$templates_from_woo = $this->get_block_templates_from_woocommerce( $slugs, $templates_from_db, $template_type );
+		$templates_from_woo = $this->get_block_templates_from_poocommerce( $slugs, $templates_from_db, $template_type );
 
 		return array_merge( $templates_from_db, $templates_from_woo );
 	}

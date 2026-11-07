@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\SiteHealth;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\Admin\SiteHealth;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 use WC_Admin_Notices;
 use WC_Unit_Test_Case;
 use WP_Error;
@@ -36,7 +36,7 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		delete_option( 'wc_downloads_approved_directories_mode' );
-		delete_option( 'woocommerce_file_download_method' );
+		delete_option( 'poocommerce_file_download_method' );
 		WC_Admin_Notices::remove_notice( 'download_directories_sync_complete', true );
 		parent::tearDown();
 	}
@@ -47,20 +47,20 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	public function test_approved_download_directories_check_is_good_when_rules_are_enforced(): void {
 		wc_get_container()->get( Download_Directories::class )->set_mode( Download_Directories::MODE_ENABLED );
 
-		$result = $this->sut->run_test( 'woocommerce_approved_download_directories_enforcement' );
+		$result = $this->sut->run_test( 'poocommerce_approved_download_directories_enforcement' );
 
 		$this->assertSame( 'good', $result['status'], 'Enabled approved directory rules should pass the Site Health check.' );
-		$this->assertSame( 'WooCommerce approved download directory rules are enforced', $result['label'], 'The result should report that approved directory rules are enforced.' );
+		$this->assertSame( 'PooCommerce approved download directory rules are enforced', $result['label'], 'The result should report that approved directory rules are enforced.' );
 	}
 
 	/**
 	 * @testdox Approved download directories check recommends enabling rules when they are not enforced.
 	 */
 	public function test_approved_download_directories_check_recommends_enabling_rules_when_not_enforced(): void {
-		$result = $this->sut->run_test( 'woocommerce_approved_download_directories_enforcement' );
+		$result = $this->sut->run_test( 'poocommerce_approved_download_directories_enforcement' );
 
 		$this->assertSame( 'recommended', $result['status'], 'Disabled approved directory rules should require attention in Site Health.' );
-		$this->assertSame( 'WooCommerce approved download directory rules are not enforced', $result['label'], 'The result should report that approved directory rules are not enforced.' );
+		$this->assertSame( 'PooCommerce approved download directory rules are not enforced', $result['label'], 'The result should report that approved directory rules are not enforced.' );
 		$this->assertSame( '<p>Enable approved download directory rules to control which local and remote locations can be used for downloadable product files. This reduces the risk of exposing unintended files or connecting to unapproved remote locations.</p>', $result['description'], 'The result should explain why approved directory rules should be enabled.' );
 		$this->assertStringContainsString( 'section=download_urls', $result['actions'], 'The result should link to the approved directory settings.' );
 	}
@@ -72,10 +72,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		wc_get_container()->get( Download_Directories::class )->set_mode( Download_Directories::MODE_ENABLED );
 		WC_Admin_Notices::add_notice( 'download_directories_sync_complete', true );
 
-		$result = $this->sut->run_test( 'woocommerce_approved_download_directories_sync' );
+		$result = $this->sut->run_test( 'poocommerce_approved_download_directories_sync' );
 
 		$this->assertSame( 'recommended', $result['status'], 'A completed synchronization should require review even when approved directory rules are enforced.' );
-		$this->assertSame( 'WooCommerce approved download directories need review', $result['label'], 'The result should prompt the merchant to review synchronized directories.' );
+		$this->assertSame( 'PooCommerce approved download directories need review', $result['label'], 'The result should prompt the merchant to review synchronized directories.' );
 		$this->assertSame( '<p>Approved product download directory synchronization has completed. Review the list to confirm downloadable product files remain protected.</p>', $result['description'], 'The result should describe synchronization completion without claiming that new directories were found.' );
 		$this->assertStringContainsString( 'section=download_urls', $result['actions'], 'The result should link to the approved directory settings.' );
 		$this->assertStringContainsString( 'wc-hide-notice=download_directories_sync_complete', $result['actions'], 'The result should let the merchant mark the synchronization as reviewed.' );
@@ -85,10 +85,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	 * @testdox Approved download directories check is good when no synchronization is waiting for review.
 	 */
 	public function test_approved_download_directories_check_is_good_without_completed_synchronization(): void {
-		$result = $this->sut->run_test( 'woocommerce_approved_download_directories_sync' );
+		$result = $this->sut->run_test( 'poocommerce_approved_download_directories_sync' );
 
 		$this->assertSame( 'good', $result['status'], 'No completed synchronization should require review.' );
-		$this->assertSame( 'WooCommerce approved download directories do not require review', $result['label'], 'The result should confirm that synchronized directories do not require review.' );
+		$this->assertSame( 'PooCommerce approved download directories do not require review', $result['label'], 'The result should confirm that synchronized directories do not require review.' );
 		$this->assertSame( '<p>There is no completed approved download directory synchronization waiting for review.</p>', $result['description'], 'The result should confirm that no synchronization review is pending.' );
 	}
 
@@ -108,12 +108,12 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'recommended', $result['status'], 'Request failures should not be reported as a confirmed security failure.' );
-			$this->assertSame( 'WooCommerce could not verify uploads directory protection', $result['label'], 'Request failures should report that the result could not be verified.' );
+			$this->assertSame( 'PooCommerce could not verify uploads directory protection', $result['label'], 'Request failures should report that the result could not be verified.' );
 
-			$this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 2, $request_count, 'Each run should check again instead of reusing an earlier result.' );
 		} finally {
@@ -143,10 +143,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'recommended', $result['status'], 'Missing response codes should not be reported as a confirmed security failure.' );
-			$this->assertSame( 'WooCommerce could not verify uploads directory protection', $result['label'], 'Missing response codes should report that the result could not be verified.' );
+			$this->assertSame( 'PooCommerce could not verify uploads directory protection', $result['label'], 'Missing response codes should report that the result could not be verified.' );
 		} finally {
 			remove_filter( 'pre_http_request', $filter_callback, 10 );
 		}
@@ -156,14 +156,14 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	 * @testdox Upload directory protection check is critical when directory browsing is exposed with the redirect download method.
 	 */
 	public function test_uploads_directory_protection_is_critical_when_directory_browsing_is_exposed(): void {
-		update_option( 'woocommerce_file_download_method', 'redirect' );
+		update_option( 'poocommerce_file_download_method', 'redirect' );
 
 		$filter_callback = static function ( $_preempt, $_parsed_args, $_url ) {
 			unset( $_preempt, $_parsed_args, $_url );
 
 			return array(
 				'headers'  => array(),
-				'body'     => '<html><body>Index of /woocommerce_uploads/</body></html>',
+				'body'     => '<html><body>Index of /poocommerce_uploads/</body></html>',
 				'response' => array(
 					'code'    => 200,
 					'message' => 'OK',
@@ -176,10 +176,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'critical', $result['status'], 'Browsable uploads directories should remain critical.' );
-			$this->assertSame( 'WooCommerce uploads directory is browsable from the web', $result['label'], 'Browsable uploads directories should keep the confirmed security failure label.' );
+			$this->assertSame( 'PooCommerce uploads directory is browsable from the web', $result['label'], 'Browsable uploads directories should keep the confirmed security failure label.' );
 		} finally {
 			remove_filter( 'pre_http_request', $filter_callback, 10 );
 		}
@@ -212,11 +212,11 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'critical', $result['status'], 'Directly downloadable files should be a confirmed security failure.' );
 			$this->assertSame( 'Downloadable product files can be accessed directly from the web', $result['label'], 'Directly downloadable files should report that files are exposed.' );
-			$this->assertStringStartsWith( $uploads['basedir'] . '/woocommerce_uploads/', $requested_paths[0], 'The check should request a file in the WooCommerce uploads directory.' );
+			$this->assertStringStartsWith( $uploads['basedir'] . '/poocommerce_uploads/', $requested_paths[0], 'The check should request a file in the PooCommerce uploads directory.' );
 			$this->assertFileDoesNotExist( $requested_paths[0], 'The temporary file should be deleted after the request.' );
 		} finally {
 			remove_filter( 'pre_http_request', $filter_callback, 10 );
@@ -224,19 +224,19 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Upload directory protection check is good when only files in the WooCommerce uploads directory are blocked.
+	 * @testdox Upload directory protection check is good when only files in the PooCommerce uploads directory are blocked.
 	 * @testWith [403, "Forbidden"]
 	 *           [200, "<html><body>Log in</body></html>"]
 	 *
-	 * @param int    $response_code Response code returned for the file in the WooCommerce uploads directory.
-	 * @param string $response_body Response body returned for the file in the WooCommerce uploads directory.
+	 * @param int    $response_code Response code returned for the file in the PooCommerce uploads directory.
+	 * @param string $response_body Response body returned for the file in the PooCommerce uploads directory.
 	 */
 	public function test_uploads_directory_protection_is_good_when_files_are_not_served( int $response_code, string $response_body ): void {
 		$uploads         = wp_get_upload_dir();
 		$filter_callback = static function ( $_preempt, $_parsed_args, $url ) use ( $uploads, $response_code, $response_body ) {
 			unset( $_preempt, $_parsed_args );
 
-			$is_blocked = false !== strpos( $url, '/woocommerce_uploads/' );
+			$is_blocked = false !== strpos( $url, '/poocommerce_uploads/' );
 
 			return array(
 				'headers'  => array(),
@@ -253,7 +253,7 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'good', $result['status'], 'Files that are not served should be reported as protected.' );
 			$this->assertStringContainsString( 'Downloadable product files cannot be accessed directly from the web.', $result['description'], 'The protected description should refer to file access.' );
@@ -288,7 +288,7 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_http_request', $filter_callback, 10, 3 );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'recommended', $result['status'], 'A site that blocks every upload should not be reported as protected.' );
 			foreach ( $requested_urls as $url ) {
@@ -304,11 +304,11 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 	 */
 	public function test_uploads_directory_protection_is_registered_as_async_test(): void {
 		$tests = $this->sut->handle_site_status_tests( array() );
-		$test  = $tests['async']['woocommerce_uploads_directory_protection'] ?? array();
+		$test  = $tests['async']['poocommerce_uploads_directory_protection'] ?? array();
 
-		$this->assertArrayNotHasKey( 'woocommerce_uploads_directory_protection', $tests['direct'], 'The check should not run while the page renders.' );
+		$this->assertArrayNotHasKey( 'poocommerce_uploads_directory_protection', $tests['direct'], 'The check should not run while the page renders.' );
 		$this->assertTrue( $test['has_rest'] ?? false, 'Site Health should run the check through the REST API.' );
-		$this->assertSame( rest_url( 'wc-site-health/v1/tests/woocommerce-uploads-directory-protection' ), $test['test'] ?? null, 'The test should point to its REST API route.' );
+		$this->assertSame( rest_url( 'wc-site-health/v1/tests/poocommerce-uploads-directory-protection' ), $test['test'] ?? null, 'The test should point to its REST API route.' );
 		$this->assertTrue( $test['skip_cron'] ?? false, 'The scheduled Site Health check should not write test files.' );
 	}
 
@@ -323,7 +323,7 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		$this->create_rest_server_with_routes( array( array( $this->sut, 'register_async_test_routes' ) ) );
 
 		try {
-			$request = new WP_REST_Request( 'GET', '/wc-site-health/v1/tests/woocommerce-uploads-directory-protection' );
+			$request = new WP_REST_Request( 'GET', '/wc-site-health/v1/tests/poocommerce-uploads-directory-protection' );
 
 			wp_set_current_user( 0 );
 			$this->assertSame( 401, rest_do_request( $request )->get_status(), 'Visitors should not be able to run the check.' );
@@ -331,7 +331,7 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 			wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 			$response = rest_do_request( $request );
 			$this->assertSame( 200, $response->get_status(), 'Users who can view Site Health checks should get the result.' );
-			$this->assertSame( 'woocommerce_uploads_directory_protection', $response->get_data()['test'] ?? null, 'The response should be the Site Health result.' );
+			$this->assertSame( 'poocommerce_uploads_directory_protection', $response->get_data()['test'] ?? null, 'The response should be the Site Health result.' );
 
 			$result_filter = static function ( $result ) {
 				$result['label'] = 'Filtered label';
@@ -366,10 +366,10 @@ class SiteHealthTest extends WC_Unit_Test_Case {
 		add_filter( 'upload_dir', $upload_dir_callback );
 
 		try {
-			$result = $this->sut->run_test( 'woocommerce_uploads_directory_protection' );
+			$result = $this->sut->run_test( 'poocommerce_uploads_directory_protection' );
 
 			$this->assertSame( 'recommended', $result['status'], 'A file that cannot be written should not be reported as a confirmed security failure.' );
-			$this->assertSame( 'WooCommerce could not verify uploads directory protection', $result['label'], 'A file that cannot be written should report that the result could not be verified.' );
+			$this->assertSame( 'PooCommerce could not verify uploads directory protection', $result['label'], 'A file that cannot be written should report that the result could not be verified.' );
 			$this->assertSame( 0, $request_count, 'No request should be made without a temporary file.' );
 		} finally {
 			remove_filter( 'pre_http_request', $http_callback );

@@ -4,9 +4,9 @@
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { Disabled } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
 import { BlockEditProps } from '@wordpress/blocks';
-import { findBlock } from '@woocommerce/utils';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ const Edit = ( props: BlockEditProps< Record< string, never > > ) => {
 		return !! findBlock( {
 			blocks,
 			findCondition: ( block ) =>
-				block.name === 'woocommerce/add-to-cart-with-options',
+				block.name === 'poocommerce/add-to-cart-with-options',
 		} );
 	}, [] );
 

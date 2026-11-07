@@ -15,14 +15,14 @@ import {
 	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
-import PageSelector from '@woocommerce/editor-components/page-selector';
-import { CHECKOUT_PAGE_ID } from '@woocommerce/block-settings';
+import PageSelector from '@poocommerce/editor-components/page-selector';
+import { CHECKOUT_PAGE_ID } from '@poocommerce/block-settings';
 import {
 	PlaceOrderButton,
 	ReturnToCartButton,
-} from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/base-components/cart-checkout';
 import clsx from 'clsx';
-import { CheckboxControl } from '@woocommerce/blocks-components';
+import { CheckboxControl } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -102,16 +102,16 @@ export const Edit = ( {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Options', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Options', 'poocommerce' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __(
 							'Show a "Return to Cart" link',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Recommended to enable only if there is no Cart link in the header.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showReturnToCart }
 						onChange={ () =>
@@ -125,7 +125,7 @@ export const Edit = ( {
 						<TextControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ __( 'Price separator', 'woocommerce' ) }
+							label={ __( 'Price separator', 'poocommerce' ) }
 							id="price-separator"
 							value={ attributes.priceSeparator }
 							onChange={ ( value ) => {
@@ -139,7 +139,7 @@ export const Edit = ( {
 
 				{ ! termsClientId && (
 					<PanelBody
-						title={ __( 'Terms and Conditions', 'woocommerce' ) }
+						title={ __( 'Terms and Conditions', 'poocommerce' ) }
 					>
 						{ showTerms && (
 							<TermsNotices
@@ -154,7 +154,7 @@ export const Edit = ( {
 							__nextHasNoMarginBottom
 							label={ __(
 								'Show terms and conditions',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ showTerms }
 							onChange={ () =>
@@ -166,7 +166,7 @@ export const Edit = ( {
 								__nextHasNoMarginBottom
 								label={ __(
 									'Require checkbox',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ termsCheckbox }
 								onChange={ () =>
@@ -192,11 +192,11 @@ export const Edit = ( {
 							labels={ {
 								title: __(
 									'Return to Cart button',
-									'woocommerce'
+									'poocommerce'
 								),
 								default: __(
-									'WooCommerce Cart Page',
-									'woocommerce'
+									'PooCommerce Cart Page',
+									'poocommerce'
 								),
 							} }
 						/>

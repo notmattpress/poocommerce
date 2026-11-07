@@ -2,18 +2,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Privacy;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Privacy;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
 
 /**
- * Privacy exporter and eraser for WooCommerce Customer Stock Notifications.
+ * Privacy exporter and eraser for PooCommerce Customer Stock Notifications.
  *
  * This class handles the export and erasure of customer stock notification data
  * for users who request their personal data.
@@ -39,13 +39,13 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 	 */
 	public function register_erasers_exporters() {
 		$this->add_exporter(
-			'woocommerce-customer-stock-notifications',
-			__( 'WooCommerce Customer Stock Notifications', 'woocommerce' ),
+			'poocommerce-customer-stock-notifications',
+			__( 'PooCommerce Customer Stock Notifications', 'poocommerce' ),
 			array( $this, 'export_notification_data' )
 		);
 		$this->add_eraser(
-			'woocommerce-customer-stock-notifications',
-			__( 'WooCommerce Customer Stock Notifications', 'woocommerce' ),
+			'poocommerce-customer-stock-notifications',
+			__( 'PooCommerce Customer Stock Notifications', 'poocommerce' ),
 			array( $this, 'erase_notification_data' )
 		);
 	}
@@ -82,9 +82,9 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 				}
 
 				$data_to_export[] = array(
-					'group_id'          => 'woocommerce_stock_notifications',
-					'group_label'       => __( 'Stock Notifications', 'woocommerce' ),
-					'group_description' => __( 'User&#8217;s WooCommerce back-in-stock notification sign-ups.', 'woocommerce' ),
+					'group_id'          => 'poocommerce_stock_notifications',
+					'group_label'       => __( 'Stock Notifications', 'poocommerce' ),
+					'group_description' => __( 'User&#8217;s PooCommerce back-in-stock notification sign-ups.', 'poocommerce' ),
 					'item_id'           => 'stock-notification-' . $notification->get_id(),
 					'data'              => self::get_notification_personal_data( $notification ),
 				);
@@ -113,7 +113,7 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 		$product_name = MyAccountEndpoint::get_display_product_name( $notification );
 		if ( '' === $product_name ) {
 			/* translators: %d: product ID */
-			$product_name = sprintf( __( 'Product #%d', 'woocommerce' ), $notification->get_product_id() );
+			$product_name = sprintf( __( 'Product #%d', 'poocommerce' ), $notification->get_product_id() );
 		}
 		$variation = $notification->get_product_formatted_variation_list( true );
 		if ( '' !== $variation ) {
@@ -121,10 +121,10 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 		}
 
 		$status_labels = array(
-			NotificationStatus::PENDING   => _x( 'Pending', 'stock notification status', 'woocommerce' ),
-			NotificationStatus::ACTIVE    => _x( 'Active', 'stock notification status', 'woocommerce' ),
-			NotificationStatus::SENT      => _x( 'Sent', 'stock notification status', 'woocommerce' ),
-			NotificationStatus::CANCELLED => _x( 'Cancelled', 'stock notification status', 'woocommerce' ),
+			NotificationStatus::PENDING   => _x( 'Pending', 'stock notification status', 'poocommerce' ),
+			NotificationStatus::ACTIVE    => _x( 'Active', 'stock notification status', 'poocommerce' ),
+			NotificationStatus::SENT      => _x( 'Sent', 'stock notification status', 'poocommerce' ),
+			NotificationStatus::CANCELLED => _x( 'Cancelled', 'stock notification status', 'poocommerce' ),
 		);
 		$status        = (string) $notification->get_status();
 		$date_format   = wc_date_format() . ', ' . wc_time_format();
@@ -133,27 +133,27 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 
 		return array(
 			array(
-				'name'  => __( 'Product', 'woocommerce' ),
+				'name'  => __( 'Product', 'poocommerce' ),
 				'value' => $product_name,
 			),
 			array(
-				'name'  => __( 'Product URL', 'woocommerce' ),
+				'name'  => __( 'Product URL', 'poocommerce' ),
 				'value' => $notification->get_product_permalink(),
 			),
 			array(
-				'name'  => __( 'Email', 'woocommerce' ),
+				'name'  => __( 'Email', 'poocommerce' ),
 				'value' => $notification->get_user_email(),
 			),
 			array(
-				'name'  => __( 'Status', 'woocommerce' ),
+				'name'  => __( 'Status', 'poocommerce' ),
 				'value' => $status_labels[ $status ] ?? $status,
 			),
 			array(
-				'name'  => __( 'Date signed up', 'woocommerce' ),
+				'name'  => __( 'Date signed up', 'poocommerce' ),
 				'value' => $date_created ? wc_format_datetime( $date_created, $date_format ) : '',
 			),
 			array(
-				'name'  => __( 'Date notified', 'woocommerce' ),
+				'name'  => __( 'Date notified', 'poocommerce' ),
 				'value' => $date_notified ? wc_format_datetime( $date_notified, $date_format ) : '',
 			),
 		);
@@ -189,7 +189,7 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 	/**
 	 * Check that a sign-up belongs to the customer being exported or erased.
 	 *
-	 * The data store can be replaced through the `woocommerce_stock_notification_data_store`
+	 * The data store can be replaced through the `poocommerce_stock_notification_data_store`
 	 * filter, and a replacement that ignores the `customer` query argument would return every
 	 * sign-up. Checking each row keeps both paths from touching other customers' data.
 	 *
@@ -234,12 +234,12 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 			}
 
 			/**
-			 * Action: woocommerce_privacy_before_remove_stock_notification_personal_data
+			 * Action: poocommerce_privacy_before_remove_stock_notification_personal_data
 			 *
 			 * Fires before a stock notification is anonymized by the privacy eraser, while it still
 			 * holds the original email and user ID. The save that follows fires
-			 * `woocommerce_update_stock_notification` with the anonymized row, plus
-			 * `woocommerce_stock_notification_status_changed` only when an active or pending
+			 * `poocommerce_update_stock_notification` with the anonymized row, plus
+			 * `poocommerce_stock_notification_status_changed` only when an active or pending
 			 * notification is cancelled. Neither can identify the shopper any more.
 			 *
 			 * @since 11.3.0
@@ -248,7 +248,7 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 			 * @param string       $original_email  The email stored on the notification before anonymization.
 			 * @param Notification $notification    The notification, not yet anonymized.
 			 */
-			do_action( 'woocommerce_privacy_before_remove_stock_notification_personal_data', $notification->get_id(), $notification->get_user_email(), $notification );
+			do_action( 'poocommerce_privacy_before_remove_stock_notification_personal_data', $notification->get_id(), $notification->get_user_email(), $notification );
 
 			$anonymous_email = wp_privacy_anonymize_data( 'email', $email_address );
 			$notification->set_user_email( $anonymous_email );
@@ -264,7 +264,7 @@ class PrivacyEraser extends \WC_Abstract_Privacy {
 			$notification->save();
 			$response['messages'][] = sprintf(
 			/* translators: %d the numeric product ID */
-				__( 'Removed back-in-stock notification for product id: %d', 'woocommerce' ),
+				__( 'Removed back-in-stock notification for product id: %d', 'poocommerce' ),
 				$notification->get_product_id()
 			);
 			$response['items_removed'] = true;

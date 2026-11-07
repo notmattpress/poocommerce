@@ -23,12 +23,12 @@ export default function EditFulfillmentButton( {
 				__next40pxDefaultSize
 				aria-describedby={ descriptionId }
 			>
-				{ __( 'Edit fulfillment', 'woocommerce' ) }
+				{ __( 'Edit fulfillment', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
 				{ __(
 					'Opens the fulfillment editor to modify fulfillment details',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>

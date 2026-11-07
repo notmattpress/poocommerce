@@ -2,20 +2,20 @@
 /**
  * Single Product Thumbnails
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-thumbnails.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/single-product/product-thumbnails.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates
+ * @see         https://poocommerce.com/document/template-structure/
+ * @package     PooCommerce\Templates
  * @version     11.1.0
  */
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,13 +53,13 @@ if ( count( $media_items ) > 1 ) {
 			 * Filter product video thumbnail HTML string.
 			 *
 			 * @since 11.0.0
-			 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+			 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 			 *
 			 * @param string $html          Product video thumbnail HTML string.
 			 * @param int    $attachment_id Video attachment ID.
 			 * @param array  $media_item    Product media gallery item.
 			 */
-			echo apply_filters( 'woocommerce_single_product_video_thumbnail_html', $html, $attachment_id, $media_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo apply_filters( 'poocommerce_single_product_video_thumbnail_html', $html, $attachment_id, $media_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
 			/**
 			 * Filter product image thumbnail HTML string.
@@ -69,7 +69,7 @@ if ( count( $media_items ) > 1 ) {
 			 * @param string $html          Product image thumbnail HTML string.
 			 * @param int    $attachment_id Attachment ID.
 			 */
-			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $attachment_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo apply_filters( 'poocommerce_single_product_image_thumbnail_html', $html, $attachment_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }

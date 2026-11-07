@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { PaymentMethodIcon, PaymentMethodIcons } from '@woocommerce/types';
-import { isString } from '@woocommerce/types';
+import type { PaymentMethodIcon, PaymentMethodIcons } from '@poocommerce/types';
+import { isString } from '@poocommerce/types';
 
 /**
  * For an array of icons, normalize into objects and remove duplicates.

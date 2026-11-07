@@ -2,7 +2,7 @@
 /**
  * Class WC_Order_Refund_Data_Store_CPT file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,7 +64,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 		 * @param int $id The refund ID.
 		 * @since 3.0.0
 		 */
-		do_action( 'woocommerce_delete_order_refund', $id );
+		do_action( 'poocommerce_delete_order_refund', $id );
 
 		if ( ! $parent_order_id || isset( self::$orders_being_deleted[ $parent_order_id ] ) ) {
 			return;
@@ -78,7 +78,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 		 * @param int $order_id  The ID of the order the refund belonged to.
 		 * @param int $refund_id The ID of the deleted refund.
 		 */
-		do_action( 'woocommerce_order_refund_deleted', $parent_order_id, $id );
+		do_action( 'poocommerce_order_refund_deleted', $parent_order_id, $id );
 	}
 
 	/**
@@ -123,7 +123,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 		 * @param int              $refund_id The order refund ID.
 		 * @param \WC_Order_Refund $refund    The order refund object.
 		 */
-		do_action( 'woocommerce_update_order_refund', $refund->get_id(), $refund );
+		do_action( 'poocommerce_update_order_refund', $refund->get_id(), $refund );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 			$updated_props[] = $prop;
 		}
 
-		do_action( 'woocommerce_order_refund_object_updated_props', $refund, $updated_props );
+		do_action( 'poocommerce_order_refund_object_updated_props', $refund, $updated_props );
 	}
 
 	/**
@@ -162,8 +162,8 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 	protected function get_post_title() {
 		return sprintf(
 			/* translators: %s: Order date */
-			__( 'Refund &ndash; %s', 'woocommerce' ),
-			( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'woocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
+			__( 'Refund &ndash; %s', 'poocommerce' ),
+			( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'poocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
 		);
 	}
 }

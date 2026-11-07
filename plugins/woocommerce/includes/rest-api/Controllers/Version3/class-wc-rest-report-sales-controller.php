@@ -4,7 +4,7 @@
  *
  * Handles requests to the reports/sales endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Report Sales controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Report_Sales_V2_Controller
  */
 class WC_REST_Report_Sales_Controller extends WC_REST_Report_Sales_V2_Controller {
@@ -90,7 +90,7 @@ class WC_REST_Report_Sales_Controller extends WC_REST_Report_Sales_V2_Controller
 		$schema = parent::get_item_schema();
 
 		$schema['properties']['totals'] = array(
-			'description'          => __( 'Totals.', 'woocommerce' ),
+			'description'          => __( 'Totals.', 'poocommerce' ),
 			'type'                 => 'object',
 			'context'              => array( 'view' ),
 			'readonly'             => true,
@@ -98,49 +98,49 @@ class WC_REST_Report_Sales_Controller extends WC_REST_Report_Sales_V2_Controller
 				'type'       => 'object',
 				'properties' => array(
 					'sales'     => array(
-						'description' => __( 'Gross sales in the period.', 'woocommerce' ),
+						'description' => __( 'Gross sales in the period.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'orders'    => array(
-						'description' => __( 'Number of orders in the period.', 'woocommerce' ),
+						'description' => __( 'Number of orders in the period.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'items'     => array(
-						'description' => __( 'Number of items sold in the period.', 'woocommerce' ),
+						'description' => __( 'Number of items sold in the period.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'tax'       => array(
-						'description' => __( 'Tax charged in the period.', 'woocommerce' ),
+						'description' => __( 'Tax charged in the period.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'shipping'  => array(
-						'description' => __( 'Shipping charged in the period.', 'woocommerce' ),
+						'description' => __( 'Shipping charged in the period.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'discount'  => array(
-						'description' => __( 'Discounts applied in the period.', 'woocommerce' ),
+						'description' => __( 'Discounts applied in the period.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'refunds'   => array(
-						'description' => __( 'Refunds issued in the period.', 'woocommerce' ),
+						'description' => __( 'Refunds issued in the period.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'customers' => array(
-						'description' => __( 'New customers in the period.', 'woocommerce' ),
+						'description' => __( 'New customers in the period.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => array( 'view' ),
 						'readonly'    => true,

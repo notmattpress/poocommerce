@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\FilterUrlParam;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\FilterUrlParam;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Single source of truth for managing all filter params.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class Params implements FilterUrlParam {
 	/**
@@ -140,13 +140,13 @@ class Params implements FilterUrlParam {
 		 * Rename with a non-empty, unused parameter name; omitted or invalid entries keep their defaults.
 		 * Register callbacks before Params is first read; the map is cached per request.
 		 *
-		 * @hook woocommerce_product_filter_params
+		 * @hook poocommerce_product_filter_params
 		 * @since 11.3.0
 		 *
 		 * @param array $params Filter types (`price`, `rating`, `status`, `attribute`, `taxonomy`) mapped to their URL parameter arrays.
 		 * @return array Filter types mapped to their URL parameter arrays.
 		 */
-		$filtered = apply_filters( 'woocommerce_product_filter_params', $params );
+		$filtered = apply_filters( 'poocommerce_product_filter_params', $params );
 
 		if ( is_array( $filtered ) && isset( $filtered['taxonomy'] ) && is_array( $filtered['taxonomy'] ) ) {
 			$used_params = array_merge( ...array_values( array_map( 'array_values', $params ) ) );

@@ -46,7 +46,7 @@ describe( 'possiblyRenderSettingsSlots', () => {
 		// this exact scope, and its own test pins the same literal, so a rename
 		// on either side fails.
 		expect( pluginArea?.getAttribute( 'data-scope' ) ).toBe(
-			'woocommerce-email-color-palette-settings'
+			'poocommerce-email-color-palette-settings'
 		);
 	} );
 

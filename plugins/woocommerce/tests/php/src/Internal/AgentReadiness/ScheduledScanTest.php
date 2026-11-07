@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -25,7 +25,7 @@ class ScheduledScanTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'yes' );
 		delete_option( AgentReadiness::REPORT_OPTION );
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
 		as_unschedule_all_actions( ScheduledScan::DAILY_HOOK );
@@ -38,7 +38,7 @@ class ScheduledScanTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
 		as_unschedule_all_actions( ScheduledScan::DAILY_HOOK );
-		delete_option( 'woocommerce_feature_agent_readiness_enabled' );
+		delete_option( 'poocommerce_feature_agent_readiness_enabled' );
 		parent::tearDown();
 	}
 
@@ -144,11 +144,11 @@ class ScheduledScanTest extends WC_Unit_Test_Case {
 	public function test_late_scan_on_a_busy_queue_is_not_stalled(): void {
 		$this->age_finished_actions();
 		as_schedule_single_action( time() - ScheduledScan::STALLED_AFTER - 60, ScheduledScan::RUN_NOW_HOOK, array(), ScheduledScan::GROUP );
-		$other = as_schedule_single_action( time() - 60, 'woocommerce_agent_readiness_test_other' );
+		$other = as_schedule_single_action( time() - 60, 'poocommerce_agent_readiness_test_other' );
 		\ActionScheduler::store()->mark_complete( $other );
 
 		$this->assertFalse( $this->sut->is_stalled() );
-		as_unschedule_all_actions( 'woocommerce_agent_readiness_test_other' );
+		as_unschedule_all_actions( 'poocommerce_agent_readiness_test_other' );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class ScheduledScanTest extends WC_Unit_Test_Case {
 	 */
 	public function test_failed_scan_keeps_daily_run(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function () {
 				throw new \RuntimeException( 'Rules callback failed' );
 			}
@@ -200,7 +200,7 @@ class ScheduledScanTest extends WC_Unit_Test_Case {
 	 * @testdox With the feature disabled a run stores nothing and schedules nothing, ending the daily chain.
 	 */
 	public function test_run_with_feature_disabled(): void {
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'no' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'no' );
 
 		$this->sut->run();
 

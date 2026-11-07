@@ -18,10 +18,10 @@ describe( 'Order refund restock checkbox', () => {
 		</tr>
 	`;
 
-	// Handlers are delegated from #woocommerce-order-items, so only its contents are replaced.
+	// Handlers are delegated from #poocommerce-order-items, so only its contents are replaced.
 	const renderOrderItems = ( { lines, defaultChecked = true } ) => {
-		document.getElementById( 'woocommerce-order-items' ).innerHTML = `
-				<table class="woocommerce_order_items">
+		document.getElementById( 'poocommerce-order-items' ).innerHTML = `
+				<table class="poocommerce_order_items">
 					<tbody>
 						${ lines
 							.map( ( canRestock, index ) =>
@@ -70,7 +70,7 @@ describe( 'Order refund restock checkbox', () => {
 		global.accounting = require( '../../accounting/accounting' );
 		$.fn.selectWoo = jest.fn().mockReturnThis();
 		$.fn.stupidtable = jest.fn().mockReturnThis();
-		global.woocommerce_admin = { mon_decimal_point: '.' };
+		global.poocommerce_admin = { mon_decimal_point: '.' };
 		// English plural rules, matching what wp.i18n returns without a translation loaded.
 		global.wp = {
 			i18n: {
@@ -79,7 +79,7 @@ describe( 'Order refund restock checkbox', () => {
 				sprintf: ( format, value ) => format.replace( '%s', value ),
 			},
 		};
-		global.woocommerce_admin_meta_boxes = {
+		global.poocommerce_admin_meta_boxes = {
 			currency_format_num_decimals: 2,
 			rounding_precision: 6,
 			i18n_restock_enter_quantity:
@@ -91,7 +91,7 @@ describe( 'Order refund restock checkbox', () => {
 				'Stock was not reduced for this order',
 		};
 
-		document.body.innerHTML = '<div id="woocommerce-order-items"></div>';
+		document.body.innerHTML = '<div id="poocommerce-order-items"></div>';
 		require( '../meta-boxes-order' );
 		jest.runAllTimers();
 		jest.useRealTimers();
@@ -101,9 +101,9 @@ describe( 'Order refund restock checkbox', () => {
 		document.body.innerHTML = '';
 		delete global.jQuery;
 		delete global.accounting;
-		delete global.woocommerce_admin;
+		delete global.poocommerce_admin;
 		delete global.wp;
-		delete global.woocommerce_admin_meta_boxes;
+		delete global.poocommerce_admin_meta_boxes;
 	} );
 
 	test( 'is disabled and unticked when the refund panel opens', () => {
@@ -151,14 +151,14 @@ describe( 'Order refund restock checkbox', () => {
 
 	test( 'does not round a small positive quantity down to zero', () => {
 		const roundingPrecision =
-			global.woocommerce_admin_meta_boxes.rounding_precision;
-		global.woocommerce_admin_meta_boxes.rounding_precision = 2;
+			global.poocommerce_admin_meta_boxes.rounding_precision;
+		global.poocommerce_admin_meta_boxes.rounding_precision = 2;
 
 		renderOrderItems( { lines: [ 'yes' ] } );
 		openRefundPanel();
 		setRefundQty( 1, 0.001 );
 
-		global.woocommerce_admin_meta_boxes.rounding_precision =
+		global.poocommerce_admin_meta_boxes.rounding_precision =
 			roundingPrecision;
 		expect( checkbox().disabled ).toBe( false );
 		expect( description() ).toBe( '0.001 items will be restocked' );
@@ -254,7 +254,7 @@ describe( 'Order refund restock checkbox', () => {
 		expect( description() ).toBe( 'Stock was not reduced for this order' );
 	} );
 
-	test( 'respects an unticked default from the woocommerce_restock_refunded_items filter', () => {
+	test( 'respects an unticked default from the poocommerce_restock_refunded_items filter', () => {
 		renderOrderItems( { lines: [ 'yes' ], defaultChecked: false } );
 		openRefundPanel();
 		setRefundQty( 1, 1 );

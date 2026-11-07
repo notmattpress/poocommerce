@@ -3,11 +3,11 @@
  * Evaluates the spec and returns a status.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * Evaluates the spec and returns a status.

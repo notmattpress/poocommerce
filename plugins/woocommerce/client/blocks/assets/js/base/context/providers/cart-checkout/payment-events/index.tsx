@@ -14,7 +14,7 @@ import {
 	checkoutStore,
 	paymentStore,
 	validationStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import deprecated from '@wordpress/deprecated';
 
 /**

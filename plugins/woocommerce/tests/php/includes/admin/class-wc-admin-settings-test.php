@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Admin_Settings.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 
@@ -360,7 +360,7 @@ class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 		$this->assertSame( 0, $xpath->query( $header . '/label[@for="test_radio_setting"]' )->length );
 		$this->assertSame( 0, $xpath->query( $radio_title . '[@id]' )->length );
 		$this->assertSame( 1, $xpath->query( $title_text . '[normalize-space(.)="Radio title"]' )->length );
-		$this->assertSame( 1, $xpath->query( $radio_title . '/span[contains(concat(" ", normalize-space(@class), " "), " woocommerce-help-tip ")][@aria-label="Radio help"]' )->length );
+		$this->assertSame( 1, $xpath->query( $radio_title . '/span[contains(concat(" ", normalize-space(@class), " "), " poocommerce-help-tip ")][@aria-label="Radio help"]' )->length );
 		$this->assertSame( 1, $xpath->query( $radio . '/fieldset[@aria-labelledby="test_radio_setting-title"]' )->length );
 		$this->assertSame( 0, $xpath->query( $radio . '/fieldset/legend' )->length );
 		$this->assertSame( 2, $xpath->query( $radio . '//input[@type="radio"]' )->length );
@@ -585,31 +585,31 @@ class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 	public function test_output_fields_renders_stored_general_setting_values(): void {
 		$store_address = '123 "Evergreen" & Terrace';
 
-		update_option( 'woocommerce_store_address', $store_address );
-		update_option( 'woocommerce_price_num_decimals', '3' );
-		update_option( 'woocommerce_price_thousand_sep', '.' );
-		update_option( 'woocommerce_currency_pos', 'right_space' );
+		update_option( 'poocommerce_store_address', $store_address );
+		update_option( 'poocommerce_price_num_decimals', '3' );
+		update_option( 'poocommerce_price_thousand_sep', '.' );
+		update_option( 'poocommerce_currency_pos', 'right_space' );
 
 		$output = $this->render_settings_section( new WC_Settings_General(), '' );
 
-		$this->assertSame( $store_address, $this->get_rendered_input_attribute( $output, 'woocommerce_store_address', 'value' ) );
+		$this->assertSame( $store_address, $this->get_rendered_input_attribute( $output, 'poocommerce_store_address', 'value' ) );
 		$this->assertStringContainsString( '123 &quot;Evergreen&quot; &amp; Terrace', $output, 'The stored value should reach the markup escaped for an attribute.' );
-		$this->assertSame( '3', $this->get_rendered_input_attribute( $output, 'woocommerce_price_num_decimals', 'value' ) );
-		$this->assertSame( '.', $this->get_rendered_input_attribute( $output, 'woocommerce_price_thousand_sep', 'value' ) );
-		$this->assertSame( 'right_space', $this->get_selected_option( $output, 'woocommerce_currency_pos' ), 'The stored option should be the selected one.' );
+		$this->assertSame( '3', $this->get_rendered_input_attribute( $output, 'poocommerce_price_num_decimals', 'value' ) );
+		$this->assertSame( '.', $this->get_rendered_input_attribute( $output, 'poocommerce_price_thousand_sep', 'value' ) );
+		$this->assertSame( 'right_space', $this->get_selected_option( $output, 'poocommerce_currency_pos' ), 'The stored option should be the selected one.' );
 	}
 
 	/**
 	 * @testdox Should tick only the checkbox settings that are stored as enabled.
 	 */
 	public function test_output_fields_renders_stored_checkbox_state(): void {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
-		$output = $this->render_settings_section( new WC_Settings_Advanced(), 'woocommerce_com' );
+		$output = $this->render_settings_section( new WC_Settings_Advanced(), 'poocommerce_com' );
 
-		$this->assertSame( 'checked', $this->get_rendered_input_attribute( $output, 'woocommerce_allow_tracking', 'checked' ), 'The enabled setting should render a ticked checkbox.' );
-		$this->assertNull( $this->get_rendered_input_attribute( $output, 'woocommerce_show_marketplace_suggestions', 'checked' ), 'The disabled setting should render an unticked checkbox.' );
+		$this->assertSame( 'checked', $this->get_rendered_input_attribute( $output, 'poocommerce_allow_tracking', 'checked' ), 'The enabled setting should render a ticked checkbox.' );
+		$this->assertNull( $this->get_rendered_input_attribute( $output, 'poocommerce_show_marketplace_suggestions', 'checked' ), 'The disabled setting should render an unticked checkbox.' );
 	}
 
 	/**
@@ -690,7 +690,7 @@ class WC_Admin_Settings_Test extends WC_Unit_Test_Case {
 		$current_tab = 'settings_ui_redirect_test';
 		$this->login_as_administrator();
 
-		$nonce = wp_create_nonce( 'woocommerce-settings' );
+		$nonce = wp_create_nonce( 'poocommerce-settings' );
 
 		$_POST['_wpnonce']    = $nonce;
 		$_POST['save']        = 'Save changes';

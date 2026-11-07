@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
 
 /**
  * Product Query filters class.
@@ -126,7 +126,7 @@ class ProductQueryFilters {
 		// invalidation-aware filter-data path used by get_taxonomy_counts() and the product filter blocks.
 		$container = wc_get_container();
 
-		$filter_data_provider = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider::class );
+		$filter_data_provider = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider::class );
 		$filter_data          = $filter_data_provider->with( $product_query );
 
 		$all_counts = array();
@@ -209,7 +209,7 @@ class ProductQueryFilters {
 		// Use FilterData with ProductQuery as QueryClausesGenerator.
 		$container = wc_get_container();
 
-		$filter_data_provider = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider::class );
+		$filter_data_provider = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider::class );
 		$filter_data          = $filter_data_provider->with( $product_query );
 
 		$all_counts = array();

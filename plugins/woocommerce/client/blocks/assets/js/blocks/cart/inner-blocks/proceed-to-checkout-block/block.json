@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/proceed-to-checkout-block",
+	"name": "poocommerce/proceed-to-checkout-block",
 	"title": "Proceed to Checkout",
 	"description": "Allow customers proceed to Checkout.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -21,9 +21,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-totals-block"
+		"poocommerce/cart-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

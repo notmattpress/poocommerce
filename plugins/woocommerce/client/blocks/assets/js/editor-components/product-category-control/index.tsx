@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { withSearchedCategories } from '@woocommerce/block-hocs';
-import ProductTaxonomyControl from '@woocommerce/editor-components/product-taxonomy-control';
+import { withSearchedCategories } from '@poocommerce/block-hocs';
+import ProductTaxonomyControl from '@poocommerce/editor-components/product-taxonomy-control';
 import type {
 	ProductCategoryResponseItem,
 	WithInjectedSearchedCategories,
-} from '@woocommerce/types';
-import { convertProductCategoryResponseItemToSearchItem } from '@woocommerce/utils';
+} from '@poocommerce/types';
+import { convertProductCategoryResponseItemToSearchItem } from '@poocommerce/utils';
 
 interface ProductCategoryControlProps {
 	/**
@@ -50,13 +50,13 @@ const ProductCategoryControl = ( {
 	showReviewCount,
 }: ProductCategoryControlProps & WithInjectedSearchedCategories ) => {
 	const messages = {
-		clear: __( 'Clear all product categories', 'woocommerce' ),
-		list: __( 'Product Categories', 'woocommerce' ),
+		clear: __( 'Clear all product categories', 'poocommerce' ),
+		list: __( 'Product Categories', 'poocommerce' ),
 		noItems: __(
 			"Your store doesn't have any product categories.",
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product categories', 'woocommerce' ),
+		search: __( 'Search for product categories', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of selected categories. */
@@ -64,11 +64,11 @@ const ProductCategoryControl = ( {
 					'%d category selected',
 					'%d categories selected',
 					n,
-					'woocommerce'
+					'poocommerce'
 				),
 				n
 			),
-		updated: __( 'Category search results updated.', 'woocommerce' ),
+		updated: __( 'Category search results updated.', 'poocommerce' ),
 	};
 	const list = categories.map(
 		convertProductCategoryResponseItemToSearchItem
@@ -76,14 +76,14 @@ const ProductCategoryControl = ( {
 
 	return (
 		<ProductTaxonomyControl< ProductCategoryResponseItem >
-			className="woocommerce-product-categories"
+			className="poocommerce-product-categories"
 			countType={ showReviewCount ? 'review' : 'product' }
 			error={ error }
 			isCompact={ isCompact }
 			isHierarchical
 			isLoading={ isLoading }
 			isSingle={ isSingle }
-			itemClassName="woocommerce-product-categories__item"
+			itemClassName="poocommerce-product-categories__item"
 			list={ list }
 			messages={ messages }
 			onChange={ onChange }
@@ -91,19 +91,19 @@ const ProductCategoryControl = ( {
 				onOperatorChange
 					? {
 							className:
-								'woocommerce-product-categories__operator',
+								'poocommerce-product-categories__operator',
 							labels: {
 								all: __(
 									'All selected categories',
-									'woocommerce'
+									'poocommerce'
 								),
 								any: __(
 									'Any selected categories',
-									'woocommerce'
+									'poocommerce'
 								),
 								help: __(
 									'Pick at least two categories to use this setting.',
-									'woocommerce'
+									'poocommerce'
 								),
 							},
 							onChange: onOperatorChange,

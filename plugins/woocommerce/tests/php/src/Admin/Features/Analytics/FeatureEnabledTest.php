@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Analytics;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Analytics;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\RemoteInboxNotifications;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\RemoteInboxNotifications;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -16,13 +16,13 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_analytics_enabled' );
+		delete_option( 'poocommerce_analytics_enabled' );
 		delete_option( RemoteInboxNotifications::TOGGLE_OPTION_NAME );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
-		remove_filter( 'woocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
-		remove_filter( 'woocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
+		remove_filter( 'poocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
 
 		parent::tearDown();
 	}
@@ -31,7 +31,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should disable the analytics feature when the option value is disabled.
 	 */
 	public function test_should_be_disabled_when_the_option_value_is_disabled(): void {
-		update_option( 'woocommerce_analytics_enabled', 'no' );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
 
 		$this->assertFalse(
 			FeaturesUtil::feature_is_enabled( 'analytics' ),
@@ -43,7 +43,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should disable analytics when removed from the legacy admin feature list.
 	 */
 	public function test_should_be_disabled_when_removed_from_legacy_admin_features(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
 
 		try {
 			$this->assertFalse(
@@ -51,23 +51,23 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 				'Analytics should be disabled when removed from the legacy admin feature list.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
+			remove_filter( 'poocommerce_admin_features', array( $this, 'disable_analytics_feature' ), PHP_INT_MAX );
 		}
 	}
 
 	/**
-	 * @testdox Should disable analytics when WooCommerce Admin is disabled by legacy filter.
+	 * @testdox Should disable analytics when PooCommerce Admin is disabled by legacy filter.
 	 */
-	public function test_should_be_disabled_when_woocommerce_admin_is_disabled(): void {
-		add_filter( 'woocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
+	public function test_should_be_disabled_when_poocommerce_admin_is_disabled(): void {
+		add_filter( 'poocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
 
 		try {
 			$this->assertFalse(
 				FeaturesUtil::feature_is_enabled( 'analytics' ),
-				'Analytics should be disabled when WooCommerce Admin is disabled.'
+				'Analytics should be disabled when PooCommerce Admin is disabled.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
+			remove_filter( 'poocommerce_admin_disabled', '__return_true', PHP_INT_MAX );
 		}
 	}
 
@@ -75,9 +75,9 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should remove analytics from legacy admin features when the option value is disabled.
 	 */
 	public function test_should_remove_analytics_from_legacy_admin_features_when_the_option_value_is_disabled(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
-		update_option( 'woocommerce_analytics_enabled', 'no' );
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'analytics' )" );
+		add_filter( 'poocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'analytics' )" );
 
 		try {
 			$this->assertFalse(
@@ -85,7 +85,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 				'Analytics should be unavailable in legacy admin features when the feature option is disabled.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
+			remove_filter( 'poocommerce_admin_features', array( $this, 'enable_analytics_feature' ) );
 		}
 	}
 
@@ -93,7 +93,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should keep retired feature flags enabled through the legacy is_enabled shim.
 	 */
 	public function test_should_keep_retired_feature_flags_enabled_through_legacy_is_enabled_shim(): void {
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' )" );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' )" );
 
 		$this->assertTrue(
 			Features::is_enabled( 'launch-your-store' ),
@@ -105,7 +105,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should keep retired feature flags available through the legacy exists shim.
 	 */
 	public function test_should_keep_retired_feature_flags_available_through_legacy_exists_shim(): void {
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::exists( 'customize-store' )" );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::exists( 'customize-store' )" );
 
 		$this->assertTrue(
 			Features::exists( 'customize-store' ),
@@ -117,8 +117,8 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should respect filtered retired feature flags through the legacy is_enabled shim.
 	 */
 	public function test_should_respect_filtered_retired_feature_flags_through_legacy_is_enabled_shim(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' )" );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' )" );
 
 		try {
 			$this->assertFalse(
@@ -126,7 +126,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 				'Retired feature flags should respect the filtered feature list through the compatibility shim.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
+			remove_filter( 'poocommerce_admin_features', array( $this, 'disable_launch_your_store_feature' ) );
 		}
 	}
 
@@ -134,8 +134,8 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 * @testdox Should respect filtered retired feature flags through the legacy exists shim.
 	 */
 	public function test_should_respect_filtered_retired_feature_flags_through_legacy_exists_shim(): void {
-		add_filter( 'woocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::exists( 'customize-store' )" );
+		add_filter( 'poocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::exists( 'customize-store' )" );
 
 		try {
 			$this->assertFalse(
@@ -143,7 +143,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 				'Retired feature flags should respect the filtered feature list through the compatibility shim.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
+			remove_filter( 'poocommerce_admin_features', array( $this, 'disable_customize_store_feature' ) );
 		}
 	}
 
@@ -167,7 +167,7 @@ class FeatureEnabledTest extends WC_Unit_Test_Case {
 	 */
 	public function test_should_keep_remote_inbox_notifications_option_aware_through_legacy_shim(): void {
 		update_option( RemoteInboxNotifications::TOGGLE_OPTION_NAME, 'no' );
-		$this->setExpectedDeprecated( "Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'remote-inbox-notifications' )" );
+		$this->setExpectedDeprecated( "Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'remote-inbox-notifications' )" );
 
 		$this->assertFalse(
 			Features::is_enabled( 'remote-inbox-notifications' ),

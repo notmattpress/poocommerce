@@ -4,22 +4,22 @@
  *
  * Integration suite because invalid registrations raise `_doing_it_wrong()` notices.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Ownership;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Ownership;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry
  */
 class ConsumerRegistryTest extends EngineIntegrationTestCase {
 
-	private const REGISTER = 'Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry::register';
+	private const REGISTER = 'Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry::register';
 
 	public function set_up(): void {
 		parent::set_up();
@@ -130,9 +130,9 @@ class ConsumerRegistryTest extends EngineIntegrationTestCase {
 		ConsumerRegistry::register( "  \t\n", array( 'contract_due_handler' => $handler ) );
 		$this->assertSame( array(), ConsumerRegistry::get_slugs_with_contract_due_handler(), 'A blank slug must not register.' );
 
-		ConsumerRegistry::register( '  woocommerce-subscriptions-lite  ', array( 'contract_due_handler' => $handler ) );
-		$this->assertSame( array( 'woocommerce-subscriptions-lite' ), ConsumerRegistry::get_slugs_with_contract_due_handler(), 'The slug is stored trimmed.' );
-		$this->assertSame( $handler, ConsumerRegistry::get_contract_due_handler( ' woocommerce-subscriptions-lite ' ) );
+		ConsumerRegistry::register( '  poocommerce-subscriptions-lite  ', array( 'contract_due_handler' => $handler ) );
+		$this->assertSame( array( 'poocommerce-subscriptions-lite' ), ConsumerRegistry::get_slugs_with_contract_due_handler(), 'The slug is stored trimmed.' );
+		$this->assertSame( $handler, ConsumerRegistry::get_contract_due_handler( ' poocommerce-subscriptions-lite ' ) );
 	}
 
 	/**

@@ -1,21 +1,21 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Product;
 use WC_Helper_Product;
 
@@ -77,7 +77,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_stock_notificationmeta" );
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_stock_notifications" );
 		$this->restore_stock_notifications_feature_option();
-		remove_all_filters( 'woocommerce_customer_stock_notifications_product_is_valid' );
+		remove_all_filters( 'poocommerce_customer_stock_notifications_product_is_valid' );
 		parent::tearDown();
 	}
 
@@ -425,8 +425,8 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_marks_sent_only_when_email_is_sent( bool $email_enabled, bool $wp_mail_result, string $expected_status, int $expected_sent, int $expected_failed ): void {
 		// Batch size 1 keeps the cycle state around after the first run, so the counters can be inspected.
-		add_filter( 'woocommerce_customer_stock_notifications_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
+		add_filter( 'poocommerce_customer_stock_notifications_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
 		$this->wp_mail_result = $wp_mail_result;
 
 		$product      = WC_Helper_Product::create_simple_product();
@@ -472,16 +472,16 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 *
 	 * @dataProvider pre_send_filter_provider
 	 *
-	 * @param mixed  $handled         What the `woocommerce_customer_stock_notification_pre_send` filter returns.
+	 * @param mixed  $handled         What the `poocommerce_customer_stock_notification_pre_send` filter returns.
 	 * @param string $expected_status The status the sign-up should end up in.
 	 */
 	public function test_process_batch_honours_pre_send_filter( $handled, string $expected_status ): void {
 		// Batch size 1 keeps the cycle state around after the first run, so the counters can be inspected.
-		add_filter( 'woocommerce_customer_stock_notifications_batch_size', fn() => 1 );
-		add_filter( 'woocommerce_customer_stock_notification_pre_send', fn() => $handled );
+		add_filter( 'poocommerce_customer_stock_notifications_batch_size', fn() => 1 );
+		add_filter( 'poocommerce_customer_stock_notification_pre_send', fn() => $handled );
 		$sent_action_args = array();
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function ( $notification, $product ) use ( &$sent_action_args ) {
 				$sent_action_args[] = array( $notification->get_id(), $product->get_id() );
 			},
@@ -532,12 +532,12 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A throwing `woocommerce_customer_stock_notification_sent` callback is logged and does not stop the batch.
+	 * @testdox A throwing `poocommerce_customer_stock_notification_sent` callback is logged and does not stop the batch.
 	 */
 	public function test_process_batch_survives_throwing_sent_action_callback(): void {
-		add_filter( 'woocommerce_customer_stock_notification_pre_send', '__return_true' );
+		add_filter( 'poocommerce_customer_stock_notification_pre_send', '__return_true' );
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function () {
 				throw new \RuntimeException( 'Integration exploded.' );
 			}
@@ -561,11 +561,11 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A throwing `woocommerce_customer_stock_notification_pre_send` callback is logged, cancels the sign-up and does not stop the batch.
+	 * @testdox A throwing `poocommerce_customer_stock_notification_pre_send` callback is logged, cancels the sign-up and does not stop the batch.
 	 */
 	public function test_process_batch_logs_throwing_pre_send_callback(): void {
 		add_filter(
-			'woocommerce_customer_stock_notification_pre_send',
+			'poocommerce_customer_stock_notification_pre_send',
 			function () {
 				throw new \RuntimeException( 'Provider exploded.' );
 			}
@@ -594,7 +594,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_skips_sent_action_when_save_fails(): void {
 		add_filter(
-			'woocommerce_customer_stock_notification_pre_send',
+			'poocommerce_customer_stock_notification_pre_send',
 			function ( $handled, Notification $notification ) {
 				unset( $handled );
 				$notification->set_user_email( 'not-an-email' );
@@ -605,7 +605,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 		);
 		$sent_action_fired = false;
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function () use ( &$sent_action_fired ) {
 				$sent_action_fired = true;
 			}
@@ -669,7 +669,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_multiple_batches() {
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}
@@ -752,7 +752,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	public function test_process_batch_skipped() {
 
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}
@@ -865,7 +865,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 
 		add_filter(
-			'woocommerce_customer_stock_notifications_product_is_valid',
+			'poocommerce_customer_stock_notifications_product_is_valid',
 			function () {
 				throw new \RuntimeException( 'Callback failed.' );
 			}

@@ -5,13 +5,13 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -66,7 +66,7 @@ class CheckoutLink {
 		}
 
 		if ( ! $this->validate_checkout_link() ) {
-			$redirect = add_query_arg( 'wc_error', rawurlencode( __( 'The provided checkout link was out of date or invalid. No products were added to the cart.', 'woocommerce' ) ), wc_get_cart_url() );
+			$redirect = add_query_arg( 'wc_error', rawurlencode( __( 'The provided checkout link was out of date or invalid. No products were added to the cart.', 'poocommerce' ) ), wc_get_cart_url() );
 		} else {
 			wc()->cart->empty_cart();
 			$redirect = $this->get_checkout_link();
@@ -247,7 +247,7 @@ class CheckoutLink {
 				}
 
 				/* translators: %s: product name */
-				$needs_options[] = sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), esc_html( $product->get_name() ) );
+				$needs_options[] = sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'poocommerce' ), esc_html( $product->get_name() ) );
 
 				if ( '' === $options_url ) {
 					$options_url = $product_options_url;
@@ -260,7 +260,7 @@ class CheckoutLink {
 				'checkout_link_needs_options',
 				sprintf(
 					/* translators: %s: comma-separated list of product names */
-					_n( 'Choose options for %s to add it to your cart.', 'Choose options for %s to add them to your cart.', count( $needs_options ), 'woocommerce' ),
+					_n( 'Choose options for %s to add it to your cart.', 'Choose options for %s to add them to your cart.', count( $needs_options ), 'poocommerce' ),
 					wc_format_list_of_items( $needs_options )
 				)
 			);
@@ -275,7 +275,7 @@ class CheckoutLink {
 			} else {
 				$redirect_url = wc_get_cart_url();
 				$notice_code  = 'error';
-				$errors->add( 'error', __( 'The provided checkout link was out of date or invalid. No products were added to the cart.', 'woocommerce' ) );
+				$errors->add( 'error', __( 'The provided checkout link was out of date or invalid. No products were added to the cart.', 'poocommerce' ) );
 			}
 
 			if ( ! wc()->session->has_session() ) {
@@ -332,7 +332,7 @@ class CheckoutLink {
 	 */
 	private function is_missing_variation_data_error( \Exception $exception ) {
 		return $exception instanceof RouteException
-			&& in_array( $exception->getErrorCode(), [ 'woocommerce_rest_missing_variation_data', 'woocommerce_rest_missing_attributes' ], true );
+			&& in_array( $exception->getErrorCode(), [ 'poocommerce_rest_missing_variation_data', 'poocommerce_rest_missing_attributes' ], true );
 	}
 
 	/**

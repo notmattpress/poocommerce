@@ -2,21 +2,21 @@
 /**
  * Unit tests for the Core validation exception.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
 
 use DomainException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException
  */
 class InvalidInputExceptionTest extends TestCase {
 

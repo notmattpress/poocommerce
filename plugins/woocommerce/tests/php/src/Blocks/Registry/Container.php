@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Registry;
+namespace Automattic\PooCommerce\Tests\Blocks\Registry;
 
-use Automattic\WooCommerce\Blocks\Registry\Container as ContainerTest;
-use Automattic\WooCommerce\Blocks\Registry\FactoryType;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\MockTestDependency;
+use Automattic\PooCommerce\Blocks\Registry\Container as ContainerTest;
+use Automattic\PooCommerce\Blocks\Registry\FactoryType;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\MockTestDependency;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**

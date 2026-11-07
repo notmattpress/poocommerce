@@ -2,12 +2,12 @@
 /**
  * DiagnosticMessageSniff.
  *
- * @package WooCommerce\Tests\Tools\PHPCS
+ * @package PooCommerce\Tests\Tools\PHPCS
  */
 
 declare( strict_types=1 );
 
-namespace WooCommerceInternal\Sniffs\I18n;
+namespace PooCommerceInternal\Sniffs\I18n;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Utils\PassedParameters;

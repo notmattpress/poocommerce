@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Utils;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Utils;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\StringHelper;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\StringHelper;
 
 /**
  * StringHelper test class.

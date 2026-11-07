@@ -7,7 +7,7 @@ import {
 	OfflinePaymentMethodProvider,
 	PaymentGatewayProvider,
 	paymentGatewaysStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from '@wordpress/data';
 import { getQueryArg } from '@wordpress/url';
@@ -49,7 +49,7 @@ export const SettingsButton = ( {
 	gatewayProvider,
 	settingsHref,
 	isInstallingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	// Determine if the settingsHref is for a Reactified page.
 	// A Reactified page will have a 'path' query parameter.

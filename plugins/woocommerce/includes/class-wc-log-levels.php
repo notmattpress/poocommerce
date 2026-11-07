@@ -3,7 +3,7 @@
  * Standard log levels
  *
  * @version 3.2.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -146,14 +146,14 @@ abstract class WC_Log_Levels {
 	 */
 	public static function get_all_level_labels() {
 		return array(
-			self::EMERGENCY => __( 'Emergency', 'woocommerce' ),
-			self::ALERT     => __( 'Alert', 'woocommerce' ),
-			self::CRITICAL  => __( 'Critical', 'woocommerce' ),
-			self::ERROR     => __( 'Error', 'woocommerce' ),
-			self::WARNING   => __( 'Warning', 'woocommerce' ),
-			self::NOTICE    => __( 'Notice', 'woocommerce' ),
-			self::INFO      => __( 'Info', 'woocommerce' ),
-			self::DEBUG     => __( 'Debug', 'woocommerce' ),
+			self::EMERGENCY => __( 'Emergency', 'poocommerce' ),
+			self::ALERT     => __( 'Alert', 'poocommerce' ),
+			self::CRITICAL  => __( 'Critical', 'poocommerce' ),
+			self::ERROR     => __( 'Error', 'poocommerce' ),
+			self::WARNING   => __( 'Warning', 'poocommerce' ),
+			self::NOTICE    => __( 'Notice', 'poocommerce' ),
+			self::INFO      => __( 'Info', 'poocommerce' ),
+			self::DEBUG     => __( 'Debug', 'poocommerce' ),
 		);
 	}
 }

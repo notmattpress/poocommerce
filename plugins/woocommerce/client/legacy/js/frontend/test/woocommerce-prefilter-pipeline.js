@@ -2,7 +2,7 @@
  * @jest-environment jest-fixed-jsdom
  */
 
-// Runs the woocommerce.js form encoding prefilter through the real jQuery
+// Runs the poocommerce.js form encoding prefilter through the real jQuery
 // request pipeline on the version WordPress bundles (3.7.1) and on jQuery 4,
 // which runs prefilters before it serializes the data. The transport is a fake
 // XMLHttpRequest that records what reaches the wire, so each test pins the
@@ -11,7 +11,7 @@ describe.each( [
 	[ 'jquery', '3.7.1' ],
 	[ 'jquery4', '4.0.0' ],
 ] )(
-	'woocommerce.js form encoding prefilter with real jQuery (%s %s)',
+	'poocommerce.js form encoding prefilter with real jQuery (%s %s)',
 	( moduleName, expectedVersion ) => {
 		let $;
 		let sent;
@@ -46,7 +46,7 @@ describe.each( [
 			// place before jQuery is required.
 			global.window.XMLHttpRequest = FakeXMLHttpRequest;
 			global.window.Cookies = { get: jest.fn(), set: jest.fn() };
-			global.window.woocommerce_params = {
+			global.window.poocommerce_params = {
 				i18n_password_show: 'Show',
 				i18n_password_hide: 'Hide',
 			};
@@ -58,7 +58,7 @@ describe.each( [
 			global.window.$ = $;
 			global.jQuery = $;
 			global.$ = $;
-			require( '../woocommerce' );
+			require( '../poocommerce' );
 		} );
 
 		afterEach( () => {

@@ -8,9 +8,9 @@ import {
 	screen,
 	waitFor,
 } from '@testing-library/react';
-import { getSetting } from '@woocommerce/settings';
-import useProductAttributes from '@woocommerce/base-context/hooks/use-product-attributes';
-import type { ProductCategoryResponseItem } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import useProductAttributes from '@poocommerce/base-context/hooks/use-product-attributes';
+import type { ProductCategoryResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -23,13 +23,13 @@ import { getBrands, getCategories, getProductTags } from '../../utils';
 
 type ConsoleMatchers = { toHaveWarned: () => void };
 
-jest.mock( '@woocommerce/base-context/hooks/use-product-attributes', () => ( {
+jest.mock( '@poocommerce/base-context/hooks/use-product-attributes', () => ( {
 	__esModule: true,
 	default: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest.fn(
 		( _key: string, defaultValue: unknown ) => defaultValue
 	),

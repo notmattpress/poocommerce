@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\MCP;
+namespace Automattic\PooCommerce\Tests\Internal\MCP;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\MCP\McpEndpointRemoval;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\MCP\McpEndpointRemoval;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -49,7 +49,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	 * @testdox Should answer MCP requests to the removed endpoint with a JSON-RPC error and HTTP 410.
 	 */
 	public function test_removed_endpoint_returns_json_rpc_error(): void {
-		$request = new WP_REST_Request( 'POST', '/woocommerce/mcp' );
+		$request = new WP_REST_Request( 'POST', '/poocommerce/mcp' );
 		$request->set_header( 'Content-Type', 'application/json' );
 		$request->set_body(
 			wp_json_encode(
@@ -77,30 +77,30 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	 * @testdox Should answer non-JSON-RPC requests to the removed endpoint with a null JSON-RPC id.
 	 */
 	public function test_removed_endpoint_handles_requests_without_json_rpc_id(): void {
-		$response = rest_do_request( new WP_REST_Request( 'GET', '/woocommerce/mcp' ) );
+		$response = rest_do_request( new WP_REST_Request( 'GET', '/poocommerce/mcp' ) );
 
 		$this->assertSame( 410, $response->get_status() );
 		$this->assertNull( $response->get_data()['id'], 'Requests without a JSON-RPC id should get a null id' );
 	}
 
 	/**
-	 * @testdox Should report the WooCommerce MCP feature as disabled even when its old option is enabled.
+	 * @testdox Should report the PooCommerce MCP feature as disabled even when its old option is enabled.
 	 */
 	public function test_mcp_feature_is_always_disabled(): void {
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->assertFalse( wc_get_container()->get( FeaturesController::class )->feature_is_enabled( 'mcp_integration' ) );
 	}
 
 	/**
-	 * @testdox Should tell stores that had WooCommerce MCP enabled what was removed, with docs and install links.
+	 * @testdox Should tell stores that had PooCommerce MCP enabled what was removed, with docs and install links.
 	 */
 	public function test_removed_notice_shown_when_feature_was_enabled(): void {
 		$this->set_up_removed_notice_conditions( false );
 
 		$output = $this->get_admin_notices_output();
 
-		$this->assertStringContainsString( 'WooCommerce MCP has been removed.', $output );
+		$this->assertStringContainsString( 'PooCommerce MCP has been removed.', $output );
 		$this->assertStringContainsString( McpEndpointRemoval::DOCS_URL, $output );
 		$this->assertStringContainsString( 'Install MCP Adapter', $output, 'Should link to the installer when no MCP adapter is loaded' );
 		$this->assertStringContainsString( 'tab=plugin-information&amp;plugin=mcp-adapter', $output, 'Should link to the MCP Adapter plugin details, not a search' );
@@ -116,7 +116,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 
 		$output = $this->get_admin_notices_output();
 
-		$this->assertStringContainsString( 'WooCommerce MCP has been removed.', $output );
+		$this->assertStringContainsString( 'PooCommerce MCP has been removed.', $output );
 		$this->assertStringNotContainsString( 'Install MCP Adapter', $output );
 	}
 
@@ -144,7 +144,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	 */
 	public function test_modal_scripts_not_enqueued_when_notice_hidden(): void {
 		$this->set_up_removed_notice_conditions( false );
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'no' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'no' );
 		$this->register_plugin_install_script();
 
 		$this->sut->handle_admin_enqueue_scripts();
@@ -178,7 +178,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 
 		$this->simulate_adapter_activation( true );
 
-		$this->assertFalse( get_option( 'woocommerce_feature_mcp_integration_enabled' ), 'The old feature option should be deleted' );
+		$this->assertFalse( get_option( 'poocommerce_feature_mcp_integration_enabled' ), 'The old feature option should be deleted' );
 		$this->assertSame( '', $this->get_admin_notices_output() );
 	}
 
@@ -190,7 +190,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 
 		$this->simulate_adapter_activation( false );
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_mcp_integration_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_mcp_integration_enabled' ) );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 			unset( $_GET['wc-mcp-removal-notice'] );
 		}
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_mcp_integration_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_mcp_integration_enabled' ) );
 	}
 
 	/**
@@ -215,7 +215,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	public function test_dismissing_notice_deletes_feature_option(): void {
 		$this->set_up_removed_notice_conditions( false );
 		$_GET['wc-hide-notice']   = McpEndpointRemoval::REMOVED_NOTICE;
-		$_GET['_wc_notice_nonce'] = wp_create_nonce( 'woocommerce_hide_notices_nonce' );
+		$_GET['_wc_notice_nonce'] = wp_create_nonce( 'poocommerce_hide_notices_nonce' );
 
 		try {
 			\WC_Admin_Notices::hide_notices();
@@ -223,17 +223,17 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 			unset( $_GET['wc-hide-notice'], $_GET['_wc_notice_nonce'] );
 		}
 
-		$this->assertFalse( get_option( 'woocommerce_feature_mcp_integration_enabled' ), 'The old feature option should be deleted' );
+		$this->assertFalse( get_option( 'poocommerce_feature_mcp_integration_enabled' ), 'The old feature option should be deleted' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 		$this->assertSame( '', $this->get_admin_notices_output(), 'Other admins should no longer see the notice' );
 	}
 
 	/**
-	 * @testdox Should not show the removal notice when WooCommerce MCP wasn't enabled.
+	 * @testdox Should not show the removal notice when PooCommerce MCP wasn't enabled.
 	 */
 	public function test_removed_notice_hidden_when_feature_was_not_enabled(): void {
 		$this->set_up_removed_notice_conditions( false );
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'no' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'no' );
 
 		$this->assertSame( '', $this->get_admin_notices_output() );
 	}
@@ -249,7 +249,7 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should not show the removal notice to users who can't manage WooCommerce.
+	 * @testdox Should not show the removal notice to users who can't manage PooCommerce.
 	 */
 	public function test_removed_notice_hidden_for_users_without_capability(): void {
 		$this->set_up_removed_notice_conditions( false );
@@ -259,14 +259,14 @@ class McpEndpointRemovalTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Log in as an administrator, mark WooCommerce MCP as previously enabled, and control MCP adapter detection.
+	 * Log in as an administrator, mark PooCommerce MCP as previously enabled, and control MCP adapter detection.
 	 *
 	 * @param bool $adapter_loaded   Whether an MCP adapter should appear to be loaded.
 	 * @param bool $plugin_installed Whether the MCP Adapter plugin should appear to be installed.
 	 */
 	private function set_up_removed_notice_conditions( bool $adapter_loaded, bool $plugin_installed = false ): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'class_exists' => static function ( $class_name ) use ( $adapter_loaded ) {

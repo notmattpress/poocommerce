@@ -1,4 +1,4 @@
-# WooCommerce Email Editor Assets
+# PooCommerce Email Editor Assets
 
 We have deprecated the use of the rich-text files (They are not supported in WordPress 7.0).
 
@@ -8,4 +8,4 @@ We are keeping these files here for now to prevent fatal errors for websites wit
 
 These files will be deleted after 2026-08-24.
 
-See <https://github.com/woocommerce/woocommerce/pull/63289> for more info.
+See <https://github.com/poocommerce/poocommerce/pull/63289> for more info.

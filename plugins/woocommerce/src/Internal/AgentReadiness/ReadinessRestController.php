@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -58,7 +58,7 @@ class ReadinessRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Key in the WooCommerce REST namespaces list.
+	 * Key in the PooCommerce REST namespaces list.
 	 */
 	protected function get_rest_api_namespace(): string {
 		return 'agent-readiness';
@@ -78,7 +78,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'get_status' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 				),
 				'schema' => array( $this, 'get_status_schema' ),
 			)
@@ -90,7 +90,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'queue_scan' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 				),
 				'schema' => array( $this, 'get_status_schema' ),
 			)
@@ -135,19 +135,19 @@ class ReadinessRestController extends RestApiControllerBase {
 		$schema['title']      = 'agent_readiness';
 		$schema['properties'] = array(
 			'report'       => array(
-				'description' => __( 'The last stored readiness report, or null before the first scan.', 'woocommerce' ),
+				'description' => __( 'The last stored readiness report, or null before the first scan.', 'poocommerce' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'scan_pending' => array(
-				'description' => __( 'Whether a requested scan has not finished yet.', 'woocommerce' ),
+				'description' => __( 'Whether a requested scan has not finished yet.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'scan_stalled' => array(
-				'description' => __( 'Whether the requested scan has not started because scheduled actions are not running. It stays queued and runs once they are.', 'woocommerce' ),
+				'description' => __( 'Whether the requested scan has not started because scheduled actions are not running. It stays queued and runs once they are.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view' ),
 				'readonly'    => true,

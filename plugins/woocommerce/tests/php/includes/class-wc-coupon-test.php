@@ -20,7 +20,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 		$sut = new WC_Coupon();
 		$sut->set_discount_type( $stored_type );
 		add_filter(
-			'woocommerce_coupon_get_discount_type',
+			'poocommerce_coupon_get_discount_type',
 			static function () use ( $view_type ) {
 				return $view_type;
 			}
@@ -40,7 +40,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 		$sut = new WC_Coupon();
 		$sut->set_discount_type( 'percent' );
 		add_filter(
-			'woocommerce_coupon_get_discount_type',
+			'poocommerce_coupon_get_discount_type',
 			static function () {
 				return 'fixed_cart';
 			}
@@ -70,20 +70,20 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 
 		if ( $manual ) {
 			add_filter(
-				'woocommerce_get_shop_coupon_data',
+				'poocommerce_get_shop_coupon_data',
 				static function () use ( $props ) {
 					return $props;
 				}
 			);
 		}
 		add_filter(
-			'woocommerce_coupon_get_discount_type',
+			'poocommerce_coupon_get_discount_type',
 			static function () {
 				return 'percent';
 			}
 		);
 		add_filter(
-			'woocommerce_coupon_get_amount',
+			'poocommerce_coupon_get_amount',
 			static function () {
 				return '25';
 			}
@@ -113,8 +113,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 		$convert = static function ( $amount ) use ( $rate ) {
 			return (float) $amount * $rate;
 		};
-		add_filter( 'woocommerce_coupon_get_minimum_amount', $convert );
-		add_filter( 'woocommerce_coupon_get_maximum_amount', $convert );
+		add_filter( 'poocommerce_coupon_get_minimum_amount', $convert );
+		add_filter( 'poocommerce_coupon_get_maximum_amount', $convert );
 
 		$limits = array(
 			'minimum_amount' => '50',
@@ -147,7 +147,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 
 		if ( $manual ) {
 			add_filter(
-				'woocommerce_get_shop_coupon_data',
+				'poocommerce_get_shop_coupon_data',
 				static function () {
 					return array(
 						'minimum_amount' => '50',
@@ -159,8 +159,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 		$convert = static function ( $amount ) {
 			return (float) $amount * 2;
 		};
-		add_filter( 'woocommerce_coupon_get_minimum_amount', $convert );
-		add_filter( 'woocommerce_coupon_get_maximum_amount', $convert );
+		add_filter( 'poocommerce_coupon_get_minimum_amount', $convert );
+		add_filter( 'poocommerce_coupon_get_maximum_amount', $convert );
 
 		$sut = new WC_Coupon( $id );
 
@@ -168,7 +168,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 		$this->assertSame( '100', $sut->get_minimum_amount() );
 		$this->assertSame( '120', $sut->get_maximum_amount() );
 
-		update_option( 'woocommerce_enable_coupons', 'yes' );
+		update_option( 'poocommerce_enable_coupons', 'yes' );
 		WC()->cart->empty_cart();
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 130 ) );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -371,7 +371,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * the product's eligibility can no longer be assessed (therefore, it is up to the merchant to manually adjust if
 	 * this is problematic).
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/27077
+	 * @see https://github.com/poocommerce/poocommerce/issues/27077
 	 *
 	 * @return void
 	 */
@@ -542,8 +542,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * @testdox set_minimum_amount throws exception when a comma-decimal minimum exceeds existing maximum.
 	 */
 	public function test_set_minimum_amount_throws_when_comma_decimal_exceeds_maximum(): void {
-		$original_decimal_separator = get_option( 'woocommerce_price_decimal_sep' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		$original_decimal_separator = get_option( 'poocommerce_price_decimal_sep' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		try {
 			$coupon = new WC_Coupon();
@@ -556,7 +556,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 				$this->assertSame( 'coupon_invalid_minimum_amount', $e->getErrorCode() );
 			}
 		} finally {
-			update_option( 'woocommerce_price_decimal_sep', $original_decimal_separator );
+			update_option( 'poocommerce_price_decimal_sep', $original_decimal_separator );
 		}
 	}
 
@@ -564,8 +564,8 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * @testdox set_maximum_amount succeeds and stores the normalized value when a comma-decimal maximum satisfies the existing minimum.
 	 */
 	public function test_set_maximum_amount_succeeds_when_comma_decimal_satisfies_minimum(): void {
-		$original_decimal_separator = get_option( 'woocommerce_price_decimal_sep' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		$original_decimal_separator = get_option( 'poocommerce_price_decimal_sep' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		try {
 			$coupon = new WC_Coupon();
@@ -575,7 +575,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 
 			$this->assertSame( '100.75', $coupon->get_maximum_amount() );
 		} finally {
-			update_option( 'woocommerce_price_decimal_sep', $original_decimal_separator );
+			update_option( 'poocommerce_price_decimal_sep', $original_decimal_separator );
 		}
 	}
 

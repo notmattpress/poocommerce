@@ -2,19 +2,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
 use ActionScheduler_Action;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\CleanupOutcome;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\StaleTokenCleanupService;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\CleanupOutcome;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\StaleTokenCleanupService;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 use WC_Unit_Test_Case;
@@ -23,7 +23,7 @@ use WP_Post;
 /**
  * Tests for the StaleTokenCleanupService class.
  *
- * @covers \Automattic\WooCommerce\Internal\PushNotifications\Services\StaleTokenCleanupService
+ * @covers \Automattic\PooCommerce\Internal\PushNotifications\Services\StaleTokenCleanupService
  */
 class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 
@@ -93,13 +93,13 @@ class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should treat app version $app_version from $origin as one that checks in daily.
-	 * @testWith ["25.8", "com.automattic.woocommerce"]
-	 *           ["25.8.0.0", "com.automattic.woocommerce"]
-	 *           ["25.8.0.1", "com.automattic.woocommerce:dev"]
-	 *           ["25.8-rc-1", "com.woocommerce.android"]
-	 *           ["25.8.1", "com.woocommerce.android"]
-	 *           ["25.10", "com.woocommerce.android:dev"]
-	 *           ["26.0", "com.automattic.woocommerce"]
+	 * @testWith ["25.8", "com.automattic.poocommerce"]
+	 *           ["25.8.0.0", "com.automattic.poocommerce"]
+	 *           ["25.8.0.1", "com.automattic.poocommerce:dev"]
+	 *           ["25.8-rc-1", "com.poocommerce.android"]
+	 *           ["25.8.1", "com.poocommerce.android"]
+	 *           ["25.10", "com.poocommerce.android:dev"]
+	 *           ["26.0", "com.automattic.poocommerce"]
 	 *
 	 * @param string $app_version The app version the token was registered with.
 	 * @param string $origin      The app the token was registered from.
@@ -151,7 +151,7 @@ class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should apply only the 180-day rule to a token whose origin is not a WooCommerce app.
+	 * @testdox Should apply only the 180-day rule to a token whose origin is not a PooCommerce app.
 	 */
 	public function test_applies_the_fallback_to_tokens_from_other_origins(): void {
 		$inside  = $this->create_token( '25.8', $this->days( 100 ) );
@@ -357,7 +357,7 @@ class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 	 */
 	public function test_skips_when_the_filter_switches_cleanup_off( string $returned ): void {
 		add_filter(
-			'woocommerce_push_notification_stale_token_cleanup_enabled',
+			'poocommerce_push_notification_stale_token_cleanup_enabled',
 			function () use ( $returned ) {
 				switch ( $returned ) {
 					case 'throw':
@@ -384,7 +384,7 @@ class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 	 * @testdox Should log the run's counts even when step logging is switched off.
 	 */
 	public function test_logs_a_summary_when_step_logging_is_off(): void {
-		add_filter( 'woocommerce_push_notification_step_logging_enabled', '__return_false' );
+		add_filter( 'poocommerce_push_notification_step_logging_enabled', '__return_false' );
 		$token = $this->create_token( '25.8', $this->days( 91 ) );
 		$this->create_token( '25.7', $this->days( 91 ) );
 
@@ -470,7 +470,7 @@ class StaleTokenCleanupServiceTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should remove the cleanup and record a pause when WooCommerce is deactivated.
+	 * @testdox Should remove the cleanup and record a pause when PooCommerce is deactivated.
 	 */
 	public function test_plugin_deactivation_unschedules_and_records_a_pause(): void {
 		$this->sut->handle_ensure_recurring_actions();

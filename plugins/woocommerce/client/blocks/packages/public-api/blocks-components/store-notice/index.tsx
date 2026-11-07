@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import NoticeBanner, {
 	NoticeBannerProps,
-} from '@woocommerce/base-components/notice-banner';
+} from '@poocommerce/base-components/notice-banner';
 
 /**
  * Wrapper for NoticeBanner component.

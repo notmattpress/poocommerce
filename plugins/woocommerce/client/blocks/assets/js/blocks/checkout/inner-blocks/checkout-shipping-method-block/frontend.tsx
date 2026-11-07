@@ -2,21 +2,21 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { withFilteredAttributes } from '@woocommerce/shared-hocs';
-import { FormStep } from '@woocommerce/blocks-components';
+import { withFilteredAttributes } from '@poocommerce/shared-hocs';
+import { FormStep } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	checkoutStore as checkoutStoreDescriptor,
 	cartStore,
-} from '@woocommerce/block-data';
-import { useShippingData } from '@woocommerce/base-context/hooks';
-import { hasCollectableRate } from '@woocommerce/base-utils';
+} from '@poocommerce/block-data';
+import { useShippingData } from '@poocommerce/base-context/hooks';
+import { hasCollectableRate } from '@poocommerce/base-utils';
 import {
 	LOCAL_PICKUP_ENABLED,
 	SHIPPING_METHODS_EXIST,
 	SHIPPING_ENABLED,
-} from '@woocommerce/block-settings';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+} from '@poocommerce/block-settings';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ const FrontendBlock = ( {
 	const { selectShippingRate } = useDispatch( cartStore );
 	const { needsShipping, isCollectable, shippingRates } = useShippingData();
 
-	// Note that display logic is also found in plugins/woocommerce/client/blocks/assets/js/blocks/checkout/inner-blocks/register-components.ts
+	// Note that display logic is also found in plugins/poocommerce/client/blocks/assets/js/blocks/checkout/inner-blocks/register-components.ts
 	// where the block is not registered if the conditions are not met.
 	if (
 		! SHIPPING_ENABLED ||

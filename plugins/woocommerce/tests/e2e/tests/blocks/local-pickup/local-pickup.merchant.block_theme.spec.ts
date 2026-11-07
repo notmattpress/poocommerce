@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ const test = base.extend< { resetLocalPickup: void } >( {
 		async ( { requestUtils }, use ) => {
 			await use();
 			for ( const optionName of [
-				'woocommerce_pickup_location_settings',
+				'poocommerce_pickup_location_settings',
 				'pickup_location_pickup_locations',
 			] ) {
 				await requestUtils.rest( {

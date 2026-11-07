@@ -1,8 +1,8 @@
 <?php
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Base class for HPOS related unit test suites.

@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
 
 /**
  * An extension's write ability that renames a product.

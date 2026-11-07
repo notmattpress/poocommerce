@@ -2,14 +2,14 @@
 /**
  * Catalog Open Graph URLs.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
-use Automattic\WooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Factory as StockNotificationFactory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification as StockNotification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory as StockNotificationFactory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification as StockNotification;
 
 /**
  * Handles deferred transactional email sending via Action Scheduler.
@@ -21,17 +21,17 @@ final class DeferredEmailQueue {
 	/**
 	 * Action Scheduler hook for processing a queued email.
 	 */
-	private const AS_HOOK = 'woocommerce_send_queued_transactional_email';
+	private const AS_HOOK = 'poocommerce_send_queued_transactional_email';
 
 	/**
 	 * Action Scheduler group for email actions.
 	 */
-	private const AS_GROUP = 'woocommerce-emails';
+	private const AS_GROUP = 'poocommerce-emails';
 
 	/**
 	 * Key for object references stored in queued email args.
 	 */
-	private const QUEUED_OBJECT_KEY = '__woocommerce_deferred_email_object';
+	private const QUEUED_OBJECT_KEY = '__poocommerce_deferred_email_object';
 
 	/**
 	 * Queue of email callbacks collected during the current request.
@@ -159,14 +159,14 @@ final class DeferredEmailQueue {
 		// Switch per email rather than for the whole action: customer emails switch to the site locale
 		// through get_locale(), which would return the queued locale while it is switched in.
 		$this->sending_locale = $locale;
-		add_filter( 'woocommerce_allow_switching_email_locale', array( $this, 'switch_email_to_queued_locale' ), PHP_INT_MAX, 2 );
-		add_filter( 'woocommerce_allow_restoring_email_locale', array( $this, 'restore_email_from_queued_locale' ), PHP_INT_MAX, 2 );
+		add_filter( 'poocommerce_allow_switching_email_locale', array( $this, 'switch_email_to_queued_locale' ), PHP_INT_MAX, 2 );
+		add_filter( 'poocommerce_allow_restoring_email_locale', array( $this, 'restore_email_from_queued_locale' ), PHP_INT_MAX, 2 );
 
 		try {
 			\WC_Emails::send_queued_transactional_email( $filter, $args );
 		} finally {
-			remove_filter( 'woocommerce_allow_switching_email_locale', array( $this, 'switch_email_to_queued_locale' ), PHP_INT_MAX );
-			remove_filter( 'woocommerce_allow_restoring_email_locale', array( $this, 'restore_email_from_queued_locale' ), PHP_INT_MAX );
+			remove_filter( 'poocommerce_allow_switching_email_locale', array( $this, 'switch_email_to_queued_locale' ), PHP_INT_MAX );
+			remove_filter( 'poocommerce_allow_restoring_email_locale', array( $this, 'restore_email_from_queued_locale' ), PHP_INT_MAX );
 
 			// An email that threw while sending never reached restore_locale().
 			while ( array() !== $this->switched_emails ) {
@@ -220,7 +220,7 @@ final class DeferredEmailQueue {
 	}
 
 	/**
-	 * Undo one switch to the queued locale and reload WooCommerce translations for the runner's locale.
+	 * Undo one switch to the queued locale and reload PooCommerce translations for the runner's locale.
 	 */
 	private function restore_runner_locale(): void {
 		restore_previous_locale();

@@ -1,19 +1,19 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
- * Row attribute WooCommerce sets on the notice rows it prints under up-to-date plugins on the
+ * Row attribute PooCommerce sets on the notice rows it prints under up-to-date plugins on the
  * Plugins screen. Core's own update rows don't carry it.
  */
 const NOTICE_ROW_SELECTOR = 'tr[data-plugin-row-type]';
 
 /**
- * Record Tracks events for the subscription links WooCommerce prints on the Plugins screen.
+ * Record Tracks events for the subscription links PooCommerce prints on the Plugins screen.
  *
  * Links inside a core update row fire `<eventPrefix>_shown` and `<eventPrefix>_clicked` with no
- * properties. Links inside a WooCommerce notice row, printed for a plugin with no update pending,
+ * properties. Links inside a PooCommerce notice row, printed for a plugin with no update pending,
  * fire the same events with `no_update: true`. The shown event fires once per placement present.
  *
  * @param {string} selector    CSS selector matching the links.

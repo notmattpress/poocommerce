@@ -3,7 +3,7 @@
  * CustomMetaDataStore class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores;
+namespace Automattic\PooCommerce\Internal\DataStores;
 
 /**
  * Implements functions similar to WP's add_metadata(), get_metadata(), and friends using a custom table.

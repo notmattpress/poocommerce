@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessRule;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessRule;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -70,7 +70,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	public function test_rules_filter(): void {
 		WC_Helper_Product::create_simple_product();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) {
 				unset( $rules['missing_brand'] );
 				$rules['missing_gtin']['google']['effect']   = 'not_listable';
@@ -170,7 +170,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 		$product->update_meta_data( '_wc_gla_brand', 'Acme' );
 		$product->save();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) {
 				$rules['missing_brand'] = array_intersect_key( $rules['missing_brand'], array( 'google' => true ) );
 				return $rules;
@@ -259,7 +259,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	public function test_rules_are_built_once(): void {
 		$calls = 0;
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) use ( &$calls ) {
 				++$calls;
 				return $rules;

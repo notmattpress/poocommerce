@@ -7,7 +7,7 @@
 
 # 2.0.0
 
--   Make ExPlat request URL args filterable. Added woocommerce_explat_request_args filter #8231
+-   Make ExPlat request URL args filterable. Added poocommerce_explat_request_args filter #8231
 
 ## Breaking changes
 
@@ -16,8 +16,8 @@
 
 # 1.1.4
 
--   Fix an error when getting woocommerce_default_country value. #7600
--   Attempts to get the woocommerce_default_country value in wcSettings.preloadSettings.general first for the backward compatibility #7600
+-   Fix an error when getting poocommerce_default_country value. #7600
+-   Attempts to get the poocommerce_default_country value in wcSettings.preloadSettings.general first for the backward compatibility #7600
 
 # 1.1.3
 

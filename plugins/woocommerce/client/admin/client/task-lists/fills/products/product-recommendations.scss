@@ -1,11 +1,11 @@
 // Rows reuse the product type cards from stack.scss.
-.woocommerce-product-recommendations {
+.poocommerce-product-recommendations {
 	width: 100%;
-	// Same width as .woocommerce-products-stack in stack.scss.
+	// Same width as .poocommerce-products-stack in stack.scss.
 	max-width: 550px;
 	margin-block-start: $grid-unit-80;
 
-	.woocommerce-product-recommendations__intro {
+	.poocommerce-product-recommendations__intro {
 		display: flex;
 		flex-direction: column;
 		gap: $gap;
@@ -16,15 +16,15 @@
 		}
 	}
 
-	.woocommerce-product-recommendations__description {
+	.poocommerce-product-recommendations__description {
 		color: $gray-700;
 	}
 
-	.woocommerce-products-stack {
+	.poocommerce-products-stack {
 		margin-block-start: $grid-unit-40;
 	}
 
-	.woocommerce-product-recommendations__icon {
+	.poocommerce-product-recommendations__icon {
 		display: block;
 		width: $gap-largest;
 		height: $gap-largest;
@@ -33,7 +33,7 @@
 	}
 
 	// Feed descriptions can be any length; keep the cards as tall as the product type cards.
-	.woocommerce-list__item-content {
+	.poocommerce-list__item-content {
 		display: -webkit-box;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
@@ -42,16 +42,16 @@
 	}
 
 	// Two-line descriptions otherwise run into the external-link icon.
-	.woocommerce-list__item-after {
+	.poocommerce-list__item-after {
 		padding-inline-start: $gap;
 	}
 
 	// stack.scss and List both style card focus at the same specificity; outrank them so the order stylesheets load in doesn't matter.
-	.woocommerce-list__item > .woocommerce-list__item-inner:focus-visible {
+	.poocommerce-list__item > .poocommerce-list__item-inner:focus-visible {
 		@include button-style__focus();
 	}
 
-	.woocommerce-product-recommendations__browse-all {
+	.poocommerce-product-recommendations__browse-all {
 		display: block;
 		margin-block-start: $gap-large;
 		font-size: $font-size-medium;

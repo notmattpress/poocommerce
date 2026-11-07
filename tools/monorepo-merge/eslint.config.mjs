@@ -1,10 +1,10 @@
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 export default [
-	...woocommerce,
+	...poocommerce,
 	// A command-line tool reports progress on the terminal.
 	{ rules: { 'no-console': 'off' } },
 ];

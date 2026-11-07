@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Data_Store;
 use WC_Order;
 use WC_Order_Data_Store_Interface;
@@ -43,10 +43,10 @@ class ProductSales implements RegisterHooksInterface {
 	 * @since 11.4.0
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_before_order_item_object_save', array( $this, 'handle_woocommerce_before_order_item_object_save' ) );
-		add_action( 'woocommerce_after_order_item_object_save', array( $this, 'handle_woocommerce_after_order_item_object_save' ) );
-		add_action( 'woocommerce_before_delete_order_item', array( $this, 'handle_woocommerce_before_delete_order_item' ) );
-		add_action( 'woocommerce_delete_order_item', array( $this, 'handle_woocommerce_delete_order_item' ) );
+		add_action( 'poocommerce_before_order_item_object_save', array( $this, 'handle_poocommerce_before_order_item_object_save' ) );
+		add_action( 'poocommerce_after_order_item_object_save', array( $this, 'handle_poocommerce_after_order_item_object_save' ) );
+		add_action( 'poocommerce_before_delete_order_item', array( $this, 'handle_poocommerce_before_delete_order_item' ) );
+		add_action( 'poocommerce_delete_order_item', array( $this, 'handle_poocommerce_delete_order_item' ) );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class ProductSales implements RegisterHooksInterface {
 	 * @internal
 	 * @param mixed $item Order item.
 	 */
-	public function handle_woocommerce_before_order_item_object_save( $item ): void {
+	public function handle_poocommerce_before_order_item_object_save( $item ): void {
 		if ( ! $item instanceof WC_Order_Item_Product ) {
 			return;
 		}
@@ -82,7 +82,7 @@ class ProductSales implements RegisterHooksInterface {
 	 * @internal
 	 * @param mixed $item Order item.
 	 */
-	public function handle_woocommerce_after_order_item_object_save( $item ): void {
+	public function handle_poocommerce_after_order_item_object_save( $item ): void {
 		if ( ! $item instanceof WC_Order_Item_Product ) {
 			return;
 		}
@@ -118,7 +118,7 @@ class ProductSales implements RegisterHooksInterface {
 	 * @internal
 	 * @param mixed $item_id Order item ID.
 	 */
-	public function handle_woocommerce_before_delete_order_item( $item_id ): void {
+	public function handle_poocommerce_before_delete_order_item( $item_id ): void {
 		if ( ! is_numeric( $item_id ) ) {
 			return;
 		}
@@ -143,7 +143,7 @@ class ProductSales implements RegisterHooksInterface {
 	 * @internal
 	 * @param mixed $item_id Order item ID.
 	 */
-	public function handle_woocommerce_delete_order_item( $item_id ): void {
+	public function handle_poocommerce_delete_order_item( $item_id ): void {
 		if ( ! is_numeric( $item_id ) ) {
 			return;
 		}

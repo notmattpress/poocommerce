@@ -2,7 +2,7 @@
 /**
  * Object instantiation probe helper.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

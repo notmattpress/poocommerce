@@ -4,7 +4,7 @@
 import { Button, Placeholder } from '@wordpress/components';
 import { Icon, file } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ export const ProductsByCategoryEditMode = (
 		debouncedSpeak(
 			__(
 				'Now displaying a preview of the reviews for the products in the selected categories.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -58,7 +58,7 @@ export const ProductsByCategoryEditMode = (
 		debouncedSpeak(
 			__(
 				'Now displaying a preview of the reviews for the products in the selected categories.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -66,12 +66,12 @@ export const ProductsByCategoryEditMode = (
 	return (
 		<Placeholder
 			icon={ <Icon icon={ file } /> }
-			label={ __( 'Products by Category', 'woocommerce' ) }
+			label={ __( 'Products by Category', 'poocommerce' ) }
 			className="wc-block-products-grid wc-block-products-category"
 		>
 			{ __(
 				'Display a grid of products from your selected categories.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			<div className="wc-block-products-category__selection">
 				<ProductCategoryControl
@@ -86,14 +86,14 @@ export const ProductsByCategoryEditMode = (
 					}
 				/>
 				<Button variant="primary" onClick={ onDone }>
-					{ __( 'Done', 'woocommerce' ) }
+					{ __( 'Done', 'poocommerce' ) }
 				</Button>
 				<Button
 					className="wc-block-products-category__cancel-button"
 					variant="tertiary"
 					onClick={ onCancel }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Placeholder>

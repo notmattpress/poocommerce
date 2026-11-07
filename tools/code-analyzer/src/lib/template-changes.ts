@@ -7,8 +7,8 @@ import {
 	getPullRequestNumberFromHash,
 	getPatches,
 	getLineCommitHash,
-} from '@woocommerce/monorepo-utils/src/core/git';
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
+} from '@poocommerce/monorepo-utils/src/core/git';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 

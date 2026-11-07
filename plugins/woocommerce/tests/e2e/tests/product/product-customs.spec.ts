@@ -2,7 +2,7 @@
  * External dependencies
  */
 // eslint-disable-next-line import/no-unresolved -- The E2E runner resolves this workspace package through its wc-source export.
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -154,7 +154,7 @@ test.describe( 'Product customs fields', { tag: [ tags.GUTENBERG ] }, () => {
 				`wp-admin/post.php?post=${ product.id }&action=edit`
 			);
 			await page.locator( '.variations_tab a' ).click();
-			const row = page.locator( '.woocommerce_variation' ).first();
+			const row = page.locator( '.poocommerce_variation' ).first();
 			await row.locator( 'h3' ).click();
 			const code = row.locator(
 				'[name^="variable_customs_commodity_code"]'

@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Namespaced extension fields in the product and order abilities, read and written through the REST route.
@@ -91,8 +91,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		self::$received = array();
 		wp_set_current_user( self::$administrator_id );
 		$this->set_feature( true );
-		add_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
-		add_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_test_filters' ) );
+		add_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
+		add_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_test_filters' ) );
 	}
 
 	/**
@@ -101,8 +101,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function tearDown(): void {
 		global $wp_actions;
 
-		remove_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
-		remove_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_test_filters' ) );
+		remove_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
+		remove_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_test_filters' ) );
 		foreach ( $this->test_actions as list( $hook, $callback, $priority ) ) {
 			remove_action( $hook, $callback, $priority );
 		}
@@ -121,7 +121,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Register the fields of two extensions, the way an extension does inside woocommerce_extensible_abilities_init.
+	 * Register the fields of two extensions, the way an extension does inside poocommerce_extensible_abilities_init.
 	 *
 	 * @internal
 	 */
@@ -231,7 +231,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Register a product filter and an order filter, the way an extension does inside woocommerce_extensible_abilities_init.
+	 * Register a product filter and an order filter, the way an extension does inside poocommerce_extensible_abilities_init.
 	 *
 	 * @internal
 	 */
@@ -311,7 +311,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$filters      = array( 'extensions' => array( 'test-ext' => array( 'has_code' => 'true' ) ) );
 
 		$page_one = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'search'   => 'Pen',
 				'per_page' => 2,
@@ -319,7 +319,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$page_two = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'search'   => 'Pen',
 				'per_page' => 2,
@@ -328,7 +328,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$plain    = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'search'  => 'Pen',
 				'filters' => array( 'extensions' => array( 'test-ext' => array( 'has_code' => 'false' ) ) ),
@@ -354,7 +354,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		\WC_Helper_Product::create_external_product();
 
 		$output = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'type'    => 'external',
 				'filters' => array( 'extensions' => array( 'test-ext' => array( 'category' => 'gifts' ) ) ),
@@ -372,7 +372,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$sale   = wp_insert_term( 'Sale', 'product_cat' )['term_id'];
 		$summer = wp_insert_term( 'Summer', 'product_tag' )['term_id'];
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_query_filter(
 					array(
@@ -419,7 +419,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$tag_only->save();
 
 		$output = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'tag'     => array( $summer ),
 				'filters' => array( 'extensions' => array( 'test-ext' => array( 'gifts_or_sale' => 'true' ) ) ),
@@ -450,14 +450,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 			return $wp_query_args;
 		};
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', $run_nested, 5 );
+		add_filter( 'poocommerce_product_data_store_cpt_get_products_query', $run_nested, 5 );
 
 		$output = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'has_code' => 'true' ) ) ) )
 		);
 
-		remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', $run_nested, 5 );
+		remove_filter( 'poocommerce_product_data_store_cpt_get_products_query', $run_nested, 5 );
 		$this->assertSame( array( $with_code->get_id() ), array_column( $output['products'], 'id' ) );
 		$this->assertContains( $without_code->get_id(), $nested );
 	}
@@ -494,7 +494,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 
 			$output = $this->run_ability(
-				'woocommerce/orders-query',
+				'poocommerce/orders-query',
 				array(
 					'per_page' => 1,
 					'filters'  => array( 'extensions' => array( 'test-ext' => array( 'tag' => 'gift' ) ) ),
@@ -531,7 +531,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		} else {
 			$this->disable_cot_sync();
 		}
-		add_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_contains_product_filter' ) );
+		add_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_contains_product_filter' ) );
 
 		try {
 			$coffee = \WC_Helper_Product::create_simple_product();
@@ -546,9 +546,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$other->save();
 			$filters = static fn( array $values ) => array( 'filters' => array( 'extensions' => array( 'test-ext' => $values ) ) );
 
-			$contains = $this->run_ability( 'woocommerce/orders-query', $filters( array( 'contains_product' => $coffee->get_id() ) ) );
+			$contains = $this->run_ability( 'poocommerce/orders-query', $filters( array( 'contains_product' => $coffee->get_id() ) ) );
 			$both     = $this->run_ability(
-				'woocommerce/orders-query',
+				'poocommerce/orders-query',
 				$filters(
 					array(
 						'contains_product' => $coffee->get_id(),
@@ -556,13 +556,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					)
 				)
 			);
-			$none     = $this->run_ability( 'woocommerce/orders-query', $filters( array( 'contains_product' => 999999 ) ) );
-			$without  = $this->run_ability( 'woocommerce/orders-query', $filters( array( 'without' => array( $orders['plain'] ) ) ) );
-			$excluded = $this->run_ability( 'woocommerce/orders-query', array( 'exclude' => array( $orders['gift'] ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
-			$both_out = $this->run_ability( 'woocommerce/orders-query', array( 'exclude' => array( $other->get_id() ) ) + $filters( array( 'without' => array( $orders['plain'] ) ) ) );
-			$narrowed = $this->run_ability( 'woocommerce/orders-query', array( 'include' => array( $orders['gift'], $other->get_id() ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
-			$disjoint = $this->run_ability( 'woocommerce/orders-query', array( 'include' => array( $other->get_id() ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
-			$minus    = $this->run_ability( 'woocommerce/orders-query', array( 'include' => array( $orders['gift'], $orders['plain'] ) ) + $filters( array( 'without' => array( $orders['plain'] ) ) ) );
+			$none     = $this->run_ability( 'poocommerce/orders-query', $filters( array( 'contains_product' => 999999 ) ) );
+			$without  = $this->run_ability( 'poocommerce/orders-query', $filters( array( 'without' => array( $orders['plain'] ) ) ) );
+			$excluded = $this->run_ability( 'poocommerce/orders-query', array( 'exclude' => array( $orders['gift'] ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
+			$both_out = $this->run_ability( 'poocommerce/orders-query', array( 'exclude' => array( $other->get_id() ) ) + $filters( array( 'without' => array( $orders['plain'] ) ) ) );
+			$narrowed = $this->run_ability( 'poocommerce/orders-query', array( 'include' => array( $orders['gift'], $other->get_id() ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
+			$disjoint = $this->run_ability( 'poocommerce/orders-query', array( 'include' => array( $other->get_id() ) ) + $filters( array( 'contains_product' => $coffee->get_id() ) ) );
+			$minus    = $this->run_ability( 'poocommerce/orders-query', array( 'include' => array( $orders['gift'], $orders['plain'] ) ) + $filters( array( 'without' => array( $orders['plain'] ) ) ) );
 
 			$this->assertEqualsCanonicalizing( array_values( $orders ), array_column( $contains['orders'], 'id' ) );
 			$this->assertSame( array( $orders['gift'] ), array_column( $both['orders'], 'id' ) );
@@ -574,7 +574,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$this->assertSame( array(), $disjoint['orders'], 'An extension filter that shares no ID with include should return no orders.' );
 			$this->assertSame( array( $orders['gift'] ), array_column( $minus['orders'], 'id' ), 'IDs an extension filter excludes should leave include.' );
 		} finally {
-			remove_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_contains_product_filter' ) );
+			remove_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_contains_product_filter' ) );
 			remove_all_filters( 'pre_option_' . DataSynchronizer::ORDERS_DATA_SYNC_ENABLED_OPTION );
 			$this->toggle_cot_feature_and_usage( $original );
 			remove_filter( 'wc_allow_changing_orders_storage_while_sync_is_pending', '__return_true' );
@@ -611,7 +611,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					return array(
 						'include_ids' => $wpdb->get_col(
 							$wpdb->prepare(
-								"SELECT DISTINCT items.order_id FROM {$wpdb->prefix}woocommerce_order_items AS items INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS meta ON meta.order_item_id = items.order_item_id WHERE meta.meta_key = '_product_id' AND meta.meta_value = %d",
+								"SELECT DISTINCT items.order_id FROM {$wpdb->prefix}poocommerce_order_items AS items INNER JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS meta ON meta.order_item_id = items.order_item_id WHERE meta.meta_key = '_product_id' AND meta.meta_value = %d",
 								$product_id
 							)
 						),
@@ -630,7 +630,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$coded->save();
 		$plain = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen plain' ) );
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $plain ) {
 				$callbacks = array(
 					'picked'    => static fn( array $ids ) => array( 'include_ids' => $ids ),
@@ -658,9 +658,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'filters' => array( 'extensions' => array( 'test-ext' => $values ) ),
 		);
 
-		$picked   = $this->run_ability( 'woocommerce/products-query', $filters( array( 'picked' => array( $coded->get_id(), $plain->get_id() ) ) ) );
+		$picked   = $this->run_ability( 'poocommerce/products-query', $filters( array( 'picked' => array( $coded->get_id(), $plain->get_id() ) ) ) );
 		$both     = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			$filters(
 				array(
 					'picked'   => array( $coded->get_id(), $plain->get_id() ),
@@ -668,10 +668,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			)
 		);
-		$empty    = $this->run_ability( 'woocommerce/products-query', $filters( array( 'picked' => array() ) ) );
-		$excluded = $this->run_ability( 'woocommerce/products-query', $filters( array( 'not_plain' => true ) ) );
+		$empty    = $this->run_ability( 'poocommerce/products-query', $filters( array( 'picked' => array() ) ) );
+		$excluded = $this->run_ability( 'poocommerce/products-query', $filters( array( 'not_plain' => true ) ) );
 		$narrowed = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			$filters(
 				array(
 					'not_plain' => true,
@@ -680,7 +680,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$nothing  = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			$filters(
 				array(
 					'not_plain' => true,
@@ -688,7 +688,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			)
 		);
-		$not_ids  = $this->run_ability_response( 'woocommerce/products-query', $filters( array( 'not_ids' => true ) ) );
+		$not_ids  = $this->run_ability_response( 'poocommerce/products-query', $filters( array( 'not_ids' => true ) ) );
 
 		$this->assertEqualsCanonicalizing( array( $coded->get_id(), $plain->get_id() ), array_column( $picked['products'], 'id' ) );
 		$this->assertSame( array( $coded->get_id() ), array_column( $both['products'], 'id' ) );
@@ -696,18 +696,18 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->assertSame( array( $coded->get_id() ), array_column( $excluded['products'], 'id' ) );
 		$this->assertSame( array( $coded->get_id() ), array_column( $narrowed['products'], 'id' ) );
 		$this->assertSame( array(), $nothing['products'] );
-		$this->assertSame( 'woocommerce_ability_extension_filter_failed', $not_ids->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_extension_filter_failed', $not_ids->get_data()['code'] );
 	}
 
 	/**
 	 * @testdox Should list the filters in the input schemas, and refuse a filter that is not registered.
 	 */
 	public function test_input_schemas_list_filters_and_refuse_unknown_ones(): void {
-		$products = $this->get_ability( 'woocommerce/products-query' )['input_schema']['properties']['filters']['properties']['extensions'];
-		$orders   = $this->get_ability( 'woocommerce/orders-query' )['input_schema']['properties']['filters']['properties']['extensions'];
+		$products = $this->get_ability( 'poocommerce/products-query' )['input_schema']['properties']['filters']['properties']['extensions'];
+		$orders   = $this->get_ability( 'poocommerce/orders-query' )['input_schema']['properties']['filters']['properties']['extensions'];
 
 		$response = $this->run_ability_response(
-			'woocommerce/orders-query',
+			'poocommerce/orders-query',
 			array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'unknown' => 'x' ) ) ) )
 		);
 
@@ -721,7 +721,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_filter_that_refuses_or_fails_returns_an_error(): void {
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				$callbacks = array(
 					array( 'order', 'broken', static fn() => array( 'post__in' => array( 1 ) ) ),
@@ -742,15 +742,15 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$refused = $this->run_ability_response( 'woocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'tag' => 'bad' ) ) ) ) );
-		$failed  = $this->run_ability_response( 'woocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'broken' => true ) ) ) ) );
-		$taxed   = $this->run_ability_response( 'woocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'taxed' => true ) ) ) ) );
-		$scalar  = $this->run_ability_response( 'woocommerce/products-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'scalar' => true ) ) ) ) );
+		$refused = $this->run_ability_response( 'poocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'tag' => 'bad' ) ) ) ) );
+		$failed  = $this->run_ability_response( 'poocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'broken' => true ) ) ) ) );
+		$taxed   = $this->run_ability_response( 'poocommerce/orders-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'taxed' => true ) ) ) ) );
+		$scalar  = $this->run_ability_response( 'poocommerce/products-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'scalar' => true ) ) ) ) );
 
 		$this->assertSame( 'test_bad_tag', $refused->get_data()['code'] );
-		$this->assertSame( 'woocommerce_ability_extension_filter_failed', $failed->get_data()['code'] );
-		$this->assertSame( 'woocommerce_ability_extension_filter_failed', $taxed->get_data()['code'] );
-		$this->assertSame( 'woocommerce_ability_extension_filter_failed', $scalar->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_extension_filter_failed', $failed->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_extension_filter_failed', $taxed->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_extension_filter_failed', $scalar->get_data()['code'] );
 	}
 
 	/**
@@ -758,7 +758,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_filter_that_returns_an_empty_clause_does_not_filter(): void {
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_query_filter(
 					array(
@@ -771,7 +771,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				);
 			}
 		);
-		$this->get_ability( 'woocommerce/products-query' )['input_schema'];
+		$this->get_ability( 'poocommerce/products-query' )['input_schema'];
 
 		$this->assertSame( array(), ExtensibleAbilities::get_query_args( 'product', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'empty_clause' => true ) ) ) ) ) );
 	}
@@ -799,11 +799,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$register          = static function () use ( $filter ) {
 			ExtensibleAbilities::register_query_filter( $filter );
 		};
-		add_action( 'woocommerce_extensible_abilities_resources_init', $register_resource );
-		add_action( 'woocommerce_extensible_abilities_init', $register );
-		$this->get_ability( 'woocommerce/products-query' )['input_schema'];
-		remove_action( 'woocommerce_extensible_abilities_resources_init', $register_resource );
-		remove_action( 'woocommerce_extensible_abilities_init', $register );
+		add_action( 'poocommerce_extensible_abilities_resources_init', $register_resource );
+		add_action( 'poocommerce_extensible_abilities_init', $register );
+		$this->get_ability( 'poocommerce/products-query' )['input_schema'];
+		remove_action( 'poocommerce_extensible_abilities_resources_init', $register_resource );
+		remove_action( 'poocommerce_extensible_abilities_init', $register );
 
 		$this->assertSame( array( 'meta_query' => array( array( array( 'key' => 'gift' ) ) ) ), ExtensibleAbilities::get_query_args( 'ticket', $input ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 	}
@@ -826,9 +826,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				);
 			}
 		};
-		add_action( 'woocommerce_extensible_abilities_init', $register );
-		$schema = $this->get_ability( 'woocommerce/products-query' )['input_schema'];
-		remove_action( 'woocommerce_extensible_abilities_init', $register );
+		add_action( 'poocommerce_extensible_abilities_init', $register );
+		$schema = $this->get_ability( 'poocommerce/products-query' )['input_schema'];
+		remove_action( 'poocommerce_extensible_abilities_init', $register );
 
 		$this->assertSame( array( 'test-ext' ), array_keys( $schema['properties']['filters']['properties']['extensions']['properties'] ) );
 		$this->assertSame( array( 'has_code', 'category' ), array_keys( $schema['properties']['filters']['properties']['extensions']['properties']['test-ext']['properties'] ) );
@@ -857,9 +857,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			);
 		};
-		add_action( 'woocommerce_extensible_abilities_init', $register );
-		$this->get_ability( 'woocommerce/orders-query' );
-		remove_action( 'woocommerce_extensible_abilities_init', $register );
+		add_action( 'poocommerce_extensible_abilities_init', $register );
+		$this->get_ability( 'poocommerce/orders-query' );
+		remove_action( 'poocommerce_extensible_abilities_init', $register );
 
 		$result = ExtensibleAbilities::get_query_args( 'order', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'tags' => array( 'gift', 'gift' ) ) ) ) ) );
 
@@ -873,7 +873,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_filter_registered_after_the_init_action_is_refused(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_query_filter' );
-		$this->get_ability( 'woocommerce/products-query' )['input_schema'];
+		$this->get_ability( 'poocommerce/products-query' )['input_schema'];
 
 		ExtensibleAbilities::register_query_filter(
 			array(
@@ -897,13 +897,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'filters' => array( 'extensions' => array( 'test-ext' => array( 'has_code' => true ) ) ),
 		);
 
-		$products = $this->run_ability_response( 'woocommerce/products-query', $input );
-		$orders   = $this->run_ability_response( 'woocommerce/orders-query', array( 'id' => 1 ) + array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'tag' => 'gift' ) ) ) ) );
+		$products = $this->run_ability_response( 'poocommerce/products-query', $input );
+		$orders   = $this->run_ability_response( 'poocommerce/orders-query', array( 'id' => 1 ) + array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'tag' => 'gift' ) ) ) ) );
 
 		$this->assertSame( 400, $products->get_status() );
-		$this->assertSame( 'woocommerce_ability_filters_with_id', $products->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_filters_with_id', $products->get_data()['code'] );
 		$this->assertSame( 400, $orders->get_status() );
-		$this->assertSame( 'woocommerce_ability_filters_with_id', $orders->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_filters_with_id', $orders->get_data()['code'] );
 	}
 
 	/**
@@ -919,9 +919,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'other_ext' => array( 'code' => 7 ),
 		);
 
-		$products = array_column( $this->run_ability( 'woocommerce/products-query', array( 'search' => 'Pen' ) )['products'], null, 'id' );
+		$products = array_column( $this->run_ability( 'poocommerce/products-query', array( 'search' => 'Pen' ) )['products'], null, 'id' );
 		$updated  = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $with_code->get_id(),
 				'name' => 'Pencil',
@@ -941,14 +941,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$item  = current( $order->get_items() );
 
 		$listed = $this->run_ability(
-			'woocommerce/orders-query',
+			'poocommerce/orders-query',
 			array(
 				'per_page'           => 1,
 				'include_line_items' => true,
 			)
 		)['orders'][0];
 		$noted  = $this->run_ability(
-			'woocommerce/order-add-note',
+			'poocommerce/order-add-note',
 			array(
 				'id'   => $order->get_id(),
 				'note' => 'Hi',
@@ -964,9 +964,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should list the fields of each namespace in the output schemas, and add nothing for a resource with no fields.
 	 */
 	public function test_output_schemas_list_fields_by_namespace(): void {
-		$products = $this->get_output_schema( 'woocommerce/products-query' )['properties']['products']['items']['properties']['extensions'];
-		$product  = $this->get_output_schema( 'woocommerce/product-update' )['properties']['product']['properties']['extensions'];
-		$order    = $this->get_output_schema( 'woocommerce/orders-query' )['properties']['orders']['items']['properties'];
+		$products = $this->get_output_schema( 'poocommerce/products-query' )['properties']['products']['items']['properties']['extensions'];
+		$product  = $this->get_output_schema( 'poocommerce/product-update' )['properties']['product']['properties']['extensions'];
+		$order    = $this->get_output_schema( 'poocommerce/orders-query' )['properties']['orders']['items']['properties'];
 
 		$this->assertSame( self::CODE_SCHEMA, $products['properties']['test-ext']['properties']['code'] );
 		$this->assertSame( array( 'type' => 'integer' ), $products['properties']['other_ext']['properties']['code'] );
@@ -979,7 +979,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_extensible_abilities_init one time, before the abilities build their schemas.
+	 * @testdox Should fire poocommerce_extensible_abilities_init one time, before the abilities build their schemas.
 	 */
 	public function test_init_action_fires_once_before_the_schemas(): void {
 		$events     = array();
@@ -990,18 +990,18 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$events[] = $name;
 			return $args;
 		};
-		add_action( 'woocommerce_extensible_abilities_init', $on_init );
+		add_action( 'poocommerce_extensible_abilities_init', $on_init );
 		add_filter( 'wp_register_ability_args', $on_ability, 10, 2 );
 
-		$this->get_output_schema( 'woocommerce/products-query' );
+		$this->get_output_schema( 'poocommerce/products-query' );
 		do_action( 'wp_abilities_api_init' );
 
-		remove_action( 'woocommerce_extensible_abilities_init', $on_init );
+		remove_action( 'poocommerce_extensible_abilities_init', $on_init );
 		remove_filter( 'wp_register_ability_args', $on_ability, 10 );
-		$this->assertSame( 1, did_action( 'woocommerce_extensible_abilities_init' ) );
+		$this->assertSame( 1, did_action( 'poocommerce_extensible_abilities_init' ) );
 		$this->assertSame( 'extensions', $events[0] );
 		$this->assertSame( 1, count( array_keys( $events, 'extensions', true ) ) );
-		$this->assertContains( 'woocommerce/products-query', $events );
+		$this->assertContains( 'poocommerce/products-query', $events );
 	}
 
 	/**
@@ -1009,7 +1009,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_field_registered_after_the_init_action_is_refused(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_field' );
-		$this->get_output_schema( 'woocommerce/products-query' );
+		$this->get_output_schema( 'poocommerce/products-query' );
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen late' ) );
 
 		ExtensibleAbilities::register_field(
@@ -1021,7 +1021,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				'get_callback'  => static fn() => 'late',
 			)
 		);
-		$products = array_column( $this->run_ability( 'woocommerce/products-query', array( 'search' => 'Pen late' ) )['products'], null, 'id' );
+		$products = array_column( $this->run_ability( 'poocommerce/products-query', array( 'search' => 'Pen late' ) )['products'], null, 'id' );
 
 		$this->assertArrayNotHasKey( 'late-ext', $products[ $product->get_id() ]['extensions'] ?? array() );
 		$this->assertArrayNotHasKey( 'late-ext', ExtensibleAbilities::add_fields_to_object( array(), 'product', $product )['extensions'] ?? array() );
@@ -1045,11 +1045,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			);
 		};
-		add_action( 'woocommerce_extensible_abilities_resources_init', $register_resource, 99 );
-		add_action( 'woocommerce_extensible_abilities_init', $register_field, 1 );
-		$this->get_output_schema( 'woocommerce/products-query' );
-		remove_action( 'woocommerce_extensible_abilities_resources_init', $register_resource, 99 );
-		remove_action( 'woocommerce_extensible_abilities_init', $register_field, 1 );
+		add_action( 'poocommerce_extensible_abilities_resources_init', $register_resource, 99 );
+		add_action( 'poocommerce_extensible_abilities_init', $register_field, 1 );
+		$this->get_output_schema( 'poocommerce/products-query' );
+		remove_action( 'poocommerce_extensible_abilities_resources_init', $register_resource, 99 );
+		remove_action( 'poocommerce_extensible_abilities_init', $register_field, 1 );
 
 		$output = ExtensibleAbilities::add_fields_to_object( array(), 'ticket', new \stdClass() );
 		$schema = ExtensibleAbilities::add_fields_schema( array( 'type' => 'object' ), 'ticket' );
@@ -1063,7 +1063,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_resource_registered_after_the_resources_action_is_refused(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_resource' );
-		$this->get_output_schema( 'woocommerce/products-query' );
+		$this->get_output_schema( 'poocommerce/products-query' );
 
 		ExtensibleAbilities::register_resource( 'late_resource' );
 
@@ -1107,11 +1107,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		remove_action( 'doing_it_wrong_run', $capture, 10 );
 
-		$this->assertStringContainsString( 'inside the woocommerce_extensible_abilities_init action', $messages[0] ?? '' );
+		$this->assertStringContainsString( 'inside the poocommerce_extensible_abilities_init action', $messages[0] ?? '' );
 	}
 
 	/**
-	 * @testdox Should not fire woocommerce_extensible_abilities_init or change the abilities with the feature off.
+	 * @testdox Should not fire poocommerce_extensible_abilities_init or change the abilities with the feature off.
 	 */
 	public function test_nothing_changes_with_the_feature_off(): void {
 		$this->set_feature( false );
@@ -1120,20 +1120,20 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product->save();
 		\WC_Helper_Order::create_order();
 
-		$products = $this->run_ability( 'woocommerce/products-query', array( 'search' => 'Pen' ) )['products'];
+		$products = $this->run_ability( 'poocommerce/products-query', array( 'search' => 'Pen' ) )['products'];
 		$orders   = $this->run_ability(
-			'woocommerce/orders-query',
+			'poocommerce/orders-query',
 			array(
 				'per_page'           => 1,
 				'include_line_items' => true,
 			)
 		)['orders'];
 
-		$this->assertSame( 0, did_action( 'woocommerce_extensible_abilities_resources_init' ) );
-		$this->assertSame( 0, did_action( 'woocommerce_extensible_abilities_init' ) );
-		$this->assertArrayNotHasKey( 'filters', $this->get_ability( 'woocommerce/products-query' )['input_schema']['properties'] );
-		$this->assertSame( 400, $this->run_ability_response( 'woocommerce/products-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'has_code' => true ) ) ) ) )->get_status() );
-		$this->assertArrayNotHasKey( 'extensions', $this->get_output_schema( 'woocommerce/products-query' )['properties']['products']['items']['properties'] );
+		$this->assertSame( 0, did_action( 'poocommerce_extensible_abilities_resources_init' ) );
+		$this->assertSame( 0, did_action( 'poocommerce_extensible_abilities_init' ) );
+		$this->assertArrayNotHasKey( 'filters', $this->get_ability( 'poocommerce/products-query' )['input_schema']['properties'] );
+		$this->assertSame( 400, $this->run_ability_response( 'poocommerce/products-query', array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'has_code' => true ) ) ) ) )->get_status() );
+		$this->assertArrayNotHasKey( 'extensions', $this->get_output_schema( 'poocommerce/products-query' )['properties']['products']['items']['properties'] );
 		$this->assertArrayNotHasKey( 'extensions', $products[0] );
 		$this->assertArrayNotHasKey( 'extensions', $orders[0] );
 		$this->assertArrayNotHasKey( 'extensions', $orders[0]['line_items'][0] );
@@ -1152,7 +1152,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				array(
 					'label'               => 'Read product',
 					'description'         => 'Reads a product.',
-					'category'            => 'woocommerce',
+					'category'            => 'poocommerce',
 					'input_schema'        => array(
 						'type'       => 'object',
 						'properties' => array( 'id' => array( 'type' => 'integer' ) ),
@@ -1359,7 +1359,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_an_any_of_branch_without_a_type_keeps_the_wordpress_message( array $any_of ): void {
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $any_of ) {
 				ExtensibleAbilities::register_field(
 					array(
@@ -1379,7 +1379,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product();
 
 		$refused = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'untyped' => array( 'size' => 'huge' ) ),
@@ -1395,7 +1395,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_an_any_of_type_mismatch_names_each_type_once(): void {
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -1424,7 +1424,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product();
 
 		$refused = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'shared' => array( 'size' => 7 ) ),
@@ -1445,7 +1445,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		$received     = array();
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $input_schema, &$received ) {
 				ExtensibleAbilities::register_field(
 					array(
@@ -1464,14 +1464,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->reset_registries();
 		$product = \WC_Helper_Product::create_simple_product();
 		$write   = fn( $value ) => $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'nullable' => array( 'days' => $value ) ),
 			)
 		);
 
-		$published = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['nullable']['properties']['days'];
+		$published = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['nullable']['properties']['days'];
 		$this->assertSame( $input_schema, $published );
 		$this->assertSame( 200, $write( 7 )->get_status() );
 		$this->assertSame( 200, $write( null )->get_status() );
@@ -1481,7 +1481,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->assertSame( array( 7, null ), $received );
 
 		$received = array();
-		$result   = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result   = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'nullable' => array( 'days' => '8' ) ),
@@ -1566,7 +1566,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'additionalProperties' => false,
 		);
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $input_schemas, $output_schema ) {
 				foreach ( $input_schemas as $field => $input_schema ) {
 					ExtensibleAbilities::register_field(
@@ -1585,15 +1585,15 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		$this->reset_registries();
 
-		$published_input  = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['declared']['properties'];
-		$published_output = $this->get_output_schema( 'woocommerce/product-update' )['properties']['product']['properties']['extensions']['properties']['declared']['properties'];
+		$published_input  = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['declared']['properties'];
+		$published_output = $this->get_output_schema( 'poocommerce/product-update' )['properties']['product']['properties']['extensions']['properties']['declared']['properties'];
 
 		$this->assertSame( $input_schemas, $published_input );
 		$this->assertSame( array_fill_keys( array_keys( $input_schemas ), $output_schema ), $published_output );
 	}
 
 	/**
-	 * @testdox Should publish every WooCommerce ability schema as JSON whose keywords have the value types that an MCP client compiles.
+	 * @testdox Should publish every PooCommerce ability schema as JSON whose keywords have the value types that an MCP client compiles.
 	 */
 	public function test_published_schemas_have_the_keyword_types_that_mcp_clients_compile(): void {
 		$schema = array(
@@ -1627,7 +1627,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'additionalProperties' => false,
 		);
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $schema ) {
 				foreach ( array( 'product', 'order', 'order_item' ) as $resource ) {
 					ExtensibleAbilities::register_field(
@@ -1645,12 +1645,12 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$this->reset_registries();
-		$this->get_ability( 'woocommerce/product-update' );
+		$this->get_ability( 'poocommerce/product-update' );
 
 		$errors = array();
 		$names  = array();
 		foreach ( wp_get_abilities() as $ability ) {
-			if ( 0 !== strpos( $ability->get_name(), 'woocommerce/' ) ) {
+			if ( 0 !== strpos( $ability->get_name(), 'poocommerce/' ) ) {
 				continue;
 			}
 			$names[] = $ability->get_name();
@@ -1663,8 +1663,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		}
 
-		$this->assertContains( 'woocommerce/product-update', $names );
-		$this->assertContains( 'woocommerce/orders-query', $names );
+		$this->assertContains( 'poocommerce/product-update', $names );
+		$this->assertContains( 'poocommerce/orders-query', $names );
 		$this->assertEmpty( $errors, implode( "\n", $errors ) );
 	}
 
@@ -1791,22 +1791,22 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should list a read-only field only in the output, and refuse a write to it.
 	 */
 	public function test_a_read_only_field_is_only_in_the_output(): void {
-		add_action( 'woocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
+		add_action( 'poocommerce_extensible_abilities_init', array( $this, 'register_test_fields' ) );
 		$this->reset_registries();
 		$product = \WC_Helper_Product::create_simple_product();
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'test-ext' => array( 'code' => 'x' ) ),
 			)
 		);
 
-		$input_schema = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions']['properties'];
+		$input_schema = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions']['properties'];
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertArrayNotHasKey( 'code', $input_schema['test-ext']['properties'] );
-		$this->assertArrayHasKey( 'code', $this->get_output_schema( 'woocommerce/product-update' )['properties']['product']['properties']['extensions']['properties']['test-ext']['properties'] );
+		$this->assertArrayHasKey( 'code', $this->get_output_schema( 'poocommerce/product-update' )['properties']['product']['properties']['extensions']['properties']['test-ext']['properties'] );
 	}
 
 	/**
@@ -1815,7 +1815,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_a_write_only_field_is_only_in_the_input(): void {
 		$received = array();
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( &$received ) {
 				ExtensibleAbilities::register_field(
 					array(
@@ -1834,18 +1834,18 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product();
 
 		$output = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'write-ext' => array( 'secret' => 'x' ) ),
 			)
 		);
 
-		$input_schema = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions']['properties'];
+		$input_schema = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions']['properties'];
 		$this->assertSame( array( 'x' ), $received );
 		$this->assertArrayNotHasKey( 'write-ext', $output['product']['extensions'] ?? array() );
 		$this->assertArrayHasKey( 'secret', $input_schema['write-ext']['properties'] );
-		$this->assertArrayNotHasKey( 'write-ext', $this->get_output_schema( 'woocommerce/product-update' )['properties']['product']['properties']['extensions']['properties'] );
+		$this->assertArrayNotHasKey( 'write-ext', $this->get_output_schema( 'poocommerce/product-update' )['properties']['product']['properties']['extensions']['properties'] );
 	}
 
 	/**
@@ -1885,7 +1885,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_a_null_input_passes_only_where_it_is_declared(): void {
 		$received = array();
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( &$received ) {
 				$fields = array(
 					'plain'           => array( 'type' => 'string' ),
@@ -1918,7 +1918,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->reset_registries();
 		$product = \WC_Helper_Product::create_simple_product();
 		$write   = fn( array $fields ) => $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'nulls' => $fields ),
@@ -1999,12 +1999,12 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_amounts_are_returned_as_strings(): void {
 		$product = \WC_Helper_Product::create_simple_product();
-		$this->add_test_filter( 'woocommerce_product_get_price', static fn() => 12.5 );
-		$this->add_test_filter( 'woocommerce_product_get_regular_price', static fn() => 15 );
-		$this->add_test_filter( 'woocommerce_product_get_sale_price', static fn() => 12.5 );
+		$this->add_test_filter( 'poocommerce_product_get_price', static fn() => 12.5 );
+		$this->add_test_filter( 'poocommerce_product_get_regular_price', static fn() => 15 );
+		$this->add_test_filter( 'poocommerce_product_get_sale_price', static fn() => 12.5 );
 
-		$query = wp_get_ability( 'woocommerce/products-query' )->execute( array( 'id' => $product->get_id() ) );
-		$write = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$query = wp_get_ability( 'poocommerce/products-query' )->execute( array( 'id' => $product->get_id() ) );
+		$write = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Saved',
@@ -2025,11 +2025,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_amounts_are_returned_as_strings(): void {
 		$order = \WC_Helper_Order::create_order();
-		$this->add_test_filter( 'woocommerce_order_get_total', static fn() => 40 );
-		$this->add_test_filter( 'woocommerce_order_item_get_subtotal', static fn() => 30 );
-		$this->add_test_filter( 'woocommerce_order_item_get_total', static fn() => 25.5 );
+		$this->add_test_filter( 'poocommerce_order_get_total', static fn() => 40 );
+		$this->add_test_filter( 'poocommerce_order_item_get_subtotal', static fn() => 30 );
+		$this->add_test_filter( 'poocommerce_order_item_get_total', static fn() => 25.5 );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'                 => $order->get_id(),
 				'include_line_items' => true,
@@ -2083,8 +2083,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen one' ) );
 		\WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen two' ) );
 
-		$query = wp_get_ability( 'woocommerce/products-query' )->execute( array( 'search' => 'Pen' ) );
-		$write = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$query = wp_get_ability( 'poocommerce/products-query' )->execute( array( 'search' => 'Pen' ) );
+		$write = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -2112,7 +2112,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->register_invalid_field( $resource_name, $schema, $value );
 		$order = \WC_Helper_Order::create_order();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'                 => $order->get_id(),
 				'include_line_items' => true,
@@ -2130,7 +2130,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->register_invalid_field( 'order', array( 'type' => 'integer' ), 'many' );
 		$order = \WC_Helper_Order::create_order();
 
-		$result = wp_get_ability( 'woocommerce/order-add-note' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-add-note' )->execute(
 			array(
 				'id'   => $order->get_id(),
 				'note' => 'Packed.',
@@ -2154,7 +2154,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->register_invalid_field( 'order', array( 'type' => 'integer' ), 'many' );
 		$order = \WC_Helper_Order::create_order();
 
-		$result = wp_get_ability( 'woocommerce/order-update-status' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update-status' )->execute(
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'completed',
@@ -2181,7 +2181,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->register_invalid_field( $resource_name, $schema, $value );
 		$order = \WC_Helper_Order::create_order();
 
-		$result = wp_get_ability( 'woocommerce/order-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update' )->execute(
 			array(
 				'id'            => $order->get_id(),
 				'customer_note' => 'Probe',
@@ -2201,7 +2201,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_a_get_callback_that_throws_fails_the_call(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_field' );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -2218,10 +2218,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		$order = \WC_Helper_Order::create_order();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'id' => $order->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'id' => $order->get_id() ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_extension_failed', $result->get_error_code(), $result->get_error_message() );
+		$this->assertSame( 'poocommerce_ability_extension_failed', $result->get_error_code(), $result->get_error_message() );
 		$this->assertSame( 'The "invalid-ext" extension failed while reading the "bad" field of the order.', $result->get_error_message() );
 		$this->assertSame(
 			array(
@@ -2275,7 +2275,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	private function register_invalid_field( string $resource_name, array $schema, $value ): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $resource_name, $schema, $value ) {
 				ExtensibleAbilities::register_field(
 					array(
@@ -2298,7 +2298,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	private function assert_field_output_invalid( $result, string $resource_name ): void {
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_field_output_invalid', $result->get_error_code(), $result->get_error_message() );
+		$this->assertSame( 'poocommerce_ability_field_output_invalid', $result->get_error_code(), $result->get_error_message() );
 		$this->assertStringContainsString( '"invalid-ext" extension', $result->get_error_message() );
 		$this->assertStringContainsString( '"bad" field of the ' . $resource_name, $result->get_error_message() );
 		$data = $result->get_error_data();
@@ -2313,10 +2313,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_write_saves_core_and_extension_fields_one_time(): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
-		$saves   = did_action( 'woocommerce_update_product' );
+		$saves   = did_action( 'poocommerce_update_product' );
 
 		$output = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -2328,7 +2328,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$saved = wc_get_product( $product->get_id() );
-		$this->assertSame( 1, did_action( 'woocommerce_update_product' ) - $saves );
+		$this->assertSame( 1, did_action( 'poocommerce_update_product' ) - $saves );
 		$this->assertSame( 12, self::$received['count'] );
 		$this->assertSame( 'Pencil', $saved->get_name() );
 		$this->assertSame( 'red', $saved->get_meta( '_test_color' ) );
@@ -2349,14 +2349,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$order = \WC_Helper_Order::create_order();
 
 		$created = $this->run_ability(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'       => 'Mug',
 				'extensions' => array( 'test-ext' => array( 'color' => 'blue' ) ),
 			)
 		);
 		$updated = $this->run_ability(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'         => $order->get_id(),
 				'status'     => 'on-hold',
@@ -2385,7 +2385,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 		foreach ( $rejected as $extensions ) {
 			$response = $this->run_ability_response(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'         => $product->get_id(),
 					'name'       => 'Pencil',
@@ -2418,7 +2418,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_a_bad_extension_field_is_refused_by_name( array $extensions, string $message ): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->validate_input(
+		$result = wp_get_ability( 'poocommerce/product-update' )->validate_input(
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -2427,7 +2427,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( array( 'woocommerce_ability_invalid_fields' ), $result->get_error_codes() );
+		$this->assertSame( array( 'poocommerce_ability_invalid_fields' ), $result->get_error_codes() );
 		$this->assertSame( $message, $result->get_error_message() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 		$this->assertSame( 'Pen', wc_get_product( $product->get_id() )->get_name() );
@@ -2438,7 +2438,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_an_unknown_field_in_a_read_only_namespace_is_refused(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -2455,7 +2455,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		AbilitiesLoader::init_extensions();
 		$product = \WC_Helper_Product::create_simple_product();
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->validate_input(
+		$result = wp_get_ability( 'poocommerce/product-update' )->validate_input(
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'read_only_ext' => array( 'cdoe' => 'A2' ) ),
@@ -2471,7 +2471,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_every_bad_extension_field_is_in_the_first_message(): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -2505,8 +2505,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 	/**
 	 * @testdox Should name the bad fields of the product and of its variations in one message on $ability, and run no validator.
-	 * @testWith ["woocommerce/product-create"]
-	 *           ["woocommerce/product-update"]
+	 * @testWith ["poocommerce/product-create"]
+	 *           ["poocommerce/product-update"]
 	 *
 	 * @param string $ability Ability name.
 	 */
@@ -2521,7 +2521,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$input = $this->get_shirt_input();
-		if ( 'woocommerce/product-update' === $ability ) {
+		if ( 'poocommerce/product-update' === $ability ) {
 			$input['id'] = \WC_Helper_Product::create_variation_product()->get_id();
 		}
 		$input['extensions']                  = array( 'other_ext' => array( 'size' => 'huge' ) );
@@ -2543,7 +2543,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_an_unknown_field_on_a_variation_suggests_only_variation_fields(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				$fields = array(
 					'simple_only'    => 'simple',
@@ -2571,7 +2571,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 		$input['variations'][0]['extensions'] = array( 'typed-ext' => array( 'typo' => 'x' ) );
 
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute( $input );
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute( $input );
 
 		$this->assertSame(
 			'variations[0]: The extension namespace "typed-ext" has no field "typo". The fields you can write in this namespace are: variation_only. Use one of them, or remove "typed-ext.typo" from the input.',
@@ -2590,7 +2590,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_the_schema_error_stands_without_a_bad_extension_field( array $bad_input ): void {
 		$product = \WC_Helper_Product::create_simple_product();
 
-		$result = wp_get_ability( 'woocommerce/product-update' )->validate_input( array( 'id' => $product->get_id() ) + $bad_input );
+		$result = wp_get_ability( 'poocommerce/product-update' )->validate_input( array( 'id' => $product->get_id() ) + $bad_input );
 
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
 	}
@@ -2599,7 +2599,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should keep the extensions input schema closed.
 	 */
 	public function test_the_extensions_input_schema_stays_closed(): void {
-		$extensions = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions'];
+		$extensions = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions'];
 
 		$this->assertFalse( $extensions['additionalProperties'] );
 		$this->assertFalse( $extensions['properties']['test-ext']['additionalProperties'] );
@@ -2614,7 +2614,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$input['extensions']                  = array( 'test-ext' => array( 'color' => 'red' ) );
 		$input['variations'][0]['extensions'] = array( 'other_ext' => array( 'count' => 3 ) );
 
-		$this->run_ability( 'woocommerce/product-create', $input );
+		$this->run_ability( 'poocommerce/product-create', $input );
 
 		$this->assertSame( 'red', self::$received['color'] ?? null );
 		$this->assertSame( 3, self::$received['count'] ?? null );
@@ -2628,12 +2628,12 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product  = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 		$expected = array(
 			'throw' => array( 400, 'test-ext:test_thrown' ),
-			'crash' => array( 500, 'test-ext:woocommerce_ability_extension_failed' ),
+			'crash' => array( 500, 'test-ext:poocommerce_ability_extension_failed' ),
 		);
 
 		foreach ( $expected as $value => list( $status, $code ) ) {
 			$response = $this->run_ability_response(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'         => $product->get_id(),
 					'name'       => 'Pencil',
@@ -2654,7 +2654,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -2679,7 +2679,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product->save();
 
 		$output = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'test-ext' => array( 'color' => null ) ),
@@ -2714,10 +2714,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->assertCount( 1, $calls );
-		$this->assertSame( 'woocommerce/product-create', $calls[0][0] );
+		$this->assertSame( 'poocommerce/product-create', $calls[0][0] );
 		$this->assertSame( array( 'WC_Product_Variable', 'WC_Product_Variation', 'WC_Product_Variation' ), $calls[0][1] );
 		$this->assertSame( array_merge( array( $created['product']['id'] ), $created['product']['variation_ids'] ), $calls[0][2] );
 		$this->assertSame( '10', wc_get_product( $created['product']['id'] )->get_meta( '_test_min_price' ) );
@@ -2742,7 +2742,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 		$input   = array(
 			'id'         => $created['product']['id'],
 			'variations' => array(
@@ -2752,17 +2752,17 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				),
 			),
 		);
-		$this->run_ability( 'woocommerce/product-update', $input );
+		$this->run_ability( 'poocommerce/product-update', $input );
 		$this->run_ability(
-			'woocommerce/product-delete',
+			'poocommerce/product-delete',
 			array(
 				'id'    => $created['product']['variation_ids'][0],
 				'force' => true,
 			)
 		);
-		$this->run_ability( 'woocommerce/product-delete', array( 'id' => $created['product']['id'] ) );
+		$this->run_ability( 'poocommerce/product-delete', array( 'id' => $created['product']['id'] ) );
 		$this->run_ability(
-			'woocommerce/product-delete',
+			'poocommerce/product-delete',
 			array(
 				'id'    => $created['product']['id'],
 				'force' => true,
@@ -2796,10 +2796,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				return null;
 			}
 		);
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'            => $created['product']['variation_ids'][0],
 				'regular_price' => '8.00',
@@ -2829,7 +2829,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$input['variations'][0]['extensions'] = array( 'test-ext' => array( 'color' => 'red' ) );
 		$input['variations'][1]['extensions'] = array( 'test-ext' => array( 'color' => 'blue' ) );
 
-		$this->run_ability( 'woocommerce/product-create', $input );
+		$this->run_ability( 'poocommerce/product-create', $input );
 
 		$this->assertSame( array( '', 'red', 'blue' ), $seen['shirt-s'], 'The first variation sees the color of the second one.' );
 		$this->assertSame( array( '', 'red', 'blue' ), $seen['shirt-m'] );
@@ -2845,7 +2845,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$cleaned[] = (int) $id;
 		};
 		$this->add_test_action(
-			'woocommerce_delete_product',
+			'poocommerce_delete_product',
 			static function () use ( $record ) {
 				add_action( 'clean_post_cache', $record );
 				throw new \RuntimeException( 'Delete hook failed.' );
@@ -2853,7 +2853,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		try {
-			$result = wp_get_ability( 'woocommerce/product-delete' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-delete' )->execute(
 				array(
 					'id'    => $product->get_id(),
 					'force' => true,
@@ -2920,7 +2920,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'test-ext' => array( 'color' => 'green' ) ),
@@ -2939,22 +2939,22 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->register_validator(
 			'product',
 			'test-ext',
-			static fn( \WC_Product $product, ActionableAbility $ability ) => 'woocommerce/product-delete' === $ability->get_name() && 'keep' === $product->get_sku()
+			static fn( \WC_Product $product, ActionableAbility $ability ) => 'poocommerce/product-delete' === $ability->get_name() && 'keep' === $product->get_sku()
 				? new \WP_Error( 'test_keep', 'Keep it.' )
 				: null
 		);
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 		$kept    = \WC_Helper_Product::create_simple_product( true, array( 'sku' => 'keep' ) );
 
 		$refused = $this->run_ability_response(
-			'woocommerce/product-delete',
+			'poocommerce/product-delete',
 			array(
 				'id'    => $kept->get_id(),
 				'force' => true,
 			)
 		);
 		$deleted = $this->run_ability(
-			'woocommerce/product-delete',
+			'poocommerce/product-delete',
 			array(
 				'id'    => $created['product']['id'],
 				'force' => true,
@@ -2985,7 +2985,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->assertSame(
 			array(
@@ -3000,7 +3000,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should run validators on a variation that a parent update deletes, and delete nothing when one refuses.
 	 */
 	public function test_a_validator_can_refuse_deleting_a_variation_in_an_update(): void {
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 		$kept    = $created['product']['variation_ids'][0];
 		$other   = $created['product']['variation_ids'][1];
 		$seen    = array();
@@ -3018,7 +3018,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		AbilitiesLoader::init_extensions();
 
 		$refused = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $created['product']['id'],
 				'name'       => 'Renamed',
@@ -3031,7 +3031,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$deleted = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $created['product']['id'],
 				'variations' => array(
@@ -3057,7 +3057,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should run validators on the variations of a deleted parent, and delete nothing when one refuses.
 	 */
 	public function test_a_validator_can_refuse_deleting_a_variable_parent(): void {
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 		$kept    = $created['product']['variation_ids'][1];
 		$seen    = array();
 		$refuse  = true;
@@ -3078,19 +3078,19 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'force' => true,
 		);
 
-		$refused = $this->run_ability_response( 'woocommerce/product-delete', $input );
+		$refused = $this->run_ability_response( 'poocommerce/product-delete', $input );
 		$after   = wc_get_product( $created['product']['id'] );
 		$refuse  = false;
-		$deleted = $this->run_ability( 'woocommerce/product-delete', $input );
+		$deleted = $this->run_ability( 'poocommerce/product-delete', $input );
 
 		$this->assertSame( 400, $refused->get_status() );
 		$this->assertSame( 'Keep it.', $refused->get_data()['message'] );
 		$this->assertInstanceOf( \WC_Product_Variable::class, $after );
 		$this->assertSame( 'deleted', $deleted['status'] );
 		foreach ( $created['product']['variation_ids'] as $variation_id ) {
-			$this->assertSame( array( 'woocommerce/product-delete', true ), $seen[ $variation_id ] );
+			$this->assertSame( array( 'poocommerce/product-delete', true ), $seen[ $variation_id ] );
 		}
-		$this->assertSame( array( 'woocommerce/product-delete', true ), $seen[ $created['product']['id'] ] );
+		$this->assertSame( array( 'poocommerce/product-delete', true ), $seen[ $created['product']['id'] ] );
 	}
 
 	/**
@@ -3098,7 +3098,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_create_returns_the_stored_slug(): void {
 		$created = $this->run_ability(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array_merge( $this->get_shirt_input(), array( 'status' => 'publish' ) )
 		);
 
@@ -3120,7 +3120,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$response = $this->run_ability_response( 'woocommerce/product-create', $this->get_shirt_input() );
+		$response = $this->run_ability_response( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->assertSame( 409, $response->get_status() );
 		$this->assertStringEndsWith( 'test_range_refused', $response->get_data()['code'] );
@@ -3156,7 +3156,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
 		$output = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -3181,7 +3181,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 
-		$this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->assertSame( 0, $fired );
 	}
@@ -3253,7 +3253,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_ability_resource_unknown', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_resource_unknown', $response->get_data()['code'] );
 		$this->assertSame( 'refund', $response->get_data()['data']['resource'] );
 		$this->assertSame( 'test-ext/product-with-item', $response->get_data()['data']['ability'] );
 		$this->assertSame( 'Pen', wc_get_product( $product->get_id() )->get_name() );
@@ -3271,7 +3271,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					array(
 						'label'               => 'Rename product with an item',
 						'description'         => 'Renames a product and changes an order item.',
-						'category'            => 'woocommerce',
+						'category'            => 'poocommerce',
 						'input_schema'        => array(
 							'type'       => 'object',
 							'properties' => array(
@@ -3374,8 +3374,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			),
 		);
 
-		$schema  = wp_get_ability( 'woocommerce/product-create' )->get_input_schema();
-		$refused = $this->run_ability_response( 'woocommerce/product-create', $input );
+		$schema  = wp_get_ability( 'poocommerce/product-create' )->get_input_schema();
+		$refused = $this->run_ability_response( 'poocommerce/product-create', $input );
 		$saved   = get_posts(
 			array(
 				'post_type'   => array( 'product', 'product_variation' ),
@@ -3385,7 +3385,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$input['variations'][1]['extensions']['test-ext']['color'] = 'green';
-		$created = $this->run_ability( 'woocommerce/product-create', $input );
+		$created = $this->run_ability( 'poocommerce/product-create', $input );
 
 		$this->assertArrayHasKey( 'color', $schema['properties']['variations']['items']['properties']['extensions']['properties']['test-ext']['properties'] );
 		$this->assertSame( 400, $refused->get_status() );
@@ -3430,7 +3430,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$filter_class = static fn() => $order_class;
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 
 		foreach ( array( false, true ) as $enabled ) {
 			$this->set_feature( $enabled );
@@ -3439,7 +3439,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$order               = \WC_Helper_Order::create_order();
 
 			$response = $this->run_ability_response(
-				'woocommerce/order-update-status',
+				'poocommerce/order-update-status',
 				array(
 					'id'     => $order->get_id(),
 					'status' => 'completed',
@@ -3449,7 +3449,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$calls = $order_class::$calls;
 			if ( $enabled ) {
 				$this->assertSame( 400, $response->get_status() );
-				$this->assertSame( 'woocommerce_data_staging_unsupported', $response->get_data()['code'] );
+				$this->assertSame( 'poocommerce_data_staging_unsupported', $response->get_data()['code'] );
 				$this->assertSame( 0, $calls );
 				$this->assertSame( 'pending', wc_get_order( $order->get_id() )->get_status() );
 			} else {
@@ -3459,7 +3459,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		}
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 	}
 
 	/**
@@ -3470,16 +3470,16 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product->update_meta_data( '_test_size', 'small' );
 		$product->save();
 
-		$schema   = $this->get_ability( 'woocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['other_ext']['properties']['size'];
+		$schema   = $this->get_ability( 'poocommerce/product-update' )['input_schema']['properties']['extensions']['properties']['other_ext']['properties']['size'];
 		$rejected = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'other_ext' => array( 'size' => 'medium' ) ),
 			)
 		);
 		$this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'other_ext' => array( 'size' => null ) ),
@@ -3526,7 +3526,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				array(
 					'label'               => 'Rename product',
 					'description'         => 'Renames a product.',
-					'category'            => 'woocommerce',
+					'category'            => 'poocommerce',
 					'input_schema'        => array(
 						'type'       => 'object',
 						'properties' => array(
@@ -3545,7 +3545,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			throw new \RuntimeException( 'Storage text.' );
 		};
 		add_action( 'wp_abilities_api_init', $register, 20 );
-		add_action( 'woocommerce_before_product_object_save', $throw );
+		add_action( 'poocommerce_before_product_object_save', $throw );
 
 		$response = $this->run_ability_response(
 			'test-ext/product-rename',
@@ -3555,10 +3555,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 
-		remove_action( 'woocommerce_before_product_object_save', $throw );
+		remove_action( 'poocommerce_before_product_object_save', $throw );
 		remove_action( 'wp_abilities_api_init', $register, 20 );
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_ability_save_failed', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_save_failed', $response->get_data()['code'] );
 		$this->assertStringNotContainsString( 'Storage text.', wp_json_encode( $response->get_data() ) );
 		$this->assertSame( 'Pen', wc_get_product( $product->get_id() )->get_name() );
 	}
@@ -3573,7 +3573,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			array(
 				'label'               => 'Rename product',
 				'description'         => 'Renames a product.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'permission_callback' => '__return_true',
 			)
@@ -3613,7 +3613,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$throw = static function () {
 			throw new \RuntimeException( 'Storage text.' );
 		};
-		add_action( 'woocommerce_before_order_object_save', $throw );
+		add_action( 'poocommerce_before_order_object_save', $throw );
 
 		$response = $this->run_ability_response(
 			'test-ext/order-status',
@@ -3623,9 +3623,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 
-		remove_action( 'woocommerce_before_order_object_save', $throw );
+		remove_action( 'poocommerce_before_order_object_save', $throw );
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_ability_save_failed', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_save_failed', $response->get_data()['code'] );
 		$this->assertStringNotContainsString( 'Storage text.', wp_json_encode( $response->get_data() ) );
 		$this->assertSame( 'pending', wc_get_order( $order->get_id() )->get_status() );
 	}
@@ -3651,7 +3651,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					array(
 						'label'               => 'Rename product',
 						'description'         => 'Renames a product.',
-						'category'            => 'woocommerce',
+						'category'            => 'poocommerce',
 						'input_schema'        => array(
 							'type'   => 'object',
 							$keyword => array( $branch ),
@@ -3689,7 +3689,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should list the writable fields one time at the top level of the product input schemas, plus one time for the variations.
 	 */
 	public function test_input_schemas_list_writable_fields_one_time(): void {
-		foreach ( array( 'woocommerce/product-create', 'woocommerce/product-update' ) as $name ) {
+		foreach ( array( 'poocommerce/product-create', 'poocommerce/product-update' ) as $name ) {
 			$schema     = $this->get_ability( $name )['input_schema'];
 			$extensions = $schema['properties']['extensions']['properties'];
 
@@ -3699,9 +3699,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			$this->assertSame( 2, substr_count( wp_json_encode( $schema ), '"color"' ) );
 			$this->assertArrayNotHasKey( 'oneOf', $schema );
 		}
-		$order = $this->get_ability( 'woocommerce/order-update-status' )['input_schema'];
+		$order = $this->get_ability( 'poocommerce/order-update-status' )['input_schema'];
 		$this->assertSame( array( 'string', 'null' ), array_column( $order['properties']['extensions']['properties']['test-ext']['properties']['gift_message']['anyOf'], 'type' ) );
-		$delete = $this->get_ability( 'woocommerce/product-delete' )['input_schema'];
+		$delete = $this->get_ability( 'poocommerce/product-delete' )['input_schema'];
 		$this->assertArrayNotHasKey( 'extensions', $delete['properties'], 'A delete writes no extension fields.' );
 	}
 
@@ -3725,35 +3725,35 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			);
 		};
-		add_action( 'woocommerce_extensible_abilities_init', $register );
+		add_action( 'poocommerce_extensible_abilities_init', $register );
 		$simple  = \WC_Helper_Product::create_simple_product();
 		$grouped = \WC_Helper_Product::create_grouped_product();
 
 		try {
-			$schema   = $this->get_ability( 'woocommerce/product-create' )['input_schema'];
+			$schema   = $this->get_ability( 'poocommerce/product-create' )['input_schema'];
 			$rejected = $this->run_ability_response(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'         => $grouped->get_id(),
 					'extensions' => array( 'test-ext' => array( 'plan' => 'yearly' ) ),
 				)
 			);
 			$updated  = $this->run_ability(
-				'woocommerce/product-update',
+				'poocommerce/product-update',
 				array(
 					'id'         => $simple->get_id(),
 					'extensions' => array( 'test-ext' => array( 'plan' => 'yearly' ) ),
 				)
 			);
-			$read     = $this->run_ability( 'woocommerce/products-query', array( 'id' => $grouped->get_id() ) );
+			$read     = $this->run_ability( 'poocommerce/products-query', array( 'id' => $grouped->get_id() ) );
 		} finally {
-			remove_action( 'woocommerce_extensible_abilities_init', $register );
+			remove_action( 'poocommerce_extensible_abilities_init', $register );
 		}
 
 		$this->assertSame( 'Applies to: simple.', $schema['properties']['extensions']['properties']['test-ext']['properties']['plan']['description'] );
 		$this->assertArrayHasKey( 'plan', $schema['properties']['extensions']['properties']['test-ext']['properties'] );
 		$this->assertSame( 400, $rejected->get_status() );
-		$this->assertSame( 'test-ext:woocommerce_ability_field_object_type', $rejected->get_data()['code'] );
+		$this->assertSame( 'test-ext:poocommerce_ability_field_object_type', $rejected->get_data()['code'] );
 		$this->assertSame( 'The extensions.test-ext.plan field does not apply to the grouped type. It applies to simple.', $rejected->get_data()['message'] );
 		$this->assertSame( '', wc_get_product( $grouped->get_id() )->get_meta( '_test_plan' ) );
 		$this->assertSame( 'monthly', $updated['product']['extensions']['test-ext']['plan'] );
@@ -3766,7 +3766,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_variation_schemas_list_only_the_fields_that_apply_to_a_variation(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				$fields = array(
 					'simple_only'    => array( 'simple' ),
@@ -3802,8 +3802,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		$this->reset_registries();
 
-		$ability = $this->get_ability( 'woocommerce/product-create' );
-		$output  = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$ability = $this->get_ability( 'poocommerce/product-create' );
+		$output  = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$input_namespaces  = $ability['input_schema']['properties']['variations']['items']['properties']['extensions']['properties'];
 		$output_namespaces = $ability['output_schema']['properties']['variations']['items']['properties']['extensions']['properties'];
@@ -3825,7 +3825,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_refuses_a_variation_field_that_does_not_apply_to_a_variation(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -3847,13 +3847,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 		$input                                = $this->get_shirt_input();
 		$input['variations'][0]['extensions'] = array( 'typed-ext' => array( 'simple_only' => 'nope' ) );
-		$schema                               = $this->get_ability( 'woocommerce/product-create' )['input_schema'];
-		$refused                              = $this->run_ability_response( 'woocommerce/product-create', $input );
+		$schema                               = $this->get_ability( 'poocommerce/product-create' )['input_schema'];
+		$refused                              = $this->run_ability_response( 'poocommerce/product-create', $input );
 
 		$this->assertArrayNotHasKey( 'typed-ext', $schema['properties']['variations']['items']['properties']['extensions']['properties'] );
 		$this->assertFalse( $schema['properties']['variations']['items']['properties']['extensions']['additionalProperties'] );
 		$this->assertSame( 400, $refused->get_status() );
-		$this->assertSame( 'woocommerce_ability_invalid_fields', $refused->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_invalid_fields', $refused->get_data()['code'] );
 		$this->assertSame( 'variations[0]: The extension namespace "typed-ext" has no field "simple_only", and it has no fields you can write. Remove "typed-ext.simple_only" from the input.', $refused->get_data()['message'] );
 		$this->assertSame( 0, wc_get_product_id_by_sku( 'shirt-s' ) );
 	}
@@ -3863,7 +3863,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_a_variation_field_that_does_not_apply_lists_the_variation_fields(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				$fields = array(
 					'simple_only'    => 'simple',
@@ -3889,10 +3889,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 		$input                                = $this->get_shirt_input();
 		$input['variations'][1]['extensions'] = array( 'typed-ext' => array( 'simple_only' => 'nope' ) );
-		$refused                              = $this->run_ability_response( 'woocommerce/product-create', $input );
+		$refused                              = $this->run_ability_response( 'poocommerce/product-create', $input );
 
 		$this->assertSame( 400, $refused->get_status() );
-		$this->assertSame( 'woocommerce_ability_invalid_fields', $refused->get_data()['code'] );
+		$this->assertSame( 'poocommerce_ability_invalid_fields', $refused->get_data()['code'] );
 		$this->assertSame( 'variations[1]: The extension namespace "typed-ext" has no field "simple_only". The fields you can write in this namespace are: variation_only. Use one of them, or remove "typed-ext.simple_only" from the input.', $refused->get_data()['message'] );
 		$this->assertSame( 0, wc_get_product_id_by_sku( 'shirt-s' ) );
 	}
@@ -3909,14 +3909,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			static fn( array $types ): array => $types + array( 'test-variable' => 'Test variable' )
 		);
 		$this->add_test_action(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			static fn( array $stores ): array => $stores + array(
 				'product-test-variable'  => 'WC_Product_Variable_Data_Store_CPT',
 				'product-test_variation' => 'WC_Product_Variation_Data_Store_CPT',
 			)
 		);
 		$this->add_test_action(
-			'woocommerce_product_class',
+			'poocommerce_product_class',
 			static function ( $classname, $product_type, $post_type, $product_id ) {
 				if ( 'test-variable' === $product_type ) {
 					return TestVariableProduct::class;
@@ -3933,13 +3933,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			4
 		);
 		$this->add_test_action(
-			'woocommerce_ability_variation_product_type',
+			'poocommerce_ability_variation_product_type',
 			static fn( string $type, \WC_Product_Variable $parent_product ): string => 'test-variable' === $parent_product->get_type() ? 'test_variation' : $type,
 			10,
 			2
 		);
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -3972,7 +3972,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$variation->set_parent_id( $parent_product->get_id() );
 		$variation->save();
 
-		$read = $this->run_ability( 'woocommerce/products-query', array( 'id' => $variation->get_id() ) );
+		$read = $this->run_ability( 'poocommerce/products-query', array( 'id' => $variation->get_id() ) );
 
 		$this->assertInstanceOf( TestVariationProduct::class, wc_get_product( $variation->get_id() ) );
 		$this->assertSame( 'test_variation', $read['products'][0]['type'] );
@@ -3986,26 +3986,26 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 
 		$input         = $this->get_shirt_input();
 		$input['type'] = 'test-variable';
-		$created       = $this->run_ability( 'woocommerce/product-create', $input );
+		$created       = $this->run_ability( 'poocommerce/product-create', $input );
 		$simple        = \WC_Helper_Product::create_simple_product();
 
 		$out_of = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $created['product']['id'],
 				'type' => 'simple',
 			)
 		);
 		$into   = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $simple->get_id(),
 				'type' => 'test-variable',
 			)
 		);
 
-		$this->assertSame( 'woocommerce_product_type_unsupported', $out_of->get_data()['code'] );
-		$this->assertSame( 'woocommerce_product_type_unsupported', $into->get_data()['code'] );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $out_of->get_data()['code'] );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $into->get_data()['code'] );
 		$this->assertInstanceOf( TestVariableProduct::class, wc_get_product( $created['product']['id'] ) );
 		$this->assertCount( 2, wc_get_product( $created['product']['id'] )->get_children() );
 		$this->assertSame( 'simple', wc_get_product( $simple->get_id() )->get_type() );
@@ -4020,7 +4020,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			static fn( array $types ): array => $types + array( 'test-variable' => 'Test variable' )
 		);
 		$this->add_test_action(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			static fn( array $stores ): array => $stores + array( 'product-test-variable' => 'WC_Product_Variable_Data_Store_CPT' )
 		);
 		$unsaved_class = get_class(
@@ -4036,7 +4036,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$this->add_test_action(
-			'woocommerce_product_class',
+			'poocommerce_product_class',
 			static function ( $classname, $product_type, $post_type, $product_id ) use ( $unsaved_class ) {
 				if ( 'test-variable' !== $product_type ) {
 					return $classname;
@@ -4049,14 +4049,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$simple = \WC_Helper_Product::create_simple_product();
 
 		$refused = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $simple->get_id(),
 				'type' => 'test-variable',
 			)
 		);
 
-		$this->assertSame( 'woocommerce_product_type_unsupported', $refused->get_data()['code'] ?? null );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $refused->get_data()['code'] ?? null );
 		$this->assertSame( 'simple', wc_get_product( $simple->get_id() )->get_type() );
 	}
 
@@ -4070,7 +4070,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$input['type']                        = 'test-variable';
 		$input['attributes'][0]['options'][]  = 'L';
 		$input['variations'][0]['extensions'] = array( 'test-ext' => array( 'plan' => 'monthly' ) );
-		$created                              = $this->run_ability( 'woocommerce/product-create', $input );
+		$created                              = $this->run_ability( 'poocommerce/product-create', $input );
 		$new_item                             = array(
 			'attributes' => array(
 				array(
@@ -4081,7 +4081,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'extensions' => array( 'test-ext' => array( 'plan' => 'yearly' ) ),
 		);
 		$updated                              = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $created['product']['id'],
 				'variations' => array( $new_item ),
@@ -4108,10 +4108,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$input               = $this->get_shirt_input();
 		$input['type']       = 'test-variable';
 		$input['variations'] = array();
-		$parent_id           = $this->run_ability( 'woocommerce/product-create', $input )['product']['id'];
+		$parent_id           = $this->run_ability( 'poocommerce/product-create', $input )['product']['id'];
 
 		$created = $this->run_ability(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'type'       => 'variation',
 				'parent_id'  => $parent_id,
@@ -4135,17 +4135,17 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_plain_variable_product_builds_plain_variations(): void {
 		$this->register_variation_subclass();
 
-		$created = $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() );
+		$created = $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$input = $this->get_shirt_input();
 		unset( $input['sku'], $input['variations'][0]['sku'], $input['variations'][1]['sku'] );
 		$input['variations'][0]['extensions'] = array( 'test-ext' => array( 'plan' => 'monthly' ) );
-		$refused                              = $this->run_ability_response( 'woocommerce/product-create', $input );
+		$refused                              = $this->run_ability_response( 'poocommerce/product-create', $input );
 
 		$this->assertSame( 'variation', $created['variations'][0]['type'] );
 		$this->assertSame( \WC_Product_Variation::class, get_class( wc_get_product( $created['variations'][0]['id'] ) ) );
 		$this->assertSame( 400, $refused->get_status() );
-		$this->assertStringEndsWith( 'woocommerce_ability_field_object_type', $refused->get_data()['code'] );
+		$this->assertStringEndsWith( 'poocommerce_ability_field_object_type', $refused->get_data()['code'] );
 	}
 
 	/**
@@ -4163,8 +4163,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		}
 
 		return array(
-			'plain'    => $this->run_ability( 'woocommerce/product-create', $this->get_shirt_input() ),
-			'subclass' => $this->run_ability( 'woocommerce/product-create', $input ),
+			'plain'    => $this->run_ability( 'poocommerce/product-create', $this->get_shirt_input() ),
+			'subclass' => $this->run_ability( 'poocommerce/product-create', $input ),
 		);
 	}
 
@@ -4174,7 +4174,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_queries_variations_by_subclass_type(): void {
 		$created = $this->create_subclass_and_plain_products();
 
-		$found = $this->run_ability( 'woocommerce/products-query', array( 'type' => 'test_variation' ) )['products'];
+		$found = $this->run_ability( 'poocommerce/products-query', array( 'type' => 'test_variation' ) )['products'];
 
 		$this->assertEqualsCanonicalizing( array_column( $created['subclass']['variations'], 'id' ), array_column( $found, 'id' ) );
 		$this->assertSame( array( 'test_variation' ), array_values( array_unique( array_column( $found, 'type' ) ) ) );
@@ -4191,9 +4191,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'page'     => $page,
 		);
 
-		$first  = $this->run_ability( 'woocommerce/products-query', $query( 1 ) );
-		$second = $this->run_ability( 'woocommerce/products-query', $query( 2 ) );
-		$third  = $this->run_ability( 'woocommerce/products-query', $query( 3 ) );
+		$first  = $this->run_ability( 'poocommerce/products-query', $query( 1 ) );
+		$second = $this->run_ability( 'poocommerce/products-query', $query( 2 ) );
+		$third  = $this->run_ability( 'poocommerce/products-query', $query( 3 ) );
 
 		$this->assertSame( 2, $first['total_pages'] );
 		$this->assertCount( 1, $first['products'] );
@@ -4212,7 +4212,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$created = $this->create_subclass_and_plain_products();
 		$picked  = array( $created['subclass']['variations'][0]['id'], $created['plain']['variations'][0]['id'] );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $picked ) {
 				ExtensibleAbilities::register_query_filter(
 					array(
@@ -4228,21 +4228,21 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->reset_registries();
 
 		$own_parent   = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'type'      => 'test_variation',
 				'parent_id' => $created['subclass']['product']['id'],
 			)
 		);
 		$other_parent = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'type'      => 'test_variation',
 				'parent_id' => $created['plain']['product']['id'],
 			)
 		);
 		$filtered     = $this->run_ability(
-			'woocommerce/products-query',
+			'poocommerce/products-query',
 			array(
 				'type'    => 'test_variation',
 				'filters' => array( 'extensions' => array( 'test-ext' => array( 'picked' => true ) ) ),
@@ -4260,7 +4260,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_variation_type_query_returns_every_variation(): void {
 		$created = $this->create_subclass_and_plain_products();
 
-		$found = $this->run_ability( 'woocommerce/products-query', array( 'type' => 'variation' ) )['products'];
+		$found = $this->run_ability( 'poocommerce/products-query', array( 'type' => 'variation' ) )['products'];
 
 		$this->assertEqualsCanonicalizing(
 			array_merge( array_column( $created['subclass']['variations'], 'id' ), array_column( $created['plain']['variations'], 'id' ) ),
@@ -4273,11 +4273,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox Should refuse a query type that no registered variable type builds.
 	 */
 	public function test_refuses_a_query_type_that_is_not_listed(): void {
-		$unregistered = $this->run_ability_response( 'woocommerce/products-query', array( 'type' => 'test_variation' ) );
+		$unregistered = $this->run_ability_response( 'poocommerce/products-query', array( 'type' => 'test_variation' ) );
 
 		$this->register_variation_subclass();
 		$this->reset_registries();
-		$unknown = $this->run_ability_response( 'woocommerce/products-query', array( 'type' => 'other_variation' ) );
+		$unknown = $this->run_ability_response( 'poocommerce/products-query', array( 'type' => 'other_variation' ) );
 
 		$this->assertSame( 400, $unregistered->get_status() );
 		$this->assertSame( 400, $unknown->get_status() );
@@ -4288,27 +4288,27 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_lists_a_variation_subclass_type_on_the_query_input_only(): void {
 		$type_list = fn( string $name ): array => $this->get_ability( $name )['input_schema']['properties']['type']['enum'];
-		$create    = $type_list( 'woocommerce/product-create' );
-		$update    = $type_list( 'woocommerce/product-update' );
+		$create    = $type_list( 'poocommerce/product-create' );
+		$update    = $type_list( 'poocommerce/product-update' );
 
 		$this->register_variation_subclass();
 		$this->reset_registries();
 
-		$this->assertContains( 'test_variation', $type_list( 'woocommerce/products-query' ) );
-		$this->assertSame( $create, array_values( array_diff( $type_list( 'woocommerce/product-create' ), array( 'test-variable' ) ) ) );
-		$this->assertSame( $update, array_values( array_diff( $type_list( 'woocommerce/product-update' ), array( 'test-variable' ) ) ) );
+		$this->assertContains( 'test_variation', $type_list( 'poocommerce/products-query' ) );
+		$this->assertSame( $create, array_values( array_diff( $type_list( 'poocommerce/product-create' ), array( 'test-variable' ) ) ) );
+		$this->assertSame( $update, array_values( array_diff( $type_list( 'poocommerce/product-update' ), array( 'test-variable' ) ) ) );
 	}
 
 	/**
 	 * @testdox Should refuse a variation type that does not build a variation.
 	 */
 	public function test_refuses_a_variation_type_that_is_not_a_variation(): void {
-		$this->add_test_action( 'woocommerce_ability_variation_product_type', static fn(): string => 'simple' );
+		$this->add_test_action( 'poocommerce_ability_variation_product_type', static fn(): string => 'simple' );
 
-		$refused = $this->run_ability_response( 'woocommerce/product-create', $this->get_shirt_input() );
+		$refused = $this->run_ability_response( 'poocommerce/product-create', $this->get_shirt_input() );
 
 		$this->assertSame( 400, $refused->get_status() );
-		$this->assertSame( 'woocommerce_invalid_product_type', $refused->get_data()['code'] );
+		$this->assertSame( 'poocommerce_invalid_product_type', $refused->get_data()['code'] );
 	}
 
 	/**
@@ -4316,7 +4316,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_update_writes_extension_fields_and_runs_validators(): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -4349,10 +4349,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$count = static function () use ( &$saves ) {
 			++$saves;
 		};
-		$this->add_test_action( 'woocommerce_update_order', $count );
+		$this->add_test_action( 'poocommerce_update_order', $count );
 
 		$output  = $this->run_ability(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'         => $order->get_id(),
 				'shipping'   => array( 'city' => 'Lisbon' ),
@@ -4360,7 +4360,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$refused = $this->run_ability_response(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'         => $order->get_id(),
 				'shipping'   => array( 'city' => 'Closed' ),
@@ -4401,7 +4401,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$order->save();
 
 		$bad_country  = $this->run_ability_response(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'       => $order->get_id(),
 				'shipping' => array(
@@ -4413,7 +4413,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$bad_postcode = $this->run_ability_response(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'       => $order->get_id(),
 				'shipping' => array(
@@ -4441,7 +4441,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_update_uses_the_saving_totals_with_the_feature_off(): void {
 		$this->set_feature( false );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		\WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',
@@ -4468,9 +4468,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				'tax_ids'  => array_map( static fn( $tax ) => $tax->get_id(), array_values( $listened->get_taxes() ) ),
 			);
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $record, 10, 3 );
+		add_action( 'poocommerce_order_after_calculate_totals', $record, 10, 3 );
 
-		$result = wp_get_ability( 'woocommerce/order-update' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-update' )->execute(
 			array(
 				'id'         => $order->get_id(),
 				'line_items' => array(
@@ -4481,8 +4481,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				),
 			)
 		);
-		remove_action( 'woocommerce_order_after_calculate_totals', $record, 10 );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		remove_action( 'poocommerce_order_after_calculate_totals', $record, 10 );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		$this->assertNotWPError( $result );
 		$this->assertCount( 1, $calls );
@@ -4514,10 +4514,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$record      = static function ( $and_taxes, $order, $is_staged = false ) use ( &$staged ) {
 			$staged[] = $is_staged;
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $record, 10, 3 );
+		add_action( 'poocommerce_order_after_calculate_totals', $record, 10, 3 );
 
 		$refused = $this->run_ability_response(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'           => $order->get_id(),
 				'remove_items' => array( $shipping_id ),
@@ -4535,10 +4535,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$count = static function () use ( &$saves ) {
 			++$saves;
 		};
-		add_action( 'woocommerce_update_order', $count );
+		add_action( 'poocommerce_update_order', $count );
 
 		$output = $this->run_ability(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'             => $order->get_id(),
 				'shipping_lines' => array(
@@ -4550,8 +4550,8 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 
-		remove_action( 'woocommerce_update_order', $count );
-		remove_action( 'woocommerce_order_after_calculate_totals', $record, 10 );
+		remove_action( 'poocommerce_update_order', $count );
+		remove_action( 'poocommerce_order_after_calculate_totals', $record, 10 );
 		$this->assertSame( 1, $saves );
 		$this->assertSame( array( true ), $staged );
 		$this->assertSame( '25.00', wc_format_decimal( $output['order']['shipping_lines'][0]['total'], 2 ) );
@@ -4580,21 +4580,21 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$filter_class = static fn() => $order_class;
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$product      = \WC_Helper_Product::create_simple_product();
 		$count        = count( $order->get_items() );
 
 		$refused = $this->run_ability_response(
-			'woocommerce/order-update',
+			'poocommerce/order-update',
 			array(
 				'id'         => $order->get_id(),
 				'line_items' => array( array( 'product_id' => $product->get_id() ) ),
 			)
 		);
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->assertSame( 400, $refused->get_status() );
-		$this->assertSame( 'woocommerce_data_staging_unsupported', $refused->get_data()['code'] );
+		$this->assertSame( 'poocommerce_data_staging_unsupported', $refused->get_data()['code'] );
 		$this->assertStringContainsString( 'stage_product_item', $refused->get_data()['message'] );
 		$this->assertCount( $count, ( new \WC_Order( $order->get_id() ) )->get_items() );
 	}
@@ -4631,13 +4631,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$filter_class = static fn() => $order_class;
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$product      = \WC_Helper_Product::create_simple_product();
 		$count        = count( $order->get_items() );
 
 		try {
 			$refused = $this->run_ability_response(
-				'woocommerce/order-update',
+				'poocommerce/order-update',
 				array(
 					'id'         => $order->get_id(),
 					'line_items' => array(
@@ -4647,14 +4647,14 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				)
 			);
 			$updated = $this->run_ability(
-				'woocommerce/order-update',
+				'poocommerce/order-update',
 				array(
 					'id'         => $order->get_id(),
 					'line_items' => array( array( 'product_id' => $product->get_id() ) ),
 				)
 			);
 		} finally {
-			remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+			remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		}
 
 		$this->assertSame( 400, $refused->get_status() );
@@ -4677,17 +4677,17 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			throw new \Exception( 'Disk full.' );
 		};
 
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		try {
 			$refused = $this->run_ability_response(
-				'woocommerce/order-update',
+				'poocommerce/order-update',
 				array(
 					'id'         => $order->get_id(),
 					'line_items' => array( array( 'product_id' => $product->get_id() ) ),
 				)
 			);
 		} finally {
-			remove_action( 'woocommerce_before_order_object_save', $fail );
+			remove_action( 'poocommerce_before_order_object_save', $fail );
 		}
 
 		$this->assertGreaterThanOrEqual( 400, $refused->get_status() );
@@ -4701,23 +4701,23 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->set_feature( false );
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
-		$schema   = $this->get_ability( 'woocommerce/product-update' )['input_schema'];
+		$schema   = $this->get_ability( 'poocommerce/product-update' )['input_schema'];
 		$rejected = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'test-ext' => array( 'color' => 'red' ) ),
 			)
 		);
 		$output   = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
 			)
 		);
 
-		$this->assertInstanceOf( ActionableAbility::class, wp_get_ability( 'woocommerce/product-update' ) );
+		$this->assertInstanceOf( ActionableAbility::class, wp_get_ability( 'poocommerce/product-update' ) );
 		$this->assertArrayNotHasKey( 'extensions', $schema['properties'] ?? array() );
 		$this->assertSame( 400, $rejected->get_status() );
 		$this->assertSame( 'Pencil', $output['product']['name'] );
@@ -4731,7 +4731,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product();
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'extensions' => array( 'other_ext' => array( 'count' => -1 ) ),
@@ -4765,7 +4765,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				return null;
 			}
 		);
-		$changes = did_action( 'woocommerce_order_status_changed' );
+		$changes = did_action( 'poocommerce_order_status_changed' );
 
 		$response = $this->run_ability_response(
 			'test-ext/order-status',
@@ -4786,7 +4786,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->assertSame( 'test-ext:test_locked', $response->get_data()['code'] );
 		$this->assertSame( 'Use test-ext/order-unlock first.', $response->get_data()['message'] );
 		$this->assertSame( 'test-ext', $response->get_data()['data']['namespace'] );
-		$this->assertSame( 1, did_action( 'woocommerce_order_status_changed' ) - $changes );
+		$this->assertSame( 1, did_action( 'poocommerce_order_status_changed' ) - $changes );
 		$this->assertSame( 'on-hold', $allowed['status'] );
 		$this->assertSame( 'test-ext/order-status', $ability );
 	}
@@ -4810,11 +4810,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				return null;
 			}
 		);
-		$edits   = did_action( 'woocommerce_order_edit_status' );
-		$changes = did_action( 'woocommerce_order_status_changed' );
+		$edits   = did_action( 'poocommerce_order_edit_status' );
+		$changes = did_action( 'poocommerce_order_status_changed' );
 
 		$refused = $this->run_ability_response(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'         => $order->get_id(),
 				'status'     => 'completed',
@@ -4827,11 +4827,11 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$this->assertStringEndsWith( 'test_gift_not_sent', $refused->get_data()['code'] );
 		$this->assertSame( 'processing', $saved->get_status() );
 		$this->assertFalse( $saved->meta_exists( '_test_gift_message' ) );
-		$this->assertSame( 0, did_action( 'woocommerce_order_edit_status' ) - $edits );
-		$this->assertSame( 0, did_action( 'woocommerce_order_status_changed' ) - $changes );
+		$this->assertSame( 0, did_action( 'poocommerce_order_edit_status' ) - $edits );
+		$this->assertSame( 0, did_action( 'poocommerce_order_status_changed' ) - $changes );
 
 		$this->run_ability(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'         => $order->get_id(),
 				'status'     => 'completed',
@@ -4842,13 +4842,13 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$saved = wc_get_order( $order->get_id() );
 		$this->assertSame( 'completed', $saved->get_status() );
 		$this->assertSame( 'Thanks', $saved->get_meta( '_test_gift_message' ) );
-		$this->assertSame( 1, did_action( 'woocommerce_order_edit_status' ) - $edits );
-		$this->assertSame( 1, did_action( 'woocommerce_order_status_changed' ) - $changes );
+		$this->assertSame( 1, did_action( 'poocommerce_order_edit_status' ) - $edits );
+		$this->assertSame( 1, did_action( 'poocommerce_order_status_changed' ) - $changes );
 		$this->assertSame( array( array( 'completed', 'Hi' ), array( 'completed', 'Thanks' ) ), $seen );
 	}
 
 	/**
-	 * @testdox Should show the staged status and its completed date to an order validator, and fire woocommerce_order_edit_status before the write.
+	 * @testdox Should show the staged status and its completed date to an order validator, and fire poocommerce_order_edit_status before the write.
 	 */
 	public function test_an_order_validator_sees_the_dates_that_the_status_sets(): void {
 		$order = \WC_Helper_Order::create_order();
@@ -4865,17 +4865,17 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$listener = static function ( $order_id ) use ( &$events ) {
 			$events[] = wc_get_order( $order_id )->get_status();
 		};
-		add_action( 'woocommerce_order_edit_status', $listener );
+		add_action( 'poocommerce_order_edit_status', $listener );
 
 		$this->run_ability(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'completed',
 			)
 		);
 
-		remove_action( 'woocommerce_order_edit_status', $listener );
+		remove_action( 'poocommerce_order_edit_status', $listener );
 		$this->assertSame( array( array( 'completed', true ) ), $seen );
 		$this->assertSame( array( 'pending' ), $events );
 		$this->assertSame( 'completed', wc_get_order( $order->get_id() )->get_status() );
@@ -4889,18 +4889,18 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$filter_class = static function () use ( &$order_class ) {
 			return $order_class;
 		};
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$order = \WC_Helper_Order::create_order();
 
 		$refused     = $this->run_ability_response(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'on-hold',
 			)
 		);
 		$updated     = $this->run_ability(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'processing',
@@ -4924,19 +4924,19 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 		$child       = \WC_Helper_Order::create_order();
 		$again       = $this->run_ability_response(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $child->get_id(),
 				'status' => 'completed',
 			)
 		);
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->assertSame( 409, $refused->get_status() );
 		$this->assertSame( 'test_on_hold_refused', $refused->get_data()['code'] );
 		$this->assertSame( 'processing', $updated['order']['status'] );
 		$this->assertSame( 400, $again->get_status() );
-		$this->assertSame( 'woocommerce_data_staging_unsupported', $again->get_data()['code'] );
+		$this->assertSame( 'poocommerce_data_staging_unsupported', $again->get_data()['code'] );
 		$this->assertSame( 'processing', wc_get_order( $order->get_id() )->get_status() );
 		$this->assertSame( 'pending', wc_get_order( $child->get_id() )->get_status() );
 	}
@@ -4964,18 +4964,18 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$filter_class = static function () use ( $order_class ) {
 			return $order_class;
 		};
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$order = \WC_Helper_Order::create_order();
 
 		$updated = $this->run_ability(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'completed',
 			)
 		);
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->assertSame( 'completed', $updated['order']['status'] );
 		$saved = wc_get_order( $order->get_id() );
 		$this->assertSame( 'completed', $saved->get_status() );
@@ -5003,20 +5003,20 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$filter_class = static fn() => $order_class;
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$order        = \WC_Helper_Order::create_order();
 
 		$response = $this->run_ability_response(
-			'woocommerce/order-update-status',
+			'poocommerce/order-update-status',
 			array(
 				'id'     => $order->get_id(),
 				'status' => 'completed',
 			)
 		);
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_data_staging_unsupported', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_data_staging_unsupported', $response->get_data()['code'] );
 		$this->assertStringContainsString( TestUnstagedOrder::class, $response->get_data()['message'] );
 		$this->assertStringContainsString( 'stage_status()', $response->get_data()['message'] );
 		$this->assertSame( 'pending', wc_get_order( $order->get_id() )->get_status() );
@@ -5041,7 +5041,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			}
 		);
 		$filter_class = static fn() => $order_class;
-		add_filter( 'woocommerce_order_class', $filter_class, 100 );
+		add_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->register_order_status_ability( TestOrderStageAbility::class );
 		$this->reset_registries();
 		$order = \WC_Helper_Order::create_order();
@@ -5054,9 +5054,9 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 
-		remove_filter( 'woocommerce_order_class', $filter_class, 100 );
+		remove_filter( 'poocommerce_order_class', $filter_class, 100 );
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_data_staging_unsupported', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_data_staging_unsupported', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'stage_payment_complete()', $response->get_data()['message'] );
 		$this->assertSame( 'pending', wc_get_order( $order->get_id() )->get_status() );
 	}
@@ -5078,7 +5078,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -5114,7 +5114,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5150,7 +5150,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		}
 
 		$data = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5183,7 +5183,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		}
 
 		$data = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5216,12 +5216,12 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			'product',
 			'ns',
 			static function () {
-				return new \WP_Error( 'woocommerce_ability_extension_failed', 'Name refused.' );
+				return new \WP_Error( 'poocommerce_ability_extension_failed', 'Name refused.' );
 			}
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5230,10 +5230,10 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'ns:woocommerce_ability_extension_failed', $data['code'] );
+		$this->assertSame( 'ns:poocommerce_ability_extension_failed', $data['code'] );
 		$this->assertSame( 500, $data['data']['status'] );
 		$this->assertCount( 1, $data['additional_errors'] );
-		$this->assertSame( 'ns:woocommerce_ability_extension_failed:2', $data['additional_errors'][0]['code'] );
+		$this->assertSame( 'ns:poocommerce_ability_extension_failed:2', $data['additional_errors'][0]['code'] );
 		$this->assertSame( 'Name refused.', $data['additional_errors'][0]['message'] );
 		$this->assertSame( 400, $data['additional_errors'][0]['data']['status'] );
 		$this->assertSame( 'Pen', wc_get_product( $product->get_id() )->get_name() );
@@ -5262,7 +5262,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5271,7 +5271,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'first_ext:woocommerce_ability_extension_failed', $data['code'] );
+		$this->assertSame( 'first_ext:poocommerce_ability_extension_failed', $data['code'] );
 		$this->assertSame( 'first_ext', $data['data']['namespace'] );
 		$this->assertSame( 500, $data['data']['status'] );
 		$this->assertCount( 2, $data['additional_errors'] );
@@ -5320,7 +5320,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_a_callback_that_throws_returns_a_clear_error(): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -5349,7 +5349,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$field     = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -5357,7 +5357,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 		$validator = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Boom',
@@ -5365,7 +5365,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertSame( 500, $field->get_status() );
-		$this->assertSame( 'test-ext:woocommerce_ability_extension_failed', $field->get_data()['code'] );
+		$this->assertSame( 'test-ext:poocommerce_ability_extension_failed', $field->get_data()['code'] );
 		$this->assertSame( 'An extension failed while checking this change.', $field->get_data()['message'] );
 		$this->assertSame( 'extensions.test-ext.broken', $field->get_data()['data']['field'] );
 		$this->assertSame( 500, $validator->get_status() );
@@ -5380,7 +5380,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_field_and_validator_refusals_come_together(): void {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				foreach ( array( 'first', 'second' ) as $field ) {
 					ExtensibleAbilities::register_field(
@@ -5406,7 +5406,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'name'       => 'Pencil',
@@ -5436,7 +5436,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 		\WC_Helper_Product::create_simple_product( true, array( 'sku' => 'TAKEN' ) );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -5462,7 +5462,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'           => $product->get_id(),
 				'name'         => 'Pencil',
@@ -5475,7 +5475,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$data = $response->get_data();
 		$this->assertSame( 400, $response->get_status() );
 		$this->assertSame(
-			array( 'woocommerce_product_field_unsupported', 'product_invalid_sku', 'test-ext:test_bad_note', 'other_ext:test_refused' ),
+			array( 'poocommerce_product_field_unsupported', 'product_invalid_sku', 'test-ext:test_bad_note', 'other_ext:test_refused' ),
 			array_merge( array( $data['code'] ), array_column( $data['additional_errors'], 'code' ) ),
 			'Core refusals come first, then the field and validator refusals, in run order.'
 		);
@@ -5501,7 +5501,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$response = $this->run_ability_response(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5563,7 +5563,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 		$product = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Pen' ) );
 
 		$output = $this->run_ability(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'name' => 'Pencil',
@@ -5580,7 +5580,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	public function test_invalid_validators_are_refused(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_validator' );
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				$invalid = array(
 					array(
@@ -5610,7 +5610,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should refuse a validator that is registered after the woocommerce_extensible_abilities_init action.
+	 * @testdox Should refuse a validator that is registered after the poocommerce_extensible_abilities_init action.
 	 */
 	public function test_a_late_validator_is_refused(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_validator' );
@@ -5679,7 +5679,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Register a validator inside woocommerce_extensible_abilities_init, the way an extension does.
+	 * Register a validator inside poocommerce_extensible_abilities_init, the way an extension does.
 	 *
 	 * @param string   $resource_name       Resource.
 	 * @param string   $extension_namespace Extension namespace.
@@ -5687,7 +5687,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	private function register_validator( string $resource_name, string $extension_namespace, callable $callback ): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $resource_name, $extension_namespace, $callback ) {
 				ExtensibleAbilities::register_validator(
 					array(
@@ -5701,7 +5701,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Register a sync inside woocommerce_extensible_abilities_init, the way an extension does.
+	 * Register a sync inside poocommerce_extensible_abilities_init, the way an extension does.
 	 *
 	 * @param string   $resource_name       Resource.
 	 * @param string   $extension_namespace Extension namespace.
@@ -5709,7 +5709,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 */
 	private function register_sync( string $resource_name, string $extension_namespace, callable $callback ): void {
 		$this->add_test_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () use ( $resource_name, $extension_namespace, $callback ) {
 				ExtensibleAbilities::register_sync(
 					array(
@@ -5736,7 +5736,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					array(
 						'label'               => 'Change order status',
 						'description'         => 'Changes an order status.',
-						'category'            => 'woocommerce',
+						'category'            => 'poocommerce',
 						'input_schema'        => array(
 							'type'                 => 'object',
 							'properties'           => array(
@@ -5768,7 +5768,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 					array(
 						'label'               => 'Rename product',
 						'description'         => 'Renames a product.',
-						'category'            => 'woocommerce',
+						'category'            => 'poocommerce',
 						'input_schema'        => array(
 							'type'                 => 'object',
 							'properties'           => array(
@@ -5853,7 +5853,7 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 	 * @param bool $enabled Whether the feature is on.
 	 */
 	private function set_feature( bool $enabled ): void {
-		update_option( 'woocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', $enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', $enabled ? 'yes' : 'no' );
 	}
 
 	/**
@@ -5879,6 +5879,6 @@ class ExtensibleAbilitiesTest extends \WC_REST_Unit_Test_Case {
 				$instance->setValue( null, null );
 			}
 		}
-		unset( $wp_actions['wp_abilities_api_init'], $wp_actions['wp_abilities_api_categories_init'], $wp_actions['woocommerce_extensible_abilities_resources_init'], $wp_actions['woocommerce_extensible_abilities_init'] );
+		unset( $wp_actions['wp_abilities_api_init'], $wp_actions['wp_abilities_api_categories_init'], $wp_actions['poocommerce_extensible_abilities_resources_init'], $wp_actions['poocommerce_extensible_abilities_init'] );
 	}
 }

@@ -3,9 +3,9 @@
  */
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useSettings } from '@woocommerce/data';
+import { useSettings } from '@poocommerce/data';
 import { useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -13,24 +13,24 @@ import { recordEvent } from '@woocommerce/tracks';
 import Settings from '../index';
 import { config } from '../config';
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useSettings: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
 // Load only the real component modules used by Analytics Settings. Importing
 // the package barrel eagerly loads unrelated search code whose linked
 // dependency is not collectable in this package's Jest runtime.
-jest.mock( '@woocommerce/components', () => ( {
+jest.mock( '@poocommerce/components', () => ( {
 	DateRangeFilterPicker: jest.requireActual(
-		'@woocommerce/components/date-range-filter-picker'
+		'@poocommerce/components/date-range-filter-picker'
 	).default,
-	ScrollTo: jest.requireActual( '@woocommerce/components/scroll-to' ).default,
+	ScrollTo: jest.requireActual( '@poocommerce/components/scroll-to' ).default,
 	SectionHeader: jest.requireActual(
-		'@woocommerce/components/section-header'
+		'@poocommerce/components/section-header'
 	).default,
 } ) );
 
@@ -57,15 +57,15 @@ describe( 'Analytics settings - date type', () => {
 	const mockUpdateAndPersistSettings = jest.fn();
 	const mockUpdateSettings = jest.fn();
 	const initialSettings = {
-		woocommerce_excluded_report_order_statuses: [
+		poocommerce_excluded_report_order_statuses: [
 			'pending',
 			'cancelled',
 			'failed',
 		],
-		woocommerce_actionable_order_statuses: [ 'processing', 'on-hold' ],
-		woocommerce_default_date_range: 'period=month&compare=previous_year',
-		woocommerce_date_type: 'date_completed',
-		woocommerce_analytics_scheduled_import: 'yes',
+		poocommerce_actionable_order_statuses: [ 'processing', 'on-hold' ],
+		poocommerce_default_date_range: 'period=month&compare=previous_year',
+		poocommerce_date_type: 'date_completed',
+		poocommerce_analytics_scheduled_import: 'yes',
 	};
 	let currentSettings;
 	let setHarnessSettings;
@@ -111,7 +111,7 @@ describe( 'Analytics settings - date type', () => {
 	} );
 
 	it( 'defines date_paid as the default value, matching reports behavior', () => {
-		expect( config.woocommerce_date_type.defaultValue ).toBe( 'date_paid' );
+		expect( config.poocommerce_date_type.defaultValue ).toBe( 'date_paid' );
 	} );
 
 	it( 'renders the date type selector with the saved value', () => {
@@ -134,7 +134,7 @@ describe( 'Analytics settings - date type', () => {
 		expect( mockUpdateAndPersistSettings ).toHaveBeenCalledWith(
 			'wcAdminSettings',
 			expect.objectContaining( {
-				woocommerce_date_type: 'date_paid',
+				poocommerce_date_type: 'date_paid',
 			} )
 		);
 	} );
@@ -174,21 +174,21 @@ describe( 'Analytics settings - date type', () => {
 
 		const expectedSettings = {
 			...initialSettings,
-			woocommerce_excluded_report_order_statuses: [
+			poocommerce_excluded_report_order_statuses: [
 				'pending',
 				'cancelled',
 				'failed',
 				'on-hold',
 			],
-			woocommerce_actionable_order_statuses: [
+			poocommerce_actionable_order_statuses: [
 				'processing',
 				'on-hold',
 				'pending',
 				'failed',
 			],
-			woocommerce_default_date_range:
+			poocommerce_default_date_range:
 				'period=month&compare=previous_year',
-			woocommerce_date_type: 'date_created',
+			poocommerce_date_type: 'date_created',
 		};
 
 		expect( mockUpdateSettings ).toHaveBeenNthCalledWith(
@@ -196,7 +196,7 @@ describe( 'Analytics settings - date type', () => {
 			'wcAdminSettings',
 			{
 				...initialSettings,
-				woocommerce_excluded_report_order_statuses: [
+				poocommerce_excluded_report_order_statuses: [
 					'pending',
 					'cancelled',
 					'failed',
@@ -209,13 +209,13 @@ describe( 'Analytics settings - date type', () => {
 			'wcAdminSettings',
 			{
 				...initialSettings,
-				woocommerce_excluded_report_order_statuses: [
+				poocommerce_excluded_report_order_statuses: [
 					'pending',
 					'cancelled',
 					'failed',
 					'on-hold',
 				],
-				woocommerce_actionable_order_statuses: [
+				poocommerce_actionable_order_statuses: [
 					'processing',
 					'on-hold',
 					'pending',
@@ -227,7 +227,7 @@ describe( 'Analytics settings - date type', () => {
 			'wcAdminSettings',
 			{
 				...expectedSettings,
-				woocommerce_date_type: 'date_completed',
+				poocommerce_date_type: 'date_completed',
 			}
 		);
 		expect( mockUpdateSettings ).toHaveBeenNthCalledWith(
@@ -271,16 +271,16 @@ describe( 'Analytics settings - date type', () => {
 		// cannot catch a changed default. The key comparison below keeps this
 		// honest if a setting is ever added to the page.
 		const defaultSettings = {
-			woocommerce_excluded_report_order_statuses: [
+			poocommerce_excluded_report_order_statuses: [
 				'pending',
 				'cancelled',
 				'failed',
 			],
-			woocommerce_actionable_order_statuses: [ 'processing', 'on-hold' ],
-			woocommerce_default_date_range:
+			poocommerce_actionable_order_statuses: [ 'processing', 'on-hold' ],
+			poocommerce_default_date_range:
 				'period=month&compare=previous_year',
-			woocommerce_date_type: 'date_paid',
-			woocommerce_analytics_scheduled_import: 'yes',
+			poocommerce_date_type: 'date_paid',
+			poocommerce_analytics_scheduled_import: 'yes',
 		};
 		expect( Object.keys( config ) ).toEqual(
 			Object.keys( defaultSettings )

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Custom Product Type
+ * Plugin Name: PooCommerce Blocks Test Custom Product Type
  * Description: Registers a custom product type.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-custom-product-type
+ * @package poocommerce-blocks-test-custom-product-type
  */
 
 // phpcs:disable Squiz.Commenting.ClassComment.Missing
@@ -25,7 +25,7 @@ add_action(
 );
 
 add_filter(
-	'woocommerce_product_class',
+	'poocommerce_product_class',
 	function ( $classname, $product_type ) {
 		if ( 'custom' === $product_type ) {
 			return WC_Product_Custom::class;
@@ -37,12 +37,12 @@ add_filter(
 );
 
 add_action(
-	'woocommerce_custom_add_to_cart',
+	'poocommerce_custom_add_to_cart',
 	function () {
 		global $product;
 
 		echo '<form class="cart" action="' . esc_url( $product->get_permalink() ) . '" method="post" enctype="multipart/form-data">';
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				'min_value'   => 1,
 				'max_value'   => 10,

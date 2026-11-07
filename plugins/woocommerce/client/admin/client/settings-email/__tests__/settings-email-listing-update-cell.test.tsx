@@ -13,7 +13,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import type { EmailType } from '../settings-email-listing-slotfill';
 import { UpdatesCell } from '../settings-email-listing-update-cell';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.test/wp-admin/${ path }`,
 } ) );
 

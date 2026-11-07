@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Session\SessionDataWriter;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\Internal\Session\SessionDataWriter;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use WC_Session;
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +46,7 @@ final class SessionHandler extends WC_Session {
 	 */
 	public function __construct() {
 		$this->token = CartTokenUtils::get_request_cart_token();
-		$this->table = $GLOBALS['wpdb']->prefix . 'woocommerce_sessions';
+		$this->table = $GLOBALS['wpdb']->prefix . 'poocommerce_sessions';
 	}
 
 	/**

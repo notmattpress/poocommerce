@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
 
 use stdClass;
 
@@ -9,7 +9,7 @@ use stdClass;
  *
  * Interface TransformerInterface
  *
- * @package Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
+ * @package Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
  */
 interface TransformerInterface {
 	/**

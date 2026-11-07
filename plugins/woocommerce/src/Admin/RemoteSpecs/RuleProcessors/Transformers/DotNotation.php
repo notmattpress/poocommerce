@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
 use InvalidArgumentException;
 use stdClass;
 
 /**
  * Find an array value by dot notation.
  *
- * @package Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
+ * @package Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
  */
 class DotNotation implements TransformerInterface {
 

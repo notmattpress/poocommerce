@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Tax;
+namespace Automattic\PooCommerce\Tests\Internal\Tax;
 
-use Automattic\WooCommerce\Internal\Tax\ShopBaseTaxEstimateNotice;
+use Automattic\PooCommerce\Internal\Tax\ShopBaseTaxEstimateNotice;
 use WC_Tax;
 use WC_Unit_Test_Case;
 
@@ -26,12 +26,12 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->sut = new ShopBaseTaxEstimateNotice();
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_store_postcode', '94110' );
-		update_option( 'woocommerce_store_city', 'San Francisco' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_postcode', '94110' );
+		update_option( 'poocommerce_store_city', 'San Francisco' );
 		delete_option( 'wc_connect_taxes_enabled' );
 	}
 
@@ -75,7 +75,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox Shows nothing when taxes are disabled.
 	 */
 	public function test_hidden_when_taxes_disabled(): void {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		$this->assertSame(
 			array(
@@ -106,10 +106,10 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_can_force_the_estimate_on(): void {
 		update_option( 'wc_connect_taxes_enabled', 'yes' );
-		add_filter( 'woocommerce_show_shop_base_tax_estimate', '__return_true' );
+		add_filter( 'poocommerce_show_shop_base_tax_estimate', '__return_true' );
 
 		$notice = $this->sut->get_notice();
-		remove_filter( 'woocommerce_show_shop_base_tax_estimate', '__return_true' );
+		remove_filter( 'poocommerce_show_shop_base_tax_estimate', '__return_true' );
 
 		$this->assertNotSame( '', $notice['estimate'] );
 	}
@@ -118,7 +118,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox Explains that no tax is shown when there is no default customer location.
 	 */
 	public function test_no_location_message(): void {
-		update_option( 'woocommerce_default_customer_address', '' );
+		update_option( 'poocommerce_default_customer_address', '' );
 
 		$notice = $this->sut->get_notice();
 
@@ -130,7 +130,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox Explains that the estimate comes from the detected location when geolocating.
 	 */
 	public function test_geolocation_message(): void {
-		update_option( 'woocommerce_default_customer_address', 'geolocation' );
+		update_option( 'poocommerce_default_customer_address', 'geolocation' );
 
 		$notice = $this->sut->get_notice();
 
@@ -142,8 +142,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox In shop-base tax mode the base-address message wins even with no default customer location.
 	 */
 	public function test_shop_base_tax_mode_overrides_no_location(): void {
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_default_customer_address', '' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_default_customer_address', '' );
 		$this->add_standard_rate();
 
 		$notice = $this->sut->get_notice();
@@ -156,8 +156,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox In shop-base tax mode the base-address message wins even when geolocating.
 	 */
 	public function test_shop_base_tax_mode_overrides_geolocation(): void {
-		update_option( 'woocommerce_tax_based_on', 'base' );
-		update_option( 'woocommerce_default_customer_address', 'geolocation' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_default_customer_address', 'geolocation' );
 		$this->add_standard_rate();
 
 		$notice = $this->sut->get_notice();
@@ -185,7 +185,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox Says all orders are taxed at the base and omits the change hint in shop-base tax mode.
 	 */
 	public function test_shop_base_tax_mode_message(): void {
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 		$this->add_standard_rate();
 
 		$notice = $this->sut->get_notice();
@@ -198,8 +198,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox Shows a country-and-state lead when the store has no postcode or city.
 	 */
 	public function test_empty_store_address_shows_country_and_state_lead(): void {
-		update_option( 'woocommerce_store_postcode', '' );
-		update_option( 'woocommerce_store_city', '' );
+		update_option( 'poocommerce_store_postcode', '' );
+		update_option( 'poocommerce_store_city', '' );
 		$this->add_standard_rate();
 
 		$notice = $this->sut->get_notice();
@@ -212,7 +212,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 * @testdox The no-rate warning drops the un-addressed qualifier in shop-base tax mode.
 	 */
 	public function test_shop_base_tax_mode_no_rate_warning(): void {
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		$notice = $this->sut->get_notice();
 
@@ -258,8 +258,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 */
 	public function test_warns_when_scoped_rates_but_no_store_address(): void {
 		$this->add_standard_rate( array(), array( '94110' ) );
-		update_option( 'woocommerce_store_postcode', '' );
-		update_option( 'woocommerce_store_city', '' );
+		update_option( 'poocommerce_store_postcode', '' );
+		update_option( 'poocommerce_store_city', '' );
 
 		$notice = $this->sut->get_notice();
 
@@ -275,8 +275,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 	 */
 	public function test_separator_only_postcode_is_not_an_address( string $stored ): void {
 		$this->add_standard_rate( array(), array( '94110' ) );
-		update_option( 'woocommerce_store_postcode', $stored );
-		update_option( 'woocommerce_store_city', '' );
+		update_option( 'poocommerce_store_postcode', $stored );
+		update_option( 'poocommerce_store_city', '' );
 
 		$notice = $this->sut->get_notice();
 
@@ -291,7 +291,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 		$break_rates = function () {
 			return null;
 		};
-		add_filter( 'woocommerce_matched_rates', $break_rates );
+		add_filter( 'poocommerce_matched_rates', $break_rates );
 
 		try {
 			$notice = $this->sut->get_notice();
@@ -299,7 +299,7 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'your store base address', $notice['estimate'] );
 			$this->assertStringContainsString( 'Standard rate: &ndash;', $notice['estimate'] );
 		} finally {
-			remove_filter( 'woocommerce_matched_rates', $break_rates );
+			remove_filter( 'poocommerce_matched_rates', $break_rates );
 		}
 	}
 
@@ -342,8 +342,8 @@ class ShopBaseTaxEstimateNoticeTest extends WC_Unit_Test_Case {
 			),
 			array( '94110' )
 		);
-		update_option( 'woocommerce_store_postcode', '' );
-		update_option( 'woocommerce_store_city', '' );
+		update_option( 'poocommerce_store_postcode', '' );
+		update_option( 'poocommerce_store_city', '' );
 
 		$notice = $this->sut->get_notice();
 

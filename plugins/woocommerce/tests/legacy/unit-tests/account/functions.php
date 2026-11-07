@@ -2,7 +2,7 @@
 /**
  * Account function tests
  *
- * @package WooCommerce\Tests\Account
+ * @package PooCommerce\Tests\Account
  */
 
 /**
@@ -31,7 +31,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 		// Create the account page, since other tests may delete it.
 		$page = wc_create_page(
 			'myaccount',
-			'woocommerce_myaccount_page_id',
+			'poocommerce_myaccount_page_id',
 			'My Account',
 			'',
 			'',
@@ -90,7 +90,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 	 * @since 3.3.0
 	 */
 	public function test_wc_get_account_menu_item_classes() {
-		$this->assertEquals( 'woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--test', wc_get_account_menu_item_classes( 'test' ) );
+		$this->assertEquals( 'poocommerce-MyAccount-navigation-link poocommerce-MyAccount-navigation-link--test', wc_get_account_menu_item_classes( 'test' ) );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 
 		// Add malformed entries via the filter.
 		add_filter(
-			'woocommerce_my_account_my_orders_actions',
+			'poocommerce_my_account_my_orders_actions',
 			static function ( $actions ) {
 				$actions['invalid_bool']    = false;
 				$actions['invalid_string']  = 'not-an-array';
@@ -255,7 +255,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 		$order = WC_Helper_Order::create_order();
 
 		add_filter(
-			'woocommerce_my_account_my_orders_actions',
+			'poocommerce_my_account_my_orders_actions',
 			'__return_false'
 		);
 
@@ -317,8 +317,8 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 	public function test_my_address_template_renders_each_saved_address_in_its_own_column() {
 		$customer = $this->create_customer_with_distinct_addresses( 'my-address-customer', 'my.address@example.com' );
 
-		update_option( 'woocommerce_ship_to_destination', 'shipping' );
-		update_option( 'woocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_ship_to_destination', 'shipping' );
+		update_option( 'poocommerce_ship_to_countries', '' );
 		wp_set_current_user( $customer->get_id() );
 
 		$html = wc_get_template_html( 'myaccount/my-address.php' );
@@ -386,7 +386,7 @@ class WC_Tests_Account_Functions extends WC_Unit_Test_Case {
 		$this->assertTrue( $loaded, 'The My Account addresses markup should be valid enough for DOM parsing.' );
 
 		$xpath = new DOMXPath( $document );
-		$nodes = $xpath->query( "//div[contains(concat(' ', normalize-space(@class), ' '), ' woocommerce-Address ')][.//h2[normalize-space(.)='{$address_title}']]/address" );
+		$nodes = $xpath->query( "//div[contains(concat(' ', normalize-space(@class), ' '), ' poocommerce-Address ')][.//h2[normalize-space(.)='{$address_title}']]/address" );
 
 		$this->assertSame( 1, $nodes->length, "The page should render one address under the {$address_title} heading." );
 

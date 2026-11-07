@@ -3,10 +3,10 @@
  * A utility class for Woo Update Manager plugin.
  *
  * @class WC_Woo_Update_Manager_Plugin
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,12 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Woo_Update_Manager_Plugin {
 	const WOO_UPDATE_MANAGER_PLUGIN_MAIN_FILE = 'woo-update-manager/woo-update-manager.php';
-	const WOO_UPDATE_MANAGER_DOWNLOAD_URL     = 'https://woocommerce.com/product-download/woo-update-manager';
+	const WOO_UPDATE_MANAGER_DOWNLOAD_URL     = 'https://poocommerce.com/product-download/woo-update-manager';
 	const WOO_UPDATE_MANAGER_SLUG             = 'woo-update-manager';
 
 	/**
-	 * Domains, and their subdomains, that WooCommerce.com treats as local.
-	 * Keep in sync with `Site_Reachability::host_reason()` in WooCommerce.com's in-app-purchase plugin.
+	 * Domains, and their subdomains, that PooCommerce.com treats as local.
+	 * Keep in sync with `Site_Reachability::host_reason()` in PooCommerce.com's in-app-purchase plugin.
 	 */
 	private const LOCAL_DOMAINS = array( 'localhost', 'local', 'test', 'lan', 'internal', 'invalid', 'example', 'home', 'localdomain', 'ddev.site', 'lndo.site' );
 
@@ -67,8 +67,8 @@ class WC_Woo_Update_Manager_Plugin {
 	}
 
 	/**
-	 * Whether the URL's host is one WooCommerce.com can't reach to push an install: private or reserved IPs,
-	 * single-label hosts and local development domains. Matches the check WooCommerce.com runs on its side.
+	 * Whether the URL's host is one PooCommerce.com can't reach to push an install: private or reserved IPs,
+	 * single-label hosts and local development domains. Matches the check PooCommerce.com runs on its side.
 	 *
 	 * @internal
 	 * @since 11.4.0
@@ -84,7 +84,7 @@ class WC_Woo_Update_Manager_Plugin {
 
 		if ( false !== filter_var( $host, FILTER_VALIDATE_IP ) ) {
 			// The PHP range flags miss 100.64.0.0/10 (carrier-grade NAT) and changed in PHP 8.2, so rare ranges can be
-			// classified differently than on WooCommerce.com. A mismatch only falls back to the one-click install.
+			// classified differently than on PooCommerce.com. A mismatch only falls back to the one-click install.
 			$long           = ip2long( $host );
 			$is_shared_ipv4 = false !== $long && $long >= ip2long( '100.64.0.0' ) && $long <= ip2long( '100.127.255.255' );
 
@@ -106,7 +106,7 @@ class WC_Woo_Update_Manager_Plugin {
 
 	/**
 	 * Whether the Update Manager has to be installed by hand: the home URL is local and the helper talks to production
-	 * WooCommerce.com. Pointing `woocommerce_helper_api_base` or `woo_com_base_url` at another host keeps the one-click install.
+	 * PooCommerce.com. Pointing `poocommerce_helper_api_base` or `woo_com_base_url` at another host keeps the one-click install.
 	 *
 	 * @internal
 	 * @since 11.4.0
@@ -117,8 +117,8 @@ class WC_Woo_Update_Manager_Plugin {
 			return false;
 		}
 
-		foreach ( array( WC_Helper_API::$api_base, WC_Helper::get_woocommerce_com_base_url() ) as $url ) {
-			if ( 'woocommerce.com' !== strtolower( (string) wp_parse_url( (string) $url, PHP_URL_HOST ) ) ) {
+		foreach ( array( WC_Helper_API::$api_base, WC_Helper::get_poocommerce_com_base_url() ) as $url ) {
+			if ( 'poocommerce.com' !== strtolower( (string) wp_parse_url( (string) $url, PHP_URL_HOST ) ) ) {
 				return false;
 			}
 		}

@@ -6,21 +6,21 @@ import { createElement } from '@wordpress/element';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const WC_HEADER_NAVIGATION_SLOT_NAME =
-	'woocommerce_header_navigation_item';
+	'poocommerce_header_navigation_item';
 
 type WooHeaderNavigationItemProps = {
 	order?: number;
 } & Omit< React.ComponentProps< typeof Fill >, 'name' >;
 
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin
+ * Create a Fill for extensions to add items to the PooCommerce Admin
  * navigation area left of the page title.
  *
  * @slotFill WooHeaderNavigationItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyNavigationItem = () => (
  * <WooHeaderNavigationItem>My nav item</WooHeaderNavigationItem>
@@ -28,7 +28,7 @@ type WooHeaderNavigationItemProps = {
  *
  * registerPlugin( 'my-extension', {
  * render: MyNavigationItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

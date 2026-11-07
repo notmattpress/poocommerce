@@ -6,7 +6,7 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Report Top Sellers controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Report_Sales_V1_Controller
  */
 class WC_REST_Report_Top_Sellers_V1_Controller extends WC_REST_Report_Sales_V1_Controller {
@@ -134,7 +134,7 @@ class WC_REST_Report_Top_Sellers_V1_Controller extends WC_REST_Report_Sales_V1_C
 		 * @param stdClass         $top_seller The original report object.
 		 * @param WP_REST_Request  $request    Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_top_sellers', $response, $top_seller, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_top_sellers', $response, $top_seller, $request );
 	}
 
 	/**
@@ -149,19 +149,19 @@ class WC_REST_Report_Top_Sellers_V1_Controller extends WC_REST_Report_Sales_V1_C
 			'type'       => 'object',
 			'properties' => array(
 				'name' => array(
-					'description' => __( 'Product name.', 'woocommerce' ),
+					'description' => __( 'Product name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'product_id' => array(
-					'description' => __( 'Product ID.', 'woocommerce' ),
+					'description' => __( 'Product ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'quantity' => array(
-					'description' => __( 'Total number of purchases.', 'woocommerce' ),
+					'description' => __( 'Total number of purchases.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

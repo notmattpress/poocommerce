@@ -2,19 +2,19 @@
 /**
  * Unit tests for the PlanView DTO.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView
  */
 class PlanViewTest extends TestCase {
 

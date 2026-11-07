@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Admin_Dashboard file.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Admin_Report class.
@@ -25,7 +25,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 
 		// Mock http request to performance endpoint.
 		add_filter( 'rest_pre_dispatch', array( $this, 'mock_rest_responses' ), 10, 3 );
-		add_filter( 'woocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
+		add_filter( 'poocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		remove_filter( 'rest_pre_dispatch', array( $this, 'mock_rest_responses' ), 10 );
-		remove_filter( 'woocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
+		remove_filter( 'poocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
 	}
 
 	/**
@@ -107,8 +107,8 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 * Test: recent reviews widget content (legacy).
 	 */
 	public function test_recent_reviews_widget_content_legacy_version() {
-		add_filter( 'woocommerce_report_recent_reviews_query_from', $legacy_filter = fn( string $sql ) => $sql );
-		$this->expected_deprecated = array_merge( $this->expected_deprecated, array( 'woocommerce_report_recent_reviews_query_from' ) );
+		add_filter( 'poocommerce_report_recent_reviews_query_from', $legacy_filter = fn( string $sql ) => $sql );
+		$this->expected_deprecated = array_merge( $this->expected_deprecated, array( 'poocommerce_report_recent_reviews_query_from' ) );
 
 		$product     = WC_Helper_Product::create_simple_product();
 		$product_id  = $product->get_id();
@@ -125,7 +125,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 		$this->expectOutputRegex( '/reviewed by/' );
 
 		$product->delete();
-		remove_filter( 'woocommerce_report_recent_reviews_query_from', $legacy_filter );
+		remove_filter( 'poocommerce_report_recent_reviews_query_from', $legacy_filter );
 	}
 
 	/**
@@ -168,15 +168,15 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 */
 	public function provide_analytics_disabled_setups(): array {
 		return array(
-			'woocommerce_admin_disabled filter' => array(
+			'poocommerce_admin_disabled filter' => array(
 				function () {
-					add_filter( 'woocommerce_admin_disabled', '__return_true' );
+					add_filter( 'poocommerce_admin_disabled', '__return_true' );
 				},
 			),
 			'analytics feature turned off'      => array(
 				function () {
 					// A filter, not update_option(): saving the option makes Analytics redirect on the next settings save.
-					add_filter( 'pre_option_woocommerce_analytics_enabled', fn() => 'no' );
+					add_filter( 'pre_option_poocommerce_analytics_enabled', fn() => 'no' );
 				},
 			),
 		);

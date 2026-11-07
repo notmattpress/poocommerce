@@ -3,8 +3,8 @@
  */
 import { __, _x } from '@wordpress/i18n';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { ADMIN_URL } from '@woocommerce/settings';
-import { CHECKOUT_PAGE_ID } from '@woocommerce/block-settings';
+import { ADMIN_URL } from '@poocommerce/settings';
+import { CHECKOUT_PAGE_ID } from '@poocommerce/block-settings';
 import {
 	CheckboxControl,
 	SelectControl,
@@ -22,17 +22,17 @@ import { useSettingsContext } from './settings-context';
 
 const GeneralSettingsDescription = () => (
 	<>
-		<h2>{ _x( 'General', 'Admin settings', 'woocommerce' ) }</h2>
+		<h2>{ _x( 'General', 'Admin settings', 'poocommerce' ) }</h2>
 		<p>
 			{ __(
 				'Enable or disable local pickup on your store, and define costs. Local pickup is only available from the block checkout.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</p>
 		<ExternalLink
 			href={ `${ ADMIN_URL }post.php?post=${ CHECKOUT_PAGE_ID }&action=edit` }
 		>
-			{ __( 'View checkout page', 'woocommerce' ) }
+			{ __( 'View checkout page', 'poocommerce' ) }
 		</ExternalLink>
 	</>
 );
@@ -55,7 +55,7 @@ const GeneralSettings = () => {
 						{ createInterpolateElement(
 							__(
 								"By enabling Local Pickup with more valuable features for your store, it's recommended that you remove the legacy Local Pickup option from your <a>shipping zones</a>.",
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								a: (
@@ -72,20 +72,20 @@ const GeneralSettings = () => {
 					checked={ settings.enabled }
 					name="local_pickup_enabled"
 					onChange={ setSettingField( 'enabled' ) }
-					label={ __( 'Enable local pickup', 'woocommerce' ) }
+					label={ __( 'Enable local pickup', 'poocommerce' ) }
 					help={ __(
 						'When enabled, local pickup will appear as an option on the block based checkout.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<TextControl
-					label={ __( 'Title', 'woocommerce' ) }
+					label={ __( 'Title', 'poocommerce' ) }
 					name="local_pickup_title"
 					help={ __(
 						'This is the shipping method title shown to customers.',
-						'woocommerce'
+						'poocommerce'
 					) }
-					placeholder={ __( 'Pickup', 'woocommerce' ) }
+					placeholder={ __( 'Pickup', 'poocommerce' ) }
 					value={ settings.title }
 					onChange={ setSettingField( 'title' ) }
 					disabled={ false }
@@ -97,7 +97,7 @@ const GeneralSettings = () => {
 						event.target.setCustomValidity(
 							__(
 								'Local pickup title is required',
-								'woocommerce'
+								'poocommerce'
 							)
 						);
 					} }
@@ -115,23 +115,23 @@ const GeneralSettings = () => {
 					} }
 					label={ __(
 						'Add a price for customers who choose local pickup',
-						'woocommerce'
+						'poocommerce'
 					) }
 					help={ __(
 						'By default, the local pickup shipping method is free.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				{ showCosts ? (
 					<>
 						<TextControl
-							label={ __( 'Cost', 'woocommerce' ) }
+							label={ __( 'Cost', 'poocommerce' ) }
 							name="local_pickup_cost"
 							help={ __(
 								'Optional cost to charge for local pickup.',
-								'woocommerce'
+								'poocommerce'
 							) }
-							placeholder={ __( 'Free', 'woocommerce' ) }
+							placeholder={ __( 'Free', 'poocommerce' ) }
 							type="number"
 							pattern="[0-9]+\.?[0-9]*"
 							min={ 0 }
@@ -141,19 +141,19 @@ const GeneralSettings = () => {
 							autoComplete="off"
 						/>
 						<SelectControl
-							label={ __( 'Taxes', 'woocommerce' ) }
+							label={ __( 'Taxes', 'poocommerce' ) }
 							name="local_pickup_tax_status"
 							help={ __(
 								'If a cost is defined, this controls if taxes are applied to that cost.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							options={ [
 								{
-									label: __( 'Taxable', 'woocommerce' ),
+									label: __( 'Taxable', 'poocommerce' ),
 									value: 'taxable',
 								},
 								{
-									label: __( 'Not taxable', 'woocommerce' ),
+									label: __( 'Not taxable', 'poocommerce' ),
 									value: 'none',
 								},
 							] }

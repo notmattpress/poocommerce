@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/reviews-by-category",
+	"name": "poocommerce/reviews-by-category",
 	"title": "Reviews by Category",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Show product reviews from specific categories.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"interactivity": {

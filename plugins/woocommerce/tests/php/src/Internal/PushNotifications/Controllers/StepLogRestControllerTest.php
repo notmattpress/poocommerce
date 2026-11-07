@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\StepLogRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\StepLogQuery;
-use Automattic\WooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\StepLogRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\StepLogQuery;
+use Automattic\PooCommerce\Tests\Internal\PushNotifications\Helpers\PushNotificationsTestTrait;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -74,7 +74,7 @@ class StepLogRestControllerTest extends WC_Unit_Test_Case {
 		$result = $this->sut->authorize_as_from_wpcom( new WP_REST_Request( 'GET', '/wc-push-notifications/step-logs/tokens/1' ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $result->get_error_code() );
 	}
 
 	/**
@@ -84,13 +84,13 @@ class StepLogRestControllerTest extends WC_Unit_Test_Case {
 	 * @testdox Should still answer while push notifications are disabled.
 	 */
 	public function test_authorize_allows_reading_while_disabled(): void {
-		add_filter( 'pre_option_woocommerce_feature_push_notifications_enabled', fn() => 'no' );
+		add_filter( 'pre_option_poocommerce_feature_push_notifications_enabled', fn() => 'no' );
 
 		$server = $this->create_rest_server_with_routes( array( array( $this->sut, 'register_routes' ) ), true );
 
 		$this->assertContains( '/wc-push-notifications/step-logs/site', array_keys( $server->get_routes( 'wc-push-notifications' ) ) );
 
-		remove_filter( 'pre_option_woocommerce_feature_push_notifications_enabled', fn() => 'no' );
+		remove_filter( 'pre_option_poocommerce_feature_push_notifications_enabled', fn() => 'no' );
 	}
 
 	/**

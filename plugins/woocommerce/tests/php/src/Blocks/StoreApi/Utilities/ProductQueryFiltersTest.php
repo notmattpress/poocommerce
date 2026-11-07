@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQueryFilters;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQueryFilters;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Unit tests for the ProductQueryFilters class.
@@ -26,7 +26,7 @@ class ProductQueryFiltersTest extends \WC_Unit_Test_Case {
 		$fixtures = new FixtureData();
 
 		add_filter(
-			'woocommerce_product_stock_status_options',
+			'poocommerce_product_stock_status_options',
 			function ( $status ) {
 				$status['custom1'] = 'Custom status 1';
 				$status['custom2'] = 'Custom status 2';
@@ -119,7 +119,7 @@ class ProductQueryFiltersTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_empty_stock_status_options(): void {
 		global $wpdb;
-		add_filter( 'woocommerce_product_stock_status_options', '__return_empty_array', 20 );
+		add_filter( 'poocommerce_product_stock_status_options', '__return_empty_array', 20 );
 
 		$result = ( new ProductQueryFilters() )->get_stock_status_counts( new \WP_REST_Request( 'GET', '/wc/store/v1/products' ) );
 
@@ -160,7 +160,7 @@ class ProductQueryFiltersTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 
 		add_filter(
-			'woocommerce_product_stock_status_options',
+			'poocommerce_product_stock_status_options',
 			static function ( $statuses ) use ( $status ) {
 				$statuses[ $status ] = 'Custom stock status';
 				return $statuses;
@@ -206,7 +206,7 @@ class ProductQueryFiltersTest extends \WC_Unit_Test_Case {
 	 * @param string $expected_count Expected out-of-stock count.
 	 */
 	public function test_stock_counts_with_out_of_stock_visibility( string $hide_out_of_stock, string $expected_count ): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', $hide_out_of_stock );
+		update_option( 'poocommerce_hide_out_of_stock_items', $hide_out_of_stock );
 		( new FixtureData() )->get_simple_product(
 			array(
 				'name'          => 'Out of stock product',

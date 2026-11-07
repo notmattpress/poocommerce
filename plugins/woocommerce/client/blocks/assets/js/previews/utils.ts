@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SITE_CURRENCY } from '@woocommerce/settings';
+import { SITE_CURRENCY } from '@poocommerce/settings';
 
 /**
  * Put site currency back in API format for the responses.

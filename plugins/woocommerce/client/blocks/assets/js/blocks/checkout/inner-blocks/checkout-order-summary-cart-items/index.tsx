@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { cart } from '@woocommerce/icons';
+import { cart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 

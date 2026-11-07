@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListRenderer;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListRenderer;
 
 /**
  * Add to Wishlist Button block.
  *
  * Single-product trigger UI for the wishlist. Shipped as an inner block of
- * `woocommerce/add-to-cart-with-options` (ATCWO) via the per-product-type
+ * `poocommerce/add-to-cart-with-options` (ATCWO) via the per-product-type
  * template parts, so it always renders inside the form's iAPI scope and can
  * read its `selectedAttributes` context directly. The `ancestor` restriction
  * in `block.json` prevents merchants from inserting the block outside ATCWO
@@ -20,8 +20,8 @@ use Automattic\WooCommerce\Internal\ShopperLists\ShopperListRenderer;
  * Hidden for guests and gated by the `product_wishlist` feature flag. On
  * click, toggles the currently configured product (parent or selected
  * variation) in the shopper's wishlist via the shared
- * `woocommerce/shopper-lists` iAPI store. Errors are surfaced through the
- * page's existing `woocommerce/store-notices` region — no inline notices
+ * `poocommerce/shopper-lists` iAPI store. Errors are surfaced through the
+ * page's existing `poocommerce/store-notices` region — no inline notices
  * area of its own.
  */
 final class AddToWishlistButton extends AbstractBlock {
@@ -64,7 +64,7 @@ final class AddToWishlistButton extends AbstractBlock {
 
 		wp_enqueue_script_module( $this->get_full_block_name() );
 
-		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 		BlocksSharedState::load_store_config( $consent );
 
 		$items = $this->prefetch_items();
@@ -76,7 +76,7 @@ final class AddToWishlistButton extends AbstractBlock {
 		// deep-merge keeps the first writer's payload, so seeding identical
 		// values here is a no-op when Wishlist already ran.
 		wp_interactivity_state(
-			'woocommerce/shopper-lists',
+			'poocommerce/shopper-lists',
 			array(
 				'restUrl' => get_rest_url(),
 				'nonce'   => wp_create_nonce( 'wc_store_api' ),
@@ -94,7 +94,7 @@ final class AddToWishlistButton extends AbstractBlock {
 		// `state.isInWishlist`. PHP renders the matching one as the
 		// initial server-side label.
 		wp_interactivity_config(
-			'woocommerce/add-to-wishlist-button',
+			'poocommerce/add-to-wishlist-button',
 			array(
 				'addLabel'           => $this->get_add_label(),
 				'savedLabel'         => $this->get_saved_label(),
@@ -111,7 +111,7 @@ final class AddToWishlistButton extends AbstractBlock {
 
 		$wrapper_attributes = array(
 			'class'               => 'wc-block-add-to-wishlist-button',
-			'data-wp-interactive' => 'woocommerce/add-to-wishlist-button',
+			'data-wp-interactive' => 'poocommerce/add-to-wishlist-button',
 			'data-wp-context'     => (string) wp_json_encode(
 				array(
 					'productId'      => $product->get_id(),
@@ -226,14 +226,14 @@ final class AddToWishlistButton extends AbstractBlock {
 	 * Visible label when the product is not in the wishlist.
 	 */
 	private function get_add_label(): string {
-		return __( 'Add to wishlist', 'woocommerce' );
+		return __( 'Add to wishlist', 'poocommerce' );
 	}
 
 	/**
 	 * Visible label when the product is already in the wishlist.
 	 */
 	private function get_saved_label(): string {
-		return __( 'Saved to wishlist', 'woocommerce' );
+		return __( 'Saved to wishlist', 'poocommerce' );
 	}
 
 	/**
@@ -242,7 +242,7 @@ final class AddToWishlistButton extends AbstractBlock {
 	 * variation.
 	 */
 	private function get_select_options_label(): string {
-		return __( 'Select options first', 'woocommerce' );
+		return __( 'Select options first', 'poocommerce' );
 	}
 
 	/**

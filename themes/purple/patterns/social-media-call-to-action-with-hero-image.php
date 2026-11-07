@@ -22,7 +22,7 @@
 <p class="has-text-align-center" style="font-style:normal"><?php
 	printf(
 		/* translators: %1$s: opening anchor tag. %2$s: closing anchor tag. */
-		esc_html__( '%1$s@woocommerce%2$s', 'purple' ),
+		esc_html__( '%1$s@poocommerce%2$s', 'purple' ),
 		'<a href="#">',
 		'</a>'
 	);

@@ -2,10 +2,10 @@
 /**
  * Admin note test
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * Class WC_Admin_Tests_Notes_Note

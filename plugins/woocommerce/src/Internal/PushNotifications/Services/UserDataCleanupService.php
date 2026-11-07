@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
 
 /**
  * Deletes a user's push tokens and notification preferences when they are

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * ProductBrandTemplate class.
@@ -40,7 +40,7 @@ class ProductBrandTemplate extends AbstractTemplateWithFallback {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Products by Brand', 'Template name', 'woocommerce' );
+		return _x( 'Products by Brand', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class ProductBrandTemplate extends AbstractTemplateWithFallback {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays products filtered by a brand.', 'woocommerce' );
+		return __( 'Displays products filtered by a brand.', 'poocommerce' );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class ProductBrandTemplate extends AbstractTemplateWithFallback {
 		if ( ! is_embed() && is_product_taxonomy() && is_tax( 'product_brand' ) ) {
 			Package::container()->get( BlockTemplatesRegistry::class )->init_archive_compatibility();
 
-			add_filter( 'woocommerce_has_block_template', '__return_true', 10, 0 );
+			add_filter( 'poocommerce_has_block_template', '__return_true', 10, 0 );
 		}
 	}
 }

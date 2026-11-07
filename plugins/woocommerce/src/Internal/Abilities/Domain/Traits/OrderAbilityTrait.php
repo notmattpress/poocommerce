@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared order helpers for WooCommerce domain ability definitions.
+ * Shared order helpers for PooCommerce domain ability definitions.
  */
 trait OrderAbilityTrait {
 
@@ -136,7 +136,7 @@ trait OrderAbilityTrait {
 				),
 				'currency'             => array(
 					'type' => 'string',
-					'enum' => array_keys( get_woocommerce_currencies() ),
+					'enum' => array_keys( get_poocommerce_currencies() ),
 				),
 				'currency_symbol'      => array( 'type' => 'string' ),
 				'total'                => array( 'type' => 'string' ),
@@ -144,33 +144,33 @@ trait OrderAbilityTrait {
 				'billing_email'        => array(
 					'type'        => 'string',
 					'format'      => 'email',
-					'description' => __( 'Billing email. Omitted when no billing email is set.', 'woocommerce' ),
+					'description' => __( 'Billing email. Omitted when no billing email is set.', 'poocommerce' ),
 				),
 				'payment_method'       => array( 'type' => 'string' ),
 				'payment_method_title' => array( 'type' => 'string' ),
 				'date_created'         => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Order creation date in the store timezone. Omitted when no creation date is available.', 'woocommerce' ),
+					'description' => __( 'Order creation date in the store timezone. Omitted when no creation date is available.', 'poocommerce' ),
 				),
 				'date_created_gmt'     => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Order creation date in UTC. Omitted when no creation date is available.', 'woocommerce' ),
+					'description' => __( 'Order creation date in UTC. Omitted when no creation date is available.', 'poocommerce' ),
 				),
 				'date_modified'        => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Order modification date in the store timezone. Omitted when no modification date is available.', 'woocommerce' ),
+					'description' => __( 'Order modification date in the store timezone. Omitted when no modification date is available.', 'poocommerce' ),
 				),
 				'date_modified_gmt'    => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Order modification date in UTC. Omitted when no modification date is available.', 'woocommerce' ),
+					'description' => __( 'Order modification date in UTC. Omitted when no modification date is available.', 'poocommerce' ),
 				),
 				'line_items'           => array(
 					'type'        => 'array',
-					'description' => __( 'Order line items. Only present when include_line_items is true.', 'woocommerce' ),
+					'description' => __( 'Order line items. Only present when include_line_items is true.', 'poocommerce' ),
 					'items'       => ExtensibleAbilities::add_fields_schema(
 						array(
 							'type'                 => 'object',
@@ -190,13 +190,13 @@ trait OrderAbilityTrait {
 				),
 				'shipping'             => array(
 					'type'                 => 'object',
-					'description'          => __( 'Order shipping address. Countries use ISO 3166-1 alpha-2 codes, and states use WooCommerce state codes.', 'woocommerce' ),
+					'description'          => __( 'Order shipping address. Countries use ISO 3166-1 alpha-2 codes, and states use PooCommerce state codes.', 'poocommerce' ),
 					'properties'           => array_fill_keys( self::shipping_address_fields(), array( 'type' => 'string' ) ),
 					'additionalProperties' => false,
 				),
 				'shipping_lines'       => array(
 					'type'        => 'array',
-					'description' => __( 'Order shipping lines. Present together with line_items.', 'woocommerce' ),
+					'description' => __( 'Order shipping lines. Present together with line_items.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
@@ -225,8 +225,8 @@ trait OrderAbilityTrait {
 
 		if ( ! $order instanceof \WC_Order ) {
 			return new \WP_Error(
-				'woocommerce_order_not_found',
-				__( 'Order not found.', 'woocommerce' ),
+				'poocommerce_order_not_found',
+				__( 'Order not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -311,7 +311,7 @@ trait OrderAbilityTrait {
 	}
 
 	/**
-	 * The shipping address fields of the output. The woocommerce_get_order_address
+	 * The shipping address fields of the output. The poocommerce_get_order_address
 	 * filter can add other keys, and the closed output schema refuses them.
 	 *
 	 * @return string[]
@@ -335,7 +335,7 @@ trait OrderAbilityTrait {
 			'status'               => $order->get_status(),
 			'currency'             => $order->get_currency(),
 			'currency_symbol'      => html_entity_decode(
-				get_woocommerce_currency_symbol( $order->get_currency() ),
+				get_poocommerce_currency_symbol( $order->get_currency() ),
 				ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
 			),
 			'total'                => self::format_amount_for_response( $order->get_total() ),

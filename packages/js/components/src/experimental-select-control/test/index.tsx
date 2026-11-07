@@ -20,7 +20,7 @@ describe( 'SelectControl', () => {
 		// so, we just check if any suffix icon has been rendered
 		expect(
 			container.querySelector(
-				'.woocommerce-experimental-select-control__suffix-icon'
+				'.poocommerce-experimental-select-control__suffix-icon'
 			)
 		).toBeInTheDocument();
 	} );
@@ -50,7 +50,7 @@ describe( 'SelectControl', () => {
 
 		expect(
 			container.querySelector(
-				'.woocommerce-experimental-select-control__suffix'
+				'.poocommerce-experimental-select-control__suffix'
 			)
 		).not.toBeInTheDocument();
 	} );

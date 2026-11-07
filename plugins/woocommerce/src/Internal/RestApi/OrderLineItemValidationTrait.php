@@ -2,12 +2,12 @@
 /**
  * Order line item checks for REST write requests.
  *
- * @package WooCommerce\Internal\RestApi
+ * @package PooCommerce\Internal\RestApi
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi;
+namespace Automattic\PooCommerce\Internal\RestApi;
 
 /**
  * Line item checks shared by the order controllers.
@@ -84,6 +84,6 @@ trait OrderLineItemValidationTrait {
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST API JSON response, not HTML.
-		throw new \WC_REST_Exception( 'woocommerce_rest_invalid_product_id', __( 'Invalid product ID.', 'woocommerce' ), 400 );
+		throw new \WC_REST_Exception( 'poocommerce_rest_invalid_product_id', __( 'Invalid product ID.', 'poocommerce' ), 400 );
 	}
 }

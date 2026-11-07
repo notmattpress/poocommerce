@@ -7,7 +7,7 @@ import {
 	BlockData,
 	enableTestPlugin,
 	wpCLI,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import { REGULAR_PRICED_PRODUCT_NAME } from '../checkout/constants';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},
@@ -29,7 +29,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		try {
 			// iAPI Mini Cart.
 			const miniCartTitleBlock = page.locator(
-				'[data-block-name="woocommerce/mini-cart-title-block"]'
+				'[data-block-name="poocommerce/mini-cart-title-block"]'
 			);
 			await expect( miniCartTitleBlock ).toBeVisible( { timeout: 1000 } );
 			const titleText = await miniCartTitleBlock.innerText();
@@ -200,7 +200,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		frontendUtils,
 		miniCartUtils,
 	} ) => {
-		// The fixture plugin adds `woocommerce_get_item_data` entries to every
+		// The fixture plugin adds `poocommerce_get_item_data` entries to every
 		// cart item, so this test covers the whole wiring: the PHP filter, the
 		// Store API `item_data` field, and the Interactivity API render. How
 		// each entry is normalized is covered by the unit tests for
@@ -420,7 +420,7 @@ test.describe( `${ blockData.name } Block (admin)`, () => {
 
 		// Select the mini-cart block to get access to its parent (the header row).
 		const miniCartBlock = editor.canvas.locator(
-			'[data-type="woocommerce/mini-cart"]'
+			'[data-type="poocommerce/mini-cart"]'
 		);
 		await miniCartBlock.click();
 

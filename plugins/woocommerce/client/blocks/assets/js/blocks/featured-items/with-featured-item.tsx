@@ -9,10 +9,10 @@ import type {
 	SetStateAction,
 	CSSProperties,
 } from 'react';
-import { getSetting } from '@woocommerce/settings';
-import { ProductResponseItem } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { ProductResponseItem } from '@poocommerce/types';
 import { Icon, Placeholder, Spinner } from '@wordpress/components';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
 import clsx from 'clsx';
 import { useMergeRefs } from '@wordpress/compose';
 import {
@@ -79,7 +79,7 @@ export interface FeaturedItemRequiredAttributes {
 		isBackgroundVisible: boolean;
 		message?: string | null;
 	};
-	__woocommerceBlockVersion: number;
+	__poocommerceBlockVersion: number;
 }
 
 interface FeaturedCategoryRequiredAttributes extends FeaturedItemRequiredAttributes {
@@ -261,7 +261,7 @@ export const withFeaturedItem =
 					<p>
 						{ __(
 							'No product category is available.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				);

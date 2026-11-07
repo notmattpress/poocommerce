@@ -276,7 +276,7 @@ describe( 'client entry point', () => {
 	it( 'drops the events waiting for s.js when statistics consent is withdrawn before it loads', async () => {
 		window.wp_has_consent = () => true;
 		await loadPage();
-		window._wca = [ { _en: 'woocommerceanalytics_page_view' } ] as unknown as typeof window._wca;
+		window._wca = [ { _en: 'poocommerceanalytics_page_view' } ] as unknown as typeof window._wca;
 
 		changeConsent( 'deny' );
 

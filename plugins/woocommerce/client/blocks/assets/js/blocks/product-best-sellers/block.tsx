@@ -3,7 +3,7 @@
  */
 import { Disabled } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies

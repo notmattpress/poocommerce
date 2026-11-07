@@ -2,12 +2,12 @@
 /**
  * AbilityRegistrationRule class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Testing\Tools\phpstan;
+namespace Automattic\PooCommerce\Testing\Tools\phpstan;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
@@ -18,14 +18,14 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Reports a wp_register_ability() call outside AbilitiesLoader. The loader registers
- * every WooCommerce ability with Automattic\WooCommerce\Internal\Abilities\Ability or
+ * every PooCommerce ability with Automattic\PooCommerce\Internal\Abilities\Ability or
  * ActionableAbility, so it gets its input converted to the schema types.
  *
  * @implements Rule<FuncCall>
  */
 final class AbilityRegistrationRule implements Rule {
 
-	private const LOADER_CLASS = 'Automattic\\WooCommerce\\Internal\\Abilities\\AbilitiesLoader';
+	private const LOADER_CLASS = 'Automattic\\PooCommerce\\Internal\\Abilities\\AbilitiesLoader';
 
 	/**
 	 * Node type this rule checks.
@@ -54,8 +54,8 @@ final class AbilityRegistrationRule implements Rule {
 		}
 
 		return array(
-			RuleErrorBuilder::message( 'Register a WooCommerce ability through AbilitiesLoader, not with wp_register_ability(), so it uses the Ability class and gets its input converted to the schema types.' )
-				->identifier( 'woocommerce.abilityRegistration' )
+			RuleErrorBuilder::message( 'Register a PooCommerce ability through AbilitiesLoader, not with wp_register_ability(), so it uses the Ability class and gets its input converted to the schema types.' )
+				->identifier( 'poocommerce.abilityRegistration' )
 				->build(),
 		);
 	}

@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateAutoApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncBackfill;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the RSM-149 sync-meta backfill.
@@ -43,7 +43,7 @@ class WCEmailTemplateSyncBackfillTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		// Eagerly boot \WC_Emails so the \WC_Email class is autoloaded before any
 		// test reflects on it via getMockBuilder() / onlyMethods().
@@ -65,14 +65,14 @@ class WCEmailTemplateSyncBackfillTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$this->cleanup_injected_emails();
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
 		remove_all_actions( WCEmailTemplateSyncBackfill::BACKFILL_COMPLETE_ACTION );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateSyncBackfill::set_logger( null );
 
 		delete_option( WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION );
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -284,7 +284,7 @@ class WCEmailTemplateSyncBackfillTest extends \WC_Unit_Test_Case {
 		// fixture template keeps its @version header, so the email stays in the sync registry.
 		$canonical_before = WCTransactionalEmailPostsGenerator::compute_canonical_post_content( $email );
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( $post_data, $email_type ) use ( $email_id ) {
 				if ( $email_id === $email_type ) {
 					$post_data['post_content'] .= "\n<!-- wp:paragraph -->\n<p>Core added this paragraph.</p>\n<!-- /wp:paragraph -->";
@@ -322,7 +322,7 @@ class WCEmailTemplateSyncBackfillTest extends \WC_Unit_Test_Case {
 	/**
 	 * Case B rewrite failure: wp_update_post() returns a WP_Error (silent
 	 * failure because `$wp_error = true`). The migration is one-shot — the
-	 * `woocommerce_db_version` fence flips on completion and this callback
+	 * `poocommerce_db_version` fence flips on completion and this callback
 	 * never runs again — so the post cannot be left unstamped (the detector
 	 * would skip it with a recurring warning forever). Instead, the post must
 	 * still be stamped, but with Case C semantics so it surfaces for merchant
@@ -581,7 +581,7 @@ class WCEmailTemplateSyncBackfillTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;

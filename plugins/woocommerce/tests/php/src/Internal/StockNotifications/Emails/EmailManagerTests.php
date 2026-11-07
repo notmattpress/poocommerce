@@ -1,12 +1,12 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -60,7 +60,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 
 		// `WC_Emails` is a singleton that keeps whichever email list it built on its first
 		// construction for the rest of the process. Reset it so this test's registration
-		// via `woocommerce_email_classes` is actually picked up rather than an earlier
+		// via `poocommerce_email_classes` is actually picked up rather than an earlier
 		// test's (feature-disabled) build of the list.
 		$this->reset_email_singleton();
 		WC()->mailer();
@@ -117,7 +117,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	 * @param bool $expected       The expected return value.
 	 */
 	public function test_send_stock_notification_email_returns_whether_sent( bool $email_enabled, bool $wp_mail_result, bool $expected ): void {
-		add_filter( 'woocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
+		add_filter( 'poocommerce_email_enabled_customer_stock_notification', fn() => $email_enabled );
 		$this->wp_mail_result = $wp_mail_result;
 		$notification         = $this->build_notification();
 
@@ -139,7 +139,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should register the three BIS email classes via woocommerce_email_classes filter.
+	 * @testdox Should register the three BIS email classes via poocommerce_email_classes filter.
 	 */
 	public function test_registers_all_three_bis_email_classes() {
 		$emails = WC()->mailer()->get_emails();
@@ -154,7 +154,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	 *
 	 * @dataProvider pre_send_filter_provider
 	 *
-	 * @param mixed $handled        What the `woocommerce_customer_stock_notification_pre_send` filter returns.
+	 * @param mixed $handled        What the `poocommerce_customer_stock_notification_pre_send` filter returns.
 	 * @param bool  $wp_mail_result What `wp_mail()` reports back when Core sends.
 	 * @param bool  $expected       The expected return value of deliver_stock_notification.
 	 */
@@ -163,7 +163,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 		$notification         = $this->build_notification();
 		$received             = array();
 		add_filter(
-			'woocommerce_customer_stock_notification_pre_send',
+			'poocommerce_customer_stock_notification_pre_send',
 			function ( $pre, $filtered_notification, $product ) use ( $handled, &$received ) {
 				$received = array( $pre, $filtered_notification->get_id(), $product->get_id() );
 				return $handled;
@@ -198,7 +198,7 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 	 *
 	 * @dataProvider pre_send_filter_failure_provider
 	 *
-	 * @param mixed  $handled  What the `woocommerce_customer_stock_notification_pre_send` filter returns.
+	 * @param mixed  $handled  What the `poocommerce_customer_stock_notification_pre_send` filter returns.
 	 * @param string $expected Text the logged warning must contain.
 	 */
 	public function test_deliver_stock_notification_logs_a_warning_when_the_pre_send_filter_fails( $handled, string $expected ): void {
@@ -214,16 +214,16 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 		$use_logger = function () use ( $logger ) {
 			return $logger;
 		};
-		add_filter( 'woocommerce_logging_class', $use_logger );
+		add_filter( 'poocommerce_logging_class', $use_logger );
 		$take_over = function () use ( $handled ) {
 			return $handled;
 		};
-		add_filter( 'woocommerce_customer_stock_notification_pre_send', $take_over );
+		add_filter( 'poocommerce_customer_stock_notification_pre_send', $take_over );
 
 		$result = $this->sut->deliver_stock_notification( $notification );
 
-		remove_filter( 'woocommerce_customer_stock_notification_pre_send', $take_over );
-		remove_filter( 'woocommerce_logging_class', $use_logger );
+		remove_filter( 'poocommerce_customer_stock_notification_pre_send', $take_over );
+		remove_filter( 'poocommerce_logging_class', $use_logger );
 
 		$this->assertFalse( $result );
 		$this->assertEmpty( $this->sent_to );
@@ -256,19 +256,19 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 		$use_logger = function () use ( $logger ) {
 			return $logger;
 		};
-		add_filter( 'woocommerce_logging_class', $use_logger );
+		add_filter( 'poocommerce_logging_class', $use_logger );
 
 		$drop_bis_emails = function ( $emails ) {
 			unset( $emails['WC_Email_Customer_Stock_Notification_Verify'] );
 			return $emails;
 		};
-		add_filter( 'woocommerce_email_classes', $drop_bis_emails, 20 );
+		add_filter( 'poocommerce_email_classes', $drop_bis_emails, 20 );
 		$this->reset_email_singleton();
 
 		$this->sut->send_verify_email( $notification );
 
-		remove_filter( 'woocommerce_email_classes', $drop_bis_emails, 20 );
-		remove_filter( 'woocommerce_logging_class', $use_logger );
+		remove_filter( 'poocommerce_email_classes', $drop_bis_emails, 20 );
+		remove_filter( 'poocommerce_logging_class', $use_logger );
 
 		$this->assertEmpty( $this->sent_to );
 	}
@@ -312,11 +312,11 @@ class EmailManagerTests extends \WC_Unit_Test_Case {
 		$count        = function () use ( &$updates ) {
 			++$updates;
 		};
-		add_action( 'woocommerce_update_stock_notification', $count );
+		add_action( 'poocommerce_update_stock_notification', $count );
 
 		$this->sut->send_stock_notification_email( $notification );
 
-		remove_action( 'woocommerce_update_stock_notification', $count );
+		remove_action( 'poocommerce_update_stock_notification', $count );
 		$this->assertSame( 0, $updates );
 		$this->assertCount( 1, $this->sent_messages );
 		$this->assertSame( 1, preg_match( '/email_link_action_key=([A-Za-z0-9]+)/', $this->sent_messages[0], $matches ) );

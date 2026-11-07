@@ -2,13 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductFilters as ProductFiltersBlock;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductFilters as ProductFiltersBlock;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 
 /**
  * Tests for the ProductFilters block type.
@@ -18,7 +18,7 @@ class ProductFilters extends \WP_UnitTestCase {
 	/**
 	 * Test-only filter block name.
 	 */
-	private const TEST_FILTER_BLOCK = 'woocommerce/test-product-filter-empty-state';
+	private const TEST_FILTER_BLOCK = 'poocommerce/test-product-filter-empty-state';
 
 	/**
 	 * Instance of the Product Filters block under test.
@@ -82,19 +82,19 @@ class ProductFilters extends \WP_UnitTestCase {
 				'taxQuery'                 => array( 'product_cat' => array( $red ) ),
 			),
 		);
-		$markup     = '<!-- wp:woocommerce/product-collection ' . wp_json_encode( $attributes ) . ' --><div class="wp-block-woocommerce-product-collection">'
-			. '<!-- wp:woocommerce/product-filters --><div class="wp-block-woocommerce-product-filters">'
-			. '<!-- wp:woocommerce/product-filter-taxonomy {"taxonomy":"product_cat","showCounts":true} --><div>'
-			. '<!-- wp:woocommerce/product-filter-checkbox-list --><div class="wc-block-product-filter-checkbox-list"></div><!-- /wp:woocommerce/product-filter-checkbox-list -->'
-			. '</div><!-- /wp:woocommerce/product-filter-taxonomy --></div><!-- /wp:woocommerce/product-filters -->'
-			. '<!-- wp:woocommerce/product-template --><!-- wp:post-title /--><!-- /wp:woocommerce/product-template -->'
-			. '</div><!-- /wp:woocommerce/product-collection -->';
+		$markup     = '<!-- wp:poocommerce/product-collection ' . wp_json_encode( $attributes ) . ' --><div class="wp-block-poocommerce-product-collection">'
+			. '<!-- wp:poocommerce/product-filters --><div class="wp-block-poocommerce-product-filters">'
+			. '<!-- wp:poocommerce/product-filter-taxonomy {"taxonomy":"product_cat","showCounts":true} --><div>'
+			. '<!-- wp:poocommerce/product-filter-checkbox-list --><div class="wc-block-product-filter-checkbox-list"></div><!-- /wp:poocommerce/product-filter-checkbox-list -->'
+			. '</div><!-- /wp:poocommerce/product-filter-taxonomy --></div><!-- /wp:poocommerce/product-filters -->'
+			. '<!-- wp:poocommerce/product-template --><!-- wp:post-title /--><!-- /wp:poocommerce/product-template -->'
+			. '</div><!-- /wp:poocommerce/product-collection -->';
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Restore the original request verbatim after the test.
 		$original_uri = $_SERVER['REQUEST_URI'] ?? null;
 		try {
 			$_SERVER['REQUEST_URI'] = '/?wcp-0-categories=local-blue&wcp-0-min_price=20&min_price=999';
 			$html                   = do_blocks( $markup );
-			$this->assertStringContainsString( 'wp-block-woocommerce-product-collection', $html );
+			$this->assertStringContainsString( 'wp-block-poocommerce-product-collection', $html );
 			$this->assertStringNotContainsString( 'wp-block-post-title', $html );
 			$this->assertStringContainsString( 'aria-label="Local red"', $html );
 			$this->assertStringNotContainsString( 'aria-label="Local blue"', $html );
@@ -153,9 +153,9 @@ class ProductFilters extends \WP_UnitTestCase {
 				'render_callback' => static function ( $attributes, $content, $block ) {
 					$product_filters_key = $block->context['productFiltersKey'] ?? '';
 					if ( is_string( $product_filters_key ) && '' !== $product_filters_key ) {
-						$state = wp_interactivity_state( 'woocommerce/product-filters' );
+						$state = wp_interactivity_state( 'poocommerce/product-filters' );
 						$state['filterEmptyStates'][ $product_filters_key ][] = (bool) $attributes['empty'];
-						wp_interactivity_state( 'woocommerce/product-filters', $state );
+						wp_interactivity_state( 'poocommerce/product-filters', $state );
 					}
 
 					return '<div class="test-product-filter"></div>';
@@ -233,7 +233,7 @@ class ProductFilters extends \WP_UnitTestCase {
 		);
 
 		$parsed_block = array(
-			'blockName'    => 'woocommerce/product-filters',
+			'blockName'    => 'poocommerce/product-filters',
 			'attrs'        => array(),
 			'innerBlocks'  => $inner_blocks,
 			'innerHTML'    => '',
@@ -276,7 +276,7 @@ class ProductFilters extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_empty_state_is_scoped_per_wrapper(): void {
-		$previous_states        = wp_interactivity_state( 'woocommerce/product-filters' )['filterEmptyStates'] ?? array();
+		$previous_states        = wp_interactivity_state( 'poocommerce/product-filters' )['filterEmptyStates'] ?? array();
 		$empty_output           = $this->render_with_filter_states( array( true ) );
 		$duplicate_empty_output = $this->render_with_filter_states( array( true ) );
 		$visible_output         = $this->render_with_filter_states( array( false ) );
@@ -285,7 +285,7 @@ class ProductFilters extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'wc-block-product-filters--empty', $duplicate_empty_output );
 		$this->assertStringNotContainsString( 'wc-block-product-filters--empty', $visible_output );
 
-		$current_states = wp_interactivity_state( 'woocommerce/product-filters' )['filterEmptyStates'];
+		$current_states = wp_interactivity_state( 'poocommerce/product-filters' )['filterEmptyStates'];
 		$wrapper_states = array_diff_key( $current_states, $previous_states );
 		$this->assertCount( 3, $wrapper_states );
 		foreach ( $wrapper_states as $empty_states ) {

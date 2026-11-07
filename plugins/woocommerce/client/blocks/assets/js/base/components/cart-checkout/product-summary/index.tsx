@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import Summary from '@woocommerce/base-components/summary';
-import { blocksConfig } from '@woocommerce/block-settings';
+import Summary from '@poocommerce/base-components/summary';
+import { blocksConfig } from '@poocommerce/block-settings';
 
 interface ProductSummaryProps {
 	className?: string;

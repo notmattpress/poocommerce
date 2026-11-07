@@ -5,21 +5,21 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce order update ability. It runs the steps of ActionableAbility.
+ * The PooCommerce order update ability. It runs the steps of ActionableAbility.
  * Every change stays in memory until save(), so a refusal from a later change
  * or from a validator saves nothing.
  */
@@ -31,7 +31,7 @@ class OrderUpdate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/order-update';
+	public const ABILITY_NAME = 'poocommerce/order-update';
 
 	/**
 	 * Address fields that the shipping address has. The billing address also has `email`.
@@ -78,12 +78,12 @@ class OrderUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update order', 'woocommerce' ),
+			'label'               => __( 'Update order', 'poocommerce' ),
 			'description'         => __(
-				'Update the addresses, customer note, product lines and shipping lines of an order. Fields that are not sent keep their value. Changing lines recalculates the totals and needs an order status that allows editing. Use the woocommerce/order-update-status ability to change the status.',
-				'woocommerce'
+				'Update the addresses, customer note, product lines and shipping lines of an order. Fields that are not sent keep their value. Changing lines recalculates the totals and needs an order status that allows editing. Use the poocommerce/order-update-status ability to change the status.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'order', self::get_order_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_edit_order' ),
@@ -126,8 +126,8 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( empty( array_diff( array_keys( $input ), array( 'id' ) ) ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_no_fields',
-				__( 'No change was sent. Send at least one order field to change, in addition to the id.', 'woocommerce' ),
+				'poocommerce_ability_order_no_fields',
+				__( 'No change was sent. Send at least one order field to change, in addition to the id.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -168,10 +168,10 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! $subject->is_editable() ) {
 			$refused->add(
-				'woocommerce_ability_order_not_editable',
+				'poocommerce_ability_order_not_editable',
 				sprintf(
 					/* translators: %s: order status slug. */
-					__( 'The lines of an order with the "%s" status cannot change. Move the order to an editable status, such as on-hold, with the woocommerce/order-update-status ability, then send the change again.', 'woocommerce' ),
+					__( 'The lines of an order with the "%s" status cannot change. Move the order to an editable status, such as on-hold, with the poocommerce/order-update-status ability, then send the change again.', 'poocommerce' ),
 					$subject->get_status()
 				),
 				array( 'status' => 400 )
@@ -247,7 +247,7 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! empty( $stock_notes ) ) {
 			/* translators: %s item name. */
-			$subject->add_order_note( sprintf( __( 'Adjusted stock: %s', 'woocommerce' ), implode( ', ', $stock_notes ) ), 0, true, array( 'note_group' => OrderNoteGroup::PRODUCT_STOCK ) );
+			$subject->add_order_note( sprintf( __( 'Adjusted stock: %s', 'poocommerce' ), implode( ', ', $stock_notes ) ), 0, true, array( 'note_group' => OrderNoteGroup::PRODUCT_STOCK ) );
 		}
 
 		return null;
@@ -287,7 +287,7 @@ class OrderUpdate extends ActionableAbility {
 				self::address_error(
 					$type,
 					'email',
-					__( 'The billing email is not a valid email address. Send a valid address.', 'woocommerce' )
+					__( 'The billing email is not a valid email address. Send a valid address.', 'poocommerce' )
 				)
 			);
 			unset( $address['email'] );
@@ -303,7 +303,7 @@ class OrderUpdate extends ActionableAbility {
 					$type,
 					'country',
 					/* translators: %s: country sent by the client. */
-					sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'woocommerce' ), $country )
+					sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'poocommerce' ), $country )
 				)
 			);
 			unset( $address['country'], $address['state'], $address['postcode'] );
@@ -316,7 +316,7 @@ class OrderUpdate extends ActionableAbility {
 						$type,
 						'state',
 						/* translators: 1: state sent by the client or kept from the order, 2: country code, 3: comma-separated state codes. */
-						sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'woocommerce' ), $state, $country, implode( ', ', array_keys( $states ) ) )
+						sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'poocommerce' ), $state, $country, implode( ', ', array_keys( $states ) ) )
 					)
 				);
 				unset( $address['state'] );
@@ -329,7 +329,7 @@ class OrderUpdate extends ActionableAbility {
 							$type,
 							'postcode',
 							/* translators: 1: postcode sent by the client or kept from the order, 2: country code. */
-							sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'woocommerce' ), $postcode, $country )
+							sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'poocommerce' ), $postcode, $country )
 						)
 					);
 					unset( $address['postcode'] );
@@ -355,7 +355,7 @@ class OrderUpdate extends ActionableAbility {
 	 * @return \WP_Error
 	 */
 	private static function address_error( string $type, string $field, string $message ): \WP_Error {
-		return new \WP_Error( "woocommerce_ability_order_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
+		return new \WP_Error( "poocommerce_ability_order_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
 	}
 
 	/**
@@ -398,8 +398,8 @@ class OrderUpdate extends ActionableAbility {
 		foreach ( $input['line_items'] ?? array() as $line ) {
 			if ( empty( $line['id'] ) === empty( $line['product_id'] ) ) {
 				$refused->add(
-					'woocommerce_ability_order_line_item_target_invalid',
-					__( 'Each entry in line_items needs exactly one target. Send id to change a line, or product_id to add a line.', 'woocommerce' ),
+					'poocommerce_ability_order_line_item_target_invalid',
+					__( 'Each entry in line_items needs exactly one target. Send id to change a line, or product_id to add a line.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 				continue;
@@ -450,9 +450,9 @@ class OrderUpdate extends ActionableAbility {
 	private static function set_shipping_line( \WC_Order $order, array $line ): ?\WP_Error {
 		if ( isset( $line['total'] ) && ( ! is_numeric( $line['total'] ) || (float) $line['total'] < 0 ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_shipping_line_total_invalid',
+				'poocommerce_ability_order_shipping_line_total_invalid',
 				/* translators: %s: shipping total sent by the client. */
-				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'woocommerce' ), $line['total'] ),
+				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'poocommerce' ), $line['total'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -460,8 +460,8 @@ class OrderUpdate extends ActionableAbility {
 		if ( empty( $line['id'] ) ) {
 			if ( empty( $line['method_title'] ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_order_shipping_line_method_title_required',
-					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'woocommerce' ),
+					'poocommerce_ability_order_shipping_line_method_title_required',
+					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -509,18 +509,18 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! $product instanceof \WC_Product ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_not_found',
+				'poocommerce_ability_order_product_not_found',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d does not exist. Use the woocommerce/products-query ability to find the product ID.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d does not exist. Use the poocommerce/products-query ability to find the product ID.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( $product->is_type( ProductType::VARIABLE ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_variable',
+				'poocommerce_ability_order_product_variable',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -558,9 +558,9 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! isset( $line['quantity'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_line_item_quantity_required',
+				'poocommerce_ability_order_line_item_quantity_required',
 				/* translators: %d: order item ID. */
-				sprintf( __( 'Nothing to change on line %d. Send quantity to change the line, or send its ID in remove_items to remove it.', 'woocommerce' ), $line['id'] ),
+				sprintf( __( 'Nothing to change on line %d. Send quantity to change the line, or send its ID in remove_items to remove it.', 'poocommerce' ), $line['id'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -594,9 +594,9 @@ class OrderUpdate extends ActionableAbility {
 	 */
 	private static function line_not_found( int $item_id ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_line_not_found',
+			'poocommerce_ability_order_line_not_found',
 			/* translators: %d: order item ID. */
-			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the woocommerce/orders-query ability with include_line_items to read the IDs of the product and shipping lines.', 'woocommerce' ), $item_id ),
+			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the poocommerce/orders-query ability with include_line_items to read the IDs of the product and shipping lines.', 'poocommerce' ), $item_id ),
 			array( 'status' => 400 )
 		);
 	}
@@ -608,7 +608,7 @@ class OrderUpdate extends ActionableAbility {
 	 * @return \WP_Error
 	 */
 	private static function quantity_error( \Exception $exception ): \WP_Error {
-		return new \WP_Error( 'woocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
+		return new \WP_Error( 'poocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
 	}
 
 	/**
@@ -629,7 +629,7 @@ class OrderUpdate extends ActionableAbility {
 				'customer_note'  => array( 'type' => 'string' ),
 				'line_items'     => array(
 					'type'        => 'array',
-					'description' => __( 'Send id and quantity to change a line, or product_id and quantity to add one. A variation uses its own ID as product_id.', 'woocommerce' ),
+					'description' => __( 'Send id and quantity to change a line, or product_id and quantity to add one. A variation uses its own ID as product_id.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',
@@ -652,7 +652,7 @@ class OrderUpdate extends ActionableAbility {
 				),
 				'shipping_lines' => array(
 					'type'        => 'array',
-					'description' => __( 'Send id to change a line. Without id, this adds a line, which needs method_title.', 'woocommerce' ),
+					'description' => __( 'Send id to change a line. Without id, this adds a line, which needs method_title.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',
@@ -670,7 +670,7 @@ class OrderUpdate extends ActionableAbility {
 				),
 				'remove_items'   => array(
 					'type'        => 'array',
-					'description' => __( 'IDs of the product and shipping lines to remove.', 'woocommerce' ),
+					'description' => __( 'IDs of the product and shipping lines to remove.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'    => 'integer',
@@ -692,7 +692,7 @@ class OrderUpdate extends ActionableAbility {
 	private static function get_address_input_schema( array $fields ): array {
 		return array(
 			'type'                 => 'object',
-			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use WooCommerce state codes.', 'woocommerce' ),
+			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use PooCommerce state codes.', 'poocommerce' ),
 			'properties'           => array_fill_keys( $fields, array( 'type' => 'string' ) ),
 			'additionalProperties' => false,
 			'minProperties'        => 1,

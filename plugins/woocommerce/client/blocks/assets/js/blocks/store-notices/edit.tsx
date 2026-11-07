@@ -3,7 +3,7 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 
 /**
  * Internal dependencies
@@ -19,8 +19,8 @@ const Edit = (): JSX.Element => {
 		<div { ...blockProps }>
 			<NoticeBanner status="info" isDismissible={ false }>
 				{ __(
-					'Notices added by WooCommerce or extensions will show up here.',
-					'woocommerce'
+					'Notices added by PooCommerce or extensions will show up here.',
+					'poocommerce'
 				) }
 			</NoticeBanner>
 		</div>

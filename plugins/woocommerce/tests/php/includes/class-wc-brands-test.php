@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Brands Unit tests suite
+ * PooCommerce Brands Unit tests suite
  *
- * @package woocommerce-brands
+ * @package poocommerce-brands
  */
 
 declare( strict_types = 1);
@@ -16,23 +16,23 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 	 * The admin menu label must keep translating through the non-contextual `Brands` string.
 	 *
 	 * The menu label is the one label the taxonomy update deliberately keeps as `Brands`. Before the
-	 * update WordPress derived `menu_name` from `labels['name']`, i.e. `__( 'Brands', 'woocommerce' )`,
-	 * so existing translations and `gettext_woocommerce` customizations applied to it. This asserts that
+	 * update WordPress derived `menu_name` from `labels['name']`, i.e. `__( 'Brands', 'poocommerce' )`,
+	 * so existing translations and `gettext_poocommerce` customizations applied to it. This asserts that
 	 * contract by filtering the non-contextual string and confirming it still reaches `menu_name`, which
 	 * would fail if the label were registered with a context (`_x()` routes through
-	 * `gettext_with_context_woocommerce` and a different catalog entry instead).
+	 * `gettext_with_context_poocommerce` and a different catalog entry instead).
 	 *
 	 * @testdox Product brand admin menu label keeps translating through the non-contextual `Brands` string.
 	 */
 	public function test_product_brand_menu_name_uses_non_contextual_brands_translation(): void {
 		$translate_brands = static function ( $translation, $text, $domain ) {
-			if ( 'woocommerce' === $domain && 'Brands' === $text ) {
+			if ( 'poocommerce' === $domain && 'Brands' === $text ) {
 				return 'Translated brands';
 			}
 			return $translation;
 		};
 
-		add_filter( 'gettext_woocommerce', $translate_brands, 10, 3 );
+		add_filter( 'gettext_poocommerce', $translate_brands, 10, 3 );
 
 		try {
 			WC_Brands::init_taxonomy();
@@ -45,7 +45,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 				'The admin menu label should keep resolving through the non-contextual `Brands` translation.'
 			);
 		} finally {
-			remove_filter( 'gettext_woocommerce', $translate_brands, 10 );
+			remove_filter( 'gettext_poocommerce', $translate_brands, 10 );
 
 			// Restore the taxonomy with its unfiltered labels so later tests are unaffected.
 			WC_Brands::init_taxonomy();
@@ -237,7 +237,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$product = $data['product'];
 
 		// Enable hide out of stock setting FIRST.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		// THEN set product to out of stock (hook will fire with correct setting).
 		$product->set_stock_status( 'outofstock' );
@@ -254,7 +254,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( '0', $cached_count, 'Brand count should be cached as 0 when product is out of stock' );
 
 		// Reset the setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 	}
 
 	/**
@@ -291,7 +291,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$product = $data['product'];
 
 		// Enable hide out of stock setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		// Set product to out of stock.
 		$product->set_stock_status( 'outofstock' );
@@ -307,7 +307,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 1, $brand_term->count, 'Brand count should be 1 in admin context, ignoring out of stock setting' );
 
 		// Reset the setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 	}
 
 	/**

@@ -2,13 +2,13 @@
 /**
  * TransformerService tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayKeys;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerService;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\ArrayKeys;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerService;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_TransformerService

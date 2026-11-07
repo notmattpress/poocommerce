@@ -1,8 +1,8 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests for WC_Comments class.
@@ -316,7 +316,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 	 * @param bool   $expect_refusal Whether the comment should be refused.
 	 */
 	public function test_pre_comment_approved_applies_verified_owner_setting( string $setting, string $reviewer, string $post_type, string $comment_type, bool $expect_refusal ): void {
-		update_option( 'woocommerce_review_rating_verification_required', $setting );
+		update_option( 'poocommerce_review_rating_verification_required', $setting );
 		$product = WC_Helper_Product::create_simple_product();
 		$post_id = 'product' === $post_type ? $product->get_id() : self::factory()->post->create();
 		wp_set_current_user( $this->create_reviewer( $reviewer, $product ) );
@@ -331,7 +331,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 
 		if ( $expect_refusal ) {
 			$this->assertWPError( $result, 'The comment should have been refused.' );
-			$this->assertSame( 'woocommerce_review_verified_owner_required', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_review_verified_owner_required', $result->get_error_code() );
 			$this->assertSame( array( 'status' => 403 ), $result->get_error_data() );
 		} else {
 			$this->assertSame( 1, $result, 'The approval status should pass through unchanged.' );
@@ -350,7 +350,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 	 * @param int    $expected_status Expected HTTP status.
 	 */
 	public function test_rest_comments_route_applies_verified_owner_setting( string $reviewer, bool $use_buyer_email, int $expected_status ): void {
-		update_option( 'woocommerce_review_rating_verification_required', 'yes' );
+		update_option( 'poocommerce_review_rating_verification_required', 'yes' );
 		$product = WC_Helper_Product::create_simple_product();
 		wp_set_current_user( $this->create_reviewer( $reviewer, $product ) );
 
@@ -378,7 +378,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 
 		$this->assertSame( $expected_status, $response->get_status() );
 		if ( 403 === $expected_status ) {
-			$this->assertSame( 'woocommerce_review_verified_owner_required', $response->get_data()['code'] );
+			$this->assertSame( 'poocommerce_review_verified_owner_required', $response->get_data()['code'] );
 		}
 		$this->assertSame( 201 === $expected_status ? 1 : 0, $this->count_comments( $product->get_id() ), 'Only an accepted comment should be stored.' );
 	}
@@ -396,7 +396,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 		require_once ABSPATH . WPINC . '/class-IXR.php';
 		require_once ABSPATH . WPINC . '/class-wp-xmlrpc-server.php';
 
-		update_option( 'woocommerce_review_rating_verification_required', 'yes' );
+		update_option( 'poocommerce_review_rating_verification_required', 'yes' );
 		$product = WC_Helper_Product::create_simple_product();
 		$user    = get_userdata( $this->create_reviewer( $reviewer, $product ) );
 
@@ -423,7 +423,7 @@ class WC_Comments_Tests extends \WC_Unit_Test_Case {
 	 * @param string $reviewer Kind of user submitting the form.
 	 */
 	public function test_review_form_applies_verified_owner_setting( string $reviewer ): void {
-		update_option( 'woocommerce_review_rating_verification_required', 'yes' );
+		update_option( 'poocommerce_review_rating_verification_required', 'yes' );
 		$product = WC_Helper_Product::create_simple_product();
 		wp_set_current_user( $this->create_reviewer( $reviewer, $product ) );
 		$_POST['comment_post_ID'] = (string) $product->get_id();

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TextControl } from '@woocommerce/components';
+import { TextControl } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const Example = () => {

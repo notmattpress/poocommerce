@@ -1,11 +1,11 @@
 ---
-name: woocommerce-email-editor
-description: Setup and develop the WooCommerce block email editor. Use when working on email templates, transactional emails, or the email editor feature.
+name: poocommerce-email-editor
+description: Setup and develop the PooCommerce block email editor. Use when working on email templates, transactional emails, or the email editor feature.
 ---
 
-# WooCommerce Email Editor Development
+# PooCommerce Email Editor Development
 
-This skill provides guidance for developing the WooCommerce block email editor.
+This skill provides guidance for developing the PooCommerce block email editor.
 
 ## When to Use This Skill
 
@@ -18,10 +18,10 @@ Invoke this skill when:
 
 ## Development Environment Setup
 
-### 1. Start WooCommerce wp-env
+### 1. Start PooCommerce wp-env
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce -- wp-env start
+pnpm --filter=@poocommerce/plugin-poocommerce -- wp-env start
 ```
 
 Site runs at `http://localhost:8888` by default. If port 8888 is unavailable, wp-env assigns a different port. Check the startup output or run `wp-env info` to see your actual URL.
@@ -31,7 +31,7 @@ Site runs at `http://localhost:8888` by default. If port 8888 is unavailable, wp
 Watches and builds admin JS files (including the email editor JS package) and syncs Email Editor PHP package changes:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce watch:build:admin
+pnpm --filter=@poocommerce/plugin-poocommerce watch:build:admin
 ```
 
 ### 3. Enable the block email editor feature
@@ -48,7 +48,7 @@ To test email sending locally, use Mailpit as a local SMTP server.
 
 ### Configure SMTP
 
-Add to `plugins/woocommerce/.wp-env.override.json`:
+Add to `plugins/poocommerce/.wp-env.override.json`:
 
 ```json
 {
@@ -87,7 +87,7 @@ Open <http://localhost:8025> to see captured emails.
 After creating or modifying `.wp-env.override.json`, restart the environment:
 
 ```sh
-pnpm --filter=@woocommerce/plugin-woocommerce -- wp-env start --update
+pnpm --filter=@poocommerce/plugin-poocommerce -- wp-env start --update
 ```
 
 ## Key Paths
@@ -96,14 +96,14 @@ pnpm --filter=@woocommerce/plugin-woocommerce -- wp-env start --update
 | ---- | ----------- |
 | `packages/php/email-editor/` | Email Editor PHP package |
 | `packages/js/email-editor/` | Email Editor JS package |
-| `plugins/woocommerce/.wp-env.override.json` | Local wp-env config (gitignored) |
+| `plugins/poocommerce/.wp-env.override.json` | Local wp-env config (gitignored) |
 
 ## Building the Email Editor Package
 
 To rebuild the JS package after changes:
 
 ```sh
-pnpm --filter=@woocommerce/email-editor build
+pnpm --filter=@poocommerce/email-editor build
 ```
 
 ## Testing the PHP Package

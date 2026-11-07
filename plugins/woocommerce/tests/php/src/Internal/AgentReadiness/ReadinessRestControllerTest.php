@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -18,7 +18,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	 * write, since the test transaction starts in parent::setUp().
 	 */
 	public function setUp(): void {
-		add_filter( 'pre_option_woocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
+		add_filter( 'pre_option_poocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
 		parent::setUp();
 		delete_option( AgentReadiness::REPORT_OPTION );
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
@@ -31,7 +31,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	public function tearDown(): void {
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
 		as_unschedule_all_actions( ScheduledScan::DAILY_HOOK );
-		remove_filter( 'pre_option_woocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
+		remove_filter( 'pre_option_poocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
 		parent::tearDown();
 	}
 
@@ -87,9 +87,9 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A user without manage_woocommerce can't read the report or queue a scan.
+	 * @testdox A user without manage_poocommerce can't read the report or queue a scan.
 	 */
-	public function test_requires_manage_woocommerce(): void {
+	public function test_requires_manage_poocommerce(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
 		$this->assertSame( 403, $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/agent-readiness' ) )->get_status() );
@@ -101,8 +101,8 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	 * @testdox With the feature disabled the routes are not registered.
 	 */
 	public function test_routes_absent_when_feature_disabled(): void {
-		remove_filter( 'pre_option_woocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'no' );
+		remove_filter( 'pre_option_poocommerce_feature_agent_readiness_enabled', array( __CLASS__, 'enabled' ) );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'no' );
 		global $wp_rest_server;
 		$wp_rest_server = new \WP_REST_Server();
 		do_action( 'rest_api_init', $wp_rest_server );

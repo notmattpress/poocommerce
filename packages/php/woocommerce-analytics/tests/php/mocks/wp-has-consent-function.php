@@ -2,7 +2,7 @@
 /**
  * Stand-in for a plugin that defines only the WP Consent API check. Load it only in a separate process.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 if ( ! function_exists( 'wp_has_consent' ) ) {

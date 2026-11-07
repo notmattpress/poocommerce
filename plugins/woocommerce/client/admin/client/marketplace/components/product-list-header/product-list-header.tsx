@@ -2,9 +2,9 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -25,22 +25,22 @@ export default function ProductListHeader(
 	const { title, description, groupURL, groupURLText, groupURLType } = props;
 	const isLoading = title === '';
 
-	const classNames = clsx( 'woocommerce-marketplace__product-list-header', {
+	const classNames = clsx( 'poocommerce-marketplace__product-list-header', {
 		'is-loading': isLoading,
 	} );
 
 	return (
 		<div className={ classNames } aria-hidden={ isLoading }>
-			<h2 className="woocommerce-marketplace__product-list-title">
+			<h2 className="poocommerce-marketplace__product-list-title">
 				{ title }
 			</h2>
 			{ description && (
-				<p className="woocommerce-marketplace__product-list-description">
+				<p className="poocommerce-marketplace__product-list-description">
 					{ description }
 				</p>
 			) }
 			{ groupURL !== null && (
-				<span className="woocommerce-marketplace__product-list-link">
+				<span className="poocommerce-marketplace__product-list-link">
 					<Link
 						href={ groupURL }
 						type={ groupURLType }
@@ -54,7 +54,7 @@ export default function ProductListHeader(
 							} );
 						} }
 					>
-						{ groupURLText ?? __( 'See more', 'woocommerce' ) }
+						{ groupURLText ?? __( 'See more', 'poocommerce' ) }
 					</Link>
 				</span>
 			) }

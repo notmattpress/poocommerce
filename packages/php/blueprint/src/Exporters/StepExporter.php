@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 /**
  * Interface StepExporter

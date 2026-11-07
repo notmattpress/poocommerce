@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductResultsCount class.
@@ -27,13 +27,13 @@ class ProductResultsCount extends AbstractBlock {
 	/**
 	 * Get the frontend style handles for this block type.
 	 *
-	 * The interactivity build writes this block's stylesheet to the woocommerce/ folder, so the default
+	 * The interactivity build writes this block's stylesheet to the poocommerce/ folder, so the default
 	 * path would 404. The handle names stay the same for code that depends on or dequeues them.
 	 *
 	 * @return string[]
 	 */
 	protected function get_block_type_style() {
-		$this->asset_api->register_style( 'wc-blocks-style-' . $this->block_name, $this->asset_api->get_block_asset_build_path( 'woocommerce/' . $this->block_name . '-style', 'css' ), array(), 'all', true );
+		$this->asset_api->register_style( 'wc-blocks-style-' . $this->block_name, $this->asset_api->get_block_asset_build_path( 'poocommerce/' . $this->block_name . '-style', 'css' ), array(), 'all', true );
 
 		return array( 'wc-blocks-style', 'wc-blocks-style-' . $this->block_name );
 	}
@@ -50,18 +50,18 @@ class ProductResultsCount extends AbstractBlock {
 	protected function render( $attributes, $content, $block ) {
 		// Buffer the result count and use it as the block's frontend content.
 		ob_start();
-		woocommerce_result_count();
+		poocommerce_result_count();
 		$product_results_count = (string) ob_get_clean();
 
 		$processor = new \WP_HTML_Tag_Processor( $product_results_count );
-		if ( $processor->next_tag( array( 'class_name' => 'woocommerce-result-count' ) ) ) {
+		if ( $processor->next_tag( array( 'class_name' => 'poocommerce-result-count' ) ) ) {
 			// The block speaks the count after client-side navigation; a second live region would compete with it.
 			$processor->remove_attribute( 'role' );
 			$processor->remove_attribute( 'aria-relevant' );
 		}
 		$product_results_count = $processor->get_updated_html();
 
-		$classes = 'woocommerce wc-block-product-results-count';
+		$classes = 'poocommerce wc-block-product-results-count';
 		if ( ! empty( $attributes['fontSize'] ) ) {
 			// Preserve the legacy class for backward compatibility.
 			$classes .= ' has-font-size';

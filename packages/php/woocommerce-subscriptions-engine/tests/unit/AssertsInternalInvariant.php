@@ -2,12 +2,12 @@
 /**
  * Assertion helper for internal invariants.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit;
 
 use LogicException;
 

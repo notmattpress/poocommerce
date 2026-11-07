@@ -29,7 +29,7 @@ const productReviewsStore = {
 			yield actions.navigate( ref.href );
 
 			ref.closest(
-				'.wp-block-woocommerce-product-details'
+				'.wp-block-poocommerce-product-details'
 			)?.scrollIntoView( {
 				behavior: 'smooth',
 				block: 'start',
@@ -39,7 +39,7 @@ const productReviewsStore = {
 };
 
 store< typeof productReviewsStore >(
-	'woocommerce/product-reviews',
+	'poocommerce/product-reviews',
 	productReviewsStore,
 	{
 		lock: true,

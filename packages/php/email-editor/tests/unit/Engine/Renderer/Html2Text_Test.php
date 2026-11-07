@@ -2,12 +2,12 @@
 /**
  * HTML to Text Converter unit tests
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
 /**
  * Unit tests for Html2Text class

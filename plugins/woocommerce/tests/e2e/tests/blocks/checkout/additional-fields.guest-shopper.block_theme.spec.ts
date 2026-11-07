@@ -6,7 +6,7 @@ import {
 	test as base,
 	enableTestPlugin,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

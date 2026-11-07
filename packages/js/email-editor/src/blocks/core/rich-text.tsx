@@ -178,10 +178,10 @@ function PersonalizationTagsButton( { contentRef, value, onChange }: Props ) {
  * Extend the rich text formats with a button for personalization tags.
  */
 function extendRichTextFormats() {
-	registerFormatForEmail( 'woocommerce-email-editor/shortcode', {
-		name: 'woocommerce-email-editor/shortcode',
+	registerFormatForEmail( 'poocommerce-email-editor/shortcode', {
+		name: 'poocommerce-email-editor/shortcode',
 		title: __( 'Personalization Tags', __i18n_text_domain__ ),
-		className: 'woocommerce-email-editor-personalization-tags',
+		className: 'poocommerce-email-editor-personalization-tags',
 		tagName: 'span',
 		attributes: {},
 		// Must stay non-interactive: blocks using `withoutInteractiveFormatting`
@@ -192,10 +192,10 @@ function extendRichTextFormats() {
 	} );
 
 	// Register format type for using personalization tags as link attributes
-	registerFormatForEmail( 'woocommerce-email-editor/link-shortcode', {
-		name: 'woocommerce-email-editor/link-shortcode',
+	registerFormatForEmail( 'poocommerce-email-editor/link-shortcode', {
+		name: 'poocommerce-email-editor/link-shortcode',
 		title: __( 'Personalization Tags Link', __i18n_text_domain__ ),
-		className: 'woocommerce-email-editor-personalization-tags-link',
+		className: 'poocommerce-email-editor-personalization-tags-link',
 		tagName: 'a',
 		attributes: {
 			'data-link-href': 'data-link-href',
@@ -276,7 +276,7 @@ const personalizationTagsLiveContentUpdate = createHigherOrderComponent(
 function activatePersonalizationTagsReplacing() {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/with-live-content-update',
+		'poocommerce-email-editor/with-live-content-update',
 		personalizationTagsLiveContentUpdate
 	);
 }

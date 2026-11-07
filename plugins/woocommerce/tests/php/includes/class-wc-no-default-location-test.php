@@ -2,12 +2,12 @@
 /**
  * Tests for the "No location by default" customer-location setting.
  *
- * @package WooCommerce\Tests\Customer
+ * @package PooCommerce\Tests\Customer
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
+use Automattic\PooCommerce\Enums\DefaultCustomerAddress;
 
 /**
  * "No location by default" (Settings > General > Default customer location).
@@ -32,9 +32,9 @@ class WC_No_Default_Location_Test extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => 'US',
@@ -77,7 +77,7 @@ class WC_No_Default_Location_Test extends WC_Unit_Test_Case {
 	 * @testdox No location by default leaves the shopper nowhere, so the cart quotes no tax.
 	 */
 	public function test_no_default_location_quotes_no_tax(): void {
-		update_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::NO_DEFAULT );
+		update_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::NO_DEFAULT );
 
 		$this->assertSame( '', wc_get_customer_default_location()['country'], 'No default location should leave the country empty.' );
 
@@ -95,7 +95,7 @@ class WC_No_Default_Location_Test extends WC_Unit_Test_Case {
 	 * @testdox Shop base address places the shopper at the shop, where the rate is quoted.
 	 */
 	public function test_shop_base_places_the_shopper_at_the_shop(): void {
-		update_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::BASE );
+		update_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::BASE );
 
 		WC()->customer = new WC_Customer( 0, true );
 		$this->assertSame( 'US', WC()->customer->get_taxable_address()[0], 'The shopper should be placed at the shop country.' );

@@ -2,14 +2,14 @@
 /**
  * Assertion helper for Core validation errors.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
 
 /**
  * Asserts that an operation is refused with given codes, fields and params.

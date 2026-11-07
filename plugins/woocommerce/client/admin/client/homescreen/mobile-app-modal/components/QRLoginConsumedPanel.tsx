@@ -5,7 +5,7 @@ import React from '@wordpress/element';
 import type { ReactNode } from 'react';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -40,40 +40,40 @@ export const QRLoginConsumedPanel = ( {
 
 	return (
 		<div
-			className="woocommerce-qr-direct-login woocommerce-qr-direct-login--consumed"
+			className="poocommerce-qr-direct-login poocommerce-qr-direct-login--consumed"
 			role="status"
 			aria-live="polite"
 		>
-			<p className="woocommerce-qr-direct-login__consumed-headline">
+			<p className="poocommerce-qr-direct-login__consumed-headline">
 				{ headline }
 			</p>
 			{ subline && (
-				<p className="woocommerce-qr-direct-login__consumed-subline">
+				<p className="poocommerce-qr-direct-login__consumed-subline">
 					{ subline }
 				</p>
 			) }
 
 			{ errorMessage && (
-				<p className="woocommerce-qr-direct-login__error" role="alert">
+				<p className="poocommerce-qr-direct-login__error" role="alert">
 					{ errorMessage }
 				</p>
 			) }
 
 			{ onDone && (
 				<Button variant="primary" onClick={ onDone }>
-					{ __( 'Done', 'woocommerce' ) }
+					{ __( 'Done', 'poocommerce' ) }
 				</Button>
 			) }
 
 			<Button
 				variant="link"
-				className="woocommerce-qr-direct-login__revoke"
+				className="poocommerce-qr-direct-login__revoke"
 				onClick={ () => {
 					recordEvent( 'mobile_app_qr_direct_login_revoke_attempt' );
 					onRevoke();
 				} }
 			>
-				{ __( "It wasn't you? Revoke access", 'woocommerce' ) }
+				{ __( "It wasn't you? Revoke access", 'poocommerce' ) }
 			</Button>
 		</div>
 	);

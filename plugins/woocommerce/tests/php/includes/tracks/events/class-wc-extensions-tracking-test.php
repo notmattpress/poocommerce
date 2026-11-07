@@ -37,12 +37,12 @@ class WC_Extensions_Tracking_Test extends \WC_Unit_Test_Case {
 		include_once WC_ABSPATH . 'includes/tracks/events/class-wc-extensions-tracking.php';
 		$this->sut = new WC_Extensions_Tracking();
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		// WC_Tracks skips events for the test suite's own users.
 		wp_set_current_user( 0 );
 
 		$this->recorded = array();
-		add_filter( 'woocommerce_tracks_event_properties', array( $this, 'record_event_properties' ), 10, 2 );
+		add_filter( 'poocommerce_tracks_event_properties', array( $this, 'record_event_properties' ), 10, 2 );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class WC_Extensions_Tracking_Test extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$_GET = $this->original_get;
-		remove_filter( 'woocommerce_tracks_event_properties', array( $this, 'record_event_properties' ), 10 );
+		remove_filter( 'poocommerce_tracks_event_properties', array( $this, 'record_event_properties' ), 10 );
 		parent::tearDown();
 	}
 

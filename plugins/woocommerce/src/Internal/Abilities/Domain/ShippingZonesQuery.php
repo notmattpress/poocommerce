@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/shipping-zones-query';
+		return 'poocommerce/shipping-zones-query';
 	}
 
 	/**
@@ -41,15 +41,15 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query shipping zones', 'woocommerce' ),
-			'description'         => __( 'List shipping zones in matching order, with the regions each covers and its shipping methods. Zone 0 covers every location no other zone matches.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query shipping zones', 'poocommerce' ),
+			'description'         => __( 'List shipping zones in matching order, with the regions each covers and its shipping methods. Zone 0 covers every location no other zone matches.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'include' => array(
 						'type'        => 'array',
-						'description' => __( 'Return only these zone IDs.', 'woocommerce' ),
+						'description' => __( 'Return only these zone IDs.', 'poocommerce' ),
 						'items'       => array(
 							'type'    => 'integer',
 							'minimum' => 0,
@@ -164,7 +164,7 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 
 		$class = get_class( $method );
 		if ( in_array( $class, self::CORE_METHOD_CLASSES, true ) ) {
-			// A fresh instance, since a woocommerce_shipping_zone_shipping_methods callback can change the zone's one.
+			// A fresh instance, since a poocommerce_shipping_zone_shipping_methods callback can change the zone's one.
 			$core = new $class( $method->get_instance_id() );
 			$core->init_instance_settings();
 			$settings = array();
@@ -199,7 +199,7 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 						'properties'           => array(
 							'code' => array(
 								'type'        => 'string',
-								'description' => __( 'Country code, COUNTRY:STATE, postcode pattern or continent code, by type.', 'woocommerce' ),
+								'description' => __( 'Country code, COUNTRY:STATE, postcode pattern or continent code, by type.', 'poocommerce' ),
 							),
 							'type' => array(
 								'type' => 'string',
@@ -234,7 +234,7 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 				'order'       => array( 'type' => 'integer' ),
 				'settings'    => array(
 					'type'                 => 'object',
-					'description'          => __( 'Settings such as cost or min_amount, as stored. Only for the flat rate, free shipping and local pickup methods.', 'woocommerce' ),
+					'description'          => __( 'Settings such as cost or min_amount, as stored. Only for the flat rate, free shipping and local pickup methods.', 'poocommerce' ),
 					'additionalProperties' => array( 'type' => 'string' ),
 				),
 			),

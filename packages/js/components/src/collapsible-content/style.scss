@@ -1,5 +1,5 @@
-.woocommerce-collapsible-content {
-	.woocommerce-collapsible-content__toggle {
+.poocommerce-collapsible-content {
+	.poocommerce-collapsible-content__toggle {
 		all: unset;
 		font-size: 13px;
 		color: #007cba;
@@ -13,7 +13,7 @@
 		}
 	}
 
-	.woocommerce-collapsible-content__content {
+	.poocommerce-collapsible-content__content {
 		margin-top: $gap-large;
 	}
 }

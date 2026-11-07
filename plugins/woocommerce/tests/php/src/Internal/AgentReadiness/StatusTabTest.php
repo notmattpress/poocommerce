@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\StatusTab;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\StatusTab;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

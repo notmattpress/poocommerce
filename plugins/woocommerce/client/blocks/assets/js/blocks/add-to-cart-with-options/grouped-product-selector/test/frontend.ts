@@ -18,11 +18,11 @@ const mockProductsState = {
 };
 
 const mockStore = jest.fn( ( namespace, definition ) => {
-	if ( namespace === 'woocommerce/products' ) {
+	if ( namespace === 'poocommerce/products' ) {
 		return { state: mockProductsState };
 	}
 
-	if ( namespace === 'woocommerce/add-to-cart-with-options' ) {
+	if ( namespace === 'poocommerce/add-to-cart-with-options' ) {
 		if ( definition?.actions ) {
 			Object.assign( mockAddToCartStore.actions, definition.actions );
 		}
@@ -33,7 +33,7 @@ const mockStore = jest.fn( ( namespace, definition ) => {
 		return mockAddToCartStore;
 	}
 
-	if ( namespace === 'woocommerce' ) {
+	if ( namespace === 'poocommerce' ) {
 		return {
 			actions: {
 				batchAddCartItems: mockBatchAddCartItems,
@@ -54,8 +54,8 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/cart', () => ( {} ) );
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/cart', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ) );
 
 const getRegisteredStore = (): GroupedProductAddToCartWithOptionsStore => {
 	if ( ! mockRegisteredStore ) {

@@ -6,12 +6,12 @@
  * any other write failure so callers can treat the collision as benign without masking
  * real database errors.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 use RuntimeException;
 

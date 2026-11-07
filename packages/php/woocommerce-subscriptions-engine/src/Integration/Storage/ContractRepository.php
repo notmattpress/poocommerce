@@ -16,26 +16,26 @@
  * without one; each child-table write fences its lock itself. The exception is {@see self::delete()},
  * the discard of a contract its creator still holds locked. No transactions, no object cache.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +47,7 @@ final class ContractRepository {
 	/**
 	 * Logger source tag.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Operation label of the lock the engine takes around an unlocked contract update.
@@ -400,7 +400,7 @@ final class ContractRepository {
 	 * or by a whitelisted `orderby`/`order`. Hydrated lightweight (row only, no children)
 	 * like {@see self::find_summary()}.
 	 *
-	 * Takes a WooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
+	 * Takes a PooCommerce-style args array (cf. `wc_get_orders()`) rather than positional
 	 * paging args, so the shape widens to status / search / sort without a signature change.
 	 * The status + search filter is shared with {@see self::count()} via
 	 * {@see self::build_list_criteria()}, so a list page and its total count always agree.
@@ -996,7 +996,7 @@ final class ContractRepository {
 	/**
 	 * Take the internal lock for a write made without one: null when the contract does not exist.
 	 *
-	 * @internal Public for {@see \Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts::update()}, which holds it across its read and write.
+	 * @internal Public for {@see \Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts::update()}, which holds it across its read and write.
 	 *
 	 * @param int $contract_id Contract id.
 	 * @throws ContractLockedException If another operation holds the lock.
@@ -1020,7 +1020,7 @@ final class ContractRepository {
 	 * Release the internal lock. A failed release is logged, not thrown, so it cannot replace the
 	 * write's result or exception; the lock expires on its own.
 	 *
-	 * @internal Public for {@see \Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts::update()}.
+	 * @internal Public for {@see \Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts::update()}.
 	 *
 	 * @param ContractLock $lock The internal lock.
 	 */
@@ -1172,7 +1172,7 @@ final class ContractRepository {
 	 * row without a per-contract child read. An empty result means "this customer has no
 	 * matching contracts"; it is never null.
 	 *
-	 * Takes a WooCommerce-style args array (cf. {@see self::query()}) rather than positional
+	 * Takes a PooCommerce-style args array (cf. {@see self::query()}) rather than positional
 	 * args, so the shape can widen without a signature change. Ordered by id DESC (monotonic
 	 * with creation) so the list is newest-first and stable for paging.
 	 *
@@ -1899,7 +1899,7 @@ final class ContractRepository {
 	 * non-1:1 reference (an aggregate order may serve many cycles), so this returns
 	 * every match.
 	 *
-	 * @param int $order_id WooCommerce order id.
+	 * @param int $order_id PooCommerce order id.
 	 * @return array<int, Cycle> Cycles linked to the order, newest first.
 	 */
 	public function find_cycles_by_order_id( int $order_id ): array {

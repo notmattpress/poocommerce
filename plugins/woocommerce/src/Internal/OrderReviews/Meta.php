@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
 use WC_Order;
 
@@ -19,7 +19,7 @@ class Meta {
 	public static function line_for_order( WC_Order $order ): string {
 		// Spaces inside the string: a locale that needs a full-width
 		// separator has to be able to drop them.
-		$separator = _x( ' · ', 'Review Order meta-line separator', 'woocommerce' );
+		$separator = _x( ' · ', 'Review Order meta-line separator', 'poocommerce' );
 
 		return implode( $separator, self::parts_for_order( $order ) );
 	}
@@ -41,14 +41,14 @@ class Meta {
 		if ( '' !== $order_date_text ) {
 			$order_summary = sprintf(
 				/* translators: 1: order number, 2: order date */
-				__( 'Order #%1$s (%2$s)', 'woocommerce' ),
+				__( 'Order #%1$s (%2$s)', 'poocommerce' ),
 				$order_number,
 				$order_date_text
 			);
 		} else {
 			$order_summary = sprintf(
 				/* translators: %s: order number */
-				__( 'Order #%s', 'woocommerce' ),
+				__( 'Order #%s', 'poocommerce' ),
 				$order_number
 			);
 		}

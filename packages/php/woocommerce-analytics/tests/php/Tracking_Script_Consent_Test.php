@@ -2,7 +2,7 @@
 /**
  * Tests for how s.js is printed around the WP Consent API.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -20,7 +20,7 @@ class Tracking_Script_Consent_Test extends BaseTestCase {
 	 */
 	public function tear_down(): void {
 		remove_filter( 'wp_script_attributes', array( Woocommerce_Analytics::class, 'hold_tracking_script_until_consent' ) );
-		foreach ( array( 'woocommerce-analytics', 'analytics-dependent' ) as $handle ) {
+		foreach ( array( 'poocommerce-analytics', 'analytics-dependent' ) as $handle ) {
 			wp_dequeue_script( $handle );
 			wp_deregister_script( $handle );
 		}
@@ -34,7 +34,7 @@ class Tracking_Script_Consent_Test extends BaseTestCase {
 	public function test_tracking_script_runs_without_the_consent_api(): void {
 		Woocommerce_Analytics::enqueue_tracking_script();
 
-		$tracking = $this->get_script_attributes( $this->print_scripts(), 'woocommerce-analytics-js' );
+		$tracking = $this->get_script_attributes( $this->print_scripts(), 'poocommerce-analytics-js' );
 
 		$this->assertIsArray( $tracking );
 		$this->assertMatchesRegularExpression( '#^https://stats\.wp\.com/s-\d+\.js$#', $tracking['src'] ?? '' );
@@ -52,10 +52,10 @@ class Tracking_Script_Consent_Test extends BaseTestCase {
 		require_once __DIR__ . '/mocks/wp-consent-api-functions.php';
 
 		Woocommerce_Analytics::enqueue_tracking_script();
-		wp_enqueue_script( 'analytics-dependent', 'https://example.com/dependent.js', array( 'woocommerce-analytics' ), '1.0' );
+		wp_enqueue_script( 'analytics-dependent', 'https://example.com/dependent.js', array( 'poocommerce-analytics' ), '1.0' );
 
 		$output    = $this->print_scripts();
-		$tracking  = $this->get_script_attributes( $output, 'woocommerce-analytics-js' );
+		$tracking  = $this->get_script_attributes( $output, 'poocommerce-analytics-js' );
 		$dependent = $this->get_script_attributes( $output, 'analytics-dependent-js' );
 
 		$this->assertIsArray( $tracking );
@@ -76,16 +76,16 @@ class Tracking_Script_Consent_Test extends BaseTestCase {
 	 */
 	public function test_tracking_script_is_skipped_when_proxy_tracking_is_enabled(): void {
 		require_once __DIR__ . '/mocks/wp-consent-api-functions.php';
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 		Woocommerce_Analytics::enqueue_tracking_script();
-		wp_enqueue_script( 'analytics-dependent', 'https://example.com/dependent.js', array( 'woocommerce-analytics' ), '1.0' );
+		wp_enqueue_script( 'analytics-dependent', 'https://example.com/dependent.js', array( 'poocommerce-analytics' ), '1.0' );
 
 		$output    = $this->print_scripts();
 		$dependent = $this->get_script_attributes( $output, 'analytics-dependent-js' );
 
 		$this->assertStringNotContainsString( 'stats.wp.com', $output );
-		$this->assertNull( $this->get_script_attributes( $output, 'woocommerce-analytics-js' ) );
+		$this->assertNull( $this->get_script_attributes( $output, 'poocommerce-analytics-js' ) );
 		$this->assertFalse( has_filter( 'wp_script_attributes', array( Woocommerce_Analytics::class, 'hold_tracking_script_until_consent' ) ) );
 
 		$this->assertIsArray( $dependent );

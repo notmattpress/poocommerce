@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { paymentStore, validationStore } from '@woocommerce/block-data';
-import { ValidationInputError } from '@woocommerce/blocks-components';
+import { paymentStore, validationStore } from '@poocommerce/block-data';
+import { ValidationInputError } from '@poocommerce/blocks-components';
 import type { ReactNode } from 'react';
 
 const ERROR_ID = 'payment-method';
@@ -44,7 +44,7 @@ const PaymentMethodRequiredError = ( {
 				[ ERROR_ID ]: {
 					message: __(
 						'Please select a payment method.',
-						'woocommerce'
+						'poocommerce'
 					),
 					hidden: true,
 				},

@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
-import type { PackageRateOption } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
-import { CartShippingPackageShippingRate } from '@woocommerce/types';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
+import type { PackageRateOption } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { CartShippingPackageShippingRate } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -44,7 +44,7 @@ export const renderPackageRateOption = (
 	if ( priceWithTaxes === 0 ) {
 		description = (
 			<span className="wc-block-components-shipping-rates-control__package__description--free">
-				{ __( 'Free', 'woocommerce' ) }
+				{ __( 'Free', 'poocommerce' ) }
 				<span className="wc-block-components-shipping-rates-control__package__delivery_time">
 					{ rate.delivery_time &&
 						' — ' + decodeEntities( rate.delivery_time ) }

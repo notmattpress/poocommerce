@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
 
 /**
  * Tests for the Ability class.
@@ -34,7 +34,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Convert input',
 				'description'         => 'Returns its input.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'input_schema'        => array(
 					'type'                 => 'object',
 					'additionalProperties' => false,

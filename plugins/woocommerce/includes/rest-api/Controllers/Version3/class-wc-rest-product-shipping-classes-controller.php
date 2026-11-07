@@ -4,7 +4,7 @@
  *
  * Handles requests to the products/shipping_classes endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Product Shipping Classes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Shipping_Classes_V2_Controller
  */
 class WC_REST_Product_Shipping_Classes_Controller extends WC_REST_Product_Shipping_Classes_V2_Controller {
@@ -37,7 +37,7 @@ class WC_REST_Product_Shipping_Classes_Controller extends WC_REST_Product_Shippi
 			array(
 				'args'   => array(
 					'name' => array(
-						'description' => __( 'Suggest a slug for the term.', 'woocommerce' ),
+						'description' => __( 'Suggest a slug for the term.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),

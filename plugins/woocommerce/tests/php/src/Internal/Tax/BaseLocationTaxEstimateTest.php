@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Tax;
+namespace Automattic\PooCommerce\Tests\Internal\Tax;
 
-use Automattic\WooCommerce\Internal\Tax\BaseLocationTaxEstimate;
+use Automattic\PooCommerce\Internal\Tax\BaseLocationTaxEstimate;
 use WC_Customer;
 use WC_Unit_Test_Case;
 
@@ -26,11 +26,11 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->sut = new BaseLocationTaxEstimate();
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_store_postcode', '94110' );
-		update_option( 'woocommerce_store_city', 'San Francisco' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_postcode', '94110' );
+		update_option( 'poocommerce_store_city', 'San Francisco' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @testdox Does not estimate when the default customer location is not the shop base.
 	 */
 	public function test_skips_when_default_location_not_base(): void {
-		update_option( 'woocommerce_default_customer_address', 'geolocation' );
+		update_option( 'poocommerce_default_customer_address', 'geolocation' );
 		$address = array( 'US', 'CA', '', '' );
 
 		$this->assertSame( $address, $this->sut->estimate_base_location_address( $address, null ) );
@@ -83,7 +83,7 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @testdox Does not estimate when taxes are disabled.
 	 */
 	public function test_skips_when_taxes_disabled(): void {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$address = array( 'US', 'CA', '', '' );
 
 		$this->assertSame( $address, $this->sut->estimate_base_location_address( $address, null ) );
@@ -109,7 +109,7 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @testdox Fills only the city when the store has a city but no postcode.
 	 */
 	public function test_fills_only_city_when_store_has_no_postcode(): void {
-		update_option( 'woocommerce_store_postcode', '' );
+		update_option( 'poocommerce_store_postcode', '' );
 
 		$result = $this->sut->estimate_base_location_address( array( 'US', 'CA', '', '' ), null );
 
@@ -125,8 +125,8 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @param string $stored Store postcode whose characters all normalize away.
 	 */
 	public function test_postcode_that_normalizes_to_nothing_is_not_formatted( string $stored ): void {
-		update_option( 'woocommerce_default_country', 'BR:SP' );
-		update_option( 'woocommerce_store_postcode', $stored );
+		update_option( 'poocommerce_default_country', 'BR:SP' );
+		update_option( 'poocommerce_store_postcode', $stored );
 
 		$result = $this->sut->estimate_base_location_address( array( 'BR', 'SP', '', '' ), null );
 
@@ -144,8 +144,8 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @param string $state   Store base state, where the country has them.
 	 */
 	public function test_no_postcode_never_becomes_a_separator( string $country, string $state ): void {
-		update_option( 'woocommerce_default_country', '' === $state ? $country : $country . ':' . $state );
-		update_option( 'woocommerce_store_postcode', '' );
+		update_option( 'poocommerce_default_country', '' === $state ? $country : $country . ':' . $state );
+		update_option( 'poocommerce_store_postcode', '' );
 
 		$result = $this->sut->estimate_base_location_address( array( $country, $state, '', '' ), null );
 
@@ -182,7 +182,7 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @testdox The estimate reaches shipping-based taxable addresses without changing the stored address.
 	 */
 	public function test_estimate_applies_to_shipping_based_tax(): void {
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 		$this->sut->register();
 
 		$customer = new WC_Customer();
@@ -201,7 +201,7 @@ class BaseLocationTaxEstimateTest extends WC_Unit_Test_Case {
 	 * @testdox The estimate reaches the taxable address without changing the stored customer address.
 	 */
 	public function test_estimate_leaves_the_stored_customer_address_untouched(): void {
-		update_option( 'woocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
 		$this->sut->register();
 
 		$customer = new WC_Customer();

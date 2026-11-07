@@ -30,7 +30,7 @@ const noRatingsNotice = (
 		<p>
 			{ __(
 				"Your store doesn't have any products with ratings yet. This filter option will display when a product receives a review.",
-				'woocommerce'
+				'poocommerce'
 			) }
 		</p>
 	</Notice>
@@ -59,9 +59,9 @@ const Edit = ( {
 				<PanelBody>
 					<UpgradeNotice clientId={ clientId } />
 				</PanelBody>
-				<PanelBody title={ __( 'Display Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display Settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Display product count', 'woocommerce' ) }
+						label={ __( 'Display product count', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ () =>
 							setAttributes( {
@@ -72,7 +72,7 @@ const Edit = ( {
 					<ToggleGroupControl
 						label={ __(
 							'Allow selecting multiple options?',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isBlock
 						value={ selectType || 'multiple' }
@@ -88,7 +88,7 @@ const Edit = ( {
 							label={ _x(
 								'Multiple',
 								'Number of filters',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 						<ToggleGroupControlOption
@@ -96,12 +96,12 @@ const Edit = ( {
 							label={ _x(
 								'Single',
 								'Number of filters',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</ToggleGroupControl>
 					<ToggleGroupControl
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						isBlock
 						value={ displayStyle }
 						onChange={ ( value: string ) =>
@@ -113,21 +113,21 @@ const Edit = ( {
 					>
 						<ToggleGroupControlOption
 							value="list"
-							label={ __( 'List', 'woocommerce' ) }
+							label={ __( 'List', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="dropdown"
-							label={ __( 'Dropdown', 'woocommerce' ) }
+							label={ __( 'Dropdown', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 					<ToggleControl
 						label={ __(
 							"Show 'Apply filters' button",
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Products will update when the button is clicked.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showFilterButton }
 						onChange={ ( value ) =>

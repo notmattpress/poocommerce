@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { miniCartAlt } from '@woocommerce/icons';
+import { miniCartAlt } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 /**

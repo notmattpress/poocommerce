@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { webpackConfig } = require( '@woocommerce/internal-build/style-build' );
+const { webpackConfig } = require( '@poocommerce/internal-build/style-build' );
 
 /**
  * External dependencies
@@ -22,7 +22,7 @@ module.exports = {
 			config: [
 				__filename,
 				path.resolve( __dirname, '../../../pnpm-lock.yaml' ),
-				require.resolve( '@woocommerce/internal-build/style-build' ),
+				require.resolve( '@poocommerce/internal-build/style-build' ),
 			],
 		},
 	},

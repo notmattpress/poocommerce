@@ -48,7 +48,7 @@ describe( 'DateFilter', () => {
 			if ( translatedFormat ) {
 				setLocaleData(
 					{ 'MM/DD/YYYY': [ translatedFormat ] },
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 			const onFilterChange = jest.fn();

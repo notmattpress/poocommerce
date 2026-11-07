@@ -7,7 +7,7 @@ Use `Plugins` to install and activate a list of plugins.
 ```jsx
 <Plugins
 	onComplete={ this.complete }
-	pluginSlugs={ [ 'jetpack', 'woocommerce-services' ] }
+	pluginSlugs={ [ 'jetpack', 'poocommerce-services' ] }
 />
 ```
 
@@ -20,4 +20,4 @@ Use `Plugins` to install and activate a list of plugins.
 | `onSkip`      | Function | `noop`                                   | Called when the plugin installer is skipped                               |
 | `skipText`    | String   |                                          | Text used for the skip installer button                                   |
 | `autoInstall` | Boolean  | false                                    | If installation should happen automatically, or require user confirmation |
-| `pluginSlugs` | Array    | `[ 'jetpack', 'woocommerce-services' ],` | An array of plugin slugs to install.                                      |
+| `pluginSlugs` | Array    | `[ 'jetpack', 'poocommerce-services' ],` | An array of plugin slugs to install.                                      |

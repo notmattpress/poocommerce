@@ -1,18 +1,18 @@
 <?php
 /**
- * Rule processor for sending when WooCommerce Admin has been updated.
+ * Rule processor for sending when PooCommerce Admin has been updated.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Rule processor for sending when WooCommerce Admin has been updated.
+ * Rule processor for sending when PooCommerce Admin has been updated.
  */
-class WooCommerceAdminUpdatedRuleProcessor implements RuleProcessorInterface {
+class PooCommerceAdminUpdatedRuleProcessor implements RuleProcessorInterface {
 	/**
 	 * Process the rule.
 	 *

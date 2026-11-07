@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The "Agent readiness" tab under WooCommerce > Status, shown only when the
+ * The "Agent readiness" tab under PooCommerce > Status, shown only when the
  * agent_readiness feature is enabled. "Run check" queues a background scan;
  * the tab shows the last stored report.
  *
@@ -75,9 +75,9 @@ class StatusTab implements RegisterHooksInterface {
 		if ( ! is_admin() || ! $this->features_controller->feature_is_enabled( self::FEATURE_ID ) ) {
 			return;
 		}
-		add_filter( 'woocommerce_admin_status_tabs', array( $this, 'handle_woocommerce_admin_status_tabs' ) );
-		add_action( 'woocommerce_admin_status_content_' . self::TAB, array( $this, 'render' ) );
-		add_action( 'load-woocommerce_page_wc-status', array( $this, 'handle_run_request' ) );
+		add_filter( 'poocommerce_admin_status_tabs', array( $this, 'handle_poocommerce_admin_status_tabs' ) );
+		add_action( 'poocommerce_admin_status_content_' . self::TAB, array( $this, 'render' ) );
+		add_action( 'load-poocommerce_page_wc-status', array( $this, 'handle_run_request' ) );
 	}
 
 	/**
@@ -88,11 +88,11 @@ class StatusTab implements RegisterHooksInterface {
 	 * @param mixed $tabs Tab labels by slug.
 	 * @return mixed
 	 */
-	public function handle_woocommerce_admin_status_tabs( $tabs ) {
+	public function handle_poocommerce_admin_status_tabs( $tabs ) {
 		if ( ! is_array( $tabs ) ) {
 			return $tabs;
 		}
-		$tabs[ self::TAB ] = __( 'Agent readiness', 'woocommerce' );
+		$tabs[ self::TAB ] = __( 'Agent readiness', 'poocommerce' );
 		return $tabs;
 	}
 
@@ -106,8 +106,8 @@ class StatusTab implements RegisterHooksInterface {
 			return;
 		}
 		check_admin_referer( self::NONCE_ACTION );
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to run this check.', 'woocommerce' ), 403 );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You do not have permission to run this check.', 'poocommerce' ), 403 );
 		}
 		$this->scheduled_scan->queue();
 		wp_safe_redirect( $this->tab_url() );
@@ -124,17 +124,17 @@ class StatusTab implements RegisterHooksInterface {
 		$pending = $this->scheduled_scan->is_pending();
 		$stalled = $pending && $this->scheduled_scan->is_stalled();
 		?>
-		<h2><?php esc_html_e( 'Agent readiness', 'woocommerce' ); ?></h2>
-		<p><?php esc_html_e( 'Checks your products against the product data specs of AI shopping channels, so agents such as ChatGPT, Google and Copilot can list and recommend them.', 'woocommerce' ); ?></p>
+		<h2><?php esc_html_e( 'Agent readiness', 'poocommerce' ); ?></h2>
+		<p><?php esc_html_e( 'Checks your products against the product data specs of AI shopping channels, so agents such as ChatGPT, Google and Copilot can list and recommend them.', 'poocommerce' ); ?></p>
 		<form method="post" action="<?php echo esc_url( $this->tab_url() ); ?>">
 			<?php wp_nonce_field( self::NONCE_ACTION ); ?>
 			<p>
-				<button type="submit" name="wc_agent_readiness_run" value="1" class="button button-primary" <?php disabled( $pending ); ?>><?php esc_html_e( 'Run check', 'woocommerce' ); ?></button>
+				<button type="submit" name="wc_agent_readiness_run" value="1" class="button button-primary" <?php disabled( $pending ); ?>><?php esc_html_e( 'Run check', 'poocommerce' ); ?></button>
 				<?php if ( null !== $report && ! empty( $report['generated_at'] ) ) : ?>
 					<span class="description">
 						<?php
 						/* translators: %s: how long ago the check ran, e.g. "5 mins". */
-						echo esc_html( sprintf( __( 'Last run %s ago.', 'woocommerce' ), human_time_diff( (int) strtotime( (string) $report['generated_at'] ) ) ) );
+						echo esc_html( sprintf( __( 'Last run %s ago.', 'poocommerce' ), human_time_diff( (int) strtotime( (string) $report['generated_at'] ) ) ) );
 						?>
 					</span>
 				<?php endif; ?>
@@ -142,13 +142,13 @@ class StatusTab implements RegisterHooksInterface {
 		</form>
 		<?php
 		if ( $stalled ) {
-			echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'The check has not started because scheduled actions do not seem to be running on this site. It runs once they do. See WooCommerce > Status > Scheduled Actions.', 'woocommerce' ) . '</p></div>';
+			echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'The check has not started because scheduled actions do not seem to be running on this site. It runs once they do. See PooCommerce > Status > Scheduled Actions.', 'poocommerce' ) . '</p></div>';
 		} elseif ( $pending ) {
-			echo '<div class="notice notice-info inline"><p>' . esc_html__( 'Checking your products in the background. Reload this page in a minute to see the result.', 'woocommerce' ) . '</p></div>';
+			echo '<div class="notice notice-info inline"><p>' . esc_html__( 'Checking your products in the background. Reload this page in a minute to see the result.', 'poocommerce' ) . '</p></div>';
 		}
 		if ( null === $report ) {
 			if ( ! $pending ) {
-				echo '<p>' . esc_html__( 'No check has run yet.', 'woocommerce' ) . '</p>';
+				echo '<p>' . esc_html__( 'No check has run yet.', 'poocommerce' ) . '</p>';
 			}
 			return;
 		}
@@ -157,7 +157,7 @@ class StatusTab implements RegisterHooksInterface {
 		if ( ! empty( $report['truncated'] ) ) {
 			echo '<div class="notice notice-info inline"><p>';
 			/* translators: %d: number of products checked. */
-			echo esc_html( sprintf( __( 'Only the %d most recently updated products were checked.', 'woocommerce' ), ProductScan::PRODUCT_LIMIT ) );
+			echo esc_html( sprintf( __( 'Only the %d most recently updated products were checked.', 'poocommerce' ), ProductScan::PRODUCT_LIMIT ) );
 			echo '</p></div>';
 		}
 		$this->render_channels( $report['channels'] ?? array(), (int) ( $report['products'] ?? 0 ) );
@@ -180,7 +180,7 @@ class StatusTab implements RegisterHooksInterface {
 		if ( empty( $failing ) ) {
 			return;
 		}
-		echo '<h3>' . esc_html__( 'Store-wide problems', 'woocommerce' ) . '</h3>';
+		echo '<h3>' . esc_html__( 'Store-wide problems', 'poocommerce' ) . '</h3>';
 		foreach ( $failing as $check ) {
 			printf(
 				'<div class="notice notice-error inline"><p><strong>%1$s</strong> %2$s %3$s</p></div>',
@@ -198,18 +198,18 @@ class StatusTab implements RegisterHooksInterface {
 	 * @param int   $products Products checked.
 	 */
 	private function render_channels( array $channels, int $products ): void {
-		echo '<h3>' . esc_html__( 'Channels', 'woocommerce' ) . '</h3>';
+		echo '<h3>' . esc_html__( 'Channels', 'poocommerce' ) . '</h3>';
 		/* translators: %d: number of products checked. */
-		echo '<p>' . esc_html( sprintf( _n( '%d published product checked.', '%d published products checked.', $products, 'woocommerce' ), $products ) ) . '</p>';
+		echo '<p>' . esc_html( sprintf( _n( '%d published product checked.', '%d published products checked.', $products, 'poocommerce' ), $products ) ) . '</p>';
 		?>
 		<table class="widefat striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Channel', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Can be listed', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Missing a required field', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Listed with gaps', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Complete', 'woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Channel', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Can be listed', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Missing a required field', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Listed with gaps', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Complete', 'poocommerce' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -237,16 +237,16 @@ class StatusTab implements RegisterHooksInterface {
 		$lines = array();
 		if ( $hidden > 0 ) {
 			/* translators: %d: number of products. */
-			$lines[] = sprintf( __( 'Hidden from your catalog: %d', 'woocommerce' ), $hidden );
+			$lines[] = sprintf( __( 'Hidden from your catalog: %d', 'poocommerce' ), $hidden );
 		}
 		if ( $unsupported > 0 ) {
 			/* translators: %d: number of products. */
-			$lines[] = sprintf( __( 'Product type not supported yet: %d', 'woocommerce' ), $unsupported );
+			$lines[] = sprintf( __( 'Product type not supported yet: %d', 'poocommerce' ), $unsupported );
 		}
 		if ( empty( $lines ) ) {
 			return;
 		}
-		echo '<p class="description">' . esc_html__( 'Not checked, because agents don\'t see these products:', 'woocommerce' ) . '</p><ul>';
+		echo '<p class="description">' . esc_html__( 'Not checked, because agents don\'t see these products:', 'poocommerce' ) . '</p><ul>';
 		foreach ( $lines as $line ) {
 			echo '<li>' . esc_html( $line ) . '</li>';
 		}
@@ -266,19 +266,19 @@ class StatusTab implements RegisterHooksInterface {
 				return (int) ( $check['count'] ?? 0 ) > 0;
 			}
 		);
-		echo '<h3>' . esc_html__( 'Product checks', 'woocommerce' ) . '</h3>';
+		echo '<h3>' . esc_html__( 'Product checks', 'poocommerce' ) . '</h3>';
 		if ( empty( $failing ) ) {
-			echo '<p>' . esc_html__( 'Every product passed every check.', 'woocommerce' ) . '</p>';
+			echo '<p>' . esc_html__( 'Every product passed every check.', 'poocommerce' ) . '</p>';
 			return;
 		}
 		?>
 		<table class="widefat striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Problem', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Channels', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Products', 'woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Examples', 'woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Problem', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Channels', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Products', 'poocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Examples', 'poocommerce' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -312,10 +312,10 @@ class StatusTab implements RegisterHooksInterface {
 			$name = (string) ( $channels[ $channel_id ]['name'] ?? $channel_id );
 			if ( ReadinessRule::EFFECT_NOT_LISTABLE === ( $spec['effect'] ?? '' ) ) {
 				/* translators: %s: channel name, e.g. ChatGPT. */
-				$tags[] = '<mark class="error">' . esc_html( sprintf( __( 'Required by %s', 'woocommerce' ), $name ) ) . '</mark>';
+				$tags[] = '<mark class="error">' . esc_html( sprintf( __( 'Required by %s', 'poocommerce' ), $name ) ) . '</mark>';
 			} else {
 				/* translators: %s: channel name, e.g. ChatGPT. */
-				$tags[] = esc_html( sprintf( __( 'Harder to find on %s', 'woocommerce' ), $name ) );
+				$tags[] = esc_html( sprintf( __( 'Harder to find on %s', 'poocommerce' ), $name ) );
 			}
 		}
 		return $tags;

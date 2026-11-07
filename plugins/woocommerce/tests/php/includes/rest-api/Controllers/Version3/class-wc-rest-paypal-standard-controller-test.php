@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the POST /wc/v3/paypal-standard/update-shipping endpoint
@@ -75,9 +75,9 @@ class WC_REST_Paypal_Standard_Controller_Test extends WC_REST_Unit_Test_Case {
 
 		$this->product_order_item_meta_id = null;
 
-		add_filter( 'woocommerce_shipping_legacy_flat_rate_is_available', array( $this, 'disable_legacy_flat_rate_shipping' ), 99999 );
+		add_filter( 'poocommerce_shipping_legacy_flat_rate_is_available', array( $this, 'disable_legacy_flat_rate_shipping' ), 99999 );
 
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Remove all existing shipping zones.
 		foreach ( WC_Shipping_Zones::get_zones() as $zone ) {
@@ -112,7 +112,7 @@ class WC_REST_Paypal_Standard_Controller_Test extends WC_REST_Unit_Test_Case {
 		WC()->customer = $this->previous_customer;
 		WC()->session  = $this->previous_session;
 
-		remove_filter( 'woocommerce_shipping_legacy_flat_rate_is_available', array( $this, 'disable_legacy_flat_rate_shipping' ), 99999 );
+		remove_filter( 'poocommerce_shipping_legacy_flat_rate_is_available', array( $this, 'disable_legacy_flat_rate_shipping' ), 99999 );
 
 		parent::tearDown();
 	}
@@ -230,7 +230,7 @@ class WC_REST_Paypal_Standard_Controller_Test extends WC_REST_Unit_Test_Case {
 	 * @testdox Should recalculate taxes based on the updated shipping address.
 	 */
 	public function test_recalculates_taxes_for_new_address(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => 'CA',
@@ -413,7 +413,7 @@ class WC_REST_Paypal_Standard_Controller_Test extends WC_REST_Unit_Test_Case {
 
 		$free_shipping_instance_id = $us_zone->add_shipping_method( 'free_shipping' );
 		update_option(
-			"woocommerce_free_shipping_{$free_shipping_instance_id}_settings",
+			"poocommerce_free_shipping_{$free_shipping_instance_id}_settings",
 			array(
 				'title'            => 'Free shipping',
 				'requires'         => 'min_amount',
@@ -481,7 +481,7 @@ class WC_REST_Paypal_Standard_Controller_Test extends WC_REST_Unit_Test_Case {
 	private function add_flat_rate( WC_Shipping_Zone $zone, string $title, string $cost ): string {
 		$instance_id = $zone->add_shipping_method( 'flat_rate' );
 		update_option(
-			"woocommerce_flat_rate_{$instance_id}_settings",
+			"poocommerce_flat_rate_{$instance_id}_settings",
 			array(
 				'title'      => $title,
 				'tax_status' => 'taxable',

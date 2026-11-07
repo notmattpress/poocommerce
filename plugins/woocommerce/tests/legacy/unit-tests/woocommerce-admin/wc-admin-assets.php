@@ -2,15 +2,15 @@
 /**
  * Loader tests
  *
- * @package WooCommerce\Admin\Tests\Loader
+ * @package PooCommerce\Admin\Tests\Loader
  */
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * WC_Admin_Tests_Page_WCAdminAssets Class
  *
- * @package WooCommerce\Admin\Tests\WCAdminAssets
+ * @package PooCommerce\Admin\Tests\WCAdminAssets
  */
 class WC_Admin_Tests_WCAdminAssets extends WP_UnitTestCase {
 	/**
@@ -19,14 +19,14 @@ class WC_Admin_Tests_WCAdminAssets extends WP_UnitTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_admin_features', array( $this, 'turn_on_minified_js_feature' ), 20, 1 );
+		add_filter( 'poocommerce_admin_features', array( $this, 'turn_on_minified_js_feature' ), 20, 1 );
 	}
 
 	/**
 	 * Tear Down
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_admin_features', array( $this, 'turn_on_minified_js_feature' ), 20 );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'turn_on_minified_js_feature' ), 20 );
 
 		parent::tearDown();
 	}

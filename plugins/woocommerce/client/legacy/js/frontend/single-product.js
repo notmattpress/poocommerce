@@ -8,8 +8,8 @@ jQuery( function( $ ) {
 
 	$( 'body' )
 		// Tabs
-		.on( 'init', '.wc-tabs-wrapper, .woocommerce-tabs', function() {
-			$( this ).find( '.wc-tab, .woocommerce-tabs .panel:not(.panel .panel)' ).hide();
+		.on( 'init', '.wc-tabs-wrapper, .poocommerce-tabs', function() {
+			$( this ).find( '.wc-tab, .poocommerce-tabs .panel:not(.panel .panel)' ).hide();
 
 			var hash  = window.location.hash;
 			var url   = window.location.href;
@@ -28,7 +28,7 @@ jQuery( function( $ ) {
 		.on( 'click', '.wc-tabs li a, ul.tabs li a', function( e ) {
 			e.preventDefault();
 			var $tab          = $( this );
-			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .woocommerce-tabs' );
+			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .poocommerce-tabs' );
 			var $tabs         = $tabs_wrapper.find( '.wc-tabs, ul.tabs' );
 
 			$tabs.find( 'li' ).removeClass( 'active' );
@@ -59,7 +59,7 @@ jQuery( function( $ ) {
 			}
 
 			var $tab          = $( this );
-			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .woocommerce-tabs' );
+			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .poocommerce-tabs' );
 			var $tabsList     = $tabs_wrapper.find( '.wc-tabs, ul.tabs' );
 			var $tabs         = $tabsList.find( 'a[role="tab"]' );
 			var endIndex	  = $tabs.length - 1;
@@ -110,7 +110,7 @@ jQuery( function( $ ) {
 			$tabs.eq( targetIndex ).trigger( 'focus' );
 		} )
 		// Review link
-		.on( 'click', 'a.woocommerce-review-link', function() {
+		.on( 'click', 'a.poocommerce-review-link', function() {
 			$( '.reviews_tab a' ).trigger( 'click' );
 			return true;
 		} )
@@ -196,7 +196,7 @@ jQuery( function( $ ) {
 		} );
 
 	// Init Tabs and Star Ratings
-	$( '.wc-tabs-wrapper, .woocommerce-tabs, #rating' ).trigger( 'init' );
+	$( '.wc-tabs-wrapper, .poocommerce-tabs, #rating' ).trigger( 'init' );
 
 	var productGalleryElement;
 
@@ -205,7 +205,7 @@ jQuery( function( $ ) {
 	 */
 	var ProductGallery = function( $target, args ) {
 		this.$target = $target;
-		this.$images = $( '.woocommerce-product-gallery__image', $target );
+		this.$images = $( '.poocommerce-product-gallery__image', $target );
 
 		// No images? Abort.
 		if ( 0 === this.$images.length ) {
@@ -250,7 +250,7 @@ jQuery( function( $ ) {
 
 		if ( this.flexslider_enabled ) {
 			this.initFlexslider( args.flexslider );
-			$target.on( 'woocommerce_gallery_reset_slide_position', this.onResetSlidePosition );
+			$target.on( 'poocommerce_gallery_reset_slide_position', this.onResetSlidePosition );
 		} else {
 			this.$target.css( 'opacity', 1 );
 			this.syncVideoPlayback( 0 );
@@ -258,7 +258,7 @@ jQuery( function( $ ) {
 
 		if ( this.zoom_enabled ) {
 			this.initZoom();
-			$target.on( 'woocommerce_gallery_init_zoom', this.initZoom );
+			$target.on( 'poocommerce_gallery_init_zoom', this.initZoom );
 		}
 
 		if ( this.photoswipe_enabled ) {
@@ -274,7 +274,7 @@ jQuery( function( $ ) {
 			gallery = this;
 
 		var options = $.extend( {
-			selector: '.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image',
+			selector: '.poocommerce-product-gallery__wrapper > .poocommerce-product-gallery__image',
 			start: function( slider ) {
 				$target.css( 'opacity', 1 );
 				gallery.syncVideoPlayback( slider.currentSlide );
@@ -299,12 +299,12 @@ jQuery( function( $ ) {
 			} );
 
 		// Trigger resize after main image loads to ensure correct gallery size.
-		$( '.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:eq(0) .wp-post-image' ).one( 'load', function() {
+		$( '.poocommerce-product-gallery__wrapper .poocommerce-product-gallery__image:eq(0) .wp-post-image' ).one( 'load', function() {
 			var $image = $( this );
 
 			if ( $image ) {
 				setTimeout( function() {
-					var setHeight = $image.closest( '.woocommerce-product-gallery__image' ).height();
+					var setHeight = $image.closest( '.poocommerce-product-gallery__image' ).height();
 					var $viewport = $image.closest( '.flex-viewport' );
 
 					if ( setHeight && $viewport ) {
@@ -362,7 +362,7 @@ jQuery( function( $ ) {
 			}
 
 			const video = $( '<video />', {
-				class: 'woocommerce-product-gallery__video-thumbnail-preview',
+				class: 'poocommerce-product-gallery__video-thumbnail-preview',
 				src: videoSrc,
 				preload: 'metadata',
 				muted: 'muted',
@@ -382,10 +382,10 @@ jQuery( function( $ ) {
 			} );
 
 			$thumbItem
-				.addClass( 'woocommerce-product-gallery__video-thumbnail' )
+				.addClass( 'poocommerce-product-gallery__video-thumbnail' )
 				.css( 'position', 'relative' );
 			$thumb
-				.addClass( 'woocommerce-product-gallery__video-thumbnail-placeholder' )
+				.addClass( 'poocommerce-product-gallery__video-thumbnail-placeholder' )
 				.css( 'opacity', 0 )
 				.after( video );
 		} );
@@ -398,13 +398,13 @@ jQuery( function( $ ) {
 	 */
 	ProductGallery.prototype.syncVideoThumbnailPreviewOpacity = function() {
 		this.$target
-			.find( '.flex-control-thumbs li.woocommerce-product-gallery__video-thumbnail' )
+			.find( '.flex-control-thumbs li.poocommerce-product-gallery__video-thumbnail' )
 			.each( function() {
 				const $thumbItem = $( this );
 				const isActive = $thumbItem.find( 'img.flex-active' ).length > 0;
 
 				$thumbItem
-					.find( '.woocommerce-product-gallery__video-thumbnail-preview' )
+					.find( '.poocommerce-product-gallery__video-thumbnail-preview' )
 					.css( 'opacity', isActive ? 1 : 0.5 );
 			} );
 	};
@@ -478,21 +478,21 @@ jQuery( function( $ ) {
 	ProductGallery.prototype.initPhotoswipe = function() {
 		if ( this.zoom_enabled && this.$images.length > 0 ) {
 			this.$target.prepend(
-				'<a href="#" role="button" class="woocommerce-product-gallery__trigger" aria-haspopup="dialog" ' +
+				'<a href="#" role="button" class="poocommerce-product-gallery__trigger" aria-haspopup="dialog" ' +
 				'aria-controls="photoswipe-fullscreen-dialog" aria-label="' +
 				wc_single_product_params.i18n_product_gallery_trigger_text + '">' +
 					'<span aria-hidden="true">🔍</span>' +
 				'</a>'
 			);
-			this.$target.on( 'click', '.woocommerce-product-gallery__trigger', this.openPhotoswipe );
-			this.$target.on( 'keydown', '.woocommerce-product-gallery__trigger', ( e ) => {
+			this.$target.on( 'click', '.poocommerce-product-gallery__trigger', this.openPhotoswipe );
+			this.$target.on( 'keydown', '.poocommerce-product-gallery__trigger', ( e ) => {
 				if ( e.key === ' ' ) {
 					this.openPhotoswipe( e );
 				}
 			} );
-			this.$target.on( 'click', '.woocommerce-product-gallery__image a', this.openPhotoswipe );
+			this.$target.on( 'click', '.poocommerce-product-gallery__image a', this.openPhotoswipe );
 		} else {
-			this.$target.on( 'click', '.woocommerce-product-gallery__image a', this.openPhotoswipe );
+			this.$target.on( 'click', '.poocommerce-product-gallery__image a', this.openPhotoswipe );
 		}
 	};
 
@@ -560,7 +560,7 @@ jQuery( function( $ ) {
 		const video = media.get( 0 );
 		const src = video.currentSrc || media.attr( 'src' );
 		const $video = $( '<video />', {
-			class: 'woocommerce-product-gallery__photoswipe-video',
+			class: 'poocommerce-product-gallery__photoswipe-video',
 			src,
 			preload: 'metadata',
 			muted: 'muted',
@@ -576,7 +576,7 @@ jQuery( function( $ ) {
 		}
 
 		return $( '<div />', {
-			class: 'woocommerce-product-gallery__photoswipe-video-wrapper',
+			class: 'poocommerce-product-gallery__photoswipe-video-wrapper',
 			style: 'display:flex;align-items:center;justify-content:center;width:100%;height:100%;',
 		} )
 			.append( $video )
@@ -591,7 +591,7 @@ jQuery( function( $ ) {
 			photoswipe.currItem && photoswipe.currItem.container;
 
 		$( photoswipe.template )
-			.find( 'video.woocommerce-product-gallery__photoswipe-video' )
+			.find( 'video.poocommerce-product-gallery__photoswipe-video' )
 			.each( function() {
 				if ( activeContainer && activeContainer.contains( this ) ) {
 					const playPromise = this.play();
@@ -622,10 +622,10 @@ jQuery( function( $ ) {
 			clicked,
 			index;
 
-		if ( 0 < eventTarget.closest( '.woocommerce-product-gallery__trigger' ).length ) {
+		if ( 0 < eventTarget.closest( '.poocommerce-product-gallery__trigger' ).length ) {
 			clicked = this.$target.find( '.flex-active-slide' );
 		} else {
-			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
+			clicked = eventTarget.closest( '.poocommerce-product-gallery__image' );
 		}
 
 		index = $( clicked ).index();
@@ -661,7 +661,7 @@ jQuery( function( $ ) {
 
 		photoswipe.listen( 'close', function() {
 			$( photoswipe.template )
-				.find( 'video.woocommerce-product-gallery__photoswipe-video' )
+				.find( 'video.poocommerce-product-gallery__photoswipe-video' )
 				.each( function() {
 					this.pause();
 				} );
@@ -731,7 +731,7 @@ jQuery( function( $ ) {
 	/*
 	 * Initialize all galleries on page.
 	 */
-	$( '.woocommerce-product-gallery' ).each( function() {
+	$( '.poocommerce-product-gallery' ).each( function() {
 
 		$( this ).trigger( 'wc-product-gallery-before-init', [ this, wc_single_product_params ] );
 

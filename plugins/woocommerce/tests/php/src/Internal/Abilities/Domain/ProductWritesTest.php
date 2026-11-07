@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -33,7 +33,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$gallery_image  = $this->create_image( 'back.jpg' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'               => 'Hoodie',
 				'regular_price'      => '60',
@@ -88,7 +88,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$image    = $this->create_image( 'gadget.jpg' );
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'                 => $product->get_id(),
 				'categories'         => array( $category ),
@@ -115,7 +115,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$product->save();
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'categories' => array(),
@@ -142,7 +142,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'             => $product->get_id(),
 				'dimensions'     => array(
@@ -166,7 +166,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		update_option( 'timezone_string', 'Europe/Berlin' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'            => 'Sale tee',
 				'regular_price'   => '20',
@@ -187,7 +187,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$image          = $this->create_image( 'shirt.jpg' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'              => 'Shirt',
 				'type'              => 'variable',
@@ -236,7 +236,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_external_product_fields(): void {
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'              => 'Affiliate tee',
 				'type'              => 'external',
@@ -250,7 +250,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertArrayNotHasKey( 'date_on_sale_to', $created['product'], 'A sale without an end date should omit it.' );
 		$this->assertSame( ProductTaxStatus::NONE, $created['product']['tax_status'] );
 
-		$rejected = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$rejected = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'              => 'Affiliate tee',
 				'type'              => 'external',
@@ -259,7 +259,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $rejected );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $rejected->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $rejected->get_error_code() );
 	}
 
 	/**
@@ -272,7 +272,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 * @param string $value Field value.
 	 */
 	public function test_external_product_rejects_shipping_fields( string $field, string $value ): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name' => 'Affiliate tee',
 				'type' => 'external',
@@ -281,7 +281,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $result->get_error_code() );
 	}
 
 	/**
@@ -300,20 +300,20 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$cases = array(
-			'woocommerce_ability_product_term_not_found' => array( 'tags' => array( 999999 ) ),
-			'woocommerce_ability_product_image_invalid'  => array( 'images' => array( $document ) ),
-			'woocommerce_ability_product_shipping_class_not_found' => array( 'shipping_class' => 'missing' ),
-			'woocommerce_ability_product_date_invalid'   => array( 'date_on_sale_from' => '2030-02-30' ),
+			'poocommerce_ability_product_term_not_found' => array( 'tags' => array( 999999 ) ),
+			'poocommerce_ability_product_image_invalid'  => array( 'images' => array( $document ) ),
+			'poocommerce_ability_product_shipping_class_not_found' => array( 'shipping_class' => 'missing' ),
+			'poocommerce_ability_product_date_invalid'   => array( 'date_on_sale_from' => '2030-02-30' ),
 		);
 
 		foreach ( $cases as $error_code => $input ) {
-			$result = wp_get_ability( 'woocommerce/product-update' )->execute( array( 'id' => $product->get_id() ) + $input );
+			$result = wp_get_ability( 'poocommerce/product-update' )->execute( array( 'id' => $product->get_id() ) + $input );
 
 			$this->assertWPError( $result );
 			$this->assertSame( $error_code, $result->get_error_code() );
 		}
 
-		$unknown_class = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$unknown_class = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'             => $product->get_id(),
 				'shipping_class' => 'missing',
@@ -321,7 +321,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( '"missing"', $unknown_class->get_error_message() );
 
-		$out_of_range_time = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$out_of_range_time = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'              => $product->get_id(),
 				'date_on_sale_to' => '2030-01-31T24:00:00',
@@ -359,7 +359,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 * @return array
 	 */
 	private function query_product( int $product_id ): array {
-		return $this->execute( 'woocommerce/products-query', array( 'id' => $product_id ) )['products'][0];
+		return $this->execute( 'poocommerce/products-query', array( 'id' => $product_id ) )['products'][0];
 	}
 
 	/**

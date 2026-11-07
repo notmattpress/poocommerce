@@ -3,20 +3,20 @@
  */
 import { render, screen } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { useStoreCart } from '@woocommerce/base-context';
-import { previewCart } from '@woocommerce/resource-previews';
+import { useStoreCart } from '@poocommerce/base-context';
+import { previewCart } from '@poocommerce/resource-previews';
 /**
  * Internal dependencies
  */
 import CartExpressPayment from '../cart-express-payment';
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	checkoutStore: 'wc/store/checkout',
 	paymentStore: 'wc/store/payment',
 	cartStore: 'wc/store/cart',
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	noticeContexts: {
 		EXPRESS_PAYMENTS: 'wc/express-payment',
 	},
@@ -27,7 +27,7 @@ jest.mock( '@woocommerce/base-context', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	StoreNoticesContainer: jest.fn( ( { context } ) => (
 		<div data-testid="notices" data-context={ context }>
 			Store Notices
@@ -35,7 +35,7 @@ jest.mock( '@woocommerce/blocks-components', () => ( {
 	) ),
 } ) );
 
-jest.mock( '@woocommerce/base-components/skeleton', () => ( {
+jest.mock( '@poocommerce/base-components/skeleton', () => ( {
 	Skeleton: jest.fn( ( { width, height, ariaMessage } ) => (
 		<div
 			data-testid="skeleton"

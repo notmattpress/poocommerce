@@ -2,10 +2,10 @@
 /**
  * Test the API controller class that handles the onboarding plugins REST endpoints.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -180,7 +180,7 @@ class OnboardingPluginsTest extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 403, $response->get_status(), 'A request without an interactive session nonce must be rejected.' );
-		$this->assertSame( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -204,7 +204,7 @@ class OnboardingPluginsTest extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 403, $response->get_status(), 'A cookie session without a valid wp_rest nonce must be rejected.' );
-		$this->assertSame( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -221,7 +221,7 @@ class OnboardingPluginsTest extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 403, $response->get_status(), 'A wp_rest nonce without a cookie session must be rejected.' );
-		$this->assertSame( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -242,7 +242,7 @@ class OnboardingPluginsTest extends WC_REST_Unit_Test_Case {
 			}
 		);
 		// The registration step destructures this option with list(), which PHP 8.5 warns about when the option is unset.
-		update_option( 'jetpack_activation_source', array( 'woocommerce', 'onboarding' ) );
+		update_option( 'jetpack_activation_source', array( 'poocommerce', 'onboarding' ) );
 
 		$request = new WP_REST_Request( 'GET', self::ENDPOINT . '/jetpack-authorization-url' );
 		$request->set_param( 'redirect_url', 'https://example.com' );

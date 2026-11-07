@@ -2,12 +2,12 @@
 /**
  * RefundPreviewSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Refunds\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Refunds\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,7 +58,7 @@ class RefundPreviewSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'breakdown'      => array(
-				'description' => __( 'Refund breakdown by item type.', 'woocommerce' ),
+				'description' => __( 'Refund breakdown by item type.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -69,25 +69,25 @@ class RefundPreviewSchema {
 				),
 			),
 			'subtotal'       => array(
-				'description' => __( 'Grand subtotal of the refund preview (excluding tax).', 'woocommerce' ),
+				'description' => __( 'Grand subtotal of the refund preview (excluding tax).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'tax'            => array(
-				'description' => __( 'Grand tax total of the refund preview.', 'woocommerce' ),
+				'description' => __( 'Grand tax total of the refund preview.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'total'          => array(
-				'description' => __( 'Grand total of the refund preview (tax-inclusive).', 'woocommerce' ),
+				'description' => __( 'Grand total of the refund preview (tax-inclusive).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'max_refundable' => array(
-				'description' => __( 'Maximum refundable amount remaining on the order.', 'woocommerce' ),
+				'description' => __( 'Maximum refundable amount remaining on the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -106,26 +106,26 @@ class RefundPreviewSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'items'    => array(
-					'description' => __( 'Line items in this section.', 'woocommerce' ),
+					'description' => __( 'Line items in this section.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => 'products' === $section_key ? $this->get_product_item_schema() : $this->get_base_item_schema(),
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'subtotal' => array(
-					'description' => __( 'Section subtotal (excluding tax).', 'woocommerce' ),
+					'description' => __( 'Section subtotal (excluding tax).', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'tax'      => array(
-					'description' => __( 'Section tax total.', 'woocommerce' ),
+					'description' => __( 'Section tax total.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'total'    => array(
-					'description' => __( 'Section total (tax-inclusive).', 'woocommerce' ),
+					'description' => __( 'Section total (tax-inclusive).', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
@@ -144,37 +144,37 @@ class RefundPreviewSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'       => array(
-					'description' => __( 'The original order line item ID.', 'woocommerce' ),
+					'description' => __( 'The original order line item ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'name'     => array(
-					'description' => __( 'The line item name.', 'woocommerce' ),
+					'description' => __( 'The line item name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'quantity' => array(
-					'description' => __( 'The quantity being refunded. Null when the refund was specified by amount only.', 'woocommerce' ),
+					'description' => __( 'The quantity being refunded. Null when the refund was specified by amount only.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'subtotal' => array(
-					'description' => __( 'The refund subtotal for this item (excluding tax).', 'woocommerce' ),
+					'description' => __( 'The refund subtotal for this item (excluding tax).', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'tax'      => array(
-					'description' => __( 'The tax amount for this item.', 'woocommerce' ),
+					'description' => __( 'The tax amount for this item.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
 				),
 				'total'    => array(
-					'description' => __( 'The refund total for this item (tax-inclusive).', 'woocommerce' ),
+					'description' => __( 'The refund total for this item (tax-inclusive).', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					'readonly'    => true,
@@ -191,7 +191,7 @@ class RefundPreviewSchema {
 	private function get_product_item_schema(): array {
 		$schema                             = $this->get_base_item_schema();
 		$schema['properties']['product_id'] = array(
-			'description' => __( 'Product or variation ID.', 'woocommerce' ),
+			'description' => __( 'Product or variation ID.', 'poocommerce' ),
 			'type'        => 'integer',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'readonly'    => true,

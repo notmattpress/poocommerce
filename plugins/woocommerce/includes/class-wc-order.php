@@ -2,23 +2,23 @@
 /**
  * Regular order
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 2.2.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Utilities\NumberUtil;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Order Class.
  *
- * These are regular WooCommerce orders, which extend the abstract order class.
+ * These are regular PooCommerce orders, which extend the abstract order class.
  */
 class WC_Order extends WC_Abstract_Order {
 
@@ -30,7 +30,7 @@ class WC_Order extends WC_Abstract_Order {
 	protected $status_transition = false;
 
 	/**
-	 * Whether set_status() leaves woocommerce_order_edit_status to the next save(). stage_status() sets it.
+	 * Whether set_status() leaves poocommerce_order_edit_status to the next save(). stage_status() sets it.
 	 *
 	 * @var bool
 	 */
@@ -173,7 +173,7 @@ class WC_Order extends WC_Abstract_Order {
 					'error' => $e,
 				)
 			);
-			$this->add_order_note( __( 'Payment complete event failed.', 'woocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
+			$this->add_order_note( __( 'Payment complete event failed.', 'poocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
 			return false;
 		}
 		return true;
@@ -181,14 +181,14 @@ class WC_Order extends WC_Abstract_Order {
 
 	/**
 	 * Make the in-memory changes of payment_complete(): the transaction ID, the paid date and the payment
-	 * complete status. Leave woocommerce_pre_payment_complete, the session's order_awaiting_payment flag, the
-	 * payment note and woocommerce_payment_complete to the next save(), which runs the first two before it
+	 * complete status. Leave poocommerce_pre_payment_complete, the session's order_awaiting_payment flag, the
+	 * payment note and poocommerce_payment_complete to the next save(), which runs the first two before it
 	 * writes and adds the note and fires the action after it writes. payment_complete() runs this method through
 	 * write_through(), so it runs all of them and saves right away. When that save fails, the method throws, and
 	 * the note and the action wait for the next save that writes the order with the same status or a paid one.
 	 *
 	 * When the order status is not one that payment can complete, the order does not change, the
-	 * woocommerce_payment_complete_order_status_<status> action fires right away, the method adds nothing for
+	 * poocommerce_payment_complete_order_status_<status> action fires right away, the method adds nothing for
 	 * the next save(), and it returns false.
 	 *
 	 * An order that is not saved yet does not change, and the method returns false.
@@ -216,7 +216,7 @@ class WC_Order extends WC_Abstract_Order {
 			 * @param string $transaction_id Transaction ID passed to payment_complete().
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_pre_payment_complete', $order_id, $transaction_id );
+			do_action( 'poocommerce_pre_payment_complete', $order_id, $transaction_id );
 
 			if ( WC()->session ) {
 				WC()->session->set( 'order_awaiting_payment', false );
@@ -234,7 +234,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param WC_Order $this                     Order object.
 		 * @since 2.7.0
 		 */
-		$valid_completed_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment_complete', OrderStatus::PAYMENT_COMPLETE_STATUSES, $this );
+		$valid_completed_statuses = apply_filters( 'poocommerce_valid_order_statuses_for_payment_complete', OrderStatus::PAYMENT_COMPLETE_STATUSES, $this );
 		if ( ! $this->has_status( $valid_completed_statuses ) ) {
 			/**
 			 * Fires when payment completes for an order whose status payment cannot complete.
@@ -243,7 +243,7 @@ class WC_Order extends WC_Abstract_Order {
 			 * @param string $transaction_id Transaction ID passed to payment_complete().
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_payment_complete_order_status_' . $this->get_status(), $this->get_id(), $transaction_id );
+			do_action( 'poocommerce_payment_complete_order_status_' . $this->get_status(), $this->get_id(), $transaction_id );
 			return false;
 		}
 
@@ -269,13 +269,13 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param WC_Order $this          Order object.
 		 * @since 2.7.0
 		 */
-		$next_status = apply_filters( 'woocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this );
+		$next_status = apply_filters( 'poocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this );
 
 		$transaction_id = $this->get_transaction_id();
 		$payment_method = $this->get_payment_method_title();
 
 		// translators: %1$s is the payment method, %2$s is the transaction id.
-		$payment_complete_note = $payment_method && $transaction_id ? sprintf( __( 'Payment via %1$s (%2$s).', 'woocommerce' ), $payment_method, $transaction_id ) : __( 'Payment complete.', 'woocommerce' );
+		$payment_complete_note = $payment_method && $transaction_id ? sprintf( __( 'Payment via %1$s (%2$s).', 'poocommerce' ), $payment_method, $transaction_id ) : __( 'Payment complete.', 'poocommerce' );
 
 		$this->set_status( $next_status, false );
 
@@ -294,7 +294,7 @@ class WC_Order extends WC_Abstract_Order {
 				);
 			}
 		};
-		$action_args = array( 'woocommerce_payment_complete', $this->get_id(), $transaction_id );
+		$action_args = array( 'poocommerce_payment_complete', $this->get_id(), $transaction_id );
 		$save_error  = $this->writing_through ? $this->get_last_save_error() : null;
 		if ( null !== $save_error ) {
 			$paid_status = $this->get_status();
@@ -315,7 +315,7 @@ class WC_Order extends WC_Abstract_Order {
 								'error' => $e,
 							)
 						);
-						$this->add_order_note( __( 'Payment complete event failed.', 'woocommerce' ) . ' ' . $e->getMessage(), 0, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
+						$this->add_order_note( __( 'Payment complete event failed.', 'poocommerce' ) . ' ' . $e->getMessage(), 0, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
 					}
 				},
 				array(),
@@ -348,7 +348,7 @@ class WC_Order extends WC_Abstract_Order {
 			$tax_string_array = array();
 			$tax_totals       = $this->get_tax_totals();
 
-			if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) {
+			if ( 'itemized' === get_option( 'poocommerce_tax_total_display' ) ) {
 				foreach ( $tax_totals as $code => $tax ) {
 					$tax_amount         = ( $total_refunded && $display_refunded ) ? wc_price( WC_Tax::round( (float) $tax->amount - (float) $this->get_total_tax_refunded_by_rate_id( $tax->rate_id ) ), array( 'currency' => $this->get_currency() ) ) : $tax->formatted_amount;
 					$tax_string_array[] = sprintf( '%s %s', $tax_amount, $tax->label );
@@ -360,7 +360,7 @@ class WC_Order extends WC_Abstract_Order {
 
 			if ( ! empty( $tax_string_array ) ) {
 				/* translators: %s: taxes */
-				$tax_string = ' <small class="includes_tax">' . sprintf( __( '(includes %s)', 'woocommerce' ), implode( ', ', $tax_string_array ) ) . '</small>';
+				$tax_string = ' <small class="includes_tax">' . sprintf( __( '(includes %s)', 'poocommerce' ), implode( ', ', $tax_string_array ) ) . '</small>';
 			}
 		}
 
@@ -371,14 +371,14 @@ class WC_Order extends WC_Abstract_Order {
 		}
 
 		/**
-		 * Filter WooCommerce formatted order total.
+		 * Filter PooCommerce formatted order total.
 		 *
 		 * @param string   $formatted_total  Total to display.
 		 * @param WC_Order $order            Order data.
 		 * @param string   $tax_display      Type of tax display.
 		 * @param bool     $display_refunded If should include refunded value.
 		 */
-		return apply_filters( 'woocommerce_get_formatted_order_total', $formatted_total, $this, $tax_display, $display_refunded );
+		return apply_filters( 'poocommerce_get_formatted_order_total', $formatted_total, $this, $tax_display, $display_refunded );
 	}
 
 	/*
@@ -458,7 +458,7 @@ class WC_Order extends WC_Abstract_Order {
 			);
 
 			if ( $manual_update && $this->staging_status ) {
-				$this->defer_to_save( 'order_edit_status', 'do_action', array( 'woocommerce_order_edit_status', $this->get_id(), $result['to'] ) );
+				$this->defer_to_save( 'order_edit_status', 'do_action', array( 'poocommerce_order_edit_status', $this->get_id(), $result['to'] ) );
 			} else {
 				$this->defer_to_save( 'order_edit_status', null );
 			}
@@ -475,7 +475,7 @@ class WC_Order extends WC_Abstract_Order {
 				 * @param int    $order_id Order ID.
 				 * @param string $status   New status, without the wc- prefix.
 				 */
-				do_action( 'woocommerce_order_edit_status', $this->get_id(), $result['to'] );
+				do_action( 'poocommerce_order_edit_status', $this->get_id(), $result['to'] );
 			}
 
 			$this->maybe_set_date_paid();
@@ -510,7 +510,7 @@ class WC_Order extends WC_Abstract_Order {
 			 * @param WC_Order $this          Order object.
 			 * @since 2.7.0
 			 */
-			$payment_completed_status = apply_filters( 'woocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this );
+			$payment_completed_status = apply_filters( 'poocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this );
 
 			if ( $this->has_status( $payment_completed_status ) ) {
 				// If payment complete status is reached, set paid now.
@@ -539,7 +539,7 @@ class WC_Order extends WC_Abstract_Order {
 
 	/**
 	 * Set the order status in memory, like set_status(), including the paid and completed dates, but leave
-	 * woocommerce_order_edit_status to the next save(), which fires it before it writes. A later status
+	 * poocommerce_order_edit_status to the next save(), which fires it before it writes. A later status
 	 * change before that save() replaces the pending action, or cancels it when the change is not manual.
 	 * update_status() calls this method, then save().
 	 *
@@ -597,7 +597,7 @@ class WC_Order extends WC_Abstract_Order {
 					'error' => $e,
 				)
 			);
-			$this->add_order_note( __( 'Update status event failed.', 'woocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
+			$this->add_order_note( __( 'Update status event failed.', 'poocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
 			return false;
 		}
 
@@ -634,7 +634,7 @@ class WC_Order extends WC_Abstract_Order {
 				 *      @type boolean $manual True if the order is manually changed.
 				 * }
 				 */
-				do_action( 'woocommerce_order_status_' . $status_transition['to'], $this->get_id(), $this, $status_transition );
+				do_action( 'poocommerce_order_status_' . $status_transition['to'], $this->get_id(), $this, $status_transition );
 
 				// Add a status transition note unless `note` was explicitly set to false.
 				if ( false !== $status_transition['note'] ) {
@@ -642,11 +642,11 @@ class WC_Order extends WC_Abstract_Order {
 						// Skip notes if the from status was a draft.
 						if ( ! in_array( $status_transition['from'], array( OrderStatus::DRAFT, OrderStatus::AUTO_DRAFT, OrderStatus::NEW, 'checkout-draft' ), true ) ) {
 							/* translators: 1: old order status 2: new order status */
-							$this->add_status_transition_note( sprintf( __( 'Order status changed from %1$s to %2$s.', 'woocommerce' ), wc_get_order_status_name( $status_transition['from'] ), wc_get_order_status_name( $status_transition['to'] ) ), $status_transition );
+							$this->add_status_transition_note( sprintf( __( 'Order status changed from %1$s to %2$s.', 'poocommerce' ), wc_get_order_status_name( $status_transition['from'] ), wc_get_order_status_name( $status_transition['to'] ) ), $status_transition );
 						}
 					} else {
 						/* translators: %s: new order status */
-						$transition_note = sprintf( __( 'Order status set to %s.', 'woocommerce' ), wc_get_order_status_name( $status_transition['to'] ) );
+						$transition_note = sprintf( __( 'Order status set to %s.', 'poocommerce' ), wc_get_order_status_name( $status_transition['to'] ) );
 
 						// Note the transition occurred.
 						$this->add_status_transition_note( $transition_note, $status_transition );
@@ -654,8 +654,8 @@ class WC_Order extends WC_Abstract_Order {
 				}
 
 				if ( ! empty( $status_transition['from'] ) ) {
-					do_action( 'woocommerce_order_status_' . $status_transition['from'] . '_to_' . $status_transition['to'], $this->get_id(), $this );
-					do_action( 'woocommerce_order_status_changed', $this->get_id(), $status_transition['from'], $status_transition['to'], $this );
+					do_action( 'poocommerce_order_status_' . $status_transition['from'] . '_to_' . $status_transition['to'], $this->get_id(), $this );
+					do_action( 'poocommerce_order_status_changed', $this->get_id(), $status_transition['from'], $status_transition['to'], $this );
 
 					/**
 					 * Filter the valid order statuses for payment.
@@ -664,7 +664,7 @@ class WC_Order extends WC_Abstract_Order {
 					 * @param WC_Order $order                Order object.
 					 * @since 4.0.0
 					 */
-					$valid_order_statuses_for_payment = apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $this );
+					$valid_order_statuses_for_payment = apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $this );
 
 					// Work out if this was for a payment, and trigger a payment_status hook instead.
 					if ( in_array( $status_transition['from'], $valid_order_statuses_for_payment, true ) && in_array( $status_transition['to'], wc_get_is_paid_statuses(), true ) ) {
@@ -675,7 +675,7 @@ class WC_Order extends WC_Abstract_Order {
 						 * @param int Order ID
 						 * @param WC_Order Order object
 						 */
-						do_action( 'woocommerce_order_payment_status_changed', $this->get_id(), $this );
+						do_action( 'poocommerce_order_payment_status_changed', $this->get_id(), $this );
 					}
 				}
 			} catch ( Exception $e ) {
@@ -690,7 +690,7 @@ class WC_Order extends WC_Abstract_Order {
 						'error' => $e,
 					)
 				);
-				$this->add_order_note( __( 'Error during status transition.', 'woocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
+				$this->add_order_note( __( 'Error during status transition.', 'poocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
 			}
 		}
 	}
@@ -764,7 +764,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return string
 	 */
 	public function get_order_number() {
-		return (string) apply_filters( 'woocommerce_order_number', $this->get_id(), $this );
+		return (string) apply_filters( 'poocommerce_order_number', $this->get_id(), $this );
 	}
 
 	/**
@@ -824,7 +824,7 @@ class WC_Order extends WC_Abstract_Order {
 
 			if ( 'view' === $context ) {
 				/**
-				 * Filter: 'woocommerce_order_get_[billing|shipping]_[prop]'
+				 * Filter: 'poocommerce_order_get_[billing|shipping]_[prop]'
 				 *
 				 * Allow developers to change the returned value for any order address property.
 				 *
@@ -1147,7 +1147,7 @@ class WC_Order extends WC_Abstract_Order {
 			 * @param WC_Order $this          Order object.
 			 * @since 3.0.0
 			 */
-			&& $this->has_status( apply_filters( 'woocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this ) ) ) {
+			&& $this->has_status( apply_filters( 'poocommerce_payment_complete_order_status', $this->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $this->get_id(), $this ) ) ) {
 			// In view context, return a date if missing.
 			$date_paid = $this->get_date_created( 'edit' );
 		}
@@ -1174,7 +1174,7 @@ class WC_Order extends WC_Abstract_Order {
 	 */
 	public function get_address( $address_type = 'billing' ) {
 		/**
-		 * Filter: 'woocommerce_get_order_address'
+		 * Filter: 'poocommerce_get_order_address'
 		 *
 		 * Allow developers to change the returned value for an order's billing or shipping address.
 		 *
@@ -1182,7 +1182,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param array  $address_data The raw address data merged with the data from get_prop.
 		 * @param string $address_type Type of address; 'billing' or 'shipping'.
 		 */
-		return apply_filters( 'woocommerce_get_order_address', array_merge( $this->data[ $address_type ], $this->get_prop( $address_type, 'view' ) ), $address_type, $this );
+		return apply_filters( 'poocommerce_get_order_address', array_merge( $this->data[ $address_type ], $this->get_prop( $address_type, 'view' ) ), $address_type, $this );
 	}
 
 	/**
@@ -1196,9 +1196,9 @@ class WC_Order extends WC_Abstract_Order {
 		// Remove name and company before generate the Google Maps URL.
 		unset( $address['first_name'], $address['last_name'], $address['company'], $address['phone'] );
 
-		$address = apply_filters( 'woocommerce_shipping_address_map_url_parts', $address, $this );
+		$address = apply_filters( 'poocommerce_shipping_address_map_url_parts', $address, $this );
 
-		return apply_filters( 'woocommerce_shipping_address_map_url', 'https://maps.google.com/maps?&q=' . rawurlencode( implode( ', ', $address ) ) . '&z=16', $this );
+		return apply_filters( 'poocommerce_shipping_address_map_url', 'https://maps.google.com/maps?&q=' . rawurlencode( implode( ', ', $address ) ) . '&z=16', $this );
 	}
 
 	/**
@@ -1208,7 +1208,7 @@ class WC_Order extends WC_Abstract_Order {
 	 */
 	public function get_formatted_billing_full_name() {
 		/* translators: 1: first name 2: last name */
-		return sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), $this->get_billing_first_name(), $this->get_billing_last_name() );
+		return sprintf( _x( '%1$s %2$s', 'full name', 'poocommerce' ), $this->get_billing_first_name(), $this->get_billing_last_name() );
 	}
 
 	/**
@@ -1218,7 +1218,7 @@ class WC_Order extends WC_Abstract_Order {
 	 */
 	public function get_formatted_shipping_full_name() {
 		/* translators: 1: first name 2: last name */
-		return sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), $this->get_shipping_first_name(), $this->get_shipping_last_name() );
+		return sprintf( _x( '%1$s %2$s', 'full name', 'poocommerce' ), $this->get_shipping_first_name(), $this->get_shipping_last_name() );
 	}
 
 	/**
@@ -1228,7 +1228,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return string
 	 */
 	public function get_formatted_billing_address( $empty_content = '' ) {
-		$raw_address = apply_filters( 'woocommerce_order_formatted_billing_address', $this->get_address( 'billing' ), $this );
+		$raw_address = apply_filters( 'poocommerce_order_formatted_billing_address', $this->get_address( 'billing' ), $this );
 		$address     = WC()->countries->get_formatted_address( $raw_address );
 
 		/**
@@ -1239,7 +1239,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param array    $raw_address Raw billing address.
 		 * @param WC_Order $order       Order data. @since 3.9.0
 		 */
-		return apply_filters( 'woocommerce_order_get_formatted_billing_address', $address ? $address : $empty_content, $raw_address, $this );
+		return apply_filters( 'poocommerce_order_get_formatted_billing_address', $address ? $address : $empty_content, $raw_address, $this );
 	}
 
 	/**
@@ -1253,7 +1253,7 @@ class WC_Order extends WC_Abstract_Order {
 		$raw_address = $this->get_address( 'shipping' );
 
 		if ( $this->has_shipping_address() ) {
-			$raw_address = apply_filters( 'woocommerce_order_formatted_shipping_address', $raw_address, $this );
+			$raw_address = apply_filters( 'poocommerce_order_formatted_shipping_address', $raw_address, $this );
 			$address     = WC()->countries->get_formatted_address( $raw_address );
 		}
 
@@ -1265,7 +1265,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param array    $raw_address Raw shipping address.
 		 * @param WC_Order $order       Order data. @since 3.9.0
 		 */
-		return apply_filters( 'woocommerce_order_get_formatted_shipping_address', $address ? $address : $empty_content, $raw_address, $this );
+		return apply_filters( 'poocommerce_order_get_formatted_shipping_address', $address ? $address : $empty_content, $raw_address, $this );
 	}
 
 	/**
@@ -1561,7 +1561,7 @@ class WC_Order extends WC_Abstract_Order {
 	 */
 	public function set_billing_email( $value ) {
 		if ( $value && ! is_email( $value ) ) {
-			$this->error( 'order_invalid_billing_email', __( 'Invalid billing email address', 'woocommerce' ) );
+			$this->error( 'order_invalid_billing_email', __( 'Invalid billing email address', 'poocommerce' ) );
 		}
 		$this->set_address_prop( 'email', 'billing', sanitize_email( $value ) );
 	}
@@ -1902,7 +1902,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return bool
 	 */
 	public function is_paid() {
-		return apply_filters( 'woocommerce_order_is_paid', $this->has_status( wc_get_is_paid_statuses() ), $this );
+		return apply_filters( 'poocommerce_order_is_paid', $this->has_status( wc_get_is_paid_statuses() ), $this );
 	}
 
 	/**
@@ -1918,7 +1918,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param WC_Order $this                  Order object.
 		 * @since 2.7.0
 		 */
-		return apply_filters( 'woocommerce_order_is_download_permitted', $this->has_status( OrderStatus::COMPLETED ) || ( 'yes' === get_option( 'woocommerce_downloads_grant_access_after_payment' ) && $this->has_status( OrderStatus::PROCESSING ) ), $this );
+		return apply_filters( 'poocommerce_order_is_download_permitted', $this->has_status( OrderStatus::COMPLETED ) || ( 'yes' === get_option( 'poocommerce_downloads_grant_access_after_payment' ) && $this->has_status( OrderStatus::PROCESSING ) ), $this );
 	}
 
 	/**
@@ -1927,7 +1927,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return bool
 	 */
 	public function needs_shipping_address() {
-		if ( 'no' === get_option( 'woocommerce_calc_shipping' ) ) {
+		if ( 'no' === get_option( 'poocommerce_calc_shipping' ) ) {
 			return false;
 		}
 
@@ -1938,7 +1938,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param WC_Order $this The order object.
 		 * @since 2.7.0
 		 */
-		$hide          = apply_filters( 'woocommerce_order_hide_shipping_address', LocalPickupUtils::get_local_pickup_method_ids(), $this );
+		$hide          = apply_filters( 'poocommerce_order_hide_shipping_address', LocalPickupUtils::get_local_pickup_method_ids(), $this );
 		$needs_address = false;
 
 		foreach ( $this->get_shipping_methods() as $shipping_method ) {
@@ -1950,7 +1950,7 @@ class WC_Order extends WC_Abstract_Order {
 			}
 		}
 
-		return apply_filters( 'woocommerce_order_needs_shipping_address', $needs_address, $hide, $this );
+		return apply_filters( 'poocommerce_order_needs_shipping_address', $needs_address, $hide, $this );
 	}
 
 	/**
@@ -2017,7 +2017,7 @@ class WC_Order extends WC_Abstract_Order {
 			}
 		}
 
-		return apply_filters( 'woocommerce_order_get_downloadable_items', $downloads, $this );
+		return apply_filters( 'poocommerce_order_get_downloadable_items', $downloads, $this );
 	}
 
 	/**
@@ -2033,8 +2033,8 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param WC_Order $order                Order object.
 		 * @since 2.7.0
 		 */
-		$valid_order_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $this );
-		return apply_filters( 'woocommerce_order_needs_payment', ( $this->has_status( $valid_order_statuses ) && $this->get_total() > 0 ), $this, $valid_order_statuses );
+		$valid_order_statuses = apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $this );
+		return apply_filters( 'poocommerce_order_needs_payment', ( $this->has_status( $valid_order_statuses ) && $this->get_total() > 0 ), $this, $valid_order_statuses );
 	}
 
 	/**
@@ -2073,7 +2073,7 @@ class WC_Order extends WC_Abstract_Order {
 							 * @param int         $order_id
 							 * @return bool
 							 */
-							$custom_needs_processing = (bool) apply_filters( 'woocommerce_order_item_needs_processing', ! $virtual_downloadable_item, $product, $order_id );
+							$custom_needs_processing = (bool) apply_filters( 'poocommerce_order_item_needs_processing', ! $virtual_downloadable_item, $product, $order_id );
 							if ( $custom_needs_processing ) {
 								$needs_processing = 1;
 								break;
@@ -2116,7 +2116,7 @@ class WC_Order extends WC_Abstract_Order {
 			);
 		}
 
-		return apply_filters( 'woocommerce_get_checkout_payment_url', $pay_url, $this );
+		return apply_filters( 'poocommerce_get_checkout_payment_url', $pay_url, $this );
 	}
 
 	/**
@@ -2128,7 +2128,7 @@ class WC_Order extends WC_Abstract_Order {
 		$order_received_url = wc_get_endpoint_url( 'order-received', $this->get_id(), wc_get_checkout_url() );
 		$order_received_url = add_query_arg( 'key', $this->get_order_key(), $order_received_url );
 
-		return apply_filters( 'woocommerce_get_checkout_order_received_url', $order_received_url, $this );
+		return apply_filters( 'poocommerce_get_checkout_order_received_url', $order_received_url, $this );
 	}
 
 	/**
@@ -2148,7 +2148,7 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param string $redirect Redirect URL.
 		 */
 		return apply_filters(
-			'woocommerce_get_cancel_order_url',
+			'poocommerce_get_cancel_order_url',
 			wp_nonce_url(
 				add_query_arg(
 					array(
@@ -2159,7 +2159,7 @@ class WC_Order extends WC_Abstract_Order {
 					),
 					$this->get_cancel_endpoint()
 				),
-				'woocommerce-cancel_order'
+				'poocommerce-cancel_order'
 			),
 			$this,
 			$redirect
@@ -2183,14 +2183,14 @@ class WC_Order extends WC_Abstract_Order {
 		 * @param string $redirect Redirect URL.
 		 */
 		return apply_filters(
-			'woocommerce_get_cancel_order_url_raw',
+			'poocommerce_get_cancel_order_url_raw',
 			add_query_arg(
 				array(
 					'cancel_order' => 'true',
 					'order'        => $this->get_order_key(),
 					'order_id'     => $this->get_id(),
 					'redirect'     => $redirect,
-					'_wpnonce'     => wp_create_nonce( 'woocommerce-cancel_order' ),
+					'_wpnonce'     => wp_create_nonce( 'poocommerce-cancel_order' ),
 				),
 				$this->get_cancel_endpoint()
 			),
@@ -2223,7 +2223,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return string
 	 */
 	public function get_view_order_url() {
-		return apply_filters( 'woocommerce_get_view_order_url', wc_get_endpoint_url( 'view-order', $this->get_id(), wc_get_page_permalink( 'myaccount' ) ), $this );
+		return apply_filters( 'poocommerce_get_view_order_url', wc_get_endpoint_url( 'view-order', $this->get_id(), wc_get_page_permalink( 'myaccount' ) ), $this );
 	}
 
 	/**
@@ -2233,13 +2233,13 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return string
 	 */
 	public function get_edit_order_url() {
-		$edit_url = \Automattic\WooCommerce\Utilities\OrderUtil::get_order_admin_edit_url( $this->get_id() );
+		$edit_url = \Automattic\PooCommerce\Utilities\OrderUtil::get_order_admin_edit_url( $this->get_id() );
 		/**
 		 * Filter the URL to edit the order in the backend.
 		 *
 		 * @since 3.3.0
 		 */
-		return apply_filters( 'woocommerce_get_edit_order_url', $edit_url, $this );
+		return apply_filters( 'poocommerce_get_edit_order_url', $edit_url, $this );
 	}
 
 	/*
@@ -2267,20 +2267,20 @@ class WC_Order extends WC_Abstract_Order {
 			$comment_author       = $user->display_name;
 			$comment_author_email = $user->user_email;
 		} else {
-			$comment_author        = __( 'WooCommerce', 'woocommerce' );
-			$comment_author_email  = strtolower( __( 'WooCommerce', 'woocommerce' ) ) . '@';
+			$comment_author        = __( 'PooCommerce', 'poocommerce' );
+			$comment_author_email  = strtolower( __( 'PooCommerce', 'poocommerce' ) ) . '@';
 			$comment_author_email .= isset( $_SERVER['HTTP_HOST'] ) ? str_replace( 'www.', '', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : 'noreply.com';
 			$comment_author_email  = sanitize_email( $comment_author_email );
 		}
 		$commentdata = apply_filters(
-			'woocommerce_new_order_note_data',
+			'poocommerce_new_order_note_data',
 			array(
 				'comment_post_ID'      => $this->get_id(),
 				'comment_author'       => $comment_author,
 				'comment_author_email' => $comment_author_email,
 				'comment_author_url'   => '',
 				'comment_content'      => $note,
-				'comment_agent'        => 'WooCommerce',
+				'comment_agent'        => 'PooCommerce',
 				'comment_type'         => 'order_note',
 				'comment_parent'       => 0,
 				'comment_approved'     => 1,
@@ -2297,7 +2297,7 @@ class WC_Order extends WC_Abstract_Order {
 			add_comment_meta( $comment_id, 'is_customer_note', 1 );
 
 			do_action(
-				'woocommerce_new_customer_note',
+				'poocommerce_new_customer_note',
 				array(
 					'order_id'      => $this->get_id(),
 					'customer_note' => $commentdata['comment_content'],
@@ -2321,14 +2321,14 @@ class WC_Order extends WC_Abstract_Order {
 		 *
 		 * @since 4.4.0
 		 */
-		do_action( 'woocommerce_order_note_added', $comment_id, $this );
+		do_action( 'poocommerce_order_note_added', $comment_id, $this );
 
 		return $comment_id;
 	}
 
 	/**
 	 * Queue a note for the order in memory. The next save() adds it with add_order_note() after the write, so
-	 * the note sees the saved order and woocommerce_order_note_added fires after the write.
+	 * the note sees the saved order and poocommerce_order_note_added fires after the write.
 	 *
 	 * @since 11.4.0
 	 * @param  string $note              Note to add.
@@ -2555,7 +2555,7 @@ class WC_Order extends WC_Abstract_Order {
 			}
 		}
 
-		return apply_filters( 'woocommerce_get_item_count_refunded', $count, $item_type, $this );
+		return apply_filters( 'poocommerce_get_item_count_refunded', $count, $item_type, $this );
 	}
 
 	/**
@@ -2715,7 +2715,7 @@ class WC_Order extends WC_Abstract_Order {
 
 			$total_rows['payment_method'] = array(
 				'type'  => 'payment_method',
-				'label' => __( 'Payment method:', 'woocommerce' ),
+				'label' => __( 'Payment method:', 'poocommerce' ),
 				'value' => $value,
 			);
 		}
@@ -2740,7 +2740,7 @@ class WC_Order extends WC_Abstract_Order {
 
 				$total_rows[ 'refund_' . $id ] = array(
 					'type'  => 'refund',
-					'label' => __( 'Refund', 'woocommerce' ) . ':',
+					'label' => __( 'Refund', 'poocommerce' ) . ':',
 					'value' => wc_price( '-' . $refund->get_amount(), array( 'currency' => $this->get_currency() ) ) . $reason,
 				);
 			}
@@ -2754,7 +2754,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return array
 	 */
 	public function get_order_item_totals( $tax_display = '' ) {
-		$tax_display = $tax_display ? $tax_display : get_option( 'woocommerce_tax_display_cart' );
+		$tax_display = $tax_display ? $tax_display : get_option( 'poocommerce_tax_display_cart' );
 		$total_rows  = array();
 
 		$email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
@@ -2773,7 +2773,7 @@ class WC_Order extends WC_Abstract_Order {
 			$this->add_order_item_totals_payment_method_row( $total_rows, $tax_display );
 		}
 
-		return apply_filters( 'woocommerce_get_order_item_totals', $total_rows, $this, $tax_display );
+		return apply_filters( 'poocommerce_get_order_item_totals', $total_rows, $this, $tax_display );
 	}
 
 	/**
@@ -2784,7 +2784,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @return bool
 	 */
 	public function is_created_via( $modus ) {
-		return apply_filters( 'woocommerce_order_is_created_via', $modus === $this->get_created_via(), $this, $modus );
+		return apply_filters( 'poocommerce_order_is_created_via', $modus === $this->get_created_via(), $this, $modus );
 	}
 
 	/**

@@ -3,8 +3,8 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import { dispatch, select } from '@wordpress/data';
-import { onboardingStore } from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { onboardingStore } from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -12,8 +12,8 @@ import { getHistory, getNewPath } from '@woocommerce/navigation';
 import ConnectedLayout from '../layout';
 import { getAdminSetting } from '~/utils/admin-settings';
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getHistory: jest.fn(),
 	getNewPath: jest.fn().mockReturnValue( 'home-path' ),
 } ) );
@@ -91,7 +91,7 @@ const mockRequests = ( tasks ) => {
 		}
 		if ( url.includes( 'users/me' ) ) {
 			return Promise.resolve(
-				jsonResponse( { capabilities: { manage_woocommerce: true } } )
+				jsonResponse( { capabilities: { manage_poocommerce: true } } )
 			);
 		}
 		return Promise.resolve( jsonResponse( {} ) );

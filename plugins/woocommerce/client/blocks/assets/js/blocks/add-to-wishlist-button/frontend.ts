@@ -7,14 +7,14 @@ import {
 	store,
 	type AsyncAction,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/products';
-import '@woocommerce/stores/woocommerce/shopper-lists';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
-import type { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/products';
+import '@poocommerce/stores/poocommerce/shopper-lists';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
+import type { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 import type {
 	RawShopperListItem,
 	Store as ShopperListsStore,
-} from '@woocommerce/stores/woocommerce/shopper-lists';
+} from '@poocommerce/stores/poocommerce/shopper-lists';
 
 /**
  * Internal dependencies
@@ -63,20 +63,20 @@ type BlockStore = {
 };
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: shopperListsState, actions: shopperListsActions } =
 	store< ShopperListsStore >(
-		'woocommerce/shopper-lists',
+		'poocommerce/shopper-lists',
 		{},
 		{ lock: universalLock }
 	);
 
 const { state } = store< BlockStore >(
-	'woocommerce/add-to-wishlist-button',
+	'poocommerce/add-to-wishlist-button',
 	{
 		state: {
 			// For variable products, the effective product is the selected
@@ -120,7 +120,7 @@ const { state } = store< BlockStore >(
 					);
 				}
 				const addToCartContext = getContext< ATCWOContext >(
-					'woocommerce/add-to-cart-with-options'
+					'poocommerce/add-to-cart-with-options'
 				);
 				const selected = addToCartContext?.selectedAttributes ?? [];
 				return (
@@ -144,7 +144,7 @@ const { state } = store< BlockStore >(
 
 			get currentLabel(): string {
 				const { addLabel, savedLabel, selectOptionsLabel } = getConfig(
-					'woocommerce/add-to-wishlist-button'
+					'poocommerce/add-to-wishlist-button'
 				) as ButtonConfig;
 
 				if ( ! state.effectiveProductId ) {
@@ -190,7 +190,7 @@ const { state } = store< BlockStore >(
 						// TODO: drop this mapping once ATCWO exposes the
 						// taxonomy on `selectedAttributes` directly.
 						const addToCartContext = getContext< ATCWOContext >(
-							'woocommerce/add-to-cart-with-options'
+							'poocommerce/add-to-cart-with-options'
 						);
 						const parent = productsState.mainProductInContext;
 						const attrMap = new Map< string, string >();

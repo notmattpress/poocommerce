@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';
 import { logged } from '@wordpress/deprecated';
-import { updateQueryString } from '@woocommerce/navigation';
+import { updateQueryString } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -24,15 +24,15 @@ jest.mock( '../../search/autocompleters/product', () => ( {
 	__esModule: true,
 	default: { name: 'products' },
 } ) );
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	updateQueryString: jest.fn(),
 } ) );
 
 describe( 'FilterPicker', () => {
 	it( 'should render the example from the storybook', async () => {
 		// Jest and its JSDOM does not allow making extensive use of searchParams used by Basic example.
-		const path = '/story/woocommerce-admin-components-filterpicker--basic';
+		const path = '/story/poocommerce-admin-components-filterpicker--basic';
 
 		expect( function () {
 			render( <Basic path={ path } /> );
@@ -85,7 +85,7 @@ describe( 'FilterPicker', () => {
 			);
 
 			const label = container.querySelector(
-				'.woocommerce-filters-label'
+				'.poocommerce-filters-label'
 			);
 			expect( label.textContent ).toBe( 'Show' );
 		} );
@@ -157,7 +157,7 @@ describe( 'FilterPicker', () => {
 			);
 
 			expect( getLastSearchProps() ).toMatchObject( {
-				className: 'woocommerce-filters-filter__search my-search',
+				className: 'poocommerce-filters-filter__search my-search',
 				inlineTags: true,
 				staticResults: true,
 			} );

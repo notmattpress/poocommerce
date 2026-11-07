@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\ShippingUtil;
+use Automattic\PooCommerce\Utilities\ShippingUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -24,7 +24,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 		$this->reset_cart_package_keys();
 		WC()->shipping()->unregister_shipping_methods();
 		foreach ( array( 'flat_rate', 'free_shipping', 'international_delivery', 'local_delivery', 'local_pickup' ) as $legacy_method ) {
-			delete_option( 'woocommerce_' . $legacy_method . '_settings' );
+			delete_option( 'poocommerce_' . $legacy_method . '_settings' );
 		}
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 	}
@@ -50,13 +50,13 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Count the runs of the `woocommerce_cart_shipping_packages` filter after all other callbacks.
+	 * Count the runs of the `poocommerce_cart_shipping_packages` filter after all other callbacks.
 	 *
 	 * @param int $calls Variable that receives the number of runs.
 	 */
 	private function count_package_builds( int &$calls ): void {
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) use ( &$calls ) {
 				++$calls;
 				return $packages;
@@ -66,7 +66,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Run a callable from the `woocommerce_cart_shipping_packages` filter and count the runs.
+	 * Run a callable from the `poocommerce_cart_shipping_packages` filter and count the runs.
 	 *
 	 * The callable does not run after the cap, so a build that repeats itself ends in a failed
 	 * assertion instead of an exhausted stack.
@@ -76,7 +76,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 	 */
 	private function run_in_package_filter( callable $inner, int &$calls ): void {
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) use ( $inner, &$calls ) {
 				++$calls;
 				if ( $calls < self::PACKAGE_FILTER_RUN_CAP ) {
@@ -190,8 +190,8 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 	 * @testdox filter_chosen_shipping_methods builds the cart packages one time when a package filter reads the taxable address.
 	 */
 	public function test_filter_chosen_shipping_methods_builds_packages_once_when_package_filter_reads_taxable_address(): void {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 		WC()->customer->set_shipping_country( 'GB' );
 		WC()->session->set( 'previous_shipping_methods', array( 0 => array( 'local_pickup:2' ) ) );
 		WC()->session->set( 'chosen_shipping_methods', array( 0 => 'local_pickup:2' ) );
@@ -215,9 +215,9 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 	 * @testdox filter_chosen_shipping_methods builds the cart packages one time when a package filter reads a taxed price.
 	 */
 	public function test_filter_chosen_shipping_methods_builds_packages_once_when_package_filter_reads_taxed_price(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 		WC()->customer->set_shipping_country( 'GB' );
 		\WC_Tax::_insert_tax_rate(
 			array(
@@ -302,7 +302,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 		);
 		$fail   = true;
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) use ( &$fail ) {
 				if ( $fail ) {
 					throw new \RuntimeException( 'Package filter failed.' );
@@ -405,7 +405,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 		$recurring_key = '2026_11_30_monthly_0';
 		$use_recurring = false;
 		add_filter(
-			'woocommerce_cart_shipping_packages',
+			'poocommerce_cart_shipping_packages',
 			function ( $packages ) use ( &$use_recurring, $recurring_key ) {
 				return $use_recurring ? array( $recurring_key => $packages[0] ) : $packages;
 			}
@@ -427,7 +427,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 		);
 
 		$use_recurring = true;
-		do_action( 'woocommerce_before_calculate_totals', WC()->cart );
+		do_action( 'poocommerce_before_calculate_totals', WC()->cart );
 		$this->assertSame(
 			array( $recurring_key => 'local_pickup:2' ),
 			ShippingUtil::filter_chosen_shipping_methods( $chosen ),
@@ -435,7 +435,7 @@ class ShippingUtilTest extends WC_Unit_Test_Case {
 		);
 
 		$use_recurring = false;
-		do_action( 'woocommerce_after_calculate_totals', WC()->cart );
+		do_action( 'poocommerce_after_calculate_totals', WC()->cart );
 		// WC_Cart_Session::set_session() runs on this action and clears the listed rates for a cart without shippable items.
 		WC()->session->set( 'previous_shipping_methods', $listed );
 		$this->assertSame(

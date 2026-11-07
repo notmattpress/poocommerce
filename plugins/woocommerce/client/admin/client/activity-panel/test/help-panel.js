@@ -14,7 +14,7 @@ describe( 'Activity Panels', () => {
 		it( 'only shows links for suggested payment gateways', () => {
 			const fixtures = [
 				{
-					id: 'woocommerce_payments',
+					id: 'poocommerce_payments',
 					text: 'WooPayments',
 				},
 				{
@@ -77,7 +77,7 @@ describe( 'Activity Panels', () => {
 			} );
 		} );
 
-		describe( 'only shows links for WooCommerce Tax (powered by WCS&T) when supported', () => {
+		describe( 'only shows links for PooCommerce Tax (powered by WCS&T) when supported', () => {
 			it( 'displays if no conflicting conditions are present', () => {
 				const supportedCountry = render(
 					<HelpPanel
@@ -89,7 +89,7 @@ describe( 'Activity Panels', () => {
 									{
 										id: 'tax',
 										additionalData: {
-											woocommerceTaxCountries: [ 'US' ],
+											poocommerceTaxCountries: [ 'US' ],
 											taxJarActivated: false,
 										},
 									},
@@ -101,7 +101,7 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					supportedCountry.getByText( /WooCommerce Tax/ )
+					supportedCountry.getByText( /PooCommerce Tax/ )
 				).toBeDefined();
 			} );
 
@@ -116,7 +116,7 @@ describe( 'Activity Panels', () => {
 									{
 										id: 'tax',
 										additionalData: {
-											woocommerceTaxCountries: [ 'US' ],
+											poocommerceTaxCountries: [ 'US' ],
 											taxJarActivated: true,
 										},
 									},
@@ -128,7 +128,7 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					taxjarPluginEnabled.queryByText( /WooCommerce Tax/ )
+					taxjarPluginEnabled.queryByText( /PooCommerce Tax/ )
 				).toBeNull();
 			} );
 
@@ -143,7 +143,7 @@ describe( 'Activity Panels', () => {
 									{
 										id: 'tax',
 										additionalData: {
-											woocommerceTaxCountries: [ 'US' ],
+											poocommerceTaxCountries: [ 'US' ],
 											taxJarActivated: false,
 										},
 									},
@@ -155,12 +155,12 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					unSupportedCountry.queryByText( /WooCommerce Tax/ )
+					unSupportedCountry.queryByText( /PooCommerce Tax/ )
 				).toBeNull();
 			} );
 
-			it( 'does not display if the WooCommerce Tax plugin is active', () => {
-				const woocommerceTaxActivated = render(
+			it( 'does not display if the PooCommerce Tax plugin is active', () => {
+				const poocommerceTaxActivated = render(
 					<HelpPanel
 						countryCode="US"
 						taskLists={ [
@@ -170,9 +170,9 @@ describe( 'Activity Panels', () => {
 									{
 										id: 'tax',
 										additionalData: {
-											woocommerceTaxCountries: [ 'US' ],
+											poocommerceTaxCountries: [ 'US' ],
 											taxJarActivated: false,
-											woocommerceTaxActivated: true,
+											poocommerceTaxActivated: true,
 										},
 									},
 								],
@@ -183,12 +183,12 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					woocommerceTaxActivated.queryByText( /WooCommerce Tax/ )
+					poocommerceTaxActivated.queryByText( /PooCommerce Tax/ )
 				).toBeNull();
 			} );
 
-			it( 'does not display if the WooCommerce Shipping plugin is active', () => {
-				const woocommerceShippingActivated = render(
+			it( 'does not display if the PooCommerce Shipping plugin is active', () => {
+				const poocommerceShippingActivated = render(
 					<HelpPanel
 						countryCode="US"
 						taskLists={ [
@@ -198,10 +198,10 @@ describe( 'Activity Panels', () => {
 									{
 										id: 'tax',
 										additionalData: {
-											woocommerceTaxCountries: [ 'US' ],
+											poocommerceTaxCountries: [ 'US' ],
 											taxJarActivated: false,
-											woocommerceTaxActivated: false,
-											woocommerceShippingActivated: true,
+											poocommerceTaxActivated: false,
+											poocommerceShippingActivated: true,
 										},
 									},
 								],
@@ -212,14 +212,14 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					woocommerceShippingActivated.queryByText(
-						/WooCommerce Tax/
+					poocommerceShippingActivated.queryByText(
+						/PooCommerce Tax/
 					)
 				).toBeNull();
 			} );
 		} );
 
-		describe( 'only shows links for WooCommerce Shipping (powered by WCS&T) when supported', () => {
+		describe( 'only shows links for PooCommerce Shipping (powered by WCS&T) when supported', () => {
 			it( 'displays if no conflicting conditions are present', () => {
 				const supportedCountry = render(
 					<HelpPanel
@@ -230,49 +230,49 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					supportedCountry.getByText( /WooCommerce Shipping/ )
+					supportedCountry.getByText( /PooCommerce Shipping/ )
 				).toBeDefined();
 			} );
 
-			it( 'does not display if the WooCommerce Shipping & Tax plugin is active', () => {
+			it( 'does not display if the PooCommerce Shipping & Tax plugin is active', () => {
 				const wcsActive = render(
 					<HelpPanel
-						activePlugins={ [ 'woocommerce-services' ] }
+						activePlugins={ [ 'poocommerce-services' ] }
 						countryCode="US"
 						taskName="shipping"
 					/>
 				);
 
 				expect(
-					wcsActive.queryByText( /WooCommerce Shipping/ )
+					wcsActive.queryByText( /PooCommerce Shipping/ )
 				).toBeNull();
 			} );
 
-			it( 'does not display if the WooCommerce Shipping plugin is active', () => {
+			it( 'does not display if the PooCommerce Shipping plugin is active', () => {
 				const wcsActive = render(
 					<HelpPanel
-						activePlugins={ [ 'woocommerce-shipping' ] }
+						activePlugins={ [ 'poocommerce-shipping' ] }
 						countryCode="US"
 						taskName="shipping"
 					/>
 				);
 
 				expect(
-					wcsActive.queryByText( /WooCommerce Shipping/ )
+					wcsActive.queryByText( /PooCommerce Shipping/ )
 				).toBeNull();
 			} );
 
-			it( 'does not display if the WooCommerce Tax plugin is active', () => {
+			it( 'does not display if the PooCommerce Tax plugin is active', () => {
 				const wcsActive = render(
 					<HelpPanel
-						activePlugins={ [ 'woocommerce-tax' ] }
+						activePlugins={ [ 'poocommerce-tax' ] }
 						countryCode="US"
 						taskName="shipping"
 					/>
 				);
 
 				expect(
-					wcsActive.queryByText( /WooCommerce Shipping/ )
+					wcsActive.queryByText( /PooCommerce Shipping/ )
 				).toBeNull();
 			} );
 
@@ -286,7 +286,7 @@ describe( 'Activity Panels', () => {
 				);
 
 				expect(
-					unSupportedCountry.queryByText( /WooCommerce Shipping/ )
+					unSupportedCountry.queryByText( /PooCommerce Shipping/ )
 				).toBeNull();
 			} );
 		} );
@@ -294,7 +294,7 @@ describe( 'Activity Panels', () => {
 		it( 'only shows links for home screen when supported', () => {
 			const homescreen = render(
 				<HelpPanel
-					activePlugins={ [ 'woocommerce-services' ] }
+					activePlugins={ [ 'poocommerce-services' ] }
 					taskName=""
 				/>
 			);
@@ -332,7 +332,7 @@ describe( 'Activity Panels', () => {
 
 				// Verify non-arrays default to generic docs link.
 				expect(
-					nonArray.getByText( 'WooCommerce Docs' )
+					nonArray.getByText( 'PooCommerce Docs' )
 				).toBeDefined();
 			} );
 
@@ -350,7 +350,7 @@ describe( 'Activity Panels', () => {
 
 				// Verify empty arrays default to generic docs link.
 				expect(
-					emptyArray.getByText( 'WooCommerce Docs' )
+					emptyArray.getByText( 'PooCommerce Docs' )
 				).toBeDefined();
 			} );
 
@@ -366,7 +366,7 @@ describe( 'Activity Panels', () => {
 
 				// Verify malformed arrays default to generic docs link.
 				expect(
-					badArray.getByText( 'WooCommerce Docs' )
+					badArray.getByText( 'PooCommerce Docs' )
 				).toBeDefined();
 			} );
 
@@ -385,7 +385,7 @@ describe( 'Activity Panels', () => {
 
 				// Verify filtered array.
 				expect(
-					replacedArray.queryByText( 'WooCommerce Docs' )
+					replacedArray.queryByText( 'PooCommerce Docs' )
 				).toBeNull();
 				expect(
 					replacedArray.getByText( 'There can only be one' )

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { isObject, isString } from '@woocommerce/types';
+import { isObject, isString } from '@poocommerce/types';
 import type { Style as StyleEngineProperties } from '@wordpress/style-engine/src/types';
 
 /**

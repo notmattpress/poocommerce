@@ -2,19 +2,19 @@
 /**
  * Class WC_Tests_CRUD_Orders file.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\Utilities\StagedMethod;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\Utilities\StagedMethod;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Meta
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	/**
@@ -398,7 +398,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: get_taxes
 	 */
 	public function test_get_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -659,7 +659,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes
 	 */
 	public function test_calculate_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -699,7 +699,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_is_vat_exempt
 	 */
 	public function test_calculate_taxes_is_vat_exempt() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -744,7 +744,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_issue_with_addresses
 	 */
 	public function test_calculate_taxes_issue_with_addresses() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$taxes = array();
 
@@ -775,8 +775,8 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_default_country', 'PY:Central' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'PY:Central' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		$order = new WC_Order();
 		$order->set_billing_country( 'US' );
@@ -793,7 +793,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_totals
 	 */
 	public function test_calculate_totals() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -840,7 +840,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	/**
 	 * Test: calculate_totals negative fees should not make order total negative.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
+	 * See: https://github.com/poocommerce/poocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
 	 */
 	public function test_calculate_totals_negative_fees_should_not_make_order_total_negative() {
 		$order = WC_Helper_Order::create_order();
@@ -1016,7 +1016,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->payment_complete( '12345' ) );
 		$note = current(
@@ -1028,7 +1028,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Payment complete event failed', $note->content );
 
-		remove_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -1038,7 +1038,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->set_total( 100 );
 		$object->set_currency( 'USD' );
-		$this->assertEquals( '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol" translate="no" dir="auto">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
+		$this->assertEquals( '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol" translate="no" dir="auto">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
 	}
 
 	/**
@@ -1064,12 +1064,12 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		// Force a non-numeric total via filter to confirm the (float) cast prevents a TypeError on
 		// PHP 8.x. Without the cast, `non-numeric-string − float` is a fatal TypeError.
 		$non_numeric_filter = fn() => 'not-a-number';
-		add_filter( 'woocommerce_order_get_total', $non_numeric_filter );
+		add_filter( 'poocommerce_order_get_total', $non_numeric_filter );
 
 		// Should not throw a TypeError when the filter returns a non-numeric string.
 		$formatted_total = $order->get_formatted_order_total();
 
-		remove_filter( 'woocommerce_order_get_total', $non_numeric_filter );
+		remove_filter( 'poocommerce_order_get_total', $non_numeric_filter );
 
 		$this->assertStringContainsString( '<del', $formatted_total );
 		$this->assertStringContainsString( '<ins', $formatted_total );
@@ -1096,37 +1096,37 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test: woocommerce_order_edit_status fires once for a manual change. set_status fires it right away, stage_status on the next save.
+	 * Test: poocommerce_order_edit_status fires once for a manual change. set_status fires it right away, stage_status on the next save.
 	 */
 	public function test_edit_status_action_fires_once_for_a_manual_change() {
 		$object = new WC_Order();
 		$object->save();
-		$fired = did_action( 'woocommerce_order_edit_status' );
+		$fired = did_action( 'poocommerce_order_edit_status' );
 
 		$this->assertTrue( $object->update_status( OrderStatus::ON_HOLD, '', true ) );
-		$this->assertSame( 1, did_action( 'woocommerce_order_edit_status' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_order_edit_status' ) - $fired );
 		$this->assertSame( OrderStatus::ON_HOLD, wc_get_order( $object->get_id() )->get_status() );
 
 		$object->set_status( OrderStatus::PROCESSING, '', true );
-		$this->assertSame( 2, did_action( 'woocommerce_order_edit_status' ) - $fired );
+		$this->assertSame( 2, did_action( 'poocommerce_order_edit_status' ) - $fired );
 		$object->save();
 
 		$object->stage_status( OrderStatus::COMPLETED, '', true );
-		$this->assertSame( 2, did_action( 'woocommerce_order_edit_status' ) - $fired );
+		$this->assertSame( 2, did_action( 'poocommerce_order_edit_status' ) - $fired );
 		$object->save();
-		$this->assertSame( 3, did_action( 'woocommerce_order_edit_status' ) - $fired );
+		$this->assertSame( 3, did_action( 'poocommerce_order_edit_status' ) - $fired );
 		$this->assertSame( OrderStatus::COMPLETED, wc_get_order( $object->get_id() )->get_status() );
 	}
 
 	/**
-	 * Test: two stage_status calls before one save fire woocommerce_order_edit_status once, with the last status, and set_status after stage_status fires it once.
+	 * Test: two stage_status calls before one save fire poocommerce_order_edit_status once, with the last status, and set_status after stage_status fires it once.
 	 */
 	public function test_edit_status_action_fires_once_for_the_last_staged_status() {
 		$statuses = array();
 		$listener = static function ( $order_id, $status ) use ( &$statuses ) {
 			$statuses[] = $status;
 		};
-		add_action( 'woocommerce_order_edit_status', $listener, 10, 2 );
+		add_action( 'poocommerce_order_edit_status', $listener, 10, 2 );
 
 		$object = new WC_Order();
 		$object->save();
@@ -1138,20 +1138,20 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object->set_status( OrderStatus::COMPLETED, '', true );
 		$object->save();
 
-		remove_action( 'woocommerce_order_edit_status', $listener, 10 );
+		remove_action( 'poocommerce_order_edit_status', $listener, 10 );
 		$this->assertSame( array( OrderStatus::PROCESSING, OrderStatus::COMPLETED ), $statuses );
 		$this->assertSame( OrderStatus::COMPLETED, wc_get_order( $object->get_id() )->get_status() );
 	}
 
 	/**
-	 * Test: a non-manual status change after stage_status cancels the pending woocommerce_order_edit_status, and a repeat of the staged status keeps it.
+	 * Test: a non-manual status change after stage_status cancels the pending poocommerce_order_edit_status, and a repeat of the staged status keeps it.
 	 */
 	public function test_edit_status_action_follows_the_last_status_change() {
 		$statuses = array();
 		$listener = static function ( $order_id, $status ) use ( &$statuses ) {
 			$statuses[] = $status;
 		};
-		add_action( 'woocommerce_order_edit_status', $listener, 10, 2 );
+		add_action( 'poocommerce_order_edit_status', $listener, 10, 2 );
 
 		$object = new WC_Order();
 		$object->save();
@@ -1170,7 +1170,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object->set_status( OrderStatus::ON_HOLD );
 		$object->save();
 
-		remove_action( 'woocommerce_order_edit_status', $listener, 10 );
+		remove_action( 'poocommerce_order_edit_status', $listener, 10 );
 		$this->assertSame( OrderStatus::ON_HOLD, $persisted );
 		$this->assertEmpty( $canceled );
 		$this->assertEmpty( $canceled_by_stage );
@@ -1178,18 +1178,18 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test: stage_payment_complete changes the order in memory, and the next save writes it, adds the note and fires woocommerce_payment_complete.
+	 * Test: stage_payment_complete changes the order in memory, and the next save writes it, adds the note and fires poocommerce_payment_complete.
 	 */
 	public function test_stage_payment_complete_changes_the_order_in_memory_only() {
 		$object = new WC_Order();
 		$object->save();
-		$fired = did_action( 'woocommerce_payment_complete' );
-		$pre   = did_action( 'woocommerce_pre_payment_complete' );
+		$fired = did_action( 'poocommerce_payment_complete' );
+		$pre   = did_action( 'poocommerce_pre_payment_complete' );
 		$notes = count( wc_get_order_notes( array( 'order_id' => $object->get_id() ) ) );
 		WC()->session->set( 'order_awaiting_payment', $object->get_id() );
 
 		$this->assertTrue( $object->stage_payment_complete( '12345' ) );
-		$this->assertSame( 0, did_action( 'woocommerce_pre_payment_complete' ) - $pre );
+		$this->assertSame( 0, did_action( 'poocommerce_pre_payment_complete' ) - $pre );
 		$this->assertSame( $object->get_id(), WC()->session->get( 'order_awaiting_payment' ) );
 		$this->assertSame( OrderStatus::COMPLETED, $object->get_status() );
 		$this->assertSame( '12345', $object->get_transaction_id() );
@@ -1198,18 +1198,18 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$stored = wc_get_order( $object->get_id() );
 		$this->assertSame( OrderStatus::PENDING, $stored->get_status() );
 		$this->assertSame( '', $stored->get_transaction_id() );
-		$this->assertSame( 0, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 0, did_action( 'poocommerce_payment_complete' ) - $fired );
 		$this->assertCount( $notes, wc_get_order_notes( array( 'order_id' => $object->get_id() ) ) );
 
 		$object->save();
-		$this->assertSame( 1, did_action( 'woocommerce_pre_payment_complete' ) - $pre );
+		$this->assertSame( 1, did_action( 'poocommerce_pre_payment_complete' ) - $pre );
 		$this->assertFalse( WC()->session->get( 'order_awaiting_payment' ) );
 		$this->assertSame( OrderStatus::COMPLETED, wc_get_order( $object->get_id() )->get_status() );
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $fired );
 		$this->assertCount( $notes + 1, wc_get_order_notes( array( 'order_id' => $object->get_id() ) ) );
 
 		$object->save();
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $fired );
 	}
 
 	/**
@@ -1219,13 +1219,13 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->set_status( OrderStatus::COMPLETED );
 		$object->save();
-		$pre = did_action( 'woocommerce_pre_payment_complete' );
+		$pre = did_action( 'poocommerce_pre_payment_complete' );
 		WC()->session->set( 'order_awaiting_payment', $object->get_id() );
 
 		$this->assertFalse( $object->stage_payment_complete( '12345' ) );
 		$object->save();
 
-		$this->assertSame( 0, did_action( 'woocommerce_pre_payment_complete' ) - $pre );
+		$this->assertSame( 0, did_action( 'poocommerce_pre_payment_complete' ) - $pre );
 		$this->assertSame( $object->get_id(), WC()->session->get( 'order_awaiting_payment' ) );
 	}
 
@@ -1235,16 +1235,16 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_refused_second_stage_payment_complete_keeps_the_staged_pre_payment_hook() {
 		$object = new WC_Order();
 		$object->save();
-		$pre   = did_action( 'woocommerce_pre_payment_complete' );
-		$fired = did_action( 'woocommerce_payment_complete' );
+		$pre   = did_action( 'poocommerce_pre_payment_complete' );
+		$fired = did_action( 'poocommerce_payment_complete' );
 		WC()->session->set( 'order_awaiting_payment', $object->get_id() );
 
 		$this->assertTrue( $object->stage_payment_complete( '12345' ) );
 		$this->assertFalse( $object->stage_payment_complete( '67890' ) );
 		$object->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_pre_payment_complete' ) - $pre );
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_pre_payment_complete' ) - $pre );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $fired );
 		$this->assertFalse( WC()->session->get( 'order_awaiting_payment' ) );
 	}
 
@@ -1254,13 +1254,13 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_payment_complete_after_stage_payment_complete_fires_the_pre_payment_hook_once() {
 		$object = new WC_Order();
 		$object->save();
-		$pre = did_action( 'woocommerce_pre_payment_complete' );
+		$pre = did_action( 'poocommerce_pre_payment_complete' );
 
 		$this->assertTrue( $object->stage_payment_complete( '12345' ) );
 		$object->payment_complete( '67890' );
 		$object->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_pre_payment_complete' ) - $pre );
+		$this->assertSame( 1, did_action( 'poocommerce_pre_payment_complete' ) - $pre );
 	}
 
 	/**
@@ -1268,37 +1268,37 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_stage_payment_complete_refuses_an_unsaved_order() {
 		$object = new WC_Order();
-		$fired  = did_action( 'woocommerce_payment_complete' );
+		$fired  = did_action( 'poocommerce_payment_complete' );
 
 		$this->assertFalse( $object->stage_payment_complete( '12345' ) );
 		$object->save();
 
-		$this->assertSame( 0, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 0, did_action( 'poocommerce_payment_complete' ) - $fired );
 		$this->assertNull( wc_get_order( $object->get_id() )->get_date_paid( 'edit' ) );
 	}
 
 	/**
-	 * Test: payment_complete fires woocommerce_payment_complete once, after the write, and does not save an order whose status payment cannot complete.
+	 * Test: payment_complete fires poocommerce_payment_complete once, after the write, and does not save an order whose status payment cannot complete.
 	 */
 	public function test_payment_complete_fires_its_action_after_the_write() {
 		$statuses = array();
 		$listener = static function ( $order_id, $transaction_id ) use ( &$statuses ) {
 			$statuses[] = array( wc_get_order( $order_id )->get_status(), $transaction_id );
 		};
-		add_action( 'woocommerce_payment_complete', $listener, 10, 2 );
+		add_action( 'poocommerce_payment_complete', $listener, 10, 2 );
 
 		$object = new WC_Order();
 		$object->save();
 		$this->assertTrue( $object->payment_complete( '12345' ) );
 
-		$updates = did_action( 'woocommerce_update_order' );
-		$skipped = did_action( 'woocommerce_payment_complete_order_status_completed' );
+		$updates = did_action( 'poocommerce_update_order' );
+		$skipped = did_action( 'poocommerce_payment_complete_order_status_completed' );
 		$this->assertTrue( $object->payment_complete( '67890' ) );
 
-		remove_action( 'woocommerce_payment_complete', $listener, 10 );
+		remove_action( 'poocommerce_payment_complete', $listener, 10 );
 		$this->assertSame( array( array( OrderStatus::COMPLETED, '12345' ) ), $statuses );
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete_order_status_completed' ) - $skipped );
-		$this->assertSame( $updates, did_action( 'woocommerce_update_order' ) );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete_order_status_completed' ) - $skipped );
+		$this->assertSame( $updates, did_action( 'poocommerce_update_order' ) );
 		$this->assertSame( '12345', wc_get_order( $object->get_id() )->get_transaction_id() );
 	}
 
@@ -1409,20 +1409,20 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A staged payment fires woocommerce_payment_complete once, when a save after a failed write succeeds.
+	 * @testdox A staged payment fires poocommerce_payment_complete once, when a save after a failed write succeeds.
 	 */
 	public function test_staged_payment_complete_fires_after_a_failed_write_is_retried(): void {
 		$order = new WC_Order();
 		$order->save();
-		$fired = did_action( 'woocommerce_payment_complete' );
+		$fired = did_action( 'poocommerce_payment_complete' );
 
 		$this->assertTrue( $order->stage_payment_complete( '12345' ) );
 		$this->save_with_failed_write( $order );
-		$this->assertSame( 0, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 0, did_action( 'poocommerce_payment_complete' ) - $fired );
 
 		$order->save();
 		$order->save();
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $fired );
 	}
 
 	/**
@@ -1431,18 +1431,18 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_status_transition_fires_after_a_failed_write_is_retried(): void {
 		$order = new WC_Order();
 		$order->save();
-		$changed    = did_action( 'woocommerce_order_status_changed' );
-		$transition = did_action( 'woocommerce_order_status_pending_to_processing' );
+		$changed    = did_action( 'poocommerce_order_status_changed' );
+		$transition = did_action( 'poocommerce_order_status_pending_to_processing' );
 
 		$order->set_status( OrderStatus::PROCESSING );
 		$this->save_with_failed_write( $order );
-		$this->assertSame( 0, did_action( 'woocommerce_order_status_changed' ) - $changed );
-		$this->assertSame( 0, did_action( 'woocommerce_order_status_pending_to_processing' ) - $transition );
+		$this->assertSame( 0, did_action( 'poocommerce_order_status_changed' ) - $changed );
+		$this->assertSame( 0, did_action( 'poocommerce_order_status_pending_to_processing' ) - $transition );
 
 		$order->save();
 		$order->save();
-		$this->assertSame( 1, did_action( 'woocommerce_order_status_changed' ) - $changed );
-		$this->assertSame( 1, did_action( 'woocommerce_order_status_pending_to_processing' ) - $transition );
+		$this->assertSame( 1, did_action( 'poocommerce_order_status_changed' ) - $changed );
+		$this->assertSame( 1, did_action( 'poocommerce_order_status_pending_to_processing' ) - $transition );
 	}
 
 	/**
@@ -1455,11 +1455,11 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$fail = static function () {
 			throw new Exception( 'Disk full.' );
 		};
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		try {
 			return $callback();
 		} finally {
-			remove_action( 'woocommerce_before_order_object_save', $fail );
+			remove_action( 'poocommerce_before_order_object_save', $fail );
 		}
 	}
 
@@ -1469,8 +1469,8 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_payment_complete_stops_when_the_write_fails(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid    = did_action( 'woocommerce_payment_complete' );
-		$changed = did_action( 'woocommerce_order_status_changed' );
+		$paid    = did_action( 'poocommerce_payment_complete' );
+		$changed = did_action( 'poocommerce_order_status_changed' );
 
 		$result = $this->with_failed_writes(
 			static function () use ( $order ) {
@@ -1479,8 +1479,8 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 
 		$this->assertFalse( $result );
-		$this->assertSame( 0, did_action( 'woocommerce_payment_complete' ) - $paid );
-		$this->assertSame( 0, did_action( 'woocommerce_order_status_changed' ) - $changed );
+		$this->assertSame( 0, did_action( 'poocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 0, did_action( 'poocommerce_order_status_changed' ) - $changed );
 		$stored = wc_get_order( $order->get_id() );
 		$this->assertSame( OrderStatus::PENDING, $stored->get_status() );
 		$this->assertNull( $stored->get_date_paid() );
@@ -1505,12 +1505,12 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The retry after a failed payment_complete() fires woocommerce_payment_complete when the note listener throws.
+	 * @testdox The retry after a failed payment_complete() fires poocommerce_payment_complete when the note listener throws.
 	 */
 	public function test_payment_complete_retry_fires_its_action_when_the_note_listener_throws(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid = did_action( 'woocommerce_payment_complete' );
+		$paid = did_action( 'poocommerce_payment_complete' );
 		$this->with_failed_writes(
 			static function () use ( $order ) {
 				return $order->payment_complete( '12345' );
@@ -1519,15 +1519,15 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$throw = static function () {
 			throw new Exception( 'Note listener failed.' );
 		};
-		add_action( 'woocommerce_order_note_added', $throw );
+		add_action( 'poocommerce_order_note_added', $throw );
 
 		try {
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_order_note_added', $throw );
+			remove_action( 'poocommerce_order_note_added', $throw );
 		}
 
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $paid );
 	}
 
 	/**
@@ -1536,7 +1536,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_payment_complete_retry_fires_its_action_after_a_move_to_another_paid_status(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid = did_action( 'woocommerce_payment_complete' );
+		$paid = did_action( 'poocommerce_payment_complete' );
 		$this->with_failed_writes(
 			static function () use ( $order ) {
 				return $order->payment_complete( '12345' );
@@ -1547,7 +1547,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::PROCESSING );
 		$order->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $paid );
 	}
 
 	/**
@@ -1565,12 +1565,12 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$throw = static function () {
 			throw new Exception( 'Payment listener failed.' );
 		};
-		add_action( 'woocommerce_payment_complete', $throw );
+		add_action( 'poocommerce_payment_complete', $throw );
 
 		try {
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_payment_complete', $throw );
+			remove_action( 'poocommerce_payment_complete', $throw );
 		}
 
 		$notes = wp_list_pluck( wc_get_order_notes( array( 'order_id' => $order->get_id() ) ), 'content' );
@@ -1580,34 +1580,34 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox payment_complete() still fires woocommerce_payment_complete when adding the payment note throws.
+	 * @testdox payment_complete() still fires poocommerce_payment_complete when adding the payment note throws.
 	 */
 	public function test_payment_complete_fires_its_action_when_the_payment_note_throws(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid  = did_action( 'woocommerce_payment_complete' );
+		$paid  = did_action( 'poocommerce_payment_complete' );
 		$throw = static function ( $comment_id ) {
 			if ( 'Payment complete.' === get_comment( $comment_id )->comment_content ) {
 				throw new Exception( 'Note listener failed.' );
 			}
 		};
-		add_action( 'woocommerce_order_note_added', $throw );
+		add_action( 'poocommerce_order_note_added', $throw );
 
 		$result = $order->payment_complete( '12345' );
 
-		remove_action( 'woocommerce_order_note_added', $throw );
+		remove_action( 'poocommerce_order_note_added', $throw );
 		$this->assertTrue( $result );
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $paid );
 		$this->assertSame( OrderStatus::COMPLETED, wc_get_order( $order->get_id() )->get_status() );
 	}
 
 	/**
-	 * @testdox woocommerce_payment_complete fires once, when a save after a failed payment_complete() succeeds.
+	 * @testdox poocommerce_payment_complete fires once, when a save after a failed payment_complete() succeeds.
 	 */
 	public function test_payment_complete_fires_its_hook_after_a_failed_write_is_retried(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid = did_action( 'woocommerce_payment_complete' );
+		$paid = did_action( 'poocommerce_payment_complete' );
 
 		$this->with_failed_writes(
 			static function () use ( $order ) {
@@ -1617,7 +1617,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$order->save();
 		$order->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $paid );
 		$this->assertSame( OrderStatus::COMPLETED, wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -1627,7 +1627,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_payment_complete_retry_after_a_failed_write_reports_the_payment_once(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid = did_action( 'woocommerce_payment_complete' );
+		$paid = did_action( 'poocommerce_payment_complete' );
 
 		$this->with_failed_writes(
 			static function () use ( $order ) {
@@ -1637,7 +1637,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::PENDING );
 		$this->assertTrue( $order->payment_complete( '12345' ) );
 
-		$this->assertSame( 1, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 1, did_action( 'poocommerce_payment_complete' ) - $paid );
 		$notes = wp_list_pluck( wc_get_order_notes( array( 'order_id' => $order->get_id() ) ), 'content' );
 		$this->assertCount( 1, array_keys( $notes, 'Payment complete.', true ) );
 	}
@@ -1683,7 +1683,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	public function test_payment_complete_drops_its_hook_when_the_status_changes_after_a_failed_write(): void {
 		$order = new WC_Order();
 		$order->save();
-		$paid = did_action( 'woocommerce_payment_complete' );
+		$paid = did_action( 'poocommerce_payment_complete' );
 
 		$this->with_failed_writes(
 			static function () use ( $order ) {
@@ -1693,7 +1693,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::FAILED );
 		$order->save();
 
-		$this->assertSame( 0, did_action( 'woocommerce_payment_complete' ) - $paid );
+		$this->assertSame( 0, did_action( 'poocommerce_payment_complete' ) - $paid );
 		$this->assertSame( OrderStatus::FAILED, wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -1745,11 +1745,11 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		};
 
 		$order->stage_order_note( 'Staged note.' );
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		try {
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_before_order_object_save', $fail );
+			remove_action( 'poocommerce_before_order_object_save', $fail );
 		}
 
 		$this->assertInstanceOf( Exception::class, $order->get_last_save_error() );
@@ -1759,7 +1759,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test: stage_totals fires woocommerce_order_after_calculate_totals on the next save, right before the write, and a change made by the listener is written.
+	 * Test: stage_totals fires poocommerce_order_after_calculate_totals on the next save, right before the write, and a change made by the listener is written.
 	 */
 	public function test_staged_after_calculate_totals_fires_on_save() {
 		$order    = WC_Helper_Order::create_order();
@@ -1768,7 +1768,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			$calls[] = $staged;
 			$listened_order->set_total( 99 );
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $listener, 10, 3 );
+		add_action( 'poocommerce_order_after_calculate_totals', $listener, 10, 3 );
 
 		$order->stage_totals( false );
 		$this->assertSame( array(), $calls );
@@ -1778,13 +1778,13 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$this->assertEquals( 99, wc_get_order( $order->get_id() )->get_total() );
 
 		$order->calculate_totals( false );
-		remove_action( 'woocommerce_order_after_calculate_totals', $listener, 10 );
+		remove_action( 'poocommerce_order_after_calculate_totals', $listener, 10 );
 		$this->assertSame( array( true, false ), $calls );
 	}
 
 	/**
 	 * Test: a saving method that runs after its stage method replaces the staged entry, so the next save does not
-	 * fire woocommerce_order_after_calculate_totals again.
+	 * fire poocommerce_order_after_calculate_totals again.
 	 */
 	public function test_saving_method_after_its_stage_method_replaces_the_staged_entry() {
 		$order    = WC_Helper_Order::create_order();
@@ -1792,19 +1792,19 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$listener = static function ( $and_taxes, $listened_order, $staged ) use ( &$calls ) {
 			$calls[] = $staged;
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $listener, 10, 3 );
+		add_action( 'poocommerce_order_after_calculate_totals', $listener, 10, 3 );
 
 		$order->stage_totals( false );
 		$order->calculate_totals( false );
 		$order->save();
-		remove_action( 'woocommerce_order_after_calculate_totals', $listener, 10 );
+		remove_action( 'poocommerce_order_after_calculate_totals', $listener, 10 );
 
 		$this->assertSame( array( false ), $calls );
 	}
 
 	/**
 	 * Test: a clone starts without the staged callbacks, so saving the clone and then the original fires
-	 * woocommerce_order_after_calculate_totals once, for the original.
+	 * poocommerce_order_after_calculate_totals once, for the original.
 	 */
 	public function test_clone_does_not_copy_staged_callbacks() {
 		$order    = WC_Helper_Order::create_order();
@@ -1812,20 +1812,20 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$listener = static function ( $and_taxes, $listened_order ) use ( &$orders ) {
 			$orders[] = $listened_order;
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $listener, 10, 2 );
+		add_action( 'poocommerce_order_after_calculate_totals', $listener, 10, 2 );
 
 		$order->stage_totals( false );
 		$copy = clone $order;
 		$copy->save();
 		$order->save();
-		remove_action( 'woocommerce_order_after_calculate_totals', $listener, 10 );
+		remove_action( 'poocommerce_order_after_calculate_totals', $listener, 10 );
 
 		$this->assertSame( array( $order ), $orders );
 	}
 
 	/**
 	 * Test: stage_coupon() refuses a class that overrides only calculate_totals() before it fires
-	 * woocommerce_order_applied_coupon or adds the coupon.
+	 * poocommerce_order_applied_coupon or adds the coupon.
 	 */
 	public function test_stage_coupon_refuses_an_unadopted_twin_of_its_chain_before_any_change() {
 		$coupon = new WC_Coupon();
@@ -1844,7 +1844,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$order->add_product( WC_Helper_Product::create_simple_product(), 1 );
 		$order->calculate_totals();
 
-		$fired = did_action( 'woocommerce_order_applied_coupon' );
+		$fired = did_action( 'poocommerce_order_applied_coupon' );
 		try {
 			$order->stage_coupon( 'chain' );
 			$this->fail( 'stage_coupon did not refuse the class.' );
@@ -1852,16 +1852,16 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'stage_totals()', $e->getMessage() );
 		}
 
-		$this->assertSame( 0, did_action( 'woocommerce_order_applied_coupon' ) - $fired );
+		$this->assertSame( 0, did_action( 'poocommerce_order_applied_coupon' ) - $fired );
 		$this->assertCount( 0, $order->get_items( 'coupon' ) );
 	}
 
 	/**
-	 * Test: a woocommerce_order_after_calculate_totals listener that calls a saving method saves the order from
+	 * Test: a poocommerce_order_after_calculate_totals listener that calls a saving method saves the order from
 	 * inside the save of stage_totals(). The action fires once, and the listener's taxes and total are written.
 	 */
 	public function test_staged_after_calculate_totals_listener_can_call_a_saving_method() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',
@@ -1882,13 +1882,13 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			$listened_order->update_taxes();
 			$listened_order->set_total( 123 );
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $listener, 10, 2 );
+		add_action( 'poocommerce_order_after_calculate_totals', $listener, 10, 2 );
 
 		$order->stage_totals( true );
 		$this->assertSame( 0, $calls );
 
 		$order->save();
-		remove_action( 'woocommerce_order_after_calculate_totals', $listener, 10 );
+		remove_action( 'poocommerce_order_after_calculate_totals', $listener, 10 );
 		$this->assertSame( 1, $calls );
 
 		$saved = wc_get_order( $order->get_id() );
@@ -1916,7 +1916,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				++$count;
 			}
 		};
-		add_action( 'woocommerce_after_order_object_save', $count_saves );
+		add_action( 'poocommerce_after_order_object_save', $count_saves );
 		$saves = static function () use ( &$count ) {
 			return $count;
 		};
@@ -1937,16 +1937,16 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$listener = static function ( $and_taxes, $listened_order ) use ( &$item_ids ) {
 			$item_ids = array_keys( $listened_order->get_items( 'coupon' ) );
 		};
-		add_action( 'woocommerce_order_after_calculate_totals', $listener, 10, 2 );
+		add_action( 'poocommerce_order_after_calculate_totals', $listener, 10, 2 );
 		$order->calculate_totals( true );
-		remove_action( 'woocommerce_order_after_calculate_totals', $listener, 10 );
+		remove_action( 'poocommerce_order_after_calculate_totals', $listener, 10 );
 		$this->assertCount( 1, $item_ids );
 		$this->assertIsInt( $item_ids[0] );
 
 		$before = $saves();
 		$order->stage_totals( true );
 		$order->stage_coupon_removal( 'saves' );
-		remove_action( 'woocommerce_after_order_object_save', $count_saves );
+		remove_action( 'poocommerce_after_order_object_save', $count_saves );
 		$this->assertSame( 0, $saves() - $before );
 	}
 
@@ -1985,14 +1985,14 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_items( 'coupon' ) );
 		$this->assertEquals( 40, wc_get_order( $order->get_id() )->get_total() );
 
-		$removed = did_action( 'woocommerce_order_removed_coupon' );
+		$removed = did_action( 'poocommerce_order_removed_coupon' );
 		$this->assertTrue( $order->stage_coupon_removal( 'staged' ) );
 		$this->assertEquals( 50, $order->get_total() );
-		$this->assertSame( 0, did_action( 'woocommerce_order_removed_coupon' ) - $removed );
+		$this->assertSame( 0, did_action( 'poocommerce_order_removed_coupon' ) - $removed );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_items( 'coupon' ) );
 
 		$order->save();
-		$this->assertSame( 1, did_action( 'woocommerce_order_removed_coupon' ) - $removed );
+		$this->assertSame( 1, did_action( 'poocommerce_order_removed_coupon' ) - $removed );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_items( 'coupon' ) );
 		$this->assertEquals( 50, wc_get_order( $order->get_id() )->get_total() );
 	}
@@ -2244,7 +2244,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				$object->$stage_method( ...$args );
 				$this->fail( $stage_method . ' did not refuse the class.' );
 			} catch ( WC_Data_Exception $e ) {
-				$this->assertSame( 'woocommerce_data_staging_unsupported', $e->getErrorCode(), $stage_method );
+				$this->assertSame( 'poocommerce_data_staging_unsupported', $e->getErrorCode(), $stage_method );
 				$this->assertStringContainsString( $stage_method . '()', $e->getMessage() );
 				$this->assertSame( OrderStatus::PENDING, $object->get_status(), $stage_method );
 			}
@@ -2275,7 +2275,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test: update_status fires woocommerce_order_edit_status before it writes and after the paid and completed dates are set, and set_status fires it before those dates are set.
+	 * Test: update_status fires poocommerce_order_edit_status before it writes and after the paid and completed dates are set, and set_status fires it before those dates are set.
 	 */
 	public function test_edit_status_action_fires_before_the_write() {
 		$events   = array();
@@ -2287,7 +2287,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				null === $object->get_date_completed( 'edit' ),
 			);
 		};
-		add_action( 'woocommerce_order_edit_status', $listener );
+		add_action( 'poocommerce_order_edit_status', $listener );
 
 		$object = new WC_Order();
 		$object->save();
@@ -2298,7 +2298,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object->set_status( OrderStatus::COMPLETED, '', true );
 		$set = array( null !== $object->get_date_paid( 'edit' ), null !== $object->get_date_completed( 'edit' ) );
 
-		remove_action( 'woocommerce_order_edit_status', $listener );
+		remove_action( 'poocommerce_order_edit_status', $listener );
 		$this->assertSame( array( OrderStatus::PENDING, false, false ), $events[0] );
 		$this->assertSame( array( OrderStatus::PENDING, true, true ), $events[1] );
 		$this->assertSame( array( true, true ), $set );
@@ -2314,7 +2314,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->update_status( OrderStatus::ON_HOLD ) );
 		$note = current(
@@ -2326,7 +2326,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Update status event failed', $note->content );
 
-		remove_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -2336,9 +2336,9 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 		$object->update_status( OrderStatus::ON_HOLD );
-		remove_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 
 		$note = current(
 			wc_get_order_notes(
@@ -2348,7 +2348,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertStringContainsString( __( 'Error during status transition.', 'woocommerce' ), $note->content );
+		$this->assertStringContainsString( __( 'Error during status transition.', 'poocommerce' ), $note->content );
 	}
 
 	/**
@@ -2691,7 +2691,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_get_created_via() {
 		$object = new WC_Order();
-		$set_to = 'WooCommerce';
+		$set_to = 'PooCommerce';
 		$object->set_created_via( $set_to );
 		$this->assertEquals( $set_to, $object->get_created_via() );
 	}
@@ -3163,7 +3163,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_refund_exception() {
 		$order = WC_Helper_Order::create_order();
-		add_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$refund = wc_create_refund(
 			array(
 				'order_id'   => $order->get_id(),
@@ -3171,7 +3171,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				'line_items' => array(),
 			)
 		);
-		remove_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$this->assertEmpty( $order->get_refunds() );
 	}
 
@@ -3307,7 +3307,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 
 		$object->save();
 		$note = current(
@@ -3319,7 +3319,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Error saving order', $note->content );
 
-		remove_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 	}
 
 	/**

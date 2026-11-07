@@ -34,13 +34,13 @@ export const FinishStep: React.FC = () => {
 					<h1 className="settings-payments-onboarding-modal__step--content-finish-title">
 						{ __(
 							'You’re ready to accept payments!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h1>
 					<p className="settings-payments-onboarding-modal__step--content-finish-description">
 						{ __(
 							'Great news — your WooPayments account has been activated. You can now start accepting payments on your store.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<Button
@@ -61,12 +61,12 @@ export const FinishStep: React.FC = () => {
 								context?.urls?.overview_page ?? '';
 						} }
 					>
-						{ __( 'Go to Payments Overview', 'woocommerce' ) }
+						{ __( 'Go to Payments Overview', 'poocommerce' ) }
 					</Button>
 					<div className="divider">
 						<span className="divider-line"></span>
 						<span className="divider-text">
-							{ __( 'OR', 'woocommerce' ) }
+							{ __( 'OR', 'poocommerce' ) }
 						</span>
 						<span className="divider-line"></span>
 					</div>
@@ -87,7 +87,7 @@ export const FinishStep: React.FC = () => {
 							closeModal();
 						} }
 					>
-						{ __( 'Close this window', 'woocommerce' ) }
+						{ __( 'Close this window', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

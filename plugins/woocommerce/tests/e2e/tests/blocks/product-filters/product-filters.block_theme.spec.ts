@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,14 +9,14 @@ import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
 import { ProductFiltersPage } from './product-filters.page';
 
 const blockData = {
-	name: 'woocommerce/product-filters',
+	name: 'poocommerce/product-filters',
 	title: 'Product Filters',
 	selectors: {
 		frontend: {},
 		editor: {
 			settings: {},
 			layoutWrapper:
-				'.wp-block-woocommerce-product-filters-is-layout-flex',
+				'.wp-block-poocommerce-product-filters-is-layout-flex',
 			blocks: {
 				filters: {
 					title: 'Product Filters',

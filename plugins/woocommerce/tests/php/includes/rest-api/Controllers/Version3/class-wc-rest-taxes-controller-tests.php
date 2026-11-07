@@ -56,7 +56,7 @@ class WC_REST_Taxes_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->do_rest_get_request( 'taxes/classes/' . $class_slug );
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_tax_class_invalid_slug', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_tax_class_invalid_slug', $response->get_data()['code'] );
 	}
 
 	/**
@@ -148,13 +148,13 @@ class WC_REST_Taxes_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$this->assertSame( $rate_id, $response->get_data()['id'] );
 		$this->assertNull( WC_Tax::_get_tax_rate( $rate_id ) );
 		$remaining_locations = $wpdb->get_var(
-			$wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id = %d", $rate_id )
+			$wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id = %d", $rate_id )
 		);
 		$this->assertSame( '0', $remaining_locations );
 
 		$response = $this->do_rest_get_request( 'taxes/' . $rate_id );
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -351,7 +351,7 @@ class WC_REST_Taxes_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$data = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT location_type, GROUP_CONCAT(location_code SEPARATOR ';') as items
-						FROM {$wpdb->prefix}woocommerce_tax_rate_locations
+						FROM {$wpdb->prefix}poocommerce_tax_rate_locations
 						WHERE tax_rate_id=%d
 						GROUP BY location_type",
 				$tax_rate_id

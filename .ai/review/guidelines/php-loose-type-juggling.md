@@ -3,7 +3,7 @@
 **Source:**
 
 - #65957: numeric `post_status` keys from `get_post_stati()` became ints, a strict_types TypeError; the bad value was already cached (counters disabled in #67058).
-- #57596: `price_decimals` became `false` before `woocommerce_shipping_method_add_rate_args`.
+- #57596: `price_decimals` became `false` before `poocommerce_shipping_method_add_rate_args`.
 - #59479 (10.0.1): strict-types fatal hotfix.
 - #66219 (10.9.3): a mail callback returned a non-bool.
 - #67763: a non-string payment method came back from a filter.

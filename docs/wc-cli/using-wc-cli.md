@@ -1,19 +1,19 @@
 ---
-post_title: How to use WooCommerce CLI
-sidebar_label: Using WooCommerce CLI
+post_title: How to use PooCommerce CLI
+sidebar_label: Using PooCommerce CLI
 sidebar_position: 2
 
 ---
 
-# How to Use WooCommerce CLI
+# How to Use PooCommerce CLI
 
 ## Introduction
 
-This guide aims to assist beginners in using WooCommerce CLI (WC-CLI) for managing WooCommerce stores via the command line.
+This guide aims to assist beginners in using PooCommerce CLI (WC-CLI) for managing PooCommerce stores via the command line.
 
 ## Getting Started
 
-- Ensure WP-CLI is installed and WooCommerce is at least version 3.0.0.
+- Ensure WP-CLI is installed and PooCommerce is at least version 3.0.0.
 - To check WC-CLI availability:
 
 ```bash
@@ -38,7 +38,7 @@ wp wc [command] --help
 
 ### 1. Listing Products
 
-To list all products in your WooCommerce store:
+To list all products in your PooCommerce store:
 
 ```bash
 wp wc product list

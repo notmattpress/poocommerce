@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Helpers;
+namespace Automattic\PooCommerce\Tests\Blocks\Helpers;
 
 /**
  * Registers block types for a test and puts the block type registry back as the test found it.
@@ -22,7 +22,7 @@ trait BlockTypeRegistryTrait {
 	/**
 	 * Register a block type for this test in place of whatever is registered under its name.
 	 *
-	 * @param string   $block_name Full block name, such as 'woocommerce/mini-cart'.
+	 * @param string   $block_name Full block name, such as 'poocommerce/mini-cart'.
 	 * @param callable $register   Registers the block type, usually by constructing a block class.
 	 * @return mixed What $register returned.
 	 * @throws \LogicException When $register does not register $block_name.

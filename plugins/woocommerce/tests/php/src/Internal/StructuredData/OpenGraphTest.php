@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StructuredData;
+namespace Automattic\PooCommerce\Tests\Internal\StructuredData;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
-use Automattic\WooCommerce\Internal\StructuredData\OpenGraph;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
+use Automattic\PooCommerce\Internal\StructuredData\OpenGraph;
 use WC_Helper_Product;
 use WC_Product;
 use WC_Unit_Test_Case;
@@ -45,10 +45,10 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 		$this->sut         = new OpenGraph();
 		$this->request_uri = $_SERVER['REQUEST_URI'] ?? null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Preserve request state changed by go_to().
 
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		update_option( 'blogname', 'Test store' );
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_price_num_decimals', 2 );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_price_num_decimals', 2 );
 
 		$image_id = self::factory()->attachment->create(
 			array(
@@ -283,7 +283,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 	 * @testdox Should allow disabling Open Graph output without changing existing metadata.
 	 */
 	public function test_enable_filter_disables_output(): void {
-		add_filter( 'woocommerce_enable_open_graph', '__return_false' );
+		add_filter( 'poocommerce_enable_open_graph', '__return_false' );
 
 		$tags = $this->render_meta_tags( '<meta property="og:type" content="article">' );
 
@@ -296,7 +296,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 	 */
 	public function test_tags_filter_customizes_output(): void {
 		add_filter(
-			'woocommerce_open_graph_tags',
+			'poocommerce_open_graph_tags',
 			function ( $tags, $context ) {
 				$this->assertInstanceOf( WC_Product::class, $context, 'The filter context should be a product.' );
 				$this->assertSame( $this->product->get_id(), $context->get_id(), 'The filter should receive the queried product.' );
@@ -332,7 +332,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 	 */
 	public function test_tags_filter_adds_product_metadata(): void {
 		add_filter(
-			'woocommerce_open_graph_tags',
+			'poocommerce_open_graph_tags',
 			static function ( $tags ) {
 				foreach ( $tags as $index => $group ) {
 					unset( $group['product:price:amount'], $group['product:price:currency'] );
@@ -373,7 +373,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 			)
 		);
 		$this->assertIsInt( $shop_id );
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		set_post_thumbnail( $shop_id, (int) $this->product->get_image_id() );
 		$shop_url = get_permalink( $shop_id );
 		$this->assertIsString( $shop_url );
@@ -417,7 +417,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 		$this->go_to( get_term_link( $term ) );
 		$context = null;
 		add_filter(
-			'woocommerce_open_graph_tags',
+			'poocommerce_open_graph_tags',
 			static function ( $tags, $source ) use ( &$context ) {
 				$context = $source;
 				return $tags;
@@ -463,7 +463,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 				'post_excerpt' => '',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$this->go_to( get_permalink( $shop_id ) );
 
 		$tags = $this->render_meta_tags( '' );
@@ -487,7 +487,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$this->go_to( get_permalink( $shop_id ) );
 		$this->assertTrue( is_shop(), 'The request must be recognized as a shop view.' );
 
@@ -531,7 +531,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 			)
 		);
 		$this->assertIsInt( $shop_id );
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$shop_url = get_permalink( $shop_id );
 		$this->assertIsString( $shop_url );
 		$this->go_to( $shop_url );
@@ -563,7 +563,7 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$this->go_to( get_permalink( $shop_id ) );
 		$original_get         = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Restore request state after the test.
 		$_GET['product-page'] = $page;
@@ -608,11 +608,11 @@ class OpenGraphTest extends WC_Unit_Test_Case {
 					'post_status' => 'publish',
 				)
 			);
-			update_option( 'woocommerce_shop_page_id', $shop_id );
-			update_option( 'woocommerce_coming_soon', 'yes' );
-			update_option( 'woocommerce_store_pages_only', 'no' );
-			update_option( 'woocommerce_private_link', 'yes' );
-			update_option( 'woocommerce_share_key', 'secret' );
+			update_option( 'poocommerce_shop_page_id', $shop_id );
+			update_option( 'poocommerce_coming_soon', 'yes' );
+			update_option( 'poocommerce_store_pages_only', 'no' );
+			update_option( 'poocommerce_private_link', 'yes' );
+			update_option( 'poocommerce_share_key', 'secret' );
 			$_COOKIE['woo-share'] = $cookie;
 			$shop_url             = get_permalink( $shop_id );
 			$this->go_to( $key ? add_query_arg( 'woo-share', $key, $shop_url ) : $shop_url );

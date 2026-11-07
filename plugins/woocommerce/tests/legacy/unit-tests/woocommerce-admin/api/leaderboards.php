@@ -2,7 +2,7 @@
 /**
  * Leaderboards REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
@@ -162,15 +162,15 @@ class WC_Admin_Tests_API_Leaderboards extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that a user with only the `view_woocommerce_reports` capability can
+	 * Test that a user with only the `view_poocommerce_reports` capability can
 	 * read the leaderboards endpoint.
 	 *
-	 * Regression test for woocommerce/woocommerce#39366.
+	 * Regression test for poocommerce/poocommerce#39366.
 	 */
-	public function test_get_leaderboards_with_view_woocommerce_reports_cap() {
+	public function test_get_leaderboards_with_view_poocommerce_reports_cap() {
 		$user_id = $this->factory->user->create( array( 'role' => 'subscriber' ) );
 		$user    = new WP_User( $user_id );
-		$user->add_cap( 'view_woocommerce_reports' );
+		$user->add_cap( 'view_poocommerce_reports' );
 		wp_set_current_user( $user_id );
 
 		$request  = new WP_REST_Request( 'GET', $this->endpoint );
@@ -187,14 +187,14 @@ class WC_Admin_Tests_API_Leaderboards extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that a user with only the `manage_woocommerce` capability can read
+	 * Test that a user with only the `manage_poocommerce` capability can read
 	 * the leaderboards endpoint (backwards compatibility with the previous
 	 * behavior inherited from `\WC_REST_Data_Controller`).
 	 */
-	public function test_get_leaderboards_with_manage_woocommerce_cap() {
+	public function test_get_leaderboards_with_manage_poocommerce_cap() {
 		$user_id = $this->factory->user->create( array( 'role' => 'subscriber' ) );
 		$user    = new WP_User( $user_id );
-		$user->add_cap( 'manage_woocommerce' );
+		$user->add_cap( 'manage_poocommerce' );
 		wp_set_current_user( $user_id );
 
 		$request  = new WP_REST_Request( 'GET', $this->endpoint );
@@ -222,7 +222,7 @@ class WC_Admin_Tests_API_Leaderboards extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		add_filter(
-			'woocommerce_leaderboards',
+			'poocommerce_leaderboards',
 			function( $leaderboards, $per_page, $after, $before, $persisted_query ) {
 				$leaderboards[] = array(
 					'id'      => 'top_widgets',

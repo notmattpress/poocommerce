@@ -40,7 +40,7 @@ A channel whose spec does not ask for the field is left out of the check's map.
 
 A variable product with some priced variations fails `missing_regular_price` but counts as `gaps`, not `not_listable`, in the channel totals, since its priced variations still list.
 
-Two Google exceptions, per product: `missing_brand` leaves Google out when Google for WooCommerce sends its own brand (`_wc_gla_brand`), and `missing_gtin` leaves Google out when the product has a brand and an MPN (`_wc_gla_mpn` or an "MPN" attribute). Brands set through Google for WooCommerce attribute mapping rules are not read yet.
+Two Google exceptions, per product: `missing_brand` leaves Google out when Google for PooCommerce sends its own brand (`_wc_gla_brand`), and `missing_gtin` leaves Google out when the product has a brand and an MPN (`_wc_gla_mpn` or an "MPN" attribute). Brands set through Google for PooCommerce attribute mapping rules are not read yet.
 
 ## Scope
 
@@ -98,11 +98,11 @@ array(
 
 ## Background scan and REST
 
-"Run check" on the tab, or `POST wc/v3/agent-readiness/scan`, queues the scan in Action Scheduler (`ScheduledScan`). The report is stored in the `woocommerce_agent_readiness_report` option (not autoloaded). Each run schedules the next one a day later, before scanning, so a failed scan doesn't stop the daily refresh; a run that finds the feature disabled does. If a queued scan still hasn't started 10 minutes after it was due and no other scheduled action has finished in that time (Action Scheduler isn't running), the tab says so and the scan stays queued. The scan never runs in a page or REST request; splitting the product pass into one action per batch is WOOAI-1661.
+"Run check" on the tab, or `POST wc/v3/agent-readiness/scan`, queues the scan in Action Scheduler (`ScheduledScan`). The report is stored in the `poocommerce_agent_readiness_report` option (not autoloaded). Each run schedules the next one a day later, before scanning, so a failed scan doesn't stop the daily refresh; a run that finds the feature disabled does. If a queued scan still hasn't started 10 minutes after it was due and no other scheduled action has finished in that time (Action Scheduler isn't running), the tab says so and the scan stays queued. The scan never runs in a page or REST request; splitting the product pass into one action per batch is WOOAI-1661.
 
 Product changes don't update the stored report: a fixed product leaves it at the next daily scan or "Run check". On a store with 11,000 products, a scan (stopping at 5,000) took about 4 seconds and 144 MB.
 
-`GET wc/v3/agent-readiness` returns `{ "report": <report or null>, "scan_pending": <bool>, "scan_stalled": <bool> }`; `scan_stalled` is true while a queued scan waits on a stalled Action Scheduler. Both routes need `manage_woocommerce` and exist only while the feature is enabled.
+`GET wc/v3/agent-readiness` returns `{ "report": <report or null>, "scan_pending": <bool>, "scan_stalled": <bool> }`; `scan_stalled` is true while a queued scan waits on a stalled Action Scheduler. Both routes need `manage_poocommerce` and exist only while the feature is enabled.
 
 The same shape is meant for every consumer: this Status tab, an outside scan of a store, and extensions that rank the findings by sales or offer fixes. Check and channel ids are stable keys.
 
@@ -110,7 +110,7 @@ The scan walks published simple and variable products shown in the shop catalog 
 
 ## Updating rules
 
-The per-channel field and effect live in each check's `channels()`. The final map passes through the `woocommerce_agent_readiness_rules` filter, keyed by check id, so it can change without a release. Removing a check id stops that check. Unknown channels and effects are dropped.
+The per-channel field and effect live in each check's `channels()`. The final map passes through the `poocommerce_agent_readiness_rules` filter, keyed by check id, so it can change without a release. Removing a check id stops that check. Unknown channels and effects are dropped.
 
 Next step, out of scope here: fetch the rules map from a remote JSON spec with the bundled `channels()` as the fallback, the way core polls remote specs for payment and marketing suggestions with bundled defaults.
 
@@ -123,7 +123,7 @@ Core's UCP catalog mapper (`src/Internal/ProductFeed/Mapping/UcpProductMapper.ph
 ## Trying it
 
 ```sh
-wp option update woocommerce_feature_agent_readiness_enabled yes
+wp option update poocommerce_feature_agent_readiness_enabled yes
 ```
 
-Then open WooCommerce > Status > Agent readiness and select "Run check".
+Then open PooCommerce > Status > Agent readiness and select "Run check".

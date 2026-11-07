@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Mapping;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Mapping;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp\UcpProductSchema;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ProductSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp\UcpProductSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
- * Maps WooCommerce products to the UCP catalog product shape.
+ * Maps PooCommerce products to the UCP catalog product shape.
  *
  * Field values are read from Store API product item responses, so tax display,
  * password protection, description formatting and attribute labels follow the
@@ -107,7 +107,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	/**
 	 * Map a page of products, skipping those with no catalog variant.
 	 *
-	 * @param array $products WooCommerce products.
+	 * @param array $products PooCommerce products.
 	 * @return array
 	 */
 	public function map_products( array $products ): array {
@@ -156,7 +156,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	 * back; several identifiers resolving to one variant all appear in its
 	 * `inputs`.
 	 *
-	 * @param \WC_Product $product WooCommerce product.
+	 * @param \WC_Product $product PooCommerce product.
 	 * @param array       $inputs Identifiers from the lookup request that resolved to this product,
 	 *                            each `{ id, variation_id }` with the variation it named or 0 for
 	 *                            the product itself.
@@ -225,7 +225,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	 * and `selected` reports the options kept, as UCP requires. A request naming
 	 * a variation returns it first, with its own options as the selection.
 	 *
-	 * @param \WC_Product $product WooCommerce product.
+	 * @param \WC_Product $product PooCommerce product.
 	 * @param array       $selected Selected option values, each `{ name, label, id? }`.
 	 * @param int         $variation_id Variation the request named, or 0 when it named the product.
 	 * @return array
@@ -273,7 +273,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	 * items, in stock. That is the set the storefront and the Store API offer, read
 	 * through the data store's cached children list.
 	 *
-	 * @param \WC_Product $product WooCommerce product.
+	 * @param \WC_Product $product PooCommerce product.
 	 * @return bool
 	 */
 	public function has_catalog_variants( \WC_Product $product ): bool {
@@ -300,7 +300,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	/**
 	 * Build the Store API item response for a product or variation, as nested arrays.
 	 *
-	 * @param \WC_Product $product WooCommerce product.
+	 * @param \WC_Product $product PooCommerce product.
 	 * @return array
 	 */
 	private function item( \WC_Product $product ): array {
@@ -379,7 +379,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	 * @return string
 	 */
 	private function get_currency(): string {
-		return '' !== $this->currency ? $this->currency : (string) get_woocommerce_currency();
+		return '' !== $this->currency ? $this->currency : (string) get_poocommerce_currency();
 	}
 
 	/**
@@ -491,7 +491,7 @@ class UcpProductMapper implements ProductShapeMapperInterface {
 	 * variations past it are never loaded. Named variations go first, so the cap
 	 * can only drop variants nobody asked for by id.
 	 *
-	 * @param \WC_Product $product WooCommerce product.
+	 * @param \WC_Product $product PooCommerce product.
 	 * @param array       $item Its Store API item response.
 	 * @param string      $currency ISO 4217 currency code.
 	 * @param array       $required_variation_ids Variation ids the request named directly.

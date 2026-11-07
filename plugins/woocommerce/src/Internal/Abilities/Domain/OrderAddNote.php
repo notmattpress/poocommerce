@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce order add note ability.
+ * Registers the PooCommerce order add note ability.
  */
 class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -28,7 +28,7 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/order-add-note';
+		return 'poocommerce/order-add-note';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Add order note', 'woocommerce' ),
+			'label'               => __( 'Add order note', 'poocommerce' ),
 			'description'         => __(
 				'Add a note to an order.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_order_note_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -84,8 +84,8 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 
 		if ( '' === $note ) {
 			return new \WP_Error(
-				'woocommerce_order_note_required',
-				__( 'Order note is required.', 'woocommerce' ),
+				'poocommerce_order_note_required',
+				__( 'Order note is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -98,8 +98,8 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 
 		if ( $note_id <= 0 ) {
 			return new \WP_Error(
-				'woocommerce_order_note_create_failed',
-				__( 'Failed to add order note.', 'woocommerce' ),
+				'poocommerce_order_note_create_failed',
+				__( 'Failed to add order note.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -130,7 +130,7 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'note'          => array(
 					'type'        => 'string',
-					'description' => __( 'Order note content. Safe HTML is allowed.', 'woocommerce' ),
+					'description' => __( 'Order note content. Safe HTML is allowed.', 'poocommerce' ),
 					'minLength'   => 1,
 					'pattern'     => '\S',
 				),
@@ -138,7 +138,7 @@ class OrderAddNote extends AbstractDomainAbility implements AbilityDefinition {
 					'type'        => 'boolean',
 					'description' => __(
 						'Whether the note is visible to the customer. Defaults to false for a private/admin note.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),

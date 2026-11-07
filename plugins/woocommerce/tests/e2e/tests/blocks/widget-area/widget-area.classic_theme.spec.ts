@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, CLASSIC_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, CLASSIC_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'Merchant → Widget area', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -12,7 +12,7 @@ test.describe( 'Merchant → Widget area', () => {
 		await admin.visitWidgetEditor();
 
 		// Verify the wp-editor script wasn't loaded.
-		// See: https://github.com/woocommerce/woocommerce/issues/47831
+		// See: https://github.com/poocommerce/poocommerce/issues/47831
 		await expect( page.locator( '#wp-editor-js' ) ).toHaveCount( 0 );
 
 		// Verify that no error notice is rendered in the widget editor.

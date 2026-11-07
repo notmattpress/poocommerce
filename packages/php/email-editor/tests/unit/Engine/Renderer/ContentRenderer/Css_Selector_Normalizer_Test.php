@@ -2,12 +2,12 @@
 /**
  * Tests for email CSS selector normalization.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
 
 /**
  * Tests for Css_Selector_Normalizer.

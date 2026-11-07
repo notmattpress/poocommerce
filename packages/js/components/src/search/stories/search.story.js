@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { H, Search, Section } from '@woocommerce/components';
+import { H, Search, Section } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const SearchExample = () => {

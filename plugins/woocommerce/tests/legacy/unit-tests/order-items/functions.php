@@ -1,7 +1,7 @@
 <?php
 /**
  * Order Item Function Tests
- * @package WooCommerce\Tests\Order_Items
+ * @package PooCommerce\Tests\Order_Items
  * @since 3.0.0
  */
 class WC_Tests_Order_Item_Functions extends WC_Unit_Test_Case {

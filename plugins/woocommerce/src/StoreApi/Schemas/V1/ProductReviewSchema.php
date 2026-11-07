@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
 
 /**
  * ProductReviewSchema class.
@@ -48,64 +48,64 @@ class ProductReviewSchema extends AbstractSchema {
 	public function get_properties() {
 		$properties = [
 			'id'                     => [
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'date_created'           => [
-				'description' => __( "The date the review was created, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the review was created, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'formatted_date_created' => [
-				'description' => __( "The date the review was created, in the site's timezone in human-readable format.", 'woocommerce' ),
+				'description' => __( "The date the review was created, in the site's timezone in human-readable format.", 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'date_created_gmt'       => [
-				'description' => __( 'The date the review was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the review was created, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'product_id'             => [
-				'description' => __( 'Unique identifier for the product that the review belongs to.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the product that the review belongs to.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'product_name'           => [
-				'description' => __( 'Name of the product that the review belongs to.', 'woocommerce' ),
+				'description' => __( 'Name of the product that the review belongs to.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'product_permalink'      => [
-				'description' => __( 'Permalink of the product that the review belongs to.', 'woocommerce' ),
+				'description' => __( 'Permalink of the product that the review belongs to.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'product_image'          => [
-				'description' => __( 'Image of the product that the review belongs to.', 'woocommerce' ),
+				'description' => __( 'Image of the product that the review belongs to.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => $this->image_attachment_schema->get_properties(),
 			],
 			'reviewer'               => [
-				'description' => __( 'Reviewer name.', 'woocommerce' ),
+				'description' => __( 'Reviewer name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'review'                 => [
-				'description' => __( 'The content of the review.', 'woocommerce' ),
+				'description' => __( 'The content of the review.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'arg_options' => [
@@ -114,13 +114,13 @@ class ProductReviewSchema extends AbstractSchema {
 				'readonly'    => true,
 			],
 			'rating'                 => [
-				'description' => __( 'Review rating (0 to 5).', 'woocommerce' ),
+				'description' => __( 'Review rating (0 to 5).', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'verified'               => [
-				'description' => __( 'Shows if the reviewer bought the product or not.', 'woocommerce' ),
+				'description' => __( 'Shows if the reviewer bought the product or not.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -134,14 +134,14 @@ class ProductReviewSchema extends AbstractSchema {
 			foreach ( $avatar_sizes as $size ) {
 				$avatar_properties[ $size ] = array(
 					/* translators: %d: avatar image size in pixels */
-					'description' => sprintf( __( 'Avatar URL with image size of %d pixels.', 'woocommerce' ), $size ),
+					'description' => sprintf( __( 'Avatar URL with image size of %d pixels.', 'poocommerce' ), $size ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'embed', 'view', 'edit' ),
 				);
 			}
 			$properties['reviewer_avatar_urls'] = array(
-				'description' => __( 'Avatar URLs for the object reviewer.', 'woocommerce' ),
+				'description' => __( 'Avatar URLs for the object reviewer.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -153,7 +153,7 @@ class ProductReviewSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce product into an object suitable for the response.
+	 * Convert a PooCommerce product into an object suitable for the response.
 	 *
 	 * @param \WP_Comment $review Product review object.
 	 * @return array

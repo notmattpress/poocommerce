@@ -3,9 +3,9 @@
  * Class for WPPost To order table migrator.
  */
 
-namespace Automattic\WooCommerce\Database\Migrations\CustomOrderTable;
+namespace Automattic\PooCommerce\Database\Migrations\CustomOrderTable;
 
-use Automattic\WooCommerce\Database\Migrations\MetaToCustomTableMigrator;
+use Automattic\PooCommerce\Database\Migrations\MetaToCustomTableMigrator;
 
 /**
  * Helper class to migrate records from the WordPress post table

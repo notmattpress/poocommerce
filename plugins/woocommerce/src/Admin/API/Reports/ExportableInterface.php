@@ -3,14 +3,14 @@
  * Reports Exportable Controller Interface
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * WooCommerce Reports exportable controller interface.
+ * PooCommerce Reports exportable controller interface.
  *
  * @since 3.5.0
  */

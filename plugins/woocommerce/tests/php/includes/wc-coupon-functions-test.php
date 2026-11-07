@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Coupon functions tests
  *
- * @package WooCommerce\Tests\Coupon.
+ * @package PooCommerce\Tests\Coupon.
  */
 
 /**

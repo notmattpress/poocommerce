@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * Provides the price separators decoded for non-HTML consumers (client settings payloads, APIs).

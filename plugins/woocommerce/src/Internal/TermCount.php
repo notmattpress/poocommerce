@@ -5,19 +5,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Coordinates WooCommerce-specific product term-count consistency.
+ * Coordinates PooCommerce-specific product term-count consistency.
  *
  * Product term counts can become stale when product visibility, stock state,
  * inventory settings, product type, or taxonomy hierarchy changes. This service is
  * the central integration point for incrementally consolidating the immediate and
- * deferred recount triggers for those mutations. Existing WooCommerce term-count
+ * deferred recount triggers for those mutations. Existing PooCommerce term-count
  * functions remain responsible for calculating and persisting category, tag, brand,
  * and ancestor counts.
  *
@@ -111,7 +111,7 @@ class TermCount {
 	}
 
 	/**
-	 * Gets visibility term taxonomy IDs that affect WooCommerce product counts.
+	 * Gets visibility term taxonomy IDs that affect PooCommerce product counts.
 	 *
 	 * @return list<int>
 	 */
@@ -124,7 +124,7 @@ class TermCount {
 		$visibility_term_ids = wc_get_product_visibility_term_ids();
 		$counting_tt_ids     = array( $visibility_term_ids['exclude-from-catalog'] ?? 0 );
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$counting_tt_ids[] = $visibility_term_ids[ ProductStockStatus::OUT_OF_STOCK ] ?? 0;
 		}
 

@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-on-sale",
+	"name": "poocommerce/product-on-sale",
 	"title": "On Sale Products",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Display a grid of products currently on sale.",
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": false
@@ -14,7 +14,7 @@
 		"html": false,
 		"inserter": false
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"columns": {
 			"type": "number",

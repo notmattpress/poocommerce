@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Refunds;
 
-use Automattic\WooCommerce\Internal\RestApi\Refunds\DataUtils;
-use Automattic\WooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\DataUtils;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WC_Unit_Test_Case;
 
 /**
@@ -14,8 +14,8 @@ use WC_Unit_Test_Case;
  */
 class ClassAliasesTest extends WC_Unit_Test_Case {
 
-	private const OLD_DATA_UTILS     = 'Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils';
-	private const OLD_PREVIEW_SCHEMA = 'Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema';
+	private const OLD_DATA_UTILS     = 'Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils';
+	private const OLD_PREVIEW_SCHEMA = 'Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema';
 
 	/**
 	 * @testdox The old DataUtils FQCN autoloads and aliases the relocated class.
@@ -55,7 +55,7 @@ class ClassAliasesTest extends WC_Unit_Test_Case {
 	 * @testdox A subclass of the old RefundPreviewSchema can add properties to the item schema.
 	 */
 	public function test_old_preview_schema_subclass_properties_reach_item_schema(): void {
-		$sut = new class() extends \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema {
+		$sut = new class() extends \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundPreviewSchema {
 			/**
 			 * Adds one property to the inherited ones.
 			 *

@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Internal\RestApiParameterUtil;
+use Automattic\PooCommerce\Internal\RestApiParameterUtil;
 
 /**
  * Tests for the RestApiParameterUtil class.
- * @package Automattic\WooCommerce\Tests\Internal
+ * @package Automattic\PooCommerce\Tests\Internal
  */
 class RestApiParameterUtilTest extends \WC_Unit_Test_Case {
 

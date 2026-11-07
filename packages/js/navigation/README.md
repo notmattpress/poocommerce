@@ -7,7 +7,7 @@ A collection of navigation-related functions for handling query parameter object
 Install the module
 
 ```bash
-pnpm install @woocommerce/navigation --save
+pnpm install @poocommerce/navigation --save
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ pnpm install @woocommerce/navigation --save
 A single history object used to perform path changes. This needs to be passed into ReactRouter to use the other path functions from this library.
 
 ```jsx
-import { getHistory } from '@woocommerce/navigation';
+import { getHistory } from '@poocommerce/navigation';
 
 render() {
 	return (

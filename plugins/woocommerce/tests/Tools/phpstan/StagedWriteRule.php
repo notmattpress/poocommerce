@@ -2,12 +2,12 @@
 /**
  * StagedWriteRule class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Testing\Tools\phpstan;
+namespace Automattic\PooCommerce\Testing\Tools\phpstan;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -75,7 +75,7 @@ final class StagedWriteRule implements Rule {
 		if ( 0 === strpos( $name, 'stage_' ) && ! self::starts_with_refusal( $method->stmts ) ) {
 			return array(
 				RuleErrorBuilder::message( sprintf( 'Method %s::%s() must start with $this->refuse_unstaged_override().', $class->getName(), $method->name->toString() ) )
-					->identifier( 'woocommerce.stagedTwinRefusal' )
+					->identifier( 'poocommerce.stagedTwinRefusal' )
 					->build(),
 			);
 		}
@@ -121,7 +121,7 @@ final class StagedWriteRule implements Rule {
 
 		return array(
 			RuleErrorBuilder::message( sprintf( 'Method %s::%s() writes outside save(). Move the in-memory change to a stage_*() twin, call it here, then save. See WC_Order::stage_status().', $class->getName(), $method->name->toString() ) )
-				->identifier( 'woocommerce.stagedWrite' )
+				->identifier( 'poocommerce.stagedWrite' )
 				->build(),
 		);
 	}

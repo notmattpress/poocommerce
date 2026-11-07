@@ -2,7 +2,7 @@
 /**
  * WC Unit Test Factory
  *
- * Provides WooCommerce-specific factories.
+ * Provides PooCommerce-specific factories.
  *
  * @since 2.2
  */

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\DraftOrders;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\DraftOrders;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -109,7 +109,7 @@ class DeleteDraftOrders extends \WC_Unit_Test_Case {
 		);
 
 		// Listen for exceptions.
-		add_action( 'woocommerce_caught_exception', array( $this, 'capture_exception' ) );
+		add_action( 'poocommerce_caught_exception', array( $this, 'capture_exception' ) );
 
 		// temporarily hide error logging we don't care about (and keeps from polluting stdout)
 		$this->original_logging_destination = ini_get('error_log');
@@ -121,7 +121,7 @@ class DeleteDraftOrders extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$this->draft_orders_instance = null;
-		remove_action( 'woocommerce_caught_exception', array( $this, 'capture_exception' ) );
+		remove_action( 'poocommerce_caught_exception', array( $this, 'capture_exception' ) );
 		//restore original logging destination
 		ini_set('error_log', $this->original_logging_destination);
 		OrderHelper::toggle_cot_feature_and_usage( $this->previous_hpos_state );
@@ -165,7 +165,7 @@ class DeleteDraftOrders extends \WC_Unit_Test_Case {
 	 */
 	public function test_custom_batch_size_filter_allows_larger_results() {
 		add_filter(
-			'woocommerce_delete_expired_draft_orders_batch_size',
+			'poocommerce_delete_expired_draft_orders_batch_size',
 			function () {
 				return 50;
 			}
@@ -188,7 +188,7 @@ class DeleteDraftOrders extends \WC_Unit_Test_Case {
 		$this->assertNull( $this->caught_exception, 'No exception should be thrown when batch size filter allows more results.' );
 		$this->unset_mock_results_for_wc_query( $sample_results );
 
-		remove_all_filters( 'woocommerce_delete_expired_draft_orders_batch_size' );
+		remove_all_filters( 'poocommerce_delete_expired_draft_orders_batch_size' );
 	}
 
 	public function test_greater_than_batch_results_error() {
@@ -259,11 +259,11 @@ class DeleteDraftOrders extends \WC_Unit_Test_Case {
 	}
 
 	private function mock_results_for_wc_query( $mock_callback ) {
-		add_filter( 'woocommerce_order_query', $mock_callback, 10, 2 );
+		add_filter( 'poocommerce_order_query', $mock_callback, 10, 2 );
 	}
 
 	private function unset_mock_results_for_wc_query( $mock_callback ) {
-		$removed = remove_filter( 'woocommerce_order_query', $mock_callback );
+		$removed = remove_filter( 'poocommerce_order_query', $mock_callback );
 		$this->assertTrue( $removed );
 	}
 }

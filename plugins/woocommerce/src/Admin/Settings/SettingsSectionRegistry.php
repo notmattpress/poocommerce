@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Settings;
+namespace Automattic\PooCommerce\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registry for sections that extensions add to existing WooCommerce settings pages.
+ * Registry for sections that extensions add to existing PooCommerce settings pages.
  *
  * @since 10.9.0
  */
@@ -172,7 +172,7 @@ final class SettingsSectionRegistry {
 			 *
 			 * @since 10.9.0
 			 */
-			do_action( 'woocommerce_settings_sections_registration', $this );
+			do_action( 'poocommerce_settings_sections_registration', $this );
 		} catch ( \Throwable $e ) {
 			wc_get_logger()->error(
 				sprintf(

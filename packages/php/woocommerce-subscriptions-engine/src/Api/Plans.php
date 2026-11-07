@@ -5,31 +5,31 @@
  * Extensions create, update and read plans through explicit argument arrays: the engine records
  * the payloads it is given and interprets none of them. It checks integrity only (a
  * non-empty name, a registered status, object-shaped policies), then lets the plan's
- * owning extension validate the write through `woocommerce_subscriptions_engine_validate_plan`.
+ * owning extension validate the write through `poocommerce_subscriptions_engine_validate_plan`.
  * Any caller may read any plan; an update names the plan's owning extension and never
  * reaches a plan of another one (authorization is the caller's concern). Reads return
  * read-only {@see PlanView}s. The engine opens no transaction and keeps no cache.
  *
  * Plan policies are stored as given; the engine does not read them.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use InvalidArgumentException;
 use RuntimeException;
 use Throwable;
 use WP_Error;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Plan;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Plan;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\PlanRepository;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -79,7 +79,7 @@ final class Plans {
 	/**
 	 * Logger source.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	// phpcs:disable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber -- create() and update() also throw ValidationException and RuntimeException indirectly, through throw_refusals() and the repository.
 	/**
@@ -88,7 +88,7 @@ final class Plans {
 	 * Unknown keys raise a `_doing_it_wrong()` notice and are ignored. Every invalid value is
 	 * reported at once: ill-typed arguments refuse the call before the plan is built; when
 	 * the arguments are well-typed, the plan's own refusals and the owning extension's
-	 * (`woocommerce_subscriptions_engine_validate_plan`) arrive together.
+	 * (`poocommerce_subscriptions_engine_validate_plan`) arrive together.
 	 *
 	 * @param array<string, mixed> $args Plan fields: `extension_slug` (required, the owning
 	 *                                   extension), `name` (required, non-empty), `status` (a
@@ -484,7 +484,7 @@ final class Plans {
 			 * @param PlanView $plan   The would-be plan.
 			 * @param string   $extension_slug Owning extension slug.
 			 */
-			do_action( 'woocommerce_subscriptions_engine_validate_plan', $errors, PlanView::from_plan( $plan ), $extension_slug );
+			do_action( 'poocommerce_subscriptions_engine_validate_plan', $errors, PlanView::from_plan( $plan ), $extension_slug );
 		} catch ( Throwable $e ) {
 			wc_get_logger()->error(
 				sprintf( 'Plans: plan validation for extension "%s" (plan %s) threw: %s', $extension_slug, null === $plan->get_id() ? 'new' : (string) $plan->get_id(), $e->getMessage() ),

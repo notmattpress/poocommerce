@@ -57,7 +57,7 @@ const data = {
 	has_archives: true,
 };
 
-WooCommerce.post( 'products/attributes', data )
+PooCommerce.post( 'products/attributes', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -79,7 +79,7 @@ $data = [
     'has_archives' => true
 ];
 
-print_r($woocommerce->post('products/attributes', $data));
+print_r($poocommerce->post('products/attributes', $data));
 ?>
 ```
 
@@ -110,7 +110,7 @@ data = {
   has_archives: true
 }
 
-woocommerce.post("products/attributes", data).parsed_response
+poocommerce.post("products/attributes", data).parsed_response
 ```
 
   </TabItem>
@@ -162,7 +162,7 @@ curl https://example.com/wp-json/wc/v3/products/attributes/1 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/attributes/1' )
+PooCommerce.get( 'products/attributes/1' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -175,7 +175,7 @@ WooCommerce.get( 'products/attributes/1' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/attributes/1')); ?>
+<?php print_r($poocommerce->get('products/attributes/1')); ?>
 ```
 
   </TabItem>
@@ -189,7 +189,7 @@ print(wcapi.get("products/attributes/1").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/attributes/1").parsed_response
+poocommerce.get("products/attributes/1").parsed_response
 ```
 
   </TabItem>
@@ -241,7 +241,7 @@ curl https://example.com/wp-json/wc/v3/products/attributes \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/attributes' )
+PooCommerce.get( 'products/attributes' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -254,7 +254,7 @@ WooCommerce.get( 'products/attributes' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/attributes')); ?>
+<?php print_r($poocommerce->get('products/attributes')); ?>
 ```
 
   </TabItem>
@@ -268,7 +268,7 @@ print(wcapi.get("products/attributes").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/attributes").parsed_response
+poocommerce.get("products/attributes").parsed_response
 ```
 
   </TabItem>
@@ -356,7 +356,7 @@ const data = {
 	order_by: 'name',
 };
 
-WooCommerce.put( 'products/attributes/1', data )
+PooCommerce.put( 'products/attributes/1', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -374,7 +374,7 @@ $data = [
     'order_by' => 'name'
 ];
 
-print_r($woocommerce->put('products/attributes/1', $data));
+print_r($poocommerce->put('products/attributes/1', $data));
 ?>
 ```
 
@@ -397,7 +397,7 @@ data = {
   order_by: "name"
 }
 
-woocommerce.put("products/attributes/1", data).parsed_response
+poocommerce.put("products/attributes/1", data).parsed_response
 ```
 
   </TabItem>
@@ -453,7 +453,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/products/attributes/1?force=tru
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'products/attributes/1', {
+PooCommerce.delete( 'products/attributes/1', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -468,7 +468,7 @@ WooCommerce.delete( 'products/attributes/1', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('products/attributes/1', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('products/attributes/1', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -482,7 +482,7 @@ print(wcapi.delete("products/attributes/1", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("products/attributes/1", force: true).parsed_response
+poocommerce.delete("products/attributes/1", force: true).parsed_response
 ```
 
   </TabItem>
@@ -583,7 +583,7 @@ const data = {
 	delete: [ 1 ],
 };
 
-WooCommerce.post( 'products/attributes/batch', data )
+PooCommerce.post( 'products/attributes/batch', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -617,7 +617,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/attributes/batch', $data));
+print_r($poocommerce->post('products/attributes/batch', $data));
 ?>
 ```
 
@@ -672,7 +672,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/attributes/batch", data).parsed_response
+poocommerce.post("products/attributes/batch", data).parsed_response
 ```
 
   </TabItem>

@@ -17,10 +17,10 @@ import {
 	insertPersonalizationTag,
 } from '../rich-text-utils';
 
-const TAG = '[woocommerce/customer-first-name]';
+const TAG = '[poocommerce/customer-first-name]';
 const OBJ = '￼';
 const NBSP = ' ';
-const LINK_TYPE = 'woocommerce-email-editor/link-shortcode';
+const LINK_TYPE = 'poocommerce-email-editor/link-shortcode';
 
 const withCaret = ( html: string, start?: number, end?: number ) => ( {
 	...create( { html } ),
@@ -30,10 +30,10 @@ const withCaret = ( html: string, start?: number, end?: number ) => ( {
 
 describe( 'insertPersonalizationTag', () => {
 	beforeAll( () => {
-		registerFormatType( 'woocommerce-email-editor/shortcode', {
-			name: 'woocommerce-email-editor/shortcode',
+		registerFormatType( 'poocommerce-email-editor/shortcode', {
+			name: 'poocommerce-email-editor/shortcode',
 			title: 'Personalization Tags',
-			className: 'woocommerce-email-editor-personalization-tags',
+			className: 'poocommerce-email-editor-personalization-tags',
 			tagName: 'span',
 			attributes: {},
 			interactive: false,
@@ -42,7 +42,7 @@ describe( 'insertPersonalizationTag', () => {
 		registerFormatType( LINK_TYPE, {
 			name: LINK_TYPE,
 			title: 'Personalization Tags Link',
-			className: 'woocommerce-email-editor-personalization-tags-link',
+			className: 'poocommerce-email-editor-personalization-tags-link',
 			tagName: 'a',
 			attributes: {
 				'data-link-href': 'data-link-href',
@@ -70,7 +70,7 @@ describe( 'insertPersonalizationTag', () => {
 
 	afterAll( () => {
 		[
-			'woocommerce-email-editor/shortcode',
+			'poocommerce-email-editor/shortcode',
 			LINK_TYPE,
 			'core/bold',
 			'core/italic',
@@ -146,7 +146,7 @@ describe( 'insertPersonalizationTag', () => {
 		} );
 		expect( toHTMLString( { value: result } ) ).toMatch(
 			new RegExp(
-				`<a [^>]*data-link-href="\\[${ 'woocommerce/customer-first-name' }\\]"[^>]*>Jane</a>`
+				`<a [^>]*data-link-href="\\[${ 'poocommerce/customer-first-name' }\\]"[^>]*>Jane</a>`
 			)
 		);
 	} );
@@ -202,7 +202,7 @@ describe( 'getCursorPosition', () => {
 		registerFormatType( LINK_TYPE, {
 			name: LINK_TYPE,
 			title: 'Personalization Tags Link',
-			className: 'woocommerce-email-editor-personalization-tags-link',
+			className: 'poocommerce-email-editor-personalization-tags-link',
 			tagName: 'a',
 			attributes: {
 				'data-link-href': 'data-link-href',

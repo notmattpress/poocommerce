@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Behavioural tests for POST /cart/select-shipping-rate.
@@ -37,14 +37,14 @@ class CartSelectShippingRate extends ControllerTestCase {
 		$this->instances[] = $zone->add_shipping_method( 'flat_rate' );
 		$this->instances[] = $zone->add_shipping_method( 'flat_rate' );
 		update_option(
-			'woocommerce_flat_rate_' . $this->instances[0] . '_settings',
+			'poocommerce_flat_rate_' . $this->instances[0] . '_settings',
 			array(
 				'title' => 'First',
 				'cost'  => '5',
 			)
 		);
 		update_option(
-			'woocommerce_flat_rate_' . $this->instances[1] . '_settings',
+			'poocommerce_flat_rate_' . $this->instances[1] . '_settings',
 			array(
 				'title' => 'Second',
 				'cost'  => '9',
@@ -154,13 +154,13 @@ class CartSelectShippingRate extends ControllerTestCase {
 			}
 			return $packages;
 		};
-		add_filter( 'woocommerce_cart_shipping_packages', $split );
+		add_filter( 'poocommerce_cart_shipping_packages', $split );
 		WC()->cart->calculate_shipping();
 
 		try {
 			$result = $this->select( array( 'rate_id' => $second ) );
 		} finally {
-			remove_filter( 'woocommerce_cart_shipping_packages', $split );
+			remove_filter( 'poocommerce_cart_shipping_packages', $split );
 		}
 
 		$this->assertSame( 200, $result['status'], 'A selection without a package id should succeed.' );
@@ -195,8 +195,8 @@ class CartSelectShippingRate extends ControllerTestCase {
 	 * @testdox A selection is refused while shipping is switched off.
 	 */
 	public function test_a_selection_is_refused_while_shipping_is_switched_off(): void {
-		$default = get_option( 'woocommerce_ship_to_countries', '' );
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		$default = get_option( 'poocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 
 		try {
 			$result = $this->select(
@@ -206,10 +206,10 @@ class CartSelectShippingRate extends ControllerTestCase {
 				)
 			);
 		} finally {
-			update_option( 'woocommerce_ship_to_countries', $default );
+			update_option( 'poocommerce_ship_to_countries', $default );
 		}
 
 		$this->assertSame( 404, $result['status'], 'With shipping disabled the route should refuse the selection.' );
-		$this->assertSame( 'woocommerce_rest_shipping_disabled', $result['data']['code'], 'And say why.' );
+		$this->assertSame( 'poocommerce_rest_shipping_disabled', $result['data']['code'], 'And say why.' );
 	}
 }

@@ -8,7 +8,7 @@ import { createReduxStore, register } from '@wordpress/data';
  */
 import { InstallingState } from './types';
 
-const INSTALLING_STORE_NAME = 'woocommerce-admin/installing';
+const INSTALLING_STORE_NAME = 'poocommerce-admin/installing';
 
 export interface InstallingStateErrorAction {
 	label: string;

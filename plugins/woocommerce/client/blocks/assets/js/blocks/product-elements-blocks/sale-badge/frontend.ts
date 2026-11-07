@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { store, getContext, getConfig } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
-import { formatPriceWithCurrency } from '@woocommerce/price-format/utils/currency';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
+import { formatPriceWithCurrency } from '@poocommerce/price-format/utils/currency';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -35,7 +35,7 @@ type SaleBadgeContext = {
 };
 
 const { state } = store(
-	'woocommerce/product-sale-badge',
+	'poocommerce/product-sale-badge',
 	{
 		state: {
 			get saleBadgeText(): string | null {
@@ -66,7 +66,7 @@ const { state } = store(
 					return null;
 				}
 				const config = getConfig(
-					'woocommerce/product-sale-badge'
+					'poocommerce/product-sale-badge'
 				) as SaleBadgeConfig;
 				let value: string;
 				if ( context.badgeContent === 'percentage' ) {
@@ -89,7 +89,7 @@ const { state } = store(
 			},
 			get saleBadgeScreenReaderText(): string {
 				const config = getConfig(
-					'woocommerce/product-sale-badge'
+					'poocommerce/product-sale-badge'
 				) as SaleBadgeConfig;
 				if ( ! productsState.productVariationInContext ) {
 					return getContext< SaleBadgeContext >()

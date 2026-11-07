@@ -1,9 +1,9 @@
 <?php
 /**
- * A utility class to handle WooCommerce.com connection.
+ * A utility class to handle PooCommerce.com connection.
  *
  * @class WC_Woo_Update_Manager_Plugin
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 declare( strict_types = 1 );
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_Plugin Class
  *
- * Contains the logic to manage WooCommerce.com Helper Connection.
+ * Contains the logic to manage PooCommerce.com Helper Connection.
  */
 class WC_Woo_Helper_Connection {
 	/**
@@ -38,8 +38,8 @@ class WC_Woo_Helper_Connection {
 		}
 
 		return sprintf(
-		/* translators: 1: WooCommerce.com connection URL, 2: home URL */
-			__( 'Your site is currently connected to WooCommerce.com using <b>%1$s</b>, but your actual site URL is <b>%2$s</b>. To fix this, please reconnect your site to <b>WooCommerce.com</b> to ensure everything works correctly.', 'woocommerce' ),
+		/* translators: 1: PooCommerce.com connection URL, 2: home URL */
+			__( 'Your site is currently connected to PooCommerce.com using <b>%1$s</b>, but your actual site URL is <b>%2$s</b>. To fix this, please reconnect your site to <b>PooCommerce.com</b> to ensure everything works correctly.', 'poocommerce' ),
 			$url,
 			$home_url
 		);
@@ -62,7 +62,7 @@ class WC_Woo_Helper_Connection {
 
 		return sprintf(
 		/* translators: 1: home URL */
-			__( 'There is no connection for <b>%1$s</b> on WooCommerce.com. The connection may have been deleted. To fix this, please reconnect your site to <b>WooCommerce.com</b> to ensure everything works correctly.', 'woocommerce' ),
+			__( 'There is no connection for <b>%1$s</b> on PooCommerce.com. The connection may have been deleted. To fix this, please reconnect your site to <b>PooCommerce.com</b> to ensure everything works correctly.', 'poocommerce' ),
 			$home_url
 		);
 	}

@@ -16,7 +16,7 @@ export const useIsDescendentOfSingleProductBlock = ( {
 				select( 'core/block-editor' );
 			const blockParentBlocksIds = getBlockParentsByBlockName(
 				blockClientId?.replace( 'block-', '' ),
-				[ 'woocommerce/single-product' ]
+				[ 'poocommerce/single-product' ]
 			);
 			return {
 				isDescendentOfSingleProductBlock:

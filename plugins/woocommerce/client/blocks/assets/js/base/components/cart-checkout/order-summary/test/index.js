@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
@@ -13,8 +13,8 @@ import { textContentMatcher } from '../../../../../../../tests/utils/find-by-tex
 // The screen reader label repeats the price, so only the visible one is queried.
 const visibleOnly = { ignore: 'script, style, .screen-reader-text' };
 
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	useStoreCart: () => ( {
 		cartIsLoading: false,
 	} ),

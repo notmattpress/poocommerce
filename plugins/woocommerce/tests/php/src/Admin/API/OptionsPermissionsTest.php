@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -79,9 +79,9 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function allowlisted_option_provider(): array {
 		return array(
-			'existing option'      => array( 'woocommerce_allow_tracking', 'no', 'yes' ),
+			'existing option'      => array( 'poocommerce_allow_tracking', 'no', 'yes' ),
 			'shipping options'     => array( 'wcshipping_options', array( 'tos_accepted' => false ), array( 'tos_accepted' => true ) ),
-			'mobile app dismissal' => array( 'woocommerce_admin_dismissed_mobile_app_modal', 'no', 'yes' ),
+			'mobile app dismissal' => array( 'poocommerce_admin_dismissed_mobile_app_modal', 'no', 'yes' ),
 		);
 	}
 
@@ -96,8 +96,8 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 			$permissions[ self::UNLISTED_OPTION ] = true;
 			return $permissions;
 		};
-		add_filter( 'woocommerce_rest_api_option_permissions', $grant_permission );
-		$this->setExpectedDeprecated( 'woocommerce_rest_api_option_permissions' );
+		add_filter( 'poocommerce_rest_api_option_permissions', $grant_permission );
+		$this->setExpectedDeprecated( 'poocommerce_rest_api_option_permissions' );
 
 		try {
 			$read_response = $this->get_options( array( self::UNLISTED_OPTION ) );
@@ -108,7 +108,7 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 			$this->assertSame( 200, $write_response->get_status(), 'A filtered option should be writable.' );
 			$this->assertSame( 'changed', get_option( self::UNLISTED_OPTION ), 'The filtered option should be updated.' );
 		} finally {
-			remove_filter( 'woocommerce_rest_api_option_permissions', $grant_permission );
+			remove_filter( 'poocommerce_rest_api_option_permissions', $grant_permission );
 		}
 	}
 
@@ -152,8 +152,8 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 	 * Expect the deprecation notices emitted by unlisted option requests.
 	 */
 	private function expect_unlisted_option_deprecations(): void {
-		$this->setExpectedDeprecated( 'Automattic\\WooCommerce\\Admin\\API\\Options::get_options' );
-		$this->setExpectedDeprecated( 'Automattic\\WooCommerce\\Admin\\API\\Options::update_options' );
+		$this->setExpectedDeprecated( 'Automattic\\PooCommerce\\Admin\\API\\Options::get_options' );
+		$this->setExpectedDeprecated( 'Automattic\\PooCommerce\\Admin\\API\\Options::update_options' );
 	}
 
 	/**

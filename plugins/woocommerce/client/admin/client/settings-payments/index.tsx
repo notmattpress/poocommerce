@@ -11,7 +11,7 @@ import {
 	Routes,
 	useLocation,
 } from 'react-router-dom';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
@@ -48,7 +48,7 @@ const SettingsPaymentsOfflineChunk = lazy(
 const SettingsPaymentsWooPaymentsChunk = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "settings-payments-woocommerce-payments" */ './settings-payments-woopayments'
+			/* webpackChunkName: "settings-payments-poocommerce-payments" */ './settings-payments-woopayments'
 		)
 );
 
@@ -91,17 +91,17 @@ const OfflinePaymentGatewayWrapper = ( {
 			<div className="settings-payments-offline__container">
 				<div className="settings-payment-gateways">
 					<div className="settings-payments-offline__header">
-						<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align settings-payments-offline__header-title">
+						<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align settings-payments-offline__header-title">
 							<BackButton
 								href={ getNewPath( {}, '/offline' ) }
 								tooltipText={ __(
 									'Return to offline payment methods',
-									'woocommerce'
+									'poocommerce'
 								) }
 								isRoute={ true }
 								from={ 'woopayments_payment_methods' }
 							>
-								<span className="woocommerce-settings-payments-header__title">
+								<span className="poocommerce-settings-payments-header__title">
 									{ title }
 								</span>
 							</BackButton>
@@ -117,9 +117,9 @@ const OfflinePaymentGatewayWrapper = ( {
 };
 
 /**
- * Hides or displays the WooCommerce navigation tab based on the provided display style.
+ * Hides or displays the PooCommerce navigation tab based on the provided display style.
  */
-const hideWooCommerceNavTab = ( display: string ) => {
+const hidePooCommerceNavTab = ( display: string ) => {
 	const externalElement = document.querySelector< HTMLElement >(
 		'.woo-nav-tab-wrapper'
 	);
@@ -138,7 +138,7 @@ const SettingsPaymentsMain = () => {
 
 	useEffect( () => {
 		if ( location.pathname === '' ) {
-			hideWooCommerceNavTab( 'flex' );
+			hidePooCommerceNavTab( 'flex' );
 		}
 	}, [ location ] );
 	return (
@@ -152,15 +152,15 @@ const SettingsPaymentsMain = () => {
 									<div className="settings-payment-gateways__header-title">
 										{ __(
 											'Payment providers',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 									<div className="settings-payment-gateways__header-select-container">
 										<SelectControl
-											className="woocommerce-select-control__country"
+											className="poocommerce-select-control__country"
 											prefix={ __(
 												'Business location :',
-												'woocommerce'
+												'poocommerce'
 											) }
 											// @ts-expect-error placeholder was removed from SelectControl's public types but is still accepted at runtime.
 											placeholder={ '' }
@@ -178,7 +178,7 @@ const SettingsPaymentsMain = () => {
 										<span>
 											{ __(
 												'More payment options',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 										<>
@@ -218,7 +218,7 @@ export const SettingsPaymentsOfflineWrapper = () => {
 		<>
 			<div className="settings-payments-offline__container">
 				<div className="settings-payments-offline__header">
-					<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align">
+					<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align">
 						<BackButton
 							href={ getNewPath(
 								{ page: 'wc-settings', tab: 'checkout' },
@@ -227,13 +227,13 @@ export const SettingsPaymentsOfflineWrapper = () => {
 							) }
 							tooltipText={ __(
 								'Return to payments settings',
-								'woocommerce'
+								'poocommerce'
 							) }
 							isRoute={ true }
 							from={ 'woopayments_payment_methods' }
 						>
-							<span className="woocommerce-settings-payments-header__title">
-								{ __( 'Take offline payments', 'woocommerce' ) }
+							<span className="poocommerce-settings-payments-header__title">
+								{ __( 'Take offline payments', 'poocommerce' ) }
 							</span>
 						</BackButton>
 					</h1>
@@ -252,13 +252,13 @@ export const SettingsPaymentsOfflineWrapper = () => {
 export const SettingsPaymentsWooPaymentsWrapper = () => {
 	return (
 		<>
-			<Header title={ __( 'Settings', 'woocommerce' ) } />
+			<Header title={ __( 'Settings', 'poocommerce' ) } />
 			<Suspense
 				fallback={
 					<div>
 						{ sprintf(
 							/* translators: %s: WooPayments */
-							__( 'Loading %s settings…', 'woocommerce' ),
+							__( 'Loading %s settings…', 'poocommerce' ),
 							'WooPayments'
 						) }
 					</div>
@@ -272,19 +272,19 @@ export const SettingsPaymentsWooPaymentsWrapper = () => {
 
 export const SettingsPaymentsBacsWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Direct bank transfer', 'woocommerce' ),
+		title: __( 'Direct bank transfer', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsBacsChunk,
 	} );
 
 export const SettingsPaymentsCodWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Cash on delivery', 'woocommerce' ),
+		title: __( 'Cash on delivery', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsCodChunk,
 	} );
 
 export const SettingsPaymentsChequeWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Check payments', 'woocommerce' ),
+		title: __( 'Check payments', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsChequeChunk,
 	} );
 
@@ -294,7 +294,7 @@ export const SettingsPaymentsChequeWrapper = () =>
 export const SettingsPaymentsMainWrapper = () => {
 	return (
 		<>
-			<Header title={ __( 'Settings', 'woocommerce' ) } />
+			<Header title={ __( 'Settings', 'poocommerce' ) } />
 			<HistoryRouter
 				// The `history` v5 object provides what HistoryRouter uses at runtime; only the types differ.
 				history={

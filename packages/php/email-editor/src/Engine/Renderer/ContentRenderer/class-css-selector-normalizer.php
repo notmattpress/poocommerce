@@ -2,12 +2,12 @@
 /**
  * CSS selector normalization for email rendering.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer;
 
 /**
  * Converts WordPress :where() selectors to selectors supported by the CSS inliner.

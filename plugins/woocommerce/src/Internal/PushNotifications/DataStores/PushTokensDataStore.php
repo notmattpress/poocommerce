@@ -5,14 +5,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Internal\PushNotifications\DataStores;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use Exception;
 use Throwable;
 use WC_Data_Exception;

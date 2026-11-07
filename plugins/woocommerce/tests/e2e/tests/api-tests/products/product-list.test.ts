@@ -3254,7 +3254,7 @@ test.describe( 'Products API tests: List All Products', () => {
 			} );
 
 			// This case will remain skipped until ratings can be sorted ascending.
-			// See: https://github.com/woocommerce/woocommerce/issues/30354#issuecomment-925955099.
+			// See: https://github.com/poocommerce/poocommerce/issues/30354#issuecomment-925955099.
 			test.skip( 'rating (asc)', async ( { request } ) => {
 				const result1 = await request.get( 'wp-json/wc/v3/products', {
 					params: {
@@ -3274,7 +3274,7 @@ test.describe( 'Products API tests: List All Products', () => {
 			} );
 
 			// This case will remain skipped until popularity can be sorted ascending.
-			// See: https://github.com/woocommerce/woocommerce/issues/30354#issuecomment-925955099.
+			// See: https://github.com/poocommerce/poocommerce/issues/30354#issuecomment-925955099.
 			test.skip( 'popularity (asc)', async ( { request } ) => {
 				const result1 = await request.get( 'wp-json/wc/v3/products', {
 					params: {

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Formatting functions tests
  *
- * @package WooCommerce\Tests\Formatting.
+ * @package PooCommerce\Tests\Formatting.
  */
 
 /**
@@ -165,22 +165,22 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 */
 	public function data_provider_wc_format_option_price_separators(): array {
 		return array(
-			'thousand sep: comma'           => array( 'woocommerce_price_thousand_sep', ',', ',', false ),
-			'thousand sep: period'          => array( 'woocommerce_price_thousand_sep', '.', '.', false ),
-			'thousand sep: space'           => array( 'woocommerce_price_thousand_sep', ' ', ' ', false ),
-			'thousand sep: two spaces'      => array( 'woocommerce_price_thousand_sep', '  ', '  ', false ),
-			'thousand sep: empty'           => array( 'woocommerce_price_thousand_sep', '', '', false ),
-			'thousand sep: nbsp entity'     => array( 'woocommerce_price_thousand_sep', '&nbsp;', "\u{00A0}", false ),
-			'thousand sep: comma entity'    => array( 'woocommerce_price_thousand_sep', '&#44;', ',', false ),
-			'thousand sep: not submitted'   => array( 'woocommerce_price_thousand_sep', null, '|', false ),
-			'thousand sep: single digit'    => array( 'woocommerce_price_thousand_sep', '1', '|', true ),
-			'thousand sep: digit+symbol'    => array( 'woocommerce_price_thousand_sep', '1,', '|', true ),
-			'thousand sep: digit entity'    => array( 'woocommerce_price_thousand_sep', '&#49;', '|', true ),
-			'thousand sep: fullwidth digit' => array( 'woocommerce_price_thousand_sep', '１', '|', true ),
-			'thousand sep: array'           => array( 'woocommerce_price_thousand_sep', array( '1' ), '|', true ),
-			'decimal sep: period'           => array( 'woocommerce_price_decimal_sep', '.', '.', false ),
-			'decimal sep: single digit'     => array( 'woocommerce_price_decimal_sep', '2', '|', true ),
-			'decimal sep: arabic digit'     => array( 'woocommerce_price_decimal_sep', '٢', '|', true ),
+			'thousand sep: comma'           => array( 'poocommerce_price_thousand_sep', ',', ',', false ),
+			'thousand sep: period'          => array( 'poocommerce_price_thousand_sep', '.', '.', false ),
+			'thousand sep: space'           => array( 'poocommerce_price_thousand_sep', ' ', ' ', false ),
+			'thousand sep: two spaces'      => array( 'poocommerce_price_thousand_sep', '  ', '  ', false ),
+			'thousand sep: empty'           => array( 'poocommerce_price_thousand_sep', '', '', false ),
+			'thousand sep: nbsp entity'     => array( 'poocommerce_price_thousand_sep', '&nbsp;', "\u{00A0}", false ),
+			'thousand sep: comma entity'    => array( 'poocommerce_price_thousand_sep', '&#44;', ',', false ),
+			'thousand sep: not submitted'   => array( 'poocommerce_price_thousand_sep', null, '|', false ),
+			'thousand sep: single digit'    => array( 'poocommerce_price_thousand_sep', '1', '|', true ),
+			'thousand sep: digit+symbol'    => array( 'poocommerce_price_thousand_sep', '1,', '|', true ),
+			'thousand sep: digit entity'    => array( 'poocommerce_price_thousand_sep', '&#49;', '|', true ),
+			'thousand sep: fullwidth digit' => array( 'poocommerce_price_thousand_sep', '１', '|', true ),
+			'thousand sep: array'           => array( 'poocommerce_price_thousand_sep', array( '1' ), '|', true ),
+			'decimal sep: period'           => array( 'poocommerce_price_decimal_sep', '.', '.', false ),
+			'decimal sep: single digit'     => array( 'poocommerce_price_decimal_sep', '2', '|', true ),
+			'decimal sep: arabic digit'     => array( 'poocommerce_price_decimal_sep', '٢', '|', true ),
 		);
 	}
 
@@ -214,9 +214,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should return an empty string when nothing is stored.
 	 */
 	public function test_wc_format_option_price_separators_returns_empty_string_when_nothing_stored(): void {
-		delete_option( 'woocommerce_price_thousand_sep' );
+		delete_option( 'poocommerce_price_thousand_sep' );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A rejected separator should return an empty string when the option is not stored.' );
 	}
@@ -225,9 +225,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should keep a stored empty separator on rejection.
 	 */
 	public function test_wc_format_option_price_separators_keeps_stored_empty_separator(): void {
-		update_option( 'woocommerce_price_thousand_sep', '' );
+		update_option( 'poocommerce_price_thousand_sep', '' );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A deliberately empty separator should survive a rejected save.' );
 	}
@@ -236,9 +236,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_format_option_price_separators should discard a stored value that is not a string.
 	 */
 	public function test_wc_format_option_price_separators_discards_non_string_stored_value(): void {
-		update_option( 'woocommerce_price_thousand_sep', array( '1' ) );
+		update_option( 'poocommerce_price_thousand_sep', array( '1' ) );
 
-		$result = wc_format_option_price_separators( '1', array( 'id' => 'woocommerce_price_thousand_sep' ), '1' );
+		$result = wc_format_option_price_separators( '1', array( 'id' => 'poocommerce_price_thousand_sep' ), '1' );
 
 		$this->assertSame( '', $result, 'A stored value that is not a string should not be handed back.' );
 	}
@@ -270,16 +270,16 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox wc_is_stock_amount_integer should return true when stock amounts are integers and false when they are floats.
 	 */
 	public function test_wc_is_stock_amount_integer() {
-		// Remove all filters from woocommerce_stock_amount.
-		remove_all_filters( 'woocommerce_stock_amount' );
+		// Remove all filters from poocommerce_stock_amount.
+		remove_all_filters( 'poocommerce_stock_amount' );
 
 		// Test with floatval applied to the filter.
-		add_filter( 'woocommerce_stock_amount', 'floatval' );
+		add_filter( 'poocommerce_stock_amount', 'floatval' );
 		$this->assertFalse( wc_is_stock_amount_integer(), 'Should return false when floatval is applied to stock amount filter.' );
 
 		// Remove floatval filter and add intval filter.
-		remove_all_filters( 'woocommerce_stock_amount' );
-		add_filter( 'woocommerce_stock_amount', 'intval' );
+		remove_all_filters( 'poocommerce_stock_amount' );
+		add_filter( 'poocommerce_stock_amount', 'intval' );
 		$this->assertTrue( wc_is_stock_amount_integer(), 'Should return true when intval is applied to stock amount filter.' );
 	}
 
@@ -289,15 +289,15 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_unchanged_hold_stock_value_preserves_pending_cancellation_action(): void {
 		$scheduled_time = time() + ( 2 * HOUR_IN_SECONDS );
 
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-		as_schedule_single_action( $scheduled_time, 'woocommerce_cancel_unpaid_orders', array(), 'woocommerce' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+		as_schedule_single_action( $scheduled_time, 'poocommerce_cancel_unpaid_orders', array(), 'poocommerce' );
 
 		wc_format_option_hold_stock_minutes( '60', array(), '60' );
 
 		$this->assertSame(
 			$scheduled_time,
-			as_next_scheduled_action( 'woocommerce_cancel_unpaid_orders' ),
+			as_next_scheduled_action( 'poocommerce_cancel_unpaid_orders' ),
 			'An unchanged hold stock value should not delay the existing cancellation action.'
 		);
 	}
@@ -306,15 +306,15 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox Saving an unchanged hold stock value should recreate a missing cancellation action.
 	 */
 	public function test_unchanged_hold_stock_value_recreates_missing_cancellation_action(): void {
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
 
 		$expected_time = time() + HOUR_IN_SECONDS;
 		wc_format_option_hold_stock_minutes( '60', array(), '60' );
 
 		$this->assertEqualsWithDelta(
 			$expected_time,
-			as_next_scheduled_action( 'woocommerce_cancel_unpaid_orders' ),
+			as_next_scheduled_action( 'poocommerce_cancel_unpaid_orders' ),
 			1,
 			'An unchanged hold stock value should recreate a missing cancellation action.'
 		);
@@ -326,13 +326,13 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_changed_hold_stock_value_replaces_cancellation_action(): void {
 		$scheduled_time = time() + ( 2 * HOUR_IN_SECONDS );
 
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-		as_schedule_single_action( $scheduled_time, 'woocommerce_cancel_unpaid_orders', array(), 'woocommerce' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+		as_schedule_single_action( $scheduled_time, 'poocommerce_cancel_unpaid_orders', array(), 'poocommerce' );
 
 		$expected_time = time() + ( 30 * MINUTE_IN_SECONDS );
 		wc_format_option_hold_stock_minutes( '30', array(), '30' );
-		$next_scheduled_time = as_next_scheduled_action( 'woocommerce_cancel_unpaid_orders' );
+		$next_scheduled_time = as_next_scheduled_action( 'poocommerce_cancel_unpaid_orders' );
 
 		$this->assertNotSame( $scheduled_time, $next_scheduled_time, 'A changed hold stock value should replace the existing cancellation action.' );
 		$this->assertEqualsWithDelta( $expected_time, $next_scheduled_time, 1, 'The replacement action should use the new hold stock interval.' );
@@ -342,14 +342,14 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox Saving a blank hold stock value should remove the cancellation action when the option is missing.
 	 */
 	public function test_blank_hold_stock_value_removes_cancellation_action_when_option_is_missing(): void {
-		delete_option( 'woocommerce_hold_stock_minutes' );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-		as_schedule_single_action( time() + HOUR_IN_SECONDS, 'woocommerce_cancel_unpaid_orders', array(), 'woocommerce' );
+		delete_option( 'poocommerce_hold_stock_minutes' );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+		as_schedule_single_action( time() + HOUR_IN_SECONDS, 'poocommerce_cancel_unpaid_orders', array(), 'poocommerce' );
 
 		wc_format_option_hold_stock_minutes( '', array(), '' );
 
 		$this->assertFalse(
-			as_next_scheduled_action( 'woocommerce_cancel_unpaid_orders' ),
+			as_next_scheduled_action( 'poocommerce_cancel_unpaid_orders' ),
 			'A blank hold stock value should remove the cancellation action.'
 		);
 	}
@@ -358,9 +358,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 	 * @testdox Saving a hold stock value falls back to WP-Cron when Action Scheduler is not ready.
 	 */
 	public function test_hold_stock_value_falls_back_to_wp_cron_when_action_scheduler_is_not_ready(): void {
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
-		as_unschedule_all_actions( 'woocommerce_cancel_unpaid_orders' );
-		wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
+		as_unschedule_all_actions( 'poocommerce_cancel_unpaid_orders' );
+		wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'function_exists' => fn( string $function_name ): bool => 'as_schedule_single_action' !== $function_name && function_exists( $function_name ),
@@ -370,9 +370,9 @@ class WC_Formatting_Functions_Test extends \WC_Unit_Test_Case {
 		$expected_time = time() + HOUR_IN_SECONDS;
 		wc_format_option_hold_stock_minutes( '60', array(), '60' );
 
-		$this->assertFalse( as_next_scheduled_action( 'woocommerce_cancel_unpaid_orders' ), 'Nothing should be scheduled through Action Scheduler while it is not ready.' );
-		$this->assertEqualsWithDelta( $expected_time, wp_next_scheduled( 'woocommerce_cancel_unpaid_orders' ), 1, 'The cancellation event should fall back to WP-Cron.' );
+		$this->assertFalse( as_next_scheduled_action( 'poocommerce_cancel_unpaid_orders' ), 'Nothing should be scheduled through Action Scheduler while it is not ready.' );
+		$this->assertEqualsWithDelta( $expected_time, wp_next_scheduled( 'poocommerce_cancel_unpaid_orders' ), 1, 'The cancellation event should fall back to WP-Cron.' );
 
-		wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
+		wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
 	}
 }

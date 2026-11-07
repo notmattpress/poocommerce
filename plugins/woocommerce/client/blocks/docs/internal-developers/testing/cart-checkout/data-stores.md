@@ -15,7 +15,7 @@ Ensure the amount charged is correct.
 
 ### Subscriptions
 
--   Check out using WooCommerce Subscriptions products, ensure the checkout works and the stripe key is saved to the order.
+-   Check out using PooCommerce Subscriptions products, ensure the checkout works and the stripe key is saved to the order.
 -   Go to the Subscription in the dashboard, process a renewal for it, ensure the payment goes through and is collected in your stripe account. (This check is to ensure the tokens are saved correctly)
 
 ### Stripe failures
@@ -37,8 +37,8 @@ If using GPay, then ensure your account is linked in Chrome. You may need to dis
 
 ### Event emitters
 
-Prerequisite: Install [`woocommerce-gateway-stripe`](https://github.com/woocommerce/woocommerce-gateway-stripe) from GitHub, we will need to edit code here. Set it up and get it running in dev mode.
-Go to: [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L66](https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L66)
+Prerequisite: Install [`poocommerce-gateway-stripe`](https://github.com/poocommerce/poocommerce-gateway-stripe) from GitHub, we will need to edit code here. Set it up and get it running in dev mode.
+Go to: [https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L66](https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L66)
 
 -   Add a `console.log` to the `onSubmit` at the very top of the function.
 -   In your browser, open dev tools and view the console. Ensure `preserve log` is enabled!
@@ -46,7 +46,7 @@ Go to: [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff
 
 ### Interaction with unusable payment methods
 
--   Install and activate [WooCommerce Bookings](https://woocommerce.com/products/woocommerce-bookings/). Add a bookable product, ensure to add a cost to it on the edit product page, then:
+-   Install and activate [PooCommerce Bookings](https://poocommerce.com/products/poocommerce-bookings/). Add a bookable product, ensure to add a cost to it on the edit product page, then:
 -   Add a _normal_ (i.e. Beanie, Hoodie etc.) product to the cart and ensure you can check out successfully.
 -   Then add a bookable product, ensure you can check out successfully.
 
@@ -58,9 +58,9 @@ Go to: [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff
 ### Payment filtering by extensions
 
 -   Enable the Cash on Delivery payment method.
--   Install the `@woocommerce/extend-cart-checkout-block` template by using the following command. Run this from your `wp-content/plugins` directory: `npx @wordpress/create-block -t @woocommerce/extend-cart-checkout-block payment-test-plugin`.
+-   Install the `@poocommerce/extend-cart-checkout-block` template by using the following command. Run this from your `wp-content/plugins` directory: `npx @wordpress/create-block -t @poocommerce/extend-cart-checkout-block payment-test-plugin`.
 -   This will install a plugin called `Payment Test Plugin`. Find this and activate it.
--   By default, this example template has the following code [https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/extend-cart-checkout-block/src/js/filters.js.mustache#L17](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/extend-cart-checkout-block/src/js/filters.js.mustache#L17) which will disable COD if the billing city is Denver.
+-   By default, this example template has the following code [https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/extend-cart-checkout-block/src/js/filters.js.mustache#L17](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/extend-cart-checkout-block/src/js/filters.js.mustache#L17) which will disable COD if the billing city is Denver.
 -   Go to the front-end and enter Denver in the billing city.
 -   Ensure COD is removed as an option.
 -   Change Denver to something else and ensure COD reappears as an option.
@@ -71,9 +71,9 @@ Go to: [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff
 
 Again, this requires us to make changes to the Stripe plugin as this is the easiest way to test event emitters. Go to:
 
-1. [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/9a30800f2aab8e280b61a4f7ed97885f5ba81a56/client/blocks/credit-card/use-checkout-subscriptions.js#L55-L64](https://github.com/woocommerce/woocommerce-gateway-stripe/blob/9a30800f2aab8e280b61a4f7ed97885f5ba81a56/client/blocks/credit-card/use-checkout-subscriptions.js#L55-L64)
-2. [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L47](https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L47)
-3. [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L146](https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L146)
+1. [https://github.com/poocommerce/poocommerce-gateway-stripe/blob/9a30800f2aab8e280b61a4f7ed97885f5ba81a56/client/blocks/credit-card/use-checkout-subscriptions.js#L55-L64](https://github.com/poocommerce/poocommerce-gateway-stripe/blob/9a30800f2aab8e280b61a4f7ed97885f5ba81a56/client/blocks/credit-card/use-checkout-subscriptions.js#L55-L64)
+2. [https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L47](https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L47)
+3. [https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L146](https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L146)
 
 In the position linked in point 1, add `eventRegistration` as a new argument to the `usePaymentProcessing` function. It should now look like this:
 
@@ -146,7 +146,7 @@ const unsubscribeOnCheckoutBeforeProcessing =
 	} );
 ```
 
-Then, in the returned function, [https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L147-L149](https://github.com/woocommerce/woocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L147-L149) below, add:
+Then, in the returned function, [https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L147-L149](https://github.com/poocommerce/poocommerce-gateway-stripe/blob/8ffd22aff3b06eda02a1ae2fd8368b71450b36a9/client/blocks/credit-card/use-payment-processing.js#L147-L149) below, add:
 
 ```js
 unsubscribeOnCheckoutValidation();
@@ -178,7 +178,7 @@ After these changes have been made, your file should look like this: [https://gi
     -   `onCheckoutValidation` `{}`
     -   `onCheckoutBeforeProcessing` `{}`
 
--   Reload the checkout page and then go to [https://github.com/woocommerce/woocommerce-blocks/blob/029b379138906872dec3ed920fcb23d24404a3f2/src/StoreApi/Schemas/V1/CheckoutSchema.php#L26-L25](https://github.com/woocommerce/woocommerce-blocks/blob/029b379138906872dec3ed920fcb23d24404a3f2/src/StoreApi/Schemas/V1/CheckoutSchema.php#L26-L25) and introduce a syntax error. Try to check out using a valid card, then an invalid card you should see:
+-   Reload the checkout page and then go to [https://github.com/poocommerce/poocommerce-blocks/blob/029b379138906872dec3ed920fcb23d24404a3f2/src/StoreApi/Schemas/V1/CheckoutSchema.php#L26-L25](https://github.com/poocommerce/poocommerce-blocks/blob/029b379138906872dec3ed920fcb23d24404a3f2/src/StoreApi/Schemas/V1/CheckoutSchema.php#L26-L25) and introduce a syntax error. Try to check out using a valid card, then an invalid card you should see:
     -   `onCheckoutValidation` `{}`
     -   `onCheckoutBeforeProcessing` `{}`
     -   `onCheckoutFail` `{redirectUrl, orderId, customerId, orderNotes, paymentResult }`

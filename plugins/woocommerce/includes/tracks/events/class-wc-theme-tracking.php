@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Theme Tracking
+ * PooCommerce Theme Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of themes on a WooCommerce store.
+ * This class adds actions to track usage of themes on a PooCommerce store.
  */
 class WC_Theme_Tracking {
 

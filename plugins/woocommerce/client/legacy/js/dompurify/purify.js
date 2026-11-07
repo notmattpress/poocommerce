@@ -271,7 +271,7 @@
     if (purifyHostElement && purifyHostElement.hasAttribute(ATTR_NAME)) {
       suffix = purifyHostElement.getAttribute(ATTR_NAME);
     }
-    const policyName = 'woocommerce-dompurify' + (suffix ? '#' + suffix : '');
+    const policyName = 'poocommerce-dompurify' + (suffix ? '#' + suffix : '');
     try {
       return trustedTypes.createPolicy(policyName, {
         createHTML(html) {

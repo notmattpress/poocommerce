@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/payment-method-icons",
+	"name": "poocommerce/payment-method-icons",
 	"title": "Payment Method Icons",
 	"description": "Display icons for available payment methods.",
-	"category": "woocommerce",
-	"keywords": [ "woocommerce", "payments", "payment methods" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "poocommerce", "payments", "payment methods" ],
+	"textdomain": "poocommerce",
 	"attributes": {
 		"numberOfIcons": {
 			"type": "number",

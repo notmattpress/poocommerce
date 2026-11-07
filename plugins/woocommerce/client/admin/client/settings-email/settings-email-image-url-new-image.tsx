@@ -26,7 +26,7 @@ export const NewImage = ( { inputId, setImageUrl }: NewImageProps ) => {
 					src={ imageUploadIcon }
 					width="24"
 					height="24"
-					alt={ __( 'Image upload icon', 'woocommerce' ) }
+					alt={ __( 'Image upload icon', 'poocommerce' ) }
 					className="wc-settings-email-select-image-icon"
 				/>
 			</button>

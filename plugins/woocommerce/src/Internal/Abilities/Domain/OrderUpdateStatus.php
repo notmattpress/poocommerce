@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce order update status ability. It runs the steps of
+ * The PooCommerce order update status ability. It runs the steps of
  * ActionableAbility. With the feature on, change() stages the status with
  * WC_Order::stage_status(), so validators see the new status before the save.
  * With the feature off, save() calls WC_Order::update_status() as before.
@@ -28,7 +28,7 @@ class OrderUpdateStatus extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/order-update-status';
+	public const ABILITY_NAME = 'poocommerce/order-update-status';
 
 	/**
 	 * Get the ability registration arguments.
@@ -39,12 +39,12 @@ class OrderUpdateStatus extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update order status', 'woocommerce' ),
+			'label'               => __( 'Update order status', 'poocommerce' ),
 			'description'         => __(
 				'Update an order status.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'order', self::get_order_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_edit_order' ),
@@ -98,10 +98,10 @@ class OrderUpdateStatus extends ActionableAbility {
 
 		if ( $status === $subject->get_status() ) {
 			return new \WP_Error(
-				'woocommerce_order_status_unchanged',
+				'poocommerce_order_status_unchanged',
 				__(
-					'Order already has this status. Use the woocommerce/order-add-note ability to add a note without changing status.',
-					'woocommerce'
+					'Order already has this status. Use the poocommerce/order-add-note ability to add a note without changing status.',
+					'poocommerce'
 				),
 				array( 'status' => 400 )
 			);
@@ -109,9 +109,9 @@ class OrderUpdateStatus extends ActionableAbility {
 
 		if ( ! $subject->is_valid_status( $status ) ) {
 			return new \WP_Error(
-				'woocommerce_order_status_invalid',
+				'poocommerce_order_status_invalid',
 				/* translators: %s: order status slug. */
-				sprintf( __( 'This order cannot have the "%s" status.', 'woocommerce' ), $status ),
+				sprintf( __( 'This order cannot have the "%s" status.', 'poocommerce' ), $status ),
 				array( 'status' => 400 )
 			);
 		}
@@ -150,7 +150,7 @@ class OrderUpdateStatus extends ActionableAbility {
 			$updated = $order->update_status( $status, $note, true );
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
-				'woocommerce_order_status_update_failed',
+				'poocommerce_order_status_update_failed',
 				$e->getMessage(),
 				array( 'status' => 400 )
 			);
@@ -158,8 +158,8 @@ class OrderUpdateStatus extends ActionableAbility {
 
 		if ( ! $updated ) {
 			return new \WP_Error(
-				'woocommerce_order_status_update_failed',
-				__( 'Failed to update order status.', 'woocommerce' ),
+				'poocommerce_order_status_update_failed',
+				__( 'Failed to update order status.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -207,12 +207,12 @@ class OrderUpdateStatus extends ActionableAbility {
 				),
 				'status' => array(
 					'type'        => 'string',
-					'description' => __( 'Order status slug without the wc- prefix. Custom order types may add their own statuses.', 'woocommerce' ),
+					'description' => __( 'Order status slug without the wc- prefix. Custom order types may add their own statuses.', 'poocommerce' ),
 					'enum'        => self::get_query_order_status_slugs(),
 				),
 				'note'   => array(
 					'type'        => 'string',
-					'description' => __( 'Optional status change note. Safe HTML is allowed. Use the woocommerce/order-add-note ability for notes without a status change.', 'woocommerce' ),
+					'description' => __( 'Optional status change note. Safe HTML is allowed. Use the poocommerce/order-add-note ability for notes without a status change.', 'poocommerce' ),
 				),
 			),
 			'required'             => array( 'id', 'status' ),

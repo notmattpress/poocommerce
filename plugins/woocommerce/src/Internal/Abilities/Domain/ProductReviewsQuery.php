@@ -5,15 +5,15 @@
  * Reads product reviews and rating aggregates from the site's comments table.
  * Reviewer identity is not included in the output.
  *
- * @package woocommerce
+ * @package poocommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -31,7 +31,7 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-reviews-query';
+		return 'poocommerce/product-reviews-query';
 	}
 
 	/**
@@ -45,9 +45,9 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 		$output_schema['properties']['reviews']['items'] = ExtensibleAbilities::add_fields_schema( $output_schema['properties']['reviews']['items'], 'product_review' );
 
 		return array(
-			'label'               => __( 'Query product reviews', 'woocommerce' ),
-			'description'         => __( 'Read product reviews, ratings and moderation status. Search matches review text only, never reviewer identity. Summary and per-product ranking cover all reviews in the requested product/status scope, ignoring search, rating range and include. Unrated reviews have rating zero and do not affect averages. Ranking is worst first; above 200 products it keeps the 100 worst and 100 best rated. Text searches omit the ranking. Requested products without reviews and unknown product IDs are reported separately. Reviewer identity is withheld.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query product reviews', 'poocommerce' ),
+			'description'         => __( 'Read product reviews, ratings and moderation status. Search matches review text only, never reviewer identity. Summary and per-product ranking cover all reviews in the requested product/status scope, ignoring search, rating range and include. Unrated reviews have rating zero and do not affect averages. Ranking is worst first; above 200 products it keeps the 100 worst and 100 best rated. Text searches omit the ranking. Requested products without reviews and unknown product IDs are reported separately. Reviewer identity is withheld.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => $output_schema,
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -75,7 +75,7 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 	 * @return bool
 	 */
 	public static function can_query_reviews( $input = null ): bool {
-		return current_user_can( 'manage_woocommerce' ) || current_user_can( 'moderate_comments' );
+		return current_user_can( 'manage_poocommerce' ) || current_user_can( 'moderate_comments' );
 	}
 
 	/**
@@ -184,7 +184,7 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 			'properties'           => array(
 				'product_ids' => array(
 					'type'        => 'array',
-					'description' => __( 'Only return reviews for these products, and scope the summary and the ranking to them. Omit it to cover every product.', 'woocommerce' ),
+					'description' => __( 'Only return reviews for these products, and scope the summary and the ranking to them. Omit it to cover every product.', 'poocommerce' ),
 					'items'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,
@@ -194,29 +194,29 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 				),
 				'search'      => array(
 					'type'        => 'string',
-					'description' => __( 'Free-text search across review content.', 'woocommerce' ),
+					'description' => __( 'Free-text search across review content.', 'poocommerce' ),
 				),
 				'status'      => array(
 					'type'        => 'string',
-					'description' => __( 'Review moderation status. "hold" is reviews awaiting moderation.', 'woocommerce' ),
+					'description' => __( 'Review moderation status. "hold" is reviews awaiting moderation.', 'poocommerce' ),
 					'enum'        => array_keys( self::STATUSES ),
 					'default'     => 'approved',
 				),
 				'min_rating'  => array(
 					'type'        => 'integer',
-					'description' => __( 'Only return reviews with at least this star rating. Use with max_rating to find unhappy customers.', 'woocommerce' ),
+					'description' => __( 'Only return reviews with at least this star rating. Use with max_rating to find unhappy customers.', 'poocommerce' ),
 					'minimum'     => 1,
 					'maximum'     => 5,
 				),
 				'max_rating'  => array(
 					'type'        => 'integer',
-					'description' => __( 'Only return reviews with at most this star rating.', 'woocommerce' ),
+					'description' => __( 'Only return reviews with at most this star rating.', 'poocommerce' ),
 					'minimum'     => 1,
 					'maximum'     => 5,
 				),
 				'include'     => array(
 					'type'        => 'array',
-					'description' => __( 'Limit matching reviews to these review IDs. Summary and ranking still cover the product scope.', 'woocommerce' ),
+					'description' => __( 'Limit matching reviews to these review IDs. Summary and ranking still cover the product scope.', 'poocommerce' ),
 					'items'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,
@@ -253,7 +253,7 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 		$status      = $input['status'] ?? 'approved';
 		$product_ids = array_values( array_unique( $input['product_ids'] ?? array() ) );
 		if ( ( $input['min_rating'] ?? 1 ) > ( $input['max_rating'] ?? 5 ) ) {
-			return new \WP_Error( 'woocommerce_ability_product_review_invalid_rating_range', __( 'min_rating must not exceed max_rating.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_product_review_invalid_rating_range', __( 'min_rating must not exceed max_rating.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$scope = array(
@@ -346,7 +346,7 @@ class ProductReviewsQuery extends AbstractDomainAbility implements AbilityDefini
 			'no_found_rows'             => false,
 			'update_comment_post_cache' => true,
 			// The text-only search is added through SQL, so include it in the cache key.
-			'cache_domain'              => 'woocommerce-product-reviews-' . md5( $filters['search'] ),
+			'cache_domain'              => 'poocommerce-product-reviews-' . md5( $filters['search'] ),
 		);
 		if ( isset( $filters['min_rating'] ) ) {
 			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- WordPress stores review ratings in comment metadata.

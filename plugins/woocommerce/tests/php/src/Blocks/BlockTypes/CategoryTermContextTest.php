@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Unit_Test_Case;
 
@@ -28,7 +28,7 @@ class CategoryTermContextTest extends WC_Unit_Test_Case {
 				'description' => 'Context content: category-description',
 			)
 		);
-		$sut               = new \WP_Block( parse_blocks( '<!-- wp:woocommerce/' . $name . ' /-->' )[0], $context );
+		$sut               = new \WP_Block( parse_blocks( '<!-- wp:poocommerce/' . $name . ' /-->' )[0], $context );
 
 		$this->assertStringContainsString( $expected_text, $sut->render(), 'The block should render the correct term field from the effective taxonomy.' );
 	}
@@ -64,7 +64,7 @@ class CategoryTermContextTest extends WC_Unit_Test_Case {
 			)
 		);
 		$binding     = $bound ? '{"metadata":{"bindings":{"url":{"source":"core/term-data","args":{"field":"link"}}}}}' : '{}';
-		$markup      = '<!-- wp:woocommerce/featured-category --><!-- wp:woocommerce/category-title /--><!-- wp:woocommerce/category-description /--><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button ' . $binding . ' --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://example.com/custom">Shop now</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- /wp:woocommerce/featured-category -->';
+		$markup      = '<!-- wp:poocommerce/featured-category --><!-- wp:poocommerce/category-title /--><!-- wp:poocommerce/category-description /--><!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button ' . $binding . ' --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://example.com/custom">Shop now</a></div><!-- /wp:button --></div><!-- /wp:buttons --><!-- /wp:poocommerce/featured-category -->';
 		$parsed      = parse_blocks( $markup )[0];
 
 		$parsed['attrs']['categoryId'] = $selected ? $selected_id : 0;
@@ -93,7 +93,7 @@ class CategoryTermContextTest extends WC_Unit_Test_Case {
 	public function test_featured_category_taxonomy_guard(): void {
 		$term_id = self::factory()->term->create( array( 'taxonomy' => 'product_cat' ) );
 		$sut     = new \WP_Block(
-			parse_blocks( '<!-- wp:woocommerce/featured-category /-->' )[0],
+			parse_blocks( '<!-- wp:poocommerce/featured-category /-->' )[0],
 			array(
 				'termId'   => $term_id,
 				'taxonomy' => 'category',

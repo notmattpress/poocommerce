@@ -2,12 +2,12 @@
 /**
  * ShippingZoneMethodService tests.
  *
- * @package WooCommerce\Tests\RestApi\Controllers\Version4\ShippingZoneMethod
+ * @package PooCommerce\Tests\RestApi\Controllers\Version4\ShippingZoneMethod
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
 
 /**
  * ShippingZoneMethodService test class.
@@ -37,8 +37,8 @@ class WC_REST_Shipping_Zone_Method_V4_Service_Tests extends WC_Unit_Test_Case {
 		$this->service = new ShippingZoneMethodService();
 
 		// Ensure shipping is enabled for tests.
-		update_option( 'woocommerce_ship_to_countries', '' );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class WC_REST_Shipping_Zone_Method_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_method_settings( $method, 'not an array' );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_shipping_method_invalid_settings', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_shipping_method_invalid_settings', $result->get_error_code() );
 	}
 
 	/**
@@ -243,6 +243,6 @@ class WC_REST_Shipping_Zone_Method_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_zone_method( $method, $instance_id, $data );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_shipping_method_invalid_settings', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_shipping_method_invalid_settings', $result->get_error_code() );
 	}
 }

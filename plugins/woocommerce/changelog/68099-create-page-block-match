@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Match existing block-based default pages by their WooCommerce block so a customized Cart or Checkout page is reused instead of duplicated.
+Match existing block-based default pages by their PooCommerce block so a customized Cart or Checkout page is reused instead of duplicated.

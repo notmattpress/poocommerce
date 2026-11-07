@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import '@woocommerce/notices';
+import '@poocommerce/notices';
 import { lazy, Suspense } from '@wordpress/element';
 
 /**
@@ -24,8 +24,8 @@ export const PrimaryLayout = ( {
 } ) => {
 	return (
 		<div
-			className="woocommerce-layout__primary"
-			id="woocommerce-layout__primary"
+			className="poocommerce-layout__primary"
+			id="poocommerce-layout__primary"
 		>
 			{ window.wcAdminFeatures[ 'store-alerts' ] && showStoreAlerts && (
 				<Suspense fallback={ null }>

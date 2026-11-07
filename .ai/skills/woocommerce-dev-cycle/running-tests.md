@@ -16,7 +16,7 @@
 
 ## PHP Unit Tests
 
-To run PHP unit tests in the WooCommerce plugin directory, use the following commands:
+To run PHP unit tests in the PooCommerce plugin directory, use the following commands:
 
 ### Basic Test Commands
 
@@ -81,7 +81,7 @@ pnpm run test:php:env -- --coverage-text
 
 ### How It Works
 
-Tests run in Docker via `wp-env` with auto-configured WordPress/WooCommerce (PHPUnit 9.6.24, PHP 8.1).
+Tests run in Docker via `wp-env` with auto-configured WordPress/PooCommerce (PHPUnit 9.6.24, PHP 8.1).
 
 ### Environment Setup
 
@@ -193,7 +193,7 @@ Test failures provide:
 
 ## Test Configuration
 
-Test configuration file: `plugins/woocommerce/phpunit.xml`
+Test configuration file: `plugins/poocommerce/phpunit.xml`
 
 This file contains:
 
@@ -230,8 +230,8 @@ pnpm test:js -- --coverage
 CI installs the project's dependencies and builds the workspace packages it depends on before running the tests; a local `pnpm test:js` with stale or missing dependency builds can fail where CI passes, or pass where CI fails. Run the job the way CI runs it, from the repository root, after `nvm use` so Node matches `.nvmrc`:
 
 ```bash
-pnpm test:js:ci @woocommerce/components
-pnpm test:js:ci @woocommerce/components -- --maxWorkers=4   # extra arguments go to the test runner
+pnpm test:js:ci @poocommerce/components
+pnpm test:js:ci @poocommerce/components -- --maxWorkers=4   # extra arguments go to the test runner
 ```
 
 This runs `pnpm install --filter='<project>...' --frozen-lockfile`, the `build:project:*` scripts of the project's dependencies, then `CI=true GITHUB_ACTIONS=true pnpm --filter=<project> <command>`, echoing each command. The command is the project's unit job command from `config.ci.tests` in its `package.json` (`test:js` for most projects), so it reproduces any project's CI unit job, not only jest ones.
@@ -253,7 +253,7 @@ Common issues:
 
 ## Notes
 
-- The test environment handles WordPress/WooCommerce setup automatically
+- The test environment handles WordPress/PooCommerce setup automatically
 - Extension counts in payment tests must match the actual implementation exactly
 - Test data providers are useful for testing multiple scenarios
 - Always check test output for helpful error messages

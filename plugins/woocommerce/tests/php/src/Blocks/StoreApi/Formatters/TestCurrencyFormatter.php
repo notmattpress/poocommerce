@@ -3,9 +3,9 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Formatters;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Formatters;
 
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
 
 /**
  * TestCurrencyFormatter tests.
@@ -41,8 +41,8 @@ class TestCurrencyFormatter extends \WP_UnitTestCase {
 	 * @testdox Formatted currency data decodes HTML entities in the price separators.
 	 */
 	public function test_format_decodes_separator_entities() {
-		update_option( 'woocommerce_price_thousand_sep', '&nbsp;' );
-		update_option( 'woocommerce_price_decimal_sep', '&#44;' );
+		update_option( 'poocommerce_price_thousand_sep', '&nbsp;' );
+		update_option( 'poocommerce_price_decimal_sep', '&#44;' );
 
 		$value = $this->mock_formatter->format( [] );
 

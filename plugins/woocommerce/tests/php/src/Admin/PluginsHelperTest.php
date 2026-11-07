@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 use WC_Unit_Test_Case;
 use WP_Error;
 

@@ -2,12 +2,12 @@
 /**
  * Visual attribute term meta utilities.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Internal\ProductAttributes;
 
 /**
  * Utilities for wc-visual attribute term metadata.
@@ -159,7 +159,7 @@ class VisualAttributeTermMeta {
 		static $visual_attribute_taxonomies = array();
 		static $cache_prefix                = '';
 
-		$current_cache_prefix = \WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+		$current_cache_prefix = \WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 		if ( $cache_prefix !== $current_cache_prefix ) {
 			$cache_prefix                = $current_cache_prefix;
 			$visual_attribute_taxonomies = array();

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsSettings;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsSettings;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Unit_Test_Case;
@@ -27,9 +27,9 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -39,9 +39,9 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -56,8 +56,8 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 		$this->assertNotFalse( has_filter( 'admin_init', array( $fulfillments_settings, 'init_settings_auto_fulfill' ) ) > 0 );
 
 		// Check if the order status hooks are added.
-		$this->assertNotFalse( has_action( 'woocommerce_order_status_processing', array( $fulfillments_settings, 'auto_fulfill_items_on_processing' ) ) > 0 );
-		$this->assertNotFalse( has_action( 'woocommerce_order_status_completed', array( $fulfillments_settings, 'auto_fulfill_items_on_completed' ) ) > 0 );
+		$this->assertNotFalse( has_action( 'poocommerce_order_status_processing', array( $fulfillments_settings, 'auto_fulfill_items_on_processing' ) ) > 0 );
+		$this->assertNotFalse( has_action( 'poocommerce_order_status_completed', array( $fulfillments_settings, 'auto_fulfill_items_on_completed' ) ) > 0 );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 	public function test_auto_fulfill_items_on_processing_bails_out_if_order_has_no_items() {
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillments_auto_fulfill_products',
+			'poocommerce_fulfillments_auto_fulfill_products',
 			function ( $products ) use ( &$hook_called ) {
 				$hook_called = true;
 				return $products;
@@ -161,7 +161,7 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 	) {
 		$hook_called = false;
 		add_filter(
-			'woocommerce_fulfillments_auto_fulfill_products',
+			'poocommerce_fulfillments_auto_fulfill_products',
 			function ( $products ) use ( &$hook_called, $auto_fulfill_products ) {
 				$hook_called = true;
 				$products    = array_merge( $products, $auto_fulfill_products );
@@ -260,7 +260,7 @@ class FulfillmentsSettingsTest extends WC_Unit_Test_Case {
 	 * Tests the auto_fulfill_items_on_completed method with an order that has items.
 	 */
 	public function test_auto_fulfill_items_on_completed_calls_hook_with_item_and_setting_combinations() {
-		$mock_sut = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsSettings::class )
+		$mock_sut = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsSettings::class )
 			->onlyMethods( array( 'auto_fulfill_items_on_processing' ) )
 			->getMock();
 		$mock_sut->register();

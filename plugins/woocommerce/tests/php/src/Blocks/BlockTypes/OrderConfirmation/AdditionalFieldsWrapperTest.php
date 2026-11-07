@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFieldsWrapper;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFieldsWrapper;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class AdditionalFieldsWrapperTest extends WC_Unit_Test_Case {
 	 * Remove the field registered by the test.
 	 */
 	public function tear_down() {
-		__internal_woocommerce_blocks_deregister_checkout_field( 'test/order-confirmation-field' );
+		__internal_poocommerce_blocks_deregister_checkout_field( 'test/order-confirmation-field' );
 		parent::tear_down();
 	}
 
@@ -27,7 +27,7 @@ class AdditionalFieldsWrapperTest extends WC_Unit_Test_Case {
 	 */
 	public function test_order_fields_are_available_in_editor_settings(): void {
 		$field_id = 'test/order-confirmation-field';
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			[
 				'id'       => $field_id,
 				'label'    => 'Order confirmation field',

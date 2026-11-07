@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Product Reviews Controller Tests.

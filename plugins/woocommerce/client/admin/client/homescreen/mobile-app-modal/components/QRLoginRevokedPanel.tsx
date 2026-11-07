@@ -18,23 +18,23 @@ type QRLoginRevokedPanelProps = {
 export const QRLoginRevokedPanel = ( { onDone }: QRLoginRevokedPanelProps ) => {
 	return (
 		<div
-			className="woocommerce-qr-direct-login woocommerce-qr-direct-login--revoked"
+			className="poocommerce-qr-direct-login poocommerce-qr-direct-login--revoked"
 			role="status"
 			aria-live="polite"
 		>
-			<p className="woocommerce-qr-direct-login__revoked-headline">
-				{ __( 'Access revoked', 'woocommerce' ) }
+			<p className="poocommerce-qr-direct-login__revoked-headline">
+				{ __( 'Access revoked', 'poocommerce' ) }
 			</p>
-			<p className="woocommerce-qr-direct-login__revoked-subline">
+			<p className="poocommerce-qr-direct-login__revoked-subline">
 				{ __(
 					'The mobile app will be signed out the next time it makes a request.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 
 			{ onDone && (
 				<Button variant="primary" onClick={ onDone }>
-					{ __( 'Done', 'woocommerce' ) }
+					{ __( 'Done', 'poocommerce' ) }
 				</Button>
 			) }
 		</div>

@@ -1,14 +1,14 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 
 /**
  * Class StockNotificationsDataStoreTests.
@@ -215,12 +215,12 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_new_stock_notification with the ID once a notification is created.
+	 * @testdox Should fire poocommerce_new_stock_notification with the ID once a notification is created.
 	 */
 	public function test_create_fires_new_stock_notification_action(): void {
 		$fired = array();
 		add_action(
-			'woocommerce_new_stock_notification',
+			'poocommerce_new_stock_notification',
 			function ( $id, $notification ) use ( &$fired ) {
 				$fired[] = array( $id, $notification );
 			},
@@ -244,12 +244,12 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_update_stock_notification with the ID once a notification is updated.
+	 * @testdox Should fire poocommerce_update_stock_notification with the ID once a notification is updated.
 	 */
 	public function test_update_fires_update_stock_notification_action(): void {
 		$fired = array();
 		add_action(
-			'woocommerce_update_stock_notification',
+			'poocommerce_update_stock_notification',
 			function ( $id, $notification ) use ( &$fired ) {
 				$fired[] = array( 'update', $id, $notification );
 			},
@@ -257,7 +257,7 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 			2
 		);
 		add_action(
-			'woocommerce_stock_notification_status_changed',
+			'poocommerce_stock_notification_status_changed',
 			function ( $id ) use ( &$fired ) {
 				$fired[] = array( 'status_changed', $id );
 			}
@@ -288,12 +288,12 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_stock_notification_status_changed only when a different status is persisted.
+	 * @testdox Should fire poocommerce_stock_notification_status_changed only when a different status is persisted.
 	 */
 	public function test_update_fires_status_changed_action(): void {
 		$fired = array();
 		add_action(
-			'woocommerce_stock_notification_status_changed',
+			'poocommerce_stock_notification_status_changed',
 			function ( $id, $from, $to, $notification ) use ( &$fired ) {
 				$fired[] = array( $id, $from, $to, $notification );
 			},
@@ -332,7 +332,7 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 
 		// An update-action listener that changes the status in memory does not affect the persisted pair.
 		add_action(
-			'woocommerce_update_stock_notification',
+			'poocommerce_update_stock_notification',
 			function ( $id, $notification ) {
 				$notification->set_status( NotificationStatus::CANCELLED );
 			},
@@ -347,12 +347,12 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_delete_stock_notification with the ID once a notification is deleted.
+	 * @testdox Should fire poocommerce_delete_stock_notification with the ID once a notification is deleted.
 	 */
 	public function test_delete_fires_delete_stock_notification_action(): void {
 		$fired = array();
 		add_action(
-			'woocommerce_delete_stock_notification',
+			'poocommerce_delete_stock_notification',
 			function ( $id, $notification ) use ( &$fired ) {
 				$fired[] = array( $id, $notification );
 			},
@@ -473,10 +473,10 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( '', $notification->get_meta( 'test_meta' ) );
 		$notification->add_meta_data( 'test_meta', 'test_value' );
-		$fired = did_action( 'woocommerce_update_stock_notification' );
+		$fired = did_action( 'poocommerce_update_stock_notification' );
 		$notification->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
+		$this->assertSame( 1, did_action( 'poocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
 		$this->assertSame( 1, $this->count_meta_rows( $notification->get_id(), 'test_meta' ), 'The added meta is stored once.' );
 		$notification = new Notification( $notification->get_id() );
 		$this->assertNotEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
@@ -499,10 +499,10 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 		$this->assertEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( 'test_value', $notification->get_meta( 'test_meta' ) );
 		$notification->update_meta_data( 'test_meta', 'updated_value' );
-		$fired = did_action( 'woocommerce_update_stock_notification' );
+		$fired = did_action( 'poocommerce_update_stock_notification' );
 		$notification->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
+		$this->assertSame( 1, did_action( 'poocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
 		$notification = new Notification( $notification->get_id() );
 		$this->assertEquals( 'updated_value', $notification->get_meta( 'test_meta' ) );
 		$this->assertNotEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
@@ -523,10 +523,10 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 		$notification = new Notification( $notification->get_id() );
 		$this->assertEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
 		$notification->delete_meta_data( 'test_meta' );
-		$fired = did_action( 'woocommerce_update_stock_notification' );
+		$fired = did_action( 'poocommerce_update_stock_notification' );
 		$notification->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
+		$this->assertSame( 1, did_action( 'poocommerce_update_stock_notification' ) - $fired, 'A meta-only save fires the update action once.' );
 		$this->assertSame( 0, $this->count_meta_rows( $notification->get_id(), 'test_meta' ) );
 		$notification = new Notification( $notification->get_id() );
 		$this->assertNotEquals( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
@@ -539,10 +539,10 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 		$notification = $this->create_notification_modified_in_the_past();
 		$notification->set_status( NotificationStatus::ACTIVE );
 		$notification->add_meta_data( 'test_meta', 'test_value' );
-		$fired = did_action( 'woocommerce_update_stock_notification' );
+		$fired = did_action( 'poocommerce_update_stock_notification' );
 		$notification->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_update_stock_notification' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_update_stock_notification' ) - $fired );
 		$notification = new Notification( $notification->get_id() );
 		$this->assertSame( NotificationStatus::ACTIVE, $notification->get_status() );
 		$this->assertSame( 'test_value', $notification->get_meta( 'test_meta' ) );
@@ -567,10 +567,10 @@ class StockNotificationsDataStoreTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_save_without_changes_keeps_modified_date(): void {
 		$notification = $this->create_notification_modified_in_the_past();
-		$fired        = did_action( 'woocommerce_update_stock_notification' );
+		$fired        = did_action( 'poocommerce_update_stock_notification' );
 		$notification->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_update_stock_notification' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_update_stock_notification' ) - $fired );
 		$notification = new Notification( $notification->get_id() );
 		$this->assertSame( '2024-01-01 00:00:00', $notification->get_date_modified()->format( 'Y-m-d H:i:s' ) );
 	}

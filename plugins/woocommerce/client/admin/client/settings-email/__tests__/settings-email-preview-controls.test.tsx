@@ -99,17 +99,17 @@ describe( 'Email preview header', () => {
 		document.body.appendChild( settingsFixture );
 
 		fromNameInput = appendSettingInput(
-			'woocommerce_email_from_name',
+			'poocommerce_email_from_name',
 			'From name',
 			'Acme Store'
 		);
 		fromAddressInput = appendSettingInput(
-			'woocommerce_email_from_address',
+			'poocommerce_email_from_address',
 			'From address',
 			'orders@example.com'
 		);
 		subjectInput = appendSettingInput(
-			'woocommerce_customer_processing_order_subject',
+			'poocommerce_customer_processing_order_subject',
 			'Email subject',
 			'Order received'
 		);
@@ -220,7 +220,7 @@ describe( 'Email preview header', () => {
 describe( 'Email preview fill', () => {
 	const { Slot } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
 	const previewUrl =
-		'http://example.com/wp-admin/?preview_woocommerce_mail=true';
+		'http://example.com/wp-admin/?preview_poocommerce_mail=true';
 
 	// Mount the fill the way WC_Settings_Emails does: print the slot element
 	// with its data attributes, register the plugin, then render the plugin's

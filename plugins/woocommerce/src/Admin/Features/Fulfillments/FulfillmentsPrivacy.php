@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
 use WC_Data_Store;
 use WC_Order;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Redaction writes directly to the core fulfillment tables, and the export asks the data
  * store for soft-deleted records, which FulfillmentsDataStoreInterface does not declare. So a
- * store swapped in through the `woocommerce_data_stores` filter owns its own erasure and
+ * store swapped in through the `poocommerce_data_stores` filter owns its own erasure and
  * whatever it returns to the export.
  *
  * @since 11.4.0
@@ -33,8 +33,8 @@ class FulfillmentsPrivacy {
 	 * @since 11.4.0
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_privacy_export_order_personal_data', array( $this, 'export_order_fulfillment_data' ), 10, 2 );
-		add_action( 'woocommerce_privacy_remove_order_personal_data', array( $this, 'remove_fulfillment_personal_data' ) );
+		add_filter( 'poocommerce_privacy_export_order_personal_data', array( $this, 'export_order_fulfillment_data' ), 10, 2 );
+		add_action( 'poocommerce_privacy_remove_order_personal_data', array( $this, 'remove_fulfillment_personal_data' ) );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class FulfillmentsPrivacy {
 	 * @return bool
 	 */
 	private function tables_exist(): bool {
-		return (bool) get_option( 'woocommerce_fulfillments_db_tables_created', false );
+		return (bool) get_option( 'poocommerce_fulfillments_db_tables_created', false );
 	}
 
 	/**
@@ -114,8 +114,8 @@ class FulfillmentsPrivacy {
 				$shipment_rows[] = array(
 					'name'  => $numbered
 						/* translators: %s: shipment number within the order. */
-						? sprintf( _x( 'Shipment %s', 'fulfillment export field', 'woocommerce' ), number_format_i18n( $index + 1 ) )
-						: _x( 'Shipment', 'fulfillment export field', 'woocommerce' ),
+						? sprintf( _x( 'Shipment %s', 'fulfillment export field', 'poocommerce' ), number_format_i18n( $index + 1 ) )
+						: _x( 'Shipment', 'fulfillment export field', 'poocommerce' ),
 					'value' => $shipment,
 				);
 			}
@@ -191,7 +191,7 @@ class FulfillmentsPrivacy {
 			$statuses = FulfillmentUtils::get_fulfillment_statuses();
 			$label    = $statuses[ $status ]['label'] ?? $status;
 			$data[]   = array(
-				'name'  => _x( 'Status', 'fulfillment export field', 'woocommerce' ),
+				'name'  => _x( 'Status', 'fulfillment export field', 'poocommerce' ),
 				'value' => is_scalar( $label ) ? (string) $label : $status,
 			);
 		}
@@ -210,7 +210,7 @@ class FulfillmentsPrivacy {
 		}
 		if ( ! empty( $item_names ) ) {
 			$data[] = array(
-				'name'  => _x( 'Items', 'fulfillment export field', 'woocommerce' ),
+				'name'  => _x( 'Items', 'fulfillment export field', 'poocommerce' ),
 				'value' => implode( ', ', $item_names ),
 			);
 		}
@@ -218,7 +218,7 @@ class FulfillmentsPrivacy {
 		$tracking_number = $fulfillment->get_tracking_number();
 		if ( ! empty( $tracking_number ) ) {
 			$data[] = array(
-				'name'  => _x( 'Tracking number', 'fulfillment export field', 'woocommerce' ),
+				'name'  => _x( 'Tracking number', 'fulfillment export field', 'poocommerce' ),
 				'value' => $tracking_number,
 			);
 		}
@@ -226,7 +226,7 @@ class FulfillmentsPrivacy {
 		$provider = FulfillmentUtils::get_provider_display_name( $fulfillment );
 		if ( '' !== $provider ) {
 			$data[] = array(
-				'name'  => _x( 'Provider', 'fulfillment export field', 'woocommerce' ),
+				'name'  => _x( 'Provider', 'fulfillment export field', 'poocommerce' ),
 				'value' => $provider,
 			);
 		}
@@ -234,7 +234,7 @@ class FulfillmentsPrivacy {
 		$tracking_url = $fulfillment->get_tracking_url();
 		if ( ! empty( $tracking_url ) ) {
 			$data[] = array(
-				'name'  => _x( 'Tracking URL', 'fulfillment export field', 'woocommerce' ),
+				'name'  => _x( 'Tracking URL', 'fulfillment export field', 'poocommerce' ),
 				'value' => $tracking_url,
 			);
 		}
@@ -272,7 +272,7 @@ class FulfillmentsPrivacy {
 		 * @param WC_Order $order     The order being anonymized.
 		 */
 		$meta_keys = apply_filters(
-			'woocommerce_privacy_remove_fulfillment_personal_data_meta',
+			'poocommerce_privacy_remove_fulfillment_personal_data_meta',
 			array( '_tracking_number', '_tracking_url' ),
 			$order
 		);

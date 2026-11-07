@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { select, subscribe } from '@wordpress/data';
 
-jest.mock( '@woocommerce/utils', () =>
-	jest.requireActual( '@woocommerce/utils/wordpress-stores' )
+jest.mock( '@poocommerce/utils', () =>
+	jest.requireActual( '@poocommerce/utils/wordpress-stores' )
 );
 
 jest.mock( '@wordpress/data', () => ( {
@@ -14,7 +14,7 @@ jest.mock( '@wordpress/data', () => ( {
 	subscribe: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn(),
 	STORE_PAGES: { shop: { id: 42 } },
 } ) );
@@ -75,17 +75,17 @@ describe( 'unregister block types', () => {
 			( getSetting as jest.Mock ).mockReturnValue( isBlockTheme );
 			getCurrentPostId.mockReturnValue( postId );
 			await loadFilter( 'post-php', [
-				'woocommerce/breadcrumbs',
-				'woocommerce/catalog-sorting',
-				'woocommerce/product-results-count',
-				'woocommerce/product-reviews',
+				'poocommerce/breadcrumbs',
+				'poocommerce/catalog-sorting',
+				'poocommerce/product-results-count',
+				'poocommerce/product-reviews',
 			] );
 
 			expect( unregisterBlockType ).toHaveBeenCalledTimes(
 				expectedCount
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/product-reviews'
+				'poocommerce/product-reviews'
 			);
 		}
 	);
@@ -94,8 +94,8 @@ describe( 'unregister block types', () => {
 		( getSetting as jest.Mock ).mockReturnValue( true );
 		getCurrentPostId.mockReturnValue( undefined );
 		await loadFilter( 'post-php', [
-			'woocommerce/breadcrumbs',
-			'woocommerce/product-reviews',
+			'poocommerce/breadcrumbs',
+			'poocommerce/product-reviews',
 		] );
 		expect( unregisterBlockType ).not.toHaveBeenCalled();
 
@@ -105,7 +105,7 @@ describe( 'unregister block types', () => {
 
 		expect( unregisterBlockType ).toHaveBeenCalledTimes( 1 );
 		expect( unregisterBlockType ).toHaveBeenCalledWith(
-			'woocommerce/product-reviews'
+			'poocommerce/product-reviews'
 		);
 		expect( unsubscribe ).toHaveBeenCalledTimes( 1 );
 	} );
@@ -114,29 +114,29 @@ describe( 'unregister block types', () => {
 		'unregisters only post-editor block types in the deny list in %s',
 		async ( adminPage ) => {
 			await loadFilter( adminPage, [
-				'woocommerce/breadcrumbs',
-				'woocommerce/catalog-sorting',
-				'woocommerce/product-results-count',
-				'woocommerce/product-reviews',
-				'woocommerce/product-search',
+				'poocommerce/breadcrumbs',
+				'poocommerce/catalog-sorting',
+				'poocommerce/product-results-count',
+				'poocommerce/product-reviews',
+				'poocommerce/product-search',
 				'myplugin/client-only',
 			] );
 
 			expect( unregisterBlockType ).toHaveBeenCalledTimes( 4 );
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/breadcrumbs'
+				'poocommerce/breadcrumbs'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/catalog-sorting'
+				'poocommerce/catalog-sorting'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/product-results-count'
+				'poocommerce/product-results-count'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/product-reviews'
+				'poocommerce/product-reviews'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-search'
+				'poocommerce/product-search'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
 				'myplugin/client-only'
@@ -148,17 +148,17 @@ describe( 'unregister block types', () => {
 		[ 'widgets.php', 'widgets-php', undefined ],
 		[ 'the Customizer', undefined, 'customize' ],
 	] )(
-		'unregisters WooCommerce blocks outside the widget-editor allow list in %s',
+		'unregisters PooCommerce blocks outside the widget-editor allow list in %s',
 		async ( _context, adminPage, pageNow ) => {
 			await loadFilter(
 				adminPage,
 				[
-					'woocommerce/product-search',
-					'woocommerce/product-filters',
-					'woocommerce/cart',
-					'woocommerce/checkout',
-					'woocommerce/order-confirmation-status',
-					'woocommerce/new-widget-compatible-block',
+					'poocommerce/product-search',
+					'poocommerce/product-filters',
+					'poocommerce/cart',
+					'poocommerce/checkout',
+					'poocommerce/order-confirmation-status',
+					'poocommerce/new-widget-compatible-block',
 					'myplugin/client-only',
 				],
 				pageNow
@@ -166,22 +166,22 @@ describe( 'unregister block types', () => {
 
 			expect( unregisterBlockType ).toHaveBeenCalledTimes( 4 );
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/cart'
+				'poocommerce/cart'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/checkout'
+				'poocommerce/checkout'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/order-confirmation-status'
+				'poocommerce/order-confirmation-status'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-search'
+				'poocommerce/product-search'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			expect( unregisterBlockType ).toHaveBeenCalledWith(
-				'woocommerce/new-widget-compatible-block'
+				'poocommerce/new-widget-compatible-block'
 			);
 			expect( unregisterBlockType ).not.toHaveBeenCalledWith(
 				'myplugin/client-only'
@@ -193,10 +193,10 @@ describe( 'unregister block types', () => {
 		'does not unregister blocks in unrestricted editor contexts (%s)',
 		async ( adminPage ) => {
 			await loadFilter( adminPage, [
-				'woocommerce/breadcrumbs',
-				'woocommerce/catalog-sorting',
-				'woocommerce/checkout',
-				'woocommerce/product-results-count',
+				'poocommerce/breadcrumbs',
+				'poocommerce/catalog-sorting',
+				'poocommerce/checkout',
+				'poocommerce/product-results-count',
 				'myplugin/client-only',
 			] );
 

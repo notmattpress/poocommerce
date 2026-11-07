@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Tests for the WC_Report_Customer_List class.

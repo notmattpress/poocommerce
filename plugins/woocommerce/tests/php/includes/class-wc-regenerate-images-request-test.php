@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Tests\Helpers\ImageAttachmentTrait;
+use Automattic\PooCommerce\Tests\Helpers\ImageAttachmentTrait;
 
 /**
  * Tests for the WC_Regenerate_Images_Request class.
@@ -48,7 +48,7 @@ class WC_Regenerate_Images_Request_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		$thumbnail = $this->delete_attachment_size( $attachment_id, 'woocommerce_thumbnail' );
+		$thumbnail = $this->delete_attachment_size( $attachment_id, 'poocommerce_thumbnail' );
 
 		$this->assertFileDoesNotExist( $thumbnail, 'The size should be missing before regeneration runs' );
 
@@ -56,7 +56,7 @@ class WC_Regenerate_Images_Request_Test extends WC_Unit_Test_Case {
 		$task->setAccessible( true );
 		$task->invoke( $this->sut, array( 'attachment_id' => $attachment_id ) );
 
-		$this->assert_size_exists( $attachment_id, 'woocommerce_thumbnail' );
+		$this->assert_size_exists( $attachment_id, 'poocommerce_thumbnail' );
 
 		$stored = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
 

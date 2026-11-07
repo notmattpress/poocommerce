@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Internal\PushNotifications\DataStores;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -52,7 +52,7 @@ class StepLogTableReader {
 	public function read( string $source, int $from, int $to, int $limit = PHP_INT_MAX, ?callable $expand = null ): array {
 		global $wpdb;
 
-		$table  = $wpdb->prefix . 'woocommerce_log';
+		$table  = $wpdb->prefix . 'poocommerce_log';
 		$max_id = (int) $wpdb->get_var( "SELECT MAX(log_id) FROM {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$rows   = array();
 

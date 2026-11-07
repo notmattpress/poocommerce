@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { cartStore, validationStore } from '@woocommerce/block-data';
+import { cartStore, validationStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -45,13 +45,13 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	isSiteEditorPage: jest.fn().mockReturnValue( true ),
 } ) );
 
 // US has a state list to pick from. GB does not, so its state is typed into a text input.
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	__esModule: true,
 	STATES: {
 		US: { NY: 'New York', TX: 'Texas' },

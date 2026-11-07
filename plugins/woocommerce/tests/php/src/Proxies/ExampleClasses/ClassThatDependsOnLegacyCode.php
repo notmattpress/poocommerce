@@ -3,12 +3,12 @@
  * ClassThatDependsOnLegacyCode class file
  */
 
-namespace Automattic\WooCommerce\Tests\Proxies\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Proxies\ExampleClasses;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
- * An example class that uses the legacy proxy both from a dependency injected proxy and from the helper methods in the WooCommerce class.
+ * An example class that uses the legacy proxy both from a dependency injected proxy and from the helper methods in the PooCommerce class.
  */
 class ClassThatDependsOnLegacyCode {
 
@@ -50,7 +50,7 @@ class ClassThatDependsOnLegacyCode {
 	 *
 	 * @return mixed The result from the function.
 	 */
-	public function call_legacy_function_using_woocommerce_class( $function, ...$parameters ) {
+	public function call_legacy_function_using_poocommerce_class( $function, ...$parameters ) {
 		return WC()->call_function( $function, ...$parameters );
 	}
 
@@ -76,7 +76,7 @@ class ClassThatDependsOnLegacyCode {
 	 *
 	 * @return mixed The result from the method.
 	 */
-	public function call_static_method_using_woocommerce_class( $class_name, $method_name, ...$parameters ) {
+	public function call_static_method_using_poocommerce_class( $class_name, $method_name, ...$parameters ) {
 		return WC()->call_static( $class_name, $method_name, ...$parameters );
 	}
 
@@ -100,7 +100,7 @@ class ClassThatDependsOnLegacyCode {
 	 *
 	 * @return object The instance obtained.
 	 */
-	public function get_instance_of_using_woocommerce_class( string $class_name, ...$args ) {
+	public function get_instance_of_using_poocommerce_class( string $class_name, ...$args ) {
 		return WC()->get_instance_of( $class_name, ...$args );
 	}
 }

@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads;
+namespace Automattic\PooCommerce\Internal\ProductDownloads;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WP_Error;
 use WP_Post;
 use WP_Query;
@@ -16,9 +16,9 @@ use WP_REST_Attachments_Controller;
 /**
  * Keeps downloadable product file URLs out of public attachment views.
  *
- * Files added with the product editor's "Choose file" button become unattached attachments in the woocommerce_uploads
+ * Files added with the product editor's "Choose file" button become unattached attachments in the poocommerce_uploads
  * directory, and WordPress treats unattached attachments as public. Without this, anyone could find their URLs through
- * the REST API media endpoint, attachment pages and feeds, or oEmbed. Users who can upload files or manage WooCommerce
+ * the REST API media endpoint, attachment pages and feeds, or oEmbed. Users who can upload files or manage PooCommerce
  * still see them, since the media library already lists these files for them.
  *
  * @internal Just for internal use.
@@ -35,7 +35,7 @@ class DownloadableFileAttachments implements RegisterHooksInterface {
 	/**
 	 * Start of the `_wp_attached_file` path, relative to the uploads directory, for downloadable product files.
 	 */
-	private const DIRECTORY = 'woocommerce_uploads/';
+	private const DIRECTORY = 'poocommerce_uploads/';
 
 	/**
 	 * Register hooks and filters.
@@ -72,7 +72,7 @@ class DownloadableFileAttachments implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Exclude attachments stored in the woocommerce_uploads directory from marked queries.
+	 * Exclude attachments stored in the poocommerce_uploads directory from marked queries.
 	 *
 	 * @internal
 	 *
@@ -117,7 +117,7 @@ class DownloadableFileAttachments implements RegisterHooksInterface {
 			return $response;
 		}
 
-		return new WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.', 'woocommerce' ), array( 'status' => 404 ) );
+		return new WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.', 'poocommerce' ), array( 'status' => 404 ) );
 	}
 
 	/**
@@ -250,7 +250,7 @@ class DownloadableFileAttachments implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Check whether an attachment is stored in the woocommerce_uploads directory.
+	 * Check whether an attachment is stored in the poocommerce_uploads directory.
 	 *
 	 * @param int $attachment_id Attachment ID.
 	 * @return bool
@@ -271,6 +271,6 @@ class DownloadableFileAttachments implements RegisterHooksInterface {
 	 * @return bool
 	 */
 	private function current_user_can_see_files(): bool {
-		return current_user_can( 'upload_files' ) || current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'upload_files' ) || current_user_can( 'manage_poocommerce' );
 	}
 }

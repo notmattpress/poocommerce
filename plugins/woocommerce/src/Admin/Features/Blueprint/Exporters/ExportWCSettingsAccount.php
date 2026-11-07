@@ -2,16 +2,16 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportWCSettingsAccount
  *
- * This class exports WooCommerce settings on the Account and Privacy page.
+ * This class exports PooCommerce settings on the Account and Privacy page.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCSettingsAccount extends ExportWCSettings {
 	use UseWPFunctions;
@@ -31,7 +31,7 @@ class ExportWCSettingsAccount extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Account and Privacy', 'woocommerce' );
+		return __( 'Account and Privacy', 'poocommerce' );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class ExportWCSettingsAccount extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes all settings in WooCommerce | Settings | Account and Privacy.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | Account and Privacy.', 'poocommerce' );
 	}
 
 	/**

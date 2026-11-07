@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Popover } from '@wordpress/components';
-import { Pill } from '@woocommerce/components';
+import { Pill } from '@poocommerce/components';
 import { Link } from '@wordpress/ui';
 import { createInterpolateElement, useRef, useState } from '@wordpress/element';
 
@@ -48,7 +48,7 @@ export const OfficialBadge = ( {
 	const handleClick = ( event: React.MouseEvent | React.KeyboardEvent ) => {
 		const clickedElement = event.target as HTMLElement;
 		const parentSpan = clickedElement.closest(
-			'.woocommerce-official-extension-badge__container'
+			'.poocommerce-official-extension-badge__container'
 		);
 
 		if ( buttonRef.current && parentSpan !== buttonRef.current ) {
@@ -82,9 +82,9 @@ export const OfficialBadge = ( {
 	};
 
 	return (
-		<Pill className={ `woocommerce-official-extension-badge` }>
+		<Pill className={ `poocommerce-official-extension-badge` }>
 			<span
-				className="woocommerce-official-extension-badge__container"
+				className="poocommerce-official-extension-badge__container"
 				tabIndex={ 0 }
 				role="button"
 				ref={ buttonRef }
@@ -94,16 +94,16 @@ export const OfficialBadge = ( {
 				<img
 					src={ WC_ASSET_URL + 'images/icons/official-extension.svg' }
 					alt={ __(
-						'Official WooCommerce extension badge',
-						'woocommerce'
+						'Official PooCommerce extension badge',
+						'poocommerce'
 					) }
 				/>
 				{ variant === 'expanded' && (
-					<span>{ __( 'Official', 'woocommerce' ) }</span>
+					<span>{ __( 'Official', 'poocommerce' ) }</span>
 				) }
 				{ isPopoverVisible && (
 					<Popover
-						className="woocommerce-official-extension-badge-popover"
+						className="poocommerce-official-extension-badge-popover"
 						placement="top-start"
 						offset={ 4 }
 						variant="unstyled"
@@ -121,13 +121,13 @@ export const OfficialBadge = ( {
 							<p>
 								{ createInterpolateElement(
 									__(
-										'This is an Official WooCommerce payment extension. <learnMoreLink />',
-										'woocommerce'
+										'This is an Official PooCommerce payment extension. <learnMoreLink />',
+										'poocommerce'
 									),
 									{
 										learnMoreLink: (
 											<Link
-												href="https://woocommerce.com/learn-more-about-official-partner-badging/"
+												href="https://poocommerce.com/learn-more-about-official-partner-badging/"
 												rel="noopener noreferrer"
 												openInNewTab
 												onClick={ () => {
@@ -143,7 +143,7 @@ export const OfficialBadge = ( {
 											>
 												{ __(
 													'Learn more',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Link>
 										),

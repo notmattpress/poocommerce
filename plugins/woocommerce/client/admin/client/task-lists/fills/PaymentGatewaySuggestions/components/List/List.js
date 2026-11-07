@@ -24,7 +24,7 @@ export const List = ( {
 				<CardHeader as="h2">
 					{ heading }
 					{ headingDescription && (
-						<p className="woocommerce-task-payment-header__description">
+						<p className="poocommerce-task-payment-header__description">
 							{ headingDescription }
 						</p>
 					) }

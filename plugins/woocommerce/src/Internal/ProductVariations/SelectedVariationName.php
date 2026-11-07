@@ -2,14 +2,14 @@
 /**
  * Contextual variation product names.
  *
- * @package WooCommerce\Internal\ProductVariations
+ * @package PooCommerce\Internal\ProductVariations
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductVariations;
+namespace Automattic\PooCommerce\Internal\ProductVariations;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 use WC_Data_Store;
 use WC_Product;
 
@@ -101,7 +101,7 @@ class SelectedVariationName {
 				 * @param string          $name Attribute taxonomy name.
 				 * @param WC_Product|null $product Product object.
 				 */
-				$display_value = apply_filters( 'woocommerce_variation_option_name', $selected_value, null, wc_attribute_taxonomy_name( 'attribute_' . $name ), $product );
+				$display_value = apply_filters( 'poocommerce_variation_option_name', $selected_value, null, wc_attribute_taxonomy_name( 'attribute_' . $name ), $product );
 				$display_value = is_scalar( $display_value ) ? rawurldecode( (string) $display_value ) : '';
 			}
 
@@ -124,7 +124,7 @@ class SelectedVariationName {
 			 * @param string     $separator Separator between the product title and attributes.
 			 * @param WC_Product $product Variation product object.
 			 */
-			$separator = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', $product );
+			$separator = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', $product );
 			$separator = is_scalar( $separator ) ? (string) $separator : ' - ';
 		}
 

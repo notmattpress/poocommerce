@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use WC_Unit_Test_Case;
 
 /**

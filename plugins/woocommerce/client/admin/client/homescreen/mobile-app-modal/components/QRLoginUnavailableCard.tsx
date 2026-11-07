@@ -4,7 +4,7 @@
 import { Notice } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import type { ReactNode } from 'react';
 
 /**
@@ -42,7 +42,7 @@ export const QRLoginUnavailableCard = ( {
 	if ( reason === QRLoginUnavailableReasons.HTTPS_REQUIRED ) {
 		headline = __(
 			'QR sign-in is unavailable because this site is not served over HTTPS. Application passwords require an HTTPS connection.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else {
 		// AP unsupported or filtered off — the merchant-facing distinction is
@@ -51,7 +51,7 @@ export const QRLoginUnavailableCard = ( {
 		headline = createInterpolateElement(
 			__(
 				'Mobile login is unavailable if application passwords are disabled on your site. Find more about application passwords <link>here</link>.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				link: (
@@ -66,9 +66,9 @@ export const QRLoginUnavailableCard = ( {
 	}
 
 	return (
-		<div className="woocommerce-qr-direct-login woocommerce-qr-direct-login--unavailable">
+		<div className="poocommerce-qr-direct-login poocommerce-qr-direct-login--unavailable">
 			<Notice
-				className="woocommerce-qr-direct-login__unavailable-notice"
+				className="poocommerce-qr-direct-login__unavailable-notice"
 				status="warning"
 				isDismissible={ false }
 			>
@@ -80,27 +80,27 @@ export const QRLoginUnavailableCard = ( {
 			   of the box, and the collapsed state keeps the headline
 			   scannable.
 			*/ }
-			<details className="woocommerce-qr-direct-login__why">
+			<details className="poocommerce-qr-direct-login__why">
 				<summary>
-					{ __( 'Why am I seeing this?', 'woocommerce' ) }
+					{ __( 'Why am I seeing this?', 'poocommerce' ) }
 				</summary>
 				<ul>
 					<li>
 						{ __(
 							'A security plugin (e.g. Wordfence, Solid Security, iThemes Security) may have disabled application passwords.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</li>
 					<li>
 						{ __(
 							'A custom code snippet using the wp_is_application_passwords_available filter may have disabled them.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</li>
 					<li>
 						{ __(
 							'On most hosts, application passwords also require an HTTPS connection.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</li>
 				</ul>

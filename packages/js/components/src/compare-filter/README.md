@@ -39,4 +39,4 @@ Name | Type | Default | Description
 `type` | String | `null` | Deprecated. Use `searchProps.type` instead
 `autocompleter` | Object | `null` | Deprecated. Use `searchProps.autocompleter` instead
 
-The `labels.placeholder` label is deprecated. Use `searchProps.placeholder` instead. When a deprecated prop is set, it takes precedence over the matching `searchProps` value. The deprecated props are scheduled for removal in `@woocommerce/components` 15.0.0.
+The `labels.placeholder` label is deprecated. Use `searchProps.placeholder` instead. When a deprecated prop is set, it takes precedence over the matching `searchProps` value. The deprecated props are scheduled for removal in `@poocommerce/components` 15.0.0.

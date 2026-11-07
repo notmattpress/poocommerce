@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce products query ability.
+ * Registers the PooCommerce products query ability.
  */
 class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -25,7 +25,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	/**
 	 * Query var that limits a query to the children of these product types.
 	 */
-	private const PARENT_TYPES_QUERY_VAR = 'woocommerce_ability_parent_types';
+	private const PARENT_TYPES_QUERY_VAR = 'poocommerce_ability_parent_types';
 
 	/**
 	 * Taxonomies of the term filters, keyed by input property.
@@ -44,7 +44,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/products-query';
+		return 'poocommerce/products-query';
 	}
 
 	/**
@@ -56,12 +56,12 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query products', 'woocommerce' ),
+			'label'               => __( 'Query products', 'poocommerce' ),
 			'description'         => __(
 				'Find products by ID or common catalog filters.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_collection_output_schema( 'products', self::get_product_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -92,8 +92,8 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	public static function execute( array $input ) {
 		if ( ! empty( $input['id'] ) && ! empty( $input['filters'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_filters_with_id',
-				__( 'Send either an id or filters, not both.', 'woocommerce' ),
+				'poocommerce_ability_filters_with_id',
+				__( 'Send either an id or filters, not both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -273,7 +273,7 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 				'search'       => array( 'type' => 'string' ),
 				'sku'          => array(
 					'type'        => 'string',
-					'description' => __( 'Limit results to products with SKUs that partially match this string. Use * to match products with any non-empty SKU.', 'woocommerce' ),
+					'description' => __( 'Limit results to products with SKUs that partially match this string. Use * to match products with any non-empty SKU.', 'poocommerce' ),
 				),
 				'status'       => array(
 					'type' => 'string',
@@ -282,24 +282,24 @@ class ProductsQuery extends AbstractDomainAbility implements AbilityDefinition {
 				'type'         => self::get_product_type_schema( array_values( array_unique( array_merge( array_keys( self::get_supported_product_type_configs() ), array_keys( self::get_variation_subclass_parent_types() ) ) ) ) ),
 				'parent_id'    => array(
 					'type'        => 'integer',
-					'description' => __( 'Limit results to the variations of this variable product.', 'woocommerce' ),
+					'description' => __( 'Limit results to the variations of this variable product.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'virtual'      => array(
 					'type'        => 'boolean',
-					'description' => __( 'Limit results to products that are not shipped (true) or that are shipped (false).', 'woocommerce' ),
+					'description' => __( 'Limit results to products that are not shipped (true) or that are shipped (false).', 'poocommerce' ),
 				),
 				'downloadable' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Limit results to products that have files to download (true) or that do not (false).', 'woocommerce' ),
+					'description' => __( 'Limit results to products that have files to download (true) or that do not (false).', 'poocommerce' ),
 				),
 				'stock_status' => array(
 					'type' => 'string',
 					'enum' => array_keys( wc_get_product_stock_status_options() ),
 				),
-				'category'     => self::get_term_filter_input_schema( __( 'Only products in any of these product category IDs, including their child categories.', 'woocommerce' ) ),
-				'tag'          => self::get_term_filter_input_schema( __( 'Only products with any of these product tag IDs.', 'woocommerce' ) ),
-				'brand'        => self::get_term_filter_input_schema( __( 'Only products of any of these brand IDs, including their child brands.', 'woocommerce' ) ),
+				'category'     => self::get_term_filter_input_schema( __( 'Only products in any of these product category IDs, including their child categories.', 'poocommerce' ) ),
+				'tag'          => self::get_term_filter_input_schema( __( 'Only products with any of these product tag IDs.', 'poocommerce' ) ),
+				'brand'        => self::get_term_filter_input_schema( __( 'Only products of any of these brand IDs, including their child brands.', 'poocommerce' ) ),
 				'page'         => array(
 					'type'    => 'integer',
 					'default' => 1,

@@ -69,7 +69,7 @@ describe( 'requestSendingNewsletterPreview', () => {
 		expect( selectMock ).toHaveBeenNthCalledWith( 1, storeName );
 		expect( selectMock ).toHaveBeenNthCalledWith( 2, storeName );
 		expect( apiFetchMock ).toHaveBeenCalledWith( {
-			path: '/woocommerce-email-editor/v1/send_preview_email',
+			path: '/poocommerce-email-editor/v1/send_preview_email',
 			method: 'POST',
 			data: {
 				email: 'test@example.com',

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Class WC_Abstract_Payment_Token_Test file.
  *
- * @package WooCommerce\Tests\Abstracts
+ * @package PooCommerce\Tests\Abstracts
  */
 
 /**

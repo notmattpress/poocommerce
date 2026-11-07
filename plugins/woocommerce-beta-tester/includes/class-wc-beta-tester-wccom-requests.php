@@ -42,7 +42,7 @@ class WC_Beta_Tester_WCCOM_Requests {
      * Override the http request with a timeout.
      */
     public function override_http_request_timeout( $response, $args, $url ) {
-        if ( strpos( $url, 'https://woocommerce.com/wp-json/' ) !== false || strpos( $url, 'woocommerce.test/wp-json/' ) !== false ) {
+        if ( strpos( $url, 'https://poocommerce.com/wp-json/' ) !== false || strpos( $url, 'poocommerce.test/wp-json/' ) !== false ) {
             sleep( 6 ); // 6 seconds
             return new WP_Error( 'http_request_timeout', 'Mock timeout error' );
         }
@@ -54,7 +54,7 @@ class WC_Beta_Tester_WCCOM_Requests {
      * Override the http request with an error.
      */
     public function override_http_request_error( $response, $args, $url ) {
-        if ( strpos( $url, 'https://woocommerce.com/wp-json/' ) !== false ) {
+        if ( strpos( $url, 'https://poocommerce.com/wp-json/' ) !== false ) {
             return array(
                 'response' => array(
                     'code'    => 500,

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
 use WP_UnitTestCase;
 
 /**
@@ -88,7 +88,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 			),
 			array(
 				'id'       => 'plugin-namespace/leave-on-porch',
-				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'location' => 'order',
 				'type'     => 'checkbox',
 			),
@@ -133,7 +133,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 				),
 			),
 		);
-		array_map( 'woocommerce_register_additional_checkout_field', $this->fields );
+		array_map( 'poocommerce_register_additional_checkout_field', $this->fields );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 */
 	private function unregister_fields() {
 		$fields = $this->controller->get_additional_fields();
-		array_map( '__internal_woocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
+		array_map( '__internal_poocommerce_blocks_deregister_checkout_field', array_keys( $fields ) );
 	}
 
 	/**
@@ -251,7 +251,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 */
 	public function test_order_fields_do_not_use_defaults( string $type, ?string $saved_value, $expected_edit, ?string $expected_view ): void {
 		$key = 'plugin-namespace/default-address-field';
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $key,
 				'label'    => 'Default address field',
@@ -262,7 +262,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 
 		$default_calls = 0;
 		add_filter(
-			"woocommerce_get_default_value_for_{$key}",
+			"poocommerce_get_default_value_for_{$key}",
 			static function () use ( &$default_calls ) {
 				++$default_calls;
 				return '1';
@@ -304,7 +304,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	public function test_missing_checkbox_uses_filtered_default( string $default_value, bool $expected_value ): void {
 		$key = 'plugin-namespace/leave-on-porch';
 		add_filter(
-			"woocommerce_get_default_value_for_{$key}",
+			"poocommerce_get_default_value_for_{$key}",
 			static function () use ( $default_value ) {
 				return $default_value;
 			}
@@ -362,8 +362,8 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 		};
 
 		$hooks = array(
-			'__experimental_woocommerce_blocks_validate_additional_field',
-			'woocommerce_validate_additional_field',
+			'__experimental_poocommerce_blocks_validate_additional_field',
+			'poocommerce_validate_additional_field',
 		);
 		$this->setExpectedDeprecated( $hooks[0] );
 
@@ -381,13 +381,13 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 		$errors = $this->controller->validate_field( $field, '2026-02-31' );
 
 		$this->assertSame( '2026-02-31', $calls['callback'] ?? null );
-		$this->assertContains( 'woocommerce_invalid_checkout_field', $errors->get_error_codes() );
+		$this->assertContains( 'poocommerce_invalid_checkout_field', $errors->get_error_codes() );
 		$this->assertContains( 'custom_date_error', $errors->get_error_codes() );
 		foreach ( $hooks as $hook ) {
 			$this->assertArrayHasKey( $hook, $calls, 'Both validation hooks must run after a type error.' );
 			$this->assertSame( $field['id'], $calls[ $hook ][0] );
 			$this->assertSame( '2026-02-31', $calls[ $hook ][1] );
-			$this->assertContains( 'woocommerce_invalid_checkout_field', $calls[ $hook ][2] );
+			$this->assertContains( 'poocommerce_invalid_checkout_field', $calls[ $hook ][2] );
 			$this->assertContains( 'custom_date_error', $calls[ $hook ][2] );
 		}
 	}
@@ -406,9 +406,9 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 * @testdox A date field whose constraints the date field type rejects is not registered.
 	 */
 	public function test_date_field_with_invalid_constraint_is_not_registered() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'plugin-namespace/invalid-constraint',
 				'label'    => 'Invalid constraint',
@@ -442,7 +442,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 * @param string|array $type   The expected schema type.
 	 */
 	public function test_date_comparison_schema_defaults( array $schema, $type ): void {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'plugin-namespace/check-out',
 				'label'      => 'Check-out',
@@ -472,8 +472,8 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 * @param array $schema The invalid schema keywords.
 	 */
 	public function test_date_schema_defaults_preserve_invalid_keywords( array $schema ): void {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
-		woocommerce_register_additional_checkout_field(
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'plugin-namespace/check-out',
 				'label'      => 'Check-out',
@@ -564,7 +564,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 			unset( $validation['type'], $validation['format'] );
 		}
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'plugin-namespace/check-in',
 				'label'    => 'Check-in',
@@ -572,7 +572,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 				'type'     => 'date',
 			)
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'         => 'plugin-namespace/check-out',
 				'label'      => 'Check-out',
@@ -610,13 +610,13 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 	 * Registering a field before after_setup_theme warns the developer.
 	 */
 	public function test_registering_before_after_setup_theme_triggers_notice() {
-		$this->setExpectedIncorrectUsage( 'woocommerce_register_additional_checkout_field' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_register_additional_checkout_field' );
 
 		$saved_action = $GLOBALS['wp_actions']['after_setup_theme'] ?? null;
 		unset( $GLOBALS['wp_actions']['after_setup_theme'] );
 
 		try {
-			woocommerce_register_additional_checkout_field(
+			poocommerce_register_additional_checkout_field(
 				array(
 					'id'       => 'test-namespace/early-field',
 					'label'    => 'Early field',
@@ -628,7 +628,7 @@ class CheckoutFieldsTest extends WP_UnitTestCase {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the count cleared above to simulate registering before after_setup_theme.
 				$GLOBALS['wp_actions']['after_setup_theme'] = $saved_action;
 			}
-			__internal_woocommerce_blocks_deregister_checkout_field( 'test-namespace/early-field' );
+			__internal_poocommerce_blocks_deregister_checkout_field( 'test-namespace/early-field' );
 		}
 	}
 }

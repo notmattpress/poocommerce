@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\Mocks;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
 
 /**
  * CartMock used to test cart block functions.

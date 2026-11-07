@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CartShippingAddress } from '@woocommerce/types';
+import type { CartShippingAddress } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -15,9 +15,9 @@ export const ERROR_TYPES = {
 } as ShippingErrorTypes;
 
 export const shippingErrorCodes = {
-	INVALID_COUNTRY: 'woocommerce_rest_cart_shipping_rates_invalid_country',
-	MISSING_COUNTRY: 'woocommerce_rest_cart_shipping_rates_missing_country',
-	INVALID_STATE: 'woocommerce_rest_cart_shipping_rates_invalid_state',
+	INVALID_COUNTRY: 'poocommerce_rest_cart_shipping_rates_invalid_country',
+	MISSING_COUNTRY: 'poocommerce_rest_cart_shipping_rates_missing_country',
+	INVALID_STATE: 'poocommerce_rest_cart_shipping_rates_invalid_state',
 };
 
 export const DEFAULT_SHIPPING_ADDRESS = {

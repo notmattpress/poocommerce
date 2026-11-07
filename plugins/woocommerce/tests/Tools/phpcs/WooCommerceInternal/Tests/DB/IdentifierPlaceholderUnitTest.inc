@@ -4,7 +4,7 @@
  *
  * Each numbered case documents whether the sniff should flag it.
  *
- * @package WooCommerce\Tests\Tools\PHPCS
+ * @package PooCommerce\Tests\Tools\PHPCS
  */
 
 // Case 1: unguarded %i in prepare() — FLAGGED.

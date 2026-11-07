@@ -1,4 +1,4 @@
-const presetDir = './node_modules/@woocommerce/internal-js-tests';
+const presetDir = './node_modules/@poocommerce/internal-js-tests';
 // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest loads this config as CommonJS.
 const preset = require( `${ presetDir }/jest-preset.js` );
 

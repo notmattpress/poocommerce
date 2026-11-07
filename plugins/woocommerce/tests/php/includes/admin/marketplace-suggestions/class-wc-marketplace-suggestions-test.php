@@ -20,16 +20,16 @@ class WC_Marketplace_Suggestions_Test extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->original_get = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Snapshot for tearDown(), not form handling.
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		update_option( 'active_plugins', array( 'woocommerce/woocommerce.php', 'woocommerce-subscriptions/woocommerce-subscriptions.php' ) );
+		update_option( 'active_plugins', array( 'poocommerce/poocommerce.php', 'poocommerce-subscriptions/poocommerce-subscriptions.php' ) );
 		$this->set_feed(
 			array(
-				$this->item( 'bookings', 'woocommerce-bookings' ),
-				$this->item( 'subscriptions', 'woocommerce-subscriptions' ),
+				$this->item( 'bookings', 'poocommerce-bookings' ),
+				$this->item( 'subscriptions', 'poocommerce-subscriptions' ),
 				$this->item( 'dismissed', 'product-bundles' ),
 				array_merge( $this->item( 'orders', 'shipstation' ), array( 'context' => 'orders-list-empty-body' ) ),
-				array_merge( $this->item( 'memberships', 'woocommerce-memberships' ), array( 'context' => array( 'products-list-empty-body', 'product-edit-meta-tab-body' ) ) ),
-				array_merge( $this->item( 'deposits', 'woocommerce-deposits' ), array( 'show-if-active' => array( 'woocommerce-bookings' ) ) ),
-				array_merge( $this->item( 'gifting', 'gifting-for-subscriptions' ), array( 'show-if-active' => array( 'woocommerce-subscriptions' ) ) ),
+				array_merge( $this->item( 'memberships', 'poocommerce-memberships' ), array( 'context' => array( 'products-list-empty-body', 'product-edit-meta-tab-body' ) ) ),
+				array_merge( $this->item( 'deposits', 'poocommerce-deposits' ), array( 'show-if-active' => array( 'poocommerce-bookings' ) ) ),
+				array_merge( $this->item( 'gifting', 'gifting-for-subscriptions' ), array( 'show-if-active' => array( 'poocommerce-subscriptions' ) ) ),
 				array_merge( $this->item( 'untitled', 'plugin-untitled' ), array( 'title' => '' ) ),
 				array_merge( $this->item( 'bad-url', 'plugin-bad-url' ), array( 'url' => 'javascript:alert(1)' ) ),
 			)
@@ -58,7 +58,7 @@ class WC_Marketplace_Suggestions_Test extends WC_Unit_Test_Case {
 	 * @testdox Should treat network-activated plugins as active.
 	 */
 	public function test_treats_network_activated_plugins_as_active(): void {
-		update_site_option( 'active_sitewide_plugins', array( 'woocommerce-bookings/woocommerce-bookings.php' => time() ) );
+		update_site_option( 'active_sitewide_plugins', array( 'poocommerce-bookings/poocommerce-bookings.php' => time() ) );
 
 		$slugs = array_column( $this->get_products_list_suggestions(), 'slug' );
 
@@ -91,11 +91,11 @@ class WC_Marketplace_Suggestions_Test extends WC_Unit_Test_Case {
 		$this->assertSame(
 			array(
 				'slug'     => 'bookings',
-				'product'  => 'woocommerce-bookings',
+				'product'  => 'poocommerce-bookings',
 				'title'    => 'bookings',
 				'copy'     => 'Copy.',
-				'icon'     => 'https://woocommerce.com/icon.png',
-				'url'      => 'https://woocommerce.com/products/woocommerce-bookings/',
+				'icon'     => 'https://poocommerce.com/icon.png',
+				'url'      => 'https://poocommerce.com/products/poocommerce-bookings/',
 				'promoted' => '',
 			),
 			$this->get_products_list_suggestions()[0]
@@ -137,7 +137,7 @@ class WC_Marketplace_Suggestions_Test extends WC_Unit_Test_Case {
 	 */
 	private function set_feed( array $items, int $count = 5 ): void {
 		update_option(
-			'woocommerce_marketplace_suggestions',
+			'poocommerce_marketplace_suggestions',
 			array(
 				'suggestions' => array_merge( array( array( 'recommendations-count' => $count ) ), $items ),
 				'updated'     => time(),
@@ -159,8 +159,8 @@ class WC_Marketplace_Suggestions_Test extends WC_Unit_Test_Case {
 			'product' => $product,
 			'title'   => $slug,
 			'copy'    => 'Copy.',
-			'icon'    => 'https://woocommerce.com/icon.png',
-			'url'     => 'https://woocommerce.com/products/' . $product . '/',
+			'icon'    => 'https://poocommerce.com/icon.png',
+			'url'     => 'https://poocommerce.com/products/' . $product . '/',
 		);
 	}
 }

@@ -3,11 +3,11 @@
  * Rule processor for sending after a specified date/time.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\DateTimeProvider\CurrentDateTimeProvider;
+use Automattic\PooCommerce\Admin\DateTimeProvider\CurrentDateTimeProvider;
 
 /**
  * Rule processor for sending after a specified date/time.

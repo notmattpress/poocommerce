@@ -171,7 +171,7 @@ describe( 'Checkout Store Reducer', () => {
 			reducer( defaultState, actions.__internalIncrementCalculating() )
 		).toEqual( expectedState );
 		expect( console ).toHaveWarnedWith(
-			'__internalIncrementCalculating is deprecated and will be removed from WooCommerce in version 9.9.0. Please use disableCheckoutFor instead.'
+			'__internalIncrementCalculating is deprecated and will be removed from PooCommerce in version 9.9.0. Please use disableCheckoutFor instead.'
 		);
 	} );
 
@@ -190,7 +190,7 @@ describe( 'Checkout Store Reducer', () => {
 			reducer( initialState, actions.__internalDecrementCalculating() )
 		).toEqual( expectedState );
 		expect( console ).toHaveWarnedWith(
-			'__internalDecrementCalculating is deprecated and will be removed from WooCommerce in version 9.9.0. Please use disableCheckoutFor instead.'
+			'__internalDecrementCalculating is deprecated and will be removed from PooCommerce in version 9.9.0. Please use disableCheckoutFor instead.'
 		);
 	} );
 
@@ -338,7 +338,7 @@ describe( 'Checkout Store Reducer', () => {
 
 			expect( state ).toEqual( expectedState );
 			expect( console ).toHaveWarnedWith(
-				'__internalSetExtensionData is deprecated and will be removed from WooCommerce in version 9.9.0. Please use setExtensionData instead.'
+				'__internalSetExtensionData is deprecated and will be removed from PooCommerce in version 9.9.0. Please use setExtensionData instead.'
 			);
 		} );
 	} );

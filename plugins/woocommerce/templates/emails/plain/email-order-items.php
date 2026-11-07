@@ -2,20 +2,20 @@
 /**
  * Email Order Items (plain)
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/email-order-items.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/plain/email-order-items.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see         https://woocommerce.com/document/template-structure/
- * @package     WooCommerce\Templates\Emails\Plain
+ * @see         https://poocommerce.com/document/template-structure/
+ * @package     PooCommerce\Templates\Emails\Plain
  * @version     10.8.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 
 foreach ( $items as $item_id => $item ) :
-	if ( apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
+	if ( apply_filters( 'poocommerce_order_item_visible', true, $item ) ) {
 		$product       = $item->get_product();
 		$sku           = '';
 		$purchase_note = '';
@@ -44,7 +44,7 @@ foreach ( $items as $item_id => $item ) :
 			 * @param WC_Order_Item $item Order item object.
 			 * @param bool          $is_visible Is item visible.
 			 */
-			$product_name = apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false );
+			$product_name = apply_filters( 'poocommerce_order_item_name', $item->get_name(), $item, false );
 			/**
 			 * Email Order Item Quantity hook.
 			 *
@@ -52,7 +52,7 @@ foreach ( $items as $item_id => $item ) :
 			 * @param int           $quantity Item quantity.
 			 * @param WC_Order_Item $item     Item object.
 			 */
-			$quantity = apply_filters( 'woocommerce_email_order_item_quantity', $item->get_quantity(), $item );
+			$quantity = apply_filters( 'poocommerce_email_order_item_quantity', $item->get_quantity(), $item );
 			if ( '' !== $quantity ) {
 				$product_name .= ' × ' . $quantity;
 			}
@@ -73,7 +73,7 @@ foreach ( $items as $item_id => $item ) :
 			 * @param WC_Order_Item $item Order item object.
 			 * @param bool          $is_visible Is item visible.
 			 */
-			echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_order_item_name', $item->get_name(), $item, false ) );
 			if ( $show_sku && $sku ) {
 				echo ' (#' . $sku . ')';
 			}
@@ -84,7 +84,7 @@ foreach ( $items as $item_id => $item ) :
 			 * @param int           $quantity Item quantity.
 			 * @param WC_Order_Item $item     Item object.
 			 */
-			$quantity = apply_filters( 'woocommerce_email_order_item_quantity', $item->get_quantity(), $item );
+			$quantity = apply_filters( 'poocommerce_email_order_item_quantity', $item->get_quantity(), $item );
 			if ( '' !== $quantity ) {
 				echo ' × ' . $quantity;
 			}
@@ -93,7 +93,7 @@ foreach ( $items as $item_id => $item ) :
 		}
 
 		// allow other plugins to add additional product information here.
-		do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
+		do_action( 'poocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo strip_tags(
 			wc_display_item_meta(
@@ -109,7 +109,7 @@ foreach ( $items as $item_id => $item ) :
 		);
 
 		// allow other plugins to add additional product information here.
-		do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
+		do_action( 'poocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text );
 	}
 	// Note.
 	if ( $show_purchase_note && $purchase_note ) {

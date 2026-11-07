@@ -43,7 +43,7 @@ class Tracks_Debug_Log {
 	 * Initialize hooks.
 	 */
 	public function __construct() {
-		// WooCommerce might not be installed/activated between installs of WC versions.
+		// PooCommerce might not be installed/activated between installs of WC versions.
 		if ( defined( 'WC_ABSPATH' ) ) {
 			include_once WC_ABSPATH . 'includes/tracks/class-wc-tracks-client.php';
 			include_once WC_ABSPATH . 'includes/tracks/class-wc-tracks-footer-pixel.php';

@@ -40,7 +40,7 @@ curl https://example.com/wp-json/wc/v3/products/custom-fields/names \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'products/custom-fields/names' )
+PooCommerce.get( 'products/custom-fields/names' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -53,7 +53,7 @@ WooCommerce.get( 'products/custom-fields/names' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/custom-fields/names')); ?>
+<?php print_r($poocommerce->get('products/custom-fields/names')); ?>
 ```
 
   </TabItem>
@@ -67,7 +67,7 @@ print(wcapi.get("products/custom-fields/names").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/custom-fields/names").parsed_response
+poocommerce.get("products/custom-fields/names").parsed_response
 ```
 
   </TabItem>

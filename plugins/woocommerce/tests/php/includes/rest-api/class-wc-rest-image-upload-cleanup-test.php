@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for cleanup of image downloads used by REST writes.
  *
- * @package WooCommerce\Tests\RestApi
+ * @package PooCommerce\Tests\RestApi
  */
 class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 	/** @var array Downloaded files, including files with no attachment. */
@@ -44,7 +44,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 			3
 		);
 		add_action(
-			'woocommerce_rest_api_uploaded_image_from_url',
+			'poocommerce_rest_api_uploaded_image_from_url',
 			function ( $upload ) {
 				$this->uploads[] = $upload;
 			}
@@ -104,7 +104,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 	private function image_request( string $kind, int $version, string $method, array $image ): WP_REST_Request {
 		$route = "/wc/v$version/products";
 		if ( 4 === $version ) {
-			$sut = new Automattic\WooCommerce\Internal\RestApi\Routes\V4\Products\Controller();
+			$sut = new Automattic\PooCommerce\Internal\RestApi\Routes\V4\Products\Controller();
 			$sut->register_routes();
 		}
 
@@ -178,7 +178,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 		$response               = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_product_image_upload_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_product_image_upload_error', $response->get_data()['code'] );
 		$this->assertSame( array(), $this->uploads );
 		$this->assertSame( array(), $this->attachment_ids );
 	}
@@ -197,7 +197,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 
 		try {
 			if ( 'utility' === $caller ) {
-				$sut = new Automattic\WooCommerce\RestApi\Utilities\ImageAttachment();
+				$sut = new Automattic\PooCommerce\RestApi\Utilities\ImageAttachment();
 				$sut->upload_image_from_src( 'https://example.org/rejected.php' );
 			} else {
 				require_once WC_ABSPATH . 'includes/import/abstract-wc-product-importer.php';
@@ -303,7 +303,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 			return $mimes;
 		};
 		add_filter( 'upload_mimes', $allow_svg );
-		add_filter( 'woocommerce_rest_allowed_image_mime_types', $allow_svg );
+		add_filter( 'poocommerce_rest_allowed_image_mime_types', $allow_svg );
 		// Older Fileinfo versions need the XML declaration to recognize the SVG MIME type.
 		$this->download_content = '<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10"/></svg>';
 		$request                = $this->image_request( $kind, $version, $method, array( 'src' => 'https://example.org/accepted.svg' ) );
@@ -363,7 +363,7 @@ class WC_REST_Image_Upload_Cleanup_Test extends WC_REST_Unit_Test_Case {
 			)
 		);
 		add_action(
-			'woocommerce_rest_insert_product_object',
+			'poocommerce_rest_insert_product_object',
 			static function () {
 				throw new WC_REST_Exception( 'test_after_save', 'Failure after saving.', 400 );
 			}

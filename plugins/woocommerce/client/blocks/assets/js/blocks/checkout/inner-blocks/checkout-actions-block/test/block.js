@@ -15,7 +15,7 @@ const mockPlaceOrderButton = jest.fn( ( { label, CustomButtonComponent } ) => {
 	return <button>{ label }</button>;
 } );
 
-jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
+jest.mock( '@poocommerce/base-components/cart-checkout', () => ( {
 	PlaceOrderButton: ( props ) => mockPlaceOrderButton( props ),
 	ReturnToCartButton: ( { children, href } ) => (
 		<a href={ href }>{ children }</a>
@@ -23,7 +23,7 @@ jest.mock( '@woocommerce/base-components/cart-checkout', () => ( {
 } ) );
 
 const mockUseCheckoutSubmit = jest.fn();
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useCheckoutSubmit: () => mockUseCheckoutSubmit(),
 } ) );
 
@@ -32,32 +32,32 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: () => mockUseSelect(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	paymentStore: 'wc/store/payment',
 } ) );
 
 let mockCheckoutShowTerms = true;
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn( ( key, fallback ) =>
 		key === 'checkoutShowTerms' ? mockCheckoutShowTerms : fallback
 	),
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	noticeContexts: {
 		CHECKOUT_ACTIONS: 'wc/checkout/checkout-actions',
 	},
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	StoreNoticesContainer: () => null,
 } ) );
 
-jest.mock( '@woocommerce/blocks-checkout', () => ( {
+jest.mock( '@poocommerce/blocks-checkout', () => ( {
 	applyCheckoutFilter: ( { defaultValue } ) => defaultValue,
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	CART_URL: '/cart',
 } ) );
 
@@ -205,7 +205,7 @@ describe( 'Checkout Actions Block', () => {
 			render( <Block { ...defaultProps } showTerms={ true } /> );
 
 			expect( screen.getByTestId( 'terms' ) ).toHaveClass(
-				'wp-block-woocommerce-checkout-terms-block'
+				'wp-block-poocommerce-checkout-terms-block'
 			);
 		} );
 
@@ -231,7 +231,7 @@ describe( 'Checkout Actions Block', () => {
 			expect( screen.queryByTestId( 'terms' ) ).not.toBeInTheDocument();
 		} );
 
-		it( 'renders no terms when an extension hides them with woocommerce_checkout_show_terms', () => {
+		it( 'renders no terms when an extension hides them with poocommerce_checkout_show_terms', () => {
 			mockCheckoutShowTerms = false;
 			render(
 				<Block

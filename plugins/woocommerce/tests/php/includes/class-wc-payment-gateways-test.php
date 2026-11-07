@@ -1,6 +1,6 @@
 <?php
 /**
- * @package WooCommerce\Tests\PaymentGateways
+ * @package PooCommerce\Tests\PaymentGateways
  */
 
 /**
@@ -60,9 +60,9 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 		int $enable_tracks_count,
 		int $disable_tracks_count
 	): void {
-		$option_name     = 'woocommerce_cod_settings';
+		$option_name     = 'poocommerce_cod_settings';
 		$gateway         = $this->sut->payment_gateways()['cod'];
-		$tracking_option = get_option( 'woocommerce_allow_tracking', null );
+		$tracking_option = get_option( 'poocommerce_allow_tracking', null );
 		$current_user_id = get_current_user_id();
 
 		if ( null === $enabled_default ) {
@@ -99,19 +99,19 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		$providers_service = $this->createStub( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
+		$providers_service = $this->createStub( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
 		$providers_service->method( 'get_payment_gateway_details' )->willReturn( array() );
-		wc_get_container()->replace( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class, $providers_service );
+		wc_get_container()->replace( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class, $providers_service );
 
 		$enabled_gateways = array();
 		$action_watcher   = function ( $gateway ) use ( &$enabled_gateways ) {
 			$enabled_gateways[] = $gateway;
 		};
-		add_action( 'woocommerce_payment_gateway_enabled', $action_watcher );
+		add_action( 'poocommerce_payment_gateway_enabled', $action_watcher );
 
 		try {
 			wp_set_current_user( 0 );
-			update_option( 'woocommerce_allow_tracking', 'yes' );
+			update_option( 'poocommerce_allow_tracking', 'yes' );
 
 			delete_option( $option_name );
 			if ( null === $old_value ) {
@@ -157,15 +157,15 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 				$this->assertSame( array( 'source' => 'payment-gateways' ), $fake_logger->warnings[ $warning_index ]['data'], "The malformed {$warning_side} value warning should use the payment-gateways source." );
 			}
 		} finally {
-			remove_action( 'woocommerce_payment_gateway_enabled', $action_watcher );
-			wc_get_container()->reset_replacement( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
+			remove_action( 'poocommerce_payment_gateway_enabled', $action_watcher );
+			wc_get_container()->reset_replacement( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
 			$this->clear_tracks_events();
 			wp_set_current_user( $current_user_id );
 
 			if ( null === $tracking_option ) {
-				delete_option( 'woocommerce_allow_tracking' );
+				delete_option( 'poocommerce_allow_tracking' );
 			} else {
-				update_option( 'woocommerce_allow_tracking', $tracking_option );
+				update_option( 'poocommerce_allow_tracking', $tracking_option );
 			}
 		}
 	}
@@ -201,11 +201,11 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_payment_gateway_enabled_notification(): void {
 		$gateways          = $this->sut->payment_gateways();
-		$providers_service = $this->createMock( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
+		$providers_service = $this->createMock( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
 		$providers_service->expects( $this->exactly( count( $gateways ) ) )
 			->method( 'get_payment_gateway_details' )
 			->willReturn( array() );
-		wc_get_container()->replace( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class, $providers_service );
+		wc_get_container()->replace( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class, $providers_service );
 
 		// phpcs:disable Squiz.Commenting
 		$fake_logger = new class() {
@@ -231,7 +231,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 		$action_watcher = function ( $gateway ) use ( &$action_fired ) {
 			$action_fired[] = $gateway;
 		};
-		add_action( 'woocommerce_payment_gateway_enabled', $action_watcher );
+		add_action( 'poocommerce_payment_gateway_enabled', $action_watcher );
 
 		try {
 			foreach ( $gateways as $gateway ) {
@@ -256,8 +256,8 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 			$this->assertCount( count( $gateways ), $fake_logger->infos, 'Logger should run once per enabled gateway' );
 			$this->assertCount( count( $gateways ), $action_fired, 'Action should fire once per enabled gateway' );
 		} finally {
-			remove_action( 'woocommerce_payment_gateway_enabled', $action_watcher );
-			wc_get_container()->reset_replacement( \Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
+			remove_action( 'poocommerce_payment_gateway_enabled', $action_watcher );
+			wc_get_container()->reset_replacement( \Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders::class );
 		}
 	}
 
@@ -267,7 +267,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_get_payment_gateway_name_by_id_returns_gateway_title_for_known_gateway(): void {
-		// Test with a known gateway (bacs is available by default in WooCommerce).
+		// Test with a known gateway (bacs is available by default in PooCommerce).
 		$result = $this->sut->get_payment_gateway_name_by_id( 'bacs' );
 
 		// Should return a readable name, not just the ID.

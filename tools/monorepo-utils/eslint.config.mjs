@@ -6,10 +6,10 @@ import { globalIgnores } from 'eslint/config';
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 export default [
-	...woocommerce,
+	...poocommerce,
 	globalIgnores( [ 'dist/**' ] ),
 	{
 		rules: {

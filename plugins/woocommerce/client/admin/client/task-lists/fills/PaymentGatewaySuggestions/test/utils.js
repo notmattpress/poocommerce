@@ -4,15 +4,15 @@
 import { getSplitGateways, getIsWCPayOrOtherCategoryDoneSetup } from '../utils';
 
 const wcpay = {
-	id: 'woocommerce_payments:something',
-	plugins: [ 'woocommerce-payments' ],
+	id: 'poocommerce_payments:something',
+	plugins: [ 'poocommerce-payments' ],
 	installed: false,
 	needsSetup: true,
 };
 
 const wcpayBnpl = {
-	id: 'woocommerce_payments:bnpl',
-	plugins: [ 'woocommerce-payments' ],
+	id: 'poocommerce_payments:bnpl',
+	plugins: [ 'poocommerce-payments' ],
 	installed: true,
 	needsSetup: false,
 };

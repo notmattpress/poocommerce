@@ -3,17 +3,17 @@
  */
 import clsx from 'clsx';
 import { useState, useEffect, useMemo } from '@wordpress/element';
-import Button from '@woocommerce/base-components/button';
-import { CHECKOUT_URL } from '@woocommerce/block-settings';
-import { usePositionRelativeToViewport } from '@woocommerce/base-hooks';
-import { getSetting } from '@woocommerce/settings';
+import Button from '@poocommerce/base-components/button';
+import { CHECKOUT_URL } from '@poocommerce/block-settings';
+import { usePositionRelativeToViewport } from '@poocommerce/base-hooks';
+import { getSetting } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
-import { cartStore, checkoutStore } from '@woocommerce/block-data';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { isErrorResponse } from '@woocommerce/types';
-import { useCartEventsContext } from '@woocommerce/base-context/providers';
-import { Spinner } from '@woocommerce/blocks-components';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { cartStore, checkoutStore } from '@poocommerce/block-data';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { isErrorResponse } from '@poocommerce/types';
+import { useCartEventsContext } from '@poocommerce/base-context/providers';
+import { Spinner } from '@poocommerce/blocks-components';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies

@@ -17,7 +17,7 @@ const USAGE = `Usage:
     Requires git and git-filter-repo. --branch defaults to "main".
 
   monorepo-merge transfer-issues <org/repo> [--destination <org/repo>] [--searchFilter <filter>] [--labels <a,b>] [--dry-run]
-    Transfers issues into --destination (default "woocommerce/woocommerce").
+    Transfers issues into --destination (default "poocommerce/poocommerce").
     --searchFilter defaults to "is:open". --labels are added after the transfer.
     --dry-run runs every lookup and lists what would be transferred, without prompting or changing anything.
     The token comes from GH_TOKEN, GITHUB_TOKEN, or "gh auth token" and needs the repo and project scopes.`;
@@ -32,7 +32,7 @@ const COMMANDS = {
 	'transfer-issues': {
 		arguments: 1,
 		options: {
-			destination: { type: 'string', default: 'woocommerce/woocommerce' },
+			destination: { type: 'string', default: 'poocommerce/poocommerce' },
 			searchFilter: { type: 'string', default: 'is:open' },
 			labels: { type: 'string' },
 			'dry-run': { type: 'boolean', default: false },

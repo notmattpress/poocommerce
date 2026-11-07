@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { useExpressPaymentMethods } from '@woocommerce/base-context/hooks';
+import { useExpressPaymentMethods } from '@poocommerce/base-context/hooks';
 import clsx from 'clsx';
-import { ExpressPaymentControls } from '@woocommerce/blocks/cart-checkout-shared';
+import { ExpressPaymentControls } from '@poocommerce/blocks/cart-checkout-shared';
 import type { BlockAttributes } from '@wordpress/blocks';
 
 /**
@@ -27,7 +27,7 @@ export const Edit = ( {
 	const blockProps = useBlockProps( {
 		className: clsx(
 			{
-				'wp-block-woocommerce-checkout-express-payment-block--has-express-payment-methods':
+				'wp-block-poocommerce-checkout-express-payment-block--has-express-payment-methods':
 					hasExpressPaymentMethods,
 			},
 			attributes?.className

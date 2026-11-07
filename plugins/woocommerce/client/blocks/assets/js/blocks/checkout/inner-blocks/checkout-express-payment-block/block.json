@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-express-payment-block",
+	"name": "poocommerce/checkout-express-payment-block",
 	"title": "Express Checkout",
 	"description": "Allow customers to breeze through with quick payment options.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -37,9 +37,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-fields-block"
+		"poocommerce/checkout-fields-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

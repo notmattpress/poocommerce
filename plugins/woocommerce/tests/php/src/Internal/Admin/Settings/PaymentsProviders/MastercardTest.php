@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\Mastercard;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\Mastercard;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 

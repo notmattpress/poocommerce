@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
 
 /**
  * `CSSNamespace` represents an `@namespace` rule.

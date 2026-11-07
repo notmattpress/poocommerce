@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { useUserPreferences } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -12,15 +12,15 @@ import { DisplayOptions } from '../';
 import { isTaskListActive } from '../../../hooks/use-tasklists-state';
 import { isFeatureEnabled } from '~/utils/features';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 jest.mock( '../../../hooks/use-tasklists-state', () => ( {
 	isTaskListActive: jest.fn().mockReturnValue( false ),
 } ) );
 jest.mock( '~/utils/features', () => ( {
 	isFeatureEnabled: jest.fn().mockReturnValue( true ),
 } ) );
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: jest
 		.fn()
 		.mockReturnValue( { updateUserPreferences: jest.fn() } ),

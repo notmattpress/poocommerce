@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Exceptions;
+namespace Automattic\PooCommerce\StoreApi\Exceptions;
 
 use WP_Error;
 
@@ -33,7 +33,7 @@ class InvalidCartException extends \Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string   $error_code      Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+	 * @param string   $error_code      Machine-readable error code, e.g `poocommerce_invalid_product_id`.
 	 * @param WP_Error $error           The WP_Error object containing all errors relating to stock availability.
 	 * @param array    $additional_data Extra data (key value pairs) to expose in the error response.
 	 */

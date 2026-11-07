@@ -12,9 +12,9 @@ import type { ChequeSettings } from '../types';
 export const field: Field< ChequeSettings > = {
 	id: 'title',
 	type: 'text',
-	label: __( 'Title', 'woocommerce' ),
+	label: __( 'Title', 'poocommerce' ),
 	description: __(
 		'Payment method name that the customer will see during checkout.',
-		'woocommerce'
+		'poocommerce'
 	),
 };

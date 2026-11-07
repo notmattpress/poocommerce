@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position;
 
 /**
  * Provides a standard reusable implementation of `Positionable`.

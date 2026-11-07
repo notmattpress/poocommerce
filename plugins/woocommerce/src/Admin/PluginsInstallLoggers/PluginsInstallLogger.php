@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\PluginsInstallLoggers;
+namespace Automattic\PooCommerce\Admin\PluginsInstallLoggers;
 
 /**
  * A logger used in PluginsHelper::install_plugins to log the installation progress.

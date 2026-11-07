@@ -2,9 +2,9 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/2.1.0) - 2026-10-20 
+## [2.1.0](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/2.1.0) - 2026-10-20 
 
--   Patch - Fix dependency installation for generated extensions by matching WooCommerce's React peer requirements. [#70014]
+-   Patch - Fix dependency installation for generated extensions by matching PooCommerce's React peer requirements. [#70014]
 -   Patch - Fix ESLint errors in the default scaffolded extension: allow the extension's own text domain, skip `no-require-imports` on CommonJS config files, declare `@wordpress/components`/`@wordpress/element`, and fix the example page's undefined `setInlineSelect` handler. [#66788]
 -   Patch - Fix JavaScript linting in generated extension projects. [#70023]
 -   Patch - Pin wp-prettier in scaffolded extensions so `prettier/prettier` stops reporting WordPress code style as errors. [#66762]
@@ -13,14 +13,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Removed stray wireit devDependency. [#65210]
 -   Patch - Update PHP development dependencies to versions that resolve reported security advisories. [#67596]
 
-## [2.0.1](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/2.0.1) - 2025-12-12 
+## [2.0.1](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/2.0.1) - 2025-12-12 
 
 -   Patch - Replace deprecated "templatesPath" with "blockTemplatesPath" and "pluginTemplatesPath" properties. [#62417]
 
-## [2.0.0](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/2.0.0) - 2025-12-10 
+## [2.0.0](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/2.0.0) - 2025-12-10 
 
 -   Patch - Correcting directory and filename casing to address bug with PHP autoloader. [#48992]
--   Patch - Update Woo.com references to WooCommerce.com. [#46259]
+-   Patch - Update Woo.com references to PooCommerce.com. [#46259]
 -   Patch - Bump wireit dependency version to latest. [#57299]
 -   Patch - CI: liverage composer packages cache in lint monorepo job [#52054]
 -   Patch - Fix pnpm version to 9.1.3 to avoid dependency installation issues. [#50828]
@@ -33,27 +33,27 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Fix typos in README.md files [#48569]
 -   Major [ **BREAKING CHANGE** ] - Adds variants for multiple extension scaffolds, templatesPath moved to variants/default subdirectory, new variants API structure introduced, postinstall script modified, and @wordpress/scripts version unpinned [#62297]
 
-## [1.1.0](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/1.1.0) - 2024-01-31 
+## [1.1.0](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/1.1.0) - 2024-01-31 
 
 -   Patch - bump php version in packages/js/*/composer.json [#42020]
--   Patch - update references to woocommerce.com to now reference woo.com [#41241]
--   Patch - Update WooCommerce version to latest [#44107]
+-   Patch - update references to poocommerce.com to now reference woo.com [#41241]
+-   Patch - Update PooCommerce version to latest [#44107]
 -   Minor - Update pnpm monorepo-wide to 8.6.5 [#38990]
 -   Minor - Update pnpm to 8.6.7 [#39245]
 -   Minor - Update pnpm to version 8. [#37915]
 
-## [1.0.2](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/1.0.2) - 2023-02-13 
+## [1.0.2](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/1.0.2) - 2023-02-13 
 
 -   Patch - Add examples of Woo components package [#36732]
--   Patch - bump WooCommerce version [#36732]
+-   Patch - bump PooCommerce version [#36732]
 -   Patch - Update readme [#36732]
 
-## [1.0.1](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/1.0.1) - 2022-12-20 
+## [1.0.1](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/1.0.1) - 2022-12-20 
 
 -   Patch - Fix install scripts [#34385]
 
-## [1.0.0](https://www.npmjs.com/package/@woocommerce/create-woo-extension/v/1.0.0) - 2022-12-15 
+## [1.0.0](https://www.npmjs.com/package/@poocommerce/create-woo-extension/v/1.0.0) - 2022-12-15 
 
 -   Patch - Add WC validation [#35947]
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/create-woo-extension/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/create-woo-extension/CHANGELOG.md).

@@ -1,11 +1,11 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
 
 /**
  * NotificationTests data tests.
@@ -314,7 +314,7 @@ class NotificationTests extends \WC_Unit_Test_Case {
 				$notification->$stage_method();
 				$this->fail( $stage_method . ' did not refuse the class.' );
 			} catch ( \WC_Data_Exception $e ) {
-				$this->assertSame( 'woocommerce_data_staging_unsupported', $e->getErrorCode() );
+				$this->assertSame( 'poocommerce_data_staging_unsupported', $e->getErrorCode() );
 				$this->assertStringContainsString( $stage_method . '()', $e->getMessage() );
 			}
 		}

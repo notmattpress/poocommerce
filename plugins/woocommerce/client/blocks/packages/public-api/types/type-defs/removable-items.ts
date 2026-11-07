@@ -12,7 +12,7 @@ export interface RemovableItemsContext {
 
 export type RemovableItemsBlockContext = {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	'woocommerce/removableItems': RemovableItemsContext;
+	'poocommerce/removableItems': RemovableItemsContext;
 };
 
 /**

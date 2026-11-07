@@ -2,7 +2,7 @@
 /**
  * Tests for Coupons API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
@@ -12,7 +12,7 @@ require_once __DIR__ . '/date-filtering.php';
 
 /**
  * Coupon API Tests
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
@@ -56,9 +56,9 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	public function test_get_coupons() {
 		wp_set_current_user( $this->user );
 
-		$coupon_1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon_1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$post_1   = get_post( $coupon_1->get_id() );
-		$coupon_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
+		$coupon_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/coupons' ) );
 		$coupons  = $response->get_data();
@@ -139,7 +139,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_coupon() {
 		wp_set_current_user( $this->user );
-		$coupon   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$post     = get_post( $coupon->get_id() );
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/coupons/' . $coupon->get_id() ) );
 		$data     = $response->get_data();
@@ -196,7 +196,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_coupon_without_permission() {
 		wp_set_current_user( 0 );
-		$coupon   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/coupons/' . $coupon->get_id() ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -305,7 +305,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_coupon() {
 		wp_set_current_user( $this->user );
-		$coupon = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$post   = get_post( $coupon->get_id() );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/coupons/' . $coupon->get_id() ) );
@@ -356,7 +356,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_coupon_without_permission() {
 		wp_set_current_user( 0 );
-		$coupon = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$post   = get_post( $coupon->get_id() );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/coupons/' . $coupon->get_id() );
@@ -377,7 +377,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_coupon() {
 		wp_set_current_user( $this->user );
-		$coupon  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/coupons/' . $coupon->get_id() );
 		$request->set_param( 'force', true );
 		$response = $this->server->dispatch( $request );
@@ -403,7 +403,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_coupon_without_permission() {
 		wp_set_current_user( 0 );
-		$coupon   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 		$request  = new WP_REST_Request( 'DELETE', '/wc/v3/coupons/' . $coupon->get_id() );
 		$response = $this->server->dispatch( $request );
 
@@ -417,10 +417,10 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	public function test_batch_coupon() {
 		wp_set_current_user( $this->user );
 
-		$coupon_1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
-		$coupon_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
-		$coupon_3 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-3' );
-		$coupon_4 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-4' );
+		$coupon_1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		$coupon_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-2' );
+		$coupon_3 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-3' );
+		$coupon_4 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-4' );
 
 		$request = new WP_REST_Request( 'POST', '/wc/v3/coupons/batch' );
 		$request->set_body_params(
@@ -506,7 +506,7 @@ class WC_Tests_API_Coupons extends WC_REST_Unit_Test_Case {
 	 * @return object The created object.
 	 */
 	private function get_item_for_date_filtering_tests() {
-		return \Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
+		return \Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper::create_coupon( 'dummycoupon-1' );
 	}
 
 	/**

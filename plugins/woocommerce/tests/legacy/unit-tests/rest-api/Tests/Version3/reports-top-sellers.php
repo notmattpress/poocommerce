@@ -2,12 +2,12 @@
 /**
  * Tests for the reports top sellers REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Tests_API_Reports_Top_Sellers.

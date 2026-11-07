@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { Button, Icon } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,22 +24,22 @@ const SLIDES = [
 	{
 		imageUrl: moneyBack,
 		title: refundPolicyTitle( 'banner' ),
-		textTitle: __( '30-day money-back guarantee', 'woocommerce' ),
+		textTitle: __( '30-day money-back guarantee', 'poocommerce' ),
 	},
 	{
 		imageUrl: getHelp,
 		title: supportTitle( 'banner' ),
-		textTitle: __( 'Get help when you need it', 'woocommerce' ),
+		textTitle: __( 'Get help when you need it', 'poocommerce' ),
 	},
 	{
 		imageUrl: trustProducts,
 		title: paymentTitle( 'banner' ),
-		textTitle: __( 'Products you can trust', 'woocommerce' ),
+		textTitle: __( 'Products you can trust', 'poocommerce' ),
 	},
 	{
 		imageUrl: supportEcosystem,
-		title: __( 'Support the ecosystem', 'woocommerce' ),
-		textTitle: __( 'Support the ecosystem', 'woocommerce' ),
+		title: __( 'Support the ecosystem', 'poocommerce' ),
+		textTitle: __( 'Support the ecosystem', 'poocommerce' ),
 	},
 ];
 
@@ -98,12 +98,12 @@ export default function ProductFeaturedBanner() {
 
 	return (
 		<div
-			className="woocommerce-marketplace__banner"
+			className="poocommerce-marketplace__banner"
 			role="region"
 			aria-roledescription="carousel"
 			aria-label={ __(
 				'Marketplace features with four slides',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onMouseEnter={ handlePause }
 			onMouseLeave={ handleResume }
@@ -129,8 +129,8 @@ export default function ProductFeaturedBanner() {
 							aria-setsize={ SLIDES.length }
 							aria-label={ `${ slide.textTitle } - ${ __(
 								'Slide',
-								'woocommerce'
-							) } ${ index + 1 } ${ __( 'of', 'woocommerce' ) } ${
+								'poocommerce'
+							) } ${ index + 1 } ${ __( 'of', 'poocommerce' ) } ${
 								SLIDES.length
 							}` }
 							tabIndex={ index === activeIndex ? 0 : -1 }
@@ -139,9 +139,9 @@ export default function ProductFeaturedBanner() {
 							<img
 								src={ slide.imageUrl }
 								alt=""
-								className="woocommerce-marketplace__banner-image"
+								className="poocommerce-marketplace__banner-image"
 							/>
-							<h3 className="woocommerce-marketplace__banner-title">
+							<h3 className="poocommerce-marketplace__banner-title">
 								{ slide.title }
 							</h3>
 						</li>
@@ -153,7 +153,7 @@ export default function ProductFeaturedBanner() {
 				onClick={ handleDismiss }
 				aria-label={ __(
 					'Dismiss Marketplace features carousel',
-					'woocommerce'
+					'poocommerce'
 				) }
 			>
 				<Icon icon="no-alt" />

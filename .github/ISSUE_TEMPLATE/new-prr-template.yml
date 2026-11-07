@@ -20,7 +20,7 @@ body:
       label: "Which PR needs to be included? (please do not enter multiple PRs)"
       description: "Pull request URL against the release branch"
       placeholder: |
-        https://github.com/woocommerce/woocommerce/pull/1234
+        https://github.com/poocommerce/poocommerce/pull/1234
     validations:
       required: true
   - type: textarea
@@ -47,7 +47,7 @@ body:
   - type: textarea
     id: how-to-communicate
     attributes:
-      label: "How should this change be communicated in the release post on the public developer blog: cc @woocommerce/developer-advocacy"
+      label: "How should this change be communicated in the release post on the public developer blog: cc @poocommerce/developer-advocacy"
       description: "See the blog at [https://developer.woo.com/blog/](https://developer.woo.com/blog/)"
       placeholder: "There is no need to add new communication to the already planned one."
     validations:

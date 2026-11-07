@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { ReactElement } from 'react';
-import type { PackageRateOption } from '@woocommerce/type-defs/shipping';
-import type { CartShippingPackageShippingRate } from '@woocommerce/type-defs/cart';
+import type { PackageRateOption } from '@poocommerce/type-defs/shipping';
+import type { CartShippingPackageShippingRate } from '@poocommerce/type-defs/cart';
 
 export interface PackageItem {
 	name: string;
@@ -37,7 +37,7 @@ export type PackageRateRenderOption = (
 export type TernaryFlag = boolean | undefined;
 
 export interface PackageProps {
-	/* PackageId can be a string, WooCommerce Subscriptions uses strings for example, but WooCommerce core uses numbers */
+	/* PackageId can be a string, PooCommerce Subscriptions uses strings for example, but PooCommerce core uses numbers */
 	packageId: string | number;
 	renderOption?: PackageRateRenderOption | undefined;
 	collapse?: boolean;

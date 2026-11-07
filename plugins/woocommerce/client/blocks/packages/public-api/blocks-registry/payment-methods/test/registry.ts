@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethodExtensionCallbacks } from '@woocommerce/blocks-registry';
+import { registerPaymentMethodExtensionCallbacks } from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { canMakePaymentExtensionsCallbacks } from '../extensions-config';
 describe( 'registerPaymentMethodExtensionCallbacks', () => {
 	it( 'Logs an error to console if namespace is already registered', () => {
 		registerPaymentMethodExtensionCallbacks(
-			'woocommerce-marketplace-extension',
+			'poocommerce-marketplace-extension',
 			{
 				cod: () => false,
 			}
@@ -19,7 +19,7 @@ describe( 'registerPaymentMethodExtensionCallbacks', () => {
 
 		expect( console ).not.toHaveErrored();
 		registerPaymentMethodExtensionCallbacks(
-			'woocommerce-marketplace-extension',
+			'poocommerce-marketplace-extension',
 			{
 				cod: () => false,
 			}
@@ -56,7 +56,7 @@ describe( 'registerPaymentMethodExtensionCallbacks', () => {
 
 	it( 'Logs an error if a supplied callback is not a function and does not register the callback for that method', () => {
 		registerPaymentMethodExtensionCallbacks(
-			'other-woocommerce-marketplace-extension',
+			'other-poocommerce-marketplace-extension',
 			{
 				cod: false,
 				cheque: () => true,
@@ -65,16 +65,16 @@ describe( 'registerPaymentMethodExtensionCallbacks', () => {
 
 		expect( console ).toHaveErrored();
 		expect( canMakePaymentExtensionsCallbacks ).toHaveProperty(
-			'other-woocommerce-marketplace-extension'
+			'other-poocommerce-marketplace-extension'
 		);
 		expect(
 			canMakePaymentExtensionsCallbacks[
-				'other-woocommerce-marketplace-extension'
+				'other-poocommerce-marketplace-extension'
 			]
 		).not.toHaveProperty( 'cod' );
 		expect(
 			canMakePaymentExtensionsCallbacks[
-				'other-woocommerce-marketplace-extension'
+				'other-poocommerce-marketplace-extension'
 			]
 		).toHaveProperty( 'cheque' );
 	} );
@@ -82,13 +82,13 @@ describe( 'registerPaymentMethodExtensionCallbacks', () => {
 	it( 'Adds the namespace and callbacks to the canMakePaymentExtensionCallbacks object', () => {
 		// We are using a new namespace here because canMakePaymentExtensionsCallbacks cannot be reset between tests.
 		registerPaymentMethodExtensionCallbacks(
-			'third-woocommerce-marketplace-extension',
+			'third-poocommerce-marketplace-extension',
 			{
 				cod: () => false,
 			}
 		);
 		expect( canMakePaymentExtensionsCallbacks ).toHaveProperty(
-			'third-woocommerce-marketplace-extension'
+			'third-poocommerce-marketplace-extension'
 		);
 	} );
 } );

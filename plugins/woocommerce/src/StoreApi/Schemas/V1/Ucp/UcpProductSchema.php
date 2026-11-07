@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ProductSchema;
 
 /**
  * Product schema whose item responses carry raw strings, for the UCP catalog routes.

@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/accordion-panel",
+	"name": "poocommerce/accordion-panel",
 	"title": "Accordion Panel",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Accordion Panel",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "woocommerce/accordion-item" ],
+	"parent": [ "poocommerce/accordion-item" ],
 	"supports": {
 		"color": {
 			"background": true,
@@ -71,5 +71,5 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce"
+	"textdomain": "poocommerce"
 }

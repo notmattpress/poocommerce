@@ -2,18 +2,18 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	PlaceOrderButton,
 	ReturnToCartButton,
-} from '@woocommerce/base-components/cart-checkout';
-import { useCheckoutSubmit } from '@woocommerce/base-context/hooks';
-import { noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { CART_URL } from '@woocommerce/block-settings';
+} from '@poocommerce/base-components/cart-checkout';
+import { useCheckoutSubmit } from '@poocommerce/base-context/hooks';
+import { noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { CART_URL } from '@poocommerce/block-settings';
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -74,7 +74,7 @@ const Block = ( {
 	const showPrice = className?.includes( 'is-style-with-price' ) || false;
 
 	// A required checkbox goes above the button; consent text goes below it. Extensions can hide the terms
-	// with the woocommerce_checkout_show_terms filter.
+	// with the poocommerce_checkout_show_terms filter.
 	const terms =
 		showTerms && getSetting( 'checkoutShowTerms', true ) ? (
 			<TermsAndConditions
@@ -82,7 +82,7 @@ const Block = ( {
 				checkbox={ !! termsCheckbox }
 				showSeparator={ false }
 				// Matches the Terms block wrapper, which extensions target.
-				className="wp-block-woocommerce-checkout-terms-block"
+				className="wp-block-poocommerce-checkout-terms-block"
 			/>
 		) : null;
 

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain;
 
-use Automattic\WooCommerce\Blocks\Domain\BlockRegistrationContext;
+use Automattic\PooCommerce\Blocks\Domain\BlockRegistrationContext;
 use WC_Unit_Test_Case;
 
 /**
@@ -147,27 +147,27 @@ class BlockRegistrationContextTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should not register on a WooCommerce admin page (admin.php?page=wc-*).
-	 * @dataProvider woocommerce_admin_page_provider
+	 * @testdox Should not register on a PooCommerce admin page (admin.php?page=wc-*).
+	 * @dataProvider poocommerce_admin_page_provider
 	 *
-	 * @param string $page The ?page= query value for the WooCommerce admin screen.
+	 * @param string $page The ?page= query value for the PooCommerce admin screen.
 	 */
-	public function test_should_not_register_on_woocommerce_admin_page( string $page ): void {
+	public function test_should_not_register_on_poocommerce_admin_page( string $page ): void {
 		$_SERVER['REQUEST_URI'] = '/wp-admin/admin.php?page=' . $page;
-		$this->simulate_admin_page( 'woocommerce_page_' . $page, 'admin.php', $page );
+		$this->simulate_admin_page( 'poocommerce_page_' . $page, 'admin.php', $page );
 
 		$this->assertFalse(
 			$this->sut->should_register(),
-			sprintf( 'A WooCommerce admin page (page=%s) should not register blocks.', $page )
+			sprintf( 'A PooCommerce admin page (page=%s) should not register blocks.', $page )
 		);
 	}
 
 	/**
-	 * Data provider for WooCommerce admin pages.
+	 * Data provider for PooCommerce admin pages.
 	 *
 	 * @return array<string, array{0:string}>
 	 */
-	public function woocommerce_admin_page_provider(): array {
+	public function poocommerce_admin_page_provider(): array {
 		return array(
 			'wc-admin'    => array( 'wc-admin' ),
 			'wc-settings' => array( 'wc-settings' ),
@@ -179,15 +179,15 @@ class BlockRegistrationContextTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should still register on a non-WooCommerce admin page.
+	 * @testdox Should still register on a non-PooCommerce admin page.
 	 */
-	public function test_should_register_on_non_woocommerce_admin_page(): void {
+	public function test_should_register_on_non_poocommerce_admin_page(): void {
 		$_SERVER['REQUEST_URI'] = '/wp-admin/admin.php?page=some-other-plugin';
 		$this->simulate_admin_page( 'toplevel_page_some-other-plugin', 'admin.php', 'some-other-plugin' );
 
 		$this->assertTrue(
 			$this->sut->should_register(),
-			'A non-WooCommerce admin page should still register blocks.'
+			'A non-PooCommerce admin page should still register blocks.'
 		);
 	}
 

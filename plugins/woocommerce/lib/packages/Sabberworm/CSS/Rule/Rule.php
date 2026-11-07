@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Rule;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Rule;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\RuleValueList;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\RuleValueList;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Value;
 
 /**
  * `Rule`s just have a string key (the rule) and a 'Value'.

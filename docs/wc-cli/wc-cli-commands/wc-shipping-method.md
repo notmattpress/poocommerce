@@ -3,7 +3,7 @@ title: wc shipping_method
 sidebar_label: wc shipping_method
 ---
 
-Manage WooCommerce shipping method resources.
+Manage PooCommerce shipping method resources.
 
 ## wc shipping_method list
 

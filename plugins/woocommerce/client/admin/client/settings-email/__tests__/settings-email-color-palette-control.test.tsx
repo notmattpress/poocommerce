@@ -36,27 +36,27 @@ const jQueryAdapter: JQueryAdapter = ( selector ) => {
 
 const colorFields = [
 	{
-		id: 'woocommerce_email_base_color',
+		id: 'poocommerce_email_base_color',
 		label: 'Accent',
 		key: 'baseColor',
 	},
 	{
-		id: 'woocommerce_email_background_color',
+		id: 'poocommerce_email_background_color',
 		label: 'Email background',
 		key: 'bgColor',
 	},
 	{
-		id: 'woocommerce_email_body_background_color',
+		id: 'poocommerce_email_body_background_color',
 		label: 'Content background',
 		key: 'bodyBgColor',
 	},
 	{
-		id: 'woocommerce_email_text_color',
+		id: 'poocommerce_email_text_color',
 		label: 'Heading and text',
 		key: 'bodyTextColor',
 	},
 	{
-		id: 'woocommerce_email_footer_text_color',
+		id: 'poocommerce_email_footer_text_color',
 		label: 'Secondary text',
 		key: 'footerTextColor',
 	},
@@ -140,7 +140,7 @@ describe( 'ResetStylesControl', () => {
 
 		autoSyncInput = document.createElement( 'input' );
 		autoSyncInput.type = 'hidden';
-		autoSyncInput.id = 'woocommerce_email_auto_sync_with_theme';
+		autoSyncInput.id = 'poocommerce_email_auto_sync_with_theme';
 		autoSyncInput.value = 'yes';
 		settingsFixture.appendChild( autoSyncInput );
 
