@@ -1,16 +1,16 @@
 <?php
 /**
- * Unit tests for Automattic\WooCommerce\Gateways\PayPal\Buttons class.
+ * Unit tests for Automattic\PooCommerce\Gateways\PayPal\Buttons class.
  *
- * @package WooCommerce\Tests\Gateways\Paypal
+ * @package PooCommerce\Tests\Gateways\Paypal
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Buttons as PayPalButtons;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Gateways\PayPal\Buttons as PayPalButtons;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Class ButtonsTest.
@@ -73,8 +73,8 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_paypal_client_id_live' );
-		delete_option( 'woocommerce_paypal_client_id_sandbox' );
+		delete_option( 'poocommerce_paypal_client_id_live' );
+		delete_option( 'poocommerce_paypal_client_id_sandbox' );
 
 		// Restore original global post.
 		global $post;
@@ -83,7 +83,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		$post = $this->original_post;
 
 		// Remove any filters that might have been added.
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 
 		parent::tearDown();
 	}
@@ -155,9 +155,9 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 	public function test_get_page_type_returns_correct_value( $is_cart, $expected_page_type ): void {
 		// Mock WordPress conditional functions using filters.
 		if ( $is_cart ) {
-			add_filter( 'woocommerce_is_cart', '__return_true' );
+			add_filter( 'poocommerce_is_cart', '__return_true' );
 		} else {
-			add_filter( 'woocommerce_is_cart', '__return_false' );
+			add_filter( 'poocommerce_is_cart', '__return_false' );
 		}
 
 		$page_type = $this->buttons->get_page_type();
@@ -205,7 +205,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		$this->mock_gateway->testmode = false;
 
 		// Set cached client ID.
-		update_option( 'woocommerce_paypal_client_id_live', 'cached_client_id' );
+		update_option( 'poocommerce_paypal_client_id_live', 'cached_client_id' );
 
 		$client_id = $this->buttons->get_client_id();
 
@@ -221,7 +221,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		$this->mock_gateway->testmode = true;
 
 		// Set sandbox client ID.
-		update_option( 'woocommerce_paypal_client_id_sandbox', 'sandbox_client_id' );
+		update_option( 'poocommerce_paypal_client_id_sandbox', 'sandbox_client_id' );
 
 		$client_id = $this->buttons->get_client_id();
 
@@ -247,7 +247,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		$client_id = $buttons->get_client_id();
 
 		$this->assertEquals( 'test_client_id', $client_id );
-		$this->assertEquals( 'test_client_id', get_option( 'woocommerce_paypal_client_id_live' ) );
+		$this->assertEquals( 'test_client_id', get_option( 'poocommerce_paypal_client_id_live' ) );
 	}
 
 	/**
@@ -314,9 +314,9 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		);
 
 		if ( $is_cart ) {
-			add_filter( 'woocommerce_is_cart', '__return_true' );
+			add_filter( 'poocommerce_is_cart', '__return_true' );
 		} else {
-			add_filter( 'woocommerce_is_cart', '__return_false' );
+			add_filter( 'poocommerce_is_cart', '__return_false' );
 		}
 
 		$url = $this->buttons->get_current_page_for_app_switch();
@@ -334,9 +334,9 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		wc_get_container()->get( LegacyProxy::class )->reset();
 
 		if ( $is_cart ) {
-			remove_filter( 'woocommerce_is_cart', '__return_true' );
+			remove_filter( 'poocommerce_is_cart', '__return_true' );
 		} else {
-			remove_filter( 'woocommerce_is_cart', '__return_false' );
+			remove_filter( 'poocommerce_is_cart', '__return_false' );
 		}
 	}
 
@@ -397,7 +397,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 				'is_checkout' => fn() => false,
 			)
 		);
-		add_filter( 'woocommerce_is_cart', '__return_false' );
+		add_filter( 'poocommerce_is_cart', '__return_false' );
 
 		$url = $this->buttons->get_current_page_for_app_switch();
 
@@ -406,7 +406,7 @@ class ButtonsTest extends \WC_Unit_Test_Case {
 		// Clean up.
 		wp_delete_post( $post_id, true );
 		wc_get_container()->get( LegacyProxy::class )->reset();
-		remove_filter( 'woocommerce_is_cart', '__return_false' );
+		remove_filter( 'poocommerce_is_cart', '__return_false' );
 	}
 
 	/**

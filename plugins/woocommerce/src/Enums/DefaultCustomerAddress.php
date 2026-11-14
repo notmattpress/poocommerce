@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
- * Enum class for the possible values of the 'woocommerce_default_customer_address' option.
+ * Enum class for the possible values of the 'poocommerce_default_customer_address' option.
  *
  * @since 10.8.0
  */

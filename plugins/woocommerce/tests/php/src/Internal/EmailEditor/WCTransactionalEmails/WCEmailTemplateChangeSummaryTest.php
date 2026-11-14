@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCEmailTemplateChangeSummary class.
@@ -41,7 +41,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		$this->fixtures_base = __DIR__ . '/fixtures/';
 		$this->posts_manager = WCTransactionalEmailPostsManager::get_instance();
@@ -59,14 +59,14 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$this->cleanup_injected_emails();
 
-		remove_all_filters( 'woocommerce_transactional_emails_for_block_editor' );
-		remove_all_filters( 'woocommerce_email_content_post_data' );
+		remove_all_filters( 'poocommerce_transactional_emails_for_block_editor' );
+		remove_all_filters( 'poocommerce_email_content_post_data' );
 
 		WCEmailTemplateSyncRegistry::reset_cache();
 		WCEmailTemplateChangeSummary::reset_cache();
 		WCEmailTemplateChangeSummary::set_logger( null );
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 
 		parent::tearDown();
 	}
@@ -135,17 +135,17 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * Namespace-alias normalization: post uses `woo/email-content` while core
-	 * uses `woocommerce/email-content`. Should match as the same block, not
+	 * uses `poocommerce/email-content`. Should match as the same block, not
 	 * surface as add+remove.
 	 *
-	 * @testdox Should match `woo/email-content` and `woocommerce/email-content` as the same block via namespace-alias normalization.
+	 * @testdox Should match `woo/email-content` and `poocommerce/email-content` as the same block via namespace-alias normalization.
 	 */
 	public function test_summarize_normalizes_namespace_aliased_blocks(): void {
 		$email_id = 'change_summary_alias';
 		$this->register_fixture_email( $email_id );
 
 		$core_content = "<!-- wp:heading -->\n<h2>Hi</h2>\n<!-- /wp:heading -->\n\n"
-			. "<!-- wp:woocommerce/email-content -->\n<div class=\"wp-block-woocommerce-email-content\">##WOO_CONTENT##</div>\n<!-- /wp:woocommerce/email-content -->";
+			. "<!-- wp:poocommerce/email-content -->\n<div class=\"wp-block-poocommerce-email-content\">##WOO_CONTENT##</div>\n<!-- /wp:poocommerce/email-content -->";
 
 		$post_content = "<!-- wp:heading -->\n<h2>Hi</h2>\n<!-- /wp:heading -->\n\n"
 			. "<!-- wp:woo/email-content -->\n<div class=\"wp-block-woo-email-content\">##WOO_CONTENT##</div>\n<!-- /wp:woo/email-content -->";
@@ -394,7 +394,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 
 		$this->assertTrue( $result['is_fallback'] );
 		$this->assertSame(
-			array( __( 'Template updated — see release notes.', 'woocommerce' ) ),
+			array( __( 'Template updated — see release notes.', 'poocommerce' ) ),
 			$result['summary_lines']
 		);
 		$this->assertEmpty( $result['added_blocks'] );
@@ -418,7 +418,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 
 		$this->assertTrue( $result['is_fallback'] );
 		$this->assertSame(
-			array( __( 'Template updated — see release notes.', 'woocommerce' ) ),
+			array( __( 'Template updated — see release notes.', 'poocommerce' ) ),
 			$result['summary_lines']
 		);
 		$this->assertEmpty( $result['added_blocks'] );
@@ -642,8 +642,8 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 				'<!-- wp:paragraph --><p>We couldn\'t process your order — sorry.</p><!-- /wp:paragraph -->',
 			),
 			'padding inside the outer tag'        => array(
-				'<!-- wp:woocommerce/email-content --><div class="wp-block-woocommerce-email-content"> ##WOO_CONTENT## </div><!-- /wp:woocommerce/email-content -->',
-				'<!-- wp:woocommerce/email-content --><div class="wp-block-woocommerce-email-content">##WOO_CONTENT##</div><!-- /wp:woocommerce/email-content -->',
+				'<!-- wp:poocommerce/email-content --><div class="wp-block-poocommerce-email-content"> ##WOO_CONTENT## </div><!-- /wp:poocommerce/email-content -->',
+				'<!-- wp:poocommerce/email-content --><div class="wp-block-poocommerce-email-content">##WOO_CONTENT##</div><!-- /wp:poocommerce/email-content -->',
 			),
 		);
 	}
@@ -656,7 +656,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	 * @param string $saved_markup The block after the merchant's edit.
 	 */
 	public function test_merchant_edit_with_unchanged_text_is_detected( string $saved_markup ): void {
-		$template_markup = '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->';
+		$template_markup = '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->';
 
 		$base = WCEmailTemplateChangeSummary::flatten_blocks( parse_blocks( $template_markup ) )[0];
 		$post = WCEmailTemplateChangeSummary::flatten_blocks( parse_blocks( $saved_markup ) )[0];
@@ -673,11 +673,11 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	 */
 	public function provider_merchant_edits_with_unchanged_text(): array {
 		return array(
-			'colour'                       => array( '<!-- wp:paragraph {"style":{"color":{"text":"#ff0000"}}} --><p class="has-text-color" style="color:#ff0000">Hi <!--[woocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
-			'bold'                         => array( '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-first-name]-->, read <strong>more</strong> today.</p><!-- /wp:paragraph -->' ),
-			'link'                         => array( '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-first-name]-->, <a href="https://example.com">read more</a> today.</p><!-- /wp:paragraph -->' ),
-			'swapped personalization tag'  => array( '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-full-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
-			'block lock, no markup change' => array( '<!-- wp:paragraph {"lock":{"move":false,"remove":true}} --><p>Hi <!--[woocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
+			'colour'                       => array( '<!-- wp:paragraph {"style":{"color":{"text":"#ff0000"}}} --><p class="has-text-color" style="color:#ff0000">Hi <!--[poocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
+			'bold'                         => array( '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-first-name]-->, read <strong>more</strong> today.</p><!-- /wp:paragraph -->' ),
+			'link'                         => array( '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-first-name]-->, <a href="https://example.com">read more</a> today.</p><!-- /wp:paragraph -->' ),
+			'swapped personalization tag'  => array( '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-full-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
+			'block lock, no markup change' => array( '<!-- wp:paragraph {"lock":{"move":false,"remove":true}} --><p>Hi <!--[poocommerce/customer-first-name]-->, read more today.</p><!-- /wp:paragraph -->' ),
 		);
 	}
 
@@ -927,9 +927,9 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	public function test_flatten_blocks_hashes_markup(): void {
 		$record = static fn( string $markup ): array => WCEmailTemplateChangeSummary::flatten_blocks( parse_blocks( $markup ) )[0];
 
-		$first_name = '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-first-name]-->, thanks</p><!-- /wp:paragraph -->';
-		$full_name  = '<!-- wp:paragraph --><p>Hi <!--[woocommerce/customer-full-name]-->, thanks</p><!-- /wp:paragraph -->';
-		$respaced   = "<!-- wp:paragraph --><p>Hi\n  <!--[woocommerce/customer-first-name]-->, thanks</p><!-- /wp:paragraph -->";
+		$first_name = '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-first-name]-->, thanks</p><!-- /wp:paragraph -->';
+		$full_name  = '<!-- wp:paragraph --><p>Hi <!--[poocommerce/customer-full-name]-->, thanks</p><!-- /wp:paragraph -->';
+		$respaced   = "<!-- wp:paragraph --><p>Hi\n  <!--[poocommerce/customer-first-name]-->, thanks</p><!-- /wp:paragraph -->";
 
 		$this->assertSame(
 			$record( $first_name )['inner_text'],
@@ -1528,7 +1528,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 		$this->injected_email_keys[] = $class_key;
 
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			static function ( array $emails ) use ( $email_id ): array {
 				if ( ! in_array( $email_id, $emails, true ) ) {
 					$emails[] = $email_id;
@@ -1553,7 +1553,7 @@ class WCEmailTemplateChangeSummaryTest extends \WC_Unit_Test_Case {
 	 */
 	private function use_canonical_content( string $email_id, string $content ): void {
 		add_filter(
-			'woocommerce_email_content_post_data',
+			'poocommerce_email_content_post_data',
 			static function ( array $post_data, string $type ) use ( $email_id, $content ): array {
 				if ( $type === $email_id ) {
 					$post_data['post_content'] = $content;

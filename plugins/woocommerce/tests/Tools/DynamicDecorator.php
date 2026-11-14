@@ -2,10 +2,10 @@
 /**
  * DynamicDecorator class file.
  *
- * @package WooCommerce\Testing\Tools
+ * @package PooCommerce\Testing\Tools
  */
 
-namespace Automattic\WooCommerce\Testing\Tools;
+namespace Automattic\PooCommerce\Testing\Tools;
 
 /**
  * A class that allows to dynamically decorate an arbitrary object by selectively replace its public members,

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
 
 /**
  * WC_Email_Customer_Fulfillment_Created test.
@@ -32,7 +32,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default subject uses singular form when fulfillment has one item.
 	 */
 	public function test_default_subject_singular_for_one_item(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(
@@ -56,7 +56,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default subject uses plural form when fulfillment has multiple items.
 	 */
 	public function test_default_subject_plural_for_multiple_items(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(
@@ -85,7 +85,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default heading uses singular form when fulfillment has one item.
 	 */
 	public function test_default_heading_singular_for_one_item(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(
@@ -109,7 +109,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default heading uses plural form when fulfillment has multiple items.
 	 */
 	public function test_default_heading_plural_for_multiple_items(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(
@@ -137,7 +137,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default subject uses plural form when one item has multiple quantity.
 	 */
 	public function test_default_subject_plural_for_single_item_multiple_qty(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(
@@ -162,7 +162,7 @@ class WC_Email_Customer_Fulfillment_Created_Test extends \WC_Unit_Test_Case {
 	 * @testdox Default heading uses plural form when one item has multiple quantity.
 	 */
 	public function test_default_heading_plural_for_single_item_multiple_qty(): void {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$fulfillment = new Fulfillment();
 		$fulfillment->set_items(

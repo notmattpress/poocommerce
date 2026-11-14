@@ -4,9 +4,9 @@
 import { speak } from '@wordpress/a11y';
 import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { itemsStore } from '@woocommerce/data';
-import { navigateTo } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
+import { itemsStore } from '@poocommerce/data';
+import { navigateTo } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
 import { useEffect, useState } from '@wordpress/element';
 
 /**
@@ -55,7 +55,7 @@ export const useCreateProductByType = () => {
 
 	const createProductByType = async ( type: ProductTypeKey ) => {
 		setRequestingType( type );
-		speak( __( 'Creating your product…', 'woocommerce' ) );
+		speak( __( 'Creating your product…', 'poocommerce' ) );
 
 		const url = await getProductEditPageLink( type );
 		if ( url ) {

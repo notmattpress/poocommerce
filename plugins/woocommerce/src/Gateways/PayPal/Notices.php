@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 use WC_Order;
-use Automattic\WooCommerce\Gateways\PayPal\Helper as PayPalHelper;
+use Automattic\PooCommerce\Gateways\PayPal\Helper as PayPalHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -88,7 +88,7 @@ class Notices {
 	 */
 	public function add_paypal_notices(): void {
 		// Show only to users who can manage the site.
-		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) && ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -114,7 +114,7 @@ class Notices {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		$is_payments_settings_page = 'woocommerce_page_wc-settings' === $screen_id && 'checkout' === $current_tab && empty( $current_section );
+		$is_payments_settings_page = 'poocommerce_page_wc-settings' === $screen_id && 'checkout' === $current_tab && empty( $current_section );
 
 		// Only add the notice from this callback on the payments settings page.
 		if ( ! $is_payments_settings_page ) {
@@ -136,17 +136,17 @@ class Notices {
 			return;
 		}
 
-		$doc_url     = 'https://woocommerce.com/document/woocommerce-paypal-payments/paypal-payments-upgrade-guide/';
+		$doc_url     = 'https://poocommerce.com/document/poocommerce-paypal-payments/paypal-payments-upgrade-guide/';
 		$dismiss_url = $this->get_dismiss_url( self::PAYPAL_MIGRATION_NOTICE );
 		$message     = sprintf(
 			/* translators: 1: opening <a> tag, 2: closing </a> tag */
-			esc_html__( 'WooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience. If you do not prefer the upgraded integration in WooCommerce, we recommend switching to %1$sPayPal Payments%2$s extension.', 'woocommerce' ),
+			esc_html__( 'PooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience. If you do not prefer the upgraded integration in PooCommerce, we recommend switching to %1$sPayPal Payments%2$s extension.', 'poocommerce' ),
 			'<a href="' . esc_url( $doc_url ) . '" target="_blank" rel="noopener noreferrer">',
 			'</a>',
 		);
 
 		$notice_html = '<div class="notice notice-warning is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'woocommerce' ) . '"></a>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'poocommerce' ) . '"></a>'
 			. '<p>' . $message . '</p>'
 			. '</div>';
 
@@ -174,14 +174,14 @@ class Notices {
 		$dismiss_url = $this->get_dismiss_url( self::PAYPAL_ACCOUNT_RESTRICTED_NOTICE );
 		$message     = sprintf(
 			/* translators: 1: opening <a> tag, 2: closing </a> tag */
-			esc_html__( 'Your PayPal account has been restricted by PayPal. This may prevent customers from completing payments. Please %1$scontact PayPal support%2$s to resolve this issue and restore full functionality to your account.', 'woocommerce' ),
+			esc_html__( 'Your PayPal account has been restricted by PayPal. This may prevent customers from completing payments. Please %1$scontact PayPal support%2$s to resolve this issue and restore full functionality to your account.', 'poocommerce' ),
 			'<a href="' . esc_url( $support_url ) . '" target="_blank" rel="noopener noreferrer">',
 			'</a>',
 		);
 
 		$notice_html = '<div class="notice notice-error is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'woocommerce' ) . '"></a>'
-			. '<p><strong>' . esc_html__( 'PayPal Account Restricted', 'woocommerce' ) . '</strong></p>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'poocommerce' ) . '"></a>'
+			. '<p><strong>' . esc_html__( 'PayPal Account Restricted', 'poocommerce' ) . '</strong></p>'
 			. '<p>' . $message . '</p>'
 			. '</div>';
 
@@ -195,7 +195,7 @@ class Notices {
 	 * @return void
 	 */
 	private function add_paypal_unsupported_currency_notice(): void {
-		$currency = get_woocommerce_currency();
+		$currency = get_poocommerce_currency();
 
 		// Skip if the currency is supported by PayPal.
 		if ( $this->gateway->is_valid_for_use() ) {
@@ -210,12 +210,12 @@ class Notices {
 		$dismiss_url = $this->get_dismiss_url( self::PAYPAL_UNSUPPORTED_CURRENCY_NOTICE );
 		$message     = sprintf(
 			/* translators: %s: Currency code */
-			esc_html__( 'PayPal Standard does not support your store currency (%s).', 'woocommerce' ),
+			esc_html__( 'PayPal Standard does not support your store currency (%s).', 'poocommerce' ),
 			$currency
 		);
 
 		$notice_html = '<div class="notice notice-error is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'woocommerce' ) . '"></a>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'poocommerce' ) . '"></a>'
 			. '<p>' . $message . '</p>'
 			. '</div>';
 
@@ -232,7 +232,7 @@ class Notices {
 	private function get_dismiss_url( string $notice_name ): string {
 		return wp_nonce_url(
 			add_query_arg( 'wc-hide-notice', $notice_name ),
-			'woocommerce_hide_notices_nonce',
+			'poocommerce_hide_notices_nonce',
 			'_wc_notice_nonce'
 		);
 	}
@@ -262,7 +262,7 @@ class Notices {
 	 * @return bool
 	 */
 	private function has_account_restriction_flag(): bool {
-		return 'yes' === get_option( 'woocommerce_paypal_account_restricted_status', 'no' );
+		return 'yes' === get_option( 'poocommerce_paypal_account_restricted_status', 'no' );
 	}
 
 	/**
@@ -272,8 +272,8 @@ class Notices {
 	 * @return void
 	 */
 	public static function set_account_restriction_flag(): void {
-		if ( 'no' === get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) ) {
-			update_option( 'woocommerce_paypal_account_restricted_status', 'yes', false );
+		if ( 'no' === get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) ) {
+			update_option( 'poocommerce_paypal_account_restricted_status', 'yes', false );
 		}
 	}
 
@@ -284,8 +284,8 @@ class Notices {
 	 * @return void
 	 */
 	public static function clear_account_restriction_flag(): void {
-		if ( 'yes' === get_option( 'woocommerce_paypal_account_restricted_status', 'no' ) ) {
-			update_option( 'woocommerce_paypal_account_restricted_status', 'no' );
+		if ( 'yes' === get_option( 'poocommerce_paypal_account_restricted_status', 'no' ) ) {
+			update_option( 'poocommerce_paypal_account_restricted_status', 'no' );
 		}
 	}
 
@@ -295,7 +295,7 @@ class Notices {
 	 * @since 10.5.0
 	 * @param int|string $http_code     The HTTP status code from the PayPal API response.
 	 * @param array      $response_data The decoded response data from the PayPal API.
-	 * @param WC_Order   $order         The WooCommerce order object.
+	 * @param WC_Order   $order         The PooCommerce order object.
 	 * @return void
 	 */
 	public static function manage_account_restriction_flag_for_notice( $http_code, array $response_data, WC_Order $order ): void {

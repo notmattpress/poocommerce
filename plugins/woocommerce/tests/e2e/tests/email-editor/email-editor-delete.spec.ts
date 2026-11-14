@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient, WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { createClient, WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { accessTheEmailEditor } from '../../utils/email';
 import { admin } from '../../test-data/data';
 
 test.describe(
-	'WooCommerce Email Editor Delete',
+	'PooCommerce Email Editor Delete',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -65,7 +65,7 @@ test.describe(
 				.getByRole( 'button', { name: 'Actions' } )
 				.first()
 				.click();
-			// WooCommerce replaces core's "Trash…" with an action that deletes
+			// PooCommerce replaces core's "Trash…" with an action that deletes
 			// the email permanently, and adds "Reset" for the email content.
 			await expect(
 				page.getByRole( 'menuitem', { name: 'Reset' } )

@@ -1,18 +1,18 @@
 <?php
 /**
- * Search engine visibility for WooCommerce pages.
+ * Search engine visibility for PooCommerce pages.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Controls robots directives and core sitemap exclusions for WooCommerce pages.
+ * Controls robots directives and core sitemap exclusions for PooCommerce pages.
  *
  * @since 11.4.0
  * @internal
@@ -42,7 +42,7 @@ class SearchEngineVisibility {
 	}
 
 	/**
-	 * Exclude pages that WooCommerce marks noindex or redirects on direct visits.
+	 * Exclude pages that PooCommerce marks noindex or redirects on direct visits.
 	 *
 	 * @internal
 	 *
@@ -89,7 +89,7 @@ class SearchEngineVisibility {
 		// Prime caches to reduce future queries.
 		wp_prime_option_caches(
 			array_map(
-				static fn( string $page ): string => 'woocommerce_' . $page . '_page_id',
+				static fn( string $page ): string => 'poocommerce_' . $page . '_page_id',
 				$pages
 			)
 		);

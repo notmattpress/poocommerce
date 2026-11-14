@@ -12,14 +12,14 @@ import {
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+} from '@poocommerce/base-context/hooks';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { withSpokenMessages } from '@wordpress/components';
-import { usePreviewMode } from '@woocommerce/base-hooks';
+import { usePreviewMode } from '@poocommerce/base-hooks';
 import type { BlockEditProps } from '@wordpress/blocks';
-import type { SelectableItemsContext } from '@woocommerce/types';
+import type { SelectableItemsContext } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 					'core/heading',
 					{
 						level: 3,
-						content: __( 'Rating', 'woocommerce' ),
+						content: __( 'Rating', 'poocommerce' ),
 						style: {
 							spacing: {
 								margin: {
@@ -61,7 +61,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 						},
 					},
 				],
-				[ 'woocommerce/product-filter-checkbox-list' ],
+				[ 'poocommerce/product-filter-checkbox-list' ],
 			],
 		}
 	);
@@ -130,7 +130,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 						label: <RatingStars key={ rating } stars={ rating } />,
 						ariaLabel: sprintf(
 							/* translators: %d: rating value. Example: Rated 4 out of 5. */
-							__( 'Rated %d out of 5', 'woocommerce' ),
+							__( 'Rated %d out of 5', 'poocommerce' ),
 							rating
 						),
 						value: rating?.toString(),
@@ -180,7 +180,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 						<Notice>
 							{ __(
 								"Your store doesn't have any products with ratings yet. This filter option will display when a product receives a review.",
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Notice>
 					) }
@@ -191,11 +191,11 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 					>
 						<BlockContextProvider
 							value={ {
-								'woocommerce/selectableItems': {
+								'poocommerce/selectableItems': {
 									items: displayedOptions,
 									selectionMode: 'multiple' as const,
 									storeNamespace:
-										'woocommerce/product-filters',
+										'poocommerce/product-filters',
 									isLoading,
 								} satisfies SelectableItemsContext< FilterItemFields >,
 							} }

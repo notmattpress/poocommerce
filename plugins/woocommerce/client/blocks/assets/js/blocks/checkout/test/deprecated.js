@@ -39,13 +39,13 @@ describe( 'Checkout v1 migration', () => {
 			expect(
 				fields.some(
 					( block ) =>
-						block.name === 'woocommerce/checkout-terms-block'
+						block.name === 'poocommerce/checkout-terms-block'
 				)
 			).toBe( showPolicyLinks );
 			expect(
 				fields.find(
 					( block ) =>
-						block.name === 'woocommerce/checkout-actions-block'
+						block.name === 'poocommerce/checkout-actions-block'
 				).attributes.showTerms
 			).toBeUndefined();
 		}

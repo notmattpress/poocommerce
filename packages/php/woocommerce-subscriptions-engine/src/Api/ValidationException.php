@@ -2,24 +2,24 @@
 /**
  * ValidationException - a facade call refused because its input is not valid.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use InvalidArgumentException;
 use Throwable;
 use WP_Error;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Thrown by the facades when they refuse input: an engine check (built with
- * {@see self::from_core()}) or a `woocommerce_subscriptions_engine_validate_plan`
+ * {@see self::from_core()}) or a `poocommerce_subscriptions_engine_validate_plan`
  * callback. Callers read {@see self::get_errors()}: each error's code (a
  * {@see ValidationErrorCode} or the extension's own), its translated message, and
  * its data, with `field` (dot path) and `params` for engine errors.
@@ -95,41 +95,41 @@ final class ValidationException extends InvalidArgumentException {
 
 		switch ( $code ) {
 			case ValidationErrorCode::REQUIRED:
-				return __( 'This field is required.', 'woocommerce' );
+				return __( 'This field is required.', 'poocommerce' );
 			case ValidationErrorCode::INVALID_TYPE:
 				if ( isset( $params['type'] ) && is_string( $params['type'] ) ) {
 					/* translators: %s: expected type, such as string or integer. */
-					return sprintf( __( 'Must be of type %s.', 'woocommerce' ), $params['type'] );
+					return sprintf( __( 'Must be of type %s.', 'poocommerce' ), $params['type'] );
 				}
 				break;
 			case ValidationErrorCode::OUT_OF_BOUNDS:
 				if ( null !== $min && null !== $max ) {
 					/* translators: 1: lowest allowed number, 2: highest allowed number. */
-					return sprintf( __( 'Must be between %1$d and %2$d.', 'woocommerce' ), $min, $max );
+					return sprintf( __( 'Must be between %1$d and %2$d.', 'poocommerce' ), $min, $max );
 				}
 				if ( null !== $min ) {
 					/* translators: %d: lowest allowed number. */
-					return sprintf( __( 'Must be greater than or equal to %d.', 'woocommerce' ), $min );
+					return sprintf( __( 'Must be greater than or equal to %d.', 'poocommerce' ), $min );
 				}
 				if ( null !== $max ) {
 					/* translators: %d: highest allowed number. */
-					return sprintf( __( 'Must be less than or equal to %d.', 'woocommerce' ), $max );
+					return sprintf( __( 'Must be less than or equal to %d.', 'poocommerce' ), $max );
 				}
 				break;
 			case ValidationErrorCode::NOT_IN_ENUM:
 				if ( isset( $params['allowed'] ) && is_array( $params['allowed'] ) ) {
 					/* translators: %l: list of allowed values, such as "day, week, and month". */
-					return wp_sprintf( __( 'Must be one of %l.', 'woocommerce' ), array_values( array_filter( $params['allowed'], 'is_string' ) ) );
+					return wp_sprintf( __( 'Must be one of %l.', 'poocommerce' ), array_values( array_filter( $params['allowed'], 'is_string' ) ) );
 				}
 				break;
 			case ValidationErrorCode::NOT_REGISTERED:
 				if ( isset( $params['value'] ) && is_scalar( $params['value'] ) ) {
 					/* translators: %s: the status that is not registered. */
-					return sprintf( __( '"%s" is not registered.', 'woocommerce' ), (string) $params['value'] );
+					return sprintf( __( '"%s" is not registered.', 'poocommerce' ), (string) $params['value'] );
 				}
 				break;
 		}
 
-		return __( 'This value is not valid.', 'woocommerce' );
+		return __( 'This value is not valid.', 'poocommerce' );
 	}
 }

@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAttributeAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAttributeAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class ProductAttributesQuery extends AbstractDomainAbility implements AbilityDef
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-attributes-query';
+		return 'poocommerce/product-attributes-query';
 	}
 
 	/**
@@ -39,13 +39,13 @@ class ProductAttributesQuery extends AbstractDomainAbility implements AbilityDef
 		$output_schema                        = self::get_collection_output_schema( 'attributes', self::get_product_attribute_schema() );
 		$output_schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Total number of matching attributes across all pages.', 'woocommerce' ),
+			'description' => __( 'Total number of matching attributes across all pages.', 'poocommerce' ),
 		);
 
 		return array(
-			'label'               => __( 'Query product attributes', 'woocommerce' ),
-			'description'         => __( 'Find the global product attributes, such as Color or Size, with their terms. Use include to retrieve specific attribute IDs.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query product attributes', 'poocommerce' ),
+			'description'         => __( 'Find the global product attributes, such as Color or Size, with their terms. Use include to retrieve specific attribute IDs.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => $output_schema,
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -137,7 +137,7 @@ class ProductAttributesQuery extends AbstractDomainAbility implements AbilityDef
 			'type'                 => 'object',
 			'properties'           => array(
 				'include'             => array(
-					'description' => __( 'Limit results to these attribute IDs. Use one ID to retrieve a single attribute.', 'woocommerce' ),
+					'description' => __( 'Limit results to these attribute IDs. Use one ID to retrieve a single attribute.', 'poocommerce' ),
 					'type'        => 'array',
 					'minItems'    => 1,
 					'items'       => array(
@@ -146,11 +146,11 @@ class ProductAttributesQuery extends AbstractDomainAbility implements AbilityDef
 					),
 				),
 				'search'              => array(
-					'description' => __( 'Match part of the attribute label or slug, ignoring case.', 'woocommerce' ),
+					'description' => __( 'Match part of the attribute label or slug, ignoring case.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 				'terms_per_attribute' => array(
-					'description' => __( 'Most terms to return per attribute. Use zero for none.', 'woocommerce' ),
+					'description' => __( 'Most terms to return per attribute. Use zero for none.', 'poocommerce' ),
 					'type'        => 'integer',
 					'minimum'     => 0,
 					'maximum'     => 100,

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Tax;
+namespace Automattic\PooCommerce\Internal\Tax;
 
-use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Enums\DefaultCustomerAddress;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class BaseLocationTaxEstimate implements RegisterHooksInterface {
 	 * Register hooks.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_customer_taxable_address', array( $this, 'estimate_base_location_address' ), 10, 2 );
+		add_filter( 'poocommerce_customer_taxable_address', array( $this, 'estimate_base_location_address' ), 10, 2 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class BaseLocationTaxEstimate implements RegisterHooksInterface {
 			return $taxable_address;
 		}
 
-		if ( DefaultCustomerAddress::BASE !== get_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::BASE ) ) {
+		if ( DefaultCustomerAddress::BASE !== get_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::BASE ) ) {
 			return $taxable_address;
 		}
 

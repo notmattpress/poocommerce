@@ -25,7 +25,7 @@ type NavigationProps = {
 export const Navigation = ( {
 	percentage = 0,
 	onSkip,
-	skipText = __( 'Skip this step', 'woocommerce' ),
+	skipText = __( 'Skip this step', 'poocommerce' ),
 	showProgress = true,
 	showLogo = true,
 	classNames = {},
@@ -34,7 +34,7 @@ export const Navigation = ( {
 	return (
 		<div
 			className={ clsx(
-				'woocommerce-profiler-navigation-container',
+				'poocommerce-profiler-navigation-container',
 				classNames
 			) }
 		>
@@ -46,20 +46,20 @@ export const Navigation = ( {
 					bgcolor={ 'transparent' }
 				/>
 			) }
-			<div className="woocommerce-profiler-navigation">
-				<div className="woocommerce-profiler-navigation-col-left">
+			<div className="poocommerce-profiler-navigation">
+				<div className="poocommerce-profiler-navigation-col-left">
 					{ showLogo && (
 						<span className="woologo">
 							<WooLogo />
 						</span>
 					) }
 				</div>
-				<div className="woocommerce-profiler-navigation-col-right">
+				<div className="poocommerce-profiler-navigation-col-right">
 					{ typeof onSkip === 'function' && (
 						<Button
 							onClick={ onSkip }
 							className={ clsx(
-								'woocommerce-profiler-navigation-skip-link',
+								'poocommerce-profiler-navigation-skip-link',
 								classNames.mobile ? 'mobile' : ''
 							) }
 							isLink

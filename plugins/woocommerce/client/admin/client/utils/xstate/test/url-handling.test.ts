@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import * as navigation from '@woocommerce/navigation';
+import * as navigation from '@poocommerce/navigation';
 /**
  * Internal dependencies
  */
 import { updateQueryParams, createQueryParamsListener } from '../url-handling';
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getHistory: jest.fn(),
 	getQuery: jest.fn(),
 	updateQueryString: jest.fn(),

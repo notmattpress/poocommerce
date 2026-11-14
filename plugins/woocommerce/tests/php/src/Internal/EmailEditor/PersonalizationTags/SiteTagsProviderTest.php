@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\SiteTagsProvider;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\SiteTagsProvider;
 use WC_Unit_Test_Case;
 
 /**
@@ -42,7 +42,7 @@ class SiteTagsProviderTest extends WC_Unit_Test_Case {
 	 * @testdox Shows the point of sale store name for an order placed at the point of sale.
 	 */
 	public function test_site_title_for_pos_order(): void {
-		update_option( 'woocommerce_pos_store_name', 'Market Stall' );
+		update_option( 'poocommerce_pos_store_name', 'Market Stall' );
 		$order = wc_create_order();
 		$order->set_created_via( 'pos-rest-api' );
 
@@ -55,6 +55,6 @@ class SiteTagsProviderTest extends WC_Unit_Test_Case {
 	 * @param array $context Personalization context.
 	 */
 	private function value( array $context ): string {
-		return $this->registry->get_by_token( '[woocommerce/site-title]' )->execute_callback( $context );
+		return $this->registry->get_by_token( '[poocommerce/site-title]' )->execute_callback( $context );
 	}
 }

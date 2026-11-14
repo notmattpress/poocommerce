@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsPrivacy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsPrivacy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Data_Store;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -39,7 +39,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		// Only the flag, not enable_fulfillments(): it would hook the container's FulfillmentsPrivacy
 		// too, and the end-to-end tests would pass on those hooks instead of the ones $this->sut adds.
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		$this->sut = new FulfillmentsPrivacy();
 	}
 
@@ -104,11 +104,11 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		$this->sut->register();
 
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_privacy_export_order_personal_data', array( $this->sut, 'export_order_fulfillment_data' ) ),
+			has_filter( 'poocommerce_privacy_export_order_personal_data', array( $this->sut, 'export_order_fulfillment_data' ) ),
 			'The order exporter filter should be hooked.'
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_privacy_remove_order_personal_data', array( $this->sut, 'remove_fulfillment_personal_data' ) ),
+			has_action( 'poocommerce_privacy_remove_order_personal_data', array( $this->sut, 'remove_fulfillment_personal_data' ) ),
 			'The eraser should hook order anonymization.'
 		);
 	}
@@ -123,7 +123,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		// Swap in a data store whose read throws. Extends the real store so it passes
 		// WC_Data_Store validation.
 		add_filter(
-			'woocommerce_order-fulfillment_data_store',
+			'poocommerce_order-fulfillment_data_store',
 			function () {
 				return new class() extends FulfillmentsDataStore {
 					/**
@@ -168,7 +168,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		// get_results() returns an empty array on a failed query, so mimic that rather than a
 		// throw: the error only shows up in $wpdb->last_error.
 		add_filter(
-			'woocommerce_order-fulfillment_data_store',
+			'poocommerce_order-fulfillment_data_store',
 			function () {
 				return new class() extends FulfillmentsDataStore {
 					/**
@@ -325,7 +325,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		// get_provider_display_name() applies this label filter; resolve_provider_name() does not,
 		// so a hit here proves the export resolves the display name rather than the raw slug.
 		add_filter(
-			'woocommerce_fulfillment_shipment_provider_label',
+			'poocommerce_fulfillment_shipment_provider_label',
 			function () {
 				return 'DHL Express';
 			}
@@ -383,13 +383,13 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 
 		// The exporter is registered for every store with the feature off, so it has to skip
 		// the ones that never created the tables rather than ask for an absent data store.
-		$original = get_option( 'woocommerce_fulfillments_db_tables_created' );
-		delete_option( 'woocommerce_fulfillments_db_tables_created' );
+		$original = get_option( 'poocommerce_fulfillments_db_tables_created' );
+		delete_option( 'poocommerce_fulfillments_db_tables_created' );
 		try {
 			$rows = $this->sut->export_order_fulfillment_data( array(), $order );
 		} finally {
 			if ( false !== $original ) {
-				update_option( 'woocommerce_fulfillments_db_tables_created', $original );
+				update_option( 'poocommerce_fulfillments_db_tables_created', $original );
 			}
 		}
 
@@ -406,7 +406,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 
 		$filter_ran = false;
 		add_filter(
-			'woocommerce_privacy_remove_fulfillment_personal_data_meta',
+			'poocommerce_privacy_remove_fulfillment_personal_data_meta',
 			function ( $meta_keys ) use ( &$filter_ran ) {
 				$filter_ran = true;
 				return $meta_keys;
@@ -415,13 +415,13 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 
 		// The eraser is registered for every store with the feature off, so it has to skip the
 		// ones that never created the tables.
-		$original = get_option( 'woocommerce_fulfillments_db_tables_created' );
-		delete_option( 'woocommerce_fulfillments_db_tables_created' );
+		$original = get_option( 'poocommerce_fulfillments_db_tables_created' );
+		delete_option( 'poocommerce_fulfillments_db_tables_created' );
 		try {
 			$this->sut->remove_fulfillment_personal_data( $order );
 		} finally {
 			if ( false !== $original ) {
-				update_option( 'woocommerce_fulfillments_db_tables_created', $original );
+				update_option( 'poocommerce_fulfillments_db_tables_created', $original );
 			}
 		}
 
@@ -490,7 +490,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_privacy_remove_fulfillment_personal_data_meta',
+			'poocommerce_privacy_remove_fulfillment_personal_data_meta',
 			function () {
 				return array( '_tracking_number' );
 			}
@@ -540,9 +540,9 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		$order->set_date_created( time() - 2 * DAY_IN_SECONDS );
 		$order->save();
 
-		$original = get_option( 'woocommerce_anonymize_completed_orders' );
+		$original = get_option( 'poocommerce_anonymize_completed_orders' );
 		update_option(
-			'woocommerce_anonymize_completed_orders',
+			'poocommerce_anonymize_completed_orders',
 			array(
 				'number' => 1,
 				'unit'   => 'days',
@@ -552,9 +552,9 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		\WC_Privacy::anonymize_completed_orders();
 
 		if ( false === $original ) {
-			delete_option( 'woocommerce_anonymize_completed_orders' );
+			delete_option( 'poocommerce_anonymize_completed_orders' );
 		} else {
-			update_option( 'woocommerce_anonymize_completed_orders', $original );
+			update_option( 'poocommerce_anonymize_completed_orders', $original );
 		}
 
 		$reloaded = $this->reload_fulfillment( $order->get_id(), $fulfillment->get_id() );
@@ -589,7 +589,7 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_privacy_remove_fulfillment_personal_data_meta',
+			'poocommerce_privacy_remove_fulfillment_personal_data_meta',
 			function () {
 				return array( '_tracking_number', array( 'unexpected' ) );
 			}
@@ -621,13 +621,13 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 			->method( 'warning' )
 			->with( $this->stringContains( 'order ' . $order->get_id() ), $this->arrayHasKey( 'source' ) );
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $logger ) {
 				return $logger;
 			}
 		);
 		add_filter(
-			'woocommerce_privacy_remove_fulfillment_personal_data_meta',
+			'poocommerce_privacy_remove_fulfillment_personal_data_meta',
 			function () use ( $filtered_value ) {
 				return $filtered_value;
 			}
@@ -662,12 +662,12 @@ class FulfillmentsPrivacyTest extends WC_Unit_Test_Case {
 		$logger = $this->createMock( \WC_Logger_Interface::class );
 		$logger->expects( $this->never() )->method( 'warning' );
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $logger ) {
 				return $logger;
 			}
 		);
-		add_filter( 'woocommerce_privacy_remove_fulfillment_personal_data_meta', '__return_empty_array' );
+		add_filter( 'poocommerce_privacy_remove_fulfillment_personal_data_meta', '__return_empty_array' );
 
 		$this->sut->remove_fulfillment_personal_data( $order );
 

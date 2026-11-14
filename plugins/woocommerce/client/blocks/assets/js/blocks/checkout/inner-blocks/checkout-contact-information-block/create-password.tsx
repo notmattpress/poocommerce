@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import PasswordStrengthMeter from '@woocommerce/base-components/cart-checkout/password-strength-meter';
-import { checkoutStore, validationStore } from '@woocommerce/block-data';
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import PasswordStrengthMeter from '@poocommerce/base-components/cart-checkout/password-strength-meter';
+import { checkoutStore, validationStore } from '@poocommerce/block-data';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -29,7 +29,7 @@ const CreatePassword = () => {
 				'account-password': {
 					message: __(
 						'Please create a stronger password',
-						'woocommerce'
+						'poocommerce'
 					),
 					hidden: true,
 				},
@@ -47,7 +47,7 @@ const CreatePassword = () => {
 	return (
 		<ValidatedTextInput
 			type="password"
-			label={ __( 'Create a password', 'woocommerce' ) }
+			label={ __( 'Create a password', 'poocommerce' ) }
 			className={ `wc-block-components-address-form__password` }
 			value={ customerPassword }
 			required={ true }
@@ -60,7 +60,7 @@ const CreatePassword = () => {
 						'account-password': {
 							message: __(
 								'Please enter a valid password',
-								'woocommerce'
+								'poocommerce'
 							),
 							hidden: true,
 						},

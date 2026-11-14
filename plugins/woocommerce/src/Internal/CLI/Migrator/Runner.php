@@ -2,14 +2,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Commands\ProductsCommand;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Commands\ResetCommand;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Commands\SetupCommand;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Commands\ListCommand;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyPlatform;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowPlatform;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Commands\ProductsCommand;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Commands\ResetCommand;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Commands\SetupCommand;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Commands\ListCommand;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyPlatform;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowPlatform;
 use WP_CLI;
 use WC_Product_Factory;
 
@@ -33,8 +33,8 @@ final class Runner {
 			'wc migrate products',
 			$container->get( ProductsCommand::class ),
 			array(
-				'shortdesc' => 'Migrate products from a source platform to WooCommerce.',
-				'longdesc'  => 'Migrate products from a source platform to WooCommerce. The migrator will fetch products from the source platform, map them to the WooCommerce product schema, and then import them into WooCommerce.',
+				'shortdesc' => 'Migrate products from a source platform to PooCommerce.',
+				'longdesc'  => 'Migrate products from a source platform to PooCommerce. The migrator will fetch products from the source platform, map them to the PooCommerce product schema, and then import them into PooCommerce.',
 			)
 		);
 

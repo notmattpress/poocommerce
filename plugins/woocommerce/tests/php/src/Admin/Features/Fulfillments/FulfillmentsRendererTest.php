@@ -1,16 +1,16 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\AmazonLogisticsShippingProvider;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\DHLShippingProvider;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsRenderer;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\AmazonLogisticsShippingProvider;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\DHLShippingProvider;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Order;
@@ -101,7 +101,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'UPS', $output );
 		$this->assertStringContainsString( '<mark class="fulfillment-status fulfillments-trigger"', $output );
 		$this->assertStringContainsString( 'data-order-id="' . $order->get_id() . '"', $output );
-		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'woocommerce' ) . "'>", $output );
+		$this->assertStringContainsString( "<a href='#' class='fulfillments-trigger' data-order-id='" . $order->get_id() . "' title='" . esc_attr__( 'View Fulfillments', 'poocommerce' ) . "'>", $output );
 		$this->assertStringContainsString( '<svg ', $output );
 		$this->assertStringContainsString( '<path ', $output );
 		$this->assertStringContainsString( '</svg>', $output );
@@ -158,7 +158,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_render_fulfillment_drawer_slot_renders_on_orders_page() {
 		$this->renderer = wc_get_container()->get( FulfillmentsRenderer::class );
-		set_current_screen( 'woocommerce_page_wc-orders' );
+		set_current_screen( 'poocommerce_page_wc-orders' );
 		ob_start();
 		$this->renderer->render_fulfillment_drawer_slot();
 		$output = ob_get_clean();
@@ -384,7 +384,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_other_shipping_provider_filter_excludes_fulfillments_without_a_provider( bool $is_known_providers ): void {
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			static function () use ( $is_known_providers ): array {
 				return $is_known_providers ? array( DHLShippingProvider::class ) : array();
 			},
@@ -522,7 +522,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 			$providers[] = AmazonLogisticsShippingProvider::class;
 			return $providers;
 		};
-		add_filter( 'woocommerce_fulfillment_shipping_providers', $register_known );
+		add_filter( 'poocommerce_fulfillment_shipping_providers', $register_known );
 
 		try {
 			$this->seed_fulfillment( 201, 'amazon-logistics' );
@@ -530,7 +530,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 
 			$this->assertSame( array( 202 ), $this->get_order_ids( '__other__' ) );
 		} finally {
-			remove_filter( 'woocommerce_fulfillment_shipping_providers', $register_known );
+			remove_filter( 'poocommerce_fulfillment_shipping_providers', $register_known );
 		}
 	}
 
@@ -720,7 +720,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->seed_fulfillment( 971, 'acme-couriers' );
 		$this->seed_fulfillment( 972, 'acme-couriers' );
 
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		try {
 			$this->with_provider_param(
 				'acme-couriers',
@@ -732,7 +732,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 				}
 			);
 		} finally {
-			remove_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+			remove_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		}
 	}
 
@@ -780,7 +780,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->seed_fulfillment( 903, 'other-co' );
 
 		// Only the callback's presence matters here, not what it returns.
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		try {
 			$this->with_provider_param(
 				'acme-couriers',
@@ -797,7 +797,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 				}
 			);
 		} finally {
-			remove_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+			remove_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		}
 	}
 
@@ -808,7 +808,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->seed_fulfillment( 911, 'acme-couriers' );
 		$this->seed_fulfillment( 912, 'acme-couriers' );
 
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		try {
 			$this->with_provider_param(
 				'acme-couriers',
@@ -819,7 +819,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 				}
 			);
 		} finally {
-			remove_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+			remove_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		}
 	}
 
@@ -830,7 +830,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 		$this->seed_fulfillment( 961, 'acme-couriers' );
 		$this->seed_fulfillment( 962, 'acme-couriers' );
 
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		try {
 			$this->with_provider_param(
 				'acme-couriers',
@@ -842,7 +842,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 				}
 			);
 		} finally {
-			remove_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+			remove_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		}
 	}
 
@@ -852,7 +852,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 	public function test_filter_orders_fallback_matches_nothing_for_unused_provider(): void {
 		$this->seed_fulfillment( 921, 'acme-couriers' );
 
-		add_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+		add_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		try {
 			$this->with_provider_param(
 				'nobody-ships-with-this',
@@ -863,7 +863,7 @@ class FulfillmentsRendererTest extends \WC_Unit_Test_Case {
 				}
 			);
 		} finally {
-			remove_filter( 'woocommerce_hpos_pre_query', '__return_null' );
+			remove_filter( 'poocommerce_hpos_pre_query', '__return_null' );
 		}
 	}
 

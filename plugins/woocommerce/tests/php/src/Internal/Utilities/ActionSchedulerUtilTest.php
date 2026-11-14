@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Enums\ActionSchedulerFeature;
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Enums\ActionSchedulerFeature;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -29,8 +29,8 @@ class ActionSchedulerUtilTest extends WC_Unit_Test_Case {
 		ActionSchedulerFeature::ENQUEUE_ASYNC_ACTION,
 	);
 
-	private const HOOK  = 'woocommerce_action_scheduler_util_test';
-	private const GROUP = 'woocommerce_action_scheduler_util_test_group';
+	private const HOOK  = 'poocommerce_action_scheduler_util_test';
+	private const GROUP = 'poocommerce_action_scheduler_util_test_group';
 
 	/**
 	 * Directories of the fake Action Scheduler copies created by simulate_loaded_copy().
@@ -77,8 +77,8 @@ class ActionSchedulerUtilTest extends WC_Unit_Test_Case {
 		$this->assertSame( ActionSchedulerUtil::get_bundled_version(), ActionSchedulerUtil::get_loaded_version() );
 		$this->assertSame(
 			array(
-				'type'     => 'woocommerce',
-				'name'     => 'WooCommerce',
+				'type'     => 'poocommerce',
+				'name'     => 'PooCommerce',
 				'basename' => plugin_basename( WC_PLUGIN_FILE ),
 			),
 			ActionSchedulerUtil::get_loaded_source()
@@ -197,7 +197,7 @@ class ActionSchedulerUtilTest extends WC_Unit_Test_Case {
 	 * @testdox The loaded copy is resolved to the plugin that bundles it.
 	 */
 	public function test_resolves_the_loaded_copy_to_the_plugin_that_bundles_it(): void {
-		$this->simulate_loaded_copy( '3.5.4', WP_PLUGIN_DIR . '/some-plugin/vendor/woocommerce/action-scheduler' );
+		$this->simulate_loaded_copy( '3.5.4', WP_PLUGIN_DIR . '/some-plugin/vendor/poocommerce/action-scheduler' );
 		$folders = array();
 		$this->register_legacy_proxy_function_mocks(
 			array(
@@ -224,7 +224,7 @@ class ActionSchedulerUtilTest extends WC_Unit_Test_Case {
 	 * @testdox A plugin directory with no known plugin file is reported by its directory name.
 	 */
 	public function test_resolves_an_unknown_plugin_directory_by_its_name(): void {
-		$this->simulate_loaded_copy( '3.5.4', WP_PLUGIN_DIR . '/some-plugin/vendor/woocommerce/action-scheduler' );
+		$this->simulate_loaded_copy( '3.5.4', WP_PLUGIN_DIR . '/some-plugin/vendor/poocommerce/action-scheduler' );
 		$this->register_legacy_proxy_function_mocks( array( 'get_plugins' => fn() => array() ) );
 
 		$this->assertSame(

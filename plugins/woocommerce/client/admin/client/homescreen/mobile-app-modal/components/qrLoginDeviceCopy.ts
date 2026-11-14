@@ -21,7 +21,7 @@ export const buildQRLoginDeviceHeadline = (
 	if ( model ) {
 		return sprintf(
 			/* translators: %s: device model, e.g. "iPhone 15". */
-			__( 'Signed in successfully on %s', 'woocommerce' ),
+			__( 'Signed in successfully on %s', 'poocommerce' ),
 			model
 		);
 	}
@@ -30,12 +30,12 @@ export const buildQRLoginDeviceHeadline = (
 	if ( os ) {
 		return sprintf(
 			/* translators: %s: OS name, e.g. "iOS" or "Android". */
-			__( 'Signed in successfully on %s', 'woocommerce' ),
+			__( 'Signed in successfully on %s', 'poocommerce' ),
 			os
 		);
 	}
 
-	return __( 'Signed in successfully', 'woocommerce' );
+	return __( 'Signed in successfully', 'poocommerce' );
 };
 
 /**
@@ -71,7 +71,7 @@ export const buildQRLoginDeviceLine = (
 		parts.push(
 			sprintf(
 				/* translators: %s: mobile app version, e.g. "24.7.0". */
-				__( 'App version %s', 'woocommerce' ),
+				__( 'App version %s', 'poocommerce' ),
 				device.app_version
 			)
 		);
@@ -79,7 +79,7 @@ export const buildQRLoginDeviceLine = (
 
 	return parts.length > 0
 		? parts.join( ' · ' )
-		: __( 'Mobile app', 'woocommerce' );
+		: __( 'Mobile app', 'poocommerce' );
 };
 
 /**
@@ -110,7 +110,7 @@ export const buildQRLoginDeviceSubline = (
 		parts.push(
 			sprintf(
 				/* translators: %s: mobile app version, e.g. "24.7.0". */
-				__( 'App version %s', 'woocommerce' ),
+				__( 'App version %s', 'poocommerce' ),
 				device.app_version
 			)
 		);

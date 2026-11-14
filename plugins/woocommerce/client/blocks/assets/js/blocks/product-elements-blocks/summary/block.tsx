@@ -3,17 +3,17 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import Summary from '@woocommerce/base-components/summary';
-import { blocksConfig } from '@woocommerce/block-settings';
-import { isEmpty, ProductResponseItem } from '@woocommerce/types';
+import Summary from '@poocommerce/base-components/summary';
+import { blocksConfig } from '@poocommerce/block-settings';
+import { isEmpty, ProductResponseItem } from '@poocommerce/types';
 
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { ProductEntityResponse } from '@woocommerce/entities';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { ProductEntityResponse } from '@poocommerce/entities';
 
 /**
  * Internal dependencies
@@ -105,7 +105,7 @@ const Block = ( props: BlockProps ): JSX.Element | null => {
 				<p>
 					{ __(
 						'This block displays the product summary and all its customizations.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
@@ -116,7 +116,7 @@ const Block = ( props: BlockProps ): JSX.Element | null => {
 		return (
 			<div
 				className={ clsx( className, summaryClassName, {
-					'wp-block-woocommerce-product-summary':
+					'wp-block-poocommerce-product-summary':
 						isDescendantOfAllProducts,
 					[ `${ parentClassName }__product-summary` ]:
 						parentClassName,
@@ -128,7 +128,7 @@ const Block = ( props: BlockProps ): JSX.Element | null => {
 	if ( ! source ) {
 		return isDescendantOfAllProducts ? null : (
 			<div className={ summaryClassName }>
-				<p>{ __( 'No product summary to show.', 'woocommerce' ) }</p>
+				<p>{ __( 'No product summary to show.', 'poocommerce' ) }</p>
 			</div>
 		);
 	}
@@ -141,7 +141,7 @@ const Block = ( props: BlockProps ): JSX.Element | null => {
 					styleProps.className,
 					summaryClassName,
 					{
-						'wp-block-woocommerce-product-summary':
+						'wp-block-poocommerce-product-summary':
 							isDescendantOfAllProducts,
 						[ `${ parentClassName }__product-summary` ]:
 							parentClassName,
@@ -170,7 +170,7 @@ export default ( props: BlockProps ) => {
 	// - Inside `Products Block` -> Gutenberg Context
 	// - Inside `Single Product Template` -> Gutenberg Context
 	// - Without any parent -> `WithSelector` and `withProductDataContext` HOCs
-	// For more details, check https://github.com/woocommerce/woocommerce-blocks/pull/8609
+	// For more details, check https://github.com/poocommerce/poocommerce-blocks/pull/8609
 	if ( props.isDescendentOfSingleProductTemplate ) {
 		return <Block { ...props } />;
 	}

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 

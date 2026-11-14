@@ -32,7 +32,7 @@ const MAX_DISPLAYED_ERRORS = 3;
  */
 const FALLBACK_ERROR_MESSAGE = __(
 	'Something went wrong. Please try again.',
-	'woocommerce'
+	'poocommerce'
 );
 
 /**
@@ -134,7 +134,7 @@ export const BusinessVerificationStep: React.FC = () => {
 											'%d error occurred during setup.',
 											'%d errors occurred during setup.',
 											currentStep.errors.length,
-											'woocommerce'
+											'poocommerce'
 										),
 										currentStep.errors.length
 									) }

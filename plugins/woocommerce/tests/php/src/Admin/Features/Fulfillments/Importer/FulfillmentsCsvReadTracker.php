@@ -2,12 +2,12 @@
 /**
  * Records how far a capped CSV parse reads.
  *
- * @package Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer
+ * @package Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer;
 
 /**
  * Stream wrapper that counts the furthest byte read from a real file.

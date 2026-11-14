@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Coupon_Code;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Coupon_Code;
 use WC_Unit_Test_Case;
 
 /**
@@ -61,7 +61,7 @@ class CouponCodeTest extends WC_Unit_Test_Case {
 	public function test_existing_coupon_is_kept(): void {
 		$generated = false;
 		add_filter(
-			'woocommerce_coupon_code_block_auto_generate',
+			'poocommerce_coupon_code_block_auto_generate',
 			function ( $code ) use ( &$generated ) {
 				$generated = true;
 				return $code;
@@ -75,10 +75,10 @@ class CouponCodeTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Puts a coupon from WooCommerce's generator into a sent email.
+	 * @testdox Puts a coupon from PooCommerce's generator into a sent email.
 	 */
-	public function test_woocommerce_generator_fills_the_code(): void {
-		// Starts the email editor as WooCommerce does when the block email editor feature is on.
+	public function test_poocommerce_generator_fills_the_code(): void {
+		// Starts the email editor as PooCommerce does when the block email editor feature is on.
 		Email_Editor_Container::container()->get( Bootstrap::class )->init();
 
 		$html = $this->render( array() );
@@ -121,9 +121,9 @@ class CouponCodeTest extends WC_Unit_Test_Case {
 	 * @param mixed $code Generated code.
 	 */
 	private function generate_code( $code ): void {
-		remove_all_filters( 'woocommerce_coupon_code_block_auto_generate' );
+		remove_all_filters( 'poocommerce_coupon_code_block_auto_generate' );
 		add_filter(
-			'woocommerce_coupon_code_block_auto_generate',
+			'poocommerce_coupon_code_block_auto_generate',
 			function () use ( $code ) {
 				return $code;
 			}
@@ -146,7 +146,7 @@ class CouponCodeTest extends WC_Unit_Test_Case {
 	 */
 	private function parsed_block( array $attrs ): array {
 		return array(
-			'blockName' => 'woocommerce/coupon-code',
+			'blockName' => 'poocommerce/coupon-code',
 			'attrs'     => $attrs,
 		);
 	}

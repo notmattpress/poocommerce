@@ -3,7 +3,7 @@
  * Class for time interval and numeric range handling for reports.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -580,7 +580,7 @@ class TimeInterval {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: 1: parameter name */
-				sprintf( __( '%1$s is not a numerically indexed array.', 'woocommerce' ), $param )
+				sprintf( __( '%1$s is not a numerically indexed array.', 'poocommerce' ), $param )
 			);
 		}
 
@@ -593,7 +593,7 @@ class TimeInterval {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: %s: parameter name */
-				sprintf( __( '%s must contain 2 numbers.', 'woocommerce' ), $param )
+				sprintf( __( '%s must contain 2 numbers.', 'poocommerce' ), $param )
 			);
 		}
 
@@ -613,7 +613,7 @@ class TimeInterval {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: 1: parameter name */
-				sprintf( __( '%1$s is not a numerically indexed array.', 'woocommerce' ), $param )
+				sprintf( __( '%1$s is not a numerically indexed array.', 'poocommerce' ), $param )
 			);
 		}
 
@@ -626,7 +626,7 @@ class TimeInterval {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: %s: parameter name */
-				sprintf( __( '%s must contain 2 valid dates.', 'woocommerce' ), $param )
+				sprintf( __( '%s must contain 2 valid dates.', 'poocommerce' ), $param )
 			);
 		}
 

@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/coupon-code",
+	"name": "poocommerce/coupon-code",
 	"title": "Coupon Code",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Include a coupon code to entice customers to make a purchase.",
 	"supports": {
 		"email": true,
@@ -110,5 +110,5 @@
 			"default": ""
 		}
 	},
-	"textdomain": "woocommerce"
+	"textdomain": "poocommerce"
 }

@@ -11,7 +11,7 @@
 declare( strict_types = 1 );
 
 if ( is_admin() ) {
-	require_once get_template_directory() . '/inc/woocommerce-compatibility.php';
+	require_once get_template_directory() . '/inc/poocommerce-compatibility.php';
 }
 
 if ( ! function_exists( 'purple_hide_store_templates_from_template_picker' ) ) :
@@ -19,9 +19,9 @@ if ( ! function_exists( 'purple_hide_store_templates_from_template_picker' ) ) :
 	 * Keep store templates out of the post editor's "Change template" picker.
 	 *
 	 * Core treats every non-hierarchy template file without a postTypes
-	 * declaration as "available for all post types", so the theme's WooCommerce
+	 * declaration as "available for all post types", so the theme's PooCommerce
 	 * template overrides (Product Catalog, Page: Cart, Single Product, …) are
-	 * offered as page templates. They never make sense there — WooCommerce
+	 * offered as page templates. They never make sense there — PooCommerce
 	 * routes to them by URL, not by page-template assignment — and their store
 	 * blocks can't even render in the picker's preview. Only queries that
 	 * specify a post_type come from the picker, so Site Editor listings (no
@@ -75,7 +75,7 @@ if ( ! function_exists( 'purple_setup' ) ) :
 		// Enqueue editor styles.
 		add_editor_style( 'style.css' );
 
-		foreach ( purple_get_woocommerce_stylesheets() as $relative_path ) {
+		foreach ( purple_get_poocommerce_stylesheets() as $relative_path ) {
 			add_editor_style( $relative_path );
 		}
 	}
@@ -102,9 +102,9 @@ endif;
 
 add_action( 'init', 'purple_register_pattern_categories' );
 
-if ( ! function_exists( 'purple_get_woocommerce_stylesheets' ) ) :
+if ( ! function_exists( 'purple_get_poocommerce_stylesheets' ) ) :
 	/**
-	 * WooCommerce compatibility stylesheets that apply to the installed version.
+	 * PooCommerce compatibility stylesheets that apply to the installed version.
 	 *
 	 * Keys are the releases that contain the upstream fix. A sheet is included
 	 * only while the installed version is older than that.
@@ -113,14 +113,14 @@ if ( ! function_exists( 'purple_get_woocommerce_stylesheets' ) ) :
 	 *
 	 * @return array<string, string> Map of fixed-in version to stylesheet path.
 	 */
-	function purple_get_woocommerce_stylesheets(): array {
+	function purple_get_poocommerce_stylesheets(): array {
 		if ( ! defined( 'WC_VERSION' ) ) {
 			return array();
 		}
 
 		$stylesheets = array(
-			'11.2.0' => 'assets/css/woocommerce-11.1.css',
-			'11.3.0' => 'assets/css/woocommerce-11.2.css',
+			'11.2.0' => 'assets/css/poocommerce-11.1.css',
+			'11.3.0' => 'assets/css/poocommerce-11.2.css',
 		);
 
 		$applicable = array();
@@ -155,9 +155,9 @@ if ( ! function_exists( 'purple_styles' ) ) :
 			$theme_version
 		);
 
-		foreach ( purple_get_woocommerce_stylesheets() as $version => $relative_path ) {
+		foreach ( purple_get_poocommerce_stylesheets() as $version => $relative_path ) {
 			wp_enqueue_style(
-				'purple-woocommerce-' . str_replace( '.', '-', $version ),
+				'purple-poocommerce-' . str_replace( '.', '-', $version ),
 				get_template_directory_uri() . '/' . $relative_path,
 				array(),
 				$theme_version
@@ -178,7 +178,7 @@ if ( ! function_exists( 'purple_remove_upsells' ) ) :
 	 * @return void
 	 */
 	function purple_remove_upsells() {
-		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+		remove_action( 'poocommerce_after_single_product_summary', 'poocommerce_upsell_display', 15 );
 	}
 
 endif;

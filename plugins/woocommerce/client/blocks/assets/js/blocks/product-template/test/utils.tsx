@@ -23,9 +23,9 @@ import {
 
 const requiredBlockTypes = [
 	'core/paragraph',
-	'woocommerce/product-collection',
-	'woocommerce/product-template',
-	'woocommerce/single-product',
+	'poocommerce/product-collection',
+	'poocommerce/product-template',
+	'poocommerce/single-product',
 ];
 const registeredBlockTypes: string[] = [];
 
@@ -40,7 +40,7 @@ beforeAll( () => {
 			title: name,
 			category: 'widgets',
 			attributes:
-				name === 'woocommerce/product-collection'
+				name === 'poocommerce/product-collection'
 					? {
 							collection: { type: 'string' },
 							forcePageReload: {
@@ -203,8 +203,8 @@ describe( 'useGetLocation', () => {
 	} );
 
 	it( 'gives Single Product block context precedence over the template', () => {
-		const productTemplate = createBlock( 'woocommerce/product-template' );
-		const singleProduct = createBlock( 'woocommerce/single-product', {}, [
+		const productTemplate = createBlock( 'poocommerce/product-template' );
+		const singleProduct = createBlock( 'poocommerce/single-product', {}, [
 			productTemplate,
 		] );
 		act( () => {
@@ -236,11 +236,11 @@ describe( 'useProductCollectionQueryContext', () => {
 	} );
 
 	it( 'includes only requested truthy Product Collection attributes', () => {
-		const productTemplate = createBlock( 'woocommerce/product-template' );
+		const productTemplate = createBlock( 'poocommerce/product-template' );
 		const productCollection = createBlock(
-			'woocommerce/product-collection',
+			'poocommerce/product-collection',
 			{
-				collection: 'woocommerce/product-collection/on-sale',
+				collection: 'poocommerce/product-collection/on-sale',
 				forcePageReload: false,
 			},
 			[ productTemplate ]
@@ -263,7 +263,7 @@ describe( 'useProductCollectionQueryContext', () => {
 		);
 
 		expect( result.current ).toEqual( {
-			collection: 'woocommerce/product-collection/on-sale',
+			collection: 'poocommerce/product-collection/on-sale',
 		} );
 
 		rerender( { includes: [ 'forcePageReload' ] } );

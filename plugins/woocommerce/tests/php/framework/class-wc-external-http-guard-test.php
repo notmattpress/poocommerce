@@ -2,7 +2,7 @@
 /**
  * Tests for the guard against external HTTP requests from tests.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 declare( strict_types = 1 );

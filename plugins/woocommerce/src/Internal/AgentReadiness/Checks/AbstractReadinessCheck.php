@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness\Checks;
+namespace Automattic\PooCommerce\Internal\AgentReadiness\Checks;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\FeedChannels;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessRule;
+use Automattic\PooCommerce\Internal\AgentReadiness\FeedChannels;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessRule;
 
 defined( 'ABSPATH' ) || exit;
 

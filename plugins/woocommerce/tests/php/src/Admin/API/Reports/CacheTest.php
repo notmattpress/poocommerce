@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache;
+use Automattic\PooCommerce\Admin\API\Reports\Cache;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,13 +28,13 @@ class CacheTest extends WC_Unit_Test_Case {
 	public function test_set_uses_expiration( $expiration, int $expected ): void {
 		$filter = fn() => $expiration;
 		if ( null !== $expiration ) {
-			add_filter( 'woocommerce_reports_cache_expiration', $filter );
+			add_filter( 'poocommerce_reports_cache_expiration', $filter );
 		}
 		$before = time();
 
 		Cache::set( 'wc_cache_test', 'value' );
 
-		remove_filter( 'woocommerce_reports_cache_expiration', $filter );
+		remove_filter( 'poocommerce_reports_cache_expiration', $filter );
 		$timeout = (int) get_option( '_transient_timeout_wc_cache_test' );
 		$this->assertGreaterThanOrEqual( $before + $expected, $timeout );
 		$this->assertLessThanOrEqual( time() + $expected, $timeout );

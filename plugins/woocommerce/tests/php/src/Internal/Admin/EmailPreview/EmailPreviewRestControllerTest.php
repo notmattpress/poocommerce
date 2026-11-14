@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreviewRestController;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreviewRestController;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -108,7 +108,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_send_preview_by_user_without_caps() {
 		$filter_callback = fn() => array(
-			'manage_woocommerce' => false,
+			'manage_poocommerce' => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
 
@@ -135,7 +135,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 	 * Test sending email preview with a failed sending.
 	 */
 	public function test_send_preview_error_response() {
-		add_filter( 'woocommerce_mail_callback', array( $this, 'simulate_failed_sending' ), 10, 0 );
+		add_filter( 'poocommerce_mail_callback', array( $this, 'simulate_failed_sending' ), 10, 0 );
 
 		$request  = $this->get_email_preview_request( EmailPreview::DEFAULT_EMAIL_TYPE, self::EMAIL );
 		$response = $this->server->dispatch( $request );
@@ -143,14 +143,14 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 500, $response->get_status() );
 		$this->assertEquals( 'Error sending test email. Please try again.', $response->get_data()['message'] );
 
-		remove_filter( 'woocommerce_mail_callback', array( $this, 'simulate_failed_sending' ), 10 );
+		remove_filter( 'poocommerce_mail_callback', array( $this, 'simulate_failed_sending' ), 10 );
 	}
 
 	/**
 	 * Test that the preview send path uses the WC_Email instance resolved by
 	 * EmailPreview (rather than a generic WC_Emails instance), so the email
 	 * type, recipient, headers and attachments flow through to the
-	 * woocommerce_email_sent hook — which is what EmailLogger and any
+	 * poocommerce_email_sent hook — which is what EmailLogger and any
 	 * third-party listeners depend on.
 	 */
 	public function test_send_preview_uses_resolved_email_instance() {
@@ -163,21 +163,21 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 				'recipient' => $email->get_recipient(),
 			);
 		};
-		add_action( 'woocommerce_email_sent', $capture, 10, 3 );
+		add_action( 'poocommerce_email_sent', $capture, 10, 3 );
 
 		try {
 			$request  = $this->get_email_preview_request( EmailPreview::DEFAULT_EMAIL_TYPE, self::EMAIL );
 			$response = $this->server->dispatch( $request );
 
 			$this->assertEquals( 200, $response->get_status() );
-			$this->assertNotEmpty( $captured, 'woocommerce_email_sent should fire for the preview send path.' );
+			$this->assertNotEmpty( $captured, 'poocommerce_email_sent should fire for the preview send path.' );
 
 			$last = end( $captured );
 			$this->assertSame( EmailPreview::DEFAULT_EMAIL_TYPE, $last['class'], 'Send path should use the resolved WC_Email subclass, not a generic WC_Emails instance.' );
 			$this->assertNotEmpty( $last['email_id'], 'Email id should be set so listeners can identify the email type.' );
 			$this->assertSame( self::EMAIL, $last['recipient'], 'Recipient should be set on the resolved instance before send.' );
 		} finally {
-			remove_action( 'woocommerce_email_sent', $capture, 10 );
+			remove_action( 'poocommerce_email_sent', $capture, 10 );
 		}
 	}
 
@@ -256,7 +256,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_preview_subject_by_user_without_caps() {
 		$filter_callback = fn() => array(
-			'manage_woocommerce' => false,
+			'manage_poocommerce' => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
 
@@ -360,7 +360,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_save_transient_by_user_without_caps() {
 		$filter_callback = fn() => array(
-			'manage_woocommerce' => false,
+			'manage_poocommerce' => false,
 		);
 		add_filter( 'user_has_cap', $filter_callback );
 
@@ -387,7 +387,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 	 * Test saving transient with different sanitization logic.
 	 */
 	public function test_save_transient_sanitization_logic_with_newlines() {
-		$textarea_key            = 'woocommerce_email_footer_text';
+		$textarea_key            = 'poocommerce_email_footer_text';
 		$textarea_value          = "Line 1\nLine 2\nLine 3";
 		$expected_textarea_value = "Line 1\nLine 2\nLine 3";
 
@@ -398,7 +398,7 @@ class EmailPreviewRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 'Transient saved for key ' . $textarea_key . '.', $response->get_data()['message'] );
 		$this->assertEquals( $expected_textarea_value, get_transient( $textarea_key ) );
 
-		$text_key            = 'woocommerce_email_header_image';
+		$text_key            = 'poocommerce_email_header_image';
 		$text_value          = "Line 1\nLine 2\nLine 3";
 		$expected_text_value = 'Line 1 Line 2 Line 3';
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ test.describe( 'Mini-Cart Block (admin)', () => {
 
 		// Select the mini-cart block to get access to its parent (the header row).
 		const miniCartBlock = editor.canvas.locator(
-			'[data-type="woocommerce/mini-cart"]'
+			'[data-type="poocommerce/mini-cart"]'
 		);
 		await miniCartBlock.click();
 

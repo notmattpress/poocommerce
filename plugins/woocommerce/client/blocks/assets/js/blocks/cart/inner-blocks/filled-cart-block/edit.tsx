@@ -3,10 +3,10 @@
  */
 import clsx from 'clsx';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import { SidebarLayout } from '@woocommerce/base-components/sidebar-layout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import { SidebarLayout } from '@poocommerce/base-components/sidebar-layout';
 import type { TemplateArray } from '@wordpress/blocks';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -24,8 +24,8 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	const { hasDarkControls } = useCartBlockContext();
 	const allowedBlocks = getAllowedBlocks( innerBlockAreas.FILLED_CART );
 	const defaultTemplate = [
-		[ 'woocommerce/cart-items-block', {}, [] ],
-		[ 'woocommerce/cart-totals-block', {}, [] ],
+		[ 'poocommerce/cart-items-block', {}, [] ],
+		[ 'poocommerce/cart-totals-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {
@@ -36,7 +36,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	return (
 		<div
 			{ ...blockProps }
-			hidden={ currentView !== 'woocommerce/filled-cart-block' }
+			hidden={ currentView !== 'poocommerce/filled-cart-block' }
 		>
 			<SidebarLayout
 				className={ clsx( 'wc-block-cart', {

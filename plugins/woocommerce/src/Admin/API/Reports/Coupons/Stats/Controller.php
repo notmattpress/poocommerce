@@ -5,12 +5,12 @@
  * Handles requests to the /reports/coupons/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Coupons\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -87,7 +87,7 @@ class Controller extends GenericStatsController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_coupons_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_coupons_stats', $response, $report, $request );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class Controller extends GenericStatsController {
 	protected function get_item_properties_schema() {
 		return array(
 			'amount'        => array(
-				'description' => __( 'Net discount amount.', 'woocommerce' ),
+				'description' => __( 'Net discount amount.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -107,14 +107,14 @@ class Controller extends GenericStatsController {
 				'format'      => 'currency',
 			),
 			'coupons_count' => array(
-				'description' => __( 'Number of coupons.', 'woocommerce' ),
+				'description' => __( 'Number of coupons.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'orders_count'  => array(
-				'title'       => __( 'Discounted orders', 'woocommerce' ),
-				'description' => __( 'Number of discounted orders.', 'woocommerce' ),
+				'title'       => __( 'Discounted orders', 'poocommerce' ),
+				'description' => __( 'Number of discounted orders.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -151,7 +151,7 @@ class Controller extends GenericStatsController {
 			)
 		);
 		$params['coupons']         = array(
-			'description'       => __( 'Limit result set to coupons assigned specific coupon IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to coupons assigned specific coupon IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -160,7 +160,7 @@ class Controller extends GenericStatsController {
 			),
 		);
 		$params['segmentby']       = array(
-			'description'       => __( 'Segment the response by additional constraint.', 'woocommerce' ),
+			'description'       => __( 'Segment the response by additional constraint.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'product',

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Reports;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Reports;
 
-use Automattic\WooCommerce\Internal\Admin\Reports\ProductSearchQuery;
+use Automattic\PooCommerce\Internal\Admin\Reports\ProductSearchQuery;
 use WC_Product_Simple;
 use WC_Unit_Test_Case;
 

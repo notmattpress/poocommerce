@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { test, expect } from '@woocommerce/e2e-utils';
 import { setFilterValue } from '../../../utils/filters';
 
 const blockData = {
-	slug: 'woocommerce/single-product',
+	slug: 'poocommerce/single-product',
 	productSlug: 'hoodie',
 };
 
@@ -27,7 +27,7 @@ test.describe( `${ blockData.slug } Block`, () => {
 	} ) => {
 		await setFilterValue(
 			page,
-			'woocommerce_product_get_reviews_allowed',
+			'poocommerce_product_get_reviews_allowed',
 			false
 		);
 		await page.reload();
@@ -42,7 +42,7 @@ test.describe( `${ blockData.slug } Block`, () => {
 	} ) => {
 		await setFilterValue(
 			page,
-			'pre_option_woocommerce_enable_reviews',
+			'pre_option_poocommerce_enable_reviews',
 			'no'
 		);
 		await page.reload();

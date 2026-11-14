@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrdersQuery;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrdersQuery;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -130,21 +130,21 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 			$order_ids[] = OrderHelper::create_order()->get_id();
 		}
 
-		$all_ids = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'include' => $order_ids ) );
-		$paged   = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$all_ids = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'include' => $order_ids ) );
+		$paged   = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'include'  => $order_ids,
 				'per_page' => 10,
 			)
 		);
 
-		$deduped = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$deduped = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'include' => array( $order_ids[0], $order_ids[0], $order_ids[1] ),
 				'exclude' => array( $order_ids[1] ),
 			)
 		);
-		$all_out = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$all_out = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'include' => array( $order_ids[0] ),
 				'exclude' => array( $order_ids[0] ),
@@ -174,7 +174,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_include_with_id', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_include_with_id', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 	}
 
@@ -256,7 +256,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_search_with_id', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_search_with_id', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 	}
 
@@ -330,7 +330,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		$result = OrdersQuery::execute( array( 'search' => $search ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_search_empty', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_search_empty', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 	}
 
@@ -464,13 +464,13 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		$child->set_date_completed( $paid_at + HOUR_IN_SECONDS );
 		$child->save();
 		add_filter(
-			'woocommerce_order_number',
+			'poocommerce_order_number',
 			static function ( $number ) {
 				return 'A-' . $number;
 			}
 		);
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute( array( 'include' => array( $parent->get_id(), $child->get_id() ) ) );
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute( array( 'include' => array( $parent->get_id(), $child->get_id() ) ) );
 
 		$this->assertNotWPError( $result, 'The new fields should match the output schema.' );
 		$orders = array_column( $result['orders'], null, 'id' );
@@ -502,7 +502,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 		list( $order, $rate_id ) = $this->create_order_with_every_line();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'            => $order->get_id(),
 				'include_lines' => true,
@@ -543,7 +543,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		list( $order ) = $this->create_order_with_every_line();
 		$product       = current( $order->get_items() )->get_product();
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'                 => $order->get_id(),
 				'include_line_items' => true,
@@ -571,7 +571,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 		$item->save();
 		wc_get_product( $item->get_product_id() )->delete( true );
 
-		$result = wp_get_ability( 'woocommerce/orders-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/orders-query' )->execute(
 			array(
 				'id'                 => $order->get_id(),
 				'include_line_items' => true,
@@ -603,7 +603,7 @@ class OrdersQueryTest extends WC_Unit_Test_Case {
 	 * @return array{0: \WC_Order, 1: int} The order and the ID of its tax rate.
 	 */
 	private function create_order_with_every_line(): array {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$rate_id = \WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',

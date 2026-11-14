@@ -118,7 +118,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should identify WooCommerce REST requests by route only.
+	 * @testdox Should identify PooCommerce REST requests by route only.
 	 *
 	 * @dataProvider provider_request_uris_for_rest_api_detection
 	 *
@@ -139,22 +139,22 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function provider_request_uris_for_rest_api_detection(): array {
 		return array(
-			'woocommerce route'                           => array( '/wp-json/wc/v3/products', true ),
-			'third-party woocommerce route'               => array( '/wp-json/wc-custom/v1/resource', true ),
-			'plain permalink woocommerce route'           => array( '/?rest_route=/wc/v3/products', true ),
+			'poocommerce route'                           => array( '/wp-json/wc/v3/products', true ),
+			'third-party poocommerce route'               => array( '/wp-json/wc-custom/v1/resource', true ),
+			'plain permalink poocommerce route'           => array( '/?rest_route=/wc/v3/products', true ),
 			'plain permalink third-party route'           => array( '/?rest_route=/wc-custom/v1/resource', true ),
-			'index.php plain permalink woocommerce route' => array( '/index.php?rest_route=/wc/v3/products', true ),
-			'index.php path permalink woocommerce route'  => array( '/index.php/wp-json/wc/v3/products', true ),
-			'rest route overrides woocommerce-looking path' => array( '/wp-json/wc/v3/products?rest_route=/wp/v2/users', false ),
-			'rest route overrides non-woocommerce path'   => array( '/wp-json/wp/v2/users?rest_route=/wc/v3/products', true ),
-			'plain permalink non-woocommerce route'       => array( '/?rest_route=/wp/v2/users&x=wp-json/wc/', false ),
-			'non-woocommerce route with query'            => array( '/wp-json/wp/v2/users?context=edit&x=wp-json/wc/', false ),
-			'non-woocommerce path with substring'         => array( '/not-wp-json/wc/v3/products', false ),
-			'woocommerce route, repeated leading slash'   => array( '//wp-json/wc/v3/products', true ),
+			'index.php plain permalink poocommerce route' => array( '/index.php?rest_route=/wc/v3/products', true ),
+			'index.php path permalink poocommerce route'  => array( '/index.php/wp-json/wc/v3/products', true ),
+			'rest route overrides poocommerce-looking path' => array( '/wp-json/wc/v3/products?rest_route=/wp/v2/users', false ),
+			'rest route overrides non-poocommerce path'   => array( '/wp-json/wp/v2/users?rest_route=/wc/v3/products', true ),
+			'plain permalink non-poocommerce route'       => array( '/?rest_route=/wp/v2/users&x=wp-json/wc/', false ),
+			'non-poocommerce route with query'            => array( '/wp-json/wp/v2/users?context=edit&x=wp-json/wc/', false ),
+			'non-poocommerce path with substring'         => array( '/not-wp-json/wc/v3/products', false ),
+			'poocommerce route, repeated leading slash'   => array( '//wp-json/wc/v3/products', true ),
 			'third-party route, repeated leading slash'   => array( '//wp-json/wc-custom/v1/resource', true ),
 			'many leading slashes'                        => array( '////wp-json/wc/v3/products', true ),
-			'non-woocommerce route, repeated leading slash' => array( '//wp-json/wp/v2/users', false ),
-			// A character esc_url_raw() strips must not be collapsed into a WooCommerce route prefix.
+			'non-poocommerce route, repeated leading slash' => array( '//wp-json/wp/v2/users', false ),
+			// A character esc_url_raw() strips must not be collapsed into a PooCommerce route prefix.
 			'path with stripped character in prefix'      => array( '/wp-json/w^c/v3/products', false ),
 			'plain route with stripped character in prefix' => array( '/?rest_route=/w^c/v3/products', false ),
 			// PHP populates $_GET from the raw query string, so 'rest_rou^te' is a distinct parameter and
@@ -165,7 +165,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should identify a WooCommerce REST request by the route WordPress resolved.
+	 * @testdox Should identify a PooCommerce REST request by the route WordPress resolved.
 	 *
 	 * @dataProvider provider_resolved_routes_for_rest_api_detection
 	 *
@@ -190,7 +190,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function provider_resolved_routes_for_rest_api_detection(): array {
 		return array(
-			'language-prefixed woocommerce route' => array( '/en/wp-json/wc/v3/products', '/wc/v3/products', true ),
+			'language-prefixed poocommerce route' => array( '/en/wp-json/wc/v3/products', '/wc/v3/products', true ),
 			'route differs from resolved route'   => array( '/en/wp-json/wc/v3/products', '/wp/v2/users', false ),
 			'custom rewrite without REST prefix'  => array( '/shop-api/products', '/wc/v3/products', true ),
 			'resolved route overrides URI route'  => array( '/wp-json/wp/v2/users', '/wc/v3/products', true ),
@@ -234,7 +234,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should treat a path as a WooCommerce REST API request only while WordPress is dispatching REST.
+	 * @testdox Should treat a path as a PooCommerce REST API request only while WordPress is dispatching REST.
 	 *
 	 * @testWith ["/wp-json/wc/v3/products"]
 	 *           ["/wp-json/wc/v3/products?wc-auth-version=1&wc-auth-route=authorize"]
@@ -248,7 +248,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$this->simulate_rest_dispatching( false );
 		$this->assertFalse(
 			$this->is_request_to_rest_api(),
-			'A request WordPress is not dispatching as REST is not a WooCommerce REST API request.'
+			'A request WordPress is not dispatching as REST is not a PooCommerce REST API request.'
 		);
 
 		$this->simulate_rest_dispatching( true );
@@ -268,7 +268,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_secret = 'cs_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Dispatch test key',
@@ -298,7 +298,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$this->simulate_rest_dispatching( true );
 			$this->assertEquals( 1, $this->sut->authenticate( false ), 'The same key must authenticate once WordPress is dispatching the request as REST.' );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
 		}
 	}
 
@@ -316,7 +316,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$this->simulate_rest_dispatching( false );
 		$this->assertFalse(
 			$this->is_request_to_rest_api(),
-			'A path naming a WooCommerce route must not authenticate a key while a query string names a different route and dispatch is not yet confirmed.'
+			'A path naming a PooCommerce route must not authenticate a key while a query string names a different route and dispatch is not yet confirmed.'
 		);
 
 		$this->simulate_rest_dispatching( true );
@@ -329,7 +329,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	public static function provider_conflicting_path_and_query_string_routes(): array {
 		return array(
 			'query string names a foreign route'           => array( '/wp-json/wc/v3/products?rest_route=/wp/v2/users', false ),
-			'query string names another woocommerce route' => array( '/wp-json/wc/v3/products?rest_route=/wc/v3/orders', true ),
+			'query string names another poocommerce route' => array( '/wp-json/wc/v3/products?rest_route=/wc/v3/orders', true ),
 		);
 	}
 
@@ -369,7 +369,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should detect WooCommerce routes on a subdirectory install, matching how WordPress strips the home path.
+	 * @testdox Should detect PooCommerce routes on a subdirectory install, matching how WordPress strips the home path.
 	 *
 	 * @dataProvider provider_subdirectory_request_uris
 	 *
@@ -399,27 +399,27 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function provider_subdirectory_request_uris(): array {
 		return array(
-			'woocommerce route'                  => array( '/shop/wp-json/wc/v3/products', true ),
-			// WP::parse_request() strips the home path case-insensitively, so this still reaches WooCommerce.
-			'woocommerce route, home path cased' => array( '/Shop/wp-json/wc/v3/products', true ),
+			'poocommerce route'                  => array( '/shop/wp-json/wc/v3/products', true ),
+			// WP::parse_request() strips the home path case-insensitively, so this still reaches PooCommerce.
+			'poocommerce route, home path cased' => array( '/Shop/wp-json/wc/v3/products', true ),
 			'index.php permalink'                => array( '/shop/index.php/wp-json/wc/v3/products', true ),
 			'repeated slash after home path'     => array( '/shop//wp-json/wc/v3/products', true ),
-			'non-woocommerce route'              => array( '/shop/wp-json/wp/v2/users', false ),
+			'non-poocommerce route'              => array( '/shop/wp-json/wp/v2/users', false ),
 		);
 	}
 
 	/**
-	 * @testdox Should only let an authenticated key through when the route WordPress resolved is a WooCommerce one.
+	 * @testdox Should only let an authenticated key through when the route WordPress resolved is a PooCommerce one.
 	 *
 	 * @dataProvider provider_resolved_routes
 	 *
 	 * @param string $resolved_route Route WordPress resolved for the request.
-	 * @param bool   $in_scope       Whether a WooCommerce API key may authenticate it.
+	 * @param bool   $in_scope       Whether a PooCommerce API key may authenticate it.
 	 */
 	public function test_reject_out_of_scope_route_checks_resolved_route( string $resolved_route, bool $in_scope ): void {
 		global $wp;
 
-		// The request URI stays a WooCommerce one throughout, since the route WordPress resolves does
+		// The request URI stays a PooCommerce one throughout, since the route WordPress resolves does
 		// not have to be the one the URI names. The scope check is what has to notice the difference.
 		$_SERVER['REQUEST_URI']       = '/wp-json/wc/v3/products';
 		$wp->query_vars['rest_route'] = $resolved_route;
@@ -429,12 +429,12 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$result = $this->sut->reject_out_of_scope_route( null );
 
 		if ( $in_scope ) {
-			$this->assertNull( $result, 'A WooCommerce route must be left for the endpoint to serve.' );
+			$this->assertNull( $result, 'A PooCommerce route must be left for the endpoint to serve.' );
 			return;
 		}
 
-		$this->assertWPError( $result, 'A WooCommerce API key must not authenticate a route outside our namespaces.' );
-		$this->assertSame( 'woocommerce_rest_authentication_error', $result->get_error_code() );
+		$this->assertWPError( $result, 'A PooCommerce API key must not authenticate a route outside our namespaces.' );
+		$this->assertSame( 'poocommerce_rest_authentication_error', $result->get_error_code() );
 	}
 
 	/**
@@ -444,12 +444,12 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function provider_resolved_routes(): array {
 		return array(
-			'woocommerce route'             => array( '/wc/v3/products', true ),
-			'third-party woocommerce route' => array( '/wc-custom/v1/resource', true ),
+			'poocommerce route'             => array( '/wc/v3/products', true ),
+			'third-party poocommerce route' => array( '/wc-custom/v1/resource', true ),
 			'no leading slash'              => array( 'wc/v3/products', true ),
 			'core users route'              => array( '/wp/v2/users', false ),
 			'route index'                   => array( '/', false ),
-			'woocommerce route as a suffix' => array( '/wp/v2/users?x=wc/v3/products', false ),
+			'poocommerce route as a suffix' => array( '/wp/v2/users?x=wc/v3/products', false ),
 		);
 	}
 
@@ -519,7 +519,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should treat a namespace opted in through the woocommerce_rest_is_request_to_rest_api filter as a WooCommerce request.
+	 * @testdox Should treat a namespace opted in through the poocommerce_rest_is_request_to_rest_api filter as a PooCommerce request.
 	 */
 	public function test_is_request_to_rest_api_honours_scope_filter(): void {
 		$this->simulate_rest_dispatching( true );
@@ -527,15 +527,15 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 
 		$this->assertFalse(
 			$this->is_request_to_rest_api(),
-			'A third-party namespace is not a WooCommerce request until it opts in.'
+			'A third-party namespace is not a PooCommerce request until it opts in.'
 		);
 
-		add_filter( 'woocommerce_rest_is_request_to_rest_api', '__return_true' );
+		add_filter( 'poocommerce_rest_is_request_to_rest_api', '__return_true' );
 
 		try {
 			$this->assertTrue(
 				$this->is_request_to_rest_api(),
-				'A namespace opted in through the filter must be treated as a WooCommerce request.'
+				'A namespace opted in through the filter must be treated as a PooCommerce request.'
 			);
 
 			$this->simulate_rest_dispatching( false );
@@ -544,7 +544,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 				'The filter must not opt in a request WordPress is not dispatching as REST.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_rest_is_request_to_rest_api', '__return_true' );
+			remove_filter( 'poocommerce_rest_is_request_to_rest_api', '__return_true' );
 		}
 	}
 
@@ -554,7 +554,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 	public function test_reject_out_of_scope_route_rejects_overridden_third_party_route(): void {
 		global $wp;
 
-		// Two different non-WooCommerce namespaces: one named by the URI, one resolved. Rejected.
+		// Two different non-PooCommerce namespaces: one named by the URI, one resolved. Rejected.
 		$_SERVER['REQUEST_URI']       = '/wp-json/myplugin/v1/resource';
 		$wp->query_vars['rest_route'] = '/wp/v2/users';
 
@@ -563,7 +563,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$result = $this->sut->reject_out_of_scope_route( null );
 
 		$this->assertWPError( $result, 'A resolved route the URI never named must be rejected even when the URI names an opted-in namespace.' );
-		$this->assertSame( 'woocommerce_rest_authentication_error', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_authentication_error', $result->get_error_code() );
 	}
 
 	/**
@@ -582,7 +582,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$result = $this->sut->reject_out_of_scope_route( null );
 
 		$this->assertWPError( $result, 'A sibling route the URI never named must be rejected.' );
-		$this->assertSame( 'woocommerce_rest_authentication_error', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_authentication_error', $result->get_error_code() );
 	}
 
 	/**
@@ -603,7 +603,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$result = $this->sut->reject_out_of_scope_route( null );
 
 		$this->assertWPError( $result, 'A method override must not let a key reach a route the URI never named.' );
-		$this->assertSame( 'woocommerce_rest_authentication_error', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_rest_authentication_error', $result->get_error_code() );
 	}
 
 	/**
@@ -616,7 +616,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_secret = 'cs_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Route scope test key',
@@ -639,20 +639,20 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( 0 );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
 			$result = apply_filters( 'rest_authentication_errors', null );
 
 			$this->assertWPError( $result, 'A key authenticated by the fallback must not reach a core REST route.' );
-			$this->assertSame( 'woocommerce_rest_authentication_error', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_rest_authentication_error', $result->get_error_code() );
 			$this->assertSame( 401, $result->get_error_data()['status'] );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
 			wp_set_current_user( 0 );
 		}
 	}
 
 	/**
-	 * @testdox Should let the authentication fallback through for an in-scope WooCommerce route.
+	 * @testdox Should let the authentication fallback through for an in-scope PooCommerce route.
 	 *
 	 * @testWith ["/wp-json/wc/v3/products"]
 	 *           ["/ja/wp-json/wc/v3/products"]
@@ -667,7 +667,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_secret = 'cs_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Route scope test key',
@@ -688,12 +688,12 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( 0 );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
 			$authenticated = apply_filters( 'rest_authentication_errors', null );
 
-			$this->assertTrue( $authenticated, 'The fallback must still authenticate a genuine WooCommerce route.' );
+			$this->assertTrue( $authenticated, 'The fallback must still authenticate a genuine PooCommerce route.' );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
 			wp_set_current_user( 0 );
 		}
 	}
@@ -709,7 +709,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_secret = 'cs_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Early true callback test key',
@@ -733,7 +733,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		add_filter( 'rest_authentication_errors', '__return_true', 5 );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter so both of our callbacks fire in order; not defining a hook.
 			$authenticated = apply_filters( 'rest_authentication_errors', null );
 
 			$this->assertTrue( $authenticated, 'An earlier plugin reporting success must not be overridden.' );
@@ -743,7 +743,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$this->assertWPError( $result, 'Read/write permissions still apply to the key after an earlier callback returned true.' );
 		} finally {
 			remove_filter( 'rest_authentication_errors', '__return_true', 5 );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
 			wp_set_current_user( 0 );
 		}
 	}
@@ -759,7 +759,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_secret = 'cs_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Stale application password error test key',
@@ -787,7 +787,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$wp_rest_application_password_status = new WP_Error( 'invalid_username', 'The username is not registered on this site.' );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter chain, including core's own rest_application_password_check_errors(); not defining a hook.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Running WordPress core's filter chain, including core's own rest_application_password_check_errors(); not defining a hook.
 			$authenticated = apply_filters( 'rest_authentication_errors', null );
 
 			$this->assertTrue( $authenticated, 'Our own key must still authenticate; core must not act on the stale Application Passwords error.' );
@@ -798,13 +798,13 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			);
 		} finally {
 			$wp_rest_application_password_status = $original_status;
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'consumer_key' => wc_api_hash( $consumer_key ) ) );
 			wp_set_current_user( 0 );
 		}
 	}
 
 	/**
-	 * @testdox Should stay out of a request no WooCommerce API key authenticated.
+	 * @testdox Should stay out of a request no PooCommerce API key authenticated.
 	 */
 	public function test_reject_out_of_scope_route_ignores_requests_it_did_not_authenticate(): void {
 		global $wp;
@@ -813,7 +813,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 
 		$this->assertNull(
 			$this->sut->reject_out_of_scope_route( null ),
-			'A request without WooCommerce API key credentials should be left alone.'
+			'A request without PooCommerce API key credentials should be left alone.'
 		);
 	}
 
@@ -851,7 +851,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$last_access_spy     = function ( $do_not_record ) use ( &$last_access_updated ) {
 			$last_access_updated = ! $do_not_record;
 		};
-		add_filter( 'woocommerce_disable_rest_api_access_log', $last_access_spy );
+		add_filter( 'poocommerce_disable_rest_api_access_log', $last_access_spy );
 
 		// Test if last_access is updated for programmatic API requests.
 		$update_last_access->invoke( $wc_rest_authentication, new WP_REST_Request( 'GET', '/wc/v3/products' ) );
@@ -873,7 +873,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$authenticated_user->setValue( $wc_rest_authentication, $original_authenticated_user );
 		$authenticated_user->setAccessible( false );
 		$update_last_access->setAccessible( false );
-		add_filter( 'woocommerce_disable_rest_api_access_log', $last_access_spy );
+		add_filter( 'poocommerce_disable_rest_api_access_log', $last_access_spy );
 	}
 
 	/**
@@ -893,7 +893,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$second = $this->check_oauth_timestamp_and_nonce( $this->fetch_nonce_test_user( $key_id ), $timestamp, 'nonce-b' );
 			$this->assertTrue( $second, 'A second, distinct nonce must also be accepted.' );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'key_id' => $key_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'key_id' => $key_id ) );
 		}
 	}
 
@@ -914,9 +914,9 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$repeat = $this->check_oauth_timestamp_and_nonce( $this->fetch_nonce_test_user( $key_id ), $timestamp, 'nonce-a' );
 
 			$this->assertWPError( $repeat, 'A nonce already recorded must be rejected on reuse.' );
-			$this->assertSame( 'woocommerce_rest_authentication_error', $repeat->get_error_code() );
+			$this->assertSame( 'poocommerce_rest_authentication_error', $repeat->get_error_code() );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'key_id' => $key_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'key_id' => $key_id ) );
 		}
 	}
 
@@ -932,7 +932,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$expired_timestamp = time() - ( 16 * MINUTE_IN_SECONDS );
 
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_api_keys',
+				$wpdb->prefix . 'poocommerce_api_keys',
 				array( 'nonces' => maybe_serialize( array( $expired_timestamp => 'expired-nonce' ) ) ),
 				array( 'key_id' => $key_id )
 			);
@@ -945,7 +945,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 
 			$this->assertSame( array( $timestamp => 'fresh-nonce' ), $stored_nonces, 'Only the nonce from the current request must remain.' );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'key_id' => $key_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'key_id' => $key_id ) );
 		}
 	}
 
@@ -961,7 +961,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$stored_timestamp = time() - MINUTE_IN_SECONDS;
 
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_api_keys',
+				$wpdb->prefix . 'poocommerce_api_keys',
 				array( 'nonces' => maybe_serialize( array( $stored_timestamp => 'stored-nonce' ) ) ),
 				array( 'key_id' => $key_id )
 			);
@@ -983,7 +983,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 				'A still-valid stored nonce must survive a later request.'
 			);
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'key_id' => $key_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'key_id' => $key_id ) );
 		}
 	}
 
@@ -1018,7 +1018,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 			$repeat = $this->check_oauth_timestamp_and_nonce( $this->fetch_nonce_test_user( $key_id ), $shared_timestamp, 'nonce-b' );
 			$this->assertWPError( $repeat, 'A nonce held in a list must be rejected on reuse.' );
 		} finally {
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_api_keys', array( 'key_id' => $key_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_api_keys', array( 'key_id' => $key_id ) );
 		}
 	}
 
@@ -1033,7 +1033,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$consumer_key = 'ck_' . wp_generate_password( 32, false );
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => 1,
 				'description'     => 'Nonce test key',
@@ -1059,7 +1059,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 
 		return $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT key_id, user_id, permissions, consumer_key, consumer_secret, nonces FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d",
+				"SELECT key_id, user_id, permissions, consumer_key, consumer_secret, nonces FROM {$wpdb->prefix}poocommerce_api_keys WHERE key_id = %d",
 				$key_id
 			)
 		);

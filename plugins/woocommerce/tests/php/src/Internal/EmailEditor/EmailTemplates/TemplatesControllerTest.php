@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\EmailTemplates;
 
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
 use WC_Unit_Test_Case;
 
 /**
@@ -36,7 +36,7 @@ class TemplatesControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Leaves the WooCommerce email template out of the Site Editor and keeps site templates.
+	 * @testdox Leaves the PooCommerce email template out of the Site Editor and keeps site templates.
 	 */
 	public function test_site_editor_does_not_list_the_email_template(): void {
 		set_current_screen( 'site-editor' );

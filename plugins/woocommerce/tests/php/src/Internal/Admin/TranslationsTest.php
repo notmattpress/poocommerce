@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\Translations;
+use Automattic\PooCommerce\Internal\Admin\Translations;
 use WC_Unit_Test_Case;
 
 /**
@@ -57,7 +57,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		remove_filter( 'pre_determine_locale', array( $this, 'force_de_locale' ) );
 
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		if ( file_exists( $combined ) ) {
 			wp_delete_file( $combined );
 		}
@@ -125,7 +125,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 			'comment'                   => array( 'reference' => $reference ),
 		);
 
-		$path = $this->lang_dir . 'woocommerce-de_DE-' . $md5_name . '.json';
+		$path = $this->lang_dir . 'poocommerce-de_DE-' . $md5_name . '.json';
 		file_put_contents( $path, wp_json_encode( $data ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->created_files[] = $path;
 	}
@@ -158,7 +158,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 			),
 		);
 
-		$path = $this->lang_dir . 'woocommerce-de_DE-' . $md5_name . '.json';
+		$path = $this->lang_dir . 'poocommerce-de_DE-' . $md5_name . '.json';
 		file_put_contents( $path, wp_json_encode( $data ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->created_files[] = $path;
 	}
@@ -175,9 +175,9 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		\WP_Filesystem();
 		$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 		$build->setAccessible( true );
-		$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+		$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 
-		return json_decode( file_get_contents( $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json' ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		return json_decode( file_get_contents( $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json' ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 	}
 
 	/**
@@ -188,8 +188,8 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	public function user_chunk_key_provider(): array {
 		return array(
 			'make-json, make-json' => array( 'messages', 'messages' ),
-			'Loco, make-json'      => array( 'woocommerce', 'messages' ),
-			'make-json, Loco'      => array( 'messages', 'woocommerce' ),
+			'Loco, make-json'      => array( 'poocommerce', 'messages' ),
+			'make-json, Loco'      => array( 'messages', 'poocommerce' ),
 		);
 	}
 
@@ -224,7 +224,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should leave the translation file untouched for other script handles.
 	 */
 	public function test_ignores_other_script_handles(): void {
-		$result = $this->sut->load_script_translation_file( '/some/file.json', 'some-other-script', 'woocommerce' );
+		$result = $this->sut->load_script_translation_file( '/some/file.json', 'some-other-script', 'poocommerce' );
 
 		$this->assertSame( '/some/file.json', $result, 'Files for other handles should not be redirected' );
 	}
@@ -242,10 +242,10 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should return the combined translation file when it exists.
 	 */
 	public function test_returns_combined_file_when_present(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 
-		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'woocommerce' );
+		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'poocommerce' );
 
 		$this->assertSame( $combined, $result, 'The combined translation file should be served when present' );
 	}
@@ -265,9 +265,9 @@ class TranslationsTest extends WC_Unit_Test_Case {
 			array( 'Show' => array( 'Anzeigen' ) )
 		);
 
-		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'woocommerce' );
+		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'poocommerce' );
 
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		$this->assertSame( $combined, $result, 'The combined file should be rebuilt and served' );
 		$this->assertFileExists( $combined, 'The combined file should be written to disk' );
 
@@ -281,7 +281,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should replace an existing combined file when rebuilding.
 	 */
 	public function test_replaces_existing_combined_file_on_rebuild(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{"stale":true}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->create_chunk_json(
 			'cccccccccccccccccccccccccccccccc',
@@ -295,7 +295,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		\WP_Filesystem();
 		$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 		$build->setAccessible( true );
-		$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+		$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 
 		$data = json_decode( file_get_contents( $combined ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$this->assertArrayNotHasKey( 'stale', $data, 'The stale combined file should be replaced' );
@@ -307,7 +307,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should overwrite the combined file in place when a remote filesystem refuses to move onto it.
 	 */
 	public function test_replaces_existing_combined_file_when_remote_move_fails(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{"stale":true}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->create_chunk_json(
 			'dddddddddddddddddddddddddddddddd',
@@ -342,7 +342,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		try {
 			$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 			$build->setAccessible( true );
-			$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+			$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 		} finally {
 			remove_filter( 'filesystem_method', array( $this, 'force_ftpext_filesystem' ), PHP_INT_MAX );
 			$GLOBALS['wp_filesystem'] = $previous_filesystem; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring the real filesystem.
@@ -358,7 +358,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should overwrite the combined file in place when the temp file cannot be written.
 	 */
 	public function test_replaces_existing_combined_file_when_temp_write_fails(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{"stale":true}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->create_chunk_json(
 			'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
@@ -395,7 +395,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		try {
 			$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 			$build->setAccessible( true );
-			$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+			$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 		} finally {
 			$GLOBALS['wp_filesystem'] = $previous_filesystem; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring the real filesystem.
 		}
@@ -410,7 +410,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should recreate the combined file when a remote move removes it before failing.
 	 */
 	public function test_recreates_combined_file_when_remote_move_destroys_it(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{"stale":true}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->create_chunk_json(
 			'ffffffffffffffffffffffffffffffff',
@@ -446,7 +446,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		try {
 			$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 			$build->setAccessible( true );
-			$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+			$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 		} finally {
 			remove_filter( 'filesystem_method', array( $this, 'force_ssh2_filesystem' ), PHP_INT_MAX );
 			$GLOBALS['wp_filesystem'] = $previous_filesystem; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring the real filesystem.
@@ -461,7 +461,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should remove the combined file when the in-place write leaves it truncated.
 	 */
 	public function test_removes_combined_file_when_fallback_write_is_truncated(): void {
-		$combined = $this->lang_dir . 'woocommerce-de_DE-' . WC_ADMIN_APP . '.json';
+		$combined = $this->lang_dir . 'poocommerce-de_DE-' . WC_ADMIN_APP . '.json';
 		file_put_contents( $combined, '{"stale":true}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$this->create_chunk_json(
 			'gggggggggggggggggggggggggggggggg',
@@ -523,7 +523,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 		try {
 			$build = new \ReflectionMethod( Translations::class, 'build_and_save_translations' );
 			$build->setAccessible( true );
-			$build->invoke( $this->sut, $this->lang_dir, 'woocommerce', 'de_DE' );
+			$build->invoke( $this->sut, $this->lang_dir, 'poocommerce', 'de_DE' );
 		} finally {
 			remove_filter( 'filesystem_method', array( $this, 'force_ftpext_filesystem' ), PHP_INT_MAX );
 			$GLOBALS['wp_filesystem'] = $previous_filesystem; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring the real filesystem.
@@ -537,7 +537,7 @@ class TranslationsTest extends WC_Unit_Test_Case {
 	 * @testdox Should fall back to the original file when nothing can be rebuilt.
 	 */
 	public function test_falls_back_to_original_file_when_rebuild_not_possible(): void {
-		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'woocommerce' );
+		$result = $this->sut->load_script_translation_file( '/some/file.json', WC_ADMIN_APP, 'poocommerce' );
 
 		$this->assertSame( '/some/file.json', $result, 'The original file should be used when no combined file can be generated' );
 	}

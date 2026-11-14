@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { type ApiClient, WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { type ApiClient, WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -107,7 +107,7 @@ test( 'resets external product stock settings and keeps it visible when out-of-s
 	restApi,
 	managedOutOfStockProduct,
 } ) => {
-	const hideOutOfStockSettingEndpoint = `${ WC_API_PATH }/settings/products/woocommerce_hide_out_of_stock_items`;
+	const hideOutOfStockSettingEndpoint = `${ WC_API_PATH }/settings/products/poocommerce_hide_out_of_stock_items`;
 	const hideOutOfStockSetting = await restApi.get(
 		hideOutOfStockSettingEndpoint
 	);

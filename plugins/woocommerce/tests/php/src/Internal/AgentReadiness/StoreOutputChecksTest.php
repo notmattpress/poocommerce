@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
 use WC_Helper_Product;
 use WC_Structured_Data;
 use WC_Unit_Test_Case;
@@ -295,7 +295,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 		$names = new \ReflectionMethod( StoreOutputChecks::class, 'names_products' );
 		$names->setAccessible( true );
 		add_filter(
-			'pre_option_woocommerce_permalinks',
+			'pre_option_poocommerce_permalinks',
 			static fn() => array( 'product_base' => 'shop' )
 		);
 		$shop = '<urlset><url><loc>' . home_url( '/shop/' ) . '</loc></url></urlset>';
@@ -369,7 +369,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * The JSON-LD WooCommerce prints on a product's page.
+	 * The JSON-LD PooCommerce prints on a product's page.
 	 *
 	 * @param \WC_Product $product Product.
 	 */
@@ -390,7 +390,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The JSON-LD WooCommerce prints for a simple and a variable product passes all three product checks.
+	 * @testdox The JSON-LD PooCommerce prints for a simple and a variable product passes all three product checks.
 	 *
 	 * @testWith ["simple"]
 	 *           ["variable"]
@@ -486,7 +486,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce's own product JSON-LD is no conflict, nor is none at all. One from another source, or a second one beside it, is, and the first failure says so.
+	 * @testdox PooCommerce's own product JSON-LD is no conflict, nor is none at all. One from another source, or a second one beside it, is, and the first failure says so.
 	 */
 	public function test_product_jsonld_conflict(): void {
 		$product = WC_Helper_Product::create_simple_product();

@@ -239,7 +239,7 @@
       "count": 1
     }
   },
-  "client/shipping/woocommerce-shipping-item.tsx": {
+  "client/shipping/poocommerce-shipping-item.tsx": {
     "@wordpress/use-recommended-components": {
       "count": 1
     }

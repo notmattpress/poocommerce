@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
 
 /**
  * Video block renderer.
@@ -153,7 +153,7 @@ class Video extends Cover {
 			'<img src="%s" alt="%s" style="width: 48px; height: 48px; display: inline-block;" />',
 			esc_url( $play_icon_url ),
 			// translators: Alt text for video play button icon.
-			esc_attr( __( 'Play', 'woocommerce' ) )
+			esc_attr( __( 'Play', 'poocommerce' ) )
 		);
 
 		// Wrap the play button in a link if URL is provided.

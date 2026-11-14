@@ -12,7 +12,7 @@
 
 ## Overview
 
-WooCommerce uses WordPress i18n functions from `@wordpress/i18n` for
+PooCommerce uses WordPress i18n functions from `@wordpress/i18n` for
 translatable strings. Brand names like "WooPayments" should use placeholders
 to improve translation flexibility.
 
@@ -26,12 +26,12 @@ import { __, sprintf } from '@wordpress/i18n';
 
 ```typescript
 // Simple string
-__( 'Save changes', 'woocommerce' )
+__( 'Save changes', 'poocommerce' )
 
 // String with placeholder
 sprintf(
     /* translators: %s: Payment provider name (e.g., WooPayments) */
-    __( 'Set up %s', 'woocommerce' ),
+    __( 'Set up %s', 'poocommerce' ),
     'WooPayments'
 )
 ```
@@ -47,7 +47,7 @@ sprintf(
         '%d item selected',
         '%d items selected',
         count,
-        'woocommerce'
+        'poocommerce'
     ),
     count
 )
@@ -62,7 +62,7 @@ import { __, sprintf } from '@wordpress/i18n';
 createInterpolateElement(
     sprintf(
         /* translators: 1: Payment provider name */
-        __( 'Enable <strong>%1$s</strong> for your store.', 'woocommerce' ),
+        __( 'Enable <strong>%1$s</strong> for your store.', 'poocommerce' ),
         'WooPayments'
     ),
     {
@@ -80,7 +80,7 @@ Use `%s` for a single placeholder:
 ```typescript
 sprintf(
     /* translators: %s: Payment provider name (e.g., WooPayments) */
-    __( 'Get paid with %s', 'woocommerce' ),
+    __( 'Get paid with %s', 'poocommerce' ),
     'WooPayments'
 )
 ```
@@ -94,7 +94,7 @@ sprintf(
     /* translators: 1: Payment provider name (e.g., WooPayments) */
     __(
         'By using %1$s you agree to our Terms. Payments via %1$s are secure.',
-        'woocommerce'
+        'poocommerce'
     ),
     'WooPayments'
 )
@@ -111,7 +111,7 @@ sprintf(
         'Installing %1$s will activate %2$s extension.',
         'Installing %1$s will activate %2$s extensions.',
         extensionCount,
-        'woocommerce'
+        'poocommerce'
     ),
     'WooPayments',
     extensionNames
@@ -129,14 +129,14 @@ The translator comment must be placed **immediately before the `__()` or
 // ❌ WRONG - Comment before sprintf
 /* translators: %s: Payment provider name */
 sprintf(
-    __( 'Set up %s', 'woocommerce' ),
+    __( 'Set up %s', 'poocommerce' ),
     'WooPayments'
 )
 
 // ✅ CORRECT - Comment inside sprintf, before __()
 sprintf(
     /* translators: %s: Payment provider name */
-    __( 'Set up %s', 'woocommerce' ),
+    __( 'Set up %s', 'poocommerce' ),
     'WooPayments'
 )
 ```
@@ -179,7 +179,7 @@ installText: ( extensionsString: string ) => {
                 'Installing <strong>%1$s</strong> activates <strong>%2$s</strong>.',
                 'Installing <strong>%1$s</strong> activates <strong>%2$s</strong>.',
                 count,
-                'woocommerce'
+                'poocommerce'
             ),
             'WooPayments',
             extensionsString
@@ -197,7 +197,7 @@ createInterpolateElement(
         /* translators: 1: Payment provider name */
         __(
             'Learn more about <a>%1$s</a> features.',
-            'woocommerce'
+            'poocommerce'
         ),
         'WooPayments'
     ),
@@ -222,7 +222,7 @@ apostrophes (`'` U+0027). When editing, preserve the original character:
 
 ```typescript
 // Original uses curly apostrophe - preserve it
-__( 'I don't want to install another plugin', 'woocommerce' )
+__( 'I don't want to install another plugin', 'poocommerce' )
 //       ^ This is U+2019, not U+0027
 ```
 
@@ -236,14 +236,14 @@ before the translation function:
 const title = sprintf(
     /* translators: %s: Provider name */
 
-    __( 'Set up %s', 'woocommerce' ),
+    __( 'Set up %s', 'poocommerce' ),
     'WooPayments'
 );
 
 // ✅ Correct - comment directly before __()
 const title = sprintf(
     /* translators: %s: Provider name */
-    __( 'Set up %s', 'woocommerce' ),
+    __( 'Set up %s', 'poocommerce' ),
     'WooPayments'
 );
 ```
@@ -256,19 +256,19 @@ Always use placeholders for brand names to improve translation flexibility:
 // ✅ CORRECT - Use placeholder for brand name
 title: sprintf(
     /* translators: %s: Payment provider name */
-    __( 'Get paid with %s', 'woocommerce' ),
+    __( 'Get paid with %s', 'poocommerce' ),
     'WooPayments'
 )
 
 // ✅ CORRECT - Use placeholder in descriptions
 description: sprintf(
     /* translators: %s: Payment provider name */
-    __( 'Enable PayPal alongside %s', 'woocommerce' ),
+    __( 'Enable PayPal alongside %s', 'poocommerce' ),
     'WooPayments'
 )
 
 // ❌ WRONG - Hardcoded brand name
-title: __( 'Get paid with WooPayments', 'woocommerce' )
+title: __( 'Get paid with WooPayments', 'poocommerce' )
 ```
 
 ## Quick Command Reference

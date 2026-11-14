@@ -2,13 +2,13 @@
 /**
  * Consent management for WP Consent API integration
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
 
 /**
- * Manages consent checking for WooCommerce Analytics
+ * Manages consent checking for PooCommerce Analytics
  */
 class Consent_Manager {
 
@@ -50,7 +50,7 @@ class Consent_Manager {
 		}
 
 		// A consent plugin that sets the consent type in the browser, for example from the visitor's region, sets this instead.
-		return (bool) apply_filters( 'wp_consent_api_waitfor_consent_hook', false ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
+		return (bool) apply_filters( 'wp_consent_api_waitfor_consent_hook', false ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Consent_Manager {
 	 * @return bool
 	 */
 	private static function is_statistics_consent_denied() {
-		$prefix = apply_filters( 'wp_consent_cookie_prefix', 'wp_consent' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
+		$prefix = apply_filters( 'wp_consent_cookie_prefix', 'wp_consent' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
 		if ( ! is_string( $prefix ) ) {
 			return false;
 		}

@@ -1,4 +1,4 @@
-/*global woocommerce_admin_meta_boxes, wcTracks */
+/*global poocommerce_admin_meta_boxes, wcTracks */
 jQuery( document ).ready( ( $ ) => {
 	'use strict';
 
@@ -7,11 +7,11 @@ jQuery( document ).ready( ( $ ) => {
 	window.wcTracks.recordEvent = window.wcTracks.recordEvent || ( () => {} );
 
 	// Handle the "Details" container toggle.
-	$( '.woocommerce-order-attribution-details-toggle' )
+	$( '.poocommerce-order-attribution-details-toggle' )
 		.on( 'click', ( e ) => {
-			const $this = $( e.target ).closest( '.woocommerce-order-attribution-details-toggle');
+			const $this = $( e.target ).closest( '.poocommerce-order-attribution-details-toggle');
 			const $container = $this.closest( '.order-attribution-metabox' )
-											.find( '.woocommerce-order-attribution-details-container' );
+											.find( '.poocommerce-order-attribution-details-container' );
 			let toggle = '';
 
 			e.preventDefault();
@@ -28,7 +28,7 @@ jQuery( document ).ready( ( $ ) => {
 			$container.toggleClass( 'closed' );
 
 			window.wcTracks.recordEvent( 'order_attribution_details_toggle', {
-				order_id: window.woocommerce_admin_meta_boxes.order_id,
+				order_id: window.poocommerce_admin_meta_boxes.order_id,
 				details: toggle
 			} );
 		} );

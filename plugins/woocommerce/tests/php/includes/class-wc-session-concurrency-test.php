@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\StoreApi\SessionHandler as StoreApiSessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\SessionHandler as StoreApiSessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 
 /**
  * Tests for overlapping requests saving the same session.
@@ -11,7 +11,7 @@ use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
  * happens when a slow request overlaps another one from the same shopper. Requests that change the same key
  * still end with the value from the last save, so those cases are not covered here.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/46483
+ * @see https://github.com/poocommerce/poocommerce/issues/46483
  */
 class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 
@@ -99,7 +99,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Keys removed by the woocommerce_restored_session_data filter are removed from storage on the next save.
+	 * @testdox Keys removed by the poocommerce_restored_session_data filter are removed from storage on the next save.
 	 */
 	public function test_filtered_restored_data_is_saved(): void {
 		$user_id = (string) $this->factory->user->create( array( 'role' => 'customer' ) );
@@ -107,7 +107,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 		$this->apply_and_save( $this->start_request( WC_Session_Handler::class ), array( 'ext_tracking' => 'abc' ) );
 
 		add_filter(
-			'woocommerce_restored_session_data',
+			'poocommerce_restored_session_data',
 			function ( $data ) {
 				unset( $data['ext_tracking'] );
 				return $data;
@@ -150,11 +150,11 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 	 * @testdox A session cookie that fails verification is dropped from the request, so the visitor has no session.
 	 */
 	public function test_unverifiable_session_cookie_is_not_treated_as_a_session(): void {
-		$cookie_name             = 'wp_woocommerce_session_' . COOKIEHASH;
+		$cookie_name             = 'wp_poocommerce_session_' . COOKIEHASH;
 		$_COOKIE[ $cookie_name ] = 't_0123456789abcdef0123456789abcd|' . ( time() + DAY_IN_SECONDS ) . '|' . ( time() + HOUR_IN_SECONDS ) . '|invalidhash';
 
 		// Avoid sending headers from the test process.
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		try {
 			$handler = new WC_Session_Handler();
@@ -163,7 +163,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 			$this->assertArrayNotHasKey( $cookie_name, $_COOKIE, 'The unverifiable cookie should be removed from the request' );
 			$this->assertFalse( $handler->has_session(), 'An unverifiable cookie should not count as a session' );
 		} finally {
-			remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+			remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 			unset( $_COOKIE[ $cookie_name ] );
 		}
 	}
@@ -172,7 +172,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 	 * @testdox A validly signed session cookie is kept in the request and counts as a session.
 	 */
 	public function test_verifiable_session_cookie_is_kept_as_a_session(): void {
-		$cookie_name = 'wp_woocommerce_session_' . COOKIEHASH;
+		$cookie_name = 'wp_poocommerce_session_' . COOKIEHASH;
 		$customer_id = 't_0123456789abcdef0123456789abcd';
 		$expiration  = time() + DAY_IN_SECONDS;
 		$expiring    = time() + HOUR_IN_SECONDS;
@@ -182,7 +182,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 		$_COOKIE[ $cookie_name ] = $message . '|' . $expiring . '|' . $hash;
 
 		// Avoid sending headers from the test process.
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		try {
 			$handler = new WC_Session_Handler();
@@ -191,7 +191,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 			$this->assertArrayHasKey( $cookie_name, $_COOKIE, 'A verifiable cookie should stay in the request' );
 			$this->assertTrue( $handler->has_session(), 'A verifiable cookie should count as a session' );
 		} finally {
-			remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+			remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 			unset( $_COOKIE[ $cookie_name ] );
 		}
 	}
@@ -200,11 +200,11 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 	 * @testdox A session cookie with the wrong number of parts is dropped from the request, so the visitor has no session.
 	 */
 	public function test_malformed_session_cookie_is_not_treated_as_a_session(): void {
-		$cookie_name             = 'wp_woocommerce_session_' . COOKIEHASH;
+		$cookie_name             = 'wp_poocommerce_session_' . COOKIEHASH;
 		$_COOKIE[ $cookie_name ] = 't_0123456789abcdef0123456789abcd|' . ( time() + DAY_IN_SECONDS );
 
 		// Avoid sending headers from the test process.
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		try {
 			$handler = new WC_Session_Handler();
@@ -213,7 +213,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 			$this->assertArrayNotHasKey( $cookie_name, $_COOKIE, 'The malformed cookie should be removed from the request' );
 			$this->assertFalse( $handler->has_session(), 'A malformed cookie should not count as a session' );
 		} finally {
-			remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+			remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 			unset( $_COOKIE[ $cookie_name ] );
 		}
 	}
@@ -270,7 +270,7 @@ class WC_Session_Concurrency_Test extends WC_Unit_Test_Case {
 	private function get_stored_session( string $customer_id ): array {
 		global $wpdb;
 
-		$value = $wpdb->get_var( $wpdb->prepare( "SELECT session_value FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s", $customer_id ) );
+		$value = $wpdb->get_var( $wpdb->prepare( "SELECT session_value FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s", $customer_id ) );
 
 		return array_map( 'maybe_unserialize', (array) maybe_unserialize( $value ) );
 	}

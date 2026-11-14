@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
 
 /**
  * WC_Email_Order_Withdrawal_Requested::get_headers() Reply-to tests.

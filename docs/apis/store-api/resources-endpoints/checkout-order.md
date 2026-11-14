@@ -22,7 +22,7 @@ POST /wc/store/v1/checkout/{ORDER_ID}
 | `payment_method`   | string |   Yes    | The ID of the payment method being used to process the payment.     |
 | `payment_data`     | array  |    No    | Data to pass through to the payment method when processing payment. |
 
-When an order has neither a billing nor a shipping address yet and is treated as not needing shipping, its billing address is also used as its shipping address, and any `shipping_address` sent is ignored. This includes an order whose items are all virtual. When shipping is disabled or no method is registered, it also includes a physical order without an existing shipping line; a physical order with a shipping line keeps the submitted shipping address. When methods are available, the `woocommerce_order_needs_shipping` filter can change whether the order is treated as needing shipping.
+When an order has neither a billing nor a shipping address yet and is treated as not needing shipping, its billing address is also used as its shipping address, and any `shipping_address` sent is ignored. This includes an order whose items are all virtual. When shipping is disabled or no method is registered, it also includes a physical order without an existing shipping line; a physical order with a shipping line keeps the submitted shipping address. When methods are available, the `poocommerce_order_needs_shipping` filter can change whether the order is treated as needing shipping.
 
 ```sh
 curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc/store/v1/checkout/{ORDER_ID} -d '{"key":"wc_order_oFmQYREzh9Tfv","billing_email":"admin@example.com","payment_method":"cheque","billing_address":{...},"shipping_address":{...}'
@@ -111,7 +111,7 @@ curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc
 
 There are many payment gateways available for merchants to use, and each one will be expecting different `payment_data`. We cannot comprehensively list all expected requests for all payment gateways, and we would recommend reaching out to the authors of the payment gateway plugins you're working with for further information.
 
-An example of the payment data sent to the Checkout Order endpoint when using the [WooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/woocommerce-gateway-stripe/) is shown below.
+An example of the payment data sent to the Checkout Order endpoint when using the [PooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/poocommerce-gateway-stripe/) is shown below.
 
 For further information on generating a `stripe_source` please check [the Stripe documentation](https://stripe.com/docs).
 

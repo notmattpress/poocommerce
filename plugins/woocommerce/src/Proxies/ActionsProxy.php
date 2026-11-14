@@ -3,7 +3,7 @@
  * ActionsProxy class file.
  */
 
-namespace Automattic\WooCommerce\Proxies;
+namespace Automattic\PooCommerce\Proxies;
 
 /**
  * Proxy for interacting with WordPress actions and filters.

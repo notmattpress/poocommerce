@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ImportExport;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\ImportExport\HposOrderExportHandler;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\HposOrderExportHandler;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 use DOMDocument;
 use DOMXPath;
 use ReflectionClassConstant;
@@ -105,7 +105,7 @@ class HposOrderExportHandlerTest extends WC_Unit_Test_Case {
 		$order = $this->create_order();
 		global $wpdb;
 		$wpdb->update( OrdersTableDataStore::get_orders_table_name(), array( 'total_amount' => '12.505' ), array( 'id' => $order->get_id() ) );
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 		wp_cache_flush();
 
 		$xpath = $this->export();
@@ -186,7 +186,7 @@ class HposOrderExportHandlerTest extends WC_Unit_Test_Case {
 		};
 		add_filter( 'wxr_export_skip_postmeta', $skip, 10, 2 );
 		add_filter( 'wxr_export_skip_commentmeta', $skip, 10, 2 );
-		add_filter( 'woocommerce_order_get_total', 'floatval' );
+		add_filter( 'poocommerce_order_get_total', 'floatval' );
 
 		$xpath = $this->export();
 		$this->assertSame( 1.0, $xpath->evaluate( 'count(/rss/channel/generator)' ), 'The rss2_head action should add the generator to the channel.' );

@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests relating to the WC_Privacy class.
@@ -17,7 +17,7 @@ class WC_Privacy_Test extends WC_Unit_Test_Case {
 		update_user_meta( $customer->get_id(), 'wc_last_active', time() - YEAR_IN_SECONDS );
 
 		update_option(
-			'woocommerce_delete_inactive_accounts',
+			'poocommerce_delete_inactive_accounts',
 			array(
 				'number' => 1,
 				'unit'   => 'months',

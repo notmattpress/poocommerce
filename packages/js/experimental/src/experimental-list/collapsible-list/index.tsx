@@ -221,11 +221,11 @@ export const ExperimentalCollapsibleList = ( {
 
 	const listClasses = clsx(
 		listProps.className || '',
-		'woocommerce-experimental-list'
+		'poocommerce-experimental-list'
 	);
 
 	const wrapperClasses = clsx( {
-		'woocommerce-experimental-list-wrapper': ! isCollapsed,
+		'poocommerce-experimental-list-wrapper': ! isCollapsed,
 	} );
 
 	const hiddenChildren =
@@ -275,7 +275,7 @@ export const ExperimentalCollapsibleList = ( {
 								ref={ collapseContainerRef }
 								style={ transitionStyles }
 							>
-								<TransitionGroup className="woocommerce-experimental-list">
+								<TransitionGroup className="poocommerce-experimental-list">
 									{ Children.map(
 										displayedChildren.hidden,
 										( child ) => {
@@ -297,7 +297,7 @@ export const ExperimentalCollapsibleList = ( {
 													in={ inTransition }
 													enter={ enter }
 													exit={ exit }
-													classNames="woocommerce-list__item"
+													classNames="poocommerce-list__item"
 												>
 													{ cloneElement( child, {
 														animation:

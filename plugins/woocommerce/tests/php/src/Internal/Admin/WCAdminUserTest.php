@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminUser;
+use Automattic\PooCommerce\Internal\Admin\WCAdminUser;
 use WC_Unit_Test_Case;
 
 /**
@@ -40,9 +40,9 @@ class WCAdminUserTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should include the WooCommerce user fields even when rest_api_init has not fired.
+	 * @testdox Should include the PooCommerce user fields even when rest_api_init has not fired.
 	 */
-	public function test_get_user_data_includes_woocommerce_fields_without_rest_api_init(): void {
+	public function test_get_user_data_includes_poocommerce_fields_without_rest_api_init(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 
 		// A wp-admin request never fires rest_api_init, so the global the users controller
@@ -51,8 +51,8 @@ class WCAdminUserTest extends WC_Unit_Test_Case {
 
 		$user_data = WCAdminUser::get_user_data();
 
-		$this->assertArrayHasKey( 'woocommerce_meta', $user_data, 'currentUserData should carry woocommerce_meta.' );
+		$this->assertArrayHasKey( 'poocommerce_meta', $user_data, 'currentUserData should carry poocommerce_meta.' );
 		$this->assertArrayHasKey( 'is_super_admin', $user_data, 'currentUserData should carry is_super_admin.' );
-		$this->assertArrayHasKey( 'variable_product_tour_shown', $user_data['woocommerce_meta'], 'woocommerce_meta should carry the registered user data fields.' );
+		$this->assertArrayHasKey( 'variable_product_tour_shown', $user_data['poocommerce_meta'], 'poocommerce_meta should carry the registered user data fields.' );
 	}
 }

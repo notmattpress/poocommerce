@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		remove_all_filters( 'pre_http_request' );
-		delete_option( 'woocommerce_coming_soon' );
+		delete_option( 'poocommerce_coming_soon' );
 		parent::tearDown();
 	}
 
@@ -29,7 +29,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 * @return array<string, bool|null>
 	 */
 	private function results( array $responses ): array {
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		add_filter(
 			'pre_http_request',
 			static function ( $pre, $args, $url ) use ( $responses ) {
@@ -414,7 +414,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_scan_shares_responses(): void {
 		$requests = array();
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		add_filter(
 			'pre_http_request',
 			static function ( $pre, $args, $url ) use ( &$requests ) {
@@ -446,7 +446,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 * @testdox In coming soon mode nothing is requested and every item is not checked.
 	 */
 	public function test_coming_soon(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		add_filter(
 			'pre_http_request',
 			function () {

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness\Checks;
+namespace Automattic\PooCommerce\Internal\AgentReadiness\Checks;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\FeedChannels;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFields;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\FeedChannels;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFields;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -33,21 +33,21 @@ class MissingGtinCheck extends AbstractReadinessCheck {
 	 * Merchant-facing label.
 	 */
 	public function label(): string {
-		return __( 'Products missing a GTIN', 'woocommerce' );
+		return __( 'Products missing a GTIN', 'poocommerce' );
 	}
 
 	/**
 	 * Why it matters.
 	 */
 	public function why(): string {
-		return __( 'Channels match products to searches and to other sellers by GTIN; without one the product is harder to find. Each variation lists as its own item, so it needs its own GTIN.', 'woocommerce' );
+		return __( 'Channels match products to searches and to other sellers by GTIN; without one the product is harder to find. Each variation lists as its own item, so it needs its own GTIN.', 'poocommerce' );
 	}
 
 	/**
 	 * What to do about it.
 	 */
 	public function fix(): string {
-		return __( 'Add the GTIN (UPC, EAN or ISBN) from the packaging or supplier to the product, or to each variation of a variable product; never make one up.', 'woocommerce' );
+		return __( 'Add the GTIN (UPC, EAN or ISBN) from the packaging or supplier to the product, or to each variation of a variable product; never make one up.', 'poocommerce' );
 	}
 
 	/**

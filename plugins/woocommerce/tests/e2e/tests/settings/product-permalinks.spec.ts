@@ -37,7 +37,7 @@ test.describe( 'Product permalink settings', () => {
 		const readPermalinks = async () =>
 			(
 				await wpCLI(
-					`wp option get woocommerce_permalinks --format=json ${ optionCliFlags }`
+					`wp option get poocommerce_permalinks --format=json ${ optionCliFlags }`
 				)
 			).stdout.trim();
 
@@ -51,7 +51,7 @@ test.describe( 'Product permalink settings', () => {
 		const productPermalinkRadios = page.locator(
 			'input[name="product_permalink"]'
 		);
-		const customBase = page.locator( '#woocommerce_permalink_structure' );
+		const customBase = page.locator( '#poocommerce_permalink_structure' );
 		const saveChanges = page.getByRole( 'button', {
 			name: 'Save Changes',
 		} );
@@ -131,7 +131,7 @@ test.describe( 'Product permalink settings', () => {
 			// flipping it there would move a keyboard user off the structure the store uses,
 			// undoing what this screen was fixed to report.
 			const customSelection = page.locator(
-				'#woocommerce_custom_selection'
+				'#poocommerce_custom_selection'
 			);
 
 			await customBase.focus();
@@ -159,7 +159,7 @@ test.describe( 'Product permalink settings', () => {
 			expect( storedPermalinks.product_base ).toBe( expectedBareSlug );
 		} finally {
 			await wpCLI(
-				`wp option update woocommerce_permalinks ${ asShellArgument(
+				`wp option update poocommerce_permalinks ${ asShellArgument(
 					originalPermalinks
 				) } --format=json ${ optionCliFlags }`
 			);

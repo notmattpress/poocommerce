@@ -87,12 +87,12 @@ test.describe(
 				}&action=edit`
 			);
 			await expect(
-				page.locator( '#woocommerce-email-editor' )
+				page.locator( '#poocommerce-email-editor' )
 			).toBeVisible( { timeout: 20000 } );
 			await page.waitForFunction( () =>
 				Boolean(
 					window.wp?.blocks?.getBlockType?.(
-						'woocommerce/email-content'
+						'poocommerce/email-content'
 					)
 				)
 			);

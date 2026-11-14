@@ -2,7 +2,7 @@
 /**
  * Admin View: Page - Status Database Logs
  *
- * @package WooCommerce\Admin\Logs
+ * @package PooCommerce\Admin\Logs
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,19 +11,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $delete_confirmation_js = sprintf(
 	"return window.confirm( '%s' )",
-	esc_js( __( 'Are you sure you want to clear all logs from the database?', 'woocommerce' ) )
+	esc_js( __( 'Are you sure you want to clear all logs from the database?', 'poocommerce' ) )
 );
 ?>
 <form method="get" id="mainform">
 	<input type="hidden" name="page" value="wc-status" />
 	<input type="hidden" name="tab" value="logs" />
 
-	<?php $log_table_list->search_box( __( 'Search logs', 'woocommerce' ), 'log' ); ?>
+	<?php $log_table_list->search_box( __( 'Search logs', 'poocommerce' ), 'log' ); ?>
 	<?php $log_table_list->display(); ?>
 
 	<?php
 	submit_button(
-		__( 'Flush all logs', 'woocommerce' ),
+		__( 'Flush all logs', 'poocommerce' ),
 		'delete',
 		'flush-logs',
 		true,

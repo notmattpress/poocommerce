@@ -2,15 +2,15 @@
 /**
  * Assertion helper for facade validation errors.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration;
 
 use WP_Error;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ValidationException;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ValidationException;
 
 /**
  * Asserts that a facade call is refused with given codes, fields and params.

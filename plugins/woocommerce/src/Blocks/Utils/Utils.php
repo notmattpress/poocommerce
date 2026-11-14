@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Utils class
@@ -53,7 +53,7 @@ class Utils {
 	/**
 	 * Get the current page URL using the request path relative to home.
 	 *
-	 * @internal This function is used internally by WooCommerce blocks to get the current page URL. It is not intended for external use.
+	 * @internal This function is used internally by PooCommerce blocks to get the current page URL. It is not intended for external use.
 	 *
 	 * @return string The current page URL.
 	 *

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -25,25 +25,25 @@ test.describe( 'Product Collection', () => {
 			templateTitle: 'Product Category (all terms)',
 			slug: 'taxonomy-product_cat',
 			frontendPage: '/product-category/music/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Tag (all terms)',
 			slug: 'taxonomy-product_tag',
 			frontendPage: '/product-tag/recommended/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Catalog',
 			slug: 'archive-product',
 			frontendPage: '/shop/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Search Results',
 			slug: 'product-search-results',
 			frontendPage: '/?s=shirt&post_type=product',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 	];
 
@@ -90,7 +90,7 @@ test.describe( 'Product Collection', () => {
 
 					await page.goto( frontendPage );
 					const classicProducts = page.locator(
-						'.woocommerce-loop-product__title'
+						'.poocommerce-loop-product__title'
 					);
 					expect( await classicProducts.count() ).toBeGreaterThan(
 						0
@@ -113,7 +113,7 @@ test.describe( 'Product Collection', () => {
 			editor,
 		} ) => {
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby price'
+				'option update poocommerce_default_catalog_orderby price'
 			);
 
 			await pageObject.goToEditorTemplate();
@@ -145,7 +145,7 @@ test.describe( 'Product Collection', () => {
 			await expect( frontendProductTitle ).toContainText( 'Sunglasses' );
 
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby menu_order'
+				'option update poocommerce_default_catalog_orderby menu_order'
 			);
 		} );
 	} );

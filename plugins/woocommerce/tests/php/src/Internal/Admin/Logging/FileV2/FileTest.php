@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging\FileV2;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\File;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\File;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
 use WC_Unit_Test_Case;
 
 // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_fopen, WordPress.WP.AlternativeFunctions.file_system_read_fclose

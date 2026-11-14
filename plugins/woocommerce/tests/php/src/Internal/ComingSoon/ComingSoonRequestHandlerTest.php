@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Tests\Internal\ComingSoon;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesController;
-use Automattic\WooCommerce\Blocks\Package as BlocksPackage;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
+use Automattic\PooCommerce\Blocks\BlockTemplatesController;
+use Automattic\PooCommerce\Blocks\Package as BlocksPackage;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
 
 /**
  * Tests for the Coming Soon request handler.
@@ -66,9 +66,9 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 		$this->visibility->setValue( null, null );
 		wp_set_current_user( 0 );
 		unset( $_GET['woo-share'], $_COOKIE['woo-share'] );
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_store_pages_only', 'no' );
-		update_option( 'woocommerce_private_link', 'no' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'no' );
+		update_option( 'poocommerce_private_link', 'no' );
 		$this->sut = wc_get_container()->get( ComingSoonRequestHandler::class );
 	}
 
@@ -101,9 +101,9 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	 * @param string $filename   Expected PHP template filename.
 	 */
 	public function test_classic_template_selection( string $store_only, string $filename ): void {
-		update_option( 'woocommerce_store_pages_only', $store_only );
+		update_option( 'poocommerce_store_pages_only', $store_only );
 		$shop_id = $this->factory->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$this->go_to( get_permalink( $shop_id ) );
 
 		$template = null;
@@ -115,8 +115,8 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 
 		$this->assertSame( WC_ABSPATH . 'templates/coming-soon/' . $filename, $template );
 		$this->assertSame( '', $output, 'Selection must let WordPress render the template.' );
-		$this->assertTrue( wp_style_is( 'woocommerce-coming-soon-classic', 'enqueued' ) );
-		$this->assertSame( WC()->plugin_url() . '/assets/css/coming-soon-classic.css', wp_styles()->registered['woocommerce-coming-soon-classic']->src );
+		$this->assertTrue( wp_style_is( 'poocommerce-coming-soon-classic', 'enqueued' ) );
+		$this->assertSame( WC()->plugin_url() . '/assets/css/coming-soon-classic.css', wp_styles()->registered['poocommerce-coming-soon-classic']->src );
 	}
 
 	/**
@@ -136,25 +136,25 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 		$this->go_to( home_url( '/' ) );
 		switch ( $scenario ) {
 			case 'live':
-				update_option( 'woocommerce_coming_soon', 'no' );
+				update_option( 'poocommerce_coming_soon', 'no' );
 				break;
 			case 'administrator':
 			case 'shop_manager':
 				wp_set_current_user( $this->factory->user->create( array( 'role' => $scenario ) ) );
 				break;
 			case 'private_cookie':
-				update_option( 'woocommerce_private_link', 'yes' );
-				update_option( 'woocommerce_share_key', 'test-share-key' );
+				update_option( 'poocommerce_private_link', 'yes' );
+				update_option( 'poocommerce_share_key', 'test-share-key' );
 				$_COOKIE['woo-share'] = 'test-share-key';
 				break;
 			case 'excluded':
-				add_filter( 'woocommerce_coming_soon_exclude', '__return_true' );
+				add_filter( 'poocommerce_coming_soon_exclude', '__return_true' );
 				break;
 			case 'non_store':
-				update_option( 'woocommerce_store_pages_only', 'yes' );
+				update_option( 'poocommerce_store_pages_only', 'yes' );
 				break;
 			case 'store_404':
-				update_option( 'woocommerce_store_pages_only', 'yes' );
+				update_option( 'poocommerce_store_pages_only', 'yes' );
 				$GLOBALS['wp_query']->set_404();
 				break;
 			case 'block_theme':
@@ -191,12 +191,12 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should ignore a theme's root coming-soon.php and load a theme override from the WooCommerce folder.
+	 * @testdox Should ignore a theme's root coming-soon.php and load a theme override from the PooCommerce folder.
 	 * @testWith ["coming-soon.php", false]
-	 *           ["woocommerce/coming-soon/coming-soon-entire-site.php", true]
+	 *           ["poocommerce/coming-soon/coming-soon-entire-site.php", true]
 	 *
 	 * @param string $file     Theme file to create, relative to the theme folder.
-	 * @param bool   $override Whether WooCommerce should load the file.
+	 * @param bool   $override Whether PooCommerce should load the file.
 	 */
 	public function test_theme_template_lookup( string $file, bool $override ): void {
 		$root = $this->use_fixture_theme( array( $file => '<?php the_content();' ) );
@@ -205,14 +205,14 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Assert the classic template result, and that its stylesheet is enqueued only when the WooCommerce page is selected.
+	 * Assert the classic template result, and that its stylesheet is enqueued only when the PooCommerce page is selected.
 	 *
 	 * @param string $expected Expected template path.
 	 * @param string $original Previously selected template path.
 	 */
 	private function assert_classic_result( string $expected, string $original = '/original.php' ): void {
 		$this->assertSame( $expected, $this->sut->handle_classic_template_include( $original ) );
-		$style_enqueued = wp_style_is( 'woocommerce-coming-soon-classic', 'enqueued' );
+		$style_enqueued = wp_style_is( 'poocommerce-coming-soon-classic', 'enqueued' );
 		if ( self::ENTIRE_SITE_TEMPLATE === $expected ) {
 			$this->assertTrue( $style_enqueued, 'The entire-site page must enqueue the classic Coming Soon stylesheet.' );
 		} else {
@@ -353,7 +353,7 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 			'coming-soon_template-not-a-string'   => array( 'coming-soon_template', null ),
 			'coming-soon_template-missing'        => array( 'coming-soon_template', '/missing-coming-soon.php' ),
 			'coming-soon_template-directory'      => array( 'coming-soon_template', __DIR__ ),
-			'woocommerce_locate_template-missing' => array( 'woocommerce_locate_template', '/missing-coming-soon.php' ),
+			'poocommerce_locate_template-missing' => array( 'poocommerce_locate_template', '/missing-coming-soon.php' ),
 		);
 	}
 
@@ -389,7 +389,7 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'Test &amp; shop is coming soon', $output );
 		$this->assertStringContainsString( esc_url( wp_login_url() ), $output );
 		$this->assertStringNotContainsString( '<script>alert(1)</script>', $output );
-		$this->assertStringNotContainsString( 'wp-block-woocommerce-coming-soon', $output );
+		$this->assertStringNotContainsString( 'wp-block-poocommerce-coming-soon', $output );
 		$this->assertStringNotContainsString( 'facebook.com', $output );
 	}
 
@@ -397,14 +397,14 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	 * @testdox Should render the store-only message inside the theme's header and footer, with the Coming Soon marker in the head.
 	 */
 	public function test_store_only_php_output(): void {
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 		$shop_id = $this->factory->post->create(
 			array(
 				'post_type'    => 'page',
 				'post_content' => 'Protected shop content',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 		$this->go_to( get_permalink( $shop_id ) );
 		// The bootstrap does not load Storefront's functions.php, which its header.php needs.
 		$this->use_fixture_theme(
@@ -428,7 +428,7 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	 * @testdox Should hide the product from theme footer code on product pages, so it neither crashes nor shows product details.
 	 */
 	public function test_product_page_clears_product_global(): void {
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 		$product = \WC_Helper_Product::create_simple_product();
 		$this->go_to( get_permalink( $product->get_id() ) );
 		$this->assertIsString( $GLOBALS['product'] ?? null, 'WordPress must expose the product query var as the slug string.' );
@@ -564,7 +564,7 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	public function test_coming_soon_is_decided_once_per_request(): void {
 		$calls = 0;
 		add_filter(
-			'woocommerce_coming_soon_exclude',
+			'poocommerce_coming_soon_exclude',
 			function () use ( &$calls ) {
 				++$calls;
 				return true;
@@ -583,7 +583,7 @@ class ComingSoonRequestHandlerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Hook a fresh handler as WooCommerce does, plus template_include probes at priorities 1, 10, 999 and PHP_INT_MAX that print and return a path.
+	 * Hook a fresh handler as PooCommerce does, plus template_include probes at priorities 1, 10, 999 and PHP_INT_MAX that print and return a path.
 	 *
 	 * @param array $ran Receives the priorities of the probes that ran, in order.
 	 * @return ComingSoonRequestHandler The hooked handler.

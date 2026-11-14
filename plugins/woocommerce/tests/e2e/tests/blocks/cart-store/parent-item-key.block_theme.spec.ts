@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { test as base, expect, guestFile, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, guestFile, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

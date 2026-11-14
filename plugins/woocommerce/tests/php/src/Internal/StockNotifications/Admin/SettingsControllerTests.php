@@ -1,12 +1,12 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\SettingsController;
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\DataRetentionController;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\SettingsController;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\DataRetentionController;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
 use WC_Helper_Product;
 use WC_Settings_Advanced;
 use WC_Settings_Products;
@@ -67,10 +67,10 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'product_customer_stock_notifications_options' => array( 'title', 'sectionend' ),
-			'woocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_account' => 'checkbox',
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
+			'poocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_account' => 'checkbox',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
 		);
 
 		$this->assertEquals( $expected, $setting_ids_and_types );
@@ -84,13 +84,13 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$sut = new SettingsController();
 
-		$this->assertSame( 100, has_filter( 'woocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
-		$this->assertSame( 10, has_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $sut, 'sanitize_unverified_deletion_days_threshold' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
+		$this->assertSame( 10, has_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', array( $sut, 'sanitize_unverified_deletion_days_threshold' ) ) );
 		$this->assertFalse( has_action( 'admin_notices', array( $sut, 'output_admin_notices' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
 	}
 
 	/**
@@ -102,12 +102,12 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$sut = new SettingsController();
 
-		$this->assertSame( 100, has_filter( 'woocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
-		$this->assertSame( 100, has_filter( 'woocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_sections_products', array( $sut, 'add_customer_stock_notifications_section' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_products', array( $sut, 'add_customer_stock_notifications_settings' ) ) );
+		$this->assertSame( 100, has_filter( 'poocommerce_get_settings_advanced', array( $sut, 'add_my_account_endpoint_setting' ) ) );
 		$this->assertSame( 10, has_action( 'admin_notices', array( $sut, 'output_admin_notices' ) ) );
-		$this->assertSame( 20, has_action( 'woocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
-		$this->assertSame( 10, has_action( 'woocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
+		$this->assertSame( 20, has_action( 'poocommerce_product_options_stock_status', array( $sut, 'add_disable_stock_notifications_checkbox' ) ) );
+		$this->assertSame( 10, has_action( 'poocommerce_admin_process_product_object', array( $sut, 'process_product_object' ) ) );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$this->assertNotNull( $group_end, 'The account endpoints group should exist.' );
 		$this->assertLessThan( $group_end, $setting_index );
-		$this->assertSame( 'woocommerce_myaccount_downloads_endpoint', $ids[ $setting_index - 1 ], 'The endpoint setting should sit right after Downloads.' );
+		$this->assertSame( 'poocommerce_myaccount_downloads_endpoint', $ids[ $setting_index - 1 ], 'The endpoint setting should sit right after Downloads.' );
 		$this->assertSame( 'text', $settings[ $setting_index ]['type'] );
 		$this->assertSame( MyAccountEndpoint::ENDPOINT, $settings[ $setting_index ]['default'] );
 	}
@@ -143,7 +143,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @testdox The My Account endpoint setting is sanitized as an endpoint slug on save.
 	 */
 	public function test_my_account_endpoint_setting_is_sanitized_on_save() {
-		$hook = 'woocommerce_admin_settings_sanitize_option_' . MyAccountEndpoint::ENDPOINT_OPTION;
+		$hook = 'poocommerce_admin_settings_sanitize_option_' . MyAccountEndpoint::ENDPOINT_OPTION;
 
 		$this->assertSame( 10, has_filter( $hook, 'wc_sanitize_endpoint_slug' ) );
 		$this->assertSame( 'restock-alerts', apply_filters( $hook, 'Restock Alerts' ) );
@@ -193,7 +193,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @param string $expected_value Meta value after saving.
 	 */
 	public function test_process_product_object_saves_signups_checkbox( string $stored_value, bool $posted_enabled, string $expected_value ): void {
-		update_option( 'woocommerce_customer_stock_notifications_allow_signups', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_allow_signups', 'yes' );
 		$meta_key = Config::get_product_signups_meta_key();
 		$product  = WC_Helper_Product::create_simple_product();
 		if ( '' !== $stored_value ) {
@@ -201,7 +201,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 			$product->save();
 		}
 
-		$nonce = wp_create_nonce( 'woocommerce-customer-stock-notifications-edit-product' );
+		$nonce = wp_create_nonce( 'poocommerce-customer-stock-notifications-edit-product' );
 		$_POST['customer_stock_notifications_edit_product_security']    = $nonce;
 		$_REQUEST['customer_stock_notifications_edit_product_security'] = $nonce;
 		if ( $posted_enabled ) {
@@ -217,7 +217,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @testdox Saving a product from a form without the stock notifications nonce field leaves the setting unchanged.
 	 */
 	public function test_process_product_object_skips_save_when_nonce_field_is_absent(): void {
-		update_option( 'woocommerce_customer_stock_notifications_allow_signups', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_allow_signups', 'yes' );
 		$meta_key = Config::get_product_signups_meta_key();
 		$product  = WC_Helper_Product::create_simple_product();
 		$product->update_meta_data( $meta_key, 'yes' );
@@ -232,7 +232,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @testdox Saving a negative unverified sign-up deletion threshold stores 0 and unschedules the cleanup.
 	 */
 	public function test_negative_unverified_deletion_days_threshold_is_saved_as_zero() {
-		$option_id            = 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold';
+		$option_id            = 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold';
 		$retention_controller = new DataRetentionController();
 		update_option( $option_id, 30 );
 		$this->assertSame( 'daily', wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ), 'A positive threshold should schedule the cleanup.' );
@@ -257,7 +257,7 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 	 * @testdox A stored negative unverified sign-up deletion threshold renders as 0 so the settings form stays submittable.
 	 */
 	public function test_stored_negative_unverified_deletion_days_threshold_renders_as_zero() {
-		$option_id = 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold';
+		$option_id = 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold';
 		update_option( $option_id, -5 );
 
 		$settings = ( new WC_Settings_Products() )->get_settings_for_section( 'customer_stock_notifications' );

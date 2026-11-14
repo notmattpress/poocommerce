@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Caches\ProductCountCache;
+use Automattic\PooCommerce\Caches\ProductCountCache;
 
 /**
  * Class with general utility methods related to products.
@@ -58,7 +58,7 @@ class ProductUtil {
 	 * @internal
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_delete_product_transients_batch', array( $this, 'handle_woocommerce_delete_product_transients_batch' ) );
+		add_action( 'poocommerce_delete_product_transients_batch', array( $this, 'handle_poocommerce_delete_product_transients_batch' ) );
 	}
 
 	/**
@@ -76,10 +76,10 @@ class ProductUtil {
 
 		// A new cleanup replaces any queued one instead of running alongside it.
 		if ( 0 === $last_id ) {
-			as_unschedule_all_actions( 'woocommerce_delete_product_transients_batch' );
+			as_unschedule_all_actions( 'poocommerce_delete_product_transients_batch' );
 		}
 
-		return (bool) ActionSchedulerUtil::enqueue_async( 'woocommerce_delete_product_transients_batch', array( $last_id ), 'woocommerce' );
+		return (bool) ActionSchedulerUtil::enqueue_async( 'poocommerce_delete_product_transients_batch', array( $last_id ), 'poocommerce' );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class ProductUtil {
 	 * @return void
 	 * @throws \RuntimeException If the batch cannot be read or continued.
 	 */
-	public function handle_woocommerce_delete_product_transients_batch( $last_id ): void {
+	public function handle_poocommerce_delete_product_transients_batch( $last_id ): void {
 		if ( ! wp_using_ext_object_cache() ) {
 			return;
 		}
@@ -151,7 +151,7 @@ class ProductUtil {
 	 * Delete all product transients for a set of products.
 	 *
 	 * Fixed-name transients are deleted once for the whole set, and the
-	 * woocommerce_delete_product_transients action fires once per product ID.
+	 * poocommerce_delete_product_transients action fires once per product ID.
 	 *
 	 * @param array $product_ids Product IDs whose transients are being deleted.
 	 * @return void
@@ -176,7 +176,7 @@ class ProductUtil {
 			$this->delete_product_specific_transients_for_products( $product_ids_to_clear );
 		}
 
-		// Kept for compatibility, WooCommerce core doesn't use product transient versions anymore.
+		// Kept for compatibility, PooCommerce core doesn't use product transient versions anymore.
 		\WC_Cache_Helper::get_transient_version( 'product', true );
 		\WC_Cache_Helper::get_transient_version( 'product_query', true );
 
@@ -188,7 +188,7 @@ class ProductUtil {
 			 *
 			 * @param int $product_id Product ID whose transients were deleted.
 			 */
-			do_action( 'woocommerce_delete_product_transients', $product_id );
+			do_action( 'poocommerce_delete_product_transients', $product_id );
 		}
 	}
 

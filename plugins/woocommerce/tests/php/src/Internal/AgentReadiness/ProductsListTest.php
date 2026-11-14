@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductsList;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductsList;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -35,7 +35,7 @@ class ProductsListTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		StoreOutputChecksTest::block_requests();
-		update_option( 'woocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled', 'yes' );
+		update_option( 'poocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled', 'yes' );
 		$this->readiness = wc_get_container()->get( AgentReadiness::class );
 		$this->sut       = wc_get_container()->get( ProductsList::class );
 	}
@@ -46,7 +46,7 @@ class ProductsListTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		remove_all_filters( 'pre_http_request' );
 		delete_option( AgentReadiness::REPORT_OPTION );
-		delete_option( 'woocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled' );
+		delete_option( 'poocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled' );
 		unset( $_GET[ ProductsList::FILTER_PARAM ] );
 		parent::tearDown();
 	}
@@ -355,7 +355,7 @@ class ProductsListTest extends WC_Unit_Test_Case {
 			$this->sut->apply_filter( $other );
 			$this->assertSame( '', $other->get( 'meta_query' ) );
 
-			update_option( 'woocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled', 'no' );
+			update_option( 'poocommerce_feature_' . AgenticCommerceSettings::FEATURE_ID . '_enabled', 'no' );
 			$off = new \WP_Query();
 			$off->set( 'post_type', 'product' );
 			$wp_the_query = $off; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

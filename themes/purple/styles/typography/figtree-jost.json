@@ -111,7 +111,7 @@
 					"letterSpacing": "0.06rem"
 				}
 			},
-			"woocommerce/product-title": {
+			"poocommerce/product-title": {
 				"typography": {
 					"fontStyle": "normal",
 					"fontWeight": "700"

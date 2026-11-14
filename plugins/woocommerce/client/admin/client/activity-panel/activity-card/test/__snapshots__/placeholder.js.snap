@@ -4,31 +4,31 @@ exports[`ActivityCardPlaceholder should render a card placeholder with action pl
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__actions"
+      class="poocommerce-activity-card__actions"
     >
       <span
         class="is-placeholder"
@@ -42,26 +42,26 @@ exports[`ActivityCardPlaceholder should render a card placeholder with all optio
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
       <div
-        class="woocommerce-activity-card__subtitle is-placeholder"
+        class="poocommerce-activity-card__subtitle is-placeholder"
       />
       <div
-        class="woocommerce-activity-card__date"
+        class="poocommerce-activity-card__date"
       >
         <span
           class="is-placeholder"
@@ -69,14 +69,14 @@ exports[`ActivityCardPlaceholder should render a card placeholder with all optio
       </div>
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__actions"
+      class="poocommerce-activity-card__actions"
     >
       <span
         class="is-placeholder"
@@ -90,23 +90,23 @@ exports[`ActivityCardPlaceholder should render a card placeholder with date plac
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
       <div
-        class="woocommerce-activity-card__date"
+        class="poocommerce-activity-card__date"
       >
         <span
           class="is-placeholder"
@@ -114,7 +114,7 @@ exports[`ActivityCardPlaceholder should render a card placeholder with date plac
       </div>
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"
@@ -128,24 +128,24 @@ exports[`ActivityCardPlaceholder should render a card placeholder with multiple 
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"
@@ -165,24 +165,24 @@ exports[`ActivityCardPlaceholder should render a card placeholder with no conten
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     />
   </div>
 </div>
@@ -192,27 +192,27 @@ exports[`ActivityCardPlaceholder should render a card placeholder with subtitle 
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
       <div
-        class="woocommerce-activity-card__subtitle is-placeholder"
+        class="poocommerce-activity-card__subtitle is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"
@@ -226,24 +226,24 @@ exports[`ActivityCardPlaceholder should render a default placeholder 1`] = `
 <div>
   <div
     aria-hidden="true"
-    class="woocommerce-activity-card is-loading"
+    class="poocommerce-activity-card is-loading"
   >
     <span
-      class="woocommerce-activity-card__icon"
+      class="poocommerce-activity-card__icon"
     >
       <span
         class="is-placeholder"
       />
     </span>
     <div
-      class="woocommerce-activity-card__header"
+      class="poocommerce-activity-card__header"
     >
       <div
-        class="woocommerce-activity-card__title is-placeholder"
+        class="poocommerce-activity-card__title is-placeholder"
       />
     </div>
     <div
-      class="woocommerce-activity-card__body"
+      class="poocommerce-activity-card__body"
     >
       <span
         class="is-placeholder"

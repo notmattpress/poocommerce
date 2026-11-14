@@ -5,20 +5,20 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderEditTrait;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderEditTrait;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce order create ability. The order starts at pending and moves to the sent or default
+ * The PooCommerce order create ability. The order starts at pending and moves to the sent or default
  * status on its save, so the status hooks run as on the order screen: a paid status reduces the stock
  * and sends the emails.
  */
@@ -31,7 +31,7 @@ class OrderCreate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/order-create';
+	public const ABILITY_NAME = 'poocommerce/order-create';
 
 	/**
 	 * The created_via value of the orders that this ability creates.
@@ -55,12 +55,12 @@ class OrderCreate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create order', 'woocommerce' ),
+			'label'               => __( 'Create order', 'poocommerce' ),
 			'description'         => __(
 				'Create an order, as the order screen does, for example for a phone order. Without customer_id, the order is a guest order. Without status, the order gets the default status of the store, which is pending payment unless an extension changes it. A processing, on-hold or completed status reduces the stock of the products and sends the order emails to the store and the customer, so confirm the status before you send it.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'order', self::get_order_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_create_order' ),
@@ -108,7 +108,7 @@ class OrderCreate extends ActionableAbility {
 	public function load( array $input ) {
 		$order = new \WC_Order();
 		$order->set_created_via( self::CREATED_VIA );
-		$order->set_currency( get_woocommerce_currency() );
+		$order->set_currency( get_poocommerce_currency() );
 		$order->set_prices_include_tax( wc_prices_include_tax() );
 
 		return $order;
@@ -134,9 +134,9 @@ class OrderCreate extends ActionableAbility {
 		if ( isset( $input['customer_id'] ) ) {
 			if ( is_wp_error( Users::get_user_in_current_site( $input['customer_id'] ) ) ) {
 				$refused->add(
-					'woocommerce_ability_order_customer_not_found',
+					'poocommerce_ability_order_customer_not_found',
 					/* translators: %d: user ID. */
-					sprintf( __( 'User %d is not a user of this site. Send the ID of a customer of this site, or leave out customer_id for a guest order.', 'woocommerce' ), $input['customer_id'] ),
+					sprintf( __( 'User %d is not a user of this site. Send the ID of a customer of this site, or leave out customer_id for a guest order.', 'poocommerce' ), $input['customer_id'] ),
 					array( 'status' => 400 )
 				);
 			} else {
@@ -177,7 +177,7 @@ class OrderCreate extends ActionableAbility {
 			$this->stage_line_totals( $subject, ! empty( $input['line_items'] ) );
 		}
 
-		// Not a manual change, as in REST and wc_create_order(): a new order has no ID for woocommerce_order_edit_status.
+		// Not a manual change, as in REST and wc_create_order(): a new order has no ID for poocommerce_order_edit_status.
 		if ( ExtensibleAbilities::is_enabled() && $subject->get_status() !== $this->status ) {
 			$subject->stage_status( $this->status );
 		}
@@ -220,8 +220,8 @@ class OrderCreate extends ActionableAbility {
 
 		// The error rolls back the pending order that parent::save() wrote.
 		return $subject->update_status( $this->status ) ? null : new \WP_Error(
-			'woocommerce_order_status_update_failed',
-			__( 'The order was not created, because its status could not be set.', 'woocommerce' ),
+			'poocommerce_order_status_update_failed',
+			__( 'The order was not created, because its status could not be set.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}
@@ -257,7 +257,7 @@ class OrderCreate extends ActionableAbility {
 				),
 				'status'         => array(
 					'type'        => 'string',
-					'description' => __( 'Order status slug without the wc- prefix. Defaults to the default status of the store.', 'woocommerce' ),
+					'description' => __( 'Order status slug without the wc- prefix. Defaults to the default status of the store.', 'poocommerce' ),
 					'enum'        => self::get_allowed_order_status_slugs(),
 				),
 				'billing'        => self::get_address_input_schema( array_merge( self::shipping_address_fields(), array( 'email' ) ) ),
@@ -265,7 +265,7 @@ class OrderCreate extends ActionableAbility {
 				'customer_note'  => array( 'type' => 'string' ),
 				'line_items'     => array(
 					'type'        => 'array',
-					'description' => __( 'Product lines. A variation uses its own ID as product_id. The price is the current price of the product.', 'woocommerce' ),
+					'description' => __( 'Product lines. A variation uses its own ID as product_id. The price is the current price of the product.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',

@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductQueryMock;
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductQueryMock;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 use WC_Helper_Product;
 
 /**
@@ -52,14 +52,14 @@ class ProductQuery extends \WP_UnitTestCase {
 				$markup,
 				$this->block_instance->add_iapi_context(
 					$markup,
-					array( 'attrs' => array( '__woocommerceNamespace' => 'another-block' ) )
+					array( 'attrs' => array( '__poocommerceNamespace' => 'another-block' ) )
 				),
 				'A different block namespace should leave the markup byte-identical.'
 			);
 
 			$processed_markup = $this->block_instance->add_iapi_context(
 				$markup,
-				array( 'attrs' => array( '__woocommerceNamespace' => 'woocommerce/product-query/product-template' ) )
+				array( 'attrs' => array( '__poocommerceNamespace' => 'poocommerce/product-query/product-template' ) )
 			);
 			$processor        = new \WP_HTML_Tag_Processor( $processed_markup );
 			$items            = array();
@@ -78,12 +78,12 @@ class ProductQuery extends \WP_UnitTestCase {
 					'second-product' => $product_ids[1],
 				) as $item_id => $product_id
 			) {
-				$this->assertSame( 'woocommerce/products', $items[ $item_id ]['interactive'] );
+				$this->assertSame( 'poocommerce/products', $items[ $item_id ]['interactive'] );
 				$this->assertSame( 'product-item-' . $product_id, $items[ $item_id ]['key'] );
 				$context = $items[ $item_id ]['context'];
 				$this->assertIsString( $context );
 				list( $namespace, $json_context ) = explode( '::', $context, 2 );
-				$this->assertSame( 'woocommerce/products', $namespace );
+				$this->assertSame( 'poocommerce/products', $namespace );
 				$this->assertSame(
 					array(
 						'productId'   => $product_id,
@@ -116,7 +116,7 @@ class ProductQuery extends \WP_UnitTestCase {
 		return array(
 			'blockName' => 'core/query',
 			'attrs'     => array(
-				'namespace' => 'woocommerce/product-query',
+				'namespace' => 'poocommerce/product-query',
 				'query'     => array(
 					'perPage'                  => 9,
 					'pages'                    => 0,
@@ -129,8 +129,8 @@ class ProductQuery extends \WP_UnitTestCase {
 					'exclude'                  => array(),
 					'sticky'                   => '',
 					'inherit'                  => false,
-					'__woocommerceAttributes'  => array(),
-					'__woocommerceStockStatus' => array(
+					'__poocommerceAttributes'  => array(),
+					'__poocommerceStockStatus' => array(
 						ProductStockStatus::IN_STOCK,
 						ProductStockStatus::OUT_OF_STOCK,
 						ProductStockStatus::ON_BACKORDER,
@@ -172,16 +172,16 @@ class ProductQuery extends \WP_UnitTestCase {
 	/**
 	 * Build a simplified request for testing.
 	 *
-	 * @param bool  $woocommerce_on_sale WooCommerce on sale.
-	 * @param array $woocommerce_attributes WooCommerce attributes.
-	 * @param array $woocommerce_stock_status WooCommerce stock status.
+	 * @param bool  $poocommerce_on_sale PooCommerce on sale.
+	 * @param array $poocommerce_attributes PooCommerce attributes.
+	 * @param array $poocommerce_stock_status PooCommerce stock status.
 	 * @return WP_REST_Request
 	 */
-	private function build_request( $woocommerce_on_sale = 'false', $woocommerce_attributes = array(), $woocommerce_stock_status = array() ) {
+	private function build_request( $poocommerce_on_sale = 'false', $poocommerce_attributes = array(), $poocommerce_stock_status = array() ) {
 		$request = new \WP_REST_Request( 'GET', '/wp/v2/product' );
-		$request->set_param( '__woocommerceOnSale', $woocommerce_on_sale );
-		$request->set_param( '__woocommerceAttributes', $woocommerce_attributes );
-		$request->set_param( '__woocommerceStockStatus', $woocommerce_stock_status );
+		$request->set_param( '__poocommerceOnSale', $poocommerce_on_sale );
+		$request->set_param( '__poocommerceAttributes', $poocommerce_attributes );
+		$request->set_param( '__poocommerceStockStatus', $poocommerce_stock_status );
 
 		return $request;
 	}
@@ -195,7 +195,7 @@ class ProductQuery extends \WP_UnitTestCase {
 		set_transient( 'wc_products_onsale', $on_sale_product_ids, DAY_IN_SECONDS * 30 );
 
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['__woocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['__poocommerceOnSale'] = true;
 
 		$merged_query = $this->initialize_merged_query( $parsed_block );
 
@@ -213,7 +213,7 @@ class ProductQuery extends \WP_UnitTestCase {
 	 */
 	public function test_merging_stock_status_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['__woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['__poocommerceStockStatus'] = array(
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -236,7 +236,7 @@ class ProductQuery extends \WP_UnitTestCase {
 	 */
 	public function test_merging_default_stock_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['__woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['__poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
@@ -248,7 +248,7 @@ class ProductQuery extends \WP_UnitTestCase {
 
 		// Test with hide out of stock items option enabled.
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['__woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['__poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -263,7 +263,7 @@ class ProductQuery extends \WP_UnitTestCase {
 	 */
 	public function test_merging_attribute_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['__woocommerceAttributes'] = array(
+		$parsed_block['attrs']['query']['__poocommerceAttributes'] = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -354,7 +354,7 @@ class ProductQuery extends \WP_UnitTestCase {
 
 		// Test with hide out of stock items option enabled.
 		add_filter(
-			'pre_option_woocommerce_hide_out_of_stock_items',
+			'pre_option_poocommerce_hide_out_of_stock_items',
 			$fn
 		);
 		$product_visibility_not_in[] = $product_visibility_terms[ ProductStockStatus::OUT_OF_STOCK ];
@@ -373,7 +373,7 @@ class ProductQuery extends \WP_UnitTestCase {
 			$merged_query['tax_query']
 		);
 		remove_filter(
-			'pre_option_woocommerce_hide_out_of_stock_items',
+			'pre_option_poocommerce_hide_out_of_stock_items',
 			$fn
 		);
 	}
@@ -384,11 +384,11 @@ class ProductQuery extends \WP_UnitTestCase {
 	public function test_merging_multiple_queries() {
 		$parsed_block                              = $this->get_base_parsed_block();
 		$parsed_block['attrs']['query']['orderBy'] = 'rating';
-		$parsed_block['attrs']['query']['__woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['__poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 		);
-		$parsed_block['attrs']['query']['__woocommerceAttributes']  = array(
+		$parsed_block['attrs']['query']['__poocommerceAttributes']  = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,

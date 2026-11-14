@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\TexturizeExclusions;
+use Automattic\PooCommerce\Internal\Orders\TexturizeExclusions;
 use WC_Helper_Order;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -11,7 +11,7 @@ use WC_Unit_Test_Case;
 /**
  * Tests for the TexturizeExclusions class.
  *
- * @covers \Automattic\WooCommerce\Internal\Orders\TexturizeExclusions
+ * @covers \Automattic\PooCommerce\Internal\Orders\TexturizeExclusions
  */
 class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 
@@ -115,14 +115,14 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Load an order endpoint page, so the WooCommerce conditional tags match.
+	 * Load an order endpoint page, so the PooCommerce conditional tags match.
 	 *
 	 * @param string   $endpoint Order page endpoint.
 	 * @param WC_Order $order    Order to view.
 	 */
 	private function go_to_order_page( string $endpoint, WC_Order $order ): void {
 		$page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'order-received' === $endpoint ? 'woocommerce_checkout_page_id' : 'woocommerce_myaccount_page_id', $page_id );
+		update_option( 'order-received' === $endpoint ? 'poocommerce_checkout_page_id' : 'poocommerce_myaccount_page_id', $page_id );
 
 		$this->go_to( add_query_arg( $endpoint, $order->get_id(), get_permalink( $page_id ) ) );
 	}

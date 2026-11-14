@@ -2,7 +2,7 @@
 /**
  * Tests for Consent_Manager when a consent plugin sets the consent type only in the browser.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;

@@ -6,7 +6,7 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 /*
  * Routes are new code, so they start on stricter settings than the rest of the
@@ -31,7 +31,7 @@ const rulesOf = ( configs ) =>
 	Object.assign( {}, ...configs.map( ( config ) => config.rules ?? {} ) );
 
 export default [
-	...woocommerce.map( escalateWarnings ),
+	...poocommerce.map( escalateWarnings ),
 	{
 		files: [ '**/*.ts', '**/*.tsx' ],
 		languageOptions: {

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

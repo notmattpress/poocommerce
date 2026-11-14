@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
 /**
  * UCP `POST /carts/{id}/cancel` route.
@@ -70,7 +70,7 @@ class CartsCancel extends AbstractCartRoute {
 					array(
 						'type'         => 'info',
 						'code'         => 'CANCELED',
-						'content'      => __( 'Cart canceled.', 'woocommerce' ),
+						'content'      => __( 'Cart canceled.', 'poocommerce' ),
 						'path'         => '$',
 						'content_type' => 'plain',
 					),

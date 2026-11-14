@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Tax;
+namespace Automattic\PooCommerce\Internal\Tax;
 
-use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
-use Automattic\WooCommerce\Enums\TaxBasedOn;
+use Automattic\PooCommerce\Enums\DefaultCustomerAddress;
+use Automattic\PooCommerce\Enums\TaxBasedOn;
 use WC_Cache_Helper;
 use WC_Tax;
 
@@ -35,10 +35,10 @@ class ShopBaseTaxEstimateNotice {
 			return $empty;
 		}
 
-		$location = get_option( 'woocommerce_default_customer_address', DefaultCustomerAddress::BASE );
+		$location = get_option( 'poocommerce_default_customer_address', DefaultCustomerAddress::BASE );
 
 		// Base tax mode taxes every order at the store address regardless of the default location, so its message wins.
-		if ( DefaultCustomerAddress::BASE === $location || TaxBasedOn::BASE === get_option( 'woocommerce_tax_based_on', TaxBasedOn::SHIPPING ) ) {
+		if ( DefaultCustomerAddress::BASE === $location || TaxBasedOn::BASE === get_option( 'poocommerce_tax_based_on', TaxBasedOn::SHIPPING ) ) {
 			return $this->shop_base_notice();
 		}
 
@@ -47,7 +47,7 @@ class ShopBaseTaxEstimateNotice {
 				'estimate' => $this->wrap(
 					sprintf(
 						/* translators: %s: link to the General settings. */
-						__( 'No tax is shown until the customer enters their address. Change this with Default customer location in %s.', 'woocommerce' ),
+						__( 'No tax is shown until the customer enters their address. Change this with Default customer location in %s.', 'poocommerce' ),
 						$this->general_link()
 					)
 				),
@@ -60,7 +60,7 @@ class ShopBaseTaxEstimateNotice {
 				'estimate' => $this->wrap(
 					sprintf(
 						/* translators: %s: link to the General settings. */
-						__( 'Before a customer enters their address, tax is estimated from their detected country and state. Change this with Default customer location in %s.', 'woocommerce' ),
+						__( 'Before a customer enters their address, tax is estimated from their detected country and state. Change this with Default customer location in %s.', 'poocommerce' ),
 						$this->general_link()
 					)
 				),
@@ -91,7 +91,7 @@ class ShopBaseTaxEstimateNotice {
 		 * @since 11.4.0
 		 * @param bool $show Whether to show the estimate. Defaults to false when automated taxes are enabled.
 		 */
-		return (bool) apply_filters( 'woocommerce_show_shop_base_tax_estimate', ! $automated_taxes_enabled );
+		return (bool) apply_filters( 'poocommerce_show_shop_base_tax_estimate', ! $automated_taxes_enabled );
 	}
 
 	/**
@@ -116,14 +116,14 @@ class ShopBaseTaxEstimateNotice {
 		$city         = (string) $countries->get_base_city();
 		$has_postcode = '' !== wc_normalize_postcode( $postcode );
 		$has_address  = $has_postcode || '' !== trim( $city );
-		$tax_based_on = TaxBasedOn::BASE === get_option( 'woocommerce_tax_based_on', TaxBasedOn::SHIPPING );
+		$tax_based_on = TaxBasedOn::BASE === get_option( 'poocommerce_tax_based_on', TaxBasedOn::SHIPPING );
 		$base_args    = array(
 			'country'  => $country,
 			'state'    => $state,
 			'postcode' => $postcode,
 			'city'     => $city,
 		);
-		// get_rates_from_location() applies the woocommerce_matched_rates filter, so the estimate reflects the rate the shopper is actually quoted.
+		// get_rates_from_location() applies the poocommerce_matched_rates filter, so the estimate reflects the rate the shopper is actually quoted.
 		$standard_rates = WC_Tax::get_rates_from_location( '', array( $country, $state, $postcode, $city ) );
 		$standard_rates = is_array( $standard_rates ) ? $standard_rates : array();
 
@@ -132,12 +132,12 @@ class ShopBaseTaxEstimateNotice {
 			$shown        = array_filter( array( trim( $city ), $has_postcode ? $postcode : '' ) );
 			$address_html = '<strong>' . esc_html( implode( ', ', $shown ) ) . '</strong>';
 			$lead         = $tax_based_on
-				? sprintf( /* translators: %s: store base address (bold). */ __( 'All orders are taxed at your store base address: %s.', 'woocommerce' ), $address_html )
-				: sprintf( /* translators: %s: store base address (bold). */ __( 'Until a customer enters their address, tax is estimated at your store base address: %s.', 'woocommerce' ), $address_html );
+				? sprintf( /* translators: %s: store base address (bold). */ __( 'All orders are taxed at your store base address: %s.', 'poocommerce' ), $address_html )
+				: sprintf( /* translators: %s: store base address (bold). */ __( 'Until a customer enters their address, tax is estimated at your store base address: %s.', 'poocommerce' ), $address_html );
 		} else {
 			$lead = $tax_based_on
-				? __( 'All orders are taxed at your store\'s country and state only.', 'woocommerce' )
-				: __( 'Until a customer enters their address, tax is estimated at your store\'s country and state only.', 'woocommerce' );
+				? __( 'All orders are taxed at your store\'s country and state only.', 'poocommerce' )
+				: __( 'Until a customer enters their address, tax is estimated at your store\'s country and state only.', 'poocommerce' );
 		}
 
 		$lines = array( $lead, $this->rate_summary( $base_args ) );
@@ -148,7 +148,7 @@ class ShopBaseTaxEstimateNotice {
 		} else {
 			$lines[] = sprintf(
 				/* translators: 1: link to the General settings, 2: link to the standard tax rates. */
-				__( 'Change this with Default customer location in %1$s. %2$s', 'woocommerce' ),
+				__( 'Change this with Default customer location in %1$s. %2$s', 'poocommerce' ),
 				$this->general_link(),
 				$this->standard_rates_link()
 			);
@@ -167,7 +167,7 @@ class ShopBaseTaxEstimateNotice {
 	 * @return string
 	 */
 	private function rate_summary( array $base_args ): string {
-		$classes = array( '' => __( 'Standard rate', 'woocommerce' ) );
+		$classes = array( '' => __( 'Standard rate', 'poocommerce' ) );
 		// A tax class can be registered with a slug that is not derived from its name, and products store that slug.
 		foreach ( WC_Tax::get_tax_rate_classes() as $tax_class ) {
 			$classes[ $tax_class->slug ] = $tax_class->name;
@@ -189,7 +189,7 @@ class ShopBaseTaxEstimateNotice {
 
 		return sprintf(
 			/* translators: %s: list of estimated tax rates per tax class. */
-			__( 'Estimated rates &mdash; %s', 'woocommerce' ),
+			__( 'Estimated rates &mdash; %s', 'poocommerce' ),
 			implode( ' &middot; ', $parts )
 		);
 	}
@@ -212,7 +212,7 @@ class ShopBaseTaxEstimateNotice {
 		if ( ! $has_address && $this->has_scoped_standard_rates( $country, $state ) ) {
 			return sprintf(
 				/* translators: 1: link to the General settings, 2: link to the standard tax rates. */
-				__( 'Your store has postcode- or city-scoped standard rates, but no store postcode or city is set, so they cannot be estimated. Add them in %1$s, or see %2$s.', 'woocommerce' ),
+				__( 'Your store has postcode- or city-scoped standard rates, but no store postcode or city is set, so they cannot be estimated. Add them in %1$s, or see %2$s.', 'poocommerce' ),
 				$this->general_link(),
 				$this->standard_rates_link()
 			);
@@ -221,14 +221,14 @@ class ShopBaseTaxEstimateNotice {
 		if ( $tax_based_on ) {
 			return sprintf(
 				/* translators: %s: link to the standard tax rates. */
-				__( 'No standard tax rate matches your store address, so standard-rate products are quoted no tax. Add a matching rate in %s.', 'woocommerce' ),
+				__( 'No standard tax rate matches your store address, so standard-rate products are quoted no tax. Add a matching rate in %s.', 'poocommerce' ),
 				$this->standard_rates_link()
 			);
 		}
 
 		return sprintf(
 			/* translators: %s: link to the standard tax rates. */
-			__( 'No standard tax rate matches your store address, so standard-rate products are quoted no tax for a customer who has not entered an address. Add a matching rate in %s.', 'woocommerce' ),
+			__( 'No standard tax rate matches your store address, so standard-rate products are quoted no tax for a customer who has not entered an address. Add a matching rate in %s.', 'poocommerce' ),
 			$this->standard_rates_link()
 		);
 	}
@@ -260,8 +260,8 @@ class ShopBaseTaxEstimateNotice {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- No core API returns a rate's location scope; cached above.
 		$count = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rate_locations locations
-				INNER JOIN {$wpdb->prefix}woocommerce_tax_rates rates ON locations.tax_rate_id = rates.tax_rate_id
+				"SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rate_locations locations
+				INNER JOIN {$wpdb->prefix}poocommerce_tax_rates rates ON locations.tax_rate_id = rates.tax_rate_id
 				WHERE rates.tax_rate_country IN ( %s, '' ) AND rates.tax_rate_state IN ( %s, '' ) AND rates.tax_rate_class = '' AND locations.location_type IN ( 'postcode', 'city' )",
 				$country,
 				$state
@@ -290,7 +290,7 @@ class ShopBaseTaxEstimateNotice {
 	 * @return string
 	 */
 	private function general_link(): string {
-		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=general' ) ) . '">' . esc_html__( 'Settings → General', 'woocommerce' ) . '</a>';
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=general' ) ) . '">' . esc_html__( 'Settings → General', 'poocommerce' ) . '</a>';
 	}
 
 	/**
@@ -299,6 +299,6 @@ class ShopBaseTaxEstimateNotice {
 	 * @return string
 	 */
 	private function standard_rates_link(): string {
-		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax&section=standard' ) ) . '">' . esc_html__( 'View standard rates', 'woocommerce' ) . '</a>';
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax&section=standard' ) ) . '">' . esc_html__( 'View standard rates', 'poocommerce' ) . '</a>';
 	}
 }

@@ -5,8 +5,8 @@ parameters:
 	bootstrapFiles:
 		- ../../vendor/autoload.php
 		- vendor/autoload.php
-		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
-		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+		- vendor/php-stubs/poocommerce-stubs/poocommerce-stubs.php
+		- vendor/php-stubs/poocommerce-stubs/poocommerce-packages-stubs.php
 		- ../../phpstan-stubs/stubs.php
 		- vendor/php-stubs/wordpress-tests-stubs/wordpress-tests-stubs.php
 	scanDirectories:

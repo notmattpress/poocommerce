@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\DataStores;
+namespace Automattic\PooCommerce\Internal\DataStores;
 
 /**
  * Slashes post data for wp_insert_post() and wp_update_post(), which unslash it.

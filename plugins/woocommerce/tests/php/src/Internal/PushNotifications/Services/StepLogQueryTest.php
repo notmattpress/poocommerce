@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Services;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\StepLogQuery;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\StepLogQuery;
 use WC_Unit_Test_Case;
 
 /**
@@ -368,7 +368,7 @@ class StepLogQueryTest extends WC_Unit_Test_Case {
 	 * @testdox Should read the table instead of files, and report its coverage, when the store uses the database handler.
 	 */
 	public function test_uses_the_table_reader_for_the_database_handler(): void {
-		add_filter( 'pre_option_woocommerce_logs_default_handler', fn() => 'WC_Log_Handler_DB' );
+		add_filter( 'pre_option_poocommerce_logs_default_handler', fn() => 'WC_Log_Handler_DB' );
 
 		$read = 0;
 

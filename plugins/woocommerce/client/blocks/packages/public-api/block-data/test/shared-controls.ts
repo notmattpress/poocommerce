@@ -334,7 +334,7 @@ describe( 'apiFetchWithHeaders writes', () => {
 		const fails = addItem( 99 );
 		await respondToBatch( 0, [ batchItem( {} ) ] );
 
-		const error = { code: 'woocommerce_rest_cart_invalid_quantity' };
+		const error = { code: 'poocommerce_rest_cart_invalid_quantity' };
 		await respondToBatch( 1, [
 			batchItem( { cart: 'ok' } ),
 			batchItem( error, 400 ),

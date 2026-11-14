@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Engine\Renderer\ContentRenderer\Postprocessors;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Engine\Renderer\ContentRenderer\Postprocessors;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Variables_Postprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Variables_Postprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

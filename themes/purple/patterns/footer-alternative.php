@@ -69,8 +69,8 @@
 <p class="has-text-align-left has-theme-4-color has-text-color has-link-color has-small-font-size">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php
 	printf(
 		/* translators: %1$s: opening anchor tag. %2$s: closing anchor tag. */
-		esc_html__( 'All rights reserved. Designed with %1$sWooCommerce%2$s.', 'purple' ),
-		'<a href="' . esc_url( __( 'https://woocommerce.com/', 'purple' ) ) . '" rel="nofollow">',
+		esc_html__( 'All rights reserved. Designed with %1$sPooCommerce%2$s.', 'purple' ),
+		'<a href="' . esc_url( __( 'https://poocommerce.com/', 'purple' ) ) . '" rel="nofollow">',
 		'</a>'
 	);
 	?></p>

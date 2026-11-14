@@ -99,7 +99,7 @@ Author: ${ prData.author.login }
 	const changelogFileData: any = await gql( `
 query {
 	repository(owner: "${ options.owner }", name: "${ options.name }") {
-		object(expression: "${ prData.headRef.name }:plugins/woocommerce/changelog/pr-${ prNumber }") {
+		object(expression: "${ prData.headRef.name }:plugins/poocommerce/changelog/pr-${ prNumber }") {
 			... on Blob {
 				text
 			}
@@ -113,7 +113,7 @@ query {
 		const existingFileContents: string =
 			changelogFileData.repository.object.text.trim();
 		Logger.warn(
-			`File 'plugins/woocommerce/changelog/pr-${ prNumber }' already exists with this content:\n`
+			`File 'plugins/poocommerce/changelog/pr-${ prNumber }' already exists with this content:\n`
 		);
 		log( '-------\n' + existingFileContents + '\n-------\n' );
 
@@ -150,7 +150,7 @@ mutation ($input: CreateCommitOnBranchInput!) {
 			fileChanges: {
 				additions: [
 					{
-						path: `plugins/woocommerce/changelog/pr-${ prNumber }`,
+						path: `plugins/poocommerce/changelog/pr-${ prNumber }`,
 						contents: btoa( changelogFileContents ),
 					},
 				],
@@ -266,8 +266,8 @@ export const addChangelogFileCommand = new Command( 'add-changelog-file' )
 		'<message words...>',
 		'Changelog file message, enclosing in quotes is not needed.'
 	)
-	.option( '-o --owner <owner>', 'Repository owner.', 'woocommerce' )
-	.option( '-n --name <name>', 'Repository name.', 'woocommerce' )
+	.option( '-o --owner <owner>', 'Repository owner.', 'poocommerce' )
+	.option( '-n --name <name>', 'Repository name.', 'poocommerce' )
 	.option(
 		'-c --create-modify-commit',
 		'If the changelog file already exists, create a commit to modify it.',

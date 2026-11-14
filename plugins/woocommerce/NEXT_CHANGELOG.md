@@ -2,4 +2,4 @@
 
 ---
 
-[See changelogs for previous versions](https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/changelog.txt).
+[See changelogs for previous versions](https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/changelog.txt).

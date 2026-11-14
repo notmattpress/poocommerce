@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesRestBridge;
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbility;
-use Automattic\WooCommerce\Internal\Abilities\REST\RestAbilityFactory;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesRestBridge;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbility;
+use Automattic\PooCommerce\Internal\Abilities\REST\RestAbilityFactory;
 use WC_Unit_Test_Case;
 
 /**
@@ -73,23 +73,23 @@ class RemovedRestAbilitiesTest extends WC_Unit_Test_Case {
 		$this->setExpectedIncorrectUsage( RestAbility::class );
 
 		$ability = new RestAbility(
-			'woocommerce-test/removed-rest-ability',
+			'poocommerce-test/removed-rest-ability',
 			array(
 				'label'               => 'Test',
 				'description'         => 'Test',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'execute_callback'    => '__return_true',
 				'permission_callback' => '__return_true',
 			)
 		);
 
-		$this->assertSame( 'woocommerce-test/removed-rest-ability', $ability->get_name() );
+		$this->assertSame( 'poocommerce-test/removed-rest-ability', $ability->get_name() );
 	}
 
 	/**
 	 * @testdox Should keep the removed exposure metadata key constant.
 	 */
 	public function test_metadata_key_constant_is_kept(): void {
-		$this->assertSame( 'expose_in_deprecated_woocommerce_mcp', RestAbilityFactory::EXPOSE_IN_DEPRECATED_MCP_META_KEY );
+		$this->assertSame( 'expose_in_deprecated_poocommerce_mcp', RestAbilityFactory::EXPOSE_IN_DEPRECATED_MCP_META_KEY );
 	}
 }

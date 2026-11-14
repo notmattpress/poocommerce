@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getBlockMap } from '@woocommerce/utils/get-block-map';
+import { getBlockMap } from '@poocommerce/utils/get-block-map';
 import { Suspense } from '@wordpress/element';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies

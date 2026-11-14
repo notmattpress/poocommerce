@@ -2,7 +2,7 @@
 /**
  * Tests for the listener that fails tests sending external HTTP requests.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 declare( strict_types = 1 );

@@ -58,10 +58,10 @@ describe( 'Review Order frontend behavior', () => {
 	test( 'dismisses disabled-products notice with the production hidden class', () => {
 		// No tabindex on the heading, as an older theme override would have.
 		document.body.innerHTML = `
-			<div class="woocommerce-review-order">
-				<h1 class="woocommerce-review-order__title">Review your order</h1>
-				<div class="woocommerce-review-order__notice">
-					<button class="woocommerce-review-order__notice-dismiss" type="button">Dismiss</button>
+			<div class="poocommerce-review-order">
+				<h1 class="poocommerce-review-order__title">Review your order</h1>
+				<div class="poocommerce-review-order__notice">
+					<button class="poocommerce-review-order__notice-dismiss" type="button">Dismiss</button>
 				</div>
 			</div>
 		`;
@@ -69,19 +69,19 @@ describe( 'Review Order frontend behavior', () => {
 		initializeReviewOrder();
 
 		const notice = document.querySelector(
-			'.woocommerce-review-order__notice'
+			'.poocommerce-review-order__notice'
 		);
 		notice
-			.querySelector( '.woocommerce-review-order__notice-dismiss' )
+			.querySelector( '.poocommerce-review-order__notice-dismiss' )
 			.click();
 
 		expect(
 			notice.classList.contains(
-				'woocommerce-review-order__notice--hidden'
+				'poocommerce-review-order__notice--hidden'
 			)
 		).toBe( true );
 		expect( document.activeElement ).toBe(
-			document.querySelector( '.woocommerce-review-order__title' )
+			document.querySelector( '.poocommerce-review-order__title' )
 		);
 	} );
 
@@ -100,37 +100,37 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<h3 class="woocommerce-review-order__item-title">Product</h3>
-					<p id="rating-error-1" class="woocommerce-review-order__item-rating-error"></p>
-					<div class="woocommerce-star-rating" aria-describedby="rating-caption-1">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="4" data-label="Good" />
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="3" data-label="Average" />
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="2" data-label="Not that bad" />
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="1" data-label="Very poor" />
-						<span id="rating-caption-1" class="woocommerce-star-rating__caption"></span>
+			<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<h3 class="poocommerce-review-order__item-title">Product</h3>
+					<p id="rating-error-1" class="poocommerce-review-order__item-rating-error"></p>
+					<div class="poocommerce-star-rating" aria-describedby="rating-caption-1">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="4" data-label="Good" />
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="3" data-label="Average" />
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="2" data-label="Not that bad" />
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="1" data-label="Very poor" />
+						<span id="rating-caption-1" class="poocommerce-star-rating__caption"></span>
 					</div>
-					<textarea class="woocommerce-review-order__item-review-textarea" name="review"></textarea>
+					<textarea class="poocommerce-review-order__item-review-textarea" name="review"></textarea>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const rating = document.querySelector(
-			'.woocommerce-star-rating__input[value="5"]'
+			'.poocommerce-star-rating__input[value="5"]'
 		);
 		const textarea = form.querySelector(
-			'.woocommerce-review-order__item-review-textarea'
+			'.poocommerce-review-order__item-review-textarea'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 
 		expect( submit.getAttribute( 'aria-disabled' ) ).toBe( 'true' );
@@ -142,7 +142,7 @@ describe( 'Review Order frontend behavior', () => {
 		submit.click();
 
 		const message = form.querySelector(
-			'.woocommerce-review-order__item-rating-error'
+			'.poocommerce-review-order__item-rating-error'
 		);
 		expect( message.textContent ).toBe( ratingRequired );
 		expect( window.fetch ).not.toHaveBeenCalled();
@@ -152,7 +152,7 @@ describe( 'Review Order frontend behavior', () => {
 
 		// Reachable from the radio that takes focus, not from the wrapper.
 		const lowest = form.querySelector(
-			'.woocommerce-star-rating__input[value="1"]'
+			'.poocommerce-star-rating__input[value="1"]'
 		);
 		expect( lowest.getAttribute( 'aria-invalid' ) ).toBe( 'true' );
 		expect( lowest.getAttribute( 'aria-describedby' ) ).toContain(
@@ -166,7 +166,7 @@ describe( 'Review Order frontend behavior', () => {
 		// Kept in the DOM and reused for the next message.
 		expect(
 			form.querySelectorAll(
-				'.woocommerce-review-order__item-rating-error'
+				'.poocommerce-review-order__item-rating-error'
 			)
 		).toHaveLength( 1 );
 		expect( message.textContent ).toBe( '' );
@@ -193,20 +193,20 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
+			<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
 					</div>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const submit = document.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 
 		// `disabled` would drop it out of the tab order with no explanation.
@@ -222,23 +222,23 @@ describe( 'Review Order frontend behavior', () => {
 		// No `data-ajax-url`, so `initAjaxSubmit` bails and the gate's own
 		// handler is all that stands between a dimmed button and a POST.
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 		// Records whether the gate cancelled first, then cancels so jsdom
 		// does not try to navigate.
@@ -254,7 +254,7 @@ describe( 'Review Order frontend behavior', () => {
 		expect( submitted ).not.toHaveBeenCalled();
 
 		// Once the gate opens the form submits as it always did.
-		const rating = form.querySelector( '.woocommerce-star-rating__input' );
+		const rating = form.querySelector( '.poocommerce-star-rating__input' );
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 
@@ -266,23 +266,23 @@ describe( 'Review Order frontend behavior', () => {
 
 	test( 'blocks a gated requestSubmit, which raises no click', () => {
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 		const prevented = [];
 		form.addEventListener( 'submit', ( event ) => {
@@ -297,7 +297,7 @@ describe( 'Review Order frontend behavior', () => {
 		// what has to cancel it.
 		expect( prevented ).toEqual( [ true ] );
 
-		const rating = form.querySelector( '.woocommerce-star-rating__input' );
+		const rating = form.querySelector( '.poocommerce-star-rating__input' );
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 
@@ -308,28 +308,28 @@ describe( 'Review Order frontend behavior', () => {
 	test( 'registers both row regions up front for an override that drops them', () => {
 		// A row template override that renders neither paragraph.
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-				<div class="woocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
-					<p class="woocommerce-review-order__item-title">CRR Product</p>
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+				<div class="poocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
+					<p class="poocommerce-review-order__item-title">CRR Product</p>
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
-					<textarea class="woocommerce-review-order__item-review-textarea"></textarea>
+					<textarea class="poocommerce-review-order__item-review-textarea"></textarea>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const row = document.querySelector(
-			'.woocommerce-review-order__item'
+			'.poocommerce-review-order__item'
 		);
 		const status = row.querySelector(
-			'.woocommerce-review-order__item-status'
+			'.poocommerce-review-order__item-status'
 		);
 		const error = row.querySelector(
-			'.woocommerce-review-order__item-rating-error'
+			'.poocommerce-review-order__item-rating-error'
 		);
 
 		// A live region first created when its text is written is not
@@ -354,21 +354,21 @@ describe( 'Review Order frontend behavior', () => {
 		'announces an override status paragraph that ships with %s',
 		( label, roleAttr, expected ) => {
 			document.body.innerHTML = `
-				<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-					<div class="woocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
-						<div class="woocommerce-star-rating">
-							<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+				<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+					<div class="poocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
+						<div class="poocommerce-star-rating">
+							<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 						</div>
-						<p class="woocommerce-review-order__item-status"${ roleAttr }></p>
+						<p class="poocommerce-review-order__item-status"${ roleAttr }></p>
 					</div>
-					<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+					<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 				</form>
 			`;
 
 			initializeReviewOrder();
 
 			const regions = document.querySelectorAll(
-				'.woocommerce-review-order__item-status'
+				'.poocommerce-review-order__item-status'
 			);
 			// Reused, not duplicated beside the override's own.
 			expect( regions ).toHaveLength( 1 );
@@ -381,14 +381,14 @@ describe( 'Review Order frontend behavior', () => {
 			i18n: { submit_hint: 'Rate or review something first.' },
 		};
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-				<div class="woocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+				<div class="poocommerce-review-order__item" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
 				</div>
-				<div class="woocommerce-review-order__actions">
-					<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<div class="poocommerce-review-order__actions">
+					<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 				</div>
 			</form>
 		`;
@@ -396,13 +396,13 @@ describe( 'Review Order frontend behavior', () => {
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 		const hint = form.querySelector(
-			'.woocommerce-review-order__submit-hint'
+			'.poocommerce-review-order__submit-hint'
 		);
 
 		expect( hint.parentElement ).toBe( submit.parentElement );
@@ -412,7 +412,7 @@ describe( 'Review Order frontend behavior', () => {
 			submit.getAttribute( 'aria-describedby' ).split( /\s+/ )
 		).toContain( hint.id );
 
-		const rating = form.querySelector( '.woocommerce-star-rating__input' );
+		const rating = form.querySelector( '.poocommerce-star-rating__input' );
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 
@@ -423,21 +423,21 @@ describe( 'Review Order frontend behavior', () => {
 
 	test( 'keeps the hint quiet on an override that renders no rows', () => {
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+			<form class="poocommerce-review-order__form" method="post" action="https://example.test/wp-admin/admin-ajax.php">
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
 		const hint = form.querySelector(
-			'.woocommerce-review-order__submit-hint'
+			'.poocommerce-review-order__submit-hint'
 		);
 
 		// Nothing to add or change, so the gate stays shut and the hint must
@@ -461,18 +461,18 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<div class="woocommerce-review-order">
-				<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-					<div class="woocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
-						<div class="woocommerce-star-rating">
-							<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
+			<div class="poocommerce-review-order">
+				<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+					<div class="poocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
+						<div class="poocommerce-star-rating">
+							<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="5 stars" />
 						</div>
-						<p id="row-status-1" class="woocommerce-review-order__item-status" role="status"></p>
+						<p id="row-status-1" class="poocommerce-review-order__item-status" role="status"></p>
 					</div>
-					<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+					<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 				</form>
-				<div class="woocommerce-review-order__success" hidden>
-					<h1 class="woocommerce-review-order__empty-title">Thank you</h1>
+				<div class="poocommerce-review-order__success" hidden>
+					<h1 class="poocommerce-review-order__empty-title">Thank you</h1>
 				</div>
 			</div>
 		`;
@@ -480,16 +480,16 @@ describe( 'Review Order frontend behavior', () => {
 		initializeReviewOrder();
 
 		const rating = document.querySelector(
-			'.woocommerce-star-rating__input'
+			'.poocommerce-star-rating__input'
 		);
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 
-		document.querySelector( '.woocommerce-review-order__submit' ).click();
+		document.querySelector( '.poocommerce-review-order__submit' ).click();
 		await new Promise( ( resolve ) => setTimeout( resolve, 0 ) );
 
 		const success = document.querySelector(
-			'.woocommerce-review-order__success'
+			'.poocommerce-review-order__success'
 		);
 		expect( success.hidden ).toBe( false );
 		// The heading, not the unnamed container. The fixture leaves the
@@ -499,7 +499,7 @@ describe( 'Review Order frontend behavior', () => {
 		// The region the template rendered: a replaced node would be a fresh
 		// live region and go unannounced.
 		const status = document.querySelector(
-			'.woocommerce-review-order__item-status'
+			'.poocommerce-review-order__item-status'
 		);
 		expect( status.id ).toBe( 'row-status-1' );
 		expect( status.textContent ).not.toBe( '' );
@@ -517,25 +517,25 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-				<div class="woocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+				<div class="poocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
-		const rating = form.querySelector( '.woocommerce-star-rating__input' );
+		const rating = form.querySelector( '.poocommerce-star-rating__input' );
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 
@@ -557,26 +557,26 @@ describe( 'Review Order frontend behavior', () => {
 		global.fetch = window.fetch;
 		window.FormData = TestFormData;
 		document.body.innerHTML = `
-			<form class="woocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
-				<div class="woocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
-					<div class="woocommerce-star-rating">
-						<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+			<form class="poocommerce-review-order__form" data-ajax-url="${ ajaxUrl }">
+				<div class="poocommerce-review-order__item" data-row-index="0" data-initial-rating="0" data-initial-text="">
+					<div class="poocommerce-star-rating">
+						<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
 					</div>
-					<textarea class="woocommerce-review-order__item-review-textarea"></textarea>
+					<textarea class="poocommerce-review-order__item-review-textarea"></textarea>
 				</div>
-				<button class="woocommerce-review-order__submit" type="submit">Submit</button>
+				<button class="poocommerce-review-order__submit" type="submit">Submit</button>
 			</form>
 		`;
 
 		initializeReviewOrder();
 
 		const form = document.querySelector(
-			'.woocommerce-review-order__form'
+			'.poocommerce-review-order__form'
 		);
 		const submit = form.querySelector(
-			'.woocommerce-review-order__submit'
+			'.poocommerce-review-order__submit'
 		);
-		const rating = form.querySelector( '.woocommerce-star-rating__input' );
+		const rating = form.querySelector( '.poocommerce-star-rating__input' );
 		const textarea = form.querySelector( 'textarea' );
 		rating.checked = true;
 		rating.dispatchEvent( new Event( 'change', { bubbles: true } ) );
@@ -592,7 +592,7 @@ describe( 'Review Order frontend behavior', () => {
 
 		// The row is edited, so the hint would name the wrong reason here.
 		expect(
-			form.querySelector( '.woocommerce-review-order__submit-hint' )
+			form.querySelector( '.poocommerce-review-order__submit-hint' )
 				.hidden
 		).toBe( true );
 	} );
@@ -604,12 +604,12 @@ describe( 'Review Order frontend behavior', () => {
 		'follows the visual star order for ArrowRight in %s',
 		( direction, expected ) => {
 			document.body.innerHTML = `
-				<div class="woocommerce-star-rating" style="direction: ${ direction };">
-					<input class="woocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
-					<input class="woocommerce-star-rating__input" name="rating" type="radio" value="4" data-label="Good" />
-					<input class="woocommerce-star-rating__input" name="rating" type="radio" value="3" data-label="Average" />
-					<input class="woocommerce-star-rating__input" name="rating" type="radio" value="2" data-label="Not that bad" />
-					<input class="woocommerce-star-rating__input" name="rating" type="radio" value="1" data-label="Very poor" />
+				<div class="poocommerce-star-rating" style="direction: ${ direction };">
+					<input class="poocommerce-star-rating__input" name="rating" type="radio" value="5" data-label="Perfect" />
+					<input class="poocommerce-star-rating__input" name="rating" type="radio" value="4" data-label="Good" />
+					<input class="poocommerce-star-rating__input" name="rating" type="radio" value="3" data-label="Average" />
+					<input class="poocommerce-star-rating__input" name="rating" type="radio" value="2" data-label="Not that bad" />
+					<input class="poocommerce-star-rating__input" name="rating" type="radio" value="1" data-label="Very poor" />
 				</div>
 			`;
 
@@ -617,7 +617,7 @@ describe( 'Review Order frontend behavior', () => {
 
 			// DOM order is 5..1, and RTL flips the row again.
 			const third = document.querySelector(
-				'.woocommerce-star-rating__input[value="3"]'
+				'.poocommerce-star-rating__input[value="3"]'
 			);
 			third.checked = true;
 			third.focus();
@@ -630,7 +630,7 @@ describe( 'Review Order frontend behavior', () => {
 
 			expect(
 				document.querySelector(
-					'.woocommerce-star-rating__input:checked'
+					'.poocommerce-star-rating__input:checked'
 				).value
 			).toBe( expected );
 		}

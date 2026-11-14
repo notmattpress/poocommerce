@@ -2,15 +2,15 @@
 /**
  * Customers query ability.
  *
- * @package woocommerce
+ * @package poocommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,7 +30,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/customers-query';
+		return 'poocommerce/customers-query';
 	}
 
 	/**
@@ -41,9 +41,9 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query customers', 'woocommerce' ),
-			'description'         => __( 'Find registered customers by ID or role, with their order count and total spent. Names, usernames, emails, phone numbers and addresses are withheld. Guest customers are not included.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query customers', 'poocommerce' ),
+			'description'         => __( 'Find registered customers by ID or role, with their order count and total spent. Names, usernames, emails, phone numbers and addresses are withheld. Guest customers are not included.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -134,7 +134,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 				wc_get_logger()->warning(
 					'The customers-query ability skipped a user that does not load as a customer, so total counts more customers than it returns.',
 					array(
-						'source'        => 'woocommerce-abilities',
+						'source'        => 'poocommerce-abilities',
 						'user_id'       => $user_id,
 						'error_message' => $e->getMessage(),
 					)
@@ -203,7 +203,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 						'order_count'        => array( 'type' => 'integer' ),
 						'total_spent'        => array(
 							'type'        => 'string',
-							'description' => __( 'Decimal amount in the store currency, from paid orders.', 'woocommerce' ),
+							'description' => __( 'Decimal amount in the store currency, from paid orders.', 'poocommerce' ),
 						),
 						'date_created'       => $date,
 						'date_modified'      => $date,
@@ -215,7 +215,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 
 		$schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Number of customers that match the query.', 'woocommerce' ),
+			'description' => __( 'Number of customers that match the query.', 'poocommerce' ),
 		);
 		return $schema;
 	}
@@ -237,13 +237,13 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 			'type'                 => 'object',
 			'properties'           => array(
 				'include'  => $ids + array(
-					'description' => __( 'Return only these customer IDs, up to 100. Without per_page, they come back in one page.', 'woocommerce' ),
+					'description' => __( 'Return only these customer IDs, up to 100. Without per_page, they come back in one page.', 'poocommerce' ),
 					'maxItems'    => 100,
 				),
-				'exclude'  => $ids + array( 'description' => __( 'Leave out these customer IDs.', 'woocommerce' ) ),
+				'exclude'  => $ids + array( 'description' => __( 'Leave out these customer IDs.', 'poocommerce' ) ),
 				'role'     => array(
 					'type'        => 'string',
-					'description' => __( 'User role to list. Use all for every registered user. Defaults to customer.', 'woocommerce' ),
+					'description' => __( 'User role to list. Use all for every registered user. Defaults to customer.', 'poocommerce' ),
 					'enum'        => array_merge( array( 'all' ), array_keys( wp_roles()->get_names() ) ),
 					'default'     => 'customer',
 				),
@@ -264,7 +264,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 				),
 				'per_page' => array(
 					'type'        => 'integer',
-					'description' => __( 'Customers per page. Defaults to 10, or to the number of IDs in include.', 'woocommerce' ),
+					'description' => __( 'Customers per page. Defaults to 10, or to the number of IDs in include.', 'poocommerce' ),
 					'minimum'     => 1,
 					'maximum'     => 100,
 				),

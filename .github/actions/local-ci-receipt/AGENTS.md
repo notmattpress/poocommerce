@@ -39,7 +39,7 @@ test *and* a config that names itself.
 ```sh
 git checkout -b test/local-ci-child
 printf '\n// live receipt test marker\n' >> packages/js/number/src/index.ts
-git commit -am "Touch @woocommerce/number for the live receipt test" --no-verify
+git commit -am "Touch @poocommerce/number for the live receipt test" --no-verify
 gh local-ci plan          # expect: merge base = the scratch base tip; 4 JavaScript unit jobs
 gh local-ci run --push    # runs them, publishes 4 receipts, pushes the branch
 ```
@@ -66,7 +66,7 @@ Wait for the `ci` workflow run on the head SHA (`gh run list --workflow ci.yml
   <permission> permission)`.
 
 Read a job's log with
-`gh api repos/woocommerce/woocommerce/actions/jobs/<job id>/logs | grep substituted=`.
+`gh api repos/poocommerce/poocommerce/actions/jobs/<job id>/logs | grep substituted=`.
 Every other job of the run (e2e, performance) runs in full; that is
 expected.
 
@@ -77,12 +77,12 @@ child again (new head → new receipts), and re-check.
 
 ## 4b. PHP cells (opt-in)
 
-PHP unit cells are `unit:php` jobs for `@woocommerce/plugin-woocommerce`;
+PHP unit cells are `unit:php` jobs for `@poocommerce/plugin-poocommerce`;
 the rule in `.github/local-ci.json` is opt-in and hands each cell to
 `bin/test-php-ci.sh`. On the child:
 
 ```sh
-printf '\n// live receipt test marker\n' >> plugins/woocommerce/tests/php/includes/wc-core-functions-test.php
+printf '\n// live receipt test marker\n' >> plugins/poocommerce/tests/php/includes/wc-core-functions-test.php
 git commit -am "Touch a core PHP test for the live receipt test" --no-verify
 gh local-ci plan --include=unit:php   # the 4 core cells with `bash bin/test-php-ci.sh --cell …` commands, plus the JavaScript jobs from §2
 gh local-ci run --include=unit:php --push
@@ -97,7 +97,7 @@ Check the step conclusions, not just the log line; a dropped guard on the
 `increase max-download-attempts` step leaves the job green but slower:
 
 ```sh
-gh api repos/woocommerce/woocommerce/actions/jobs/<job id> --jq '.steps[] | "\(.conclusion)\t\(.name)"'
+gh api repos/poocommerce/poocommerce/actions/jobs/<job id> --jq '.steps[] | "\(.conclusion)\t\(.name)"'
 ```
 
 A cell that failed locally gets a failure receipt and the job runs in full
@@ -143,7 +143,7 @@ push the base, then run `gh local-ci run --push` on the child.
 - **Local pass, CI fail.** On the child, add a throwaway test to
   `packages/js/number` that expects `process.platform` to be `'darwin'`.
   Run `gh local-ci run --push` natively on macOS (not `--docker`). Expected
-  on `@woocommerce/number`: an error annotation
+  on `@poocommerce/number`: an error annotation
   `local-ci-parity result=mismatch local=success ci=failure`, the job red,
   and the summary linking the receipt.
 - **Failed receipt.** Change the expectation to `'linux'` and run
@@ -179,7 +179,7 @@ Confirm `LOCAL_CI_RECEIPTS_DISABLED` is `0`.
 - A job that ran in full with `reason=no receipt named …` means the tool
   published under a different name or config hash than CI expected: compare
   the receipt's name and `external_id` on the commit
-  (`gh api repos/woocommerce/woocommerce/commits/<sha>/check-runs?app_id=4830646`)
+  (`gh api repos/poocommerce/poocommerce/commits/<sha>/check-runs?app_id=4830646`)
   with what `receipt.js` computes.
 - `author … has unknown repository permission; write permission is
   required` means the permission lookup failed; check the token's

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Settings;
 
-use Automattic\WooCommerce\Internal\Settings\OptionSanitizer;
+use Automattic\PooCommerce\Internal\Settings\OptionSanitizer;
 use WC_Unit_Test_Case;
 
 /**
@@ -21,11 +21,11 @@ class OptionSanitizerTest extends WC_Unit_Test_Case {
 		new OptionSanitizer();
 
 		$low_stock_threshold = apply_filters(
-			'woocommerce_admin_settings_sanitize_option_woocommerce_notify_low_stock_amount',
+			'poocommerce_admin_settings_sanitize_option_poocommerce_notify_low_stock_amount',
 			$value
 		);
 		$no_stock_threshold  = apply_filters(
-			'woocommerce_admin_settings_sanitize_option_woocommerce_notify_no_stock_amount',
+			'poocommerce_admin_settings_sanitize_option_poocommerce_notify_no_stock_amount',
 			$value
 		);
 

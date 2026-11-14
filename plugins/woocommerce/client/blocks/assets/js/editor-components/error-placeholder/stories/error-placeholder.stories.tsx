@@ -3,7 +3,7 @@
  */
 import type { StoryFn, Meta } from '@storybook/react-webpack5';
 import { useArgs } from 'storybook/preview-api';
-import { INTERACTION_TIMEOUT } from '@woocommerce/storybook-controls';
+import { INTERACTION_TIMEOUT } from '@poocommerce/storybook-controls';
 
 /**
  * Internal dependencies

@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Abilities;
+namespace Automattic\PooCommerce\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseTransaction;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseTransaction;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -85,7 +85,7 @@ abstract class ActionableAbility extends Ability {
 	 * its resource. The field writes and the validators of that resource run on
 	 * each one after the primary object, before save(). An ability that saves
 	 * only the primary object returns null. The resource must be registered,
-	 * otherwise the call is refused with `woocommerce_ability_resource_unknown`
+	 * otherwise the call is refused with `poocommerce_ability_resource_unknown`
 	 * and nothing is saved.
 	 *
 	 * @since 11.3.0
@@ -130,7 +130,7 @@ abstract class ActionableAbility extends Ability {
 		if ( null !== $error ) {
 			wc_get_logger()->error(
 				sprintf( 'Ability "%s" failed to save: %s', $this->get_name(), $error->getMessage() ),
-				array( 'source' => 'woocommerce-abilities' )
+				array( 'source' => 'poocommerce-abilities' )
 			);
 			return self::save_failed();
 		}
@@ -236,10 +236,10 @@ abstract class ActionableAbility extends Ability {
 					'11.4.0'
 				);
 				return new \WP_Error(
-					'woocommerce_ability_resource_unknown',
+					'poocommerce_ability_resource_unknown',
 					sprintf(
 						/* translators: 1: resource name, 2: ability name. */
-						__( 'The "%1$s" resource is not registered, so the "%2$s" ability cannot save the change.', 'woocommerce' ),
+						__( 'The "%1$s" resource is not registered, so the "%2$s" ability cannot save the change.', 'poocommerce' ),
 						$resource_name,
 						$this->get_name()
 					),
@@ -375,7 +375,7 @@ abstract class ActionableAbility extends Ability {
 					$product_cache->remove( $object->get_parent_id() );
 				}
 			} elseif ( $id > 0 && $object instanceof \WC_Abstract_Order ) {
-				wc_get_container()->get( \Automattic\WooCommerce\Caches\OrderCache::class )->remove( $id );
+				wc_get_container()->get( \Automattic\PooCommerce\Caches\OrderCache::class )->remove( $id );
 				clean_post_cache( $id );
 			}
 		}
@@ -400,7 +400,7 @@ abstract class ActionableAbility extends Ability {
 		if ( empty( $refusals ) ) {
 			return $result;
 		}
-		return new \WP_Error( 'woocommerce_ability_invalid_fields', implode( ' ', $refusals ), array( 'status' => 400 ) );
+		return new \WP_Error( 'poocommerce_ability_invalid_fields', implode( ' ', $refusals ), array( 'status' => 400 ) );
 	}
 
 	/**
@@ -436,7 +436,7 @@ abstract class ActionableAbility extends Ability {
 		foreach ( is_array( $values ) ? $values : array() as $namespace => $fields ) {
 			if ( ! isset( $registered[ $namespace ] ) ) {
 				/* translators: %s: Extension namespace. */
-				$refusals[] = sprintf( __( 'No extension registered the namespace "%s" for this ability. Remove it from the input, or use a namespace from the input schema.', 'woocommerce' ), $namespace );
+				$refusals[] = sprintf( __( 'No extension registered the namespace "%s" for this ability. Remove it from the input, or use a namespace from the input schema.', 'poocommerce' ), $namespace );
 				continue;
 			}
 			$candidates = null === $field_filter ? $registered[ $namespace ] : array_filter( $registered[ $namespace ], $field_filter );
@@ -446,7 +446,7 @@ abstract class ActionableAbility extends Ability {
 					$refusals[] = self::describe_unknown_field( $candidates, (string) $namespace, (string) $field );
 				} elseif ( ! isset( $args['set_callback'] ) ) {
 					/* translators: 1: Extension namespace. 2: Field name. */
-					$refusals[] = sprintf( __( 'The extension field "%1$s.%2$s" is read-only. Remove it from the input.', 'woocommerce' ), $namespace, $field );
+					$refusals[] = sprintf( __( 'The extension field "%1$s.%2$s" is read-only. Remove it from the input.', 'poocommerce' ), $namespace, $field );
 				} else {
 					$param = 'extensions.' . $namespace . '.' . $field;
 					$valid = rest_validate_value_from_schema( $value, $args['input_schema'], $param );
@@ -474,7 +474,7 @@ abstract class ActionableAbility extends Ability {
 			return null;
 		}
 		/* translators: 1: Path of the field in the input. 2: Comma-separated list of JSON types. */
-		return sprintf( __( '%1$s is not of type %2$s.', 'woocommerce' ), $param, implode( ',', array_unique( $types ) ) );
+		return sprintf( __( '%1$s is not of type %2$s.', 'poocommerce' ), $param, implode( ',', array_unique( $types ) ) );
 	}
 
 	/**
@@ -489,10 +489,10 @@ abstract class ActionableAbility extends Ability {
 		$writable = array_keys( array_filter( $fields, static fn( array $args ): bool => isset( $args['set_callback'] ) ) );
 		if ( empty( $writable ) ) {
 			/* translators: 1: Extension namespace. 2: Field name. */
-			return sprintf( __( 'The extension namespace "%1$s" has no field "%2$s", and it has no fields you can write. Remove "%1$s.%2$s" from the input.', 'woocommerce' ), $extension_namespace, $field );
+			return sprintf( __( 'The extension namespace "%1$s" has no field "%2$s", and it has no fields you can write. Remove "%1$s.%2$s" from the input.', 'poocommerce' ), $extension_namespace, $field );
 		}
 		/* translators: 1: Extension namespace. 2: Field name. 3: Comma-separated list of field names. */
-		return sprintf( __( 'The extension namespace "%1$s" has no field "%2$s". The fields you can write in this namespace are: %3$s. Use one of them, or remove "%1$s.%2$s" from the input.', 'woocommerce' ), $extension_namespace, $field, implode( ', ', $writable ) );
+		return sprintf( __( 'The extension namespace "%1$s" has no field "%2$s". The fields you can write in this namespace are: %3$s. Use one of them, or remove "%1$s.%2$s" from the input.', 'poocommerce' ), $extension_namespace, $field, implode( ', ', $writable ) );
 	}
 
 	/**
@@ -527,9 +527,9 @@ abstract class ActionableAbility extends Ability {
 				$args = $registered[ $namespace ][ $field ] ?? array();
 				if ( ! isset( $args['set_callback'] ) ) {
 					return new \WP_Error(
-						'woocommerce_ability_field_not_writable',
+						'poocommerce_ability_field_not_writable',
 						/* translators: 1: Extension namespace. 2: Field name. */
-						sprintf( __( 'The extension field "%1$s.%2$s" cannot be written.', 'woocommerce' ), $namespace, $field ),
+						sprintf( __( 'The extension field "%1$s.%2$s" cannot be written.', 'poocommerce' ), $namespace, $field ),
 						array( 'status' => 400 )
 					);
 				}
@@ -561,10 +561,10 @@ abstract class ActionableAbility extends Ability {
 		foreach ( $updates as $param => list( $args, $value ) ) {
 			if ( ! ExtensibleAbilities::field_applies_to( $args, $subject ) ) {
 				$rejected = new \WP_Error(
-					'woocommerce_ability_field_object_type',
+					'poocommerce_ability_field_object_type',
 					sprintf(
 						/* translators: 1: extension field, 2: object type, 3: comma-separated list of object types. */
-						__( 'The %1$s field does not apply to the %2$s type. It applies to %3$s.', 'woocommerce' ),
+						__( 'The %1$s field does not apply to the %2$s type. It applies to %3$s.', 'poocommerce' ),
 						$param,
 						ExtensibleAbilities::get_object_type( $subject ),
 						implode( ', ', $args['object_types'] )
@@ -663,8 +663,8 @@ abstract class ActionableAbility extends Ability {
 				array( 'source' => 'extensible-abilities' )
 			);
 			$result = new \WP_Error(
-				'woocommerce_ability_extension_failed',
-				__( 'An extension failed while checking this change.', 'woocommerce' ),
+				'poocommerce_ability_extension_failed',
+				__( 'An extension failed while checking this change.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -686,7 +686,7 @@ abstract class ActionableAbility extends Ability {
 			foreach ( array_keys( $schema[ $keyword ] ?? array() ) as $index ) {
 				$schema[ $keyword ][ $index ]['properties']['extensions'] = array(
 					'type'        => 'object',
-					'description' => __( 'The fields are listed in the top-level extensions property.', 'woocommerce' ),
+					'description' => __( 'The fields are listed in the top-level extensions property.', 'poocommerce' ),
 				);
 			}
 		}
@@ -700,8 +700,8 @@ abstract class ActionableAbility extends Ability {
 	 */
 	private static function save_failed(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_save_failed',
-			__( 'The change could not be saved.', 'woocommerce' ),
+			'poocommerce_ability_save_failed',
+			__( 'The change could not be saved.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}

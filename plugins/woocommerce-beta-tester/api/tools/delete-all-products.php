@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/delete-all-products/v1',
 	'tools_delete_all_products'
 );

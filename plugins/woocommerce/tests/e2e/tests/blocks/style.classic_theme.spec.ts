@@ -6,7 +6,7 @@ import {
 	expect,
 	test as base,
 	CLASSIC_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const test = base.extend( {} );
 
@@ -21,7 +21,7 @@ async function getStylesheets( page: Page ) {
 
 async function getInlineStyles( page: Page ) {
 	const styleLocators = page.locator(
-		'style[id^="woocommerce-"][id$="-style-inline-css"]'
+		'style[id^="poocommerce-"][id$="-style-inline-css"]'
 	);
 	return await styleLocators.evaluateAll( ( styles ) =>
 		styles.map( ( style ) => style.id )
@@ -34,7 +34,7 @@ test.describe( 'Block Style Loading in Classic Themes', () => {
 		await requestUtils.activateTheme( CLASSIC_THEME_SLUG );
 	} );
 
-	test( 'should not load unnecessary block styles on pages without WooCommerce blocks', async ( {
+	test( 'should not load unnecessary block styles on pages without PooCommerce blocks', async ( {
 		page,
 		admin,
 		editor,
@@ -47,7 +47,7 @@ test.describe( 'Block Style Loading in Classic Themes', () => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: {
-				content: 'This is a regular page with no WooCommerce blocks.',
+				content: 'This is a regular page with no PooCommerce blocks.',
 			},
 		} );
 
@@ -60,7 +60,7 @@ test.describe( 'Block Style Loading in Classic Themes', () => {
 		expect( inlineBlockStyles ).toHaveLength( 0 );
 	} );
 
-	test( 'should load base WooCommerce styles when blocks are present', async ( {
+	test( 'should load base PooCommerce styles when blocks are present', async ( {
 		page,
 		admin,
 		editor,
@@ -68,10 +68,10 @@ test.describe( 'Block Style Loading in Classic Themes', () => {
 		await admin.createNewPost( { postType: 'page' } );
 		await editor.canvas
 			.getByRole( 'textbox', { name: 'Add title' } )
-			.fill( 'Test Page With WooCommerce Block' );
+			.fill( 'Test Page With PooCommerce Block' );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/product-filters',
+			name: 'poocommerce/product-filters',
 		} );
 
 		await editor.publishAndVisitPost();

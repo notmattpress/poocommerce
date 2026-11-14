@@ -1,5 +1,5 @@
 /**
- * WooCommerce Recent reviews widget async loading
+ * PooCommerce Recent reviews widget async loading
  */
 jQuery(function($) {
     'use strict';
@@ -14,7 +14,7 @@ jQuery(function($) {
         $.ajax({
             url: wc_recent_reviews_widget_params.ajax_url,
             data: {
-                action: 'woocommerce_load_recent_reviews_widget',
+                action: 'poocommerce_load_recent_reviews_widget',
                 security: wc_recent_reviews_widget_params.security
             },
             type: 'GET',

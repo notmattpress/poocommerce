@@ -2,7 +2,7 @@
 /**
  * Tests for paginated notes in the order editor.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );

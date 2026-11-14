@@ -2,7 +2,7 @@
 /**
  * Get product info step.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   7.7.0
  */
 
@@ -40,7 +40,7 @@ class WC_WCCOM_Site_Installation_Step_Get_Product_Info implements WC_WCCOM_Site_
 	public function run() {
 		$product_id = $this->state->get_product_id();
 
-		// Get product info from WooCommerce.com.
+		// Get product info from PooCommerce.com.
 		$request = WC_Helper_API::get(
 			add_query_arg(
 				array( 'product_id' => $product_id ),

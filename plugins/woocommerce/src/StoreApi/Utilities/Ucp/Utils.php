@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Shared helpers for the UCP (Universal Commerce Protocol) routes.
@@ -15,7 +15,7 @@ class Utils {
 	const VERSION = '2026-04-08';
 
 	/**
-	 * Feature id gating the UCP routes, stored as `woocommerce_feature_ucp_enabled`.
+	 * Feature id gating the UCP routes, stored as `poocommerce_feature_ucp_enabled`.
 	 */
 	const FEATURE_ID = 'ucp';
 
@@ -154,7 +154,7 @@ class Utils {
 			return null;
 		}
 
-		return self::error_response( $capability, 'VALIDATION_ERROR', __( 'UCP requests must be sent as application/json.', 'woocommerce' ), 'recoverable', 415 );
+		return self::error_response( $capability, 'VALIDATION_ERROR', __( 'UCP requests must be sent as application/json.', 'poocommerce' ), 'recoverable', 415 );
 	}
 
 	/**
@@ -189,13 +189,13 @@ class Utils {
 	 */
 	public static function cart_error_code( string $code, string $fallback = 'item_unavailable' ): string {
 		switch ( $code ) {
-			case 'woocommerce_rest_product_out_of_stock':
-			case 'woocommerce_rest_product_partially_out_of_stock':
-			case 'woocommerce_rest_product_too_many_in_cart':
+			case 'poocommerce_rest_product_out_of_stock':
+			case 'poocommerce_rest_product_partially_out_of_stock':
+			case 'poocommerce_rest_product_too_many_in_cart':
 				return 'out_of_stock';
-			case 'woocommerce_rest_cart_invalid_key':
+			case 'poocommerce_rest_cart_invalid_key':
 				return 'not_found';
-			case 'woocommerce_rest_product_invalid_quantity':
+			case 'poocommerce_rest_product_invalid_quantity':
 			case 'invalid_quantity':
 			case 'readonly_quantity':
 				return 'invalid_quantity';

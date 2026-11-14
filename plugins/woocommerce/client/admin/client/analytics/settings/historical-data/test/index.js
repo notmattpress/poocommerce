@@ -49,7 +49,7 @@ describe( 'HistoricalData', () => {
 			if ( translatedFormat ) {
 				setLocaleData(
 					{ 'MM/DD/YYYY': [ translatedFormat ] },
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 			render( <HistoricalData /> );

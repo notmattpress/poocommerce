@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-terms-query';
+		return 'poocommerce/product-terms-query';
 	}
 
 	/**
@@ -39,13 +39,13 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 		$output_schema                        = self::get_collection_output_schema( 'terms', self::get_product_term_output_schema() );
 		$output_schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Total number of matching terms across all pages.', 'woocommerce' ),
+			'description' => __( 'Total number of matching terms across all pages.', 'poocommerce' ),
 		);
 
 		return array(
-			'label'               => __( 'Query product terms', 'woocommerce' ),
-			'description'         => __( 'Find product categories, tags, brands or the terms of a global attribute, such as pa_color. Use include to retrieve specific term IDs.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query product terms', 'poocommerce' ),
+			'description'         => __( 'Find product categories, tags, brands or the terms of a global attribute, such as pa_color. Use include to retrieve specific term IDs.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => $output_schema,
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -94,7 +94,7 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 			'hide_empty' => false,
 			'order'      => 'asc',
 		);
-		// Without an orderby, WooCommerce sorts attribute terms in the order set on the attribute.
+		// Without an orderby, PooCommerce sorts attribute terms in the order set on the attribute.
 		if ( ! taxonomy_is_product_attribute( $input['taxonomy'] ) ) {
 			$defaults['orderby'] = 'name';
 		}
@@ -185,9 +185,9 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 		return array(
 			'type'                 => 'object',
 			'properties'           => array(
-				'taxonomy'   => self::get_taxonomy_input_schema( __( 'Product taxonomy to query: product_cat, product_tag, product_brand, or the slug of a global attribute from product-attributes-query.', 'woocommerce' ) ),
+				'taxonomy'   => self::get_taxonomy_input_schema( __( 'Product taxonomy to query: product_cat, product_tag, product_brand, or the slug of a global attribute from product-attributes-query.', 'poocommerce' ) ),
 				'include'    => array(
-					'description' => __( 'Limit results to these term IDs. Use one ID to retrieve a single term.', 'woocommerce' ),
+					'description' => __( 'Limit results to these term IDs. Use one ID to retrieve a single term.', 'poocommerce' ),
 					'type'        => 'array',
 					'minItems'    => 1,
 					'items'       => array(
@@ -196,7 +196,7 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 					),
 				),
 				'exclude'    => array(
-					'description' => __( 'Exclude these term IDs. Ignored when include is set.', 'woocommerce' ),
+					'description' => __( 'Exclude these term IDs. Ignored when include is set.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'integer',
@@ -205,17 +205,17 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 				),
 				'search'     => array( 'type' => 'string' ),
 				'slug'       => array(
-					'description' => __( 'Limit results to these slugs. Send one slug as a list of one. An empty list applies no slug filter.', 'woocommerce' ),
+					'description' => __( 'Limit results to these slugs. Send one slug as a list of one. An empty list applies no slug filter.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array( 'type' => 'string' ),
 				),
 				'parent'     => array(
-					'description' => __( 'Parent term ID for categories or brands. Use zero for top-level terms.', 'woocommerce' ),
+					'description' => __( 'Parent term ID for categories or brands. Use zero for top-level terms.', 'poocommerce' ),
 					'type'        => 'integer',
 					'minimum'     => 0,
 				),
 				'product'    => array(
-					'description' => __( 'Limit results to terms assigned to this product ID.', 'woocommerce' ),
+					'description' => __( 'Limit results to terms assigned to this product ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'minimum'     => 1,
 				),
@@ -224,7 +224,7 @@ class ProductTermsQuery extends AbstractDomainAbility implements AbilityDefiniti
 					'default' => false,
 				),
 				'orderby'    => array(
-					'description' => __( 'Defaults to name, or for a pa_* taxonomy to the order set on the attribute.', 'woocommerce' ),
+					'description' => __( 'Defaults to name, or for a pa_* taxonomy to the order set on the attribute.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'id', 'include', 'name', 'slug', 'term_group', 'description', 'count' ),
 				),

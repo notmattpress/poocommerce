@@ -8,7 +8,7 @@ import {
 	expect,
 	BASE_URL,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ test.describe( 'Product Collection', () => {
 		await editor.insertBlock( {
 			name: 'core/query',
 			attributes: {
-				namespace: 'woocommerce/product-query',
+				namespace: 'poocommerce/product-query',
 			},
 		} );
 
@@ -259,7 +259,7 @@ test.describe( 'Product Collection', () => {
 			await expect( paginations ).toHaveCount( 1 );
 
 			const siblingBlock = await editor.getBlockByName(
-				'woocommerce/product-template'
+				'poocommerce/product-template'
 			);
 			await editor.selectBlocks( siblingBlock );
 			await editor.insertBlockUsingGlobalInserter( 'Pagination' );
@@ -404,7 +404,7 @@ test.describe( 'Product Collection', () => {
 		).toBeNull();
 	} );
 
-	// Tests for regressions of https://github.com/woocommerce/woocommerce/pull/47994
+	// Tests for regressions of https://github.com/poocommerce/poocommerce/pull/47994
 	test.describe( 'Product Collection should be visible after Refresh', () => {
 		test( 'Product Collection should be visible after Refresh in a Template', async ( {
 			page,
@@ -495,13 +495,13 @@ test.describe( 'Product Collection', () => {
 			templateTitle: 'Product Category',
 			slug: 'taxonomy-product_cat-music',
 			frontendPage: '/product-category/music/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 		{
 			templateTitle: 'Product Tag',
 			slug: 'taxonomy-product_tag-recommended',
 			frontendPage: '/product-tag/recommended/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 		},
 	];
 
@@ -556,7 +556,7 @@ test.describe( 'Product Collection', () => {
 
 					await page.goto( frontendPage );
 					const classicProducts = page.locator(
-						'.woocommerce-loop-product__title'
+						'.poocommerce-loop-product__title'
 					);
 					expect( await classicProducts.count() ).toBeGreaterThan(
 						0

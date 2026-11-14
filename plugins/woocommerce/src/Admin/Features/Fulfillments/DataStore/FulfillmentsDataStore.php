@@ -2,15 +2,15 @@
 /**
  * Class FulfillmentsDataStore file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
 use WC_Meta_Data;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,13 +37,13 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 	public function create( &$data ): void {
 		// Validate the fulfillment data.
 		if ( ! $data->get_entity_type() ) {
-			throw new \Exception( esc_html__( 'Invalid entity type.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid entity type.', 'poocommerce' ) );
 		}
 		if ( ! $data->get_entity_id() ) {
-			throw new \Exception( esc_html__( 'Invalid entity ID.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid entity ID.', 'poocommerce' ) );
 		}
 		if ( ! FulfillmentUtils::is_valid_fulfillment_status( $data->get_status() ) ) {
-			throw new \Exception( esc_html__( 'Invalid fulfillment status.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid fulfillment status.', 'poocommerce' ) );
 		}
 
 		$this->validate_items( $data );
@@ -56,7 +56,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		 *
 		 * @since 10.1.0
 		 */
-		$data = apply_filters( 'woocommerce_fulfillment_before_create', $data );
+		$data = apply_filters( 'poocommerce_fulfillment_before_create', $data );
 
 		$is_fulfill_action = $data->get_is_fulfilled();
 		// If the fulfillment is fulfilled, set the fulfilled date.
@@ -69,7 +69,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 			 * @since 10.1.0
 			 */
 			$data = apply_filters(
-				'woocommerce_fulfillment_before_fulfill',
+				'poocommerce_fulfillment_before_fulfill',
 				$data
 			);
 		}
@@ -91,7 +91,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Check for errors.
 		if ( false === $rows_inserted ) {
-			throw new \Exception( esc_html__( 'Failed to insert fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to insert fulfillment.', 'poocommerce' ) );
 		}
 
 		// Set the ID of the fulfillment object.
@@ -106,7 +106,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		$data->apply_changes();
 		$data->set_object_read( true );
 
-		if ( ! doing_action( 'woocommerce_fulfillment_after_create' ) ) {
+		if ( ! doing_action( 'poocommerce_fulfillment_after_create' ) ) {
 			/**
 			* Action to perform after a fulfillment is created.
 			*
@@ -114,16 +114,16 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 			*
 			* @since 10.1.0
 			*/
-			do_action( 'woocommerce_fulfillment_after_create', $data );
+			do_action( 'poocommerce_fulfillment_after_create', $data );
 		}
 
-		if ( $is_fulfill_action && ! doing_action( 'woocommerce_fulfillment_after_fulfill' ) ) {
+		if ( $is_fulfill_action && ! doing_action( 'poocommerce_fulfillment_after_fulfill' ) ) {
 			/**
 			 * Action to perform after a fulfillment is fulfilled.
 			 *
 			 * @since 10.1.0
 			 */
-			do_action( 'woocommerce_fulfillment_after_fulfill', $data );
+			do_action( 'poocommerce_fulfillment_after_fulfill', $data );
 		}
 	}
 
@@ -150,7 +150,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		);
 
 		if ( empty( $fulfillment_data ) ) {
-			throw new \Exception( esc_html__( 'Fulfillment not found.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Fulfillment not found.', 'poocommerce' ) );
 		}
 
 		// Use set_props_from_storage() so already-UTC date columns are not re-normalized as site-local.
@@ -180,7 +180,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		$data_id = $data->get_id();
 
 		if ( ! FulfillmentUtils::is_valid_fulfillment_status( $data->get_status() ) ) {
-			throw new \Exception( esc_html__( 'Invalid fulfillment status.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid fulfillment status.', 'poocommerce' ) );
 		}
 
 		$this->validate_items( $data );
@@ -192,7 +192,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		 *
 		 * @since 10.1.0
 		 */
-		$data = apply_filters( 'woocommerce_fulfillment_before_update', $data );
+		$data = apply_filters( 'poocommerce_fulfillment_before_update', $data );
 
 		// If the fulfillment is fulfilled, set the fulfilled date.
 		$is_fulfill_action = false;
@@ -208,7 +208,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 			 * @since 10.1.0
 			 */
 			$data = apply_filters(
-				'woocommerce_fulfillment_before_fulfill',
+				'poocommerce_fulfillment_before_fulfill',
 				$data
 			);
 		}
@@ -242,7 +242,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Check for errors.
 		if ( $wpdb->last_error ) {
-			throw new \Exception( esc_html__( 'Failed to update fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to update fulfillment.', 'poocommerce' ) );
 		}
 
 		// Update the metadata for the fulfillment.
@@ -251,7 +251,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		$data->set_object_read( true );
 
-		if ( ! doing_action( 'woocommerce_fulfillment_after_update' ) ) {
+		if ( ! doing_action( 'poocommerce_fulfillment_after_update' ) ) {
 			/**
 			 * Action to perform after a fulfillment is updated.
 			 *
@@ -264,10 +264,10 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 			 * @since 10.1.0
 			 * @since 10.7.0 Added $changes and $previous_status parameters.
 			 */
-			do_action( 'woocommerce_fulfillment_after_update', $data, $changes, $previous_status );
+			do_action( 'poocommerce_fulfillment_after_update', $data, $changes, $previous_status );
 		}
 
-		if ( $is_fulfill_action && ! doing_action( 'woocommerce_fulfillment_after_fulfill' ) ) {
+		if ( $is_fulfill_action && ! doing_action( 'poocommerce_fulfillment_after_fulfill' ) ) {
 			/**
 			 * Action to perform after a fulfillment is fulfilled.
 			 *
@@ -275,7 +275,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 			 *
 			 * @since 10.1.0
 			 */
-			do_action( 'woocommerce_fulfillment_after_fulfill', $data );
+			do_action( 'poocommerce_fulfillment_after_fulfill', $data );
 		}
 	}
 
@@ -300,7 +300,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		 *
 		 * @since 10.1.0
 		 */
-		$data = apply_filters( 'woocommerce_fulfillment_before_delete', $data );
+		$data = apply_filters( 'poocommerce_fulfillment_before_delete', $data );
 
 		// Soft Delete the fulfillment from the database.
 		global $wpdb;
@@ -325,18 +325,18 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Check for errors.
 		if ( $wpdb->last_error ) {
-			throw new \Exception( esc_html__( 'Failed to delete fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to delete fulfillment.', 'poocommerce' ) );
 		}
 		$data->apply_changes();
 		$data->set_object_read( true );
 
-		if ( ! doing_action( 'woocommerce_fulfillment_after_delete' ) ) {
+		if ( ! doing_action( 'poocommerce_fulfillment_after_delete' ) ) {
 			/**
 			 * Action to perform after a fulfillment is deleted.
 			 *
 			 * @since 10.1.0
 			 */
-			do_action( 'woocommerce_fulfillment_after_delete', $data );
+			do_action( 'poocommerce_fulfillment_after_delete', $data );
 		}
 
 		// Set the fulfillment object to a fresh state.
@@ -353,7 +353,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 	 */
 	public function read_meta( &$data ): array {
 		if ( ! $data->get_id() ) {
-			throw new \Exception( esc_html__( 'Invalid fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid fulfillment.', 'poocommerce' ) );
 		}
 
 		// Read the metadata for the fulfillment.
@@ -393,12 +393,12 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Prevent deletion of metadata from a deleted fulfillment.
 		if ( $data->get_date_deleted() ) {
-			throw new \Exception( esc_html__( 'Cannot delete meta from a deleted fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Cannot delete meta from a deleted fulfillment.', 'poocommerce' ) );
 		}
 
 		$meta_id = $meta->id;
 		if ( ! is_numeric( $data_id ) || $data_id <= 0 || ! is_numeric( $meta_id ) || $meta_id <= 0 ) {
-			throw new \Exception( esc_html__( 'Invalid fulfillment or meta.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid fulfillment or meta.', 'poocommerce' ) );
 		}
 
 		// Delete the metadata for the fulfillment.
@@ -432,7 +432,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Prevent adding metadata to a deleted fulfillment.
 		if ( $data->get_date_deleted() ) {
-			throw new \Exception( esc_html__( 'Cannot add meta to a deleted fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Cannot add meta to a deleted fulfillment.', 'poocommerce' ) );
 		}
 
 		// Data ID can't be something wrong as this function is called after the meta is read.
@@ -456,7 +456,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		// Note: There is no error check on WC_Data::save_meta_data(), and it expects us to return an ID in all cases.
 		// If there's an error, we should return null to indicate we didn't save it.
 		if ( $wpdb->last_error ) {
-			throw new \Exception( esc_html__( 'Failed to insert fulfillment meta.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to insert fulfillment meta.', 'poocommerce' ) );
 		}
 
 		return $wpdb->insert_id;
@@ -480,7 +480,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Prevent updating metadata for a deleted fulfillment.
 		if ( $data->get_date_deleted() ) {
-			throw new \Exception( esc_html__( 'Cannot update meta for a deleted fulfillment.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Cannot update meta for a deleted fulfillment.', 'poocommerce' ) );
 		}
 
 		$rows_updated = $wpdb->update(
@@ -505,7 +505,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 
 		// Check for errors.
 		if ( $wpdb->last_error ) {
-			throw new \Exception( esc_html__( 'Failed to update fulfillment meta.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to update fulfillment meta.', 'poocommerce' ) );
 		}
 
 		return $rows_updated;
@@ -547,7 +547,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 		}
 
 		if ( is_wp_error( $fulfillment_data ) ) {
-			throw new \Exception( esc_html__( 'Failed to read fulfillment data.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Failed to read fulfillment data.', 'poocommerce' ) );
 		}
 
 		// Create Fulfillment objects from the data.
@@ -642,11 +642,11 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 	private function validate_items( Fulfillment $data ): void {
 		$items = $data->get_meta( '_items', true );
 		if ( empty( $items ) ) {
-			throw new \Exception( esc_html__( 'The fulfillment should contain at least one item.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'The fulfillment should contain at least one item.', 'poocommerce' ) );
 		}
 
 		if ( ! is_array( $items ) ) {
-			throw new \Exception( esc_html__( 'The fulfillment items should be an array.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'The fulfillment items should be an array.', 'poocommerce' ) );
 		}
 
 		foreach ( $data->get_items() as $item ) {
@@ -661,7 +661,7 @@ class FulfillmentsDataStore extends \WC_Data_Store_WP implements \WC_Object_Data
 				|| $item['item_id'] <= 0
 				|| $item['qty'] <= 0
 				) {
-				throw new \Exception( esc_html__( 'Invalid item.', 'woocommerce' ) );
+				throw new \Exception( esc_html__( 'Invalid item.', 'poocommerce' ) );
 			}
 		}
 	}

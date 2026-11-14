@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Mocks\BlockHooksTestBlock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\BlockHooksLowerVersionTestBlock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\BlockHooksNoVersionTestBlock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\BlockHooksTestBlock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\BlockHooksLowerVersionTestBlock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\BlockHooksNoVersionTestBlock;
 use WC_Unit_Test_Case;
 
 /**
@@ -17,7 +17,7 @@ class BlockHooksTests extends WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	protected static $option_name = 'woocommerce_hooked_blocks_version';
+	protected static $option_name = 'poocommerce_hooked_blocks_version';
 
 	/**
 	 * @testdox Should hook the mock block when the configured version meets the placement requirement.
@@ -27,7 +27,7 @@ class BlockHooksTests extends WC_Unit_Test_Case {
 		update_option( self::$option_name, '8.4.0', false );
 		$hooked_block_types = apply_filters( 'hooked_block_types', array(), 'after', 'core/navigation', array( 'mock-context' ) );
 		$this->assertContains(
-			'woocommerce/test-block',
+			'poocommerce/test-block',
 			$hooked_block_types,
 			'Test block should be included in hooked blocks with correct version'
 		);
@@ -42,7 +42,7 @@ class BlockHooksTests extends WC_Unit_Test_Case {
 		delete_option( self::$option_name );
 		$hooked_block_types = apply_filters( 'hooked_block_types', array(), 'after', 'core/navigation', array( 'mock-context' ) );
 		$this->assertNotContains(
-			'woocommerce/test-block',
+			'poocommerce/test-block',
 			$hooked_block_types,
 			"Hooked block shouldn't be added unless a version is set"
 		);
@@ -56,7 +56,7 @@ class BlockHooksTests extends WC_Unit_Test_Case {
 		update_option( self::$option_name, '8.3.0', false );
 		$hooked_block_types = apply_filters( 'hooked_block_types', array(), 'after', 'core/navigation', array( 'mock-context' ) );
 		$this->assertNotContains(
-			'woocommerce/test-block',
+			'poocommerce/test-block',
 			$hooked_block_types,
 			'Test block should not be included in hooked blocks with lower version'
 		);

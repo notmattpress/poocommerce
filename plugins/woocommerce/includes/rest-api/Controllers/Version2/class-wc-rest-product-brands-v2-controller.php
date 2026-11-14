@@ -4,9 +4,9 @@
  *
  * Handles requests to /products/brands endpoint.
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   9.4.0
  */
 
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Brands controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Categories_Controller
  */
 class WC_REST_Product_Brands_V2_Controller extends WC_REST_Product_Categories_V2_Controller {

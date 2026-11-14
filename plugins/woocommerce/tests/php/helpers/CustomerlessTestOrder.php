@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 /**
  * A custom order type built only on WC_Abstract_Order, so it has no get_customer_id() or get_billing_email().
  *
- * It uses the 'test-custom-order' data store, which tests must register through the 'woocommerce_data_stores' filter.
+ * It uses the 'test-custom-order' data store, which tests must register through the 'poocommerce_data_stores' filter.
  */
 class CustomerlessTestOrder extends WC_Abstract_Order {
 

@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce;
 
 /**
- * Unit test for the WooCommerce blocks Initializer class.
+ * Unit test for the PooCommerce blocks Initializer class.
  */
 class Initializer_Test extends \Email_Editor_Unit_Test {
 	/**
@@ -27,7 +27,7 @@ class Initializer_Test extends \Email_Editor_Unit_Test {
 	public function testItEnablesEmailSupportForProductImageBlock(): void {
 		$initializer = new Initializer();
 
-		$settings = $initializer->update_block_settings( array( 'name' => 'woocommerce/product-image' ) );
+		$settings = $initializer->update_block_settings( array( 'name' => 'poocommerce/product-image' ) );
 
 		$this->assertTrue( $settings['supports']['email'] );
 		$this->assertSame( array( 'full' ), $settings['supports']['align'] );

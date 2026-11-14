@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Notifications;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Notifications;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\SuppressionReason;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\SuppressionReason;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
 use WC_Order;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Notification for new WooCommerce orders.
+ * Notification for new PooCommerce orders.
  *
  * @since 10.7.0
  */

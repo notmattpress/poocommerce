@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-reviews-pagination",
+	"name": "poocommerce/product-reviews-pagination",
 	"title": "Reviews Pagination",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews" ],
 	"allowedBlocks": [
-		"woocommerce/product-reviews-pagination-previous",
-		"woocommerce/product-reviews-pagination-numbers",
-		"woocommerce/product-reviews-pagination-next"
+		"poocommerce/product-reviews-pagination-previous",
+		"poocommerce/product-reviews-pagination-numbers",
+		"poocommerce/product-reviews-pagination-next"
 	],
 	"description": "Displays a paginated navigation to next/previous set of product reviews, when applicable.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"paginationArrow": {
 			"type": "string",

@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class ProductTermCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-term-create';
+		return 'poocommerce/product-term-create';
 	}
 
 	/**
@@ -38,9 +38,9 @@ class ProductTermCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create product term', 'woocommerce' ),
-			'description'         => __( 'Create a product category, tag, brand or a term of a global attribute, such as pa_color. Product writes then assign it by ID.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Create product term', 'poocommerce' ),
+			'description'         => __( 'Create a product category, tag, brand or a term of a global attribute, such as pa_color. Product writes then assign it by ID.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'term', self::get_written_term_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -101,12 +101,12 @@ class ProductTermCreate extends AbstractDomainAbility implements AbilityDefiniti
 		}
 		$ids = wp_insert_term( wp_slash( $name ), $taxonomy, wp_slash( $args ) );
 		if ( is_wp_error( $ids ) ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_create_failed', $ids->get_error_message(), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_create_failed', $ids->get_error_message(), array( 'status' => 500 ) );
 		}
 
 		$term = get_term( $ids['term_id'], $taxonomy );
 		if ( ! $term instanceof \WP_Term ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_create_failed', __( 'The term was created but could not be read back.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_create_failed', __( 'The term was created but could not be read back.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$output = self::format_term( $term );
@@ -124,13 +124,13 @@ class ProductTermCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	private static function get_input_schema(): array {
 		$properties                        = self::get_term_write_properties();
-		$properties['slug']['description'] = __( 'Defaults to one made from the name.', 'woocommerce' );
+		$properties['slug']['description'] = __( 'Defaults to one made from the name.', 'poocommerce' );
 
 		return array(
 			'type'                 => 'object',
 			'properties'           => array_merge(
 				array(
-					'taxonomy' => self::get_taxonomy_input_schema( __( 'Product taxonomy: product_cat, product_tag, product_brand, or the slug of a global attribute from product-attributes-query.', 'woocommerce' ) ),
+					'taxonomy' => self::get_taxonomy_input_schema( __( 'Product taxonomy: product_cat, product_tag, product_brand, or the slug of a global attribute from product-attributes-query.', 'poocommerce' ) ),
 				),
 				$properties
 			),

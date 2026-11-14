@@ -2,14 +2,14 @@
 /**
  * Class WC_Product_CSV_Importer unit tests.
  *
- * @package WooCommerce\Tests\Importer
+ * @package PooCommerce\Tests\Importer
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
 
 /**
  * Test class for WC_Product_CSV_Importer.
@@ -81,7 +81,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 	 * @return WC_Product_CSV_Importer
 	 */
 	private function get_importer() {
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->delete_all();
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->delete_all();
 
 		return new WC_Product_CSV_Importer(
 			$this->csv_file,
@@ -169,7 +169,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 			'One import item references a downloadable file stored in an unapproved location: if the import is triggered by an admin user, that location will be automatically approved.'
 		);
 		$this->assertTrue(
-			wc_get_container()->get( \Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->is_valid_path( 'http://woo.dev/albums/album.flac' )
+			wc_get_container()->get( \Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->is_valid_path( 'http://woo.dev/albums/album.flac' )
 		);
 	}
 
@@ -190,13 +190,13 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 			'One import item references a downloadable file stored in an unapproved location: if the import is triggered by a non-admin, that item cannot be imported.'
 		);
 		$this->assertFalse(
-			wc_get_container()->get( \Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->is_valid_path( 'http://woo.dev/albums/album.flac' )
+			wc_get_container()->get( \Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->is_valid_path( 'http://woo.dev/albums/album.flac' )
 		);
 	}
 
 	/**
 	 * Test import should update product price and skip products with empty SKU
-	 * (see https://github.com/woocommerce/woocommerce/issues/23257).
+	 * (see https://github.com/poocommerce/poocommerce/issues/23257).
 	 */
 	public function test_import_should_update_product() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -227,7 +227,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Reducing the number of images in a CSV clears previously imported gallery images.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/34839: replacing a
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/34839: replacing a
 	 * product's two images with a single image left the removed gallery image in place instead
 	 * of clearing it.
 	 */
@@ -257,7 +257,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 	 * @testdox An empty images column leaves the existing featured image and gallery untouched.
 	 *
 	 * Guards against over-clearing: a blank or absent Images value must not wipe images that
-	 * were previously set on the product. See https://github.com/woocommerce/woocommerce/issues/34839.
+	 * were previously set on the product. See https://github.com/poocommerce/poocommerce/issues/34839.
 	 */
 	public function test_empty_images_column_preserves_existing_images() {
 		$featured_id = $this->create_sourced_attachment( 'http://example.com/featured.jpg' );
@@ -279,7 +279,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 	/**
 	 * @testdox A leading empty value in the images column still imports the remaining gallery images.
 	 *
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/66583: an Images cell
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/66583: an Images cell
 	 * like ",gallery.jpg" parses to an empty featured-image value followed by gallery URLs. The
 	 * gallery URLs must still be imported (and replace the existing gallery) even though the
 	 * featured-image slot is empty.
@@ -471,7 +471,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'',
 				'TopBrand, TopBrand > KidCakes',
 				'',
-				'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg, http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_1_back.jpg',
+				'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg, http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_1_back.jpg',
 				'',
 				'',
 				'',
@@ -520,7 +520,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'Woo',
 				'TopBrand > Slice, TopBrand',
 				'',
-				'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg, http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_1_flat.jpg',
+				'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg, http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_1_flat.jpg',
 				'10',
 				'90',
 				'',
@@ -531,7 +531,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'',
 				'1',
 				'Label',
-				'WooCommerce',
+				'PooCommerce',
 				'Vinyl',
 				'180-Gram',
 				'',
@@ -587,8 +587,8 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg',
-				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_1_back.jpg' ),
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg',
+				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_1_back.jpg' ),
 				'virtual'               => '',
 				'downloadable'          => '',
 				'manage_stock'          => true,
@@ -631,8 +631,8 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg',
-				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_1_flat.jpg' ),
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg',
+				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_1_flat.jpg' ),
 				'virtual'               => true,
 				'downloadable'          => true,
 				'manage_stock'          => false,
@@ -657,7 +657,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 			array(
 				'type'               => ProductType::EXTERNAL,
 				'sku'                => '',
-				'name'               => 'WooCommerce Product CSV Suite',
+				'name'               => 'PooCommerce Product CSV Suite',
 				'featured'           => '',
 				'catalog_visibility' => CatalogVisibility::VISIBLE,
 				'short_description'  => 'Lorem ipsum dolor sit amet, at exerci civibus appetere sit, iuvaret hendrerit mea no. Eam integre feugait liberavisse an.',
@@ -681,8 +681,8 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'shipping_class_id'  => 0,
 				'download_limit'     => '',
 				'download_expiry'    => '',
-				'product_url'        => 'https://woocommerce.com/products/product-csv-import-suite/',
-				'button_text'        => 'Buy on WooCommerce.com',
+				'product_url'        => 'https://poocommerce.com/products/product-csv-import-suite/',
+				'button_text'        => 'Buy on PooCommerce.com',
 				'status'             => ProductStatus::PUBLISH,
 				'raw_image_id'       => null,
 				'virtual'            => false,
@@ -720,11 +720,11 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
 				'raw_gallery_image_ids' => array(
-					'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg',
-					'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
-					'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg',
+					'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_back.jpg',
+					'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+					'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_back.jpg',
 				),
 				'virtual'               => false,
 				'downloadable'          => false,
@@ -772,7 +772,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_4_front.jpg',
 				'raw_gallery_image_ids' => array(),
 				'virtual'               => false,
 				'downloadable'          => false,
@@ -818,7 +818,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
 				'raw_gallery_image_ids' => array(),
 				'virtual'               => false,
 				'downloadable'          => false,
@@ -864,8 +864,8 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 				'product_url'           => '',
 				'button_text'           => '',
 				'status'                => ProductStatus::PUBLISH,
-				'raw_image_id'          => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg',
-				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg' ),
+				'raw_image_id'          => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_1_front.jpg',
+				'raw_gallery_image_ids' => array( 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/cd_1_angle.jpg' ),
 				'virtual'               => false,
 				'downloadable'          => false,
 				'manage_stock'          => false,
@@ -903,7 +903,7 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 		$expected_brands = array(
 			array( 'TopBrand', 'KidCakes' ),                  // Woo Logo: "TopBrand, TopBrand > KidCakes".
 			array( 'Slice', 'TopBrand' ),                     // Woo Album #1: "TopBrand > Slice, TopBrand".
-			array( 'Another Brand' ),                         // WooCommerce Product CSV Suite: "Another Brand".
+			array( 'Another Brand' ),                         // PooCommerce Product CSV Suite: "Another Brand".
 			array( 'TopBrand', 'KidCakes' ),                  // Ship Your Idea: "TopBrand, TopBrand > KidCakes".
 			array(),                                          // Variation 1: No brands.
 			array(),                                          // Variation 2: No brands.
@@ -1015,6 +1015,6 @@ class WC_Tests_Product_CSV_Importer extends WC_Unit_Test_Case {
 		$import_result     = $import_controller->handle_upload();
 
 		$this->assertTrue( is_wp_error( $import_result ) );
-		$this->assertEquals( $import_result->get_error_code(), 'woocommerce_product_csv_importer_upload_invalid_file' );
+		$this->assertEquals( $import_result->get_error_code(), 'poocommerce_product_csv_importer_upload_invalid_file' );
 	}
 }

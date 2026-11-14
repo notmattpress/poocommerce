@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Checkout;
+namespace Automattic\PooCommerce\Tests\Internal\Checkout;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Checkout\PaymentRecovery;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Checkout\PaymentRecovery;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Helper_Product;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -57,7 +57,7 @@ class PaymentRecoveryTest extends WC_Unit_Test_Case {
 			return $statuses;
 		};
 
-		add_filter( 'woocommerce_valid_order_statuses_for_payment', $declare_on_hold_payable );
+		add_filter( 'poocommerce_valid_order_statuses_for_payment', $declare_on_hold_payable );
 
 		try {
 			$this->assertFalse(
@@ -65,7 +65,7 @@ class PaymentRecoveryTest extends WC_Unit_Test_Case {
 				'A status the site declares payable is still awaiting payment.'
 			);
 		} finally {
-			remove_filter( 'woocommerce_valid_order_statuses_for_payment', $declare_on_hold_payable );
+			remove_filter( 'poocommerce_valid_order_statuses_for_payment', $declare_on_hold_payable );
 		}
 	}
 

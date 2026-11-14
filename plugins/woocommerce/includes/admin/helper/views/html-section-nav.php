@@ -2,7 +2,7 @@
 /**
  * Helper admin navigation.
  *
- * @package WooCommerce\Helper
+ * @package PooCommerce\Helper
  *
  * @deprecated 5.7.0
  */
@@ -12,12 +12,12 @@ $addons_url = admin_url( 'admin.php?page=wc-admin&path=/extensions&tab=extension
 defined( 'ABSPATH' ) || exit(); ?>
 
 <nav class="nav-tab-wrapper woo-nav-tab-wrapper">
-	<a href="<?php echo esc_url( $addons_url ); ?>" class="nav-tab"><?php esc_html_e( 'Browse Extensions', 'woocommerce' ); ?></a>
+	<a href="<?php echo esc_url( $addons_url ); ?>" class="nav-tab"><?php esc_html_e( 'Browse Extensions', 'poocommerce' ); ?></a>
 
 	<?php
 		$count_html = WC_Helper_Updater::get_updates_count_html();
-		/* translators: %s: WooCommerce.com Subscriptions tab count HTML. */
-		$menu_title = sprintf( __( 'My Subscriptions %s', 'woocommerce' ), $count_html );
+		/* translators: %s: PooCommerce.com Subscriptions tab count HTML. */
+		$menu_title = sprintf( __( 'My Subscriptions %s', 'poocommerce' ), $count_html );
 	?>
 	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-addons&section=helper' ) ); ?>" class="nav-tab nav-tab-active"><?php echo wp_kses_post( $menu_title ); ?></a>
 </nav>

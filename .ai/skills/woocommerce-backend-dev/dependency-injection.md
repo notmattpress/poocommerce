@@ -14,10 +14,10 @@ Dependencies are injected via a `final` `init` method with `@internal` annotatio
 **Example:**
 
 ```php
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Logging\Logger;
-use Automattic\WooCommerce\Internal\DataStore\OrderDataStore;
+use Automattic\PooCommerce\Internal\Logging\Logger;
+use Automattic\PooCommerce\Internal\DataStore\OrderDataStore;
 
 class OrderProcessor {
     private Logger $logger;
@@ -45,12 +45,12 @@ class OrderProcessor {
 
 ## Initializing Classes That Set Up Hooks
 
-Add to `includes/class-woocommerce.php` in `init_hooks()`:
+Add to `includes/class-poocommerce.php` in `init_hooks()`:
 
 - Use `$container->get( ClassName::class );`
 - Add at end of "These classes set up hooks on instantiation" section
 
-**Example in `includes/class-woocommerce.php`:**
+**Example in `includes/class-poocommerce.php`:**
 
 ```php
 private function init_hooks() {
@@ -68,7 +68,7 @@ private function init_hooks() {
 When you need to get an instance of a class from the container elsewhere in the code:
 
 ```php
-use Automattic\WooCommerce\Internal\Utils\DataParser;
+use Automattic\PooCommerce\Internal\Utils\DataParser;
 
 // Get instance from container
 $parser = wc_get_container()->get( DataParser::class );

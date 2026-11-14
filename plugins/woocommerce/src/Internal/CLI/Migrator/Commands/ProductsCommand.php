@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Commands;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Commands;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\ProductsController;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\ProductsController;
 use WP_CLI;
 
 /**
@@ -44,7 +44,7 @@ final class ProductsCommand {
 	 *
 	 * @internal
 	 */
-	final public function init( CredentialManager $credential_manager, PlatformRegistry $platform_registry, ProductsController $products_controller ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules
+	final public function init( CredentialManager $credential_manager, PlatformRegistry $platform_registry, ProductsController $products_controller ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules
 		$this->credential_manager  = $credential_manager;
 		$this->platform_registry   = $platform_registry;
 		$this->products_controller = $products_controller;
@@ -68,7 +68,7 @@ final class ProductsCommand {
 	 * : Filter products by status (active, archived, draft).
 	 *
 	 * [--product-type=<product-type>]
-	 * : Filter products by type (for Shopify: any product type name, or 'single'/'variable' for WooCommerce equivalents).
+	 * : Filter products by type (for Shopify: any product type name, or 'single'/'variable' for PooCommerce equivalents).
 	 *
 	 * [--vendor=<vendor>]
 	 * : Filter products by vendor name.
@@ -89,7 +89,7 @@ final class ProductsCommand {
 	 * : Resume from previous migration session without prompting.
 	 *
 	 * [--skip-existing]
-	 * : Skip products that already exist in WooCommerce.
+	 * : Skip products that already exist in PooCommerce.
 	 *
 	 * [--dry-run]
 	 * : Perform a dry run without creating products.
@@ -98,7 +98,7 @@ final class ProductsCommand {
 	 * : Show detailed progress information including warnings and errors.
 	 *
 	 * [--assign-default-category]
-	 * : Assign WooCommerce default category to products that have no categories.
+	 * : Assign PooCommerce default category to products that have no categories.
 	 *
 	 * ## EXAMPLES
 	 *

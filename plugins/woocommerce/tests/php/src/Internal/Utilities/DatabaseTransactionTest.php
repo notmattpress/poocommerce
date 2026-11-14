@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\DatabaseTransaction;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseTransaction;
 use WC_Unit_Test_Case;
 
 /**
@@ -203,7 +203,7 @@ class DatabaseTransactionTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_transaction_rolled_back', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_transaction_rolled_back', $result->get_error_code() );
 		$this->assertSame( array( 'SELECT @@autocommit', 'SET autocommit = 0', 'START TRANSACTION', 'ROLLBACK', 'SET autocommit = 1' ), $this->statements );
 		$this->assertFalse( DatabaseTransaction::is_open() );
 	}
@@ -223,7 +223,7 @@ class DatabaseTransactionTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_transaction_rolled_back', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_transaction_rolled_back', $result->get_error_code() );
 		$this->assertSame( array( 'SELECT @@autocommit', 'SET autocommit = 0', 'START TRANSACTION', 'ROLLBACK', 'SET autocommit = 1' ), $this->statements );
 	}
 
@@ -336,7 +336,7 @@ class DatabaseTransactionTest extends WC_Unit_Test_Case {
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_transaction_rolled_back', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_transaction_rolled_back', $result->get_error_code() );
 		$this->assertSame( array( 'SELECT @@autocommit', 'SET autocommit = 0', 'START TRANSACTION', 'COMMIT', 'SET autocommit = 1' ), $this->statements );
 	}
 

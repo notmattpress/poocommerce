@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\EmailHeaders;
+use Automattic\PooCommerce\Internal\Email\EmailHeaders;
 use WC_Unit_Test_Case;
 
 /**
  * EmailHeaders test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\EmailHeaders
+ * @covers \Automattic\PooCommerce\Internal\Email\EmailHeaders
  */
 class EmailHeadersTest extends WC_Unit_Test_Case {
 

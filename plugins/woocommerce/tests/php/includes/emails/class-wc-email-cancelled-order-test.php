@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Email\DeferredEmailQueue;
-use Automattic\WooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
+use Automattic\PooCommerce\Internal\Email\DeferredEmailQueue;
+use Automattic\PooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
 
 /**
  * WC_Email_Cancelled_Order test.
@@ -11,23 +11,23 @@ use Automattic\WooCommerce\Internal\Orders\UnpaidOrderTimeoutMarker;
  */
 class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 
-	private const OPTION_KEY = 'woocommerce_cancelled_order_settings';
+	private const OPTION_KEY = 'poocommerce_cancelled_order_settings';
 
 	private const NOTIFICATION_HOOKS = array(
-		'woocommerce_order_status_pending_to_cancelled_notification',
-		'woocommerce_order_status_processing_to_cancelled_notification',
-		'woocommerce_order_status_on-hold_to_cancelled_notification',
+		'poocommerce_order_status_pending_to_cancelled_notification',
+		'poocommerce_order_status_processing_to_cancelled_notification',
+		'poocommerce_order_status_on-hold_to_cancelled_notification',
 	);
 
 	/**
-	 * Hook calls captured from woocommerce_email_skipped.
+	 * Hook calls captured from poocommerce_email_skipped.
 	 *
 	 * @var array
 	 */
 	private $skipped = array();
 
 	/**
-	 * Hook calls captured from woocommerce_email_disabled.
+	 * Hook calls captured from poocommerce_email_disabled.
 	 *
 	 * @var array
 	 */
@@ -47,8 +47,8 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 
 		$this->skipped  = array();
 		$this->disabled = array();
-		add_action( 'woocommerce_email_skipped', array( $this, 'capture_skipped' ), 10, 2 );
-		add_action( 'woocommerce_email_disabled', array( $this, 'capture_disabled' ) );
+		add_action( 'poocommerce_email_skipped', array( $this, 'capture_skipped' ), 10, 2 );
+		add_action( 'poocommerce_email_disabled', array( $this, 'capture_disabled' ) );
 	}
 
 	/**
@@ -56,17 +56,17 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		delete_option( self::OPTION_KEY );
-		remove_action( 'woocommerce_email_skipped', array( $this, 'capture_skipped' ), 10 );
-		remove_action( 'woocommerce_email_disabled', array( $this, 'capture_disabled' ) );
-		remove_all_filters( 'woocommerce_queue_class' );
-		remove_action( 'woocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'queue_transactional_email' ), 10 );
+		remove_action( 'poocommerce_email_skipped', array( $this, 'capture_skipped' ), 10 );
+		remove_action( 'poocommerce_email_disabled', array( $this, 'capture_disabled' ) );
+		remove_all_filters( 'poocommerce_queue_class' );
+		remove_action( 'poocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'queue_transactional_email' ), 10 );
 		$this->set_wc_emails_deferred_queue( null );
 		$this->reset_queue_singleton();
 		parent::tearDown();
 	}
 
 	/**
-	 * Capture woocommerce_email_skipped.
+	 * Capture poocommerce_email_skipped.
 	 *
 	 * @param string $reason   Skip reason.
 	 * @param string $email_id Email ID.
@@ -76,7 +76,7 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Capture woocommerce_email_disabled.
+	 * Capture poocommerce_email_disabled.
 	 *
 	 * @param string $email_id Email ID.
 	 */
@@ -167,7 +167,7 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 
 		$order->update_status( $intermediate );
 		$order->update_status( 'cancelled' );
-		wc_get_container()->get( \Automattic\WooCommerce\Caches\OrderCache::class )->remove( $order->get_id() );
+		wc_get_container()->get( \Automattic\PooCommerce\Caches\OrderCache::class )->remove( $order->get_id() );
 
 		$mailer      = tests_retrieve_phpmailer_instance();
 		$sent_before = count( $mailer->mock_sent );
@@ -202,15 +202,15 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 	public function test_deferred_email_reads_marker_after_reload( string $setting, bool $reopened, bool $expect_sent ): void {
 		$this->reset_queue_singleton();
 		add_filter(
-			'woocommerce_queue_class',
+			'poocommerce_queue_class',
 			function () {
 				return \WC_Admin_Test_Action_Queue::class;
 			}
 		);
 		$queue = new DeferredEmailQueue();
 		$this->set_wc_emails_deferred_queue( $queue );
-		remove_action( 'woocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'send_transactional_email' ), 10 );
-		add_action( 'woocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'queue_transactional_email' ), 10, 10 );
+		remove_action( 'poocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'send_transactional_email' ), 10 );
+		add_action( 'poocommerce_order_status_pending_to_cancelled', array( \WC_Emails::class, 'queue_transactional_email' ), 10, 10 );
 
 		// The real status change pushes the email onto the deferred queue instead of sending it.
 		$order = $this->create_cancelled_order( true );
@@ -221,11 +221,11 @@ class WC_Email_Cancelled_Order_Test extends \WC_Unit_Test_Case {
 			$order->set_status( 'pending' );
 			$order->save();
 		}
-		wc_get_container()->get( \Automattic\WooCommerce\Caches\OrderCache::class )->remove( $order->get_id() );
+		wc_get_container()->get( \Automattic\PooCommerce\Caches\OrderCache::class )->remove( $order->get_id() );
 
 		$action = null;
 		foreach ( \WC_Queue::instance()->actions as $candidate ) {
-			if ( 'woocommerce_send_queued_transactional_email' === $candidate['hook'] && 'woocommerce_order_status_pending_to_cancelled' === $candidate['args'][0] ) {
+			if ( 'poocommerce_send_queued_transactional_email' === $candidate['hook'] && 'poocommerce_order_status_pending_to_cancelled' === $candidate['args'][0] ) {
 				$action = $candidate;
 			}
 		}

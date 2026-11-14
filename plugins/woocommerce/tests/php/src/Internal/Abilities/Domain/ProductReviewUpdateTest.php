@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewUpdate;
 
 /**
  * Tests review moderation through the Abilities API.
@@ -219,7 +219,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 				)
 			);
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_product_review_not_found', $result->get_error_code(), "Comment {$id} is not a review." );
+			$this->assertSame( 'poocommerce_ability_product_review_not_found', $result->get_error_code(), "Comment {$id} is not a review." );
 		}
 	}
 
@@ -239,7 +239,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
 		$seen = array();
 		add_filter(
-			'woocommerce_rest_check_permissions',
+			'poocommerce_rest_check_permissions',
 			function ( $permission, $context, $object_id, $object_type ) use ( &$seen ) {
 				unset( $permission );
 				$seen[] = array( $context, $object_id, $object_type );
@@ -259,7 +259,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refused_changes(): void {
 		$id = $this->review( 'approved' );
-		add_filter( 'woocommerce_rest_product_review_trashable', '__return_false' );
+		add_filter( 'poocommerce_rest_product_review_trashable', '__return_false' );
 
 		$result = $this->sut->execute(
 			array(
@@ -268,7 +268,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_product_review_trash_not_supported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_trash_not_supported', $result->get_error_code() );
 		$this->assertNotNull( get_comment( $id ), 'The review should not be deleted.' );
 		$this->assertSame( '1', get_comment( $id )->comment_approved );
 
@@ -280,7 +280,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_product_review_status_locked', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_status_locked', $result->get_error_code() );
 		$this->assertStringContainsString( 'Restore the product', $result->get_error_message() );
 		$this->assertSame( 'post-trashed', get_comment( $id )->comment_approved );
 
@@ -298,7 +298,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_product_review_status_locked', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_status_locked', $result->get_error_code() );
 		$this->assertStringNotContainsString( 'Restore the product', $result->get_error_message(), 'Only a trashed product needs restoring.' );
 	}
 
@@ -307,7 +307,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_truthy_trashable_filter_allows_trash(): void {
 		$id = $this->review( 'approved' );
-		add_filter( 'woocommerce_rest_product_review_trashable', fn() => 1 );
+		add_filter( 'poocommerce_rest_product_review_trashable', fn() => 1 );
 
 		$result = $this->sut->execute(
 			array(
@@ -362,7 +362,7 @@ class ProductReviewUpdateTest extends \WC_Unit_Test_Case {
 				'status' => 'trash',
 			)
 		);
-		$this->assertSame( 'woocommerce_ability_product_review_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_not_found', $result->get_error_code() );
 	}
 
 	/**

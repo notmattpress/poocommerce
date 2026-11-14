@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 /**
  * Class WC_Admin_Settings_View_Test file.
  *
- * @package WooCommerce\Tests\Admin\Views
+ * @package PooCommerce\Tests\Admin\Views
  */
 
 /**
@@ -19,7 +19,7 @@ class WC_Admin_Settings_View_Test extends WC_Unit_Test_Case {
 	private const HOOK_PRIORITY = 9999;
 
 	/**
-	 * Mocked WooCommerce Admin feature flags.
+	 * Mocked PooCommerce Admin feature flags.
 	 *
 	 * @var string[]
 	 */
@@ -38,23 +38,23 @@ class WC_Admin_Settings_View_Test extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_admin_features', array( $this, 'get_mocked_admin_features' ), self::HOOK_PRIORITY );
+		add_filter( 'poocommerce_admin_features', array( $this, 'get_mocked_admin_features' ), self::HOOK_PRIORITY );
 
 		$this->admin_user_id = self::factory()->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $this->admin_user_id );
-		update_option( 'woocommerce_show_marketplace_suggestions', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_admin_features', array( $this, 'get_mocked_admin_features' ), self::HOOK_PRIORITY );
+		remove_filter( 'poocommerce_admin_features', array( $this, 'get_mocked_admin_features' ), self::HOOK_PRIORITY );
 		unset( $_GET['zone_id'] );
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
-		delete_option( 'woocommerce_default_country' );
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_default_country' );
+		delete_option( 'poocommerce_onboarding_profile' );
 		wp_set_current_user( 0 );
 
 		parent::tearDown();
@@ -102,7 +102,7 @@ class WC_Admin_Settings_View_Test extends WC_Unit_Test_Case {
 	 * @testdox Should not render the shipping marketplace link when marketplace suggestions are disabled.
 	 */
 	public function test_shipping_marketplace_link_is_not_rendered_when_marketplace_suggestions_are_disabled(): void {
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
 		$output = $this->render_settings_view( 'shipping', 'options' );
 

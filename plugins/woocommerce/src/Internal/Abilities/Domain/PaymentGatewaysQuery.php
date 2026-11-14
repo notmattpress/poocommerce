@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/payment-gateways-query';
+		return 'poocommerce/payment-gateways-query';
 	}
 
 	/**
@@ -37,12 +37,12 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query payment gateways', 'woocommerce' ),
+			'label'               => __( 'Query payment gateways', 'poocommerce' ),
 			'description'         => __(
 				'List the payment gateways in checkout order, enabled or not, or get one by ID.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -78,8 +78,8 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 
 			if ( ! isset( $gateways[ $id ] ) ) {
 				return new \WP_Error(
-					'woocommerce_payment_gateway_not_found',
-					__( 'Payment gateway not found.', 'woocommerce' ),
+					'poocommerce_payment_gateway_not_found',
+					__( 'Payment gateway not found.', 'poocommerce' ),
 					array( 'status' => 404 )
 				);
 			}
@@ -130,7 +130,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 			'properties'           => array(
 				'id' => array(
 					'type'        => 'string',
-					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'woocommerce' ),
+					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'poocommerce' ),
 					'minLength'   => 1,
 				),
 			),
@@ -153,15 +153,15 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 					'id'           => array( 'type' => 'string' ),
 					'title'        => array(
 						'type'        => 'string',
-						'description' => __( 'Title shown to customers at checkout. Can be empty.', 'woocommerce' ),
+						'description' => __( 'Title shown to customers at checkout. Can be empty.', 'poocommerce' ),
 					),
 					'method_title' => array(
 						'type'        => 'string',
-						'description' => __( 'Name of the payment method or provider.', 'woocommerce' ),
+						'description' => __( 'Name of the payment method or provider.', 'poocommerce' ),
 					),
 					'description'  => array(
 						'type'        => 'string',
-						'description' => __( 'Description shown to customers at checkout. Can be empty.', 'woocommerce' ),
+						'description' => __( 'Description shown to customers at checkout. Can be empty.', 'poocommerce' ),
 					),
 					'enabled'      => array( 'type' => 'boolean' ),
 				),

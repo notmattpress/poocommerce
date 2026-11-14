@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { JetpackCTA } from '../install-jetpack-cta';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

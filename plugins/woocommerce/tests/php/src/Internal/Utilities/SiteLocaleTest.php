@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\SiteLocale;
+use Automattic\PooCommerce\Internal\Utilities\SiteLocale;
 use WC_Unit_Test_Case;
 use WP_Translation_Controller;
 
@@ -19,8 +19,8 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		global $wp_textdomain_registry;
 
 		$locale        = 'wc_ORDER';
-		$custom_file   = WP_LANG_DIR . '/woocommerce/woocommerce-' . $locale . '.mo';
-		$previous_path = $wp_textdomain_registry->get( 'woocommerce', $locale );
+		$custom_file   = WP_LANG_DIR . '/poocommerce/poocommerce-' . $locale . '.mo';
+		$previous_path = $wp_textdomain_registry->get( 'poocommerce', $locale );
 		$catalogs      = array();
 		foreach ( array( 'site-product', 'loader-product' ) as $translation ) {
 			$catalogs[ $translation ] = new \MO();
@@ -34,13 +34,13 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		}
 		wp_mkdir_p( dirname( $custom_file ) );
 		$this->assertTrue( $catalogs['site-product']->export_to_file( $custom_file ), 'The site locale translation file should be written.' );
-		$wp_textdomain_registry->set( 'woocommerce', $locale, WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
+		$wp_textdomain_registry->set( 'poocommerce', $locale, WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
 		add_filter( 'pre_option_WPLANG', static fn() => $locale );
 		add_filter( 'pre_determine_locale', static fn() => 'en_US' );
 		add_filter(
 			'override_load_textdomain',
 			static function ( $override, $domain, $mofile ) use ( $catalogs, $custom_file ) {
-				if ( 'woocommerce' === $domain && $custom_file !== $mofile ) {
+				if ( 'poocommerce' === $domain && $custom_file !== $mofile ) {
 					$GLOBALS['l10n'][ $domain ] = $catalogs['loader-product']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate a loader that ignores the requested locale.
 					return true;
 				}
@@ -53,8 +53,8 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		try {
 			$product_slug = SiteLocale::translate_slug( 'product' );
 		} finally {
-			WP_Translation_Controller::get_instance()->unload_textdomain( 'woocommerce', $locale );
-			$wp_textdomain_registry->set( 'woocommerce', $locale, $previous_path );
+			WP_Translation_Controller::get_instance()->unload_textdomain( 'poocommerce', $locale );
+			$wp_textdomain_registry->set( 'poocommerce', $locale, $previous_path );
 			wp_delete_file( $custom_file );
 		}
 
@@ -69,15 +69,15 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 
 		$locale        = 'wc_THEME';
 		$theme_path    = trailingslashit( get_stylesheet_directory() ) . 'languages/';
-		$previous_path = $wp_textdomain_registry->get( 'woocommerce', $locale );
+		$previous_path = $wp_textdomain_registry->get( 'poocommerce', $locale );
 		$loaded_files  = array();
-		$wp_textdomain_registry->set( 'woocommerce', $locale, $theme_path );
+		$wp_textdomain_registry->set( 'poocommerce', $locale, $theme_path );
 		add_filter( 'pre_option_WPLANG', static fn() => $locale );
 		add_filter( 'pre_determine_locale', static fn() => 'en_US' );
 		add_filter(
 			'load_textdomain_mofile',
 			static function ( $mofile, $domain ) use ( &$loaded_files ) {
-				if ( 'woocommerce' === $domain ) {
+				if ( 'poocommerce' === $domain ) {
 					$loaded_files[] = $mofile;
 				}
 				return $mofile;
@@ -89,7 +89,7 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		try {
 			SiteLocale::translate_slug( 'product' );
 		} finally {
-			$wp_textdomain_registry->set( 'woocommerce', $locale, $previous_path );
+			$wp_textdomain_registry->set( 'poocommerce', $locale, $previous_path );
 		}
 
 		$this->assertSame( array( $theme_path . 'wc_THEME.mo' ), $loaded_files, 'A theme language directory should use the locale as the file name.' );
@@ -110,8 +110,8 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 
 		$locale                = 'wc_TEST';
 		$fixtures_dir          = WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/';
-		$previous_path         = $wp_textdomain_registry->get( 'woocommerce', $locale );
-		$previous_translations = $l10n['woocommerce'] ?? null;
+		$previous_path         = $wp_textdomain_registry->get( 'poocommerce', $locale );
+		$previous_translations = $l10n['poocommerce'] ?? null;
 		$loaded_catalog        = new \MO();
 		$loaded_catalog->add_entry(
 			array(
@@ -123,25 +123,25 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		add_filter( 'pre_option_WPLANG', static fn() => $locale );
 		add_filter( 'pre_determine_locale', static fn() => $request_locale );
 		if ( $has_site_translations ) {
-			$wp_textdomain_registry->set( 'woocommerce', $locale, $fixtures_dir );
+			$wp_textdomain_registry->set( 'poocommerce', $locale, $fixtures_dir );
 			add_filter(
 				'load_translation_file',
-				static fn( $file, $domain, $file_locale ) => 'woocommerce' === $domain && $locale === $file_locale ? $fixtures_dir . 'permalink-translations.php' : $file,
+				static fn( $file, $domain, $file_locale ) => 'poocommerce' === $domain && $locale === $file_locale ? $fixtures_dir . 'permalink-translations.php' : $file,
 				10,
 				3
 			);
 		}
-		$l10n['woocommerce'] = $loaded_catalog; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate a catalog loaded earlier in the request.
+		$l10n['poocommerce'] = $loaded_catalog; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate a catalog loaded earlier in the request.
 
 		try {
 			$product_slug = SiteLocale::translate_slug( 'product' );
 		} finally {
-			WP_Translation_Controller::get_instance()->unload_textdomain( 'woocommerce', $locale );
-			$wp_textdomain_registry->set( 'woocommerce', $locale, $previous_path );
+			WP_Translation_Controller::get_instance()->unload_textdomain( 'poocommerce', $locale );
+			$wp_textdomain_registry->set( 'poocommerce', $locale, $previous_path );
 			if ( null === $previous_translations ) {
-				unset( $l10n['woocommerce'] );
+				unset( $l10n['poocommerce'] );
 			} else {
-				$l10n['woocommerce'] = $previous_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original translations.
+				$l10n['poocommerce'] = $previous_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original translations.
 			}
 		}
 
@@ -178,7 +178,7 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		$fixtures_dir               = WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/';
 		$translation_controller     = WP_Translation_Controller::get_instance();
 		$original_controller_locale = $translation_controller->get_locale();
-		$original_translation_path  = $wp_textdomain_registry->get( 'woocommerce', $site_locale );
+		$original_translation_path  = $wp_textdomain_registry->get( 'poocommerce', $site_locale );
 		$original_nested_path       = $wp_textdomain_registry->get( 'site-locale-test', $site_locale );
 		$original_nested_catalog    = $l10n['site-locale-test'] ?? null;
 
@@ -187,20 +187,20 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 		add_filter( 'locale', static fn() => 'fr_FR' );
 		add_filter(
 			'lang_dir_for_domain',
-			static fn( $path, $domain, $locale ) => in_array( $domain, array( 'woocommerce', 'site-locale-test' ), true ) && $site_locale === $locale ? $fixtures_dir : $path,
+			static fn( $path, $domain, $locale ) => in_array( $domain, array( 'poocommerce', 'site-locale-test' ), true ) && $site_locale === $locale ? $fixtures_dir : $path,
 			10,
 			3
 		);
 		add_filter(
 			'load_translation_file',
-			static fn( $file, $domain, $locale ) => in_array( $domain, array( 'woocommerce', 'site-locale-test' ), true ) && $site_locale === $locale ? $fixtures_dir . 'permalink-translations.php' : $file,
+			static fn( $file, $domain, $locale ) => in_array( $domain, array( 'poocommerce', 'site-locale-test' ), true ) && $site_locale === $locale ? $fixtures_dir . 'permalink-translations.php' : $file,
 			10,
 			3
 		);
 		add_filter(
 			'gettext_with_context',
 			static function ( $translation, $text, $context, $domain ) {
-				if ( 'woocommerce' === $domain && 'slug' === $context && 'product' === $text ) {
+				if ( 'poocommerce' === $domain && 'slug' === $context && 'product' === $text ) {
 					get_translations_for_domain( 'site-locale-test' )->translate( 'product', 'slug' );
 					return $translation . '-' . determine_locale() . '-' . get_locale();
 				}
@@ -220,10 +220,10 @@ class SiteLocaleTest extends WC_Unit_Test_Case {
 			$this->assertSame( $original_nested_catalog, $l10n['site-locale-test'] ?? null, 'A nested translation should not replace the request catalog.' );
 			$this->assertSame( 'en_US', determine_locale(), 'The request locale should stay unchanged.' );
 		} finally {
-			$translation_controller->unload_textdomain( 'woocommerce', $site_locale );
+			$translation_controller->unload_textdomain( 'poocommerce', $site_locale );
 			$translation_controller->unload_textdomain( 'site-locale-test', $site_locale );
 			$translation_controller->set_locale( $original_controller_locale );
-			$wp_textdomain_registry->set( 'woocommerce', $site_locale, $original_translation_path );
+			$wp_textdomain_registry->set( 'poocommerce', $site_locale, $original_translation_path );
 			$wp_textdomain_registry->set( 'site-locale-test', $site_locale, $original_nested_path );
 			if ( null === $original_nested_catalog ) {
 				unset( $l10n['site-locale-test'] );

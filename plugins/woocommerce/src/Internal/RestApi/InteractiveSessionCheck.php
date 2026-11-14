@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi;
+namespace Automattic\PooCommerce\Internal\RestApi;
 
 use WP_Error;
 use WP_REST_Request;
@@ -32,8 +32,8 @@ final class InteractiveSessionCheck {
 
 		if ( ! is_user_logged_in() || true !== $wp_rest_auth_cookie || ! is_string( $nonce ) || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_missing_session',
-				__( 'Sorry, you cannot perform this action without an interactive admin session.', 'woocommerce' ),
+				'poocommerce_rest_missing_session',
+				__( 'Sorry, you cannot perform this action without an interactive admin session.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}

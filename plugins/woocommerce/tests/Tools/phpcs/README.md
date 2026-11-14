@@ -1,15 +1,15 @@
 # Local PHPCS sniffs
 
-Custom PHP_CodeSniffer sniffs for WooCommerce Core that are not part of the shared
-[`woocommerce/woocommerce-sniffs`](https://github.com/woocommerce/woocommerce-sniffs)
-package. They live here (rather than in `WooCommerce-Core`) so they can ship and evolve
+Custom PHP_CodeSniffer sniffs for PooCommerce Core that are not part of the shared
+[`poocommerce/poocommerce-sniffs`](https://github.com/poocommerce/poocommerce-sniffs)
+package. They live here (rather than in `PooCommerce-Core`) so they can ship and evolve
 with the codebase they guard.
 
-The sniffs are registered by relative path in `plugins/woocommerce/phpcs.xml`, and this
+The sniffs are registered by relative path in `plugins/poocommerce/phpcs.xml`, and this
 directory is excluded from being linted as product source (sniff classes must be named
-`XxxSniff.php`, which conflicts with the WooCommerce filename convention).
+`XxxSniff.php`, which conflicts with the PooCommerce filename convention).
 
-## `WooCommerceInternal.DB.IdentifierPlaceholder`
+## `PooCommerceInternal.DB.IdentifierPlaceholder`
 
 Flags the `%i` SQL identifier placeholder inside a `wpdb::prepare()` call when it is **not**
 guarded by `wpdb::has_cap( 'identifier_placeholders' )` in the same function.
@@ -43,19 +43,19 @@ user input.
 
 ### Verifying the sniff
 
-The fixture `WooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc` documents the
+The fixture `PooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc` documents the
 flagged and allowed cases. Run the sniff over it directly:
 
 ```sh
-cd plugins/woocommerce
+cd plugins/poocommerce
 vendor/bin/phpcs -s \
-  --standard=tests/Tools/phpcs/WooCommerceInternal/ruleset.xml \
-  tests/Tools/phpcs/WooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc
+  --standard=tests/Tools/phpcs/PooCommerceInternal/ruleset.xml \
+  tests/Tools/phpcs/PooCommerceInternal/Tests/DB/IdentifierPlaceholderUnitTest.inc
 ```
 
 Only the two unguarded `%i` cases (cases 1 and 2) should be reported.
 
-## `WooCommerceInternal.I18n.DiagnosticMessage`
+## `PooCommerceInternal.I18n.DiagnosticMessage`
 
 Flags a WordPress translation call (`__()`, `esc_html__()`, `_n()` and the rest) inside the message passed to a developer diagnostic: `wc_doing_it_wrong()`, `_doing_it_wrong()`, `trigger_error()`, `wp_trigger_error()`, `user_error()`, `error_log()`, and the replacement or message of the deprecation notices (`wc_deprecated_*()`, `_deprecated_*()`, `apply_filters_deprecated()`, `do_action_deprecated()`, `wc_do_deprecated_action()`). Calls made through `LegacyProxy`, such as `$this->proxy->call_function( 'wc_doing_it_wrong', ... )`, are checked too.
 
@@ -64,7 +64,7 @@ These messages are read in logs, filtered by monitoring tools, and searched by d
 **How to satisfy the sniff:** pass the English string directly. Keep any escaping the message had, without the translation:
 
 ```php
-wc_doing_it_wrong( __FUNCTION__, 'This function should not be called before woocommerce_init.', '2.3' );
+wc_doing_it_wrong( __FUNCTION__, 'This function should not be called before poocommerce_init.', '2.3' );
 
 wc_doing_it_wrong(
 	__METHOD__,
@@ -73,20 +73,20 @@ wc_doing_it_wrong(
 );
 ```
 
-WordPress still translates its own wrapper around these messages (for example "Function %1$s was called incorrectly."), so only the WooCommerce part of a PHP notice is guaranteed to be English. Strings shown to merchants or shoppers stay translated, even when an error causes them.
+WordPress still translates its own wrapper around these messages (for example "Function %1$s was called incorrectly."), so only the PooCommerce part of a PHP notice is guaranteed to be English. Strings shown to merchants or shoppers stay translated, even when an error causes them.
 
 The sniff only sees translation calls written inside the diagnostic call. It does not follow a translated string built elsewhere and passed in through a variable, a property or a wrapper method, so keep those English by hand.
 
 ### Verifying the sniff
 
-The fixture `WooCommerceInternal/Tests/I18n/DiagnosticMessageUnitTest.inc` documents the flagged and allowed cases:
+The fixture `PooCommerceInternal/Tests/I18n/DiagnosticMessageUnitTest.inc` documents the flagged and allowed cases:
 
 ```sh
-cd plugins/woocommerce
+cd plugins/poocommerce
 vendor/bin/phpcs -s \
-  --standard=tests/Tools/phpcs/WooCommerceInternal/ruleset.xml \
-  --sniffs=WooCommerceInternal.I18n.DiagnosticMessage \
-  tests/Tools/phpcs/WooCommerceInternal/Tests/I18n/DiagnosticMessageUnitTest.inc
+  --standard=tests/Tools/phpcs/PooCommerceInternal/ruleset.xml \
+  --sniffs=PooCommerceInternal.I18n.DiagnosticMessage \
+  tests/Tools/phpcs/PooCommerceInternal/Tests/I18n/DiagnosticMessageUnitTest.inc
 ```
 
 Only cases 1 to 6, 12 and 13 should be reported, one error each.

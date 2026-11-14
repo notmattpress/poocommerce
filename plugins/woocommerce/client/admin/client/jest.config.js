@@ -1,5 +1,5 @@
 module.exports = {
 	rootDir: '../',
 	roots: [ '<rootDir>/client' ],
-	preset: './node_modules/@woocommerce/internal-js-tests/jest-preset.js',
+	preset: './node_modules/@poocommerce/internal-js-tests/jest-preset.js',
 };

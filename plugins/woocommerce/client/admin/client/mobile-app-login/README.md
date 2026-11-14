@@ -14,7 +14,7 @@ modal on the wc-admin home screen.
 `/wp-admin/admin.php?page=wc-admin&path=/mobile-app-login`
 
 Registered in `client/admin/client/layout/controller.js` with capability
-`manage_woocommerce`, so admins and shop managers can reach it.
+`manage_poocommerce`, so admins and shop managers can reach it.
 
 ## Scope
 

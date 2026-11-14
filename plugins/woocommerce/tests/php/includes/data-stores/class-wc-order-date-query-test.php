@@ -6,13 +6,13 @@
  * transition days, tracked in #68060. `date_created` and `date_modified` take the `post_date`
  * branch, which names the day in the site timezone rather than UTC. Both predate this suite.
  *
- * @package WooCommerce\Tests\DataStores
+ * @package PooCommerce\Tests\DataStores
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 //phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Legacy class name.
 
@@ -30,7 +30,7 @@ class WC_Order_Date_Query_Test extends WC_Unit_Test_Case {
 	private const PAID_AT = 1784595600;
 
 	/**
-	 * Timestamp of 1960-01-01 00:00:00 UTC, a date WooCommerce stores as a negative number.
+	 * Timestamp of 1960-01-01 00:00:00 UTC, a date PooCommerce stores as a negative number.
 	 */
 	private const PAID_BEFORE_EPOCH = -315619200;
 

@@ -3,9 +3,9 @@
  */
 import { render } from '@testing-library/react';
 import { useContext } from '@wordpress/element';
-import { useExperiment } from '@woocommerce/explat';
+import { useExperiment } from '@poocommerce/explat';
 
-jest.mock( '@woocommerce/explat', () => ( {
+jest.mock( '@poocommerce/explat', () => ( {
 	useExperiment: jest.fn(),
 } ) );
 

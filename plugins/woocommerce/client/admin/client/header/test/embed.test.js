@@ -8,8 +8,8 @@ import { render } from '@testing-library/react';
  */
 import { Header } from '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting() {
 		return 'Fake Site Title';
 	},

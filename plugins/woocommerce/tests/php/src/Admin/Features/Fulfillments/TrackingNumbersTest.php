@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\TrackingCombinator;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\TrackingCombinator;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WP_UnitTestCase;
 
 /**

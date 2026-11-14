@@ -1,22 +1,22 @@
-# WooCommerce Packages
+# PooCommerce Packages
 
-Currently we have a set of public-facing packages that can be downloaded from [npm](https://www.npmjs.com/org/woocommerce) and used in external applications. Here is a non-exhaustive list.
+Currently we have a set of public-facing packages that can be downloaded from [npm](https://www.npmjs.com/org/poocommerce) and used in external applications. Here is a non-exhaustive list.
 
-- `@woocommerce/components`: A library of components that can be used to create pages in the WooCommerce dashboard and reports pages.
-- `@woocommerce/csv-export`: A set of functions to convert data into CSV values, and enable a browser download of the CSV data.
-- `@woocommerce/currency`: A class to display and work with currency values.
-- `@woocommerce/date`: A collection of utilities to display and work with date values.
-- `@woocommerce/navigation`: A collection of navigation-related functions for handling query parameter objects, serializing query parameters, updating query parameters, and triggering path changes.
-- `@woocommerce/tracks`: User event tracking utility functions for Automattic based projects.
+- `@poocommerce/components`: A library of components that can be used to create pages in the PooCommerce dashboard and reports pages.
+- `@poocommerce/csv-export`: A set of functions to convert data into CSV values, and enable a browser download of the CSV data.
+- `@poocommerce/currency`: A class to display and work with currency values.
+- `@poocommerce/date`: A collection of utilities to display and work with date values.
+- `@poocommerce/navigation`: A collection of navigation-related functions for handling query parameter objects, serializing query parameters, updating query parameters, and triggering path changes.
+- `@poocommerce/tracks`: User event tracking utility functions for Automattic based projects.
 
 ## Working with existing packages
 
 - You can make changes to packages files as normal, and running `pnpm start` will compile and watch both app files and packages.
 - :warning: Add any dependencies to a package using `pnpm add` from the package root.
-- :warning: Make sure you're not importing from any other files outside of the package (you can import from other packages, just use the `import from @woocommerce/package` syntax).
+- :warning: Make sure you're not importing from any other files outside of the package (you can import from other packages, just use the `import from @poocommerce/package` syntax).
 - Don't change the version in `package.json`.
 - Label your PR with the `Packages` label.
-- See the [Package Release Tool](https://github.com/woocommerce/woocommerce/blob/f9e7a5a3fb11cdd4dc064c02e045cf429cb6a2b6/tools/package-release/README.md) for instructions on how to release packages.
+- See the [Package Release Tool](https://github.com/poocommerce/poocommerce/blob/f9e7a5a3fb11cdd4dc064c02e045cf429cb6a2b6/tools/package-release/README.md) for instructions on how to release packages.
 
 ---
 
@@ -30,19 +30,19 @@ To create a new package, add a new folder to `/packages`, containing…
 
     ```json
     {
-     "name": "@woocommerce/package-name",
+     "name": "@poocommerce/package-name",
      "version": "1.0.0-beta.0",
      "description": "Package description.",
      "author": "Automattic",
      "license": "GPL-2.0-or-later",
-     "keywords": [ "wordpress", "woocommerce" ],
-     "homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/[_YOUR_PACKAGE_]/README.md",
+     "keywords": [ "wordpress", "poocommerce" ],
+     "homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/[_YOUR_PACKAGE_]/README.md",
      "repository": {
       "type": "git",
-      "url": "https://github.com/woocommerce/woocommerce.git"
+      "url": "https://github.com/poocommerce/poocommerce.git"
      },
      "bugs": {
-      "url": "https://github.com/woocommerce/woocommerce/issues"
+      "url": "https://github.com/poocommerce/poocommerce/issues"
      },
      "main": "build/index.js",
      "module": "build-module/index.js",

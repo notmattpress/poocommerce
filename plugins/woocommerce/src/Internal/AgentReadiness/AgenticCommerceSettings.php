@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Adds the WooCommerce > Settings > Agentic commerce tab while the
+ * Adds the PooCommerce > Settings > Agentic commerce tab while the
  * agent_readiness feature is enabled, and names the options it saves.
  *
  * @since 11.4.0
@@ -22,18 +22,18 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 
 	public const PRIVACY_PAGE_OPTION = 'wp_page_for_privacy_policy';
 
-	public const TERMS_PAGE_OPTION = 'woocommerce_terms_page_id';
+	public const TERMS_PAGE_OPTION = 'poocommerce_terms_page_id';
 
-	public const REFUND_RETURNS_PAGE_OPTION = 'woocommerce_refund_returns_page_id';
+	public const REFUND_RETURNS_PAGE_OPTION = 'poocommerce_refund_returns_page_id';
 
-	public const SHIPPING_POLICY_PAGE_OPTION = 'woocommerce_shipping_policy_page_id';
+	public const SHIPPING_POLICY_PAGE_OPTION = 'poocommerce_shipping_policy_page_id';
 
-	public const FAQ_PAGE_OPTION = 'woocommerce_faq_page_id';
+	public const FAQ_PAGE_OPTION = 'poocommerce_faq_page_id';
 
 	/**
 	 * UCP Phase 1 sends it as the warranty_policy link. Not in the settings design yet.
 	 */
-	public const WARRANTY_PAGE_OPTION = 'woocommerce_warranty_page_id';
+	public const WARRANTY_PAGE_OPTION = 'poocommerce_warranty_page_id';
 
 	/**
 	 * Features controller.
@@ -105,7 +105,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 		if ( ! is_admin() || ! $this->features_controller->feature_is_enabled( self::FEATURE_ID ) ) {
 			return;
 		}
-		add_filter( 'woocommerce_get_settings_pages', array( $this, 'handle_woocommerce_get_settings_pages' ) );
+		add_filter( 'poocommerce_get_settings_pages', array( $this, 'handle_poocommerce_get_settings_pages' ) );
 	}
 
 	/**
@@ -116,7 +116,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 	 * @param mixed $pages Settings pages.
 	 * @return mixed
 	 */
-	public function handle_woocommerce_get_settings_pages( $pages ) {
+	public function handle_poocommerce_get_settings_pages( $pages ) {
 		if ( ! is_array( $pages ) || ! class_exists( \WC_Settings_Page::class, false ) ) {
 			return $pages;
 		}

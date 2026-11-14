@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import clsx from 'clsx';
 
 /**
@@ -45,7 +45,7 @@ const Edit = ( {
 						},
 					],
 					[
-						'woocommerce/order-confirmation-downloads',
+						'poocommerce/order-confirmation-downloads',
 						{
 							lock: {
 								remove: true,

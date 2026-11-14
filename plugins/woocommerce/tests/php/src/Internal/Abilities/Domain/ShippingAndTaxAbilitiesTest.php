@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests for the shipping-zones-query and tax-rates-query abilities.
@@ -52,8 +52,8 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		$wp_actions['init']        = max( 1, (int) ( $wp_actions['init'] ?? 0 ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		parent::setUp();
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 
 		wc_get_container()->get( AbilitiesLoader::class )->init();
 		self::reset_registries();
@@ -118,9 +118,9 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		$zone->add_location( 'PT', 'country' );
 		$zone->save();
 		$instance_id = $zone->add_shipping_method( 'flat_rate' );
-		update_option( "woocommerce_flat_rate_{$instance_id}_settings", array( 'cost' => '4.50' ) );
+		update_option( "poocommerce_flat_rate_{$instance_id}_settings", array( 'cost' => '4.50' ) );
 
-		$result = $this->run_ability( 'woocommerce/shipping-zones-query' );
+		$result = $this->run_ability( 'poocommerce/shipping-zones-query' );
 
 		$this->assertNotWPError( $result );
 		$by_id = array_column( $result['zones'], null, 'id' );
@@ -142,7 +142,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_core_method_settings_leave_out_added_fields(): void {
 		add_filter(
-			'woocommerce_shipping_instance_form_fields_flat_rate',
+			'poocommerce_shipping_instance_form_fields_flat_rate',
 			static function ( array $fields ): array {
 				$fields['carrier_account'] = array(
 					'title' => 'Carrier account',
@@ -153,7 +153,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 		$instance_id = ( new \WC_Shipping_Zone( 0 ) )->add_shipping_method( 'flat_rate' );
 		update_option(
-			"woocommerce_flat_rate_{$instance_id}_settings",
+			"poocommerce_flat_rate_{$instance_id}_settings",
 			array(
 				'cost'            => '4.50',
 				'carrier_account' => 'canary-account',
@@ -161,7 +161,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result   = $this->run_ability( 'woocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
+		$result   = $this->run_ability( 'poocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
 		$settings = (array) $result['zones'][0]['methods'][0]['settings'];
 
 		$this->assertSame( '4.50', $settings['cost'] );
@@ -175,7 +175,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_core_method_settings_leave_out_fields_added_to_the_zone_method(): void {
 		add_filter(
-			'woocommerce_shipping_zone_shipping_methods',
+			'poocommerce_shipping_zone_shipping_methods',
 			static function ( $methods ) {
 				foreach ( $methods as $method ) {
 					$method->instance_form_fields['carrier_account'] = array(
@@ -188,14 +188,14 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 		$instance_id = ( new \WC_Shipping_Zone( 0 ) )->add_shipping_method( 'flat_rate' );
 		update_option(
-			"woocommerce_flat_rate_{$instance_id}_settings",
+			"poocommerce_flat_rate_{$instance_id}_settings",
 			array(
 				'cost'            => '4.50',
 				'carrier_account' => 'canary-account',
 			)
 		);
 
-		$result   = $this->run_ability( 'woocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
+		$result   = $this->run_ability( 'poocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
 		$settings = (array) $result['zones'][0]['methods'][0]['settings'];
 
 		$this->assertSame( '4.50', $settings['cost'] );
@@ -221,12 +221,12 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 			$methods['test_carrier'] = $carrier;
 			return $methods;
 		};
-		add_filter( 'woocommerce_shipping_methods', $register );
+		add_filter( 'poocommerce_shipping_methods', $register );
 		$instance_id = ( new \WC_Shipping_Zone( 0 ) )->add_shipping_method( 'test_carrier' );
-		update_option( "woocommerce_test_carrier_{$instance_id}_settings", array( 'cost' => 'canary-cost' ) );
+		update_option( "poocommerce_test_carrier_{$instance_id}_settings", array( 'cost' => 'canary-cost' ) );
 
-		$result = $this->run_ability( 'woocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
-		remove_filter( 'woocommerce_shipping_methods', $register );
+		$result = $this->run_ability( 'poocommerce/shipping-zones-query', array( 'include' => array( 0 ) ) );
+		remove_filter( 'poocommerce_shipping_methods', $register );
 
 		$this->assertSame( 'test_carrier', $result['zones'][0]['methods'][0]['method_id'] );
 		$this->assertArrayNotHasKey( 'settings', $result['zones'][0]['methods'][0] );
@@ -267,7 +267,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result = $this->run_ability( 'woocommerce/tax-rates-query', array( 'country' => 'de' ) );
+		$result = $this->run_ability( 'poocommerce/tax-rates-query', array( 'country' => 'de' ) );
 
 		$this->assertNotWPError( $result );
 		$this->assertSame( array( 'MwSt', 'MwSt reduced' ), array_column( $result['rates'], 'name' ) );
@@ -278,20 +278,20 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'reduced-rate', $result['rates'][1]['class'] );
 		$this->assertSame( array( '10115', '10117' ), $result['rates'][1]['postcodes'] );
 
-		$reduced_only = $this->run_ability( 'woocommerce/tax-rates-query', array( 'class' => 'reduced-rate' ) );
+		$reduced_only = $this->run_ability( 'poocommerce/tax-rates-query', array( 'class' => 'reduced-rate' ) );
 
 		$this->assertSame( array( $reduced ), array_column( $reduced_only['rates'], 'id' ) );
 		$this->assertSame( 1, $reduced_only['total'] );
 	}
 
 	/**
-	 * @testdox Should refuse shipping and tax reads to a user who cannot manage WooCommerce.
+	 * @testdox Should refuse shipping and tax reads to a user who cannot manage PooCommerce.
 	 */
 	public function test_requires_settings_permission(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 
-		$this->assertWPError( $this->run_ability( 'woocommerce/shipping-zones-query' ) );
-		$this->assertWPError( $this->run_ability( 'woocommerce/tax-rates-query' ) );
+		$this->assertWPError( $this->run_ability( 'poocommerce/shipping-zones-query' ) );
+		$this->assertWPError( $this->run_ability( 'poocommerce/tax-rates-query' ) );
 	}
 
 	/**
@@ -300,8 +300,8 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 	public function test_shop_manager_can_read(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
 
-		$this->assertNotWPError( $this->run_ability( 'woocommerce/shipping-zones-query' ) );
-		$this->assertNotWPError( $this->run_ability( 'woocommerce/tax-rates-query' ) );
+		$this->assertNotWPError( $this->run_ability( 'poocommerce/shipping-zones-query' ) );
+		$this->assertNotWPError( $this->run_ability( 'poocommerce/tax-rates-query' ) );
 	}
 
 	/**
@@ -319,15 +319,15 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 			);
 		}
 
-		$first   = $this->run_ability( 'woocommerce/tax-rates-query', array( 'per_page' => 2 ) );
+		$first   = $this->run_ability( 'poocommerce/tax-rates-query', array( 'per_page' => 2 ) );
 		$second  = $this->run_ability(
-			'woocommerce/tax-rates-query',
+			'poocommerce/tax-rates-query',
 			array(
 				'per_page' => 2,
 				'page'     => 2,
 			)
 		);
-		$unknown = $this->run_ability( 'woocommerce/tax-rates-query', array( 'class' => 'no-such-class' ) );
+		$unknown = $this->run_ability( 'poocommerce/tax-rates-query', array( 'class' => 'no-such-class' ) );
 
 		$this->assertSame( array( $ids[0], $ids[1] ), array_column( $first['rates'], 'id' ) );
 		$this->assertSame( array( $ids[2] ), array_column( $second['rates'], 'id' ) );
@@ -354,7 +354,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		}
 
 		try {
-			$result = $this->run_ability( 'woocommerce/tax-rates-query' );
+			$result = $this->run_ability( 'poocommerce/tax-rates-query' );
 		} finally {
 			// The class list is cached, and the cache outlives the test's database rollback.
 			\WC_Tax::delete_tax_class_by( 'slug', 'zz-alpha-rate' );
@@ -378,7 +378,7 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 			);
 		}
 
-		$result = $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $ids[2], $ids[0] ) ) );
+		$result = $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $ids[2], $ids[0] ) ) );
 
 		$this->assertNotWPError( $result );
 		$this->assertSame( array( $ids[0], $ids[2] ), array_column( $result['rates'], 'id' ) );
@@ -392,16 +392,16 @@ class ShippingAndTaxAbilitiesTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 
 		$this->insert_rate_with_locations( 0 );
-		$this->run_ability( 'woocommerce/tax-rates-query' );
+		$this->run_ability( 'poocommerce/tax-rates-query' );
 		$before = $wpdb->num_queries;
-		$this->run_ability( 'woocommerce/tax-rates-query' );
+		$this->run_ability( 'poocommerce/tax-rates-query' );
 		$one_rate = $wpdb->num_queries - $before;
 
 		for ( $i = 1; $i < 5; $i++ ) {
 			$this->insert_rate_with_locations( $i );
 		}
 		$before = $wpdb->num_queries;
-		$result = $this->run_ability( 'woocommerce/tax-rates-query' );
+		$result = $this->run_ability( 'poocommerce/tax-rates-query' );
 
 		$this->assertCount( 5, $result['rates'] );
 		$this->assertSame( $one_rate, $wpdb->num_queries - $before );

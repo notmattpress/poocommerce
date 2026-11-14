@@ -15,7 +15,7 @@ export interface RangeInputContext {
 
 export type RangeInputBlockContext = {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	'woocommerce/rangeInput': RangeInputContext;
+	'poocommerce/rangeInput': RangeInputContext;
 };
 
 /**

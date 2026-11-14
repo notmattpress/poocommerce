@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\DuplicateGtinCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\ImageTooSmallCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingBrandCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingGtinCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingRegularPriceCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\SimpleCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\DuplicateGtinCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\ImageTooSmallCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingBrandCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingGtinCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingRegularPriceCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\SimpleCheck;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class AgentReadiness {
 	/**
 	 * Option holding the last report, kept until the next scan replaces it.
 	 */
-	public const REPORT_OPTION = 'woocommerce_agent_readiness_report';
+	public const REPORT_OPTION = 'poocommerce_agent_readiness_report';
 
 	/**
 	 * Store-wide conditions.
@@ -125,7 +125,7 @@ class AgentReadiness {
 	 * id code does not know is dropped, and an id whose entry is malformed
 	 * runs with its bundled channels. A check no channel asks for is named
 	 * with an empty channel map. With no file, the bundled checks
-	 * run. The woocommerce_agent_readiness_rules filter runs last, and a check
+	 * run. The poocommerce_agent_readiness_rules filter runs last, and a check
 	 * whose id is missing from the filtered array does not run.
 	 *
 	 * @return array<string, array<string, array{field:string,effect:string}>>
@@ -159,7 +159,7 @@ class AgentReadiness {
 		 *
 		 * @param array $rules Field and effect by channel, keyed by check id.
 		 */
-		$filtered = apply_filters( 'woocommerce_agent_readiness_rules', $defaults );
+		$filtered = apply_filters( 'poocommerce_agent_readiness_rules', $defaults );
 
 		if ( ! is_array( $filtered ) ) {
 			return $defaults;

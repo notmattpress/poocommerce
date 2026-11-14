@@ -8,7 +8,7 @@
 {{#author}}
  * Author: {{author}}
 {{/author}}
- * Author URI: https://woocommerce.com
+ * Author URI: https://poocommerce.com
  * Text Domain: {{textdomain}}
  * Domain Path: /languages
  *
@@ -31,13 +31,13 @@ use {{slugPascalCase}}\Admin\Setup;
 // phpcs:disable WordPress.Files.FileName
 
 /**
- * WooCommerce fallback notice.
+ * PooCommerce fallback notice.
  *
  * @since {{version}}
  */
 function {{slugSnakeCase}}_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( '{{title}} requires WooCommerce to be installed and active. You can download %s here.', '{{textdomain}}' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( '{{title}} requires PooCommerce to be installed and active. You can download %s here.', '{{textdomain}}' ), '<a href="https://poocommerce.com/" target="_blank">PooCommerce</a>' ) . '</strong></p></div>';
 }
 
 register_activation_hook( __FILE__, '{{slugSnakeCase}}_activate' );
@@ -48,7 +48,7 @@ register_activation_hook( __FILE__, '{{slugSnakeCase}}_activate' );
  * @since {{version}}
  */
 function {{slugSnakeCase}}_activate() {
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		add_action( 'admin_notices', '{{slugSnakeCase}}_missing_wc_notice' );
 		return;
 	}
@@ -86,16 +86,16 @@ if ( ! class_exists( '{{slugPascalCase}}' ) ) :
 		 */
 		private function register_query_arg_filters() {
 			$query_arg_filters = array(
-				'woocommerce_analytics_revenue_query_args',
-				'woocommerce_analytics_orders_query_args',
-				'woocommerce_analytics_orders_stats_query_args',
-				'woocommerce_analytics_products_query_args',
-				'woocommerce_analytics_products_stats_query_args',
-				'woocommerce_analytics_categories_query_args',
-				'woocommerce_analytics_coupons_query_args',
-				'woocommerce_analytics_coupons_stats_query_args',
-				'woocommerce_analytics_taxes_query_args',
-				'woocommerce_analytics_taxes_stats_query_args',
+				'poocommerce_analytics_revenue_query_args',
+				'poocommerce_analytics_orders_query_args',
+				'poocommerce_analytics_orders_stats_query_args',
+				'poocommerce_analytics_products_query_args',
+				'poocommerce_analytics_products_stats_query_args',
+				'poocommerce_analytics_categories_query_args',
+				'poocommerce_analytics_coupons_query_args',
+				'poocommerce_analytics_coupons_stats_query_args',
+				'poocommerce_analytics_taxes_query_args',
+				'poocommerce_analytics_taxes_stats_query_args',
 			);
 
 			foreach ( $query_arg_filters as $filter ) {
@@ -108,19 +108,19 @@ if ( ! class_exists( '{{slugPascalCase}}' ) ) :
 		 */
 		private function register_join_filters() {
 			$join_filters = array(
-				'woocommerce_analytics_clauses_join_orders_subquery',
-				'woocommerce_analytics_clauses_join_orders_stats_total',
-				'woocommerce_analytics_clauses_join_orders_stats_interval',
-				'woocommerce_analytics_clauses_join_products_subquery',
-				'woocommerce_analytics_clauses_join_products_stats_total',
-				'woocommerce_analytics_clauses_join_products_stats_interval',
-				'woocommerce_analytics_clauses_join_categories_subquery',
-				'woocommerce_analytics_clauses_join_coupons_subquery',
-				'woocommerce_analytics_clauses_join_coupons_stats_total',
-				'woocommerce_analytics_clauses_join_coupons_stats_interval',
-				'woocommerce_analytics_clauses_join_taxes_subquery',
-				'woocommerce_analytics_clauses_join_taxes_stats_total',
-				'woocommerce_analytics_clauses_join_taxes_stats_interval',
+				'poocommerce_analytics_clauses_join_orders_subquery',
+				'poocommerce_analytics_clauses_join_orders_stats_total',
+				'poocommerce_analytics_clauses_join_orders_stats_interval',
+				'poocommerce_analytics_clauses_join_products_subquery',
+				'poocommerce_analytics_clauses_join_products_stats_total',
+				'poocommerce_analytics_clauses_join_products_stats_interval',
+				'poocommerce_analytics_clauses_join_categories_subquery',
+				'poocommerce_analytics_clauses_join_coupons_subquery',
+				'poocommerce_analytics_clauses_join_coupons_stats_total',
+				'poocommerce_analytics_clauses_join_coupons_stats_interval',
+				'poocommerce_analytics_clauses_join_taxes_subquery',
+				'poocommerce_analytics_clauses_join_taxes_stats_total',
+				'poocommerce_analytics_clauses_join_taxes_stats_interval',
 			);
 
 			foreach ( $join_filters as $filter ) {
@@ -133,19 +133,19 @@ if ( ! class_exists( '{{slugPascalCase}}' ) ) :
 		 */
 		private function register_where_filters() {
 			$where_filters = array(
-				'woocommerce_analytics_clauses_where_orders_subquery',
-				'woocommerce_analytics_clauses_where_orders_stats_total',
-				'woocommerce_analytics_clauses_where_orders_stats_interval',
-				'woocommerce_analytics_clauses_where_products_subquery',
-				'woocommerce_analytics_clauses_where_products_stats_total',
-				'woocommerce_analytics_clauses_where_products_stats_interval',
-				'woocommerce_analytics_clauses_where_categories_subquery',
-				'woocommerce_analytics_clauses_where_coupons_subquery',
-				'woocommerce_analytics_clauses_where_coupons_stats_total',
-				'woocommerce_analytics_clauses_where_coupons_stats_interval',
-				'woocommerce_analytics_clauses_where_taxes_subquery',
-				'woocommerce_analytics_clauses_where_taxes_stats_total',
-				'woocommerce_analytics_clauses_where_taxes_stats_interval',
+				'poocommerce_analytics_clauses_where_orders_subquery',
+				'poocommerce_analytics_clauses_where_orders_stats_total',
+				'poocommerce_analytics_clauses_where_orders_stats_interval',
+				'poocommerce_analytics_clauses_where_products_subquery',
+				'poocommerce_analytics_clauses_where_products_stats_total',
+				'poocommerce_analytics_clauses_where_products_stats_interval',
+				'poocommerce_analytics_clauses_where_categories_subquery',
+				'poocommerce_analytics_clauses_where_coupons_subquery',
+				'poocommerce_analytics_clauses_where_coupons_stats_total',
+				'poocommerce_analytics_clauses_where_coupons_stats_interval',
+				'poocommerce_analytics_clauses_where_taxes_subquery',
+				'poocommerce_analytics_clauses_where_taxes_stats_total',
+				'poocommerce_analytics_clauses_where_taxes_stats_interval',
 			);
 
 			foreach ( $where_filters as $filter ) {
@@ -158,19 +158,19 @@ if ( ! class_exists( '{{slugPascalCase}}' ) ) :
 		 */
 		private function register_select_filters() {
 			$select_filters = array(
-				'woocommerce_analytics_clauses_select_orders_subquery',
-				'woocommerce_analytics_clauses_select_orders_stats_total',
-				'woocommerce_analytics_clauses_select_orders_stats_interval',
-				'woocommerce_analytics_clauses_select_products_subquery',
-				'woocommerce_analytics_clauses_select_products_stats_total',
-				'woocommerce_analytics_clauses_select_products_stats_interval',
-				'woocommerce_analytics_clauses_select_categories_subquery',
-				'woocommerce_analytics_clauses_select_coupons_subquery',
-				'woocommerce_analytics_clauses_select_coupons_stats_total',
-				'woocommerce_analytics_clauses_select_coupons_stats_interval',
-				'woocommerce_analytics_clauses_select_taxes_subquery',
-				'woocommerce_analytics_clauses_select_taxes_stats_total',
-				'woocommerce_analytics_clauses_select_taxes_stats_interval',
+				'poocommerce_analytics_clauses_select_orders_subquery',
+				'poocommerce_analytics_clauses_select_orders_stats_total',
+				'poocommerce_analytics_clauses_select_orders_stats_interval',
+				'poocommerce_analytics_clauses_select_products_subquery',
+				'poocommerce_analytics_clauses_select_products_stats_total',
+				'poocommerce_analytics_clauses_select_products_stats_interval',
+				'poocommerce_analytics_clauses_select_categories_subquery',
+				'poocommerce_analytics_clauses_select_coupons_subquery',
+				'poocommerce_analytics_clauses_select_coupons_stats_total',
+				'poocommerce_analytics_clauses_select_coupons_stats_interval',
+				'poocommerce_analytics_clauses_select_taxes_subquery',
+				'poocommerce_analytics_clauses_select_taxes_stats_total',
+				'poocommerce_analytics_clauses_select_taxes_stats_interval',
 			);
 
 			foreach ( $select_filters as $filter ) {
@@ -295,7 +295,7 @@ add_action( 'plugins_loaded', '{{slugSnakeCase}}_init', 10 );
 function {{slugSnakeCase}}_init() {
 	load_plugin_textdomain( '{{textdomain}}', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		add_action( 'admin_notices', '{{slugSnakeCase}}_missing_wc_notice' );
 		return;
 	}

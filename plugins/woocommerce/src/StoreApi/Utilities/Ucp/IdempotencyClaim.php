@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
 /**
  * The `Idempotency-Key` a UCP write runs under.
@@ -60,7 +60,7 @@ final class IdempotencyClaim {
 		 *
 		 * @param bool $enabled Whether the `Idempotency-Key` header is honoured. Default true.
 		 */
-		if ( ! apply_filters( 'woocommerce_ucp_idempotency_enabled', true ) ) {
+		if ( ! apply_filters( 'poocommerce_ucp_idempotency_enabled', true ) ) {
 			return null;
 		}
 
@@ -74,7 +74,7 @@ final class IdempotencyClaim {
 		 *
 		 * @param bool $strict Whether a key is required. Default true.
 		 */
-		$strict = (bool) apply_filters( 'woocommerce_ucp_idempotency_strict', true );
+		$strict = (bool) apply_filters( 'poocommerce_ucp_idempotency_strict', true );
 
 		// Case counts: a 22-character key only carries 128 bits when it is not folded.
 		$key = trim( (string) $request->get_header( 'Idempotency-Key' ) );
@@ -90,8 +90,8 @@ final class IdempotencyClaim {
 				$capability,
 				'' === $key ? 'IDEMPOTENCY_KEY_REQUIRED' : 'IDEMPOTENCY_KEY_INVALID',
 				'' === $key
-					? __( 'The Idempotency-Key header is required.', 'woocommerce' )
-					: __( 'The Idempotency-Key header must be 22 to 191 letters, digits, hyphens or underscores.', 'woocommerce' ),
+					? __( 'The Idempotency-Key header is required.', 'poocommerce' )
+					: __( 'The Idempotency-Key header must be 22 to 191 letters, digits, hyphens or underscores.', 'poocommerce' ),
 				'recoverable',
 				400
 			);
@@ -134,7 +134,7 @@ final class IdempotencyClaim {
 			return Utils::error_response(
 				$capability,
 				'IDEMPOTENCY_KEY_REUSED',
-				__( 'The Idempotency-Key was already used for a different request.', 'woocommerce' ),
+				__( 'The Idempotency-Key was already used for a different request.', 'poocommerce' ),
 				'unrecoverable',
 				409
 			);
@@ -236,7 +236,7 @@ final class IdempotencyClaim {
 		return Utils::error_response(
 			$capability,
 			'IDEMPOTENCY_CONFLICT',
-			__( 'A request with this Idempotency-Key is still being processed.', 'woocommerce' ),
+			__( 'A request with this Idempotency-Key is still being processed.', 'poocommerce' ),
 			'recoverable',
 			409
 		);
@@ -252,7 +252,7 @@ final class IdempotencyClaim {
 		$response = Utils::error_response(
 			$capability,
 			'IDEMPOTENCY_STORE_UNAVAILABLE',
-			__( 'The Idempotency-Key could not be recorded. Retry the request later.', 'woocommerce' ),
+			__( 'The Idempotency-Key could not be recorded. Retry the request later.', 'poocommerce' ),
 			'recoverable',
 			503
 		);

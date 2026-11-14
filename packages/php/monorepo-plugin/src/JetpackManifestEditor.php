@@ -2,10 +2,10 @@
 /**
  * A class for handling the overwriting of version strings in the Jetpack Autoloader for merged feature plugins.
  *
- * @package woocommerce/monorepo-plugin
+ * @package poocommerce/monorepo-plugin
  */
 
-namespace Automattic\WooCommerce\Monorepo\Composer;
+namespace Automattic\PooCommerce\Monorepo\Composer;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * Class JetpackManifestEditor.
  *
- * @package woocommerce/monorepo-plugin
+ * @package poocommerce/monorepo-plugin
  */
 class JetpackManifestEditor {
 	/**

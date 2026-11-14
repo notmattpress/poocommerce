@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
 use WC_Unit_Test_Case;
 
 /**
@@ -61,7 +61,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_coming_soon_required(): void {
 		self::make_store_ready();
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$this->assertSame( array( 'launched' ), $this->sut->failing_required() );
 	}
@@ -113,7 +113,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_' . $store_page . '_page_id', $page );
+		update_option( 'poocommerce_' . $store_page . '_page_id', $page );
 		update_option( AgenticCommerceSettings::TERMS_PAGE_OPTION, $page );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
@@ -128,7 +128,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_store_conditions_checks(): void {
 		self::make_store_ready();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
 
@@ -180,7 +180,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 */
 	public static function make_store_ready(): void {
 		add_filter( 'pre_option_home', static fn() => 'https://example.org' );
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		$page = wp_insert_post(
 			array(
 				'post_type'   => 'page',

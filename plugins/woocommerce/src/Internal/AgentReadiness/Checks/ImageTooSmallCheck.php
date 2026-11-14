@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness\Checks;
+namespace Automattic\PooCommerce\Internal\AgentReadiness\Checks;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\FeedChannels;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFields;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\FeedChannels;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFields;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,21 +51,21 @@ class ImageTooSmallCheck extends AbstractReadinessCheck {
 	 * Merchant-facing label.
 	 */
 	public function label(): string {
-		return __( 'Products whose main image is under 500 x 500 pixels', 'woocommerce' );
+		return __( 'Products whose main image is under 500 x 500 pixels', 'poocommerce' );
 	}
 
 	/**
 	 * Why it matters.
 	 */
 	public function why(): string {
-		return __( 'Google\'s spec requires a main image of at least 500 x 500 pixels from January 31, 2027; a smaller one won\'t appear on Google then.', 'woocommerce' );
+		return __( 'Google\'s spec requires a main image of at least 500 x 500 pixels from January 31, 2027; a smaller one won\'t appear on Google then.', 'poocommerce' );
 	}
 
 	/**
 	 * What to do about it.
 	 */
 	public function fix(): string {
-		return __( 'Upload a main image at least 500 x 500 pixels.', 'woocommerce' );
+		return __( 'Upload a main image at least 500 x 500 pixels.', 'poocommerce' );
 	}
 
 	/**

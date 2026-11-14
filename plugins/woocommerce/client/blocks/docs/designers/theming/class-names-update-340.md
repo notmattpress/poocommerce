@@ -1,6 +1,6 @@
 # Class names update in 3.4.0
 
-In [WooCommerce Blocks 3.4.0](https://developer.woocommerce.com/2020/09/15/woocommerce-blocks-3-4-0-release-notes/), we replaced the class as listed below.
+In [PooCommerce Blocks 3.4.0](https://developer.poocommerce.com/2020/09/15/poocommerce-blocks-3-4-0-release-notes/), we replaced the class as listed below.
 
 ## Replaced classes
 
@@ -12,9 +12,9 @@ In [WooCommerce Blocks 3.4.0](https://developer.woocommerce.com/2020/09/15/wooco
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-340.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-340.md)
 
 <!-- /FEEDBACK -->
 

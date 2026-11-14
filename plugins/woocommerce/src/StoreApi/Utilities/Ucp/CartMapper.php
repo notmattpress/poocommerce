@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 
 /**
  * Maps a Store API cart response onto the UCP cart shape.
  *
- * Reads {@see \Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema} output, so
+ * Reads {@see \Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema} output, so
  * cart tax display, minor units, image filters and stock validation follow the
- * storefront. Stateless; the catalog's {@see \Automattic\WooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper}
+ * storefront. Stateless; the catalog's {@see \Automattic\PooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper}
  * is the same idea for products.
  */
 class CartMapper {
@@ -59,7 +59,7 @@ class CartMapper {
 
 		foreach ( $items as $cart_item ) {
 			// The Store API keeps variation attributes apart from the name; a UCP title is
-			// one string, so rejoin them as "Parent - a, b". WooCommerce builds stored
+			// one string, so rejoin them as "Parent - a, b". PooCommerce builds stored
 			// variation names the same way but leaves the attributes out past two; here
 			// every attribute is kept, since the agent has no other place to read them.
 			$title  = (string) $cart_item['name'];

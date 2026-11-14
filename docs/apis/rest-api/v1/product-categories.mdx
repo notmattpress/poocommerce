@@ -51,7 +51,7 @@ curl -X POST https://example.com/wp-json/wc/v1/products/categories \
 	-d '{
   "name": "Clothing",
   "image": {
-    "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+    "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
   }
 }'
 ```
@@ -63,11 +63,11 @@ curl -X POST https://example.com/wp-json/wc/v1/products/categories \
 const data = {
   name: "Clothing",
   image: {
-    src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+    src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
   }
 };
 
-WooCommerce.post("products/categories", data)
+PooCommerce.post("products/categories", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -84,11 +84,11 @@ WooCommerce.post("products/categories", data)
 $data = [
     'name' => 'Clothing',
     'image' => [
-        'src' => 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
+        'src' => 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg'
     ]
 ];
 
-print_r($woocommerce->post('products/categories', $data));
+print_r($poocommerce->post('products/categories', $data));
 ?>
 ```
 
@@ -99,7 +99,7 @@ print_r($woocommerce->post('products/categories', $data));
 data = {
     "name": "Clothing",
     "image": {
-        "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+        "src": "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
     }
 }
 
@@ -113,11 +113,11 @@ print(wcapi.post("products/categories", data).json())
 data = {
   name: "Clothing",
   image: {
-    src: "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+    src: "http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
   }
 }
 
-woocommerce.post("products/categories", data).parsed_response
+poocommerce.post("products/categories", data).parsed_response
 ```
 
   </TabItem>
@@ -178,7 +178,7 @@ curl https://example.com/wp-json/wc/v1/products/categories/9 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("products/categories/9")
+PooCommerce.get("products/categories/9")
   .then((response) => {
     console.log(response.data);
   })
@@ -191,7 +191,7 @@ WooCommerce.get("products/categories/9")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/categories/9')); ?>
+<?php print_r($poocommerce->get('products/categories/9')); ?>
 ```
 
   </TabItem>
@@ -205,7 +205,7 @@ print(wcapi.get("products/categories/9").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/categories/9").parsed_response
+poocommerce.get("products/categories/9").parsed_response
 ```
 
   </TabItem>
@@ -266,7 +266,7 @@ curl https://example.com/wp-json/wc/v1/products/categories \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("products/categories")
+PooCommerce.get("products/categories")
   .then((response) => {
     console.log(response.data);
   })
@@ -279,7 +279,7 @@ WooCommerce.get("products/categories")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('products/categories')); ?>
+<?php print_r($poocommerce->get('products/categories')); ?>
 ```
 
   </TabItem>
@@ -293,7 +293,7 @@ print(wcapi.get("products/categories").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("products/categories").parsed_response
+poocommerce.get("products/categories").parsed_response
 ```
 
   </TabItem>
@@ -538,7 +538,7 @@ const data = {
   description: "All kinds of clothes."
 };
 
-WooCommerce.put("products/categories/9", data)
+PooCommerce.put("products/categories/9", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -556,7 +556,7 @@ $data = [
     'description' => 'All kinds of clothes.'
 ];
 
-print_r($woocommerce->put('products/categories/9', $data));
+print_r($poocommerce->put('products/categories/9', $data));
 ?>
 ```
 
@@ -579,7 +579,7 @@ data = {
   description: "All kinds of clothes."
 }
 
-woocommerce.put("products/categories/9", data).parsed_response
+poocommerce.put("products/categories/9", data).parsed_response
 ```
 
   </TabItem>
@@ -640,7 +640,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/products/categories/9?force=tru
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("products/categories/9", {
+PooCommerce.delete("products/categories/9", {
   force: true
 })
   .then((response) => {
@@ -655,7 +655,7 @@ WooCommerce.delete("products/categories/9", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('products/categories/9', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('products/categories/9', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -669,7 +669,7 @@ print(wcapi.delete("products/categories/9", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("products/categories/9", force: true).parsed_response
+poocommerce.delete("products/categories/9", force: true).parsed_response
 ```
 
   </TabItem>
@@ -781,7 +781,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("products/categories/batch", data)
+PooCommerce.post("products/categories/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -816,7 +816,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('products/categories/batch', $data));
+print_r($poocommerce->post('products/categories/batch', $data));
 ?>
 ```
 
@@ -873,7 +873,7 @@ data = {
   ]
 }
 
-woocommerce.post("products/categories/batch", data).parsed_response
+poocommerce.post("products/categories/batch", data).parsed_response
 ```
 
   </TabItem>

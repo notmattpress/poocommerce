@@ -7,19 +7,19 @@
  * * https://validator.schema.org/
  * * https://search.google.com/test/rich-results
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @since   3.0.0
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\DimensionUnit;
-use Automattic\WooCommerce\Enums\WeightUnit;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\DimensionUnit;
+use Automattic\PooCommerce\Enums\WeightUnit;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,14 +40,14 @@ class WC_Structured_Data {
 	 */
 	public function __construct() {
 		// Generate structured data.
-		add_action( 'woocommerce_before_main_content', array( $this, 'generate_website_data' ), 30 );
-		add_action( 'woocommerce_breadcrumb', array( $this, 'generate_breadcrumblist_data' ), 10 );
-		add_action( 'woocommerce_single_product_summary', array( $this, 'generate_product_data' ), 60 );
-		add_action( 'woocommerce_email_order_details', array( $this, 'generate_order_data' ), 20, 3 );
+		add_action( 'poocommerce_before_main_content', array( $this, 'generate_website_data' ), 30 );
+		add_action( 'poocommerce_breadcrumb', array( $this, 'generate_breadcrumblist_data' ), 10 );
+		add_action( 'poocommerce_single_product_summary', array( $this, 'generate_product_data' ), 60 );
+		add_action( 'poocommerce_email_order_details', array( $this, 'generate_order_data' ), 20, 3 );
 		add_action( 'wp_footer', array( $this, 'generate_online_store_data' ), 9 );
 
 		// Output structured data.
-		add_action( 'woocommerce_email_order_details', array( $this, 'output_email_structured_data' ), 30, 3 );
+		add_action( 'poocommerce_email_order_details', array( $this, 'output_email_structured_data' ), 30, 3 );
 		add_action( 'wp_footer', array( $this, 'output_structured_data' ), 10 );
 	}
 
@@ -131,7 +131,7 @@ class WC_Structured_Data {
 		// Wrap the multiple values of each type inside a graph... Then add context to each type.
 		foreach ( $data as $type => $value ) {
 			$data[ $type ] = count( $value ) > 1 ? array( '@graph' => $value ) : $value[0];
-			$data[ $type ] = apply_filters( 'woocommerce_structured_data_context', array( '@context' => 'https://schema.org/' ), $data, $type, $value ) + $data[ $type ];
+			$data[ $type ] = apply_filters( 'poocommerce_structured_data_context', array( '@context' => 'https://schema.org/' ), $data, $type, $value ) + $data[ $type ];
 		}
 
 		// If requested types, pick them up... Finally change the associative array to an indexed one.
@@ -139,7 +139,7 @@ class WC_Structured_Data {
 
 		if ( ! empty( $data ) ) {
 			if ( 1 < count( $data ) ) {
-				$data = apply_filters( 'woocommerce_structured_data_context', array( '@context' => 'https://schema.org/' ), $data, '', '' ) + array( '@graph' => $data );
+				$data = apply_filters( 'poocommerce_structured_data_context', array( '@context' => 'https://schema.org/' ), $data, '', '' ) + array( '@graph' => $data );
 			} else {
 				$data = $data[0];
 			}
@@ -159,12 +159,12 @@ class WC_Structured_Data {
 		$types   = array();
 		$types[] = is_shop() || is_product_category() || is_product() ? 'product' : '';
 		$types[] = is_shop() && is_front_page() ? 'website' : '';
-		$types[] = $policy_page_id > 0 && ( is_page( $policy_page_id ) || is_product() ) && ! doing_action( 'woocommerce_email_order_details' ) ? 'onlinestore' : '';
+		$types[] = $policy_page_id > 0 && ( is_page( $policy_page_id ) || is_product() ) && ! doing_action( 'poocommerce_email_order_details' ) ? 'onlinestore' : '';
 		$types[] = is_product() ? 'review' : '';
 		$types[] = 'breadcrumblist';
 		$types[] = 'order';
 
-		return array_filter( apply_filters( 'woocommerce_structured_data_type_for_page', $types ) );
+		return array_filter( apply_filters( 'poocommerce_structured_data_type_for_page', $types ) );
 	}
 
 	/**
@@ -187,7 +187,7 @@ class WC_Structured_Data {
 	 * Sanitizes, encodes and outputs structured data.
 	 *
 	 * Hooked into `wp_footer` action hook.
-	 * Hooked into `woocommerce_email_order_details` action hook.
+	 * Hooked into `poocommerce_email_order_details` action hook.
 	 */
 	public function output_structured_data() {
 		$types = $this->get_data_type_for_page();
@@ -220,7 +220,7 @@ class WC_Structured_Data {
 	/**
 	 * Generates Product structured data.
 	 *
-	 * Hooked into `woocommerce_single_product_summary` action hook.
+	 * Hooked into `poocommerce_single_product_summary` action hook.
 	 *
 	 * @param WC_Product $product Product data (default: null).
 	 */
@@ -235,7 +235,7 @@ class WC_Structured_Data {
 
 		$shop_name = get_bloginfo( 'name' );
 		$shop_url  = home_url();
-		$currency  = get_woocommerce_currency();
+		$currency  = get_poocommerce_currency();
 		$permalink = get_permalink( $product->get_id() );
 		$image     = wp_get_attachment_url( (int) $product->get_image_id() );
 
@@ -277,7 +277,7 @@ class WC_Structured_Data {
 			// submitted to a product feed), describe that variation with a single Offer and its exact
 			// price instead of the parent's AggregateOffer price range. This keeps the landing page's
 			// structured data consistent with the variation price and avoids Google Merchant Center
-			// "price mismatch" disapprovals. See https://github.com/woocommerce/woocommerce/issues/30799.
+			// "price mismatch" disapprovals. See https://github.com/poocommerce/poocommerce/issues/30799.
 			$selected_variation = $product->is_type( ProductType::VARIABLE )
 				? $this->get_selected_variation( $product )
 				: null;
@@ -322,7 +322,7 @@ class WC_Structured_Data {
 						'validThrough'  => $price_valid_until,
 					);
 					if ( wc_tax_enabled() ) {
-						$unit_price_spec['valueAddedTaxIncluded'] = TaxDisplayMode::INCLUSIVE === get_option( 'woocommerce_tax_display_shop' );
+						$unit_price_spec['valueAddedTaxIncluded'] = TaxDisplayMode::INCLUSIVE === get_option( 'poocommerce_tax_display_shop' );
 					}
 					$markup_offer = array(
 						'@type'              => 'Offer',
@@ -358,13 +358,13 @@ class WC_Structured_Data {
 							'validThrough'  => $sale_price_valid_until ?? $price_valid_until,
 						);
 						if ( wc_tax_enabled() ) {
-							$sale_unit_price_spec['valueAddedTaxIncluded'] = TaxDisplayMode::INCLUSIVE === get_option( 'woocommerce_tax_display_shop' );
+							$sale_unit_price_spec['valueAddedTaxIncluded'] = TaxDisplayMode::INCLUSIVE === get_option( 'poocommerce_tax_display_shop' );
 						}
 						$markup_offer['priceSpecification'] = array( $sale_unit_price_spec );
 					}
 				}
 			} elseif ( $product->is_type( ProductType::GROUPED ) ) {
-				$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
+				$tax_display_mode = get_option( 'poocommerce_tax_display_shop' );
 				$child_ids        = $product->get_children();
 				_prime_post_caches( $child_ids );
 				/** @var WC_Product[] $children */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
@@ -417,7 +417,7 @@ class WC_Structured_Data {
 					}
 
 					// We add the sale price to the top of the array so it's the first offer.
-					// See https://github.com/woocommerce/woocommerce/issues/55043.
+					// See https://github.com/poocommerce/poocommerce/issues/55043.
 					$grouped_sale_spec = array(
 						'@type'         => 'UnitPriceSpecification',
 						'price'         => wc_format_decimal( $min_sale_price, wc_get_price_decimals() ),
@@ -431,7 +431,7 @@ class WC_Structured_Data {
 				}
 			} else {
 				// Simple product, or a single selected variation treated as a simple product.
-				$tax_display_mode         = get_option( 'woocommerce_tax_display_shop' );
+				$tax_display_mode         = get_option( 'poocommerce_tax_display_shop' );
 				$regular_price            = TaxDisplayMode::INCLUSIVE === $tax_display_mode
 					? wc_get_price_including_tax( $offer_source, array( 'price' => $offer_source->get_regular_price() ) )
 					: wc_get_price_excluding_tax( $offer_source, array( 'price' => $offer_source->get_regular_price() ) );
@@ -466,7 +466,7 @@ class WC_Structured_Data {
 					}
 
 					// We add the sale price to the top of the array so it's the first offer.
-					// See https://github.com/woocommerce/woocommerce/issues/55043.
+					// See https://github.com/poocommerce/poocommerce/issues/55043.
 					$simple_sale_spec = array(
 						'@type'         => 'UnitPriceSpecification',
 						'price'         => wc_format_decimal( $sale_price, wc_get_price_decimals() ),
@@ -519,7 +519,7 @@ class WC_Structured_Data {
 				}
 			}
 
-			$markup['offers'] = array( apply_filters( 'woocommerce_structured_data_product_offer', $markup_offer, $product ) );
+			$markup['offers'] = array( apply_filters( 'poocommerce_structured_data_product_offer', $markup_offer, $product ) );
 		}
 
 		if ( $product->get_rating_count() && wc_review_ratings_enabled() ) {
@@ -590,8 +590,8 @@ class WC_Structured_Data {
 			DimensionUnit::INCH       => 'INH',
 			DimensionUnit::YARD       => 'YRD',
 		);
-		$weight_unit         = get_option( 'woocommerce_weight_unit' );
-		$dimension_unit      = get_option( 'woocommerce_dimension_unit' );
+		$weight_unit         = get_option( 'poocommerce_weight_unit' );
+		$dimension_unit      = get_option( 'poocommerce_dimension_unit' );
 		$measurements        = array(
 			'weight' => $measurement_product->get_weight(),
 			'width'  => $measurement_product->get_width(),
@@ -611,9 +611,9 @@ class WC_Structured_Data {
 			);
 		}
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reuse the breadcrumb filter.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reuse the breadcrumb filter.
 		$term_args  = apply_filters(
-			'woocommerce_breadcrumb_product_terms_args',
+			'poocommerce_breadcrumb_product_terms_args',
 			array(
 				'orderby' => 'parent',
 				'order'   => 'DESC',
@@ -622,8 +622,8 @@ class WC_Structured_Data {
 		$product_id = $product instanceof WC_Product_Variation ? $product->get_parent_id() : $product->get_id();
 		$terms      = is_array( $term_args ) ? wc_get_product_terms( $product_id, 'product_cat', $term_args ) : array();
 		if ( ! empty( $terms ) && is_array( $terms ) ) {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reuse the breadcrumb filter.
-			$term  = apply_filters( 'woocommerce_breadcrumb_main_term', reset( $terms ), $terms );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reuse the breadcrumb filter.
+			$term  = apply_filters( 'poocommerce_breadcrumb_main_term', reset( $terms ), $terms );
 			$names = array();
 			$seen  = array();
 			while ( $term instanceof WP_Term && 'product_cat' === $term->taxonomy && ! isset( $seen[ $term->term_id ] ) ) {
@@ -642,7 +642,7 @@ class WC_Structured_Data {
 			$markup['subjectOf'] = $videos;
 		}
 
-		$this->set_data( apply_filters( 'woocommerce_structured_data_product', $markup, $product ) );
+		$this->set_data( apply_filters( 'poocommerce_structured_data_product', $markup, $product ) );
 	}
 
 	/**
@@ -722,7 +722,7 @@ class WC_Structured_Data {
 	/**
 	 * Generates Review structured data.
 	 *
-	 * Hooked into `woocommerce_review_meta` action hook.
+	 * Hooked into `poocommerce_review_meta` action hook.
 	 *
 	 * @param WP_Comment $comment Comment data.
 	 */
@@ -756,13 +756,13 @@ class WC_Structured_Data {
 			'name'  => get_comment_author( $comment->comment_ID ),
 		);
 
-		$this->set_data( apply_filters( 'woocommerce_structured_data_review', $markup, $comment ) );
+		$this->set_data( apply_filters( 'poocommerce_structured_data_review', $markup, $comment ) );
 	}
 
 	/**
 	 * Generates BreadcrumbList structured data.
 	 *
-	 * Hooked into `woocommerce_breadcrumb` action hook.
+	 * Hooked into `poocommerce_breadcrumb` action hook.
 	 *
 	 * @param WC_Breadcrumb $breadcrumbs Breadcrumb data.
 	 */
@@ -795,7 +795,7 @@ class WC_Structured_Data {
 			}
 		}
 
-		$this->set_data( apply_filters( 'woocommerce_structured_data_breadcrumblist', $markup, $breadcrumbs ) );
+		$this->set_data( apply_filters( 'poocommerce_structured_data_breadcrumblist', $markup, $breadcrumbs ) );
 	}
 
 	/**
@@ -838,7 +838,7 @@ class WC_Structured_Data {
 		 * @param array   $markup Structured data for the online store.
 		 * @param WP_Post $page   Selected refund and returns policy page.
 		 */
-		$markup = apply_filters( 'woocommerce_structured_data_online_store', $markup, $page );
+		$markup = apply_filters( 'poocommerce_structured_data_online_store', $markup, $page );
 		if ( is_array( $markup ) ) {
 			$this->set_data( $markup );
 		}
@@ -847,7 +847,7 @@ class WC_Structured_Data {
 	/**
 	 * Generates WebSite structured data.
 	 *
-	 * Hooked into `woocommerce_before_main_content` action hook.
+	 * Hooked into `poocommerce_before_main_content` action hook.
 	 */
 	public function generate_website_data() {
 		$markup                    = array();
@@ -860,13 +860,13 @@ class WC_Structured_Data {
 			'query-input' => 'required name=search_term_string',
 		);
 
-		$this->set_data( apply_filters( 'woocommerce_structured_data_website', $markup ) );
+		$this->set_data( apply_filters( 'poocommerce_structured_data_website', $markup ) );
 	}
 
 	/**
 	 * Generates Order structured data.
 	 *
-	 * Hooked into `woocommerce_email_order_details` action hook.
+	 * Hooked into `poocommerce_email_order_details` action hook.
 	 *
 	 * @param WP_Order $order         Order data.
 	 * @param bool     $sent_to_admin Send to admin (default: false).
@@ -892,7 +892,7 @@ class WC_Structured_Data {
 
 		$markup_offers = array();
 		foreach ( $order->get_items() as $item ) {
-			if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
+			if ( ! apply_filters( 'poocommerce_order_item_visible', true, $item ) ) {
 				continue;
 			}
 
@@ -909,12 +909,12 @@ class WC_Structured_Data {
 					'priceCurrency'    => $order->get_currency(),
 					'eligibleQuantity' => array(
 						'@type' => 'QuantitativeValue',
-						'value' => apply_filters( 'woocommerce_email_order_item_quantity', $item->get_quantity(), $item ),
+						'value' => apply_filters( 'poocommerce_email_order_item_quantity', $item->get_quantity(), $item ),
 					),
 				),
 				'itemOffered'        => array(
 					'@type' => 'Product',
-					'name'  => wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, $is_visible ) ),
+					'name'  => wp_kses_post( apply_filters( 'poocommerce_order_item_name', $item->get_name(), $item, $is_visible ) ),
 					'sku'   => $product_exists ? $product->get_sku() : '',
 					'image' => $product_exists ? wp_get_attachment_image_url( (int) $product->get_image_id() ) : '',
 					'url'   => $is_visible ? get_permalink( $product->get_id() ) : get_home_url(),
@@ -972,7 +972,7 @@ class WC_Structured_Data {
 			'target' => $order_url,
 		);
 
-		$this->set_data( apply_filters( 'woocommerce_structured_data_order', $markup, $sent_to_admin, $order ), true );
+		$this->set_data( apply_filters( 'poocommerce_structured_data_order', $markup, $sent_to_admin, $order ), true );
 	}
 
 	/**

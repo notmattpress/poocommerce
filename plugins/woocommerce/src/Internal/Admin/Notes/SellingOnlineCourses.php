@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Admin: Selling Online Courses note
+ * PooCommerce Admin: Selling Online Courses note
  *
  * Adds a note to encourage selling online courses.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * Selling_Online_Courses
@@ -67,16 +67,16 @@ class SellingOnlineCourses {
 	public static function get_note() {
 		$note = new Note();
 
-		$note->set_title( __( 'Do you want to sell online courses?', 'woocommerce' ) );
-		$note->set_content( __( 'Online courses are a great solution for any business that can teach a new skill. Since courses don’t require physical product development or shipping, they’re affordable, fast to create, and can generate passive income for years to come. In this article, we provide you more information about selling courses using WooCommerce.', 'woocommerce' ) );
+		$note->set_title( __( 'Do you want to sell online courses?', 'poocommerce' ) );
+		$note->set_content( __( 'Online courses are a great solution for any business that can teach a new skill. Since courses don’t require physical product development or shipping, they’re affordable, fast to create, and can generate passive income for years to come. In this article, we provide you more information about selling courses using PooCommerce.', 'poocommerce' ) );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_MARKETING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'learn-more',
-			__( 'Learn more', 'woocommerce' ),
-			'https://woocommerce.com/posts/how-to-sell-online-courses-wordpress/?utm_source=inbox&utm_medium=product',
+			__( 'Learn more', 'poocommerce' ),
+			'https://poocommerce.com/posts/how-to-sell-online-courses-wordpress/?utm_source=inbox&utm_medium=product',
 			Note::E_WC_ADMIN_NOTE_ACTIONED
 		);
 

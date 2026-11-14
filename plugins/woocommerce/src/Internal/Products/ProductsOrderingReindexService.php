@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Products;
+namespace Automattic\PooCommerce\Internal\Products;
 
 /**
  * Assigns sequential menu_order values to all products, enabling deterministic drag-and-drop ordering.
@@ -40,7 +40,7 @@ final class ProductsOrderingReindexService {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$updated = (int) $wpdb->query( "UPDATE {$wpdb->posts} SET menu_order = CASE ID {$batch_branches} END WHERE ID IN ( {$in_values} )" );
 			if ( $updated > 0 ) {
-				// Performance note: fires `clean_post_cache` action per product for extensions compatibility (WooCommerce v11.2).
+				// Performance note: fires `clean_post_cache` action per product for extensions compatibility (PooCommerce v11.2).
 				// Targeted wp_cache_delete_multiple + wp_cache_set_posts_last_changed is fast, but insufficient for extensibility surface.
 				array_walk( $batch_ids, 'clean_post_cache' );
 

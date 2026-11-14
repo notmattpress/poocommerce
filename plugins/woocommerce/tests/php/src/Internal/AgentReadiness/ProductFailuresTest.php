@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -111,12 +111,12 @@ class ProductFailuresTest extends WC_Unit_Test_Case {
 			$during_id = WC_Helper_Product::create_simple_product()->get_id();
 			add_post_meta( $during_id, ProductFailures::META_KEY, 'missing_images' );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 
 		try {
 			$this->readiness->refresh_report();
 		} finally {
-			remove_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+			remove_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 		}
 
 		$this->assertGreaterThan( 0, $during_id );

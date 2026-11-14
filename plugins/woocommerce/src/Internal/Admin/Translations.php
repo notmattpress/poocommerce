@@ -1,12 +1,12 @@
 <?php
 /**
- * Register the scripts, and handles items needed for managing translations within WooCommerce Admin.
+ * Register the scripts, and handles items needed for managing translations within PooCommerce Admin.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 
 /**
  * Translations Class.
@@ -25,7 +25,7 @@ class Translations {
 	 *
 	 * @var string
 	 */
-	private static $plugin_domain = 'woocommerce';
+	private static $plugin_domain = 'poocommerce';
 
 	/**
 	 * Whether an on-demand regeneration of the combined translation file has
@@ -55,8 +55,8 @@ class Translations {
 		// Combine JSON translation files (from chunks) when language packs are updated.
 		add_action( 'upgrader_process_complete', array( $this, 'combine_translation_chunk_files' ), 10, 2 );
 
-		// Handler for WooCommerce and WooCommerce Admin plugin activation.
-		add_action( 'woocommerce_activated_plugin', array( $this, 'potentially_generate_translation_strings' ) );
+		// Handler for PooCommerce and PooCommerce Admin plugin activation.
+		add_action( 'poocommerce_activated_plugin', array( $this, 'potentially_generate_translation_strings' ) );
 		add_action( 'activated_plugin', array( $this, 'potentially_generate_translation_strings' ) );
 	}
 
@@ -163,7 +163,7 @@ class Translations {
 			}
 
 			// `wp i18n make-json` keeps strings under "messages"; Loco Translate uses the text domain.
-			$chunk_domain_key = isset( $chunk_data['locale_data']['woocommerce'] ) ? 'woocommerce' : 'messages';
+			$chunk_domain_key = isset( $chunk_data['locale_data']['poocommerce'] ) ? 'poocommerce' : 'messages';
 
 			if ( empty( $combined_translation_data ) ) {
 				// Use the first translation file as the base structure.
@@ -381,7 +381,7 @@ class Translations {
 	}
 
 	/**
-	 * Run when plugin is activated (can be WooCommerce or WooCommerce Admin).
+	 * Run when plugin is activated (can be PooCommerce or PooCommerce Admin).
 	 *
 	 * @param string $filename Activated plugin filename.
 	 */

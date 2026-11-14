@@ -11,8 +11,8 @@ import {
 	useBlockProps,
 	PlainText,
 } from '@wordpress/block-editor';
-import { usePreviewMode } from '@woocommerce/base-hooks';
-import { previewCategories } from '@woocommerce/resource-previews';
+import { usePreviewMode } from '@poocommerce/base-hooks';
+import { previewCategories } from '@poocommerce/resource-previews';
 
 interface Props {
 	attributes: {
@@ -83,7 +83,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 
 	let descriptionElement = (
 		<div { ...blockProps }>
-			<p>{ __( 'Category description', 'woocommerce' ) }</p>
+			<p>{ __( 'Category description', 'poocommerce' ) }</p>
 		</div>
 	);
 
@@ -93,7 +93,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 				<PlainText
 					tagName="p"
 					placeholder={
-						__( 'No description', 'woocommerce' ) as string
+						__( 'No description', 'poocommerce' ) as string
 					}
 					value={ displayRawDescription }
 					onChange={ ( v: string ) =>

@@ -1,6 +1,6 @@
 # Release post tools
 
-This package currently generates an HTML list of contributors between two WooCommerce release refs. The [release commits and contributors workflow](../../.github/workflows/release-commits-and-contributors.yml) uploads the list as an artifact for the release team.
+This package currently generates an HTML list of contributors between two PooCommerce release refs. The [release commits and contributors workflow](../../.github/workflows/release-commits-and-contributors.yml) uploads the list as an artifact for the release team.
 
 ## Setup
 
@@ -15,4 +15,4 @@ Run this from `tools/release-posts`:
 pnpm release-post contributors release/11.0 release/10.9
 ```
 
-The command prints the path to the generated HTML file in the system temporary directory. It reads the WooCommerce and Action Scheduler release changes from GitHub; it does not publish a post.
+The command prints the path to the generated HTML file in the system temporary directory. It reads the PooCommerce and Action Scheduler release changes from GitHub; it does not publish a post.

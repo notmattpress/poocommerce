@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ trait ReadinessAbility {
 	 * Whether the current user may use the ability.
 	 */
 	public static function can_manage(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**
@@ -40,7 +40,7 @@ trait ReadinessAbility {
 	protected static function channel_map_schema(): array {
 		return array(
 			'type'                 => 'object',
-			'description'          => __( 'Feed field and effect by channel id: not_listable when the channel requires the field, gaps when the product lists with a gap. Empty for checks about the product page.', 'woocommerce' ),
+			'description'          => __( 'Feed field and effect by channel id: not_listable when the channel requires the field, gaps when the product lists with a gap. Empty for checks about the product page.', 'poocommerce' ),
 			'additionalProperties' => array(
 				'type'       => 'object',
 				'properties' => array(

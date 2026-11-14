@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-order-summary-totals-block",
+	"name": "poocommerce/checkout-order-summary-totals-block",
 	"title": "Totals",
 	"description": "Shows the subtotal, fees, discounts, shipping and taxes.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -24,9 +24,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-order-summary-block"
+		"poocommerce/checkout-order-summary-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

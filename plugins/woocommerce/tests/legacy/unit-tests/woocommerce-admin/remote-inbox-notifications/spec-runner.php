@@ -2,12 +2,12 @@
 /**
  * Spec runner tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteInboxNotifications
+ * @package PooCommerce\Admin\Tests\RemoteInboxNotifications
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 
 /**
  * class WC_Admin_Tests_RemoteInboxNotifications_SpecRunner
@@ -63,7 +63,7 @@ class WC_Admin_Tests_RemoteInboxNotifications_SpecRunner extends WC_Unit_Test_Ca
 	}
 
 	/**
-	 * Tests get url function with WooCommerce Admin url.
+	 * Tests get url function with PooCommerce Admin url.
 	 *
 	 * @group fast
 	 */

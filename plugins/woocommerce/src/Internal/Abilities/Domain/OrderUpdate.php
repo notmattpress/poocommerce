@@ -5,20 +5,20 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderEditTrait;
-use Automattic\WooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderEditTrait;
+use Automattic\PooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce order update ability. It runs the steps of ActionableAbility.
+ * The PooCommerce order update ability. It runs the steps of ActionableAbility.
  * Every change stays in memory until save(), so a refusal from a later change
  * or from a validator saves nothing.
  */
@@ -31,7 +31,7 @@ class OrderUpdate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/order-update';
+	public const ABILITY_NAME = 'poocommerce/order-update';
 
 	/**
 	 * Product lines that change() removed, for the stock change in save().
@@ -49,12 +49,12 @@ class OrderUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update order', 'woocommerce' ),
+			'label'               => __( 'Update order', 'poocommerce' ),
 			'description'         => __(
-				'Update the addresses, customer note, product lines and shipping lines of an order. Fields that are not sent keep their value. Changing lines recalculates the totals and needs an order status that allows editing. Use the woocommerce/order-update-status ability to change the status.',
-				'woocommerce'
+				'Update the addresses, customer note, product lines and shipping lines of an order. Fields that are not sent keep their value. Changing lines recalculates the totals and needs an order status that allows editing. Use the poocommerce/order-update-status ability to change the status.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'order', self::get_order_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_edit_order' ),
@@ -97,8 +97,8 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( empty( array_diff( array_keys( $input ), array( 'id' ) ) ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_no_fields',
-				__( 'No change was sent. Send at least one order field to change, in addition to the id.', 'woocommerce' ),
+				'poocommerce_ability_order_no_fields',
+				__( 'No change was sent. Send at least one order field to change, in addition to the id.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -137,10 +137,10 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! $subject->is_editable() ) {
 			$refused->add(
-				'woocommerce_ability_order_not_editable',
+				'poocommerce_ability_order_not_editable',
 				sprintf(
 					/* translators: %s: order status slug. */
-					__( 'The lines of an order with the "%s" status cannot change. Move the order to an editable status, such as on-hold, with the woocommerce/order-update-status ability, then send the change again.', 'woocommerce' ),
+					__( 'The lines of an order with the "%s" status cannot change. Move the order to an editable status, such as on-hold, with the poocommerce/order-update-status ability, then send the change again.', 'poocommerce' ),
 					$subject->get_status()
 				),
 				array( 'status' => 400 )
@@ -209,7 +209,7 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! empty( $stock_notes ) ) {
 			/* translators: %s item name. */
-			$subject->add_order_note( sprintf( __( 'Adjusted stock: %s', 'woocommerce' ), implode( ', ', $stock_notes ) ), 0, true, array( 'note_group' => OrderNoteGroup::PRODUCT_STOCK ) );
+			$subject->add_order_note( sprintf( __( 'Adjusted stock: %s', 'poocommerce' ), implode( ', ', $stock_notes ) ), 0, true, array( 'note_group' => OrderNoteGroup::PRODUCT_STOCK ) );
 		}
 
 		return null;
@@ -271,8 +271,8 @@ class OrderUpdate extends ActionableAbility {
 		foreach ( $input['line_items'] ?? array() as $line ) {
 			if ( empty( $line['id'] ) === empty( $line['product_id'] ) ) {
 				$refused->add(
-					'woocommerce_ability_order_line_item_target_invalid',
-					__( 'Each entry in line_items needs exactly one target. Send id to change a line, or product_id to add a line.', 'woocommerce' ),
+					'poocommerce_ability_order_line_item_target_invalid',
+					__( 'Each entry in line_items needs exactly one target. Send id to change a line, or product_id to add a line.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 				continue;
@@ -313,9 +313,9 @@ class OrderUpdate extends ActionableAbility {
 
 		if ( ! isset( $line['quantity'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_line_item_quantity_required',
+				'poocommerce_ability_order_line_item_quantity_required',
 				/* translators: %d: order item ID. */
-				sprintf( __( 'Nothing to change on line %d. Send quantity to change the line, or send its ID in remove_items to remove it.', 'woocommerce' ), $line['id'] ),
+				sprintf( __( 'Nothing to change on line %d. Send quantity to change the line, or send its ID in remove_items to remove it.', 'poocommerce' ), $line['id'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -359,7 +359,7 @@ class OrderUpdate extends ActionableAbility {
 				'customer_note'  => array( 'type' => 'string' ),
 				'line_items'     => array(
 					'type'        => 'array',
-					'description' => __( 'Send id and quantity to change a line, or product_id and quantity to add one. A variation uses its own ID as product_id.', 'woocommerce' ),
+					'description' => __( 'Send id and quantity to change a line, or product_id and quantity to add one. A variation uses its own ID as product_id.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',
@@ -382,7 +382,7 @@ class OrderUpdate extends ActionableAbility {
 				),
 				'shipping_lines' => array(
 					'type'        => 'array',
-					'description' => __( 'Send id to change a line. Without id, this adds a line, which needs method_title.', 'woocommerce' ),
+					'description' => __( 'Send id to change a line. Without id, this adds a line, which needs method_title.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',
@@ -400,7 +400,7 @@ class OrderUpdate extends ActionableAbility {
 				),
 				'remove_items'   => array(
 					'type'        => 'array',
-					'description' => __( 'IDs of the product and shipping lines to remove.', 'woocommerce' ),
+					'description' => __( 'IDs of the product and shipping lines to remove.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'    => 'integer',

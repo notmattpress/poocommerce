@@ -21,11 +21,11 @@ export function UsageRestrictions( {
 }: UsageRestrictionsProps ): JSX.Element {
 	return (
 		<PanelBody
-			title={ __( 'Usage restrictions', 'woocommerce' ) }
+			title={ __( 'Usage restrictions', 'poocommerce' ) }
 			initialOpen={ false }
 		>
 			<TextControl
-				label={ __( 'Minimum spend', 'woocommerce' ) }
+				label={ __( 'Minimum spend', 'poocommerce' ) }
 				value={ attributes.minimumAmount }
 				onChange={ ( value ) =>
 					setAttributes( { minimumAmount: value } )
@@ -36,7 +36,7 @@ export function UsageRestrictions( {
 				__next40pxDefaultSize
 			/>
 			<TextControl
-				label={ __( 'Maximum spend', 'woocommerce' ) }
+				label={ __( 'Maximum spend', 'poocommerce' ) }
 				value={ attributes.maximumAmount }
 				onChange={ ( value ) =>
 					setAttributes( { maximumAmount: value } )
@@ -47,10 +47,10 @@ export function UsageRestrictions( {
 				__next40pxDefaultSize
 			/>
 			<ToggleControl
-				label={ __( 'Individual use only', 'woocommerce' ) }
+				label={ __( 'Individual use only', 'poocommerce' ) }
 				help={ __(
 					'If checked, this coupon cannot be used in conjunction with other coupons.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				checked={ attributes.individualUse }
 				onChange={ ( value ) =>
@@ -59,10 +59,10 @@ export function UsageRestrictions( {
 				__nextHasNoMarginBottom
 			/>
 			<ToggleControl
-				label={ __( 'Exclude sale items', 'woocommerce' ) }
+				label={ __( 'Exclude sale items', 'poocommerce' ) }
 				help={ __(
 					'If checked, this coupon will not apply to items on sale.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				checked={ attributes.excludeSaleItems }
 				onChange={ ( value ) =>
@@ -71,13 +71,13 @@ export function UsageRestrictions( {
 				__nextHasNoMarginBottom
 			/>
 			<ProductSearch
-				label={ __( 'Products', 'woocommerce' ) }
+				label={ __( 'Products', 'poocommerce' ) }
 				value={ attributes.productIds }
 				onChange={ ( items ) => setAttributes( { productIds: items } ) }
 				endpoint="products"
 			/>
 			<ProductSearch
-				label={ __( 'Excluded products', 'woocommerce' ) }
+				label={ __( 'Excluded products', 'poocommerce' ) }
 				value={ attributes.excludedProductIds }
 				onChange={ ( items ) =>
 					setAttributes( { excludedProductIds: items } )
@@ -85,7 +85,7 @@ export function UsageRestrictions( {
 				endpoint="products"
 			/>
 			<ProductSearch
-				label={ __( 'Product categories', 'woocommerce' ) }
+				label={ __( 'Product categories', 'poocommerce' ) }
 				value={ attributes.productCategoryIds }
 				onChange={ ( items ) =>
 					setAttributes( { productCategoryIds: items } )
@@ -93,7 +93,7 @@ export function UsageRestrictions( {
 				endpoint="products/categories"
 			/>
 			<ProductSearch
-				label={ __( 'Excluded product categories', 'woocommerce' ) }
+				label={ __( 'Excluded product categories', 'poocommerce' ) }
 				value={ attributes.excludedProductCategoryIds }
 				onChange={ ( items ) =>
 					setAttributes( {
@@ -103,10 +103,10 @@ export function UsageRestrictions( {
 				endpoint="products/categories"
 			/>
 			<TextControl
-				label={ __( 'Allowed emails', 'woocommerce' ) }
+				label={ __( 'Allowed emails', 'poocommerce' ) }
 				help={ __(
 					"Comma-separated list of allowed emails to check against the customer's billing email.",
-					'woocommerce'
+					'poocommerce'
 				) }
 				value={ attributes.emailRestrictions }
 				onChange={ ( value ) =>

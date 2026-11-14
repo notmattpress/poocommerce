@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductCustoms;
+namespace Automattic\PooCommerce\Tests\Internal\ProductCustoms;
 
-use Automattic\WooCommerce\Internal\ProductCustoms\CustomsDataValidator;
+use Automattic\PooCommerce\Internal\ProductCustoms\CustomsDataValidator;
 use WC_Data_Exception;
 use WC_Unit_Test_Case;
 
@@ -74,7 +74,7 @@ class CustomsDataValidatorTest extends WC_Unit_Test_Case {
 			CustomsDataValidator::{"normalize_$field"}( $value );
 			$this->fail( 'Invalid customs data should throw a data exception.' );
 		} catch ( WC_Data_Exception $exception ) {
-			$this->assertSame( 'woocommerce_product_invalid_customs_' . $field, $exception->getErrorCode(), 'The error should identify the invalid field.' );
+			$this->assertSame( 'poocommerce_product_invalid_customs_' . $field, $exception->getErrorCode(), 'The error should identify the invalid field.' );
 			$this->assertSame( 400, $exception->getCode(), 'Invalid customs data should be a client error.' );
 		}
 	}
@@ -83,8 +83,8 @@ class CustomsDataValidatorTest extends WC_Unit_Test_Case {
 	 * @testdox Should validate origins against all countries even when selling is restricted.
 	 */
 	public function test_country_is_not_limited_to_selling_countries(): void {
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US' ) );
 
 		$this->assertSame( 'RO', CustomsDataValidator::normalize_country_of_origin( 'ro' ), 'An origin country need not be a selling destination.' );
 	}

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 
@@ -163,11 +163,11 @@ class Komoju extends PaymentGateway {
 
 		// The property only exists since extension version 2.5.0, so reproduce its resolution
 		// for older versions. Note that we cannot use the gateway's own `get_option()` here:
-		// it reads `woocommerce_{$id}_settings`, which for the per-method `komoju_*` gateways
+		// it reads `poocommerce_{$id}_settings`, which for the per-method `komoju_*` gateways
 		// is not where the shared key lives.
-		$secret_key = get_option( 'komoju_woocommerce_secret_key' );
+		$secret_key = get_option( 'komoju_poocommerce_secret_key' );
 		if ( empty( $secret_key ) ) {
-			$legacy_settings = get_option( 'woocommerce_komoju_settings' );
+			$legacy_settings = get_option( 'poocommerce_komoju_settings' );
 			$secret_key      = is_array( $legacy_settings ) ? ( $legacy_settings['secretKey'] ?? '' ) : '';
 		}
 

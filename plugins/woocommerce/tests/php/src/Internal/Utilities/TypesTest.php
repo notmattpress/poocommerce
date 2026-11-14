@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\Types;
+use Automattic\PooCommerce\Internal\Utilities\Types;
 use DateTime;
 use InvalidArgumentException;
 use WC_DateTime;

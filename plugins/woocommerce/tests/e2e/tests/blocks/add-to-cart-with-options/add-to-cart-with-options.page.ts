@@ -7,13 +7,13 @@ import {
 	Editor,
 	Admin,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 class AddToCartWithOptionsPage {
 	private page: Page;
 	private admin: Admin;
 	private editor: Editor;
-	BLOCK_SLUG = 'woocommerce/add-to-cart-with-options';
+	BLOCK_SLUG = 'poocommerce/add-to-cart-with-options';
 	BLOCK_NAME = 'Add to Cart + Options (Beta)';
 	EDITOR_INNER_BLOCKS = {
 		simple: [
@@ -124,10 +124,10 @@ class AddToCartWithOptionsPage {
 
 	async updateAddToCartWithOptionsBlock() {
 		const addToCartFormBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-form'
+			'poocommerce/add-to-cart-form'
 		);
 		const addToCartWithOptionsBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options'
+			'poocommerce/add-to-cart-with-options'
 		);
 		// `isVisible()` does not wait, so wait for the canvas to render either
 		// block first.
@@ -177,7 +177,7 @@ class AddToCartWithOptionsPage {
 		).toBeVisible();
 
 		const attributeTemplateBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute'
 		);
 		await this.editor.selectBlocks( attributeTemplateBlock.first() );
 
@@ -214,9 +214,9 @@ class AddToCartWithOptionsPage {
 
 	async createPostWithProductBlock( product: string, variation?: string ) {
 		await this.admin.createNewPost();
-		await this.editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await this.editor.insertBlock( { name: 'poocommerce/single-product' } );
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 
 		await singleProductBlock

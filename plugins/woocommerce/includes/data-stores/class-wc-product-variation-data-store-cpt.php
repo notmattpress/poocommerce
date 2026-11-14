@@ -2,14 +2,14 @@
 /**
  * Class WC_Product_Variation_Data_Store_CPT file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Internal\DataStores\PostDataSlashing;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Internal\DataStores\PostDataSlashing;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -61,7 +61,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		}
 
 		if ( 'product_variation' !== $post_object->post_type ) {
-			throw new WC_Data_Exception( 'variation_invalid_id', __( 'Invalid product type: passed ID does not correspond to a product variation.', 'woocommerce' ) );
+			throw new WC_Data_Exception( 'variation_invalid_id', __( 'Invalid product type: passed ID does not correspond to a product variation.', 'poocommerce' ) );
 		}
 
 		$product->set_props(
@@ -142,7 +142,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		 * @param array $data Post data for wp_insert_post().
 		 */
 		$post_data = apply_filters(
-			'woocommerce_new_product_variation_data',
+			'poocommerce_new_product_variation_data',
 			array(
 				'post_type'      => 'product_variation',
 				'post_status'    => $product->get_status() ? $product->get_status() : ProductStatus::PUBLISH,
@@ -179,7 +179,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 
 			$this->clear_caches( $product );
 
-			do_action( 'woocommerce_new_product_variation', $id, $product );
+			do_action( 'poocommerce_new_product_variation', $id, $product );
 		}
 	}
 
@@ -284,7 +284,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 
 		$this->clear_caches( $product );
 
-		do_action( 'woocommerce_update_product_variation', $product->get_id(), $product );
+		do_action( 'poocommerce_update_product_variation', $product->get_id(), $product );
 	}
 
 	/*
@@ -311,7 +311,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		 * @param string     $separator Separator between the product title and attributes.
 		 * @param WC_Product $product Variation product object.
 		 */
-		$separator    = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', $product );
+		$separator    = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', $product );
 		$title_base   = get_post_field( 'post_title', $product->get_parent_id() );
 		$title_suffix = $should_include_attributes ? wc_get_formatted_variation( $product, true, false ) : '';
 
@@ -324,7 +324,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		 * @param string     $title_base Parent product title.
 		 * @param string     $title_suffix Formatted attribute values, or an empty string.
 		 */
-		return apply_filters( 'woocommerce_product_variation_title', $title_suffix ? $title_base . $separator . $title_suffix : $title_base, $product, $title_base, $title_suffix );
+		return apply_filters( 'poocommerce_product_variation_title', $title_suffix ? $title_base . $separator . $title_suffix : $title_base, $product, $title_base, $title_suffix );
 	}
 
 	/**
@@ -361,7 +361,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		 * @param bool       $should_include_attributes Whether attributes should be included.
 		 * @param WC_Product $product Variation product object.
 		 */
-		return (bool) apply_filters( 'woocommerce_product_variation_title_include_attributes', $should_include_attributes, $product );
+		return (bool) apply_filters( 'poocommerce_product_variation_title_include_attributes', $should_include_attributes, $product );
 	}
 
 	/**
@@ -566,7 +566,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 		 * @param bool $cogs_value_is_additive The flag as read from the database.
 		 * @param WC_Product $product The product for which the flag is being loaded.
 		 */
-		$cogs_value_is_additive = apply_filters( 'woocommerce_load_product_cogs_is_additive_flag', $cogs_value_is_additive, $product );
+		$cogs_value_is_additive = apply_filters( 'poocommerce_load_product_cogs_is_additive_flag', $cogs_value_is_additive, $product );
 
 		$product->set_props(
 			array(
@@ -684,7 +684,7 @@ class WC_Product_Variation_Data_Store_CPT extends WC_Product_Data_Store_CPT impl
 			 * @param bool|null $cogs_value_is_additive The flag to be written to the database. If null is returned nothing will be written or deleted.
 			 * @param WC_Product $product The product for which the flag is being saved.
 			 */
-			$cogs_value_is_additive = apply_filters( 'woocommerce_save_product_cogs_is_additive_flag', $cogs_value_is_additive, $product );
+			$cogs_value_is_additive = apply_filters( 'poocommerce_save_product_cogs_is_additive_flag', $cogs_value_is_additive, $product );
 
 			if ( ! is_null( $cogs_value_is_additive ) ) {
 				$updated = $this->update_or_delete_post_meta( $product, '_cogs_value_is_additive', $cogs_value_is_additive ? 'yes' : '' );

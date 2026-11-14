@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/coming-soon",
-	"category": "woocommerce",
+	"name": "poocommerce/coming-soon",
+	"category": "poocommerce",
 	"title": "Coming Soon",
 	"attributes": {
 		"color": {

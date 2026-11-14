@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports;
 
-use Automattic\WooCommerce\Admin\API\Reports\Controller;
+use Automattic\PooCommerce\Admin\API\Reports\Controller;
 use WC_Unit_Test_Case;
 
 /**
@@ -43,11 +43,11 @@ class OrderAwareControllerTraitTest extends WC_Unit_Test_Case {
 	 * @testdox get_order_statuses falls back to the built-in default actionable statuses when the default-statuses filter returns a non-array.
 	 */
 	public function test_default_actionable_order_statuses_filter_invalid_type_falls_back(): void {
-		add_filter( 'woocommerce_analytics_settings_default_actionable_order_statuses', '__return_false' );
+		add_filter( 'poocommerce_analytics_settings_default_actionable_order_statuses', '__return_false' );
 
 		$statuses = Controller::get_order_statuses();
 
-		remove_filter( 'woocommerce_analytics_settings_default_actionable_order_statuses', '__return_false' );
+		remove_filter( 'poocommerce_analytics_settings_default_actionable_order_statuses', '__return_false' );
 
 		$this->assertContains( 'processing', $statuses, 'Should still contain the built-in default "processing" status.' );
 		$this->assertContains( 'on-hold', $statuses, 'Should still contain the built-in default "on-hold" status.' );
@@ -60,9 +60,9 @@ class OrderAwareControllerTraitTest extends WC_Unit_Test_Case {
 	 * if the filter were ignored. Only a custom slug can prove the filter reaches runtime.
 	 */
 	public function test_default_actionable_order_statuses_filter_reaches_runtime(): void {
-		delete_option( 'woocommerce_actionable_order_statuses' );
+		delete_option( 'poocommerce_actionable_order_statuses' );
 		$this->add_filter_returning(
-			'woocommerce_analytics_settings_default_actionable_order_statuses',
+			'poocommerce_analytics_settings_default_actionable_order_statuses',
 			array( 'processing', 'on-hold', 'custom-status' )
 		);
 

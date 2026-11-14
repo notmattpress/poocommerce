@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\Mocks;
 
 /**
  * Maps the Add to Cart with Options block names to their mock classes.
@@ -9,7 +9,7 @@ namespace Automattic\WooCommerce\Tests\Blocks\Mocks;
 class AddToCartWithOptionsMocks {
 
 	/**
-	 * Mock class for each block name, without the `woocommerce/` namespace.
+	 * Mock class for each block name, without the `poocommerce/` namespace.
 	 */
 	private const MOCKS = array(
 		'add-to-cart-with-options'                      => AddToCartWithOptionsMock::class,
@@ -31,7 +31,7 @@ class AddToCartWithOptionsMocks {
 	public static function get_mock_classes( string ...$block_names ): array {
 		$mock_classes = array();
 		foreach ( $block_names ? $block_names : array_keys( self::MOCKS ) as $block_name ) {
-			$mock_classes[ 'woocommerce/' . $block_name ] = self::MOCKS[ $block_name ];
+			$mock_classes[ 'poocommerce/' . $block_name ] = self::MOCKS[ $block_name ];
 		}
 		return $mock_classes;
 	}

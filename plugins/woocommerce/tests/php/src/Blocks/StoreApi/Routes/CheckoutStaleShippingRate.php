@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * A shopper who forces a shipping rate that no longer exists must be refused at payment, not
@@ -35,7 +35,7 @@ class CheckoutStaleShippingRate extends ControllerTestCase {
 		$zone           = \WC_Shipping_Zones::get_zone( 0 );
 		$this->instance = $zone->add_shipping_method( 'flat_rate' );
 		update_option(
-			'woocommerce_flat_rate_' . $this->instance . '_settings',
+			'poocommerce_flat_rate_' . $this->instance . '_settings',
 			array(
 				'title' => 'Flat rate',
 				'cost'  => '5',
@@ -98,7 +98,7 @@ class CheckoutStaleShippingRate extends ControllerTestCase {
 		}
 
 		$this->assertSame(
-			'woocommerce_rest_invalid_shipping_option',
+			'poocommerce_rest_invalid_shipping_option',
 			$code,
 			'Forcing a rate the package does not offer should be refused with the invalid-shipping-option error.'
 		);

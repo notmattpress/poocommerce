@@ -2,20 +2,20 @@
 /**
  * Webflow Mapper
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Transforms a raw Webflow product+SKUs payload into the standardized array
- * consumed by WooCommerceProductImporter.
+ * consumed by PooCommerceProductImporter.
  *
  * Webflow's eCommerce model differs from Shopify's in several ways:
  *
@@ -523,7 +523,7 @@ class WebflowMapper implements PlatformMapperInterface {
 				if ( empty( $variation['attributes'] ) ) {
 					wc_get_logger()->debug(
 						sprintf(
-							'Webflow variation %s resolved to zero attributes; WooCommerce will store it as an "Any" variation, which can collide with sibling variations.',
+							'Webflow variation %s resolved to zero attributes; PooCommerce will store it as an "Any" variation, which can collide with sibling variations.',
 							$variation['original_id'] ?? 'unknown'
 						),
 						array( 'source' => 'wc-migrator' )
@@ -640,7 +640,7 @@ class WebflowMapper implements PlatformMapperInterface {
 	 * Get the number of decimal places (minor units) for an ISO currency code.
 	 *
 	 * Reads core's `i18n/locale-info.php` so the migrator stays in sync with
-	 * WooCommerce's own per-currency data. Falls back to 2 for unknown codes.
+	 * PooCommerce's own per-currency data. Falls back to 2 for unknown codes.
 	 *
 	 * @param string $currency ISO 4217 currency code.
 	 * @return int
@@ -699,8 +699,8 @@ class WebflowMapper implements PlatformMapperInterface {
 	 *
 	 * Webflow returns these as raw numerics with no associated unit on the SKU
 	 * payload — the unit is a store-level setting on the Webflow side, with no
-	 * API representation. We pass through as-is; WooCommerce will interpret them
-	 * in whatever `woocommerce_dimension_unit` is configured for the destination
+	 * API representation. We pass through as-is; PooCommerce will interpret them
+	 * in whatever `poocommerce_dimension_unit` is configured for the destination
 	 * store. Null/zero/non-numeric values are dropped.
 	 *
 	 * @param object $sku_field SKU fieldData.
@@ -740,7 +740,7 @@ class WebflowMapper implements PlatformMapperInterface {
 		$source_unit = isset( $sku_field->{$unit_key} ) ? strtolower( (string) $sku_field->{$unit_key} ) : 'lbs';
 		$source_unit = $this->normalize_weight_unit( $source_unit );
 
-		$store_unit = strtolower( (string) get_option( 'woocommerce_weight_unit', 'kg' ) );
+		$store_unit = strtolower( (string) get_option( 'poocommerce_weight_unit', 'kg' ) );
 
 		if ( $source_unit === $store_unit ) {
 			return $weight;

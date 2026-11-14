@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Customer class.
  *
- * @package WooCommerce\Tests.
+ * @package PooCommerce\Tests.
  */
 
 declare( strict_types = 1 );
@@ -115,7 +115,7 @@ class WC_Customer_Test extends \WC_Unit_Test_Case {
 		$sut    = $this->get_customer_without_shipping_postcode();
 		$nested = null;
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) use ( $sut, &$nested ) {
 				$nested = $sut->has_full_shipping_address();
 				return $locale;
@@ -136,7 +136,7 @@ class WC_Customer_Test extends \WC_Unit_Test_Case {
 		$calls  = 0;
 		$nested = null;
 		add_filter(
-			'woocommerce_default_address_fields',
+			'poocommerce_default_address_fields',
 			function ( $fields ) use ( $sut, &$calls, &$nested ) {
 				++$calls;
 				// Stop a runaway recursion so a regression fails the assertion below instead of exhausting the process.
@@ -167,8 +167,8 @@ class WC_Customer_Test extends \WC_Unit_Test_Case {
 	 * @param string $expected_country The expected taxable country.
 	 */
 	public function test_get_taxable_address_checks_chosen_pickup( array $chosen_methods, array $listed_rates, string $expected_country ): void {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 		WC()->session->set( 'chosen_shipping_methods', $chosen_methods );
 		WC()->session->set( 'previous_shipping_methods', $listed_rates );
 

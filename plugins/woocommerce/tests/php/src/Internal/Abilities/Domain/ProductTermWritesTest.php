@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermUpdate;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermUpdate;
 use WC_Unit_Test_Case;
 
 /**
@@ -47,7 +47,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 			$property->setValue( null, array() );
 		}
 		$this->taxonomies_before = get_taxonomies();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 	}
 
@@ -163,13 +163,13 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 	 */
 	public function provide_conflicting_creates(): array {
 		return array(
-			'same name'                   => array( array( 'name' => 'SUMMER' ), 'woocommerce_ability_product_term_name_exists', true ),
+			'same name'                   => array( array( 'name' => 'SUMMER' ), 'poocommerce_ability_product_term_name_exists', true ),
 			'same name with a new slug'   => array(
 				array(
 					'name' => 'Summer',
 					'slug' => 'summer-two',
 				),
-				'woocommerce_ability_product_term_name_exists',
+				'poocommerce_ability_product_term_name_exists',
 				true,
 			),
 			'slug in use'                 => array(
@@ -177,16 +177,16 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 					'name' => 'Holidays',
 					'slug' => 'summer',
 				),
-				'woocommerce_ability_product_term_slug_exists',
+				'poocommerce_ability_product_term_slug_exists',
 				true,
 			),
-			'name empty after sanitizing' => array( array( 'name' => '<b></b>' ), 'woocommerce_ability_product_term_name_empty', false ),
+			'name empty after sanitizing' => array( array( 'name' => '<b></b>' ), 'poocommerce_ability_product_term_name_empty', false ),
 			'slug empty after sanitizing' => array(
 				array(
 					'name' => 'Holidays',
 					'slug' => '!!!',
 				),
-				'woocommerce_ability_product_term_slug_empty',
+				'poocommerce_ability_product_term_slug_empty',
 				false,
 			),
 			'slug zero'                   => array(
@@ -194,7 +194,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 					'name' => 'Holidays',
 					'slug' => '0',
 				),
-				'woocommerce_ability_product_term_slug_empty',
+				'poocommerce_ability_product_term_slug_empty',
 				false,
 			),
 			'parent missing'              => array(
@@ -202,7 +202,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 					'name'   => 'Holidays',
 					'parent' => 99999999,
 				),
-				'woocommerce_ability_product_term_parent_not_found',
+				'poocommerce_ability_product_term_parent_not_found',
 				false,
 			),
 		);
@@ -283,9 +283,9 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $on_tag );
-		$this->assertSame( 'woocommerce_ability_product_term_parent_unsupported', $on_tag->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_term_parent_unsupported', $on_tag->get_error_code() );
 		$this->assertWPError( $cross );
-		$this->assertSame( 'woocommerce_ability_product_term_parent_not_found', $cross->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_term_parent_not_found', $cross->get_error_code() );
 	}
 
 	/**
@@ -308,7 +308,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 
 		foreach ( array( $create, $update ) as $result ) {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
 			$this->assertSame( 404, $result->get_error_data()['status'] );
 		}
 	}
@@ -341,7 +341,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 
 		foreach ( array( $create, $update ) as $result ) {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
 		}
 		$this->assertFalse( get_term_by( 'name', 'Added', 'pa_other_plugin' ) );
 		$this->assertSame( 'Kept', get_term( $term->term_id, 'pa_other_plugin' )->name );
@@ -499,24 +499,24 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 		);
 		$tag    = self::factory()->term->create( array( 'taxonomy' => 'product_tag' ) );
 		$cases  = array(
-			'woocommerce_ability_product_term_name_exists' => array(
+			'poocommerce_ability_product_term_name_exists' => array(
 				'id'   => $id,
 				'name' => 'pants',
 			),
-			'woocommerce_ability_product_term_slug_exists' => array(
+			'poocommerce_ability_product_term_slug_exists' => array(
 				'id'   => $id,
 				'slug' => 'pants',
 			),
-			'woocommerce_ability_product_term_slug_empty'  => array(
+			'poocommerce_ability_product_term_slug_empty'  => array(
 				'id'   => $id,
 				'slug' => '0',
 			),
-			'woocommerce_ability_product_term_parent_loop' => array(
+			'poocommerce_ability_product_term_parent_loop' => array(
 				'id'     => $parent,
 				'parent' => $id,
 			),
-			'woocommerce_ability_product_term_no_fields'   => array( 'id' => $id ),
-			'woocommerce_ability_product_term_not_found'   => array(
+			'poocommerce_ability_product_term_no_fields'   => array( 'id' => $id ),
+			'poocommerce_ability_product_term_not_found'   => array(
 				'id'   => $tag,
 				'name' => 'Tees',
 			),
@@ -574,12 +574,12 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 	public function test_extension_fields(): void {
 		$id     = self::factory()->term->create( array( 'taxonomy' => 'product_tag' ) );
 		$schema = ProductTermCreate::get_registration_args()['output_schema'];
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
 		$this->assertSame( $schema, ProductTermCreate::get_registration_args()['output_schema'] );
-		add_action( 'woocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
-		do_action( 'woocommerce_extensible_abilities_resources_init' );
+		add_action( 'poocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
+		do_action( 'poocommerce_extensible_abilities_resources_init' );
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -592,7 +592,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 				);
 			}
 		);
-		do_action( 'woocommerce_extensible_abilities_init' );
+		do_action( 'poocommerce_extensible_abilities_init' );
 
 		$created = $this->create(
 			array(
@@ -611,7 +611,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'product_tag', $created['term']['extensions']['test-ext']['taxonomy'] );
 		$this->assertSame( 'product_tag', $updated['term']['extensions']['test-ext']['taxonomy'] );
 		$this->assertSame( 'string', ProductTermUpdate::get_registration_args()['output_schema']['properties']['term']['properties']['extensions']['properties']['test-ext']['properties']['taxonomy']['type'] );
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$plain = $this->update(
 			array(
 				'taxonomy' => 'product_tag',
@@ -628,11 +628,11 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 	public function test_write_that_saves_before_a_field_fails_names_the_saved_term(): void {
 		$this->setExpectedIncorrectUsage( ExtensibleAbilities::class . '::register_field' );
 		$id = self::factory()->term->create( array( 'taxonomy' => 'product_tag' ) );
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
-		add_action( 'woocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
-		do_action( 'woocommerce_extensible_abilities_resources_init' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
+		add_action( 'poocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
+		do_action( 'poocommerce_extensible_abilities_resources_init' );
 		add_action(
-			'woocommerce_extensible_abilities_init',
+			'poocommerce_extensible_abilities_init',
 			static function () {
 				ExtensibleAbilities::register_field(
 					array(
@@ -645,7 +645,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 				);
 			}
 		);
-		do_action( 'woocommerce_extensible_abilities_init' );
+		do_action( 'poocommerce_extensible_abilities_init' );
 
 		$created = $this->create(
 			array(
@@ -669,7 +669,7 @@ class ProductTermWritesTest extends WC_Unit_Test_Case {
 		);
 		foreach ( $results as $term_id => $result ) {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_field_output_invalid', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_field_output_invalid', $result->get_error_code() );
 			$this->assertStringContainsString( 'The change is saved on the product_term ' . $term_id . ',', $result->get_error_message() );
 			$this->assertTrue( $result->get_error_data()['saved'] );
 			$this->assertSame( $term_id, $result->get_error_data()['id'] );

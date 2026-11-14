@@ -2,7 +2,7 @@
 /**
  * Tests for the account functions.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );
@@ -17,7 +17,7 @@ class WC_Account_Functions_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_saved_payment_methods_list_item_carries_token_display_name(): void {
 		add_filter(
-			'woocommerce_payment_token_class',
+			'poocommerce_payment_token_class',
 			static function ( $class_name, $type ) {
 				return FakeCustomPaymentToken::TYPE === $type ? FakeCustomPaymentToken::class : $class_name;
 			},
@@ -34,7 +34,7 @@ class WC_Account_Functions_Test extends WC_Unit_Test_Case {
 
 		$display_name_seen_by_filter = null;
 		add_filter(
-			'woocommerce_payment_methods_list_item',
+			'poocommerce_payment_methods_list_item',
 			static function ( $item ) use ( &$display_name_seen_by_filter ) {
 				$display_name_seen_by_filter = $item['display_name'] ?? null;
 				$item['display_name']        = 'Label set by an extension';

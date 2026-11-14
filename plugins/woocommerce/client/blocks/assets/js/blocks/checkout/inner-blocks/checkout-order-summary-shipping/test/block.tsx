@@ -3,8 +3,8 @@
  */
 import { render, within } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { cartStore } from '@poocommerce/block-data';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

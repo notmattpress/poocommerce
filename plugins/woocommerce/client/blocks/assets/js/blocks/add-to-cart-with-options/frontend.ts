@@ -8,12 +8,12 @@ import {
 	withSyncEvent,
 } from '@wordpress/interactivity';
 import type {
-	Store as WooCommerce,
+	Store as PooCommerce,
 	SelectedAttributes,
-} from '@woocommerce/stores/woocommerce/cart';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+} from '@poocommerce/stores/poocommerce/cart';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -44,7 +44,7 @@ export type AddToCartError = {
  * rely on the change event to detect quantity changes. This function ensures
  * those extensions continue working by programmatically dispatching the event.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/53031
+ * @see https://github.com/poocommerce/poocommerce/issues/53031
  *
  * @param inputElement - The quantity input element to dispatch the event on.
  */
@@ -58,7 +58,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -86,12 +86,12 @@ type MergedAddToCartWithOptionsStores = AddToCartWithOptionsStore &
 	Partial< VariableProductAddToCartWithOptionsStore >;
 
 const { state } = store< MergedAddToCartWithOptionsStores >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
 const { actions } = store< MergedAddToCartWithOptionsStores >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			noticeIds: [],
@@ -162,7 +162,7 @@ const { actions } = store< MergedAddToCartWithOptionsStores >(
 				const context = getContext< Context >();
 				const quantitySelectorContext =
 					getContext< QuantitySelectorContext >(
-						'woocommerce/add-to-cart-with-options-quantity-selector'
+						'poocommerce/add-to-cart-with-options-quantity-selector'
 					);
 				const inputElement = quantitySelectorContext?.inputElement;
 				const isValueNaN = Number.isNaN( inputElement?.valueAsNumber );
@@ -247,10 +247,10 @@ const { actions } = store< MergedAddToCartWithOptionsStores >(
 
 				if ( ! isFormValid ) {
 					// Dynamically import the store module first
-					yield import( '@woocommerce/stores/store-notices' );
+					yield import( '@poocommerce/stores/store-notices' );
 
 					const { actions: noticeActions } = store< StoreNotices >(
-						'woocommerce/store-notices',
+						'poocommerce/store-notices',
 						{},
 						{
 							lock: universalLock,
@@ -281,8 +281,8 @@ const { actions } = store< MergedAddToCartWithOptionsStores >(
 				}
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const product = productsState.productInContext;
 
@@ -298,8 +298,8 @@ const { actions } = store< MergedAddToCartWithOptionsStores >(
 				const { quantity, selectedAttributes } =
 					getContext< Context >();
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

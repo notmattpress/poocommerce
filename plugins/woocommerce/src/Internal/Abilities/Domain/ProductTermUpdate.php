@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductTermAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class ProductTermUpdate extends AbstractDomainAbility implements AbilityDefiniti
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-term-update';
+		return 'poocommerce/product-term-update';
 	}
 
 	/**
@@ -38,9 +38,9 @@ class ProductTermUpdate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update product term', 'woocommerce' ),
-			'description'         => __( 'Change the name, slug, parent or description of a product category, tag, brand or global attribute term. Fields left out keep their value.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Update product term', 'poocommerce' ),
+			'description'         => __( 'Change the name, slug, parent or description of a product category, tag, brand or global attribute term. Fields left out keep their value.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'term', self::get_written_term_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -87,17 +87,17 @@ class ProductTermUpdate extends AbstractDomainAbility implements AbilityDefiniti
 		$term = get_term( $input['id'], $taxonomy );
 		if ( ! $term instanceof \WP_Term ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_term_not_found',
+				'poocommerce_ability_product_term_not_found',
 				/* translators: 1: term ID, 2: taxonomy name. */
-				sprintf( __( 'There is no term %1$d in "%2$s".', 'woocommerce' ), $input['id'], $taxonomy ),
+				sprintf( __( 'There is no term %1$d in "%2$s".', 'poocommerce' ), $input['id'], $taxonomy ),
 				array( 'status' => 404 )
 			);
 		}
 
 		if ( ! array_intersect_key( $input, self::get_term_write_properties() ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_term_no_fields',
-				__( 'No change was sent. Send at least one term field to change, in addition to the id.', 'woocommerce' ),
+				'poocommerce_ability_product_term_no_fields',
+				__( 'No change was sent. Send at least one term field to change, in addition to the id.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -127,12 +127,12 @@ class ProductTermUpdate extends AbstractDomainAbility implements AbilityDefiniti
 		}
 		$result = wp_update_term( $term->term_id, $taxonomy, wp_slash( $args ) );
 		if ( is_wp_error( $result ) ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_update_failed', $result->get_error_message(), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_update_failed', $result->get_error_message(), array( 'status' => 500 ) );
 		}
 
 		$term = get_term( $term->term_id, $taxonomy );
 		if ( ! $term instanceof \WP_Term ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_update_failed', __( 'The term was updated but could not be read back.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_update_failed', __( 'The term was updated but could not be read back.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$output = self::format_term( $term );
@@ -153,7 +153,7 @@ class ProductTermUpdate extends AbstractDomainAbility implements AbilityDefiniti
 			'type'                 => 'object',
 			'properties'           => array_merge(
 				array(
-					'taxonomy' => self::get_taxonomy_input_schema( __( 'Product taxonomy of the term: product_cat, product_tag, product_brand, or the slug of a global attribute.', 'woocommerce' ) ),
+					'taxonomy' => self::get_taxonomy_input_schema( __( 'Product taxonomy of the term: product_cat, product_tag, product_brand, or the slug of a global attribute.', 'poocommerce' ) ),
 					'id'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,

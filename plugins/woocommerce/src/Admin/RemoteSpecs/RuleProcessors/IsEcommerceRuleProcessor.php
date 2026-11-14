@@ -3,10 +3,10 @@
  * Rule processor that passes (or fails) when the site is on the eCommerce
  * plan.
  *
- * @package WooCommerce\Admin\Classes
+ * @package PooCommerce\Admin\Classes
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 

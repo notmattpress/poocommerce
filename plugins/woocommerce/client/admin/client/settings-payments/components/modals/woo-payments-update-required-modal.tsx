@@ -4,7 +4,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Button, Modal } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 interface WooPaymentsUpdateRequiredModalProps {
 	/**
@@ -42,38 +42,38 @@ export const WooPaymentsUpdateRequiredModal = ( {
 				<Modal
 					title={ sprintf(
 						/* translators: %s: Provider name */
-						__( 'An update to %s is required', 'woocommerce' ),
+						__( 'An update to %s is required', 'poocommerce' ),
 						'WooPayments'
 					) }
-					className="woocommerce-woopayments-modal"
+					className="poocommerce-woopayments-modal"
 					isDismissible={ true }
 					onRequestClose={ onClose }
 				>
-					<div className="woocommerce-woopayments-modal__content">
-						<div className="woocommerce-woopayments-modal__content__item">
+					<div className="poocommerce-woopayments-modal__content">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<div>
 								<span>
 									{ sprintf(
 										/* translators: %s: Provider name */
 										__(
 											'To continue, please update your %s plugin to the latest version. This update includes critical security enhancements and new features.',
-											'woocommerce'
+											'poocommerce'
 										),
 										'WooPayments'
 									) }
 								</span>
 							</div>
 						</div>
-						<div className="woocommerce-woopayments-modal__content__item">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<h3>
 								{ __(
 									'Would you like to update now?',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h3>
 						</div>
 					</div>
-					<div className="woocommerce-woopayments-modal__actions">
+					<div className="poocommerce-woopayments-modal__actions">
 						<Button
 							variant="primary"
 							isBusy={ isUpdating }
@@ -82,7 +82,7 @@ export const WooPaymentsUpdateRequiredModal = ( {
 						>
 							{ sprintf(
 								/* translators: %s: Provider name */
-								__( 'Update %s', 'woocommerce' ),
+								__( 'Update %s', 'poocommerce' ),
 								'WooPayments'
 							) }
 						</Button>
@@ -91,7 +91,7 @@ export const WooPaymentsUpdateRequiredModal = ( {
 							onClick={ onClose }
 							disabled={ isUpdating }
 						>
-							{ __( 'Not now', 'woocommerce' ) }
+							{ __( 'Not now', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

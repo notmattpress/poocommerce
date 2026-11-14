@@ -2,14 +2,14 @@
 /**
  * Tests for WC_Form_Handler.
  *
- * @package WooCommerce\Tests\FormHandler
+ * @package PooCommerce\Tests\FormHandler
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Form_Handler tests.
@@ -38,7 +38,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	private array $original_request = array();
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var WC_Session|null
 	 */
@@ -85,7 +85,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		WC()->session = $this->original_session;
 
 		foreach ( $this->registered_checkout_fields as $field_id ) {
-			__internal_woocommerce_blocks_deregister_checkout_field( $field_id );
+			__internal_poocommerce_blocks_deregister_checkout_field( $field_id );
 		}
 
 		parent::tearDown();
@@ -133,9 +133,9 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			return $filtered_endpoint . '?' . $query;
 		};
 
-		add_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		add_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 		$this->prepare_cancel_order_request( $order );
-		remove_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		remove_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 
 		$this->dispatch_cancel_order_expecting_redirect( wp_make_link_relative( $filtered_endpoint ) );
 
@@ -506,7 +506,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer  = $this->create_customer_with_address( $source_type );
 		$hook_args = null;
 		add_action(
-			'woocommerce_customer_copy_address',
+			'poocommerce_customer_copy_address',
 			function ( ...$args ) use ( &$hook_args ) {
 				$hook_args = $args;
 			},
@@ -532,7 +532,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox copy_address() fires woocommerce_before_copy_address_save with the copied address set on the customer.
+	 * @testdox copy_address() fires poocommerce_before_copy_address_save with the copied address set on the customer.
 	 *
 	 * @covers WC_Form_Handler::copy_address()
 	 */
@@ -540,7 +540,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer  = $this->create_customer_with_address( 'billing' );
 		$hook_args = null;
 		add_action(
-			'woocommerce_before_copy_address_save',
+			'poocommerce_before_copy_address_save',
 			function ( $user_id, $target_type, $source_type, $hook_customer ) use ( &$hook_args ) {
 				$hook_args = array( $user_id, $target_type, $source_type, $hook_customer->get_shipping_address_1( 'edit' ) );
 			},
@@ -555,14 +555,14 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox copy_address() doesn't save the copied address when woocommerce_before_copy_address_save adds an error notice.
+	 * @testdox copy_address() doesn't save the copied address when poocommerce_before_copy_address_save adds an error notice.
 	 *
 	 * @covers WC_Form_Handler::copy_address()
 	 */
 	public function test_copy_address_is_rejected_by_error_in_before_save_action(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_action(
-			'woocommerce_before_copy_address_save',
+			'poocommerce_before_copy_address_save',
 			function () {
 				wc_add_notice( 'Extension rejected the address.', 'error' );
 			}
@@ -655,7 +655,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_copy_address_rejects_country_not_available_for_shipping(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_countries_shipping_countries',
+			'poocommerce_countries_shipping_countries',
 			function () {
 				return array( 'CA' => 'Canada' );
 			}
@@ -676,7 +676,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_copy_address_ignores_getter_filters(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_customer_get_billing_address_1',
+			'poocommerce_customer_get_billing_address_1',
 			function () {
 				return 'Filtered street';
 			}
@@ -767,7 +767,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer->set_shipping_phone( '' );
 		$customer->save();
 		add_filter(
-			'woocommerce_billing_fields',
+			'poocommerce_billing_fields',
 			function ( $fields ) {
 				$fields['billing_phone']['required'] = true;
 				return $fields;
@@ -954,7 +954,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_edit_address_form_is_not_filled_from_country_not_available(): void {
 		$this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_countries_shipping_countries',
+			'poocommerce_countries_shipping_countries',
 			function () {
 				return array( 'CA' => 'Canada' );
 			}
@@ -968,7 +968,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox The edit address form fills Checkout block address fields from the other address after a refused copy.
 	 *
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 */
 	public function test_edit_address_form_fills_additional_checkout_fields_from_copy_source(): void {
 		$this->register_checkout_field(
@@ -995,7 +995,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 *           ["billing", "shipping", "country", "US"]
 	 *           ["shipping", "billing", "test-namespace/gate-code", "1234"]
 	 *           ["billing", "shipping", "test-namespace/gate-code", "1234"]
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 *
 	 * @param string $source_type Address type copied from.
 	 * @param string $target_type Address type being edited.
@@ -1037,7 +1037,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox The edit address form gives a Checkout block address field the edited address's default when the copied address has no value.
 	 *
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 */
 	public function test_edit_address_form_uses_edited_address_default_for_empty_copied_field(): void {
 		$this->register_checkout_field(
@@ -1048,7 +1048,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			)
 		);
 		add_filter(
-			'woocommerce_get_default_value_for_test-namespace/gate-code',
+			'poocommerce_get_default_value_for_test-namespace/gate-code',
 			function ( $value, $group ) {
 				return "{$group} default";
 			},
@@ -1387,7 +1387,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			$prefixed_fields
 		);
 		$_REQUEST = array(
-			'woocommerce-edit-address-nonce' => wp_create_nonce( 'woocommerce-edit_address' ),
+			'poocommerce-edit-address-nonce' => wp_create_nonce( 'poocommerce-edit_address' ),
 		);
 	}
 
@@ -1459,7 +1459,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 */
 	private function prepare_copy_address_request( string $target_type ): void {
 		$_GET     = array( 'copy-address' => $target_type );
-		$_REQUEST = array( '_wpnonce' => wp_create_nonce( 'woocommerce-copy-address-' . $target_type ) );
+		$_REQUEST = array( '_wpnonce' => wp_create_nonce( 'poocommerce-copy-address-' . $target_type ) );
 	}
 
 	/**
@@ -1504,7 +1504,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$_GET   = $source_type ? array( 'copy-address-from' => $source_type ) : array();
 		$fields = array();
 		add_filter(
-			'woocommerce_address_to_edit',
+			'poocommerce_address_to_edit',
 			function ( $address ) use ( &$fields ) {
 				$fields = $address;
 				return $address;
@@ -1537,7 +1537,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 * @param array $args Field arguments.
 	 */
 	private function register_checkout_field( array $args ): void {
-		woocommerce_register_additional_checkout_field( $args );
+		poocommerce_register_additional_checkout_field( $args );
 		$this->registered_checkout_fields[] = $args['id'];
 	}
 }

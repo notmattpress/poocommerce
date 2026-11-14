@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer;
 
 /**
  * Compares whole rendered emails with stored snapshots, so a change in one block or in the CSS
@@ -32,7 +32,7 @@ class Renderer_Snapshot_Test extends \Email_Editor_Integration_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		// The site theme differs between WordPress versions, so it is kept out of the snapshots.
-		add_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		add_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 		$this->di_container->get( Email_Editor::class )->initialize();
 		$this->wire_core_block_renderers();
 	}
@@ -44,7 +44,7 @@ class Renderer_Snapshot_Test extends \Email_Editor_Integration_Test_Case {
 		foreach ( $this->wired_block_types as list( $block_type, $previous_callback ) ) {
 			$this->set_email_callback( $block_type, $previous_callback );
 		}
-		remove_filter( 'woocommerce_email_editor_site_style_sync_enabled', '__return_false' );
+		remove_filter( 'poocommerce_email_editor_site_style_sync_enabled', '__return_false' );
 		parent::tearDown();
 	}
 

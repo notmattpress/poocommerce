@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
 /**
  * A variable product type of an extension, whose variations have a class of their own.

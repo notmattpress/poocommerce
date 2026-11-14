@@ -2,7 +2,7 @@
 /**
  * Take settings registered for WP-Admin and hooks them up to the REST API
  *
- * @package  WooCommerce\Classes
+ * @package  PooCommerce\Classes
  * @version  3.0.0
  * @since    3.0.0
  */
@@ -66,8 +66,8 @@ class WC_Register_WP_Admin_Settings {
 			 * @var WC_Settings_Page $page
 			 */
 			$page = $this->object;
-			add_filter( 'woocommerce_settings_groups', array( $this, 'register_page_group' ) );
-			add_filter( 'woocommerce_settings-' . $page->get_id(), array( $this, 'register_page_settings' ) );
+			add_filter( 'poocommerce_settings_groups', array( $this, 'register_page_group' ) );
+			add_filter( 'poocommerce_settings-' . $page->get_id(), array( $this, 'register_page_settings' ) );
 		} elseif ( 'email' === $this->type ) {
 			/**
 			 * An email (or an object with a compatible shape).
@@ -75,8 +75,8 @@ class WC_Register_WP_Admin_Settings {
 			 * @var WC_Email $email
 			 */
 			$email = $this->object;
-			add_filter( 'woocommerce_settings_groups', array( $this, 'register_email_group' ) );
-			add_filter( 'woocommerce_settings-email_' . $email->id, array( $this, 'register_email_settings' ) );
+			add_filter( 'poocommerce_settings_groups', array( $this, 'register_email_group' ) );
+			add_filter( 'poocommerce_settings-email_' . $email->id, array( $this, 'register_email_settings' ) );
 		}
 	}
 

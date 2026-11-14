@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -65,22 +65,22 @@ class ProductTemplateTest extends WC_Unit_Test_Case {
 				'taxQuery'                      => array(),
 				'isProductCollectionBlock'      => true,
 				'featured'                      => false,
-				'woocommerceOnSale'             => false,
-				'woocommerceStockStatus'        => array( 'instock' ),
-				'woocommerceAttributes'         => array(),
-				'woocommerceHandPickedProducts' => array( $product_id ),
+				'poocommerceOnSale'             => false,
+				'poocommerceStockStatus'        => array( 'instock' ),
+				'poocommerceAttributes'         => array(),
+				'poocommerceHandPickedProducts' => array( $product_id ),
 				'filterable'                    => false,
 			),
-			'collection' => 'woocommerce/product-collection/hand-picked',
+			'collection' => 'poocommerce/product-collection/hand-picked',
 		);
 
 		return sprintf(
-			'<!-- wp:woocommerce/product-collection %1$s -->
-<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->
-<!-- wp:woocommerce/product-image /-->
-<!-- wp:woocommerce/product-price /-->
-<!-- /wp:woocommerce/product-template --></div>
-<!-- /wp:woocommerce/product-collection -->',
+			'<!-- wp:poocommerce/product-collection %1$s -->
+<div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template -->
+<!-- wp:poocommerce/product-image /-->
+<!-- wp:poocommerce/product-price /-->
+<!-- /wp:poocommerce/product-template --></div>
+<!-- /wp:poocommerce/product-collection -->',
 			wp_json_encode( $attributes )
 		);
 	}

@@ -5,23 +5,23 @@ import { Slot, Fill } from '@wordpress/components';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const EXPERIMENTAL_WC_HOMESCREEN_WC_PAY_FEATURE_SLOT_NAME =
-	'experimental_woocommerce_wcpay_feature';
+	'experimental_poocommerce_wcpay_feature';
 /**
  * Create a Fill for WC Pay to add featured content to the homescreen.
  *
  * @slotFill WooHomescreenWCPayFeatureItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyFill = () => (
- * <Fill name="experimental_woocommerce_wcpay_feature">My fill</fill>
+ * <Fill name="experimental_poocommerce_wcpay_feature">My fill</fill>
  * );
  *
  * registerPlugin( 'my-extension', {
  * render: MyFill,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

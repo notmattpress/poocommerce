@@ -4,10 +4,10 @@
 import { store, getContext, getConfig } from '@wordpress/interactivity';
 import type {
 	ClientCartItem,
-	Store as WooCommerce,
-} from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+	Store as PooCommerce,
+} from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -39,7 +39,7 @@ export type GroupedProductAddToCartWithOptionsStore =
 	};
 
 const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		actions: {
 			validateGroupedProductQuantity() {
@@ -91,8 +91,8 @@ const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
 			},
 			*batchAddToCart() {
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const { quantity, selectedAttributes, groupedProductIds } =
 					getContext< AddToCartWithOptionsStoreContext >();
@@ -121,8 +121,8 @@ const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
 					} );
 				}
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

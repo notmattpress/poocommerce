@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -62,7 +62,7 @@ class StoreConditions {
 			'name'    => $name,
 			'label'   => $label,
 			'why'     => $why,
-			'fix'     => __( 'Choose a published page under WooCommerce > Settings > Agentic commerce.', 'woocommerce' ),
+			'fix'     => __( 'Choose a published page under PooCommerce > Settings > Agentic commerce.', 'poocommerce' ),
 			'fix_url' => $settings_url( AgenticCommerceSettings::TAB ) . '#' . $option,
 		);
 
@@ -72,10 +72,10 @@ class StoreConditions {
 				'ok'      => $this->coming_soon_helper->is_site_live(),
 				'blocks'  => 'listing',
 				'level'   => self::LEVEL_REQUIRED,
-				'name'    => __( 'Store is launched', 'woocommerce' ),
-				'label'   => __( 'Store is in coming soon mode', 'woocommerce' ),
-				'why'     => __( 'Visitors, crawlers and shopping agents see a holding page instead of your products.', 'woocommerce' ),
-				'fix'     => __( 'Launch the store under WooCommerce > Settings > Site visibility.', 'woocommerce' ),
+				'name'    => __( 'Store is launched', 'poocommerce' ),
+				'label'   => __( 'Store is in coming soon mode', 'poocommerce' ),
+				'why'     => __( 'Visitors, crawlers and shopping agents see a holding page instead of your products.', 'poocommerce' ),
+				'fix'     => __( 'Launch the store under PooCommerce > Settings > Site visibility.', 'poocommerce' ),
 				'fix_url' => $settings_url( 'site-visibility' ),
 			),
 			array(
@@ -83,10 +83,10 @@ class StoreConditions {
 				'ok'      => '0' !== (string) get_option( 'blog_public', '1' ),
 				'blocks'  => 'listing',
 				'level'   => self::LEVEL_RECOMMENDED,
-				'name'    => __( 'Search engines can index the store', 'woocommerce' ),
-				'label'   => __( 'Store is hidden from search engines', 'woocommerce' ),
-				'why'     => __( '"Discourage search engines" asks crawlers, including AI shopping crawlers, to skip your store.', 'woocommerce' ),
-				'fix'     => __( 'Clear "Discourage search engines from indexing this site" under Settings > Reading.', 'woocommerce' ),
+				'name'    => __( 'Search engines can index the store', 'poocommerce' ),
+				'label'   => __( 'Store is hidden from search engines', 'poocommerce' ),
+				'why'     => __( '"Discourage search engines" asks crawlers, including AI shopping crawlers, to skip your store.', 'poocommerce' ),
+				'fix'     => __( 'Clear "Discourage search engines from indexing this site" under Settings > Reading.', 'poocommerce' ),
 				'fix_url' => admin_url( 'options-reading.php' ),
 			),
 			array(
@@ -94,10 +94,10 @@ class StoreConditions {
 				'ok'      => Utils::is_enabled(),
 				'blocks'  => 'ucp',
 				'level'   => self::LEVEL_RECOMMENDED,
-				'name'    => __( 'Universal Commerce Protocol (UCP) is on', 'woocommerce' ),
-				'label'   => __( 'Universal Commerce Protocol (UCP) is off', 'woocommerce' ),
-				'why'     => __( 'Shopping agents that use UCP cannot read your catalog.', 'woocommerce' ),
-				'fix'     => __( 'Turn on "Let AI agents shop your store" under WooCommerce > Settings > Agentic commerce.', 'woocommerce' ),
+				'name'    => __( 'Universal Commerce Protocol (UCP) is on', 'poocommerce' ),
+				'label'   => __( 'Universal Commerce Protocol (UCP) is off', 'poocommerce' ),
+				'why'     => __( 'Shopping agents that use UCP cannot read your catalog.', 'poocommerce' ),
+				'fix'     => __( 'Turn on "Let AI agents shop your store" under PooCommerce > Settings > Agentic commerce.', 'poocommerce' ),
 				'fix_url' => $settings_url( AgenticCommerceSettings::TAB ),
 			),
 			array(
@@ -105,49 +105,49 @@ class StoreConditions {
 				'ok'      => wc_site_is_https(),
 				'blocks'  => 'ucp',
 				'level'   => self::LEVEL_REQUIRED,
-				'name'    => __( 'Site uses HTTPS', 'woocommerce' ),
-				'label'   => __( 'Site does not use HTTPS', 'woocommerce' ),
-				'why'     => __( 'Agents only send shoppers to a secure checkout.', 'woocommerce' ),
-				'fix'     => __( 'Move the site to HTTPS; your host can usually turn it on.', 'woocommerce' ),
+				'name'    => __( 'Site uses HTTPS', 'poocommerce' ),
+				'label'   => __( 'Site does not use HTTPS', 'poocommerce' ),
+				'why'     => __( 'Agents only send shoppers to a secure checkout.', 'poocommerce' ),
+				'fix'     => __( 'Move the site to HTTPS; your host can usually turn it on.', 'poocommerce' ),
 				'fix_url' => wp_get_update_https_url(),
 			),
 			$policy_page(
 				'privacy_page',
 				AgenticCommerceSettings::PRIVACY_PAGE_OPTION,
-				__( 'Privacy policy page is selected', 'woocommerce' ),
-				__( 'No privacy policy page', 'woocommerce' ),
-				__( 'Agents will be able to link shoppers to your privacy policy before they buy.', 'woocommerce' )
+				__( 'Privacy policy page is selected', 'poocommerce' ),
+				__( 'No privacy policy page', 'poocommerce' ),
+				__( 'Agents will be able to link shoppers to your privacy policy before they buy.', 'poocommerce' )
 			),
 			$policy_page(
 				'terms_page',
 				AgenticCommerceSettings::TERMS_PAGE_OPTION,
-				__( 'Terms and conditions page is selected', 'woocommerce' ),
-				__( 'No terms and conditions page', 'woocommerce' ),
-				__( 'Agents will be able to link shoppers to your terms before they buy.', 'woocommerce' )
+				__( 'Terms and conditions page is selected', 'poocommerce' ),
+				__( 'No terms and conditions page', 'poocommerce' ),
+				__( 'Agents will be able to link shoppers to your terms before they buy.', 'poocommerce' )
 			),
 			$policy_page(
 				'refund_returns_page',
 				AgenticCommerceSettings::REFUND_RETURNS_PAGE_OPTION,
-				__( 'Refund and returns page is selected', 'woocommerce' ),
-				__( 'No refund and returns page', 'woocommerce' ),
-				__( 'Agents will be able to link shoppers to your return terms before they buy.', 'woocommerce' )
+				__( 'Refund and returns page is selected', 'poocommerce' ),
+				__( 'No refund and returns page', 'poocommerce' ),
+				__( 'Agents will be able to link shoppers to your return terms before they buy.', 'poocommerce' )
 			),
 			$policy_page(
 				'shipping_policy_page',
 				AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION,
-				__( 'Shipping policy page is selected', 'woocommerce' ),
-				__( 'No shipping policy page', 'woocommerce' ),
-				__( 'Shoppers ask agents about delivery times and costs.', 'woocommerce' )
+				__( 'Shipping policy page is selected', 'poocommerce' ),
+				__( 'No shipping policy page', 'poocommerce' ),
+				__( 'Shoppers ask agents about delivery times and costs.', 'poocommerce' )
 			),
 			array(
 				'id'      => 'payment_method',
 				'ok'      => $this->payment_method_enabled(),
 				'blocks'  => 'checkout',
 				'level'   => self::LEVEL_RECOMMENDED,
-				'name'    => __( 'A payment method is turned on', 'woocommerce' ),
-				'label'   => __( 'No payment method is turned on', 'woocommerce' ),
-				'why'     => __( 'Shoppers sent by an agent cannot pay for their order.', 'woocommerce' ),
-				'fix'     => __( 'Turn on a payment method under WooCommerce > Settings > Payments.', 'woocommerce' ),
+				'name'    => __( 'A payment method is turned on', 'poocommerce' ),
+				'label'   => __( 'No payment method is turned on', 'poocommerce' ),
+				'why'     => __( 'Shoppers sent by an agent cannot pay for their order.', 'poocommerce' ),
+				'fix'     => __( 'Turn on a payment method under PooCommerce > Settings > Payments.', 'poocommerce' ),
 				'fix_url' => $settings_url( 'checkout' ),
 			),
 			array(
@@ -155,10 +155,10 @@ class StoreConditions {
 				'ok'      => ! $this->registration_required(),
 				'blocks'  => 'checkout',
 				'level'   => self::LEVEL_RECOMMENDED,
-				'name'    => __( 'Guest checkout is allowed', 'woocommerce' ),
-				'label'   => __( 'Guest checkout is off', 'woocommerce' ),
-				'why'     => __( 'Shopping agents check out for shoppers without an account on your store, so they cannot place orders.', 'woocommerce' ),
-				'fix'     => __( 'Tick "Enable guest checkout" under WooCommerce > Settings > Accounts & Privacy.', 'woocommerce' ),
+				'name'    => __( 'Guest checkout is allowed', 'poocommerce' ),
+				'label'   => __( 'Guest checkout is off', 'poocommerce' ),
+				'why'     => __( 'Shopping agents check out for shoppers without an account on your store, so they cannot place orders.', 'poocommerce' ),
+				'fix'     => __( 'Tick "Enable guest checkout" under PooCommerce > Settings > Accounts & Privacy.', 'poocommerce' ),
 				'fix_url' => $settings_url( 'account' ),
 			),
 			array(
@@ -166,10 +166,10 @@ class StoreConditions {
 				'ok'      => $this->order_confirmation_email_enabled(),
 				'blocks'  => 'checkout',
 				'level'   => self::LEVEL_RECOMMENDED,
-				'name'    => __( 'Order confirmation emails are on', 'woocommerce' ),
-				'label'   => __( 'Order confirmation emails are off', 'woocommerce' ),
-				'why'     => __( 'Shoppers who buy through an agent get no confirmation from your store.', 'woocommerce' ),
-				'fix'     => __( 'Turn on the Processing or Completed order email under WooCommerce > Settings > Emails.', 'woocommerce' ),
+				'name'    => __( 'Order confirmation emails are on', 'poocommerce' ),
+				'label'   => __( 'Order confirmation emails are off', 'poocommerce' ),
+				'why'     => __( 'Shoppers who buy through an agent get no confirmation from your store.', 'poocommerce' ),
+				'fix'     => __( 'Turn on the Processing or Completed order email under PooCommerce > Settings > Emails.', 'poocommerce' ),
 				'fix_url' => $settings_url( 'email&section=wc_email_customer_processing_order' ),
 			),
 		);
@@ -220,8 +220,8 @@ class StoreConditions {
 	 * answers it, without starting the checkout in a background scan.
 	 */
 	private function registration_required(): bool {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Checkout.
-		return (bool) apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Checkout.
+		return (bool) apply_filters( 'poocommerce_checkout_registration_required', 'yes' !== get_option( 'poocommerce_enable_guest_checkout' ) );
 	}
 
 	/**

@@ -2,23 +2,23 @@
 /**
  * Class TransactAccountManagerTest file.
  *
- * @package WooCommerce\Tests\Gateways\PayPal
+ * @package PooCommerce\Tests\Gateways\PayPal
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Gateways\PayPal\TransactAccountManager as PayPalTransactAccountManager;
+use Automattic\PooCommerce\Gateways\PayPal\TransactAccountManager as PayPalTransactAccountManager;
 
 /**
  * TransactAccountManagerTest class.
  *
- * @package WooCommerce\Tests\Gateways\PayPal
+ * @package PooCommerce\Tests\Gateways\PayPal
  */
 class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	/**
@@ -194,7 +194,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_merchant_account_data_returns_cached_data(): void {
 		// Return valid cache data.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_merchant_account_test',
+			'pre_option_poocommerce_paypal_transact_merchant_account_test',
 			array( $this, 'return_valid_merchant_account_cache' )
 		);
 
@@ -202,7 +202,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 
 		// Clean up the filter.
 		remove_filter(
-			'pre_option_woocommerce_paypal_transact_merchant_account_test',
+			'pre_option_poocommerce_paypal_transact_merchant_account_test',
 			array( $this, 'return_valid_merchant_account_cache' )
 		);
 
@@ -218,7 +218,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_merchant_account_data_returns_null_when_cache_expired(): void {
 		// Mock cache to return expired data.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_merchant_account_test',
+			'pre_option_poocommerce_paypal_transact_merchant_account_test',
 			array( $this, 'return_expired_merchant_account_cache' )
 		);
 
@@ -226,7 +226,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 
 		// Clean up the filter.
 		remove_filter(
-			'pre_option_woocommerce_paypal_transact_merchant_account_test',
+			'pre_option_poocommerce_paypal_transact_merchant_account_test',
 			array( $this, 'return_expired_merchant_account_cache' )
 		);
 
@@ -241,7 +241,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_merchant_account_data_fetches_and_caches_data(): void {
 		// Return empty cache.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_merchant_account_test',
+			'pre_option_poocommerce_paypal_transact_merchant_account_test',
 			array( $this, 'return_empty_merchant_account_cache' )
 		);
 
@@ -258,7 +258,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 		$result          = $account_manager->get_transact_account_data( 'merchant' );
 
 		// Clean up the filters.
-		remove_filter( 'pre_option_woocommerce_paypal_transact_merchant_account_test', array( $this, 'return_empty_merchant_account_cache' ) );
+		remove_filter( 'pre_option_poocommerce_paypal_transact_merchant_account_test', array( $this, 'return_empty_merchant_account_cache' ) );
 		remove_filter( 'pre_option_jetpack_options', array( $this, 'return_valid_site_id' ) );
 		remove_filter( 'pre_option_jetpack_private_options', array( $this, 'return_blog_token' ) );
 		remove_filter( 'pre_http_request', array( $this, 'return_merchant_account_api_success' ) );
@@ -269,8 +269,8 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( $expected_merchant_account, $result );
 
 		// Check that the cache was updated.
-		wp_cache_delete( 'woocommerce_paypal_transact_merchant_account_test', 'options' );
-		$cached_data = get_option( 'woocommerce_paypal_transact_merchant_account_test' );
+		wp_cache_delete( 'poocommerce_paypal_transact_merchant_account_test', 'options' );
+		$cached_data = get_option( 'poocommerce_paypal_transact_merchant_account_test' );
 		$this->assertEquals( $expected_merchant_account, $cached_data['account'] );
 	}
 
@@ -283,7 +283,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_provider_account_data_returns_cached_data(): void {
 		// Return valid cache data.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_provider_account_test',
+			'pre_option_poocommerce_paypal_transact_provider_account_test',
 			array( $this, 'return_valid_provider_account_cache' )
 		);
 
@@ -291,7 +291,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 
 		// Clean up the filter.
 		remove_filter(
-			'pre_option_woocommerce_paypal_transact_provider_account_test',
+			'pre_option_poocommerce_paypal_transact_provider_account_test',
 			array( $this, 'return_valid_provider_account_cache' )
 		);
 
@@ -307,7 +307,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_provider_account_data_returns_null_when_cache_expired(): void {
 		// Mock cache to return expired data.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_provider_account_test',
+			'pre_option_poocommerce_paypal_transact_provider_account_test',
 			array( $this, 'return_expired_provider_account_cache' )
 		);
 
@@ -315,7 +315,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 
 		// Clean up the filter.
 		remove_filter(
-			'pre_option_woocommerce_paypal_transact_provider_account_test',
+			'pre_option_poocommerce_paypal_transact_provider_account_test',
 			array( $this, 'return_expired_provider_account_cache' )
 		);
 
@@ -330,7 +330,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	public function test_get_provider_account_data_fetches_and_caches_data(): void {
 		// Return empty cache.
 		add_filter(
-			'pre_option_woocommerce_paypal_transact_provider_account_test',
+			'pre_option_poocommerce_paypal_transact_provider_account_test',
 			array( $this, 'return_empty_provider_account_cache' )
 		);
 
@@ -347,7 +347,7 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 		$result          = $account_manager->get_transact_account_data( 'provider' );
 
 		// Clean up the filters.
-		remove_filter( 'pre_option_woocommerce_paypal_transact_provider_account_test', array( $this, 'return_empty_provider_account_cache' ) );
+		remove_filter( 'pre_option_poocommerce_paypal_transact_provider_account_test', array( $this, 'return_empty_provider_account_cache' ) );
 		remove_filter( 'pre_option_jetpack_options', array( $this, 'return_valid_site_id' ) );
 		remove_filter( 'pre_option_jetpack_private_options', array( $this, 'return_blog_token' ) );
 		remove_filter( 'pre_http_request', array( $this, 'return_provider_account_api_success' ) );
@@ -356,8 +356,8 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 		$this->assertTrue( $result );
 
 		// Check that the cache was updated.
-		wp_cache_delete( 'woocommerce_paypal_transact_provider_account_test', 'options' );
-		$cached_data = get_option( 'woocommerce_paypal_transact_provider_account_test' );
+		wp_cache_delete( 'poocommerce_paypal_transact_provider_account_test', 'options' );
+		$cached_data = get_option( 'poocommerce_paypal_transact_provider_account_test' );
 		$this->assertTrue( $cached_data['account'] );
 	}
 
@@ -749,10 +749,10 @@ class TransactAccountManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		// Clean up any options we created.
-		delete_option( 'woocommerce_paypal_transact_merchant_account_live' );
-		delete_option( 'woocommerce_paypal_transact_merchant_account_test' );
-		delete_option( 'woocommerce_paypal_transact_provider_account_live' );
-		delete_option( 'woocommerce_paypal_transact_provider_account_test' );
+		delete_option( 'poocommerce_paypal_transact_merchant_account_live' );
+		delete_option( 'poocommerce_paypal_transact_merchant_account_test' );
+		delete_option( 'poocommerce_paypal_transact_provider_account_live' );
+		delete_option( 'poocommerce_paypal_transact_provider_account_test' );
 
 		parent::tearDown();
 	}

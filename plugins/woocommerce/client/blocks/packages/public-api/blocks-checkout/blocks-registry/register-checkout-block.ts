@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { registerBlockComponent } from '@woocommerce/blocks-registry';
+import { registerBlockComponent } from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies

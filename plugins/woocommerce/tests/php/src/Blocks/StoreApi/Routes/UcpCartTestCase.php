@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Ucp\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Ucp\AbstractCartRoute;
 
 /**
  * Enables the UCP routes for each test and undoes the session binding they leave behind.
@@ -16,7 +16,7 @@ abstract class UcpCartTestCase extends ControllerTestCase {
 	/**
 	 * Option behind the `ucp` feature.
 	 */
-	protected const FEATURE_OPTION = 'woocommerce_feature_ucp_enabled';
+	protected const FEATURE_OPTION = 'poocommerce_feature_ucp_enabled';
 
 	/**
 	 * The session, customer and cart the harness set up, so tearDown can put them back
@@ -43,8 +43,8 @@ abstract class UcpCartTestCase extends ControllerTestCase {
 			'session'  => WC()->session,
 			'customer' => WC()->customer,
 			'cart'     => WC()->cart,
-			'loaded'   => $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] ?? null,
-			'totals'   => $GLOBALS['wp_actions']['woocommerce_after_calculate_totals'] ?? null,
+			'loaded'   => $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] ?? null,
+			'totals'   => $GLOBALS['wp_actions']['poocommerce_after_calculate_totals'] ?? null,
 		);
 	}
 
@@ -68,8 +68,8 @@ abstract class UcpCartTestCase extends ControllerTestCase {
 		WC()->customer = $this->wc_globals_backup['customer'];
 		WC()->cart     = $this->wc_globals_backup['cart'];
 		$markers       = array(
-			'woocommerce_load_cart_from_session' => 'loaded',
-			'woocommerce_after_calculate_totals' => 'totals',
+			'poocommerce_load_cart_from_session' => 'loaded',
+			'poocommerce_after_calculate_totals' => 'totals',
 		);
 		foreach ( $markers as $action => $key ) {
 			if ( null === $this->wc_globals_backup[ $key ] ) {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
 
 /**
  * Tests for WPCacheEngine.

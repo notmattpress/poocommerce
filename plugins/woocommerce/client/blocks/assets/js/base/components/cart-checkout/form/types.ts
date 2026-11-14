@@ -8,7 +8,7 @@ import type {
 	AddressForm,
 	ContactFormValues,
 	OrderFormValues,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
 /**
  * Internal dependencies

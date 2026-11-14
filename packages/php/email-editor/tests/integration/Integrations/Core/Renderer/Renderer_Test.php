@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer;
 use WP_Post;
 
 /**
@@ -296,7 +296,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 	 */
 	public function testItLeavesOutSitePaletteColorsEmailClientsCannotRender(): void {
 		add_filter(
-			'woocommerce_email_editor_site_theme',
+			'poocommerce_email_editor_site_theme',
 			static function () {
 				return new \WP_Theme_JSON(
 					array(
@@ -351,7 +351,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 	 */
 	public function testItKeepsSiteColorsThatPointAtAPaletteColor(): void {
 		add_filter(
-			'woocommerce_email_editor_site_theme',
+			'poocommerce_email_editor_site_theme',
 			static function () {
 				return new \WP_Theme_JSON(
 					array(

@@ -3,26 +3,26 @@
  */
 import { render, screen } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
  */
 import CheckoutExpressPayment from '../checkout-express-payment';
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	checkoutStore: 'wc/store/checkout',
 	paymentStore: 'wc/store/payment',
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	useEditorContext: jest.fn(),
 	noticeContexts: {
 		EXPRESS_PAYMENTS: 'wc/express-payment',
 	},
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	StoreNoticesContainer: jest.fn( ( { context } ) => (
 		<div data-testid="notices" data-context={ context }>
 			Store Notices
@@ -41,7 +41,7 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	CURRENT_USER_IS_ADMIN: true,
 } ) );
 

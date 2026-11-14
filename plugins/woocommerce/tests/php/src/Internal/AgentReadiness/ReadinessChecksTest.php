@@ -1,21 +1,21 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\DuplicateGtinCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\ImageTooSmallCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingBrandCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingGtinCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\MissingRegularPriceCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\SimpleCheck;
-use Automattic\WooCommerce\Internal\AgentReadiness\FeedChannels;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFields;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessRule;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\DuplicateGtinCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\ImageTooSmallCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingBrandCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingGtinCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\MissingRegularPriceCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\SimpleCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\FeedChannels;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFields;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessRule;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -131,7 +131,7 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 		$this->assertSame( 1, $checks['image_alt_text']['count'] );
 
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) {
 				unset( $rules['image_alt_text'] );
 				return $rules;
@@ -165,7 +165,7 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A brand set only in Google for WooCommerce still fails, but no longer counts against Google.
+	 * @testdox A brand set only in Google for PooCommerce still fails, but no longer counts against Google.
 	 */
 	public function test_missing_brand_with_google_feed_brand(): void {
 		$sut     = new MissingBrandCheck();
@@ -173,7 +173,7 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 		$product->update_meta_data( '_wc_gla_brand', 'Acme' );
 		$product->save();
 
-		$this->assertTrue( $sut->fails( $product, $this->scan ), 'ChatGPT and Copilot do not read the Google for WooCommerce brand' );
+		$this->assertTrue( $sut->fails( $product, $this->scan ), 'ChatGPT and Copilot do not read the Google for PooCommerce brand' );
 		$channels = $sut->channels_for( $product, $sut->channels() );
 		$this->assertArrayNotHasKey( FeedChannels::GOOGLE, $channels );
 		$this->assertArrayHasKey( FeedChannels::CHATGPT, $channels );
@@ -239,7 +239,7 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 		$branded = wc_get_product( $branded->get_id() );
 		$branded->update_meta_data( '_wc_gla_mpn', 'AC-200' );
 		$branded->save();
-		$this->assertArrayNotHasKey( FeedChannels::GOOGLE, $sut->channels_for( $branded, $sut->channels() ), 'A WooCommerce Brands brand counts too' );
+		$this->assertArrayNotHasKey( FeedChannels::GOOGLE, $sut->channels_for( $branded, $sut->channels() ), 'A PooCommerce Brands brand counts too' );
 	}
 
 	/**
@@ -447,10 +447,10 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 		$sut->init( new ComingSoonHelper() );
 		$ok = static fn(): array => array_intersect_key( array_column( $sut->all(), 'ok', 'id' ), array_flip( array( 'launched', 'search_visible', 'ucp_on', 'guest_checkout' ) ) );
 
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		update_option( 'blog_public', '1' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 		$this->assertSame(
 			array(
 				'launched'       => true,
@@ -461,11 +461,11 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 			$ok()
 		);
 
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 		update_option( 'blog_public', '0' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 		$this->assertSame(
 			array(
 				'launched'       => false,
@@ -476,10 +476,10 @@ class ReadinessChecksTest extends WC_Unit_Test_Case {
 			$ok()
 		);
 
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		add_filter( 'woocommerce_checkout_registration_required', '__return_true' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		add_filter( 'poocommerce_checkout_registration_required', '__return_true' );
 		$guest_checkout = array_column( $sut->all(), 'ok', 'id' )['guest_checkout'];
-		remove_filter( 'woocommerce_checkout_registration_required', '__return_true' );
+		remove_filter( 'poocommerce_checkout_registration_required', '__return_true' );
 		$this->assertFalse( $guest_checkout, 'An extension that requires registration should fail the check' );
 
 		$this->assertSame(

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -89,7 +89,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	private function serve( array $checks ): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -119,7 +119,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 		$output_checks = new StoreOutputChecks();
 		$output_checks->init( new ComingSoonHelper() );
 		$agent_readiness = new AgentReadiness();
-		$agent_readiness->init( $store_conditions, $output_checks, $this->sut, wc_get_container()->get( \Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ) );
+		$agent_readiness->init( $store_conditions, $output_checks, $this->sut, wc_get_container()->get( \Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ) );
 		return $agent_readiness;
 	}
 
@@ -127,7 +127,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 * @testdox With no URL set nothing is fetched and the bundled rules apply.
 	 */
 	public function test_no_url_makes_no_request(): void {
-		add_filter( 'woocommerce_agent_readiness_rules_url', '__return_empty_string' );
+		add_filter( 'poocommerce_agent_readiness_rules_url', '__return_empty_string' );
 		$this->assertFalse( $this->sut->refresh() );
 		$this->assertSame( array(), $this->requests );
 		$this->assertSame( array(), $this->sut->channel_rules() );
@@ -278,7 +278,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_failed_fetch_with_no_copy_uses_bundled_checks(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -348,7 +348,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_network_error_uses_bundled_checks(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -398,7 +398,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 		$this->sut->refresh();
 		$seen = array();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) use ( &$seen ) {
 				$seen = $rules;
 

@@ -8,18 +8,18 @@ import type {
 	PaymentsProviderOnboardingState,
 	PluginData,
 	PaymentsProviderType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { PaymentGatewayListItem } from '../payment-gateway-list-item';
 
-// Define the enum value directly to avoid importing from @woocommerce/data.
+// Define the enum value directly to avoid importing from @poocommerce/data.
 const PaymentsProviderTypeGateway = 'gateway' as const;
 
 // Mock dependencies.
-jest.mock( '@woocommerce/onboarding', () => ( {
+jest.mock( '@poocommerce/onboarding', () => ( {
 	WooPaymentsMethodsLogos: () => <div>WooPaymentsMethodsLogos</div>,
 } ) );
 
@@ -112,7 +112,7 @@ jest.mock( '@wordpress/components', () => ( {
 } ) );
 
 jest.mock( '~/utils/admin-settings', () => ( {
-	WC_ASSET_URL: 'https://localhost/wp-content/plugins/woocommerce/assets/',
+	WC_ASSET_URL: 'https://localhost/wp-content/plugins/poocommerce/assets/',
 } ) );
 
 // Helper function to create a mock gateway.
@@ -205,10 +205,10 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const content = container.querySelector(
-				'.woocommerce-list__item-content'
+				'.poocommerce-list__item-content'
 			);
 			expect( content ).toBeInTheDocument();
-			expect( content ).toHaveClass( 'woocommerce-list__item-content' );
+			expect( content ).toHaveClass( 'poocommerce-list__item-content' );
 		} );
 
 		it( 'renders the gateway icon', () => {
@@ -223,7 +223,7 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const icon = container.querySelector(
-				'.woocommerce-list__item-image'
+				'.poocommerce-list__item-image'
 			);
 			expect( icon ).toHaveAttribute(
 				'src',
@@ -242,17 +242,17 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 			expect( item ).not.toHaveClass(
-				'woocommerce-item__woocommerce-payments'
+				'poocommerce-item__poocommerce-payments'
 			);
 		} );
 
 		it( 'applies WooPayments CSS class for WooPayments gateway', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 			} );
 			const { container } = render(
 				<PaymentGatewayListItem
@@ -262,10 +262,10 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toHaveClass(
-				'woocommerce-item__woocommerce-payments'
+				'poocommerce-item__poocommerce-payments'
 			);
 		} );
 
@@ -295,7 +295,7 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toHaveClass( 'has-incentive' );
 		} );
@@ -646,14 +646,14 @@ describe( 'PaymentGatewayListItem', () => {
 		};
 
 		const setIncompatibleGatewayIds = ( ids: string[] ) => {
-			window.wcSettings.admin.woocommerce_checkout_block_compatibility = {
+			window.wcSettings.admin.poocommerce_checkout_block_compatibility = {
 				incompatible_gateway_ids: ids,
 			};
 		};
 
 		afterEach( () => {
 			delete window.wcSettings.admin
-				.woocommerce_checkout_block_compatibility;
+				.poocommerce_checkout_block_compatibility;
 		} );
 
 		it( 'shows the badge when an enabled gateway is incompatible', () => {
@@ -710,7 +710,7 @@ describe( 'PaymentGatewayListItem', () => {
 				getByRole( 'link', { name: /Learn more/ } )
 			).toHaveAttribute(
 				'href',
-				'https://woocommerce.com/document/woocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions'
+				'https://poocommerce.com/document/poocommerce-store-editing/customizing-cart-and-checkout/#incompatible-extensions'
 			);
 		} );
 
@@ -808,12 +808,12 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const recurringIcon = container.querySelector(
-				'.woocommerce-list__item-recurring-payments-icon'
+				'.poocommerce-list__item-recurring-payments-icon'
 			);
 			expect( recurringIcon ).toBeInTheDocument();
 			expect( recurringIcon ).toHaveAttribute(
 				'src',
-				'https://localhost/wp-content/plugins/woocommerce/assets/images/icons/recurring-payments.svg'
+				'https://localhost/wp-content/plugins/poocommerce/assets/images/icons/recurring-payments.svg'
 			);
 		} );
 
@@ -829,7 +829,7 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const recurringIcon = container.querySelector(
-				'.woocommerce-list__item-recurring-payments-icon'
+				'.poocommerce-list__item-recurring-payments-icon'
 			);
 			expect( recurringIcon ).not.toBeInTheDocument();
 		} );
@@ -838,7 +838,7 @@ describe( 'PaymentGatewayListItem', () => {
 	describe( 'WooPayments Specific Rendering', () => {
 		it( 'renders WooPaymentsMethodsLogos for WooPayments gateway', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 			} );
 			const { getByText } = render(
 				<PaymentGatewayListItem
@@ -1020,7 +1020,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 		it( 'shows ActivatePaymentsButton for WooPayments in test mode (not dev mode)', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 				state: {
 					enabled: true,
 					account_connected: true,
@@ -1059,7 +1059,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 		it( 'does not show ActivatePaymentsButton for WooPayments in dev mode', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 				state: {
 					enabled: true,
 					account_connected: true,
@@ -1097,7 +1097,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 		it( 'shows ReactivateLivePaymentsButton for WooPayments when test mode enabled after live account setup', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 				state: {
 					enabled: true,
 					account_connected: true,
@@ -1135,7 +1135,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 		it( 'does not show ReactivateLivePaymentsButton in dev mode', () => {
 			const gateway = createMockGateway( {
-				id: 'woocommerce_payments',
+				id: 'poocommerce_payments',
 				state: {
 					enabled: true,
 					account_connected: true,
@@ -1258,7 +1258,7 @@ describe( 'PaymentGatewayListItem', () => {
 			);
 
 			const icon = container.querySelector(
-				'.woocommerce-list__item-image'
+				'.poocommerce-list__item-image'
 			);
 			// Component should handle missing icon without crashing.
 			expect( icon ).not.toBeInTheDocument();
@@ -1277,7 +1277,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should render without crashing when description is missing.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 		} );
@@ -1342,7 +1342,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should render without crashing when messages are null.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 		} );
@@ -1360,7 +1360,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Recurring payments icon should not be shown.
 			const recurringIcon = container.querySelector(
-				'.woocommerce-list__item-recurring-payments-icon'
+				'.poocommerce-list__item-recurring-payments-icon'
 			);
 			expect( recurringIcon ).not.toBeInTheDocument();
 		} );
@@ -1378,7 +1378,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should render without crashing when supports is undefined.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 		} );
@@ -1402,7 +1402,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should prioritize status determination without crashing.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 		} );
@@ -1424,7 +1424,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should render without crashing when state is undefined.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 
@@ -1456,7 +1456,7 @@ describe( 'PaymentGatewayListItem', () => {
 
 			// Component should render without crashing when entire onboarding object is undefined.
 			const item = container.querySelector(
-				'.woocommerce-item__payment-gateway'
+				'.poocommerce-item__payment-gateway'
 			);
 			expect( item ).toBeInTheDocument();
 

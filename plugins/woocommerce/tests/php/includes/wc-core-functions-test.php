@@ -2,7 +2,7 @@
 /**
  * Core functions tests
  *
- * @package WooCommerce\Tests\Functions.
+ * @package PooCommerce\Tests\Functions.
  */
 
 /**
@@ -20,15 +20,15 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		$fixtures_dir          = WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/';
 		$controller            = WP_Translation_Controller::get_instance();
 		$original_locale       = $controller->get_locale();
-		$original_path         = $wp_textdomain_registry->get( 'woocommerce', $site_locale );
-		$original_translations = $l10n['woocommerce'] ?? null;
-		$request_file          = trailingslashit( get_temp_dir() ) . wp_unique_filename( get_temp_dir(), 'woocommerce-request-translations.mo' );
+		$original_path         = $wp_textdomain_registry->get( 'poocommerce', $site_locale );
+		$original_translations = $l10n['poocommerce'] ?? null;
+		$request_file          = trailingslashit( get_temp_dir() ) . wp_unique_filename( get_temp_dir(), 'poocommerce-request-translations.mo' );
 
-		delete_option( 'woocommerce_permalinks' );
+		delete_option( 'poocommerce_permalinks' );
 		add_filter( 'pre_option_WPLANG', static fn() => $site_locale );
 		add_filter( 'pre_determine_locale', static fn() => 'en_US' );
-		add_filter( 'lang_dir_for_domain', static fn( $path, $domain, $locale ) => 'woocommerce' === $domain && $site_locale === $locale ? $fixtures_dir : $path, 10, 3 );
-		add_filter( 'load_translation_file', static fn( $file, $domain, $locale ) => 'woocommerce' === $domain && $site_locale === $locale ? $fixtures_dir . 'permalink-translations.php' : $file, 10, 3 );
+		add_filter( 'lang_dir_for_domain', static fn( $path, $domain, $locale ) => 'poocommerce' === $domain && $site_locale === $locale ? $fixtures_dir : $path, 10, 3 );
+		add_filter( 'load_translation_file', static fn( $file, $domain, $locale ) => 'poocommerce' === $domain && $site_locale === $locale ? $fixtures_dir . 'permalink-translations.php' : $file, 10, 3 );
 
 		try {
 			$request_translations = new MO();
@@ -41,10 +41,10 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 			);
 			$this->assertTrue( $request_translations->export_to_file( $request_file ) );
 			$this->assertTrue( $request_translations->import_from_file( $request_file ) );
-			$l10n['woocommerce'] = $request_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate a request-locale catalog with a file core could reload.
+			$l10n['poocommerce'] = $request_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate a request-locale catalog with a file core could reload.
 
 			$permalinks = wc_get_permalink_structure();
-			$persisted  = get_option( 'woocommerce_permalinks' );
+			$persisted  = get_option( 'poocommerce_permalinks' );
 			$expected   = array(
 				'product_base'  => 'site-product',
 				'category_base' => 'site-product-category',
@@ -54,18 +54,18 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 				$this->assertSame( $slug, $permalinks[ $key ] );
 				$this->assertSame( $slug, $persisted[ $key ] );
 			}
-			$this->assertSame( $request_translations, $l10n['woocommerce'] );
+			$this->assertSame( $request_translations, $l10n['poocommerce'] );
 			$this->assertSame( $original_locale, $controller->get_locale() );
 			$this->assertSame( 'en_US', determine_locale() );
 		} finally {
-			$controller->unload_textdomain( 'woocommerce', $site_locale );
+			$controller->unload_textdomain( 'poocommerce', $site_locale );
 			$controller->set_locale( $original_locale );
-			$wp_textdomain_registry->set( 'woocommerce', $site_locale, $original_path );
+			$wp_textdomain_registry->set( 'poocommerce', $site_locale, $original_path );
 			wp_delete_file( $request_file );
 			if ( null === $original_translations ) {
-				unset( $l10n['woocommerce'] );
+				unset( $l10n['poocommerce'] );
 			} else {
-				$l10n['woocommerce'] = $original_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original translations.
+				$l10n['poocommerce'] = $original_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original translations.
 			}
 		}
 	}
@@ -75,7 +75,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_permalink_structure_preserves_existing_bases(): void {
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'  => 'custom-product',
 				'category_base' => 'custom-product-category',
@@ -100,17 +100,17 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		global $l10n, $l10n_unloaded, $wp_textdomain_registry;
 
 		$locale                = 'wc_LOADER';
-		$previous_path         = $wp_textdomain_registry->get( 'woocommerce', $locale );
-		$previous_translations = $l10n['woocommerce'] ?? null;
-		$previous_unloaded     = $l10n_unloaded['woocommerce'] ?? null;
+		$previous_path         = $wp_textdomain_registry->get( 'poocommerce', $locale );
+		$previous_translations = $l10n['poocommerce'] ?? null;
+		$previous_unloaded     = $l10n_unloaded['poocommerce'] ?? null;
 		$previous_locale       = WP_Translation_Controller::get_instance()->get_locale();
-		$wp_textdomain_registry->set( 'woocommerce', $locale, WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
+		$wp_textdomain_registry->set( 'poocommerce', $locale, WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
 		add_filter( 'pre_option_WPLANG', static fn() => $locale );
 		add_filter( 'pre_determine_locale', static fn() => 'en_US' );
 		add_filter(
 			$hook,
 			static function ( $override, $domain ) use ( $locale ) {
-				if ( 'woocommerce' === $domain ) {
+				if ( 'poocommerce' === $domain ) {
 					$catalog = new \MO();
 					$catalog->add_entry(
 						array(
@@ -127,21 +127,21 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 			10,
 			2
 		);
-		delete_option( 'woocommerce_permalinks' );
-		$l10n_unloaded['woocommerce'] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Model a request that disabled just-in-time loading.
+		delete_option( 'poocommerce_permalinks' );
+		$l10n_unloaded['poocommerce'] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Model a request that disabled just-in-time loading.
 
 		try {
 			wc_get_permalink_structure();
-			$this->assertSame( 'loader-product', get_option( 'woocommerce_permalinks' )['product_base'] );
-			$this->assertSame( $previous_translations, $l10n['woocommerce'] ?? null, 'Restore the request catalog.' );
+			$this->assertSame( 'loader-product', get_option( 'poocommerce_permalinks' )['product_base'] );
+			$this->assertSame( $previous_translations, $l10n['poocommerce'] ?? null, 'Restore the request catalog.' );
 			$this->assertSame( $previous_locale, WP_Translation_Controller::get_instance()->get_locale() );
-			$this->assertTrue( $l10n_unloaded['woocommerce'] ?? false, 'Preserve the request decision to disable just-in-time loading.' );
+			$this->assertTrue( $l10n_unloaded['poocommerce'] ?? false, 'Preserve the request decision to disable just-in-time loading.' );
 		} finally {
-			$wp_textdomain_registry->set( 'woocommerce', $locale, $previous_path );
+			$wp_textdomain_registry->set( 'poocommerce', $locale, $previous_path );
 			if ( null === $previous_unloaded ) {
-				unset( $l10n_unloaded['woocommerce'] );
+				unset( $l10n_unloaded['poocommerce'] );
 			} else {
-				$l10n_unloaded['woocommerce'] = $previous_unloaded; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original marker.
+				$l10n_unloaded['poocommerce'] = $previous_unloaded; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the test's original marker.
 			}
 		}
 	}
@@ -161,12 +161,12 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		add_filter( 'pre_determine_locale', static fn() => $request_locale );
 		add_filter(
 			'gettext_with_context',
-			static fn( $translation, $text, $context, $domain ) => 'woocommerce' === $domain && 'slug' === $context ? ( $slugs[ $text ] ?? $translation ) : $translation,
+			static fn( $translation, $text, $context, $domain ) => 'poocommerce' === $domain && 'slug' === $context ? ( $slugs[ $text ] ?? $translation ) : $translation,
 			10,
 			4
 		);
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'  => 'waren',
 				'category_base' => '',
@@ -175,7 +175,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		);
 
 		wc_get_permalink_structure();
-		$permalinks = get_option( 'woocommerce_permalinks' );
+		$permalinks = get_option( 'poocommerce_permalinks' );
 
 		$this->assertSame( 'waren', $permalinks['product_base'], 'A stored base should be left alone.' );
 		$this->assertSame( 'waren-kategorie', $permalinks['category_base'], 'The filtered category slug should be stored.' );
@@ -189,14 +189,14 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		global $wp_textdomain_registry;
 
 		$loader_calls  = 0;
-		$previous_path = $wp_textdomain_registry->get( 'woocommerce', 'wc_LOADER' );
-		$wp_textdomain_registry->set( 'woocommerce', 'wc_LOADER', WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
+		$previous_path = $wp_textdomain_registry->get( 'poocommerce', 'wc_LOADER' );
+		$wp_textdomain_registry->set( 'poocommerce', 'wc_LOADER', WC_ABSPATH . 'tests/php/src/Internal/Utilities/fixtures/' );
 		add_filter( 'pre_option_WPLANG', static fn() => 'wc_LOADER' );
 		add_filter( 'pre_determine_locale', static fn() => 'en_US' );
 		add_filter(
 			'pre_load_textdomain',
 			static function ( $override, $domain ) use ( &$loader_calls ) {
-				if ( 'woocommerce' === $domain ) {
+				if ( 'poocommerce' === $domain ) {
 					++$loader_calls;
 					if ( $loader_calls > 10 ) {
 						throw new \RuntimeException( 'The translation loader re-entered the slug lookup.' );
@@ -208,12 +208,12 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 			10,
 			2
 		);
-		delete_option( 'woocommerce_permalinks' );
+		delete_option( 'poocommerce_permalinks' );
 
 		try {
 			$permalinks = wc_get_permalink_structure();
 		} finally {
-			$wp_textdomain_registry->set( 'woocommerce', 'wc_LOADER', $previous_path );
+			$wp_textdomain_registry->set( 'poocommerce', 'wc_LOADER', $previous_path );
 		}
 
 		$this->assertSame( 'product', $permalinks['product_base'], 'The lookup should finish with the untranslated slug.' );
@@ -245,7 +245,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_shop_page_id', $shop_page_id );
+		update_option( 'poocommerce_shop_page_id', $shop_page_id );
 
 		return $shop_page_id;
 	}
@@ -265,7 +265,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_fix_rewrite_rules_derives_shop_subpage_rules_from_paths( string $product_base, bool $expected ): void {
 		$this->create_shop_page_tree();
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'           => $product_base,
 				'use_verbose_page_rules' => ! $expected,
@@ -300,7 +300,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 
 		$product_base = 'encoded' === $product_base_form ? $shop_uri : rawurldecode( $shop_uri );
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'           => '/' . $product_base . '/%product_cat%',
 				'use_verbose_page_rules' => false,
@@ -332,7 +332,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		);
 		$shop_page_id    = $this->create_shop_page_tree();
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'           => '/catalog/shop',
 				'use_verbose_page_rules' => false,
@@ -361,9 +361,9 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 	public function test_wc_fix_rewrite_rules_preserves_filtered_shop_page_rules(): void {
 		$configured_shop_page_id = $this->create_shop_page_tree();
 		$filtered_shop_page_id   = $this->create_shop_page_tree( 0, 'boutique' );
-		update_option( 'woocommerce_shop_page_id', $configured_shop_page_id );
+		update_option( 'poocommerce_shop_page_id', $configured_shop_page_id );
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'           => '/shop/%product_cat%',
 				'use_verbose_page_rules' => true,
@@ -373,12 +373,12 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		$filter_shop_page_id = static function () use ( $filtered_shop_page_id ) {
 			return $filtered_shop_page_id;
 		};
-		add_filter( 'woocommerce_get_shop_page_id', $filter_shop_page_id );
+		add_filter( 'poocommerce_get_shop_page_id', $filter_shop_page_id );
 
 		try {
 			$rules = wc_fix_rewrite_rules( array() );
 		} finally {
-			remove_filter( 'woocommerce_get_shop_page_id', $filter_shop_page_id );
+			remove_filter( 'poocommerce_get_shop_page_id', $filter_shop_page_id );
 		}
 
 		$this->assertSame( 'index.php?pagename=boutique/sale', $rules['boutique/sale/?$'] );
@@ -387,10 +387,10 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Shop subpage rules follow the persisted base despite language filters.
 	 * @testWith ["", "shop", false]
-	 *           ["woocommerce_get_shop_page_id", "shop", true]
-	 *           ["option_woocommerce_shop_page_id", "shop", true]
-	 *           ["woocommerce_get_shop_page_id", "boutique", false]
-	 *           ["option_woocommerce_shop_page_id", "boutique", false]
+	 *           ["poocommerce_get_shop_page_id", "shop", true]
+	 *           ["option_poocommerce_shop_page_id", "shop", true]
+	 *           ["poocommerce_get_shop_page_id", "boutique", false]
+	 *           ["option_poocommerce_shop_page_id", "boutique", false]
 	 *
 	 * @param string $shop_filter       Filter translating the Shop page ID.
 	 * @param string $base              Persisted product base.
@@ -402,8 +402,8 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 			'boutique' => $this->create_shop_page_tree( 0, 'boutique' ),
 		);
 		$this->create_shop_page_tree( $shop_ids[ $base ], 'collection' );
-		update_option( 'woocommerce_shop_page_id', $shop_ids['shop'] );
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/' . $base . '/%product_cat%' ) );
+		update_option( 'poocommerce_shop_page_id', $shop_ids['shop'] );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/' . $base . '/%product_cat%' ) );
 
 		if ( '' !== $shop_filter ) {
 			add_filter( $shop_filter, static fn() => $shop_ids['boutique'] );
@@ -438,8 +438,8 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
-		add_filter( 'option_woocommerce_shop_page_id', static fn() => $translated_shop_page_id );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop/%product_cat%' ) );
+		add_filter( 'option_poocommerce_shop_page_id', static fn() => $translated_shop_page_id );
 
 		$this->assertSame( 'shop', get_page_uri( $translated_shop_page_id ), 'The translated Shop should share the stored Shop slug.' );
 		$rules = wc_fix_rewrite_rules( array() );
@@ -461,7 +461,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 				'post_status' => 'wc_hidden',
 			)
 		);
-		update_option( 'woocommerce_permalinks', array( 'product_base' => '/shop' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => '/shop' ) );
 
 		try {
 			$rules = wc_fix_rewrite_rules( array() );
@@ -477,8 +477,8 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Editing a child of the stored Shop page flushes rewrite rules even when the Shop page is filtered.
-	 * @testWith ["woocommerce_get_shop_page_id"]
-	 *           ["option_woocommerce_shop_page_id"]
+	 * @testWith ["poocommerce_get_shop_page_id"]
+	 *           ["option_poocommerce_shop_page_id"]
 	 *
 	 * @param string $shop_filter Filter translating the Shop page ID.
 	 */
@@ -499,18 +499,18 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		);
 		$unrelated_id     = self::factory()->post->create( array( 'post_type' => 'page' ) );
 		add_filter( $shop_filter, static fn() => $boutique_page_id );
-		remove_all_actions( 'woocommerce_flush_rewrite_rules' );
-		$flushes_before = did_action( 'woocommerce_flush_rewrite_rules' );
+		remove_all_actions( 'poocommerce_flush_rewrite_rules' );
+		$flushes_before = did_action( 'poocommerce_flush_rewrite_rules' );
 		set_current_screen( 'page' );
 		$_GET['action'] = 'edit';
 
 		$_GET['post'] = $unrelated_id;
 		flush_rewrite_rules_on_shop_page_save();
-		$this->assertSame( $flushes_before, did_action( 'woocommerce_flush_rewrite_rules' ), 'An unrelated page should not flush rewrite rules.' );
+		$this->assertSame( $flushes_before, did_action( 'poocommerce_flush_rewrite_rules' ), 'An unrelated page should not flush rewrite rules.' );
 
 		$_GET['post'] = $grandchild_id;
 		flush_rewrite_rules_on_shop_page_save();
-		$this->assertSame( $flushes_before + 1, did_action( 'woocommerce_flush_rewrite_rules' ), 'A descendant of the stored Shop page should flush rewrite rules.' );
+		$this->assertSame( $flushes_before + 1, did_action( 'poocommerce_flush_rewrite_rules' ), 'A descendant of the stored Shop page should flush rewrite rules.' );
 	}
 
 	/**
@@ -635,7 +635,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 	 * Test wc_help_tip() function.
 	 */
 	public function test_wc_help_tip_strips_html() {
-		$expected = '<span class="woocommerce-help-tip" tabindex="0" aria-label="Strong text regular text" data-tip="&lt;strong&gt;Strong text&lt;/strong&gt; regular text"></span>';
+		$expected = '<span class="poocommerce-help-tip" tabindex="0" aria-label="Strong text regular text" data-tip="&lt;strong&gt;Strong text&lt;/strong&gt; regular text"></span>';
 		$this->assertEquals( $expected, wc_help_tip( '<strong>Strong text</strong> regular text', false ) );
 		$this->assertEquals( $expected, wc_help_tip( '<strong>Strong text</strong> regular text', true ) );
 	}
@@ -647,62 +647,62 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		/**
 		 * Test with none of the options set. In this case the location should be empty.
 		 *
-		 * woocommerce_default_country is set to 'US:CA' by default unless it was defined during setup.
+		 * poocommerce_default_country is set to 'US:CA' by default unless it was defined during setup.
 		 */
-		delete_option( 'woocommerce_default_customer_address' );
-		delete_option( 'woocommerce_default_country' );
-		delete_option( 'woocommerce_allowed_countries' );
-		delete_option( 'woocommerce_specific_allowed_countries' );
+		delete_option( 'poocommerce_default_customer_address' );
+		delete_option( 'poocommerce_default_country' );
+		delete_option( 'poocommerce_allowed_countries' );
+		delete_option( 'poocommerce_specific_allowed_countries' );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'US', $result['country'] );
 		$this->assertEquals( 'CA', $result['state'] );
 
 		// Test with a default address defined during setup. This country has states.
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_default_country', 'DE:LS' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_default_country', 'DE:LS' );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'DE', $result['country'] );
 		$this->assertEquals( 'LS', $result['state'] );
 
 		// Test with a default address defined during setup. This country has no states.
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_default_country', 'GB' );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'GB', $result['country'] );
 		$this->assertEquals( '', $result['state'] );
 
 		// Test with default address, but specific countries set. Address is allowed.
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_default_country', 'DE:LS' );
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'DE', 'AT', 'CH' ) );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_default_country', 'DE:LS' );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'DE', 'AT', 'CH' ) );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'DE', $result['country'] );
 		$this->assertEquals( 'LS', $result['state'] );
 
 		// Test with default address, but specific countries set. Address is not allowed.
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_default_country', 'DE:LS' );
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'GB' ) );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_default_country', 'DE:LS' );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'GB' ) );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( '', $result['country'] );
 		$this->assertEquals( '', $result['state'] );
 
 		// Test with no default address.
-		update_option( 'woocommerce_default_customer_address', '' );
-		update_option( 'woocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_default_customer_address', '' );
+		update_option( 'poocommerce_default_country', 'GB' );
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( '', $result['country'] );
 		$this->assertEquals( '', $result['state'] );
 
 		// Test with geolocation.
-		update_option( 'woocommerce_default_customer_address', 'geolocation' );
-		update_option( 'woocommerce_default_country', 'GB' );
-		delete_option( 'woocommerce_allowed_countries' );
-		delete_option( 'woocommerce_specific_allowed_countries' );
+		update_option( 'poocommerce_default_customer_address', 'geolocation' );
+		update_option( 'poocommerce_default_country', 'GB' );
+		delete_option( 'poocommerce_allowed_countries' );
+		delete_option( 'poocommerce_specific_allowed_countries' );
 		add_filter(
-			'woocommerce_geolocate_ip',
+			'poocommerce_geolocate_ip',
 			function () {
 				return 'FR';
 			},
@@ -711,15 +711,15 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'FR', $result['country'] );
 		$this->assertEquals( '', $result['state'] );
-		remove_all_filters( 'woocommerce_geolocate_ip' );
+		remove_all_filters( 'poocommerce_geolocate_ip' );
 
 		// Test with geolocation but geolocated country is not allowed.
-		update_option( 'woocommerce_default_customer_address', 'geolocation' );
-		update_option( 'woocommerce_default_country', 'GB' );
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'GB' ) );
+		update_option( 'poocommerce_default_customer_address', 'geolocation' );
+		update_option( 'poocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'GB' ) );
 		add_filter(
-			'woocommerce_geolocate_ip',
+			'poocommerce_geolocate_ip',
 			function () {
 				return 'FR';
 			},
@@ -728,7 +728,7 @@ class WC_Core_Functions_Test extends \WC_Unit_Test_Case {
 		$result = wc_get_customer_default_location();
 		$this->assertEquals( 'GB', $result['country'] );
 		$this->assertEquals( '', $result['state'] );
-		remove_all_filters( 'woocommerce_geolocate_ip' );
+		remove_all_filters( 'poocommerce_geolocate_ip' );
 	}
 
 	/**

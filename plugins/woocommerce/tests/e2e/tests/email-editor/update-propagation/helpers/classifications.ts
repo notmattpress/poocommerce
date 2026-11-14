@@ -2,7 +2,7 @@
  * Shared constants for the update-propagation E2E suite.
  *
  * Mirror the PHP-side meta keys and status values from
- * Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector.
+ * Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector.
  */
 
 export const STATUS = {

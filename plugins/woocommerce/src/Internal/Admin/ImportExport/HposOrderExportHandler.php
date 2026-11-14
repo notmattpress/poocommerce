@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport;
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
 use WC_Order;
 use WC_Order_Factory;
 
@@ -116,7 +116,7 @@ class HposOrderExportHandler {
 		$filename = $sitename . 'WordPress.' . $date . '.xml';
 
 		/** This filter is documented in wp-admin/includes/export.php. */
-		$filtered_filename = apply_filters( 'export_wp_filename', $filename, $sitename, $date ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
+		$filtered_filename = apply_filters( 'export_wp_filename', $filename, $sitename, $date ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
 		$filename          = is_string( $filtered_filename ) && '' !== $filtered_filename ? $filtered_filename : $filename;
 
 		// Stream instead of holding the export in memory, and keep earlier output out of the file.
@@ -165,7 +165,7 @@ class HposOrderExportHandler {
 		);
 
 		/** This action is documented in wp-includes/feed-rss2.php. */
-		do_action( 'rss2_head' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core action.
+		do_action( 'rss2_head' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core action.
 
 		$table      = OrdersTableDataStore::get_orders_table_name();
 		$last_id    = 0;
@@ -310,7 +310,7 @@ class HposOrderExportHandler {
 		);
 		$title        = 'Order #' . $order_id;
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment, WooCommerce.Commenting.CommentHooks.MissingSinceComment -- Export filters are documented in wp-admin/includes/export.php.
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment, PooCommerce.Commenting.CommentHooks.MissingSinceComment -- Export filters are documented in wp-admin/includes/export.php.
 		echo "<item>\n";
 		self::write_fields(
 			array(
@@ -339,7 +339,7 @@ class HposOrderExportHandler {
 				'wp:is_sticky'         => 0,
 			)
 		);
-		// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment, WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment, PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		foreach ( $terms as $term ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape_xml_text() escapes XML text.
@@ -380,7 +380,7 @@ class HposOrderExportHandler {
 			);
 			foreach ( $note_meta[ (int) $note->comment_ID ] ?? array() as $meta ) {
 				/** This filter is documented in wp-admin/includes/export.php. */
-				if ( ! apply_filters( 'wxr_export_skip_commentmeta', false, $meta->meta_key, $meta ) ) { // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
+				if ( ! apply_filters( 'wxr_export_skip_commentmeta', false, $meta->meta_key, $meta ) ) { // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
 					self::write_meta( 'commentmeta', $meta->meta_key, $meta->meta_value );
 				}
 			}
@@ -450,7 +450,7 @@ class HposOrderExportHandler {
 		);
 
 		/** This filter is documented in wp-admin/includes/export.php. */
-		if ( ! apply_filters( 'wxr_export_skip_postmeta', false, $key, $meta ) ) { // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
+		if ( ! apply_filters( 'wxr_export_skip_postmeta', false, $key, $meta ) ) { // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment -- WordPress core filter.
 			self::write_meta( 'postmeta', $meta->meta_key, $meta->meta_value );
 		}
 	}

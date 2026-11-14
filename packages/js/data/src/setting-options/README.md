@@ -1,12 +1,12 @@
 # Experimental Setting Options Data Store
 
-The setting options data store provides a centralized way to manage WooCommerce settings options, including groups and individual settings. It handles the state management for settings values, unsaved changes, and error states.
+The setting options data store provides a centralized way to manage PooCommerce settings options, including groups and individual settings. It handles the state management for settings values, unsaved changes, and error states.
 
 ## Usage
 
 ```js
 import { useSelect } from '@wordpress/data';
-import { experimentalSettingOptionsStore as settingOptionsStore } from '@woocommerce/data';
+import { experimentalSettingOptionsStore as settingOptionsStore } from '@poocommerce/data';
 
 function MySettingsComponent() {
 	const settings = useSelect( ( select ) => {

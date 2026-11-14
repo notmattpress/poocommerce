@@ -6,7 +6,7 @@ import {
 	hasAllFieldsForShippingRates,
 	formatShippingAddress,
 	isAddressFieldForShippingRates,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 describe( 'isAddressFieldForShippingRates', () => {
 	it.each( [

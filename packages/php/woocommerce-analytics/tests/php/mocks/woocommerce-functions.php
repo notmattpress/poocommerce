@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce function mocks for testing.
+ * PooCommerce function mocks for testing.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 // phpcs:disable WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
@@ -49,7 +49,7 @@ if ( ! function_exists( 'WC' ) ) {
 	/**
 	 * Mock WC function.
 	 *
-	 * @return object Mock WooCommerce object.
+	 * @return object Mock PooCommerce object.
 	 */
 	function WC() {
 		global $wc_cart_mock;
@@ -98,7 +98,7 @@ if ( ! function_exists( 'is_order_received_page' ) ) {
 
 if ( ! function_exists( 'wc_float_to_string' ) ) {
 	/**
-	 * Mock wc_float_to_string function, same as WooCommerce's.
+	 * Mock wc_float_to_string function, same as PooCommerce's.
 	 *
 	 * @param mixed $float Value to format.
 	 * @return mixed A float as a string with a `.` decimal separator; anything else unchanged.

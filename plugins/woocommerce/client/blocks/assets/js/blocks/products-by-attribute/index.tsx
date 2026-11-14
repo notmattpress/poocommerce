@@ -3,7 +3,7 @@
  */
 import { Icon, category } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

@@ -19,7 +19,7 @@ describe( 'transferIssues after a request-level failure', () => {
 				join( import.meta.dirname, 'fixtures/rate-limited-github.mjs' ),
 				join( import.meta.dirname, '../bin/monorepo-merge.mjs' ),
 				'transfer-issues',
-				'woocommerce/example',
+				'poocommerce/example',
 			],
 			{
 				input: 'y\ny\n',
@@ -97,8 +97,8 @@ describe( 'transferIssues dry run', () => {
 			} );
 			const log = t.mock.method( console, 'log', () => {} );
 
-			await transferIssues( 'woocommerce/example', {
-				destination: 'woocommerce/woocommerce',
+			await transferIssues( 'poocommerce/example', {
+				destination: 'poocommerce/poocommerce',
 				searchFilter: 'is:open',
 				labels: 'migrated',
 				dryRun: true,

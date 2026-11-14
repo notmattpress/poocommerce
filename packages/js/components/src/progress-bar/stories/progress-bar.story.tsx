@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProgressBar } from '@woocommerce/components';
+import { ProgressBar } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => (

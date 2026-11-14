@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Tests\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
+use Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
 use WC_Helper_Product;
 use WC_Product_Variation;
 

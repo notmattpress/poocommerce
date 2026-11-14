@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Locator } from '@playwright/test';
-import { test as base, expect, ProductTemplate } from '@woocommerce/e2e-utils';
+import { test as base, expect, ProductTemplate } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { test as base, expect, ProductTemplate } from '@woocommerce/e2e-utils';
 import { ProductGalleryPage } from './product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-gallery',
+	name: 'poocommerce/product-gallery',
 	title: 'Product Gallery',
 };
 
@@ -321,7 +321,7 @@ test.describe( `${ blockData.name }`, () => {
 			await editor.openGlobalBlockInserter();
 			await page.getByRole( 'tab', { name: 'Blocks' } ).click();
 			let productGalleryBlockOption = page
-				.getByRole( 'listbox', { name: 'WooCommerce' } )
+				.getByRole( 'listbox', { name: 'PooCommerce' } )
 				.getByRole( 'option', { name: blockData.title } );
 
 			await expect( productGalleryBlockOption ).toBeVisible();
@@ -329,7 +329,7 @@ test.describe( `${ blockData.name }`, () => {
 			await admin.createNewPost();
 			await editor.openGlobalBlockInserter();
 			productGalleryBlockOption = page
-				.getByRole( 'listbox', { name: 'WooCommerce' } )
+				.getByRole( 'listbox', { name: 'PooCommerce' } )
 				.getByRole( 'option', { name: blockData.title } );
 
 			await expect( productGalleryBlockOption ).toBeHidden();
@@ -342,7 +342,7 @@ test.describe( `${ blockData.name }`, () => {
 				await editor.getBlockByName( blockData.name )
 			).toHaveCount( 1 );
 			const singleProductBlock = await editor.getBlockByName(
-				'woocommerce/single-product'
+				'poocommerce/single-product'
 			);
 			const singleProductClientId =
 				( await singleProductBlock.getAttribute( 'data-block' ) ) ?? '';

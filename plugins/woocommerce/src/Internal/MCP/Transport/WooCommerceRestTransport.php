@@ -1,26 +1,26 @@
 <?php
 /**
- * WooCommerce MCP REST Transport class file.
+ * PooCommerce MCP REST Transport class file.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP\Transport;
+namespace Automattic\PooCommerce\Internal\MCP\Transport;
 
-use Automattic\WooCommerce\Internal\MCP\McpEndpointRemoval;
+use Automattic\PooCommerce\Internal\MCP\McpEndpointRemoval;
 use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Formerly authenticated requests to the WooCommerce MCP endpoint with WooCommerce REST API keys.
+ * Formerly authenticated requests to the PooCommerce MCP endpoint with PooCommerce REST API keys.
  *
  * Kept so existing callers don't fatal. It no longer extends the MCP adapter's HttpTransport, and the
  * methods only report incorrect usage and deny access.
  *
- * @deprecated 11.3.0 The WooCommerce MCP endpoint was removed. Use the MCP Adapter plugin to access WooCommerce abilities over MCP.
+ * @deprecated 11.3.0 The PooCommerce MCP endpoint was removed. Use the MCP Adapter plugin to access PooCommerce abilities over MCP.
  */
-class WooCommerceRestTransport {
+class PooCommerceRestTransport {
 
 	/**
 	 * Constructor.
@@ -35,7 +35,7 @@ class WooCommerceRestTransport {
 	}
 
 	/**
-	 * Formerly checked access to the WooCommerce MCP endpoint.
+	 * Formerly checked access to the PooCommerce MCP endpoint.
 	 *
 	 * @deprecated 11.3.0
 	 *
@@ -49,7 +49,7 @@ class WooCommerceRestTransport {
 	}
 
 	/**
-	 * Formerly validated a request to the WooCommerce MCP endpoint.
+	 * Formerly validated a request to the PooCommerce MCP endpoint.
 	 *
 	 * @deprecated 11.3.0
 	 *
@@ -64,11 +64,11 @@ class WooCommerceRestTransport {
 	}
 
 	/**
-	 * Formerly returned the API key permissions of the current WooCommerce MCP request.
+	 * Formerly returned the API key permissions of the current PooCommerce MCP request.
 	 *
 	 * @deprecated 11.3.0
 	 *
-	 * @return null Always null, since there is no WooCommerce MCP request.
+	 * @return null Always null, since there is no PooCommerce MCP request.
 	 */
 	public static function get_current_user_permissions(): ?string {
 		McpEndpointRemoval::doing_it_wrong( __METHOD__ );
@@ -98,8 +98,8 @@ class WooCommerceRestTransport {
 	 */
 	private static function get_removed_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_mcp_removed',
-			__( 'The WooCommerce MCP endpoint was removed.', 'woocommerce' ),
+			'poocommerce_mcp_removed',
+			__( 'The PooCommerce MCP endpoint was removed.', 'poocommerce' ),
 			array( 'status' => 410 )
 		);
 	}

@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 
 /**
  * Provider for order-related personalization tags.
@@ -23,9 +23,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 	public function register_tags( Personalization_Tags_Registry $registry ): void {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Number', 'woocommerce' ),
-				'woocommerce/order-number',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Number', 'poocommerce' ),
+				'poocommerce/order-number',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -40,9 +40,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Date', 'woocommerce' ),
-				'woocommerce/order-date',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Date', 'poocommerce' ),
+				'poocommerce/order-date',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context, array $parameters = array() ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -65,9 +65,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Items', 'woocommerce' ),
-				'woocommerce/order-items',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Items', 'poocommerce' ),
+				'poocommerce/order-items',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -86,9 +86,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Subtotal', 'woocommerce' ),
-				'woocommerce/order-subtotal',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Subtotal', 'poocommerce' ),
+				'poocommerce/order-subtotal',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -103,9 +103,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Tax', 'woocommerce' ),
-				'woocommerce/order-tax',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Tax', 'poocommerce' ),
+				'poocommerce/order-tax',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -120,9 +120,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Discount', 'woocommerce' ),
-				'woocommerce/order-discount',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Discount', 'poocommerce' ),
+				'poocommerce/order-discount',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -137,9 +137,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Shipping', 'woocommerce' ),
-				'woocommerce/order-shipping',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Shipping', 'poocommerce' ),
+				'poocommerce/order-shipping',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -154,9 +154,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Total', 'woocommerce' ),
-				'woocommerce/order-total',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Total', 'poocommerce' ),
+				'poocommerce/order-total',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -171,9 +171,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Payment Method', 'woocommerce' ),
-				'woocommerce/order-payment-method',
-				__( 'Order', 'woocommerce' ),
+				__( 'Payment Method', 'poocommerce' ),
+				'poocommerce/order-payment-method',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -188,9 +188,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Payment URL', 'woocommerce' ),
-				'woocommerce/order-payment-url',
-				__( 'Order', 'woocommerce' ),
+				__( 'Payment URL', 'poocommerce' ),
+				'poocommerce/order-payment-url',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -205,9 +205,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Transaction ID', 'woocommerce' ),
-				'woocommerce/order-transaction-id',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Transaction ID', 'poocommerce' ),
+				'poocommerce/order-transaction-id',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -222,9 +222,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Shipping Method', 'woocommerce' ),
-				'woocommerce/order-shipping-method',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Shipping Method', 'poocommerce' ),
+				'poocommerce/order-shipping-method',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -239,9 +239,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Shipping Address', 'woocommerce' ),
-				'woocommerce/order-shipping-address',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Shipping Address', 'poocommerce' ),
+				'poocommerce/order-shipping-address',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -256,9 +256,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Billing Address', 'woocommerce' ),
-				'woocommerce/order-billing-address',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Billing Address', 'poocommerce' ),
+				'poocommerce/order-billing-address',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -273,9 +273,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order View URL', 'woocommerce' ),
-				'woocommerce/order-view-url',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order View URL', 'poocommerce' ),
+				'poocommerce/order-view-url',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -290,9 +290,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Admin URL', 'woocommerce' ),
-				'woocommerce/order-admin-url',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Admin URL', 'poocommerce' ),
+				'poocommerce/order-admin-url',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -307,9 +307,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Review URL', 'woocommerce' ),
-				'woocommerce/order-review-url',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Review URL', 'poocommerce' ),
+				'poocommerce/order-review-url',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -324,9 +324,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Custom Field', 'woocommerce' ),
-				'woocommerce/order-custom-field',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Custom Field', 'poocommerce' ),
+				'poocommerce/order-custom-field',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context, array $parameters = array() ): string {
 					if ( ! isset( $context['order'] ) || ! isset( $parameters['key'] ) ) {
 						return '';

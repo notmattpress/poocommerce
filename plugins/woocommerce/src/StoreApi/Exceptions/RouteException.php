@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Exceptions;
+namespace Automattic\PooCommerce\StoreApi\Exceptions;
 
 /**
  * RouteException class.
@@ -22,7 +22,7 @@ class RouteException extends \Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string $error_code       Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+	 * @param string $error_code       Machine-readable error code, e.g `poocommerce_invalid_product_id`.
 	 * @param string $message          User-friendly translated error message, e.g. 'Product ID is invalid'.
 	 * @param int    $http_status_code Proper HTTP status code to respond with, e.g. 400.
 	 * @param array  $additional_data  Extra data (key value pairs) to expose in the error response.

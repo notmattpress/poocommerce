@@ -2,15 +2,15 @@
 /**
  * CategoryLookup tests
  *
- * @package WooCommerce\Admin\Tests\CategoryLookup
+ * @package PooCommerce\Admin\Tests\CategoryLookup
  */
 
-use Automattic\WooCommerce\Internal\Admin\CategoryLookup;
+use Automattic\PooCommerce\Internal\Admin\CategoryLookup;
 
 /**
  * WC_Admin_Tests_Admin_Helper Class
  *
- * @package WooCommerce\Admin\Tests\CategoryLookup
+ * @package PooCommerce\Admin\Tests\CategoryLookup
  */
 class WC_Admin_Tests_Category_Lookup extends WP_UnitTestCase {
 

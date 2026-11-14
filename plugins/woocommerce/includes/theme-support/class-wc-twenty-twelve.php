@@ -4,7 +4,7 @@
  *
  * @class   WC_Twenty_Twelve
  * @since   3.3.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,12 +19,12 @@ class WC_Twenty_Twelve {
 	 */
 	public static function init() {
 		// Remove default wrappers.
-		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
-		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
+		remove_action( 'poocommerce_before_main_content', 'poocommerce_output_content_wrapper' );
+		remove_action( 'poocommerce_after_main_content', 'poocommerce_output_content_wrapper_end' );
 
 		// Add custom wrappers.
-		add_action( 'woocommerce_before_main_content', array( __CLASS__, 'output_content_wrapper' ) );
-		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'output_content_wrapper_end' ) );
+		add_action( 'poocommerce_before_main_content', array( __CLASS__, 'output_content_wrapper' ) );
+		add_action( 'poocommerce_after_main_content', array( __CLASS__, 'output_content_wrapper_end' ) );
 
 		// Enqueue theme compatibility styles.
 		add_action( 'wp_head', array( __CLASS__, 'enqueue_styles' ) );
@@ -34,7 +34,7 @@ class WC_Twenty_Twelve {
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
 		add_theme_support(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'thumbnail_image_width' => 200,
 				'single_image_width'    => 300,

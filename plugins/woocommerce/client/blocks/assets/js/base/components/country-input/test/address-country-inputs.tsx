@@ -9,8 +9,8 @@ import { render, screen } from '@testing-library/react';
 import ShippingCountryInput from '../shipping-country-input';
 import BillingCountryInput from '../billing-country-input';
 
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	SHIPPING_COUNTRIES: { ES: 'Spain' },
 	COUNTRIES: { ES: 'Spain', US: 'United States (US)' },
 } ) );

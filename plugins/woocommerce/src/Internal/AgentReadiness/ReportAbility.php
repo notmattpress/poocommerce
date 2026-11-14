@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ class ReportAbility implements AbilityDefinition {
 
 	use ReadinessAbility;
 
-	public const NAME = 'woocommerce/get-agent-readiness';
+	public const NAME = 'poocommerce/get-agent-readiness';
 
 	/**
 	 * Ability name, or an empty string while the feature is disabled.
@@ -35,9 +35,9 @@ class ReportAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Get agent readiness', 'woocommerce' ),
-			'description'         => __( 'Read the last agent readiness check: store settings and pages that keep AI shopping agents from finding or buying products, and product problems per channel (ChatGPT, Google, Copilot), each with why it matters and what to change. Store settings are read now; product results come from the last background check.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Get agent readiness', 'poocommerce' ),
+			'description'         => __( 'Read the last agent readiness check: store settings and pages that keep AI shopping agents from finding or buying products, and product problems per channel (ChatGPT, Google, Copilot), each with why it matters and what to change. Store settings are read now; product results come from the last background check.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(),
@@ -92,7 +92,7 @@ class ReportAbility implements AbilityDefinition {
 			'properties' => array(
 				'report'       => array(
 					'type'        => array( 'object', 'null' ),
-					'description' => __( 'The last agent readiness check, or null before the first one.', 'woocommerce' ),
+					'description' => __( 'The last agent readiness check, or null before the first one.', 'poocommerce' ),
 					'properties'  => array(
 						'generated_at'        => array(
 							'type'   => 'string',
@@ -100,15 +100,15 @@ class ReportAbility implements AbilityDefinition {
 						),
 						'products'            => array(
 							'type'        => 'integer',
-							'description' => __( 'Published simple and variable products checked.', 'woocommerce' ),
+							'description' => __( 'Published simple and variable products checked.', 'poocommerce' ),
 						),
 						'hidden_from_catalog' => array(
 							'type'        => 'integer',
-							'description' => __( 'Products not checked because the merchant hid them from the shop catalog.', 'woocommerce' ),
+							'description' => __( 'Products not checked because the merchant hid them from the shop catalog.', 'poocommerce' ),
 						),
 						'unsupported_types'   => array(
 							'type'        => 'integer',
-							'description' => __( 'Products not checked because agents don\'t support their type yet.', 'woocommerce' ),
+							'description' => __( 'Products not checked because agents don\'t support their type yet.', 'poocommerce' ),
 						),
 						'store_checks'        => array(
 							'type'  => 'array',
@@ -118,11 +118,11 @@ class ReportAbility implements AbilityDefinition {
 									'id'       => array( 'type' => 'string' ),
 									'ok'       => array(
 										'type'        => array( 'boolean', 'null' ),
-										'description' => __( 'True when the store passes, false when it fails, null when the check could not run.', 'woocommerce' ),
+										'description' => __( 'True when the store passes, false when it fails, null when the check could not run.', 'poocommerce' ),
 									),
 									'blocks'   => array(
 										'type'        => 'string',
-										'description' => __( 'What a failure stops: listing (every product everywhere), discovery (harder for agents to find and read the store), ucp (agents using UCP) or checkout (agent orders).', 'woocommerce' ),
+										'description' => __( 'What a failure stops: listing (every product everywhere), discovery (harder for agents to find and read the store), ucp (agents using UCP) or checkout (agent orders).', 'poocommerce' ),
 									),
 									'level'    => array(
 										'type' => 'string',
@@ -135,11 +135,11 @@ class ReportAbility implements AbilityDefinition {
 									'fix_url'  => array( 'type' => 'string' ),
 									'conflict' => array(
 										'type'        => 'boolean',
-										'description' => __( 'On output checks: true only when the check failed and the store is set to send this, so something else is likely replacing it.', 'woocommerce' ),
+										'description' => __( 'On output checks: true only when the check failed and the store is set to send this, so something else is likely replacing it.', 'poocommerce' ),
 									),
 									'pending'  => array(
 										'type'        => 'boolean',
-										'description' => __( 'On output checks: true for a check of output a coming WooCommerce update builds; it does not run yet.', 'woocommerce' ),
+										'description' => __( 'On output checks: true for a check of output a coming PooCommerce update builds; it does not run yet.', 'poocommerce' ),
 									),
 								),
 							),
@@ -170,7 +170,7 @@ class ReportAbility implements AbilityDefinition {
 									'count'       => array( 'type' => 'integer' ),
 									'product_ids' => array(
 										'type'        => 'array',
-										'description' => __( 'Up to 10 failing products, most recently modified first.', 'woocommerce' ),
+										'description' => __( 'Up to 10 failing products, most recently modified first.', 'poocommerce' ),
 										'items'       => array( 'type' => 'integer' ),
 									),
 									'fix_url'     => array( 'type' => 'string' ),
@@ -179,7 +179,7 @@ class ReportAbility implements AbilityDefinition {
 						),
 						'declared'            => array(
 							'type'        => 'array',
-							'description' => __( 'Protocols and files the store declares to agents. Information only: found or not found, never a problem.', 'woocommerce' ),
+							'description' => __( 'Protocols and files the store declares to agents. Information only: found or not found, never a problem.', 'poocommerce' ),
 							'items'       => array(
 								'type'       => 'object',
 								'properties' => array(
@@ -194,11 +194,11 @@ class ReportAbility implements AbilityDefinition {
 				),
 				'scan_pending' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether a requested check has not finished yet.', 'woocommerce' ),
+					'description' => __( 'Whether a requested check has not finished yet.', 'poocommerce' ),
 				),
 				'scan_stalled' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the requested check has not started because scheduled actions are not running on the store. It stays queued and runs once they do; until then the report does not change.', 'woocommerce' ),
+					'description' => __( 'Whether the requested check has not started because scheduled actions are not running on the store. It stays queued and runs once they do; until then the report does not change.', 'poocommerce' ),
 				),
 			),
 		);

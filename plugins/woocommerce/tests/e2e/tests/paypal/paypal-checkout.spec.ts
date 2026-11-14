@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { ApiClient, WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { ApiClient, WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -79,11 +79,11 @@ const test = paypalTest.extend< {
 		);
 
 		const originalEmail = (
-			await wpCLI( 'wp option pluck woocommerce_paypal_settings email' )
+			await wpCLI( 'wp option pluck poocommerce_paypal_settings email' )
 		).stdout.trim();
 
 		await wpCLI(
-			`wp option patch update woocommerce_paypal_settings email '${ PAYPAL_TEST_EMAIL }'`
+			`wp option patch update poocommerce_paypal_settings email '${ PAYPAL_TEST_EMAIL }'`
 		);
 
 		await page.context().clearCookies();
@@ -91,7 +91,7 @@ const test = paypalTest.extend< {
 
 		// Restore the receiver email and gateway state changed above.
 		await wpCLI(
-			`wp option patch update woocommerce_paypal_settings email '${ originalEmail }'`
+			`wp option patch update poocommerce_paypal_settings email '${ originalEmail }'`
 		);
 		await setGatewayEnabled( restApi, 'paypal', paypalWasEnabled );
 	},

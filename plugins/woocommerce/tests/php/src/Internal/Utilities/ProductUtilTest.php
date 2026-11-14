@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Admin\API\Reports\Stock\Controller as StockController;
-use Automattic\WooCommerce\Caches\ProductCountCache;
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Stock\Controller as StockController;
+use Automattic\PooCommerce\Caches\ProductCountCache;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
 
 /**
  * Tests for the internal ProductUtil class.
@@ -31,7 +31,7 @@ class ProductUtilTest extends \WC_Unit_Test_Case {
 
 		try {
 			$this->assertTrue( wc_get_container()->get( ProductUtil::class )->schedule_product_transient_cleanup() );
-			$this->assertTrue( as_has_scheduled_action( 'woocommerce_delete_product_transients_batch', array( 0 ), 'woocommerce' ) );
+			$this->assertTrue( as_has_scheduled_action( 'poocommerce_delete_product_transients_batch', array( 0 ), 'poocommerce' ) );
 		} finally {
 			ActionSchedulerUtil::reset_cache();
 			wp_using_ext_object_cache( $previous );
@@ -49,7 +49,7 @@ class ProductUtilTest extends \WC_Unit_Test_Case {
 
 		try {
 			$this->expectException( \RuntimeException::class );
-			wc_get_container()->get( ProductUtil::class )->handle_woocommerce_delete_product_transients_batch( 0 );
+			wc_get_container()->get( ProductUtil::class )->handle_poocommerce_delete_product_transients_batch( 0 );
 		} finally {
 			wp_using_ext_object_cache( $previous );
 		}
@@ -174,11 +174,11 @@ class ProductUtilTest extends \WC_Unit_Test_Case {
 		set_transient( 'wc_products_onsale', 'before' );
 		set_transient( 'product-transient-version', 'before' );
 		set_transient( 'product_query-transient-version', 'before' );
-		add_action( 'woocommerce_delete_product_transients', $track_hook );
+		add_action( 'poocommerce_delete_product_transients', $track_hook );
 		try {
 			wc_get_container()->get( ProductUtil::class )->delete_product_transients_for_products( $product_ids );
 		} finally {
-			remove_action( 'woocommerce_delete_product_transients', $track_hook );
+			remove_action( 'poocommerce_delete_product_transients', $track_hook );
 		}
 
 		$this->assertSame( array( 0, 123, 456 ), $deleted_ids );

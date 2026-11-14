@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Class WC_Product_Variation_Data_Store_CPT_Test
@@ -225,7 +225,7 @@ class WC_Product_Variation_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Loaded Cost of Goods Sold "value is additive" flag can be modified using the woocommerce_load_product_cogs_is_additive_flag filter.
+	 * @testdox Loaded Cost of Goods Sold "value is additive" flag can be modified using the poocommerce_load_product_cogs_is_additive_flag filter.
 	 *
 	 * @testWith [true]
 	 *           [false]
@@ -240,14 +240,14 @@ class WC_Product_Variation_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$product->save();
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		add_filter( 'woocommerce_load_product_cogs_is_additive_flag', fn( $value, $product ) => ! $value, 10, 2 );
+		add_filter( 'poocommerce_load_product_cogs_is_additive_flag', fn( $value, $product ) => ! $value, 10, 2 );
 
 		$product = wc_get_product( $product->get_id() );
 		$this->assertEquals( ! $flag_value, $product->get_cogs_value_is_additive() );
 	}
 
 	/**
-	 * @testdox Saved Cost of Goods Sold "value is additive" flag can be modified using the woocommerce_save_product_cogs_is_additive_flag filter.
+	 * @testdox Saved Cost of Goods Sold "value is additive" flag can be modified using the poocommerce_save_product_cogs_is_additive_flag filter.
 	 *
 	 * @testWith [true]
 	 *           [false]
@@ -258,7 +258,7 @@ class WC_Product_Variation_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->enable_cogs_feature();
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		add_filter( 'woocommerce_save_product_cogs_is_additive_flag', fn( $value, $product ) => ! $value, 10, 2 );
+		add_filter( 'poocommerce_save_product_cogs_is_additive_flag', fn( $value, $product ) => ! $value, 10, 2 );
 
 		$product = $this->get_variation();
 		$product->set_cogs_value_is_additive( $flag_value );
@@ -269,7 +269,7 @@ class WC_Product_Variation_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Saving of the Cost of Goods Sold "value is additive" flag can be suppressed using the woocommerce_save_product_cogs_is_additive_flag filter with a return value of null.
+	 * @testdox Saving of the Cost of Goods Sold "value is additive" flag can be suppressed using the poocommerce_save_product_cogs_is_additive_flag filter with a return value of null.
 	 *
 	 * @testWith [true]
 	 *           [false]
@@ -284,7 +284,7 @@ class WC_Product_Variation_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$product->save();
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		add_filter( 'woocommerce_save_product_cogs_is_additive_flag', fn( $value, $product ) => null, 10, 2 );
+		add_filter( 'poocommerce_save_product_cogs_is_additive_flag', fn( $value, $product ) => null, 10, 2 );
 
 		$product->set_cogs_value_is_additive( ! $flag_value );
 		$product->save();

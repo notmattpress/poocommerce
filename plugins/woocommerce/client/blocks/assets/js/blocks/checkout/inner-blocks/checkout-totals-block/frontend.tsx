@@ -2,10 +2,10 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { Sidebar } from '@woocommerce/base-components/sidebar-layout';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { useObservedViewport } from '@woocommerce/base-hooks';
-import { useContainerWidthContext } from '@woocommerce/base-context';
+import { Sidebar } from '@poocommerce/base-components/sidebar-layout';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { useObservedViewport } from '@poocommerce/base-hooks';
+import { useContainerWidthContext } from '@poocommerce/base-context';
 
 const FrontendBlock = ( {
 	children,
@@ -28,7 +28,7 @@ const FrontendBlock = ( {
 			} ) }
 		>
 			<StoreNoticesContainer
-				context={ 'woocommerce/checkout-totals-block' }
+				context={ 'poocommerce/checkout-totals-block' }
 			/>
 			{ children }
 		</Sidebar>

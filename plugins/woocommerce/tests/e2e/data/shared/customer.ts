@@ -2,8 +2,8 @@
  * Customer billing object.
  *
  * Used in the following APIs:
- * https://developer.woocommerce.com/docs/apis/rest-api/v3/customers/
- * https://developer.woocommerce.com/docs/apis/rest-api/v3/orders/
+ * https://developer.poocommerce.com/docs/apis/rest-api/v3/customers/
+ * https://developer.poocommerce.com/docs/apis/rest-api/v3/orders/
  */
 export const customerBilling = {
 	first_name: 'John',
@@ -37,8 +37,8 @@ export const customerBillingSearchTest = {
  * Customer shipping object.
  *
  * Used in the following APIs:
- * https://developer.woocommerce.com/docs/apis/rest-api/v3/customers/
- * https://developer.woocommerce.com/docs/apis/rest-api/v3/orders/
+ * https://developer.poocommerce.com/docs/apis/rest-api/v3/customers/
+ * https://developer.poocommerce.com/docs/apis/rest-api/v3/orders/
  */
 export const customerShipping = {
 	first_name: 'Tim',

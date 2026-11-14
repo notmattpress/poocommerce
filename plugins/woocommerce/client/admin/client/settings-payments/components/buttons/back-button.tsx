@@ -6,7 +6,7 @@ import { __, isRTL } from '@wordpress/i18n';
 import { Button, Tooltip } from '@wordpress/components';
 import clsx from 'clsx';
 import { chevronLeft, chevronRight } from '@wordpress/icons';
-import { getHistory } from '@woocommerce/navigation';
+import { getHistory } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ interface BackButtonProps {
  */
 export const BackButton = ( {
 	href,
-	tooltipText = __( 'WooCommerce Settings', 'woocommerce' ),
+	tooltipText = __( 'PooCommerce Settings', 'poocommerce' ),
 	isRoute = false,
 	from = '',
 	children,
@@ -71,9 +71,9 @@ export const BackButton = ( {
 				// Button only sets its own has-text when the children are a
 				// plain string, so carry the distinction explicitly.
 				className={ clsx(
-					'woocommerce-settings-payments__back-button',
+					'poocommerce-settings-payments__back-button',
 					{
-						'woocommerce-settings-payments__back-button--with-label':
+						'poocommerce-settings-payments__back-button--with-label':
 							!! children,
 					}
 				) }

@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * The extensions this site currently declares incompatible.
  *
  * The fourth element says whether the list was delivered at all, which an empty
  * list on its own cannot. `incompatibleExtensions` is registered by the Cart and
- * Checkout blocks rather than by core data, so a `woocommerce_shared_settings`
+ * Checkout blocks rather than by core data, so a `poocommerce_shared_settings`
  * callback that trims the settings drops it, and both blocks skip registering it
  * when `get_plugins()` is not loaded. Callers that act on an extension having
  * *stopped* being incompatible need to tell "we don't know" apart from "none".

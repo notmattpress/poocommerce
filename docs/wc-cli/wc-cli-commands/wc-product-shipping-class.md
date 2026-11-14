@@ -3,7 +3,7 @@ title: wc product_shipping_class
 sidebar_label: wc product_shipping_class
 ---
 
-Manage WooCommerce product shipping class resources.
+Manage PooCommerce product shipping class resources.
 
 ## wc product_shipping_class list
 

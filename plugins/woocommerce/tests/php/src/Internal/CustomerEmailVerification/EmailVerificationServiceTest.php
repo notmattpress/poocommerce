@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Unit_Test_Case;
 
 /**
@@ -50,7 +50,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 			++$hook_calls;
 			$hook_arg = $id;
 		};
-		add_action( 'woocommerce_customer_email_verified', $listener );
+		add_action( 'poocommerce_customer_email_verified', $listener );
 
 		$this->sut->mark_verified( $user_id, 'b@example.com' );
 
@@ -58,7 +58,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 		$this->assertSame( 1, $hook_calls, 'Hook should fire exactly once' );
 		$this->assertSame( $user_id, $hook_arg, 'Hook should receive the correct user ID' );
 
-		remove_action( 'woocommerce_customer_email_verified', $listener );
+		remove_action( 'poocommerce_customer_email_verified', $listener );
 	}
 
 	/**
@@ -67,14 +67,14 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 	public function test_mark_verified_without_expected_email(): void {
 		$user_id    = wc_create_new_customer( 'legacy@example.com', 'legacyuser', 'pw' );
 		$key        = $this->sut->create_verification_key( $user_id );
-		$hook_calls = did_action( 'woocommerce_customer_email_verified' );
+		$hook_calls = did_action( 'poocommerce_customer_email_verified' );
 
 		$this->setExpectedIncorrectUsage( EmailVerificationService::class . '::mark_verified' );
 		$this->sut->mark_verified( $user_id );
 
 		$this->assertFalse( $this->sut->is_verified( $user_id ), 'An omitted expected email must not verify the account' );
 		$this->assertTrue( $this->sut->check_verification_key( $user_id, $key ), 'An omitted expected email must not consume the pending key' );
-		$this->assertSame( $hook_calls, did_action( 'woocommerce_customer_email_verified' ), 'An omitted expected email must not fire the verification hook' );
+		$this->assertSame( $hook_calls, did_action( 'poocommerce_customer_email_verified' ), 'An omitted expected email must not fire the verification hook' );
 	}
 
 	/**
@@ -180,7 +180,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 		$listener   = static function () use ( &$hook_calls ) {
 			++$hook_calls;
 		};
-		add_action( 'woocommerce_customer_email_verified', $listener );
+		add_action( 'poocommerce_customer_email_verified', $listener );
 
 		wp_update_user(
 			array(
@@ -197,7 +197,7 @@ class EmailVerificationServiceTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $this->sut->has_pending_key( $user_id ), 'A mismatched email must not consume the pending key' );
 		$this->assertFalse( $this->sut->check_verification_key( $user_id, $key ), 'The key must remain bound to the original email' );
 
-		remove_action( 'woocommerce_customer_email_verified', $listener );
+		remove_action( 'poocommerce_customer_email_verified', $listener );
 	}
 
 	/**

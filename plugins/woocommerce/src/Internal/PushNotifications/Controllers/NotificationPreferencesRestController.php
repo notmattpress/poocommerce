@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\ConvertsExceptionsToWpError;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationPreferencesService;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\ConvertsExceptionsToWpError;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use Exception;
 use WP_Error;
 use WP_Http;
@@ -62,7 +62,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Class identifier used by `woocommerce_rest_api_get_rest_namespaces`.
+	 * Class identifier used by `poocommerce_rest_api_get_rest_namespaces`.
 	 *
 	 * Intentionally distinct from the URL `$route_namespace` — the filter keys
 	 * one class per value here, so sharing the value with sibling controllers
@@ -160,7 +160,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 			$properties = array(
 				'enabled' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether this notification type is enabled.', 'woocommerce' ),
+					'description' => __( 'Whether this notification type is enabled.', 'poocommerce' ),
 				),
 			);
 
@@ -169,7 +169,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 					'type'             => array( 'number', 'null' ),
 					'minimum'          => 0,
 					'exclusiveMinimum' => true,
-					'description'      => __( 'Minimum order amount required to trigger this notification, or null to disable the threshold.', 'woocommerce' ),
+					'description'      => __( 'Minimum order amount required to trigger this notification, or null to disable the threshold.', 'poocommerce' ),
 				);
 			}
 
@@ -178,7 +178,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 					'type'        => array( 'integer', 'null' ),
 					'minimum'     => 1,
 					'maximum'     => 5,
-					'description' => __( 'Maximum star rating that triggers a review notification (1–5), or null to disable the threshold.', 'woocommerce' ),
+					'description' => __( 'Maximum star rating that triggers a review notification (1–5), or null to disable the threshold.', 'poocommerce' ),
 				);
 			}
 
@@ -189,7 +189,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 						'type'        => 'boolean',
 						'description' => sprintf(
 							/* translators: %s: sub-field name (e.g. low_stock). */
-							__( 'Whether %s notifications are enabled for this type.', 'woocommerce' ),
+							__( 'Whether %s notifications are enabled for this type.', 'poocommerce' ),
 							$sub_field
 						),
 					);
@@ -199,7 +199,7 @@ class NotificationPreferencesRestController extends RestApiControllerBase {
 			$args[ $key ] = array(
 				'description'       => sprintf(
 					/* translators: %s: notification preference key (e.g. store_order). */
-					__( 'Preferences for the %s push notification type.', 'woocommerce' ),
+					__( 'Preferences for the %s push notification type.', 'poocommerce' ),
 					$key
 				),
 				'type'              => 'object',

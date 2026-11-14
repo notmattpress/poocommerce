@@ -7,23 +7,23 @@ sidebar_label: 'Support guidelines'
 
 Adhering to the support expectations outlined in this guide is a requirement under the Marketplace Vendor Agreement. Failure to meet these expectations may result in temporary or permanent removal of your products from the Marketplace.
 
-By participating in the WooCommerce.com Marketplace, you're not just selling a product — you're offering a complete customer experience. Providing timely, high-quality support is a core part of that experience and a key factor in building long-term trust with your customers.
+By participating in the PooCommerce.com Marketplace, you're not just selling a product — you're offering a complete customer experience. Providing timely, high-quality support is a core part of that experience and a key factor in building long-term trust with your customers.
 
 That said, great support is not only a requirement — it's a growth opportunity. Providing excellent support boosts customer loyalty, increases positive reviews, encourages repeat purchases, and strengthens your reputation in the Marketplace, ultimately contributing to your long-term growth and profitability.
 
 ## Support expectations
 
-Marketplace vendors are responsible for customer support in line with WooCommerce's Support Policy, including:
+Marketplace vendors are responsible for customer support in line with PooCommerce's Support Policy, including:
 
 - Timely responses to customer emails.
 - Handling customer reviews and ratings promptly.
 - Managing feature requests posted on product pages.
 
-The WooCommerce team supports vendors by managing account issues, refunds, coupons, escalations, and live chat queries.
+The PooCommerce team supports vendors by managing account issues, refunds, coupons, escalations, and live chat queries.
 
 ### Response times
 
-Timely responses are critical. If you are unavailable or expect delays, communicate this clearly with the WooCommerce team and arrange to redirect support requests appropriately.
+Timely responses are critical. If you are unavailable or expect delays, communicate this clearly with the PooCommerce team and arrange to redirect support requests appropriately.
 
 ### Support ratings
 
@@ -31,7 +31,7 @@ Customers can rate their support experience seven (7) days after submitting a ti
 
 ### Live chat
 
-Marketplace vendors provide support exclusively via email. WooCommerce handles live chat queries and redirects product-specific requests to a vendor's support email address.
+Marketplace vendors provide support exclusively via email. PooCommerce handles live chat queries and redirects product-specific requests to a vendor's support email address.
 
 ## How support works
 
@@ -46,7 +46,7 @@ Customers submit tickets through the support request form and are automatically 
 
 ### Specifying your support email address
 
-Specify the email address that support tickets should be routed to in your vendor dashboard via _Settings > Store_. The WooCommerce team will also use this address to copy (CC) you in on tickets.
+Specify the email address that support tickets should be routed to in your vendor dashboard via _Settings > Store_. The PooCommerce team will also use this address to copy (CC) you in on tickets.
 
 :::note
 The Support Email field is different from Contact Email, which is used for order notifications.
@@ -66,16 +66,16 @@ If you need to log in to a merchant's store in order to successfully assist them
 - **Only ask for login credentials once you have exhausted all other options.** This includes asking for screenshots and reproducing the problem on your own test site(s).
 - **When asking for login credentials:**
     - Inform the customer that, under GDPR regulations, they must mention that they may need to give access to third-party support services in their store's terms and conditions.
-    - Always ask the customer to create a temporary administrator account for you. (You will need to tweak the instructions in the document linked above as you do not have access to `woologin@woocommerce.com`.)
+    - Always ask the customer to create a temporary administrator account for you. (You will need to tweak the instructions in the document linked above as you do not have access to `woologin@poocommerce.com`.)
     - At the end of the support interaction, ask the merchant to remove this temporary account.
 - **If the customer shares their details before you are able to provide the instructions above**, always point out that they ideally don't do this and that you strongly advise them to reset their password.
 - **Never ask for plain-text passwords.** Instead, use a password-sharing service like [QuickForget.com](https://quickforget.com/) to create a unique, expiring link.
 
 ## Collaboration, refunds, and escalations
 
-To collaborate with other Marketplace vendors, you can copy in (CC) relevant parties on support tickets. Contact information for other vendors is available from the WooCommerce team.
+To collaborate with other Marketplace vendors, you can copy in (CC) relevant parties on support tickets. Contact information for other vendors is available from the PooCommerce team.
 
-All refunds, coupons, and escalations are managed by WooCommerce. Forward relevant tickets by CCing the private email address from the Marketplace Developer P2.
+All refunds, coupons, and escalations are managed by PooCommerce. Forward relevant tickets by CCing the private email address from the Marketplace Developer P2.
 
 ## Marketplace support tools
 

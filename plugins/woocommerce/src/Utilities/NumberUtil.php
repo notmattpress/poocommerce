@@ -7,7 +7,7 @@
  */
 
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * A class of utilities for dealing with numbers.
@@ -42,7 +42,7 @@ final class NumberUtil {
 	 * (so it will convert it to 0 in most cases).
 	 *
 	 * This is needed because in PHP 7 applying `round` to a non-numeric value returns 0,
-	 * but in PHP 8 it throws an error. Specifically, in WooCommerce we have a few places where
+	 * but in PHP 8 it throws an error. Specifically, in PooCommerce we have a few places where
 	 * round('') is often executed.
 	 *
 	 * @param mixed $val The value to round.
@@ -104,7 +104,7 @@ final class NumberUtil {
 	public static function sanitize_cost_in_current_locale( $value ): string {
 		$value                      = is_null( $value ) ? '' : $value;
 		$value                      = wp_kses_post( trim( wp_unslash( $value ) ) );
-		$currency_symbol_encoded    = get_woocommerce_currency_symbol();
+		$currency_symbol_encoded    = get_poocommerce_currency_symbol();
 		$currency_symbol_variations = array( $currency_symbol_encoded, wp_kses_normalize_entities( $currency_symbol_encoded ), html_entity_decode( $currency_symbol_encoded, ENT_COMPAT ) );
 
 		$value = str_replace( $currency_symbol_variations, '', $value );
@@ -131,7 +131,7 @@ final class NumberUtil {
 				esc_html(
 					sprintf(
 						/* translators: %1$s: Invalid value that was input by the user, %2$s: thousand separator, %3$s: decimal separator */
-						__( '%1$s is not a valid numeric value. Allowed characters are numbers, the thousand (%2$s), and decimal (%3$s) separators.', 'woocommerce' ),
+						__( '%1$s is not a valid numeric value. Allowed characters are numbers, the thousand (%2$s), and decimal (%3$s) separators.', 'poocommerce' ),
 						$value,
 						wc_get_price_thousand_separator(),
 						wc_get_price_decimal_separator()
@@ -158,7 +158,7 @@ final class NumberUtil {
 				esc_html(
 					sprintf(
 						/* translators: %s: Invalid value that was input by the user */
-						__( '%s is not a valid numeric value: there should be one decimal separator and it has to be after the thousands separator.', 'woocommerce' ),
+						__( '%s is not a valid numeric value: there should be one decimal separator and it has to be after the thousands separator.', 'poocommerce' ),
 						$value
 					)
 				)
@@ -181,7 +181,7 @@ final class NumberUtil {
 				esc_html(
 					sprintf(
 						/* translators: %s: Invalid value that was input by the user */
-						__( '%s is not a valid numeric value.', 'woocommerce' ),
+						__( '%s is not a valid numeric value.', 'poocommerce' ),
 						$value
 					)
 				)

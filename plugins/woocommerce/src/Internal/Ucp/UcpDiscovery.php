@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Ucp;
+namespace Automattic\PooCommerce\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Serves the UCP discovery profile at `/.well-known/ucp`.
@@ -25,14 +25,14 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	public const RULE = '^\.well-known/ucp/?$';
 
 	/**
-	 * Rel of the profile link identifying WooCommerce; also marks the static file as one WooCommerce wrote.
+	 * Rel of the profile link identifying PooCommerce; also marks the static file as one PooCommerce wrote.
 	 */
-	public const LINK_REL = 'woocommerce';
+	public const LINK_REL = 'poocommerce';
 
 	/**
-	 * Href of the WooCommerce profile link.
+	 * Href of the PooCommerce profile link.
 	 */
-	private const LINK_HREF = 'https://developer.woocommerce.com/docs/';
+	private const LINK_HREF = 'https://developer.poocommerce.com/docs/';
 
 	/**
 	 * Register hooks.
@@ -88,7 +88,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 			return;
 		}
 
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 
 		if ( ! $is_enabled ) {
 			$this->delete_file();
@@ -96,8 +96,8 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Remove the static discovery file, which the web server would otherwise keep serving without WooCommerce.
-	 * Files WooCommerce did not write are left alone.
+	 * Remove the static discovery file, which the web server would otherwise keep serving without PooCommerce.
+	 * Files PooCommerce did not write are left alone.
 	 */
 	public function delete_file(): void {
 		$path = $this->get_file_path();
@@ -116,12 +116,12 @@ final class UcpDiscovery implements RegisterHooksInterface {
 		global $wp_rewrite;
 
 		// admin_init also fires for anonymous admin-ajax.php/admin-post.php requests and on every heartbeat.
-		if ( wp_doing_ajax() || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( wp_doing_ajax() || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
 		if ( $wp_rewrite->using_permalinks() ) {
-			// A file that cannot be deleted keeps overriding the profile WooCommerce serves, as the web server answers first.
+			// A file that cannot be deleted keeps overriding the profile PooCommerce serves, as the web server answers first.
 			$this->delete_file();
 			return;
 		}
@@ -131,7 +131,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 			return;
 		}
 
-		// A file WooCommerce did not write is left in place, so it is served instead of the WooCommerce profile.
+		// A file PooCommerce did not write is left in place, so it is served instead of the PooCommerce profile.
 		$path = $this->get_file_path();
 		if ( is_file( $path ) && ! $this->is_owned( $path ) ) {
 			return;
@@ -163,7 +163,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Whether the static file was written by WooCommerce. Unreadable or non-JSON files count as not owned.
+	 * Whether the static file was written by PooCommerce. Unreadable or non-JSON files count as not owned.
 	 *
 	 * @param string $path Absolute file path.
 	 * @return bool
@@ -188,7 +188,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 		 *
 		 * @param string $path Absolute file path.
 		 */
-		return (string) apply_filters( 'woocommerce_ucp_discovery_file_path', ABSPATH . '.well-known/ucp' );
+		return (string) apply_filters( 'poocommerce_ucp_discovery_file_path', ABSPATH . '.well-known/ucp' );
 	}
 
 	/**

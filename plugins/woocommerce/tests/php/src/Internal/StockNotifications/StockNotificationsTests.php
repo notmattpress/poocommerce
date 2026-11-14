@@ -1,13 +1,13 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\StockNotifications\DataRetentionController;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotifications;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\StockNotifications\DataRetentionController;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotifications;
 use WC_Admin_Settings;
 use WC_Settings_Products;
 
@@ -37,12 +37,12 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( null !== $this->original_db_version ) {
-			update_option( 'woocommerce_db_version', $this->original_db_version );
+			update_option( 'poocommerce_db_version', $this->original_db_version );
 			$this->original_db_version = null;
 		}
 		wc_get_container()->get( DataRetentionController::class )->clear_daily_task();
-		delete_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold' );
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		$this->restore_stock_notifications_feature_option();
 		parent::tearDown();
 	}
@@ -61,7 +61,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 * @testdox Enabling the feature schedules the daily data retention task.
 	 */
 	public function test_enabling_the_feature_schedules_the_daily_task(): void {
-		update_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
+		update_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
 		wc_get_container()->get( DataRetentionController::class )->clear_daily_task();
 		$this->assertFalse( wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ) );
 
@@ -74,7 +74,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 * @testdox Disabling the feature clears the daily data retention task.
 	 */
 	public function test_disabling_the_feature_clears_the_daily_task(): void {
-		update_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
+		update_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
 		$this->fire_feature_changed( true );
 		$this->assertSame( 'daily', wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ) );
 
@@ -88,13 +88,13 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_toggling_the_feature_queues_a_rewrite_flush(): void {
 		foreach ( array( true, false ) as $enabled ) {
-			delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+			delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 
 			$this->fire_feature_changed( $enabled );
 
 			$this->assertSame(
 				'yes',
-				get_option( 'woocommerce_queue_flush_rewrite_rules' ),
+				get_option( 'poocommerce_queue_flush_rewrite_rules' ),
 				'Toggling the feature should queue a rewrite rules flush.'
 			);
 		}
@@ -119,24 +119,24 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'customer_stock_notifications', $products_page->get_sections() );
 
 		$setting_ids = array_column( $products_page->get_settings_for_section( 'customer_stock_notifications' ), 'id' );
-		$this->assertContains( 'woocommerce_customer_stock_notifications_allow_signups', $setting_ids );
-		$this->assertContains( 'woocommerce_customer_stock_notifications_require_double_opt_in', $setting_ids );
-		$this->assertContains( 'woocommerce_customer_stock_notifications_require_account', $setting_ids );
-		$this->assertContains( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', $setting_ids );
+		$this->assertContains( 'poocommerce_customer_stock_notifications_allow_signups', $setting_ids );
+		$this->assertContains( 'poocommerce_customer_stock_notifications_require_double_opt_in', $setting_ids );
+		$this->assertContains( 'poocommerce_customer_stock_notifications_require_account', $setting_ids );
+		$this->assertContains( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', $setting_ids );
 	}
 
 	/**
 	 * @testdox Changes to unrelated features are ignored.
 	 */
 	public function test_other_features_are_ignored(): void {
-		update_option( 'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
+		update_option( 'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold', 30 );
 		$this->fire_feature_changed( true );
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 
 		$this->fire_feature_changed( false, 'some_other_feature' );
 
 		$this->assertSame( 'daily', wp_get_schedule( DataRetentionController::DAILY_TASK_HOOK ) );
-		$this->assertFalse( get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertFalse( get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**
@@ -155,7 +155,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 		$controller = wc_get_container()->get( StockNotifications::class );
 
 		// Undo what setUp() wired up, then re-run with the feature off.
-		remove_filter( 'woocommerce_data_stores', array( $controller, 'register_data_stores' ) );
+		remove_filter( 'poocommerce_data_stores', array( $controller, 'register_data_stores' ) );
 		update_option( StockNotifications::ENABLE_OPTION_NAME, 'no' );
 		$controller->maybe_init_services();
 
@@ -171,7 +171,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	public function test_notification_query_fails_soft_when_the_feature_is_disabled(): void {
 		$controller = wc_get_container()->get( StockNotifications::class );
 
-		remove_filter( 'woocommerce_data_stores', array( $controller, 'register_data_stores' ) );
+		remove_filter( 'poocommerce_data_stores', array( $controller, 'register_data_stores' ) );
 		update_option( StockNotifications::ENABLE_OPTION_NAME, 'no' );
 
 		$this->assertSame( array(), NotificationQuery::get_notifications( array() ) );
@@ -186,7 +186,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_register_data_stores_ignores_a_hooked_callback_once_the_feature_is_disabled(): void {
 		$controller = wc_get_container()->get( StockNotifications::class );
-		$this->assertNotFalse( has_filter( 'woocommerce_data_stores', array( $controller, 'register_data_stores' ) ) );
+		$this->assertNotFalse( has_filter( 'poocommerce_data_stores', array( $controller, 'register_data_stores' ) ) );
 
 		update_option( StockNotifications::ENABLE_OPTION_NAME, 'no' );
 
@@ -247,9 +247,9 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 	 */
 	private function set_db_version( string $version ): void {
 		if ( null === $this->original_db_version ) {
-			$this->original_db_version = (string) get_option( 'woocommerce_db_version', '' );
+			$this->original_db_version = (string) get_option( 'poocommerce_db_version', '' );
 		}
-		update_option( 'woocommerce_db_version', $version );
+		update_option( 'poocommerce_db_version', $version );
 	}
 
 	/**
@@ -276,7 +276,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 		$init_count = $wp_actions['init'] ?? 0;
 		$was_hooked = has_action( 'init', array( $controller, 'maybe_init_services' ) );
 
-		remove_filter( 'woocommerce_data_stores', array( $controller, 'register_data_stores' ) );
+		remove_filter( 'poocommerce_data_stores', array( $controller, 'register_data_stores' ) );
 		remove_action( 'init', array( $controller, 'maybe_init_services' ), 1 );
 		// Pretend init has not fired yet; restored in the finally block.
 		unset( $wp_actions['init'] ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -285,7 +285,7 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 			$controller->init_hooks();
 
 			$this->assertSame( 1, has_action( 'init', array( $controller, 'maybe_init_services' ) ), 'maybe_init_services() should be queued on init at priority 1' );
-			$this->assertFalse( has_filter( 'woocommerce_data_stores', array( $controller, 'register_data_stores' ) ), 'Nothing should be wired up before init' );
+			$this->assertFalse( has_filter( 'poocommerce_data_stores', array( $controller, 'register_data_stores' ) ), 'Nothing should be wired up before init' );
 		} finally {
 			$wp_actions['init'] = $init_count; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 			if ( false === $was_hooked ) {
@@ -302,6 +302,6 @@ class StockNotificationsTests extends \WC_Unit_Test_Case {
 
 		$store = new \WC_Data_Store( 'stock_notification' );
 
-		$this->assertSame( \Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore::class, $store->get_current_class_name() );
+		$this->assertSame( \Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore::class, $store->get_current_class_name() );
 	}
 }

@@ -3,7 +3,7 @@
  *
  * Request grouping, state reconciliation and the per-cycle cross-cutting
  * effects are covered by Jest unit tests in
- * `client/blocks/assets/js/base/stores/woocommerce/test/`. What is left here
+ * `client/blocks/assets/js/base/stores/poocommerce/test/`. What is left here
  * is the one behaviour those cannot reach: a real Interactivity API rollback
  * repainting rendered block markup after a whole batch fails.
  */
@@ -11,7 +11,7 @@
 /**
  * External dependencies
  */
-import { expect, guestFile, test as base } from '@woocommerce/e2e-utils';
+import { expect, guestFile, test as base } from '@poocommerce/e2e-utils';
 
 const test = base.extend( {} );
 
@@ -47,8 +47,8 @@ test.describe( 'Mutation Batcher', () => {
 			const unlockKey =
 				'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-			await import( '@woocommerce/stores/woocommerce/cart' );
-			const { actions } = store( 'woocommerce', {}, { lock: unlockKey } );
+			await import( '@poocommerce/stores/poocommerce/cart' );
+			const { actions } = store( 'poocommerce', {}, { lock: unlockKey } );
 			await actions.waitForIdle();
 		} );
 

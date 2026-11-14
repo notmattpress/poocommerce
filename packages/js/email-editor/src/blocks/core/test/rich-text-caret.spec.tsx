@@ -32,7 +32,7 @@ jest.mock( '../../../config-tools/filters', () => ( {
 	addFilterForEmail: jest.fn(),
 } ) );
 
-const TAG = '[woocommerce/customer-first-name]';
+const TAG = '[poocommerce/customer-first-name]';
 
 describe( 'personalizationTagsLiveContentUpdate caret', () => {
 	const selectionChange = jest.fn();

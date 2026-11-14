@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Orders\Schema;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;

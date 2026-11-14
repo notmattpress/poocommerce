@@ -6,20 +6,20 @@ const mockNavigate = jest.fn();
 const mockGetConfig = jest.fn();
 let mockRefresh: () => Generator;
 
-jest.mock( '@woocommerce/stores/woocommerce/cart', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/cart', () => ( {} ) );
 jest.mock( '@wordpress/interactivity', () => ( {
 	getConfig: mockGetConfig,
 	store: (
 		namespace: string,
 		descriptor: { callbacks: { refreshCartReference: () => Generator } }
 	) => {
-		if ( namespace === 'woocommerce' ) {
+		if ( namespace === 'poocommerce' ) {
 			return {
 				state: { cart: mockCart },
 				actions: { waitForIdle: mockWaitForIdle },
 			};
 		}
-		if ( namespace === 'woocommerce/mini-cart' ) {
+		if ( namespace === 'poocommerce/mini-cart' ) {
 			return { state: mockMiniCart };
 		}
 		mockRefresh = descriptor.callbacks.refreshCartReference;

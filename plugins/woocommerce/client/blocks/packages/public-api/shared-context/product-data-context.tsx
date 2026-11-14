@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ProductEntityResponse } from '@woocommerce/entities';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductEntityResponse } from '@poocommerce/entities';
+import { ProductResponseItem } from '@poocommerce/types';
 import { createContext, useContext } from '@wordpress/element';
 
 /**
@@ -85,9 +85,9 @@ type UseProductDataContextProps = {
 };
 
 /**
- * Hook that provides product data context for WooCommerce blocks.
+ * Hook that provides product data context for PooCommerce blocks.
  *
- * This hook serves as a unified interface for accessing product data across different environments for WooCommerce blocks that have the JS version for the frontend.
+ * This hook serves as a unified interface for accessing product data across different environments for PooCommerce blocks that have the JS version for the frontend.
  * - Frontend: Returns the React context data from ProductDataContext
  * - Admin/Editor: Uses the new entity-based data fetching system via WordPress Core Data API
  *

@@ -2,7 +2,7 @@
 	'use strict';
 
 	/**
-	 * Dismiss WooCommerce admin notices asynchronously.
+	 * Dismiss PooCommerce admin notices asynchronously.
 	 *
 	 * Notice dismiss links point at the current page with a `wc-hide-notice`
 	 * query arg, which persists the dismissal via a full page reload. Here we
@@ -12,7 +12,7 @@
 	 */
 	document.addEventListener( 'click', function ( event ) {
 		var link = event.target.closest(
-			'a.woocommerce-message-close[href*="wc-hide-notice"]'
+			'a.poocommerce-message-close[href*="wc-hide-notice"]'
 		);
 
 		if ( ! link || typeof window.ajaxurl === 'undefined' ) {
@@ -35,14 +35,14 @@
 
 		event.preventDefault();
 
-		var notice = link.closest( '.notice, .woocommerce-message, #message' );
+		var notice = link.closest( '.notice, .poocommerce-message, #message' );
 
 		window
 			.fetch( window.ajaxurl, {
 				method: 'POST',
 				credentials: 'same-origin',
 				body: new URLSearchParams( {
-					action: 'woocommerce_hide_notice',
+					action: 'poocommerce_hide_notice',
 					'wc-hide-notice': noticeName,
 					_wc_notice_nonce: nonce,
 				} ),

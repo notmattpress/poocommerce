@@ -18,7 +18,7 @@ The customer API allows you to create, view, update, and delete individual, or a
 | `email`         | string    | The email address for the customer. `MANDATORY`                                                                                                                                                                                                                                                                                      |
 | `first_name`    | string    | Customer first name.                                                                                                                                                                                                                                                                                                                                               |
 | `last_name`     | string    | Customer last name.                                                                                                                                                                                                                                                                                                                                                |
-| `username`      | string    | Customer login name. Can be generated automatically from the customer's email address if the option `woocommerce_registration_generate_username` is equal to `yes` `CANNOT BE CHANGED` `MAYBE MANDATORY`                                                                                               |
+| `username`      | string    | Customer login name. Can be generated automatically from the customer's email address if the option `poocommerce_registration_generate_username` is equal to `yes` `CANNOT BE CHANGED` `MAYBE MANDATORY`                                                                                               |
 | `password`      | string    | Customer password. Can be generated automatically with [`wp_generate_password()`](http://codex.wordpress.org/Function_Reference/wp_generate_password) if the "Automatically generate customer password" option is enabled, check the index meta for `generate_password` `WRITE-ONLY` `MAYBE MANDATORY` |
 | `last_order`    | array     | Last order data. See [Customer Last Order properties](#customer-last-order-properties). `READ-ONLY`                                                                                                                                                                                                                                  |
 | `orders_count`  | integer   | Quantity of orders made by the customer. `READ-ONLY`                                                                                                                                                                                                                                                                                 |
@@ -142,7 +142,7 @@ const data = {
   }
 };
 
-WooCommerce.post("customers", data)
+PooCommerce.post("customers", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -187,7 +187,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('customers', $data));
+print_r($poocommerce->post('customers', $data));
 ?>
 ```
 
@@ -264,7 +264,7 @@ data = {
   }
 }
 
-woocommerce.post("customers", data).parsed_response
+poocommerce.post("customers", data).parsed_response
 ```
 
   </TabItem>
@@ -347,7 +347,7 @@ curl https://example.com/wp-json/wc/v1/customers/2 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("customers/2")
+PooCommerce.get("customers/2")
   .then((response) => {
     console.log(response.data);
   })
@@ -360,7 +360,7 @@ WooCommerce.get("customers/2")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('customers/2')); ?>
+<?php print_r($poocommerce->get('customers/2')); ?>
 ```
 
   </TabItem>
@@ -374,7 +374,7 @@ print(wcapi.get("customers/2").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("customers/2").parsed_response
+poocommerce.get("customers/2").parsed_response
 ```
 
   </TabItem>
@@ -457,7 +457,7 @@ curl https://example.com/wp-json/wc/v1/customers \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("customers")
+PooCommerce.get("customers")
   .then((response) => {
     console.log(response.data);
   })
@@ -470,7 +470,7 @@ WooCommerce.get("customers")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('customers')); ?>
+<?php print_r($poocommerce->get('customers')); ?>
 ```
 
   </TabItem>
@@ -484,7 +484,7 @@ print(wcapi.get("customers").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("customers").parsed_response
+poocommerce.get("customers").parsed_response
 ```
 
   </TabItem>
@@ -656,7 +656,7 @@ const data = {
   }
 };
 
-WooCommerce.put("customers/2", data)
+PooCommerce.put("customers/2", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -680,7 +680,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->put('customers/2', $data));
+print_r($poocommerce->put('customers/2', $data));
 ?>
 ```
 
@@ -715,7 +715,7 @@ data = {
   }
 }
 
-woocommerce.put("customers/2", data).parsed_response
+poocommerce.put("customers/2", data).parsed_response
 ```
 
   </TabItem>
@@ -798,7 +798,7 @@ curl -X DELETE https://example.com/wp-json/wc/v1/customers/2?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("customers/2", {
+PooCommerce.delete("customers/2", {
   force: true
 })
   .then((response) => {
@@ -813,7 +813,7 @@ WooCommerce.delete("customers/2", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('customers/2', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('customers/2', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -827,7 +827,7 @@ print(wcapi.delete("customers/2", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("customers/2", force: true).parsed_response
+poocommerce.delete("customers/2", force: true).parsed_response
 ```
 
   </TabItem>
@@ -1071,7 +1071,7 @@ const data = {
   ]
 };
 
-WooCommerce.post("customers/batch", data)
+PooCommerce.post("customers/batch", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -1161,7 +1161,7 @@ $data = [
     ]
 ];
 
-print_r($woocommerce->post('customers/batch', $data));
+print_r($poocommerce->post('customers/batch', $data));
 ?>
 ```
 
@@ -1328,7 +1328,7 @@ data = {
   ]
 }
 
-woocommerce.post("customers/batch", data).parsed_response
+poocommerce.post("customers/batch", data).parsed_response
 ```
 
   </TabItem>
@@ -1575,7 +1575,7 @@ curl https://example.com/wp-json/wc/v1/customers/2/downloads \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("customers/2/downloads")
+PooCommerce.get("customers/2/downloads")
   .then((response) => {
     console.log(response.data);
   })
@@ -1588,7 +1588,7 @@ WooCommerce.get("customers/2/downloads")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('customers/2/downloads')); ?>
+<?php print_r($poocommerce->get('customers/2/downloads')); ?>
 ```
 
   </TabItem>
@@ -1602,7 +1602,7 @@ print(wcapi.get("customers/2/downloads").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("customers/2/downloads").parsed_response
+poocommerce.get("customers/2/downloads").parsed_response
 ```
 
   </TabItem>

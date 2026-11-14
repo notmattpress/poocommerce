@@ -132,7 +132,7 @@ export function buildFailedRowsCsv(
 	// report names a row the file does not have.
 	const failedRecords = failedRows.map( ( row ) => ( {
 		record: records[ row.row - 1 ] ?? [
-			__( '(original row unavailable)', 'woocommerce' ),
+			__( '(original row unavailable)', 'poocommerce' ),
 		],
 		message: row.message,
 	} ) );
@@ -149,7 +149,7 @@ export function buildFailedRowsCsv(
 	];
 
 	const out: string[][] = [
-		[ ...pad( header ), __( 'Import error', 'woocommerce' ) ],
+		[ ...pad( header ), __( 'Import error', 'poocommerce' ) ],
 		...failedRecords.map( ( { record, message } ) => [
 			...pad( record ),
 			message,

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\Endpoint;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Internal\OrderReviews\SubmissionHandler;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\Endpoint;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Internal\OrderReviews\SubmissionHandler;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Helper_Product;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -47,9 +47,9 @@ class EndpointTest extends WC_Unit_Test_Case {
 		// Restored verbatim in tearDown(): deleting it would not put back a
 		// store that had the setting on.
 		$this->comment_registration = get_option( 'comment_registration' );
-		$this->myaccount_page_id    = get_option( 'woocommerce_myaccount_page_id' );
+		$this->myaccount_page_id    = get_option( 'poocommerce_myaccount_page_id' );
 		// Feature flag gates the OrderReviews stack.
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 		$this->endpoint = new Endpoint();
 
 		// `Endpoint::get_url()` derives the URL from the WC-managed Review
@@ -65,10 +65,10 @@ class EndpointTest extends WC_Unit_Test_Case {
 					'post_status'  => 'publish',
 					'post_title'   => 'Review your order',
 					'post_name'    => 'review-order',
-					'post_content' => '[woocommerce_review_order]',
+					'post_content' => '[poocommerce_review_order]',
 				)
 			);
-			update_option( 'woocommerce_review_order_page_id', $page_id );
+			update_option( 'poocommerce_review_order_page_id', $page_id );
 		}
 	}
 
@@ -87,8 +87,8 @@ class EndpointTest extends WC_Unit_Test_Case {
 		wp_reset_postdata();
 		wp_set_current_user( 0 );
 		update_option( 'comment_registration', $this->comment_registration );
-		update_option( 'woocommerce_myaccount_page_id', $this->myaccount_page_id );
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		update_option( 'poocommerce_myaccount_page_id', $this->myaccount_page_id );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 		wp_dequeue_script( 'wc-order-review' );
 		wp_deregister_script( 'wc-order-review' );
 		wp_dequeue_style( 'wc-order-review' );
@@ -184,18 +184,18 @@ class EndpointTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_review_order_url filter can replace the helper output.
+	 * @testdox The poocommerce_review_order_url filter can replace the helper output.
 	 */
 	public function test_helper_filterable(): void {
 		$order    = OrderHelper::create_order( 0 );
 		$override = static function () {
 			return 'https://example.test/custom';
 		};
-		add_filter( 'woocommerce_review_order_url', $override );
+		add_filter( 'poocommerce_review_order_url', $override );
 
 		$this->assertSame( 'https://example.test/custom', wc_get_review_order_url( $order ) );
 
-		remove_filter( 'woocommerce_review_order_url', $override );
+		remove_filter( 'poocommerce_review_order_url', $override );
 	}
 
 	/**
@@ -272,7 +272,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 		global $wp_query;
 		$this->assertFalse( $wp_query->is_404, 'Signing in again cannot help, so explain rather than 404.' );
 		$this->assertStringContainsString( 'This order belongs to a different account, so you cannot review it.', $html );
-		$this->assertStringNotContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringNotContainsString( 'poocommerce-review-order__form', $html );
 	}
 
 	/**
@@ -324,7 +324,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		global $wp_query;
 		$this->assertFalse( $wp_query->is_404 );
-		$this->assertStringContainsString( 'woocommerce-review-order', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order', $html );
 		$this->assertStringContainsString( 'Review your order', $html );
 		$this->assertStringContainsString( 'Order #' . $order->get_order_number(), $html );
 	}
@@ -368,7 +368,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_review_order_eligible_statuses filter widens the eligible set.
+	 * @testdox The poocommerce_review_order_eligible_statuses filter widens the eligible set.
 	 */
 	public function test_eligible_statuses_filter_widens_set(): void {
 		$order = OrderHelper::create_order( 0 );
@@ -379,15 +379,15 @@ class EndpointTest extends WC_Unit_Test_Case {
 		$widen = static function () {
 			return array( OrderStatus::COMPLETED, OrderStatus::PROCESSING );
 		};
-		add_filter( 'woocommerce_review_order_eligible_statuses', $widen );
+		add_filter( 'poocommerce_review_order_eligible_statuses', $widen );
 
 		$html = $this->render( $order->get_id() );
 
-		remove_filter( 'woocommerce_review_order_eligible_statuses', $widen );
+		remove_filter( 'poocommerce_review_order_eligible_statuses', $widen );
 
 		global $wp_query;
 		$this->assertFalse( $wp_query->is_404 );
-		$this->assertStringContainsString( 'woocommerce-review-order', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order', $html );
 	}
 
 	/**
@@ -681,15 +681,15 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-info woocommerce-review-order__notice', $html );
+		$this->assertStringContainsString( 'poocommerce-info poocommerce-review-order__notice', $html );
 		$this->assertStringContainsString( 'see all your products?', $html );
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $html );
 
 		// `customer-review-order-row.php` opens each row with this exact class
 		// attribute, so the occurrence count is the number of rendered rows.
 		$this->assertSame(
 			1,
-			substr_count( $html, 'class="woocommerce-review-order__item"' ),
+			substr_count( $html, 'class="poocommerce-review-order__item"' ),
 			'Only the item whose product accepts reviews should render a form row.'
 		);
 		$this->assertStringContainsString( 'Reviewable Blue Lamp', $html );
@@ -726,8 +726,8 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-review-order--empty', $html );
-		$this->assertStringContainsString( 'woocommerce-breadcrumb woocommerce-review-order__meta', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order--empty', $html );
+		$this->assertStringContainsString( 'poocommerce-breadcrumb poocommerce-review-order__meta', $html );
 		$this->assertStringContainsString( 'Order #' . $order->get_order_number(), $html );
 		$this->assertStringContainsString( 'Thank you for your reviews', $html );
 		$this->assertStringContainsString( 'Your feedback helps', $html );
@@ -762,10 +762,10 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-review-order--empty', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order--empty', $html );
 		$this->assertStringContainsString( 'Nothing to review here', $html );
 		$this->assertStringContainsString( 'There are no products on this order that are open for reviews right now.', $html );
-		$this->assertStringNotContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringNotContainsString( 'poocommerce-review-order__form', $html );
 	}
 
 	/**
@@ -893,7 +893,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_status'  => 'publish',
 				'post_title'   => 'Review your order',
 				'post_name'    => 'review-order',
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_review_order]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_review_order]<!-- /wp:shortcode -->',
 			)
 		);
 		$second_id = (int) wp_insert_post(
@@ -902,7 +902,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_status'  => 'publish',
 				'post_title'   => 'Review your order',
 				'post_name'    => 'review-order-alt',
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_review_order]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_review_order]<!-- /wp:shortcode -->',
 			)
 		);
 		// Force the slug clash that WP's uniqueness check would normally avoid.
@@ -914,13 +914,13 @@ class EndpointTest extends WC_Unit_Test_Case {
 		clean_post_cache( $second_id );
 
 		// Option absent so the fast-path short-circuit fails and reconciliation runs.
-		delete_option( 'woocommerce_review_order_page_id' );
-		delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
+		delete_option( 'poocommerce_review_order_page_id' );
+		delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
 
 		$this->endpoint->maybe_create_host_page();
 
 		$this->assertSame( $first_id, (int) wc_get_page_id( Endpoint::PAGE_KEY ), 'option should adopt the slug-routed (lowest-id) page' );
-		$this->assertSame( 'yes', get_option( 'woocommerce_review_order_flush_rewrite_pending' ), 'rewrite flush should be queued when the option moves' );
+		$this->assertSame( 'yes', get_option( 'poocommerce_review_order_flush_rewrite_pending' ), 'rewrite flush should be queued when the option moves' );
 	}
 
 	/**
@@ -939,14 +939,14 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_status'  => 'draft',
 				'post_title'   => 'Review your order',
 				'post_name'    => 'review-order',
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_review_order]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_review_order]<!-- /wp:shortcode -->',
 			)
 		);
-		update_option( 'woocommerce_review_order_page_id', $page_id );
+		update_option( 'poocommerce_review_order_page_id', $page_id );
 
 		$original_installing = wp_installing();
-		$original_pending    = get_option( 'woocommerce_review_order_flush_rewrite_pending', null );
-		$original_queue      = get_option( 'woocommerce_queue_flush_rewrite_rules', null );
+		$original_pending    = get_option( 'poocommerce_review_order_flush_rewrite_pending', null );
+		$original_queue      = get_option( 'poocommerce_queue_flush_rewrite_rules', null );
 		$original_rules      = get_option( 'rewrite_rules', null );
 		$original_extra      = $wp_rewrite->extra_rules_top;
 		$original_generated  = $wp_rewrite->rules;
@@ -955,10 +955,10 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$original_alloptions = wp_load_alloptions();
 
-		delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
-		add_option( 'woocommerce_review_order_flush_rewrite_pending', 'no', '', $autoload );
-		$this->assertSame( 'no', get_option( 'woocommerce_review_order_flush_rewrite_pending' ), 'Prime the option cache before the install-mode write.' );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
+		add_option( 'poocommerce_review_order_flush_rewrite_pending', 'no', '', $autoload );
+		$this->assertSame( 'no', get_option( 'poocommerce_review_order_flush_rewrite_pending' ), 'Prime the option cache before the install-mode write.' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 		update_option( 'rewrite_rules', array() );
 		$wp_rewrite->set_permalink_structure( '/%postname%/' );
 		$wp_rewrite->extra_rules_top = array();
@@ -972,10 +972,10 @@ class EndpointTest extends WC_Unit_Test_Case {
 			$this->endpoint->maybe_flush_pending_rewrite();
 
 			$this->assertSame( array(), (array) get_option( 'rewrite_rules' ), 'Installing mode should not persist rewrite rules.' );
-			$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ), 'A soft endpoint flush should not use the shared hard-flush queue.' );
+			$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ), 'A soft endpoint flush should not use the shared hard-flush queue.' );
 
 			wp_installing( false );
-			$this->assertSame( 'yes', get_option( 'woocommerce_review_order_flush_rewrite_pending' ), 'The next normal request should see the queued flush through the option cache.' );
+			$this->assertSame( 'yes', get_option( 'poocommerce_review_order_flush_rewrite_pending' ), 'The next normal request should see the queued flush through the option cache.' );
 			$this->endpoint->add_rewrite_rule();
 			$this->endpoint->maybe_flush_pending_rewrite();
 
@@ -987,19 +987,19 @@ class EndpointTest extends WC_Unit_Test_Case {
 			);
 
 			$this->assertNotEmpty( $review_order_rules, 'The next normal request should persist the endpoint registered on init.' );
-			$this->assertFalse( get_option( 'woocommerce_review_order_flush_rewrite_pending', false ), 'The normal request should consume the endpoint trigger.' );
+			$this->assertFalse( get_option( 'poocommerce_review_order_flush_rewrite_pending', false ), 'The normal request should consume the endpoint trigger.' );
 		} finally {
 			wp_installing( false );
 			remove_action( 'wp_loaded', array( $wp_rewrite, 'flush_rules' ) );
 			remove_filter( 'flush_rewrite_rules_hard', '__return_false' );
-			delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
-			delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+			delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
+			delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 			delete_option( 'rewrite_rules' );
 			if ( null !== $original_pending ) {
-				add_option( 'woocommerce_review_order_flush_rewrite_pending', $original_pending, '', array_key_exists( 'woocommerce_review_order_flush_rewrite_pending', $original_alloptions ) );
+				add_option( 'poocommerce_review_order_flush_rewrite_pending', $original_pending, '', array_key_exists( 'poocommerce_review_order_flush_rewrite_pending', $original_alloptions ) );
 			}
 			if ( null !== $original_queue ) {
-				add_option( 'woocommerce_queue_flush_rewrite_rules', $original_queue, '', array_key_exists( 'woocommerce_queue_flush_rewrite_rules', $original_alloptions ) );
+				add_option( 'poocommerce_queue_flush_rewrite_rules', $original_queue, '', array_key_exists( 'poocommerce_queue_flush_rewrite_rules', $original_alloptions ) );
 			}
 			if ( null !== $original_rules ) {
 				add_option( 'rewrite_rules', $original_rules, '', array_key_exists( 'rewrite_rules', $original_alloptions ) );
@@ -1040,17 +1040,17 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_status'  => 'draft',
 				'post_title'   => 'Review your order',
 				'post_name'    => 'review-order',
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_review_order]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_review_order]<!-- /wp:shortcode -->',
 			)
 		);
-		update_option( 'woocommerce_review_order_page_id', $page_id );
-		delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
+		update_option( 'poocommerce_review_order_page_id', $page_id );
+		delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
 
 		$this->endpoint->maybe_create_host_page();
 
 		$fresh = get_post( $page_id );
 		$this->assertSame( 'publish', $fresh->post_status, 'draft host page should be republished' );
-		$this->assertSame( 'yes', get_option( 'woocommerce_review_order_flush_rewrite_pending' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_review_order_flush_rewrite_pending' ) );
 	}
 
 	/**
@@ -1061,7 +1061,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 		// per-test DB-transaction rollback (see setUp()), so the `finally` block
 		// must restore the pre-test value rather than leave it deleted for later
 		// tests in the same PHPUnit process.
-		$original_shop_page_id = get_option( 'woocommerce_shop_page_id' );
+		$original_shop_page_id = get_option( 'poocommerce_shop_page_id' );
 
 		$this->reset_review_order_pages();
 		$this->reset_shop_pages();
@@ -1074,8 +1074,8 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_name'   => 'shop',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', '' );
-		delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
+		update_option( 'poocommerce_shop_page_id', '' );
+		delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
 
 		$customize_review_order_page = static function ( $pages ) {
 			if ( isset( $pages[ Endpoint::PAGE_KEY ] ) ) {
@@ -1094,13 +1094,13 @@ class EndpointTest extends WC_Unit_Test_Case {
 			return $pages;
 		};
 
-		add_filter( 'woocommerce_create_pages', array( $this->endpoint, 'inject_review_order_page' ) );
-		add_filter( 'woocommerce_create_pages', $customize_review_order_page, 50 );
-		add_filter( 'woocommerce_create_pages', $restore_shop_page, 200 );
+		add_filter( 'poocommerce_create_pages', array( $this->endpoint, 'inject_review_order_page' ) );
+		add_filter( 'poocommerce_create_pages', $customize_review_order_page, 50 );
+		add_filter( 'poocommerce_create_pages', $restore_shop_page, 200 );
 		try {
 			$this->endpoint->maybe_create_host_page();
 
-			$this->assertSame( '', get_option( 'woocommerce_shop_page_id' ), 'intentional empty shop page option should stay empty' );
+			$this->assertSame( '', get_option( 'poocommerce_shop_page_id' ), 'intentional empty shop page option should stay empty' );
 
 			$review_order_page = get_post( (int) wc_get_page_id( Endpoint::PAGE_KEY ) );
 			$this->assertInstanceOf( \WP_Post::class, $review_order_page, 'review order page should still be created' );
@@ -1110,9 +1110,9 @@ class EndpointTest extends WC_Unit_Test_Case {
 			\WC_Install::create_pages();
 			$this->assertSame( $shop_page_id, (int) wc_get_page_id( 'shop' ), 'a later full repair should adopt the staged Shop page' );
 		} finally {
-			remove_filter( 'woocommerce_create_pages', array( $this->endpoint, 'inject_review_order_page' ) );
-			remove_filter( 'woocommerce_create_pages', $customize_review_order_page, 50 );
-			remove_filter( 'woocommerce_create_pages', $restore_shop_page, 200 );
+			remove_filter( 'poocommerce_create_pages', array( $this->endpoint, 'inject_review_order_page' ) );
+			remove_filter( 'poocommerce_create_pages', $customize_review_order_page, 50 );
+			remove_filter( 'poocommerce_create_pages', $restore_shop_page, 200 );
 			$this->reset_review_order_pages();
 			$this->reset_shop_pages();
 
@@ -1120,20 +1120,20 @@ class EndpointTest extends WC_Unit_Test_Case {
 			// it for a clean slate; put back whatever was there before so the
 			// suite's shared option state is unchanged by this test.
 			if ( false !== $original_shop_page_id ) {
-				update_option( 'woocommerce_shop_page_id', $original_shop_page_id );
+				update_option( 'poocommerce_shop_page_id', $original_shop_page_id );
 			}
 		}
 	}
 
 	/**
-	 * @testdox The `woocommerce_create_pages` filter injects the Review Order entry so any caller of `WC_Install::create_pages()` (e.g. Status → Tools repair) seeds the page.
+	 * @testdox The `poocommerce_create_pages` filter injects the Review Order entry so any caller of `WC_Install::create_pages()` (e.g. Status → Tools repair) seeds the page.
 	 */
 	public function test_inject_review_order_page_filter_adds_entry_for_third_party_callers(): void {
 		$pages = $this->endpoint->inject_review_order_page( array() );
 
 		$this->assertArrayHasKey( Endpoint::PAGE_KEY, $pages );
 		$this->assertSame( 'review-order', $pages[ Endpoint::PAGE_KEY ]['name'] );
-		$this->assertStringContainsString( '[woocommerce_review_order]', $pages[ Endpoint::PAGE_KEY ]['content'] );
+		$this->assertStringContainsString( '[poocommerce_review_order]', $pages[ Endpoint::PAGE_KEY ]['content'] );
 
 		// Defensive: a non-array value passes through untouched (matches the
 		// guard inside the method so other filters in the chain stay intact).
@@ -1159,7 +1159,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 		foreach ( $candidates as $page ) {
 			wp_delete_post( (int) $page->ID, true );
 		}
-		delete_option( 'woocommerce_review_order_page_id' );
+		delete_option( 'poocommerce_review_order_page_id' );
 	}
 
 	/**
@@ -1181,7 +1181,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 		foreach ( $candidates as $page ) {
 			wp_delete_post( (int) $page->ID, true );
 		}
-		delete_option( 'woocommerce_shop_page_id' );
+		delete_option( 'poocommerce_shop_page_id' );
 	}
 
 	/**
@@ -1299,7 +1299,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $html );
 	}
 
 	/**
@@ -1313,7 +1313,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $html );
 	}
 
 	/**
@@ -1331,11 +1331,11 @@ class EndpointTest extends WC_Unit_Test_Case {
 			$seen = $filtered_order;
 			return false;
 		};
-		add_filter( 'woocommerce_review_order_verify_known_shoppers', $spy, 10, 2 );
+		add_filter( 'poocommerce_review_order_verify_known_shoppers', $spy, 10, 2 );
 		$html = $this->render( $order->get_id() );
-		remove_filter( 'woocommerce_review_order_verify_known_shoppers', $spy, 10 );
+		remove_filter( 'poocommerce_review_order_verify_known_shoppers', $spy, 10 );
 
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $html );
 		$this->assertInstanceOf( WC_Order::class, $seen, 'The filter is documented as receiving the order.' );
 		$this->assertSame( $order->get_id(), $seen->get_id() );
 	}
@@ -1353,9 +1353,9 @@ class EndpointTest extends WC_Unit_Test_Case {
 		$order->save();
 		$this->stage_review_order_request( $order );
 
-		add_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		add_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 		$target = $this->capture_gate_redirect();
-		remove_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		remove_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 
 		$this->assertNotNull( $target, 'The filter does not waive the store-wide account requirement.' );
 	}
@@ -1376,7 +1376,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 				'post_name'   => 'my-account',
 			)
 		);
-		update_option( 'woocommerce_myaccount_page_id', $account_page_id );
+		update_option( 'poocommerce_myaccount_page_id', $account_page_id );
 
 		$order = OrderHelper::create_order( 0 );
 		$order->set_status( OrderStatus::COMPLETED );
@@ -1399,7 +1399,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 	 */
 	public function test_registration_prompt_has_no_link_without_a_my_account_page(): void {
 		update_option( 'comment_registration', 1 );
-		update_option( 'woocommerce_myaccount_page_id', 0 );
+		update_option( 'poocommerce_myaccount_page_id', 0 );
 
 		$order = OrderHelper::create_order( 0 );
 		$order->set_status( OrderStatus::COMPLETED );
@@ -1425,7 +1425,7 @@ class EndpointTest extends WC_Unit_Test_Case {
 
 		$html = $this->render( $order->get_id() );
 
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $html );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $html );
 	}
 
 	/**

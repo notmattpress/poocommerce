@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewReply;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewReply;
 
 /**
  * Tests review replies through the Abilities API.
@@ -87,8 +87,8 @@ class ProductReviewReplyTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refused_replies(): void {
 		$cases = array(
-			'woocommerce_ability_product_review_not_approved' => array( $this->review( '0' ), 'Thanks' ),
-			'woocommerce_ability_product_review_not_found' => array(
+			'poocommerce_ability_product_review_not_approved' => array( $this->review( '0' ), 'Thanks' ),
+			'poocommerce_ability_product_review_not_found' => array(
 				self::factory()->comment->create(
 					array(
 						'comment_post_ID' => $this->product_id,
@@ -97,7 +97,7 @@ class ProductReviewReplyTest extends \WC_Unit_Test_Case {
 				),
 				'Thanks',
 			),
-			'woocommerce_ability_product_review_reply_empty' => array( $this->review(), '<script> </script>' ),
+			'poocommerce_ability_product_review_reply_empty' => array( $this->review(), '<script> </script>' ),
 		);
 
 		foreach ( $cases as $code => list( $id, $content ) ) {
@@ -134,7 +134,7 @@ class ProductReviewReplyTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_product_review_not_approved', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_not_approved', $result->get_error_code() );
 		$this->assertSame(
 			0,
 			(int) get_comments(
@@ -178,7 +178,7 @@ class ProductReviewReplyTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_product_review_reply_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_reply_failed', $result->get_error_code() );
 		$data = $result->get_error_data();
 		$this->assertSame( 500, $data['status'] );
 		$this->assertTrue( $data['saved'] );
@@ -204,7 +204,7 @@ class ProductReviewReplyTest extends \WC_Unit_Test_Case {
 		$this->sut->execute( $input );
 		$result = $this->sut->execute( $input );
 
-		$this->assertSame( 'woocommerce_ability_product_review_reply_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_reply_failed', $result->get_error_code() );
 		$this->assertSame( 409, $result->get_error_data()['status'] );
 		$this->assertStringNotContainsString( '&#', $result->get_error_message(), 'The message should be plain text.' );
 	}

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * MiniCartShoppingButtonBlock class.
@@ -26,7 +26,7 @@ class MiniCartShoppingButtonBlock extends AbstractInnerBlock {
 
 		ob_start();
 		$shop_url                     = wc_get_page_permalink( 'shop' );
-		$default_start_shopping_label = __( 'Return to shop', 'woocommerce' );
+		$default_start_shopping_label = __( 'Return to shop', 'poocommerce' );
 		$start_shopping_label         = $attributes['startShoppingButtonLabel'] ? $attributes['startShoppingButtonLabel'] : $default_start_shopping_label;
 		// Same markup and classes as a core Button block, so the theme's button styles apply.
 		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'wp-block-button__link wp-element-button wc-block-mini-cart__shopping-button' ) );

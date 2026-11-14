@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { addCustomerEffortScoreExitPageListener } from '@woocommerce/customer-effort-score';
+import { addCustomerEffortScoreExitPageListener } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ type FormElements = {
 const forms: FormElements = document.forms;
 if ( forms && forms.mainform ) {
 	let triggeredSaveButton = false;
-	const saveButton = document.querySelector( '.woocommerce-save-button' );
+	const saveButton = document.querySelector( '.poocommerce-save-button' );
 
 	if ( saveButton ) {
 		saveButton.addEventListener( 'click', () => {

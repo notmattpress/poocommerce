@@ -2,7 +2,7 @@
 
 **Source:**
 
-- #69538: mailer built on every `woocommerce_init`.
+- #69538: mailer built on every `poocommerce_init`.
 - #62404 (10.4.1): excessive debug logging on the Payments page.
 - #68965 (11.1.2): recursive variation data requests.
 - #68016: scheduled-sales cron memory.

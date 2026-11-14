@@ -32,12 +32,12 @@ export function registerElementVariation(
 		name: variationName,
 		title: blockTitle,
 		isActive: ( blockAttributes ) =>
-			namespaces.includes( blockAttributes.__woocommerceNamespace ),
+			namespaces.includes( blockAttributes.__poocommerceNamespace ),
 		icon: {
 			src: blockIcon,
 		},
 		attributes: {
-			__woocommerceNamespace: variationName,
+			__poocommerceNamespace: variationName,
 		},
 		scope,
 	} );

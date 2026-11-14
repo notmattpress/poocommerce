@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Interactivity API Functions
+ * PooCommerce Interactivity API Functions
  *
  * Procedural wrappers for interactivity API shared stores.
  * These are experimental APIs and may change in future versions.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This is an experimental API and may change in future versions.
  *
- * @see plugins/woocommerce/client/blocks/assets/js/base/stores/woocommerce/README.md
+ * @see plugins/poocommerce/client/blocks/assets/js/base/stores/poocommerce/README.md
  *
  * @param string $consent_statement The consent statement acknowledging this is an experimental API.
  * @param int    $product_id        The product ID to load.
@@ -37,7 +37,7 @@ function wc_interactivity_api_load_product( string $consent_statement, int $prod
  *
  * This is an experimental API and may change in future versions.
  *
- * @see plugins/woocommerce/client/blocks/assets/js/base/stores/woocommerce/README.md
+ * @see plugins/poocommerce/client/blocks/assets/js/base/stores/poocommerce/README.md
  *
  * @param string $consent_statement The consent statement acknowledging this is an experimental API.
  * @param int    $parent_id         The parent product ID.
@@ -53,7 +53,7 @@ function wc_interactivity_api_load_purchasable_child_products( string $consent_s
  *
  * This is an experimental API and may change in future versions.
  *
- * @see plugins/woocommerce/client/blocks/assets/js/base/stores/woocommerce/README.md
+ * @see plugins/poocommerce/client/blocks/assets/js/base/stores/poocommerce/README.md
  *
  * @param string $consent_statement The consent statement acknowledging this is an experimental API.
  * @param int    $parent_id         The parent product ID.

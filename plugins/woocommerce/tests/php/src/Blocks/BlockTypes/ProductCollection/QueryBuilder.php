@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 use WC_Helper_Product;
 use WP_Query;
 
@@ -49,7 +49,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 			$block['attrs']['queryId']             = $query_id;
 			$block['attrs']['query']['inherit']    = false;
 			$block['attrs']['query']['filterable'] = $legacy_filterable;
-			$block['attrs']['query']['woocommerceHandPickedProducts'] = array_slice( $products, 0, 2 );
+			$block['attrs']['query']['poocommerceHandPickedProducts'] = array_slice( $products, 0, 2 );
 			$query = Utils::initialize_merged_query( $this->block_instance, $block );
 			$this->assertSame( array( $products[0] ), wp_list_pluck( ( new WP_Query( $query ) )->posts, 'ID' ) );
 
@@ -102,7 +102,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 		set_transient( 'wc_products_onsale', $on_sale_product_ids, DAY_IN_SECONDS * 30 );
 
 		$parsed_block                                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -122,7 +122,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 		set_transient( 'wc_products_onsale', array(), DAY_IN_SECONDS * 30 );
 
 		$parsed_block                                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -136,8 +136,8 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 		set_transient( 'wc_products_onsale', array(), DAY_IN_SECONDS * 30 );
 
 		$parsed_block                                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = array( 1, 2 );
+		$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = array( 1, 2 );
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -149,7 +149,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 	 */
 	public function test_merging_stock_status_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -172,7 +172,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 	 */
 	public function test_merging_default_stock_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
@@ -184,7 +184,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 
 		// Test with hide out of stock items option enabled.
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -199,7 +199,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 	 */
 	public function test_merging_attribute_queries() {
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceAttributes'] = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes'] = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -278,11 +278,11 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 	public function test_merging_multiple_queries() {
 		$parsed_block                              = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['orderBy'] = 'rating';
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 		);
-		$parsed_block['attrs']['query']['woocommerceAttributes']  = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes']  = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -434,7 +434,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 		set_query_var( 'filter_stock_status', ProductStockStatus::OUT_OF_STOCK );
 
 		$merged_query             = Utils::initialize_merged_query( $this->block_instance );
-		$additional_query_builder = new \Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder();
+		$additional_query_builder = new \Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder();
 		unset( $additional_query_builder );
 
 		$query             = new WP_Query( $merged_query );
@@ -621,7 +621,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 	 * @testdox Filter count queries omit shopper filters but keep collection constraints.
 	 */
 	public function test_filter_count_query_excludes_applied_filters(): void {
-		$query_builder = new \Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder();
+		$query_builder = new \Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\QueryBuilder();
 		$query_builder->set_attributes_filter_query_args(
 			array(
 				'color' => array(
@@ -761,7 +761,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 		$handpicked_product_ids = array( 1, 2, 3, 4 );
 
 		$parsed_block = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -783,7 +783,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 
 		$parsed_block                               = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -803,7 +803,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 
 		$parsed_block                               = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -1470,7 +1470,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 						if ( 'pa_inspector_color' === $taxonomy ) {
 							wp_set_object_terms( $product_ids[1], array( $term_id ), $taxonomy );
 						}
-						$query['woocommerceAttributes'][] = array(
+						$query['poocommerceAttributes'][] = array(
 							'taxonomy' => $taxonomy,
 							'termId'   => $term_id,
 						);
@@ -1480,7 +1480,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 					$query['search'] = 'Alpha';
 					break;
 				case 'stock':
-					$query['woocommerceStockStatus'] = array( ProductStockStatus::OUT_OF_STOCK );
+					$query['poocommerceStockStatus'] = array( ProductStockStatus::OUT_OF_STOCK );
 					break;
 				case 'minimum-price':
 					$query['priceRange'] = array(
@@ -1499,8 +1499,8 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 				case 'decimal-minimum-price':
 					// Pin the two options that decide the branch, so the price range filter
 					// always builds its non-tax-adjusted clause. The transaction rolls them back.
-					update_option( 'woocommerce_calc_taxes', 'no' );
-					update_option( 'woocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE );
+					update_option( 'poocommerce_calc_taxes', 'no' );
+					update_option( 'poocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE );
 
 					$decimal_product     = $fixtures->get_simple_product(
 						array(
@@ -1521,8 +1521,8 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 				case 'decimal-maximum-price':
 					// Pin the two options that decide the branch, so the price range filter
 					// always builds its non-tax-adjusted clause. The transaction rolls them back.
-					update_option( 'woocommerce_calc_taxes', 'no' );
-					update_option( 'woocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE );
+					update_option( 'poocommerce_calc_taxes', 'no' );
+					update_option( 'poocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE );
 
 					$decimal_product     = $fixtures->get_simple_product(
 						array(
@@ -1586,7 +1586,7 @@ class QueryBuilder extends \WC_Unit_Test_Case {
 							'post_date_gmt' => '2024-01-01 00:00:00',
 						)
 					);
-					$query['woocommerceHandPickedProducts'] = array( $product_ids[1], $product_ids[0] );
+					$query['poocommerceHandPickedProducts'] = array( $product_ids[1], $product_ids[0] );
 					$query['orderBy']                       = 'post__in';
 					break;
 				case 'title-descending':

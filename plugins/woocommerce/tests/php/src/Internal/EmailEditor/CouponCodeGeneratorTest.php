@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Coupon_Code_Generator;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Coupon_Code;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Coupon_Code_Generator;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Coupon_Code;
 use WC_Unit_Test_Case;
 
 /**
@@ -48,10 +48,10 @@ class CouponCodeGeneratorTest extends WC_Unit_Test_Case {
 	 * @testdox Handles a non-string code on the filter it registers.
 	 */
 	public function test_registered_filter_accepts_non_string_code(): void {
-		remove_all_filters( 'woocommerce_coupon_code_block_auto_generate' );
+		remove_all_filters( 'poocommerce_coupon_code_block_auto_generate' );
 		$this->sut->init();
 
-		$code = apply_filters( 'woocommerce_coupon_code_block_auto_generate', null, array(), $this->context() );
+		$code = apply_filters( 'poocommerce_coupon_code_block_auto_generate', null, array(), $this->context() );
 
 		$this->assertNotSame( 0, wc_get_coupon_id_by_code( $code ) );
 	}
@@ -146,7 +146,7 @@ class CouponCodeGeneratorTest extends WC_Unit_Test_Case {
 		$existing->set_code( 'TAKEN' );
 		$existing->save();
 		add_filter(
-			'woocommerce_get_coupon_id_from_code',
+			'poocommerce_get_coupon_id_from_code',
 			function () use ( $existing ) {
 				return $existing->get_id();
 			}

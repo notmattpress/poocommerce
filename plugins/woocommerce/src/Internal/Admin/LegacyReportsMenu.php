@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Admin_Menus;
 use WC_Install;
 
 /**
- * Decides whether the legacy WooCommerce > Reports menu item is shown, and hides it when it isn't.
+ * Decides whether the legacy PooCommerce > Reports menu item is shown, and hides it when it isn't.
  *
  * The page itself stays registered, so admin.php?page=wc-reports keeps working either way.
  *
@@ -47,18 +47,18 @@ final class LegacyReportsMenu {
 	 * @internal
 	 */
 	public function handle_admin_menu(): void {
-		if ( ! current_user_can( 'view_woocommerce_reports' ) || $this->should_show() ) {
+		if ( ! current_user_can( 'view_poocommerce_reports' ) || $this->should_show() ) {
 			return;
 		}
 
 		global $menu, $submenu;
 
-		if ( ! empty( $submenu['woocommerce'] ) && is_array( $submenu['woocommerce'] ) ) {
-			$first_index = array_key_first( $submenu['woocommerce'] );
-			foreach ( $submenu['woocommerce'] as $index => $item ) {
-				// WordPress links the WooCommerce parent item to its first submenu entry, hidden or not.
+		if ( ! empty( $submenu['poocommerce'] ) && is_array( $submenu['poocommerce'] ) ) {
+			$first_index = array_key_first( $submenu['poocommerce'] );
+			foreach ( $submenu['poocommerce'] as $index => $item ) {
+				// WordPress links the PooCommerce parent item to its first submenu entry, hidden or not.
 				if ( 'wc-reports' === ( $item[2] ?? null ) && $index !== $first_index ) {
-					$submenu['woocommerce'][ $index ][4] = self::add_hide_class( $item[4] ?? '' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					$submenu['poocommerce'][ $index ][4] = self::add_hide_class( $item[4] ?? '' ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				}
 			}
 		}
@@ -83,17 +83,17 @@ final class LegacyReportsMenu {
 			|| $this->has_extension_reports();
 
 		/**
-		 * Filters whether to show the legacy WooCommerce > Reports menu item.
+		 * Filters whether to show the legacy PooCommerce > Reports menu item.
 		 *
 		 * The page stays reachable at admin.php?page=wc-reports either way. By default the item is hidden on
-		 * stores first installed on WooCommerce 11.3.0 or later, unless Analytics is disabled or an extension
+		 * stores first installed on PooCommerce 11.3.0 or later, unless Analytics is disabled or an extension
 		 * adds legacy reports. Runs at the end of admin_menu, so add callbacks before then.
 		 *
 		 * @since 11.3.0
 		 *
 		 * @param bool $show Whether to show the menu item.
 		 */
-		$filtered = apply_filters( 'woocommerce_show_legacy_reports_menu', $show );
+		$filtered = apply_filters( 'poocommerce_show_legacy_reports_menu', $show );
 
 		$filtered = is_scalar( $filtered ) ? filter_var( $filtered, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ) : null;
 
@@ -125,7 +125,7 @@ final class LegacyReportsMenu {
 	/**
 	 * Whether an extension adds to or changes the legacy reports.
 	 *
-	 * Analytics also applies woocommerce_admin_reports, so hooking it isn't enough on its own: the filtered
+	 * Analytics also applies poocommerce_admin_reports, so hooking it isn't enough on its own: the filtered
 	 * legacy reports must contain a report core doesn't define, or a core report with a different callback.
 	 *
 	 * @return bool
@@ -135,7 +135,7 @@ final class LegacyReportsMenu {
 			return true;
 		}
 
-		if ( ! has_filter( 'woocommerce_admin_reports' ) && ! has_filter( 'woocommerce_reports_charts' ) ) {
+		if ( ! has_filter( 'poocommerce_admin_reports' ) && ! has_filter( 'poocommerce_reports_charts' ) ) {
 			return false;
 		}
 

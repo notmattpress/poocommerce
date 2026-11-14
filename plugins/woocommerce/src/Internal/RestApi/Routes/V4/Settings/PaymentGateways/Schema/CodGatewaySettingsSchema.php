@@ -2,12 +2,12 @@
 /**
  * CodGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,29 +35,29 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		// Design-aligned overrides for core fields.
 		$core_field_overrides = array(
 			'enabled'      => array(
-				'label' => __( 'Enable/Disable', 'woocommerce' ),
+				'label' => __( 'Enable/Disable', 'poocommerce' ),
 				'type'  => 'checkbox',
-				'desc'  => __( 'Enable Cash on delivery at checkout', 'woocommerce' ),
+				'desc'  => __( 'Enable Cash on delivery at checkout', 'poocommerce' ),
 			),
 			'title'        => array(
-				'label' => __( 'Checkout label', 'woocommerce' ),
+				'label' => __( 'Checkout label', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'woocommerce' ),
+				'desc'  => __( 'Shown to customers on the payment methods list at checkout.', 'poocommerce' ),
 			),
 			'description'  => array(
-				'label' => __( 'Checkout instructions', 'woocommerce' ),
+				'label' => __( 'Checkout instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown below the checkout label.', 'woocommerce' ),
+				'desc'  => __( 'Shown below the checkout label.', 'poocommerce' ),
 			),
 			'order'        => array(
-				'label' => __( 'Order', 'woocommerce' ),
+				'label' => __( 'Order', 'poocommerce' ),
 				'type'  => 'number',
-				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'woocommerce' ),
+				'desc'  => __( 'Determines the display order of payment gateways during checkout.', 'poocommerce' ),
 			),
 			'instructions' => array(
-				'label' => __( 'Order confirmation instructions', 'woocommerce' ),
+				'label' => __( 'Order confirmation instructions', 'poocommerce' ),
 				'type'  => 'text',
-				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'woocommerce' ),
+				'desc'  => __( 'Shown on the order confirmation page and in order emails.', 'poocommerce' ),
 			),
 		);
 
@@ -66,8 +66,8 @@ class CodGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		$fields = $this->build_fields_from_form_fields( $gateway, $core_field_overrides );
 
 		$group = array(
-			'title'       => __( 'Cash on delivery settings', 'woocommerce' ),
-			'description' => __( 'Manage how Cash on delivery appears at checkout and in order emails.', 'woocommerce' ),
+			'title'       => __( 'Cash on delivery settings', 'poocommerce' ),
+			'description' => __( 'Manage how Cash on delivery appears at checkout and in order emails.', 'poocommerce' ),
 			'order'       => 1,
 			'fields'      => $fields,
 		);

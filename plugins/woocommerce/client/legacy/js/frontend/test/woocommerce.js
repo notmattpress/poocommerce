@@ -2,12 +2,12 @@
  * @jest-environment jest-fixed-jsdom
  */
 
-// woocommerce.js registers a jQuery ajax prefilter that encodes the body of
+// poocommerce.js registers a jQuery ajax prefilter that encodes the body of
 // requests that opt in with the wc_form_encoding option the way a browser form
 // submission would. jQuery serializes with encodeURIComponent(), which leaves
 // !'()~ literal; the WHATWG form serializer percent-encodes them, and some WAF
 // rules reject bodies with the literal characters (see #40791).
-describe( 'woocommerce.js form encoding prefilter', () => {
+describe( 'poocommerce.js form encoding prefilter', () => {
 	let prefilter;
 	const FORM = 'application/x-www-form-urlencoded; charset=UTF-8';
 
@@ -58,7 +58,7 @@ describe( 'woocommerce.js form encoding prefilter', () => {
 		global.$ = jQueryMock;
 
 		jest.resetModules();
-		require( '../woocommerce' );
+		require( '../poocommerce' );
 		return jQueryMock;
 	};
 
@@ -75,7 +75,7 @@ describe( 'woocommerce.js form encoding prefilter', () => {
 	} );
 
 	test( 'should load without throwing when jQuery has no ajax module', () => {
-		// A slim jQuery build has no ajaxPrefilter; the rest of woocommerce.js
+		// A slim jQuery build has no ajaxPrefilter; the rest of poocommerce.js
 		// must still run.
 		expect( () => loadScript( false ) ).not.toThrow();
 		expect( prefilter ).toBeUndefined();
@@ -155,7 +155,7 @@ describe( 'woocommerce.js form encoding prefilter', () => {
 	} );
 
 	test( 'should leave a body that is not form-encoded alone even when opted in', () => {
-		// Only the content type differs from a WooCommerce request here, so
+		// Only the content type differs from a PooCommerce request here, so
 		// this fails only when the content-type guard is removed.
 		loadScript();
 		const json = {
@@ -171,7 +171,7 @@ describe( 'woocommerce.js form encoding prefilter', () => {
 	} );
 
 	test( 'should leave a body alone when processData is off even when opted in', () => {
-		// Only processData differs from a WooCommerce request here, so this
+		// Only processData differs from a PooCommerce request here, so this
 		// fails only when the processData guard is removed.
 		loadScript();
 		const raw = {
@@ -191,7 +191,7 @@ describe( 'refresh_sorted_by_live_region', () => {
 	const loadScript = () => {
 		global.jQuery = jest.fn();
 		jest.isolateModules( () => {
-			require( '../woocommerce' );
+			require( '../poocommerce' );
 		} );
 		document.dispatchEvent( new Event( 'DOMContentLoaded' ) );
 	};
@@ -209,20 +209,20 @@ describe( 'refresh_sorted_by_live_region', () => {
 
 	it( 'turns the classic result count into an alert after a sorted page load', () => {
 		document.body.innerHTML =
-			'<p class="woocommerce-result-count">Showing 1–16 of 18 results</p>';
+			'<p class="poocommerce-result-count">Showing 1–16 of 18 results</p>';
 
 		loadScript();
 		jest.runAllTimers();
 
-		const resultCount = document.querySelector( '.woocommerce-result-count' );
+		const resultCount = document.querySelector( '.poocommerce-result-count' );
 		expect( resultCount.getAttribute( 'role' ) ).toBe( 'alert' );
 		expect( resultCount.getAttribute( 'aria-hidden' ) ).toBe( 'false' );
 	} );
 
 	it( 'leaves the Product Results Count block untouched', () => {
 		document.body.innerHTML =
-			'<div class="wc-block-product-results-count"><p class="woocommerce-result-count">Showing 1–16 of 18 results</p></div>';
-		const resultCount = document.querySelector( '.woocommerce-result-count' );
+			'<div class="wc-block-product-results-count"><p class="poocommerce-result-count">Showing 1–16 of 18 results</p></div>';
+		const resultCount = document.querySelector( '.poocommerce-result-count' );
 		const textNode = resultCount.firstChild;
 
 		loadScript();

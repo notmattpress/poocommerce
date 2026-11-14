@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { ServerAddressAutocompleteProvider } from '@woocommerce/type-defs/address-autocomplete';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { ServerAddressAutocompleteProvider } from '@poocommerce/type-defs/address-autocomplete';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { useEffect } from '@wordpress/element';
 import type {
 	ActionCreatorsOf,
@@ -14,8 +14,8 @@ import type {
 /**
  * Internal dependencies
  */
-import { type CheckoutStoreDescriptor } from '@woocommerce/block-data/checkout';
-import { type CartStoreDescriptor } from '@woocommerce/block-data/cart';
+import { type CheckoutStoreDescriptor } from '@poocommerce/block-data/checkout';
+import { type CartStoreDescriptor } from '@poocommerce/block-data/cart';
 
 // Get server providers configuration
 const serverProviders = getSettingWithCoercion<

@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Validator;
+namespace Automattic\PooCommerce\EmailEditor\Validator;
 
 /**
  * Integration test for the Validator, which accepts or rejects saved email data. It uses the

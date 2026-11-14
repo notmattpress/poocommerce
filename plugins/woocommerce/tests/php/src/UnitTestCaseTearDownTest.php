@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests;
+namespace Automattic\PooCommerce\Tests;
 
 use Automattic\Jetpack\Constants;
 
@@ -20,7 +20,7 @@ use Automattic\Jetpack\Constants;
 class UnitTestCaseTearDownTest extends \WC_Unit_Test_Case {
 
 	/**
-	 * Synthetic locale value, so the leak assertion cannot be satisfied by a WooCommerce default.
+	 * Synthetic locale value, so the leak assertion cannot be satisfied by a PooCommerce default.
 	 */
 	private const LEAKED_LOCALE_LABEL = 'Leaked postcode label';
 
@@ -66,7 +66,7 @@ class UnitTestCaseTearDownTest extends \WC_Unit_Test_Case {
 		};
 
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			$locale_filter
 		);
 
@@ -90,18 +90,18 @@ class UnitTestCaseTearDownTest extends \WC_Unit_Test_Case {
 		$cart_emptied_callback = function ( $should_clear_persistent_cart ) use ( &$clear_persistent_cart ) {
 			$clear_persistent_cart = $should_clear_persistent_cart;
 		};
-		add_action( 'woocommerce_before_cart_emptied', $cart_emptied_callback );
+		add_action( 'poocommerce_before_cart_emptied', $cart_emptied_callback );
 
 		WC()->shipping()->load_shipping_methods();
 		$this->assertIsArray( WC()->shipping()->shipping_methods, 'The shipping methods should be loaded.' );
 
 		// What tearDown() runs before handing off to the parent.
 		$this->clear_wc_singleton_state();
-		remove_action( 'woocommerce_before_cart_emptied', $cart_emptied_callback );
+		remove_action( 'poocommerce_before_cart_emptied', $cart_emptied_callback );
 
 		// The parent teardown restores the hooks straight afterwards, which is what leaves a
 		// filtered locale stranded in the cache. Drop the filter here to reproduce that order.
-		remove_filter( 'woocommerce_get_country_locale', $locale_filter );
+		remove_filter( 'poocommerce_get_country_locale', $locale_filter );
 
 		$this->assertTrue( WC()->cart->is_empty(), 'The cart should have been emptied.' );
 		$this->assertSame( 'shortcode', WC()->cart->cart_context, 'The cart context should be back to shortcode.' );
@@ -209,7 +209,7 @@ class UnitTestCaseTearDownTest extends \WC_Unit_Test_Case {
 		$replaced_name   = array_key_first( $types_at_setup );
 		$removed_name    = array_keys( $types_at_setup )[1];
 		$replaced_type   = $types_at_setup[ $replaced_name ];
-		$registered_name = 'woocommerce-tests/leaked-block';
+		$registered_name = 'poocommerce-tests/leaked-block';
 
 		register_block_type( $registered_name );
 		$registry->unregister( $replaced_name );

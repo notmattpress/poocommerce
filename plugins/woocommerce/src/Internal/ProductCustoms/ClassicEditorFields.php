@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductCustoms;
+namespace Automattic\PooCommerce\Internal\ProductCustoms;
 
 use WC_Product;
 
@@ -29,33 +29,33 @@ final class ClassicEditorFields {
 		$parent_desc    = $parent_product ? $parent_product->get_customs_description( 'edit' ) : null;
 		?>
 		<div class="wc-product-customs <?php echo null !== $loop ? 'hide_if_variation_virtual' : ''; ?>">
-			<h4><?php esc_html_e( 'Customs', 'woocommerce' ); ?></h4>
+			<h4><?php esc_html_e( 'Customs', 'poocommerce' ); ?></h4>
 			<?php
-			woocommerce_wp_text_input(
+			poocommerce_wp_text_input(
 				$this->get_field_args( 'customs_commodity_code', $loop ) + array(
 					'value'       => $product->get_customs_commodity_code( 'edit' ) ?? '',
-					'label'       => __( 'Commodity code', 'woocommerce' ),
-					'description' => $this->get_help_text( __( 'The HS (Harmonized System) code used to classify this product for customs. Enter 6–14 digits; spaces and punctuation are removed.', 'woocommerce' ), $parent_code ),
+					'label'       => __( 'Commodity code', 'poocommerce' ),
+					'description' => $this->get_help_text( __( 'The HS (Harmonized System) code used to classify this product for customs. Enter 6–14 digits; spaces and punctuation are removed.', 'poocommerce' ), $parent_code ),
 					'placeholder' => $parent_code ?? '',
 				),
 				$product
 			);
 
-			woocommerce_wp_select(
+			poocommerce_wp_select(
 				$this->get_field_args( 'customs_country_of_origin', $loop ) + array(
 					'value'       => $product->get_customs_country_of_origin( 'edit' ) ?? '',
-					'label'       => __( 'Country of origin', 'woocommerce' ),
-					'description' => $this->get_help_text( __( 'The country where this product was manufactured or produced.', 'woocommerce' ), null === $parent_country ? null : ( $countries[ $parent_country ] ?? $parent_country ) ),
-					'options'     => array( '' => null !== $parent_country ? __( 'Same as parent', 'woocommerce' ) : __( 'Select a country', 'woocommerce' ) ) + $countries,
+					'label'       => __( 'Country of origin', 'poocommerce' ),
+					'description' => $this->get_help_text( __( 'The country where this product was manufactured or produced.', 'poocommerce' ), null === $parent_country ? null : ( $countries[ $parent_country ] ?? $parent_country ) ),
+					'options'     => array( '' => null !== $parent_country ? __( 'Same as parent', 'poocommerce' ) : __( 'Select a country', 'poocommerce' ) ) + $countries,
 				),
 				$product
 			);
 
-			woocommerce_wp_text_input(
+			poocommerce_wp_text_input(
 				$this->get_field_args( 'customs_description', $loop ) + array(
 					'value'       => $product->get_customs_description( 'edit' ) ?? '',
-					'label'       => __( 'Customs description', 'woocommerce' ),
-					'description' => $this->get_help_text( __( 'A plain-text description for customs forms, up to 35 characters. Emoji and special symbols are not allowed.', 'woocommerce' ), $parent_desc ),
+					'label'       => __( 'Customs description', 'poocommerce' ),
+					'description' => $this->get_help_text( __( 'A plain-text description for customs forms, up to 35 characters. Emoji and special symbols are not allowed.', 'poocommerce' ), $parent_desc ),
 					'placeholder' => $parent_desc ?? '',
 				),
 				$product
@@ -102,6 +102,6 @@ final class ClassicEditorFields {
 		}
 
 		/* translators: %s: Customs value inherited from the parent product. */
-		return $description . ' ' . sprintf( __( 'Leave blank to inherit from the product: %s.', 'woocommerce' ), $inherited );
+		return $description . ' ' . sprintf( __( 'Leave blank to inherit from the product: %s.', 'poocommerce' ), $inherited );
 	}
 }

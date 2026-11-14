@@ -2,14 +2,14 @@
 /**
  * Per-user import session backed by a WordPress transient.
  *
- * @package Automattic\WooCommerce\Admin\Features\Fulfillments\Importer
+ * @package Automattic\PooCommerce\Admin\Features\Fulfillments\Importer
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Importer;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -33,7 +33,7 @@ final class ImportSession {
 	/**
 	 * Action Scheduler hook fired to clean up an abandoned staged CSV file.
 	 */
-	public const CLEANUP_HOOK = 'woocommerce_fulfillments_import_session_cleanup';
+	public const CLEANUP_HOOK = 'poocommerce_fulfillments_import_session_cleanup';
 
 	/**
 	 * Grace period (in seconds) added to TTL before the cleanup action fires.
@@ -234,7 +234,7 @@ final class ImportSession {
 			time() + max( 0, $ttl ) + self::CLEANUP_GRACE,
 			self::CLEANUP_HOOK,
 			array( $user_id, $token, $file, $attachment_id ),
-			'woocommerce-fulfillments-importer'
+			'poocommerce-fulfillments-importer'
 		);
 
 		if ( 0 === $action_id ) {
@@ -487,7 +487,7 @@ final class ImportSession {
 			as_unschedule_action(
 				self::CLEANUP_HOOK,
 				array( $this->user_id, $this->token, $this->file(), $this->attachment_id() ),
-				'woocommerce-fulfillments-importer'
+				'poocommerce-fulfillments-importer'
 			);
 		}
 	}

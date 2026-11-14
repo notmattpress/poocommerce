@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Admin_Dashboard file.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Admin_Report class.
@@ -97,8 +97,8 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 * Test: recent reviews widget content (legacy).
 	 */
 	public function test_recent_reviews_widget_content_legacy_version() {
-		add_filter( 'woocommerce_report_recent_reviews_query_from', $legacy_filter = fn( string $sql ) => $sql );
-		$this->expected_deprecated = array_merge( $this->expected_deprecated, array( 'woocommerce_report_recent_reviews_query_from' ) );
+		add_filter( 'poocommerce_report_recent_reviews_query_from', $legacy_filter = fn( string $sql ) => $sql );
+		$this->expected_deprecated = array_merge( $this->expected_deprecated, array( 'poocommerce_report_recent_reviews_query_from' ) );
 
 		$product     = WC_Helper_Product::create_simple_product();
 		$product_id  = $product->get_id();
@@ -115,7 +115,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 		$this->expectOutputRegex( '/reviewed by/' );
 
 		$product->delete();
-		remove_filter( 'woocommerce_report_recent_reviews_query_from', $legacy_filter );
+		remove_filter( 'poocommerce_report_recent_reviews_query_from', $legacy_filter );
 	}
 
 	/**
@@ -158,15 +158,15 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 */
 	public function provide_analytics_disabled_setups(): array {
 		return array(
-			'woocommerce_admin_disabled filter' => array(
+			'poocommerce_admin_disabled filter' => array(
 				function () {
-					add_filter( 'woocommerce_admin_disabled', '__return_true' );
+					add_filter( 'poocommerce_admin_disabled', '__return_true' );
 				},
 			),
 			'analytics feature turned off'      => array(
 				function () {
 					// A filter, not update_option(): saving the option makes Analytics redirect on the next settings save.
-					add_filter( 'pre_option_woocommerce_analytics_enabled', fn() => 'no' );
+					add_filter( 'pre_option_poocommerce_analytics_enabled', fn() => 'no' );
 				},
 			),
 		);
@@ -180,7 +180,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 */
 	public function test_status_widget_hides_sales_rows_with_analytics_disabled( callable $disable_analytics ) {
 		wp_set_current_user( $this->user );
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 		$order = WC_Helper_Order::create_order();
 		$order->set_status( OrderStatus::COMPLETED );
 		$order->save();
@@ -209,8 +209,8 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::COMPLETED );
 		$order->save();
 
-		add_filter( 'woocommerce_admin_disabled', '__return_true' );
-		add_filter( 'woocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
+		add_filter( 'poocommerce_admin_disabled', '__return_true' );
+		add_filter( 'poocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
 
 		ob_start();
 		( new WC_Admin_Dashboard() )->status_widget_content();
@@ -226,11 +226,11 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	 */
 	public function test_status_widget_reports_filter_can_adjust_legacy_net_sales_with_analytics_disabled() {
 		wp_set_current_user( $this->user );
-		add_filter( 'woocommerce_admin_disabled', '__return_true' );
+		add_filter( 'poocommerce_admin_disabled', '__return_true' );
 		include_once WC_ABSPATH . 'includes/admin/class-wc-admin-reports.php';
 		WC_Admin_Reports::register_hook_handlers();
 		add_filter(
-			'woocommerce_dashboard_status_widget_reports',
+			'poocommerce_dashboard_status_widget_reports',
 			function ( $reports ) {
 				$reports['report_data']->net_sales = 4321;
 				return $reports;

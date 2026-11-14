@@ -1,4 +1,4 @@
-.woocommerce-incentive-modal {
+.poocommerce-incentive-modal {
 	max-width: 840px;
 	border-radius: 8px;
 
@@ -9,7 +9,7 @@
 
 	&__media.components-card-media {
 		overflow: hidden;
-		background-color: $studio-woocommerce-purple-0;
+		background-color: $studio-poocommerce-purple-0;
 		border-radius: 0 !important;
 		align-self: stretch;
 
@@ -87,12 +87,12 @@
 			}
 		}
 
-		& > p.woocommerce-incentive-modal__terms {
+		& > p.poocommerce-incentive-modal__terms {
 			font-size: 12px;
 			margin-bottom: 0;
 		}
 
-		& > .woocommerce-incentive-model__actions {
+		& > .poocommerce-incentive-model__actions {
 			margin-top: $grid-unit-40;
 
 			button.components-button {

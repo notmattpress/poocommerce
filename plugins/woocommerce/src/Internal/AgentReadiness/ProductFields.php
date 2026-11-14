@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,7 +63,7 @@ class ProductFields {
 	}
 
 	/**
-	 * The brand Google for WooCommerce sends for the product when it has its
+	 * The brand Google for PooCommerce sends for the product when it has its
 	 * own value set, or ''. Google reads it; other channels don't.
 	 *
 	 * @param \WC_Product $product Product, not a variation.
@@ -73,7 +73,7 @@ class ProductFields {
 	}
 
 	/**
-	 * The product's MPN from Google for WooCommerce or an "MPN" attribute, or ''.
+	 * The product's MPN from Google for PooCommerce or an "MPN" attribute, or ''.
 	 *
 	 * @param \WC_Product $product Product, not a variation.
 	 */

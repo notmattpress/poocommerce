@@ -5,17 +5,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce product delete ability.
+ * Registers the PooCommerce product delete ability.
  *
  * The delete runs on the write pipeline of ActionableAbility, so the
  * validators of the product resource can refuse it, the syncs see the deleted
@@ -30,7 +30,7 @@ class ProductDelete extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/product-delete';
+	public const ABILITY_NAME = 'poocommerce/product-delete';
 
 	/**
 	 * The result status of a forced delete, which leaves nothing to restore.
@@ -88,12 +88,12 @@ class ProductDelete extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Delete product', 'woocommerce' ),
+			'label'               => __( 'Delete product', 'poocommerce' ),
 			'description'         => __(
 				'Move a product to the trash, or delete it permanently.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::build_output_schema(),
 			'permission_callback' => array( __CLASS__, 'can_delete_product' ),
@@ -151,19 +151,19 @@ class ProductDelete extends ActionableAbility {
 		}
 
 		/**
-		 * Filter whether a product supports trashing in WooCommerce domain abilities.
+		 * Filter whether a product supports trashing in PooCommerce domain abilities.
 		 *
 		 * @param bool        $supports_trash Whether the product supports trashing.
 		 * @param \WC_Product $product        The product being considered for trashing.
 		 *
 		 * @since 10.9.0
 		 */
-		$supports_trash = apply_filters( 'woocommerce_product_object_trashable', EMPTY_TRASH_DAYS > 0, $product );
+		$supports_trash = apply_filters( 'poocommerce_product_object_trashable', EMPTY_TRASH_DAYS > 0, $product );
 
 		if ( ! $this->force && ! $supports_trash ) {
 			return new \WP_Error(
-				'woocommerce_trash_not_supported',
-				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'woocommerce' ),
+				'poocommerce_trash_not_supported',
+				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
@@ -217,8 +217,8 @@ class ProductDelete extends ActionableAbility {
 			|| ( ! $force && 'trash' !== get_post_status( $product_id ) )
 		) {
 			return new \WP_Error(
-				'woocommerce_product_delete_failed',
-				__( 'Failed to delete product.', 'woocommerce' ),
+				'poocommerce_product_delete_failed',
+				__( 'Failed to delete product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -327,7 +327,7 @@ class ProductDelete extends ActionableAbility {
 					'type'        => 'boolean',
 					'description' => __(
 						'Permanently delete the product. Defaults to false, which moves the product to trash.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),
@@ -348,12 +348,12 @@ class ProductDelete extends ActionableAbility {
 			'properties'           => array(
 				'id'     => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the product.', 'woocommerce' ),
+					'description' => __( 'ID of the product.', 'poocommerce' ),
 				),
 				'status' => array(
 					'type'        => 'string',
 					'enum'        => array( ProductStatus::TRASH, self::STATUS_DELETED ),
-					'description' => __( 'What happened to the product. "trash": the product was moved to the trash, and can be restored. "deleted": the product was permanently deleted, and cannot be restored.', 'woocommerce' ),
+					'description' => __( 'What happened to the product. "trash": the product was moved to the trash, and can be restored. "deleted": the product was permanently deleted, and cannot be restored.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

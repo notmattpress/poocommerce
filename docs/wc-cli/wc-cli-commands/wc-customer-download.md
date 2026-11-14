@@ -3,7 +3,7 @@ title: wc customer_download
 sidebar_label: wc customer_download
 ---
 
-Manage WooCommerce customer download resources.
+Manage PooCommerce customer download resources.
 
 ## wc customer_download list `<customer_id>`
 

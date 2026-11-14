@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -254,7 +254,7 @@ class StoreResponses {
 				'timeout'             => self::TIMEOUT,
 				'redirection'         => 0,
 				'limit_response_size' => $limit,
-				// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook for requests a site makes to itself.
+				// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook for requests a site makes to itself.
 				'sslverify'           => (bool) apply_filters( 'https_local_ssl_verify', false ),
 			)
 		);

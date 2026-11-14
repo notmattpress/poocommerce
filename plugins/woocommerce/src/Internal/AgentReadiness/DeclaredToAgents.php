@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -43,22 +43,22 @@ class DeclaredToAgents {
 		$page   = $responses->product_page();
 		$feed   = $responses->get( '/feed/' );
 		$lines  = array(
-			'feed-present'             => array( __( 'RSS or Atom feed', 'woocommerce' ), null === $feed || StoreOutputChecks::blocked( $feed['status'] ) ? null : 200 === $feed['status'] && 1 === preg_match( '/<(rss|feed)[\s>]/i', $feed['body'] ) ),
-			'sameas-links'             => array( __( 'sameAs links in structured data', 'woocommerce' ), self::json_ld_has( $home, 'sameAs' ) ),
-			'site-search-action'       => array( __( 'SearchAction for on-site search', 'woocommerce' ), self::has_search_action( $home ) ),
-			'webmcp-forms-schema'      => array( __( 'Forms that expose declarative WebMCP', 'woocommerce' ), self::page_has_tag( array( $home, $page ), array( 'FORM' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => null !== $tag->get_attribute( 'toolname' ) && null !== $tag->get_attribute( 'tooldescription' ) ) ),
-			'sitemap-lastmod'          => array( __( 'Sitemap has lastmod dates', 'woocommerce' ), self::sitemap_has_lastmod( $responses, $robots ) ),
-			'markdown-pages'           => array( __( 'Markdown version of pages (Accept: text/markdown)', 'woocommerce' ), self::is_markdown( self::markdown_answer( $responses ) ) ),
-			'markdown-alternate-link'  => array( __( 'Pages link to their Markdown version', 'woocommerce' ), self::page_has_tag( array( $home, $page ), array( 'LINK' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => in_array( 'alternate', self::tokens( $tag->get_attribute( 'rel' ) ), true ) && 0 === stripos( trim( (string) $tag->get_attribute( 'type' ) ), 'text/markdown' ) ) ),
-			'markdown-frontmatter'     => array( __( 'Markdown versions start with frontmatter', 'woocommerce' ), self::has_frontmatter( self::markdown_answer( $responses ) ) ),
-			'product-review-schema'    => array( __( 'Product review markup', 'woocommerce' ), null === $page ? null : self::product_has_reviews( $page['body'] ) ),
-			'code-block-language'      => array( __( 'Code blocks tagged with their language', 'woocommerce' ), self::page_has_tag( array( $home, $page ), array( 'PRE', 'CODE' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => 1 === preg_match( '/(?:^|\s)(?:language|lang)-[\w+#-]+/i', (string) $tag->get_attribute( 'class' ) ) ) ),
-			'editorial-metadata'       => array( __( 'Author and publish date', 'woocommerce' ), self::has_editorial_metadata( array( $home, $page ) ) ),
-			'site-search-autocomplete' => array( __( 'On-site search with autocomplete', 'woocommerce' ), self::page_has_tag( array( $home ), array( 'INPUT' ), array( self::class, 'is_autocomplete_search' ) ) ),
-			'mcp-server-card'          => array( __( 'MCP server card', 'woocommerce' ), self::either( self::document_served( $responses, '/.well-known/mcp/server-card.json', array( self::class, 'is_mcp_server_card' ) ), self::document_served( $responses, '/.well-known/mcp.json', array( self::class, 'is_mcp_server_card' ) ) ) ),
+			'feed-present'             => array( __( 'RSS or Atom feed', 'poocommerce' ), null === $feed || StoreOutputChecks::blocked( $feed['status'] ) ? null : 200 === $feed['status'] && 1 === preg_match( '/<(rss|feed)[\s>]/i', $feed['body'] ) ),
+			'sameas-links'             => array( __( 'sameAs links in structured data', 'poocommerce' ), self::json_ld_has( $home, 'sameAs' ) ),
+			'site-search-action'       => array( __( 'SearchAction for on-site search', 'poocommerce' ), self::has_search_action( $home ) ),
+			'webmcp-forms-schema'      => array( __( 'Forms that expose declarative WebMCP', 'poocommerce' ), self::page_has_tag( array( $home, $page ), array( 'FORM' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => null !== $tag->get_attribute( 'toolname' ) && null !== $tag->get_attribute( 'tooldescription' ) ) ),
+			'sitemap-lastmod'          => array( __( 'Sitemap has lastmod dates', 'poocommerce' ), self::sitemap_has_lastmod( $responses, $robots ) ),
+			'markdown-pages'           => array( __( 'Markdown version of pages (Accept: text/markdown)', 'poocommerce' ), self::is_markdown( self::markdown_answer( $responses ) ) ),
+			'markdown-alternate-link'  => array( __( 'Pages link to their Markdown version', 'poocommerce' ), self::page_has_tag( array( $home, $page ), array( 'LINK' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => in_array( 'alternate', self::tokens( $tag->get_attribute( 'rel' ) ), true ) && 0 === stripos( trim( (string) $tag->get_attribute( 'type' ) ), 'text/markdown' ) ) ),
+			'markdown-frontmatter'     => array( __( 'Markdown versions start with frontmatter', 'poocommerce' ), self::has_frontmatter( self::markdown_answer( $responses ) ) ),
+			'product-review-schema'    => array( __( 'Product review markup', 'poocommerce' ), null === $page ? null : self::product_has_reviews( $page['body'] ) ),
+			'code-block-language'      => array( __( 'Code blocks tagged with their language', 'poocommerce' ), self::page_has_tag( array( $home, $page ), array( 'PRE', 'CODE' ), static fn( \WP_HTML_Tag_Processor $tag ): bool => 1 === preg_match( '/(?:^|\s)(?:language|lang)-[\w+#-]+/i', (string) $tag->get_attribute( 'class' ) ) ) ),
+			'editorial-metadata'       => array( __( 'Author and publish date', 'poocommerce' ), self::has_editorial_metadata( array( $home, $page ) ) ),
+			'site-search-autocomplete' => array( __( 'On-site search with autocomplete', 'poocommerce' ), self::page_has_tag( array( $home ), array( 'INPUT' ), array( self::class, 'is_autocomplete_search' ) ) ),
+			'mcp-server-card'          => array( __( 'MCP server card', 'poocommerce' ), self::either( self::document_served( $responses, '/.well-known/mcp/server-card.json', array( self::class, 'is_mcp_server_card' ) ), self::document_served( $responses, '/.well-known/mcp.json', array( self::class, 'is_mcp_server_card' ) ) ) ),
 			// Not read yet: DNS-AID needs a DNS lookup, and a feed product sync is set up outside the store's pages.
-			'dns-aid'                  => array( __( 'DNS for AI Discovery (DNS-AID)', 'woocommerce' ), null ),
-			'product-feed-automation'  => array( __( 'Automated product feed', 'woocommerce' ), null ),
+			'dns-aid'                  => array( __( 'DNS for AI Discovery (DNS-AID)', 'poocommerce' ), null ),
+			'product-feed-automation'  => array( __( 'Automated product feed', 'poocommerce' ), null ),
 		);
 		foreach ( $lines as $id => $line ) {
 			$items[] = array(
@@ -77,11 +77,11 @@ class DeclaredToAgents {
 	 */
 	private function files(): array {
 		return array(
-			'ai-txt'       => array( __( 'ai.txt usage file', 'woocommerce' ), '/ai.txt' ),
-			'sitemap-md'   => array( __( 'Markdown sitemap', 'woocommerce' ), '/sitemap.md' ),
-			'agents-md'    => array( __( 'AGENTS.md', 'woocommerce' ), '/AGENTS.md' ),
-			'security-txt' => array( __( 'security.txt', 'woocommerce' ), '/.well-known/security.txt' ),
-			'auth-md'      => array( __( 'auth.md agent sign-in instructions', 'woocommerce' ), '/auth.md' ),
+			'ai-txt'       => array( __( 'ai.txt usage file', 'poocommerce' ), '/ai.txt' ),
+			'sitemap-md'   => array( __( 'Markdown sitemap', 'poocommerce' ), '/sitemap.md' ),
+			'agents-md'    => array( __( 'AGENTS.md', 'poocommerce' ), '/AGENTS.md' ),
+			'security-txt' => array( __( 'security.txt', 'poocommerce' ), '/.well-known/security.txt' ),
+			'auth-md'      => array( __( 'auth.md agent sign-in instructions', 'poocommerce' ), '/auth.md' ),
 		);
 	}
 
@@ -94,19 +94,19 @@ class DeclaredToAgents {
 	private function documents(): array {
 		$has = static fn( string ...$keys ): callable => static fn( array $document ): bool => array() === array_diff( $keys, array_keys( array_filter( $document ) ) );
 		return array(
-			'tdmrep'                   => array( __( 'TDMRep text-and-data-mining reservation', 'woocommerce' ), '/.well-known/tdmrep.json', static fn( array $document ): bool => isset( $document[0]['location'] ) ),
-			'a2a-agent-card'           => array( __( 'A2A Agent Card', 'woocommerce' ), '/.well-known/agent-card.json', $has( 'name', 'skills' ) ),
-			'agent-skills-index'       => array( __( 'Agent Skills index', 'woocommerce' ), '/.well-known/agent-skills/index.json', $has( 'skills' ) ),
-			'openapi-spec'             => array( __( 'OpenAPI description', 'woocommerce' ), '/openapi.json', $has( 'openapi' ) ),
-			'agents-json'              => array( __( 'agents.json', 'woocommerce' ), '/.well-known/agents.json', $has( 'agentsJson', 'flows' ) ),
-			'web-bot-auth'             => array( __( 'Web Bot Auth key directory', 'woocommerce' ), '/.well-known/http-message-signatures-directory', $has( 'keys' ) ),
-			'oauth-discovery'          => array( __( 'OAuth authorization server metadata', 'woocommerce' ), '/.well-known/oauth-authorization-server', $has( 'issuer' ) ),
-			'oauth-protected-resource' => array( __( 'OAuth Protected Resource metadata', 'woocommerce' ), '/.well-known/oauth-protected-resource', $has( 'resource' ) ),
-			'poppy-json'               => array( __( 'Personal Agent Protocol (poppy.json)', 'woocommerce' ), '/.well-known/poppy.json', array( self::class, 'is_poppy_document' ) ),
-			'acp-support'              => array( __( 'Agentic Commerce Protocol (ACP) declared', 'woocommerce' ), '/.well-known/acp.json', static fn( array $document ): bool => 'acp' === ( $document['protocol']['name'] ?? '' ) ),
-			'ard-manifest'             => array( __( 'Agentic Resource Discovery manifest', 'woocommerce' ), '/.well-known/ard.json', static fn( array $document ): bool => is_array( $document['entries'] ?? null ) ),
-			'ai-catalog'               => array( __( 'AI catalog discovery', 'woocommerce' ), '/.well-known/ai-catalog.json', static fn( array $document ): bool => isset( $document['specVersion'] ) && is_array( $document['entries'] ?? null ) ),
-			'mpp'                      => array( __( 'Machine Payments Protocol (MPP)', 'woocommerce' ), '/openapi.json', array( self::class, 'has_payment_info' ) ),
+			'tdmrep'                   => array( __( 'TDMRep text-and-data-mining reservation', 'poocommerce' ), '/.well-known/tdmrep.json', static fn( array $document ): bool => isset( $document[0]['location'] ) ),
+			'a2a-agent-card'           => array( __( 'A2A Agent Card', 'poocommerce' ), '/.well-known/agent-card.json', $has( 'name', 'skills' ) ),
+			'agent-skills-index'       => array( __( 'Agent Skills index', 'poocommerce' ), '/.well-known/agent-skills/index.json', $has( 'skills' ) ),
+			'openapi-spec'             => array( __( 'OpenAPI description', 'poocommerce' ), '/openapi.json', $has( 'openapi' ) ),
+			'agents-json'              => array( __( 'agents.json', 'poocommerce' ), '/.well-known/agents.json', $has( 'agentsJson', 'flows' ) ),
+			'web-bot-auth'             => array( __( 'Web Bot Auth key directory', 'poocommerce' ), '/.well-known/http-message-signatures-directory', $has( 'keys' ) ),
+			'oauth-discovery'          => array( __( 'OAuth authorization server metadata', 'poocommerce' ), '/.well-known/oauth-authorization-server', $has( 'issuer' ) ),
+			'oauth-protected-resource' => array( __( 'OAuth Protected Resource metadata', 'poocommerce' ), '/.well-known/oauth-protected-resource', $has( 'resource' ) ),
+			'poppy-json'               => array( __( 'Personal Agent Protocol (poppy.json)', 'poocommerce' ), '/.well-known/poppy.json', array( self::class, 'is_poppy_document' ) ),
+			'acp-support'              => array( __( 'Agentic Commerce Protocol (ACP) declared', 'poocommerce' ), '/.well-known/acp.json', static fn( array $document ): bool => 'acp' === ( $document['protocol']['name'] ?? '' ) ),
+			'ard-manifest'             => array( __( 'Agentic Resource Discovery manifest', 'poocommerce' ), '/.well-known/ard.json', static fn( array $document ): bool => is_array( $document['entries'] ?? null ) ),
+			'ai-catalog'               => array( __( 'AI catalog discovery', 'poocommerce' ), '/.well-known/ai-catalog.json', static fn( array $document ): bool => isset( $document['specVersion'] ) && is_array( $document['entries'] ?? null ) ),
+			'mpp'                      => array( __( 'Machine Payments Protocol (MPP)', 'poocommerce' ), '/openapi.json', array( self::class, 'has_payment_info' ) ),
 		);
 	}
 

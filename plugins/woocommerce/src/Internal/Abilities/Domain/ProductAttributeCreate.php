@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAttributeAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAttributeAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,9 +25,9 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 	 * Error codes of wc_create_attribute() and the ability codes they map to.
 	 */
 	private const CREATE_ERRORS = array(
-		'invalid_product_attribute_slug_too_long'       => 'woocommerce_ability_product_attribute_slug_too_long',
-		'invalid_product_attribute_slug_reserved_name'  => 'woocommerce_ability_product_attribute_slug_reserved',
-		'invalid_product_attribute_slug_already_exists' => 'woocommerce_ability_product_attribute_slug_exists',
+		'invalid_product_attribute_slug_too_long'       => 'poocommerce_ability_product_attribute_slug_too_long',
+		'invalid_product_attribute_slug_reserved_name'  => 'poocommerce_ability_product_attribute_slug_reserved',
+		'invalid_product_attribute_slug_already_exists' => 'poocommerce_ability_product_attribute_slug_exists',
 	);
 
 	/**
@@ -37,7 +37,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-attribute-create';
+		return 'poocommerce/product-attribute-create';
 	}
 
 	/**
@@ -48,9 +48,9 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create product attribute', 'woocommerce' ),
-			'description'         => __( 'Create a global product attribute, such as Color or Size. Product writes then use it by ID or name, with global set to true, and create its terms from the options they send.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Create product attribute', 'poocommerce' ),
+			'description'         => __( 'Create a global product attribute, such as Color or Size. Product writes then use it by ID or name, with global set to true, and create its terms from the options they send.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'attribute', self::get_product_attribute_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -90,7 +90,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 	public static function execute( array $input ) {
 		$name = sanitize_text_field( $input['name'] );
 		if ( '' === $name ) {
-			return new \WP_Error( 'woocommerce_ability_product_attribute_name_empty', __( 'The attribute name is empty.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_product_attribute_name_empty', __( 'The attribute name is empty.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$name_slug = wc_attribute_taxonomy_slug( $name );
@@ -99,7 +99,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 		$slug = '' === $slug ? $name_slug : $slug;
 		// wc_create_attribute() stores an empty slug as a row that no attribute read returns.
 		if ( '' === $slug ) {
-			return new \WP_Error( 'woocommerce_ability_product_attribute_slug_empty', __( 'The attribute needs a slug with letters or numbers. Send one, or a name that has some.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_product_attribute_slug_empty', __( 'The attribute needs a slug with letters or numbers. Send one, or a name that has some.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 		$existing_id = wc_attribute_taxonomy_id_by_name( $slug );
 		// wc_create_attribute() only checks registered taxonomies, which misses an attribute created earlier in this request.
@@ -107,7 +107,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			return new \WP_Error(
 				self::CREATE_ERRORS['invalid_product_attribute_slug_already_exists'],
 				/* translators: %s: attribute slug. */
-				sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'woocommerce' ), $slug ),
+				sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'poocommerce' ), $slug ),
 				array(
 					'status' => 400,
 					'id'     => $existing_id,
@@ -119,9 +119,9 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 		foreach ( wc_get_attribute_taxonomies() as $attribute ) {
 			if ( 0 === strcasecmp( (string) $attribute->attribute_label, $name ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_attribute_name_exists',
+					'poocommerce_ability_product_attribute_name_exists',
 					/* translators: %s: attribute name. */
-					sprintf( __( 'A global attribute named "%s" already exists.', 'woocommerce' ), $attribute->attribute_label ),
+					sprintf( __( 'A global attribute named "%s" already exists.', 'poocommerce' ), $attribute->attribute_label ),
 					array(
 						'status' => 400,
 						'id'     => (int) $attribute->attribute_id,
@@ -130,9 +130,9 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			}
 			if ( wc_attribute_taxonomy_slug( (string) $attribute->attribute_label ) === $slug || $attribute->attribute_name === $name_slug ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_attribute_name_ambiguous',
+					'poocommerce_ability_product_attribute_name_ambiguous',
 					/* translators: 1: attribute name, 2: existing attribute name. */
-					sprintf( __( 'Product writes could not tell "%1$s" apart from the global attribute "%2$s". Choose another name or slug.', 'woocommerce' ), $name, $attribute->attribute_label ),
+					sprintf( __( 'Product writes could not tell "%1$s" apart from the global attribute "%2$s". Choose another name or slug.', 'poocommerce' ), $name, $attribute->attribute_label ),
 					array(
 						'status' => 400,
 						'id'     => (int) $attribute->attribute_id,
@@ -151,13 +151,13 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			)
 		);
 		if ( is_wp_error( $id ) ) {
-			$code = self::CREATE_ERRORS[ $id->get_error_code() ] ?? 'woocommerce_ability_product_attribute_create_failed';
+			$code = self::CREATE_ERRORS[ $id->get_error_code() ] ?? 'poocommerce_ability_product_attribute_create_failed';
 			return new \WP_Error( $code, $id->get_error_message(), $id->get_error_data() );
 		}
 
 		$attributes = wc_get_attribute_taxonomies();
 		if ( ! isset( $attributes[ 'id:' . $id ] ) ) {
-			return new \WP_Error( 'woocommerce_ability_product_attribute_create_failed', __( 'The attribute was created but could not be read back.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_product_attribute_create_failed', __( 'The attribute was created but could not be read back.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		self::register_attribute_taxonomy( $attributes[ 'id:' . $id ] );
@@ -173,7 +173,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 	/**
 	 * Register the attribute taxonomy for the rest of this request.
 	 *
-	 * WooCommerce registers attribute taxonomies on init only. Without this, a product
+	 * PooCommerce registers attribute taxonomies on init only. Without this, a product
 	 * write later in the same request, such as the next call of a stdio MCP session,
 	 * saves the product without the attribute's terms and reports no error.
 	 *
@@ -198,7 +198,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			 * @since 2.3.0
 			 * @param array $object_types Object types.
 			 */
-			apply_filters( "woocommerce_taxonomy_objects_{$taxonomy}", array( 'product' ) ),
+			apply_filters( "poocommerce_taxonomy_objects_{$taxonomy}", array( 'product' ) ),
 			/**
 			 * Filters the registration arguments of a global attribute taxonomy.
 			 *
@@ -206,7 +206,7 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			 * @param array $args Taxonomy arguments.
 			 */
 			apply_filters(
-				"woocommerce_taxonomy_args_{$taxonomy}",
+				"poocommerce_taxonomy_args_{$taxonomy}",
 				array(
 					'hierarchical'          => false,
 					'update_count_callback' => '_update_post_term_count',
@@ -246,12 +246,12 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 			'type'                 => 'object',
 			'properties'           => array(
 				'name'         => array(
-					'description' => __( 'Label shown to shoppers, such as Color.', 'woocommerce' ),
+					'description' => __( 'Label shown to shoppers, such as Color.', 'poocommerce' ),
 					'type'        => 'string',
 					'minLength'   => 1,
 				),
 				'slug'         => array(
-					'description' => __( 'Slug without the pa_ prefix. Defaults to one made from the name.', 'woocommerce' ),
+					'description' => __( 'Slug without the pa_ prefix. Defaults to one made from the name.', 'poocommerce' ),
 					'type'        => 'string',
 					'minLength'   => 1,
 				),
@@ -261,13 +261,13 @@ class ProductAttributeCreate extends AbstractDomainAbility implements AbilityDef
 					'default' => 'select',
 				),
 				'order_by'     => array(
-					'description' => __( 'Default sort order of the terms. name_num sorts names as numbers.', 'woocommerce' ),
+					'description' => __( 'Default sort order of the terms. name_num sorts names as numbers.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'menu_order', 'name', 'name_num', 'id' ),
 					'default'     => 'menu_order',
 				),
 				'has_archives' => array(
-					'description' => __( 'Give each term a public archive page.', 'woocommerce' ),
+					'description' => __( 'Give each term a public archive page.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 				),

@@ -1,15 +1,15 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationEditPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -78,7 +78,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 
 		$_POST = array(
 			'wc_customer_stock_notification_action'     => 'send_verification_email',
-			'customer_stock_notification_edit_security' => wp_create_nonce( 'woocommerce-customer-stock-notification-edit' ),
+			'customer_stock_notification_edit_security' => wp_create_nonce( 'poocommerce-customer-stock-notification-edit' ),
 		);
 
 		$_REQUEST = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Simulates the request the handler verifies.
@@ -134,7 +134,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 
 		$sent_action_args = array();
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function ( $notification, $product ) use ( &$sent_action_args ) {
 				$sent_action_args[] = array( $notification->get_id(), $product->get_id() );
 			},
@@ -149,12 +149,12 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A throwing `woocommerce_customer_stock_notification_sent` callback does not break the "Send now" action.
+	 * @testdox A throwing `poocommerce_customer_stock_notification_sent` callback does not break the "Send now" action.
 	 */
 	public function test_send_notification_survives_throwing_sent_action_callback(): void {
 		$this->email_manager->method( 'deliver_stock_notification' )->willReturn( true );
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function () {
 				throw new \RuntimeException( 'Integration exploded.' );
 			}
@@ -167,7 +167,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A throwing `woocommerce_customer_stock_notification_pre_send` callback leaves the sign-up active and shows the failure notice.
+	 * @testdox A throwing `poocommerce_customer_stock_notification_pre_send` callback leaves the sign-up active and shows the failure notice.
 	 */
 	public function test_send_notification_survives_throwing_delivery(): void {
 		$this->email_manager->method( 'deliver_stock_notification' )->willThrowException( new \RuntimeException( 'Provider exploded.' ) );
@@ -190,7 +190,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 		);
 		$sent_action_fired = false;
 		add_action(
-			'woocommerce_customer_stock_notification_sent',
+			'poocommerce_customer_stock_notification_sent',
 			function () use ( &$sent_action_fired ) {
 				$sent_action_fired = true;
 			}
@@ -231,7 +231,7 @@ class NotificationEditPageTests extends \WC_Unit_Test_Case {
 
 		$_POST = array(
 			'wc_customer_stock_notification_action'     => 'send_notification',
-			'customer_stock_notification_edit_security' => wp_create_nonce( 'woocommerce-customer-stock-notification-edit' ),
+			'customer_stock_notification_edit_security' => wp_create_nonce( 'poocommerce-customer-stock-notification-edit' ),
 		);
 
 		$_REQUEST = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Simulates the request the handler verifies.

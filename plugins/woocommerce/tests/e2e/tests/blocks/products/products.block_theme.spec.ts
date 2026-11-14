@@ -8,7 +8,7 @@ import {
 	BlockData,
 	BLOCK_THEME_SLUG,
 	RequestUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -36,7 +36,7 @@ const templates = {
 		templateTitle: 'Product Catalog',
 		slug: 'archive-product',
 		frontendPage: '/shop/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 };
 
@@ -47,7 +47,7 @@ const classicTemplateComparisonRoutes = {
 		templateTitle: 'Product Catalog',
 		slug: 'archive-product',
 		frontendPage: '/shop/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 		needsCreation: false,
 	},
 	'taxonomy-product_cat': {
@@ -56,7 +56,7 @@ const classicTemplateComparisonRoutes = {
 		templateTitle: 'Products by Category',
 		slug: 'taxonomy-product_cat',
 		frontendPage: '/product-category/tshirts/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 		needsCreation: true,
 	},
 	'product-search-results': {
@@ -65,7 +65,7 @@ const classicTemplateComparisonRoutes = {
 		templateTitle: 'Product Search Results',
 		slug: 'product-search-results',
 		frontendPage: '/?s=shirt&post_type=product',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 		needsCreation: false,
 	},
 };
@@ -252,7 +252,7 @@ for ( const {
 
 			await page.goto( frontendPage );
 			await expect(
-				page.locator( '.woocommerce-loop-product__title' ).first()
+				page.locator( '.poocommerce-loop-product__title' ).first()
 			).toBeVisible();
 
 			const classicProducts =

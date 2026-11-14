@@ -12,15 +12,15 @@ import { __ } from '@wordpress/i18n';
 import { PanelBody, ToggleControl, Button } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 
-const ACCORDION_BLOCK_NAME = 'woocommerce/accordion-item';
+const ACCORDION_BLOCK_NAME = 'poocommerce/accordion-item';
 const ACCORDION_BLOCK = {
 	name: ACCORDION_BLOCK_NAME,
 };
 
 /**
- * Deprecation notice component for the WooCommerce Accordion block.
+ * Deprecation notice component for the PooCommerce Accordion block.
  *
  * @param {Object} props          - Component props.
  * @param {string} props.clientId - The block client ID.
@@ -43,7 +43,7 @@ function DeprecatedBlockEdit( { clientId } ) {
 	);
 
 	/**
-	 * Recursively convert WooCommerce accordion blocks to WordPress core accordion blocks.
+	 * Recursively convert PooCommerce accordion blocks to WordPress core accordion blocks.
 	 *
 	 * @param {Array<*>} blocks - The inner blocks to convert.
 	 *
@@ -52,12 +52,12 @@ function DeprecatedBlockEdit( { clientId } ) {
 	const convertInnerBlocks = ( blocks ) => {
 		// Define attributes to REMOVE for each block type.
 		const attributesToRemove = {
-			'woocommerce/accordion-header': [
+			'poocommerce/accordion-header': [
 				'icon',
 				'textAlignment',
 				'levelOptions',
 			],
-			'woocommerce/accordion-panel': [
+			'poocommerce/accordion-panel': [
 				'allowedBlocks',
 				'isSelected',
 				'openByDefault',
@@ -68,11 +68,11 @@ function DeprecatedBlockEdit( { clientId } ) {
 			let newBlockName = block.name;
 			const newAttributes = { ...block.attributes };
 
-			// Map WooCommerce block names to WordPress core block names.
-			if ( block.name === 'woocommerce/accordion-item' ) {
+			// Map PooCommerce block names to WordPress core block names.
+			if ( block.name === 'poocommerce/accordion-item' ) {
 				newBlockName = 'core/accordion-item';
 				// No attribute changes needed.
-			} else if ( block.name === 'woocommerce/accordion-header' ) {
+			} else if ( block.name === 'poocommerce/accordion-header' ) {
 				newBlockName = 'core/accordion-heading';
 
 				// Convert icon to showIcon.
@@ -82,16 +82,16 @@ function DeprecatedBlockEdit( { clientId } ) {
 
 				// Remove incompatible attributes.
 				const headerAttrs =
-					attributesToRemove[ 'woocommerce/accordion-header' ];
+					attributesToRemove[ 'poocommerce/accordion-header' ];
 				headerAttrs.forEach( ( attr ) => {
 					delete newAttributes[ attr ];
 				} );
-			} else if ( block.name === 'woocommerce/accordion-panel' ) {
+			} else if ( block.name === 'poocommerce/accordion-panel' ) {
 				newBlockName = 'core/accordion-panel';
 
 				// Remove incompatible attributes.
 				const panelAttrs =
-					attributesToRemove[ 'woocommerce/accordion-panel' ];
+					attributesToRemove[ 'poocommerce/accordion-panel' ];
 				panelAttrs.forEach( ( attr ) => {
 					delete newAttributes[ attr ];
 				} );
@@ -133,7 +133,7 @@ function DeprecatedBlockEdit( { clientId } ) {
 
 	const actions = [
 		<Button key="update" onClick={ updateBlock } variant="primary">
-			{ __( 'Upgrade Block', 'woocommerce' ) }
+			{ __( 'Upgrade Block', 'poocommerce' ) }
 		</Button>,
 	];
 
@@ -141,14 +141,14 @@ function DeprecatedBlockEdit( { clientId } ) {
 		<Warning actions={ actions } className="wc-block-components-actions">
 			{ __(
 				'This version of the Accordion block is outdated. Upgrade to continue using.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</Warning>
 	);
 }
 
 /**
- * Edit component for the WooCommerce Accordion Group block.
+ * Edit component for the PooCommerce Accordion Group block.
  *
  * @param {Object}   props                      - Component props.
  * @param {Object}   props.attributes           - Block attributes.
@@ -181,13 +181,13 @@ export default function Edit( {
 		<>
 			<InspectorControls key="setting">
 				<PanelBody
-					title={ __( 'Settings', 'woocommerce' ) }
+					title={ __( 'Settings', 'poocommerce' ) }
 					initialOpen
 				>
 					<ToggleControl
 						isBlock
 						__nextHasNoMarginBottom
-						label={ __( 'Auto-close', 'woocommerce' ) }
+						label={ __( 'Auto-close', 'poocommerce' ) }
 						onChange={ ( value ) => {
 							setAttributes( {
 								autoclose: value,
@@ -196,7 +196,7 @@ export default function Edit( {
 						checked={ autoclose }
 						help={ __(
 							'Automatically close accordions when a new one is opened.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</PanelBody>

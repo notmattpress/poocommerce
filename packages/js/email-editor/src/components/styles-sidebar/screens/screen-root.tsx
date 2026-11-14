@@ -25,7 +25,7 @@ export function ScreenRoot(): JSX.Element {
 		<Stack
 			direction="column"
 			gap="lg"
-			className="woocommerce-email-editor-styles-screen-body"
+			className="poocommerce-email-editor-styles-screen-body"
 		>
 			<Card.Root>
 				<Card.Content>

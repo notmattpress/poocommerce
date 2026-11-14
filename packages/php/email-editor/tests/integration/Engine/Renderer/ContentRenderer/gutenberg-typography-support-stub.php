@@ -2,7 +2,7 @@
 /**
  * Stand-in for the Gutenberg plugin's typography support callback, which isn't installed in tests.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );

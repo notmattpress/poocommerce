@@ -3,7 +3,7 @@
  */
 import { render, screen, act } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { cartStore, validationStore } from '@woocommerce/block-data';
+import { cartStore, validationStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -17,8 +17,8 @@ import {
 // Read inside the component rather than at module load, so each test can set it.
 let mockShippingCostRequiresAddress = false;
 
-jest.mock( '@woocommerce/settings', () => {
-	const actualModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const actualModule = jest.requireActual( '@poocommerce/settings' );
 	return {
 		...actualModule,
 		getSetting: ( name: string, ...rest: unknown[] ) => {

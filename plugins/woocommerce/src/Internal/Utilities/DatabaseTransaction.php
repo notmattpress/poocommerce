@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -124,8 +124,8 @@ final class DatabaseTransaction {
 
 		if ( $lost && ! is_wp_error( $result ) ) {
 			return new \WP_Error(
-				'woocommerce_transaction_rolled_back',
-				__( 'The change might not have been saved because another change ran at the same time. Check it and try again.', 'woocommerce' ),
+				'poocommerce_transaction_rolled_back',
+				__( 'The change might not have been saved because another change ran at the same time. Check it and try again.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}

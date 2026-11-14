@@ -52,8 +52,8 @@ jest.mock( '../api', () => {
 it( 'should return the latest release version', async () => {
 	expect(
 		await getLatestGithubReleaseVersion( {
-			owner: 'woocommerce',
-			name: 'woocommerce',
+			owner: 'poocommerce',
+			name: 'poocommerce',
 		} )
 	).toBe( '2.0.1' );
 } );

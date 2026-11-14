@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Summary as SummaryBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Summary as SummaryBlock;
 use WC_Order;
 use WC_Unit_Test_Case;
 

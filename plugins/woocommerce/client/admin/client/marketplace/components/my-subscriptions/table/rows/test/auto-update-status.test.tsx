@@ -4,7 +4,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 	queueRecordEvent: jest.fn(),
 } ) );
@@ -198,7 +198,7 @@ describe( 'AutoUpdateStatus', () => {
 		).toBeInTheDocument();
 	} );
 
-	it( 'blocks a product without a subscription even when it does not update from WooCommerce.com', async () => {
+	it( 'blocks a product without a subscription even when it does not update from PooCommerce.com', async () => {
 		renderStatus(
 			subscriptionWith(
 				{ auto_update: true, updates_from_wccom: false },
@@ -224,7 +224,7 @@ describe( 'AutoUpdateStatus', () => {
 
 		expect(
 			await screen.findByText(
-				'WooCommerce.com Update Manager is not active, and it delivers these updates.'
+				'PooCommerce.com Update Manager is not active, and it delivers these updates.'
 			)
 		).toBeInTheDocument();
 	} );
@@ -239,7 +239,7 @@ describe( 'AutoUpdateStatus', () => {
 
 		expect(
 			await screen.findByText(
-				'WooCommerce.com Update Manager is not active, and it delivers these updates.'
+				'PooCommerce.com Update Manager is not active, and it delivers these updates.'
 			)
 		).toBeInTheDocument();
 	} );

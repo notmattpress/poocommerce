@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Date } from '@woocommerce/components';
+import { Date } from '@poocommerce/components';
 
 export const Basic = () => <Date date="2019-01-01" />;
 

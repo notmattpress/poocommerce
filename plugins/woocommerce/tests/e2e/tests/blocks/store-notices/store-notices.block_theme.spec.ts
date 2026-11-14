@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { expect, test, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { expect, test, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Store Notices',
-	slug: 'woocommerce/store-notices',
+	slug: 'poocommerce/store-notices',
 };
 
 test.describe( `${ blockData.slug } Block`, () => {
@@ -25,7 +25,7 @@ test.describe( `${ blockData.slug } Block`, () => {
 		const block = await editor.getBlockByName( blockData.slug );
 		await expect( block ).toBeVisible();
 		await expect( block ).toHaveText(
-			'Notices added by WooCommerce or extensions will show up here.'
+			'Notices added by PooCommerce or extensions will show up here.'
 		);
 	} );
 } );

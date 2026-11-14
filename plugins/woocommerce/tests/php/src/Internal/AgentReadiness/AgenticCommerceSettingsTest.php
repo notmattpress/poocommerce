@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettingsPage;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettingsPage;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
 use WC_Admin_Settings;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -34,8 +34,8 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		include_once WC_ABSPATH . 'includes/admin/settings/class-wc-settings-page.php';
 		set_current_screen( 'dashboard' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'yes' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->sut = wc_get_container()->get( AgenticCommerceSettings::class );
 	}
 
@@ -54,15 +54,15 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox The tab is added only while the agent_readiness feature is enabled.
 	 */
 	public function test_tab_only_with_feature_enabled(): void {
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'no' );
-		remove_all_filters( 'woocommerce_get_settings_pages' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'no' );
+		remove_all_filters( 'poocommerce_get_settings_pages' );
 		$this->sut->handle_init();
-		$this->assertFalse( has_filter( 'woocommerce_get_settings_pages' ), 'No tab with the feature off' );
+		$this->assertFalse( has_filter( 'poocommerce_get_settings_pages' ), 'No tab with the feature off' );
 
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'yes' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->sut->handle_init();
-		$pages = apply_filters( 'woocommerce_get_settings_pages', array() );
+		$pages = apply_filters( 'poocommerce_get_settings_pages', array() );
 
 		$this->assertCount( 1, $pages );
 		$this->assertInstanceOf( AgenticCommerceSettingsPage::class, $pages[0] );
@@ -102,7 +102,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_output_with_report_and_failing_checks(): void {
 		remove_all_filters( 'pre_option_home' );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		update_option( 'home', 'http://example.org' );
 		WC_Helper_Product::create_simple_product();
 		WC_Helper_Product::create_external_product();
@@ -172,7 +172,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox In coming soon mode the switch card says so and links to Site visibility.
 	 */
 	public function test_output_coming_soon_notice_in_switch_card(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$html = $this->render_page();
 
@@ -258,7 +258,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		);
 
 		$live = $this->render_page();
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		$coming_soon = $this->render_page();
 
 		$this->assertStringContainsString( 'This couldn&#039;t be checked.', $live );
@@ -273,9 +273,9 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	public function test_output_switch_on_with_failing_checks(): void {
 		$page = $this->page();
 		remove_all_filters( 'pre_option_home' );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		update_option( 'home', 'http://example.org' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 
 		ob_start();
 		$page->output();
@@ -303,7 +303,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'conflict' => $conflict,
 		);
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(
@@ -332,7 +332,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_output_declared_block(): void {
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(),
@@ -374,12 +374,12 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'found' => $found,
 		);
 
-		update_option( 'woocommerce_agent_readiness_report', $report( array( $item( null ), $item( null ), 'not an array' ) ) );
+		update_option( 'poocommerce_agent_readiness_report', $report( array( $item( null ), $item( null ), 'not an array' ) ) );
 		$html = $this->render_page();
 		$this->assertStringContainsString( '<summary>Not checked</summary>', $html );
 		$this->assertStringNotContainsString( '0 of', $html );
 
-		update_option( 'woocommerce_agent_readiness_report', $report( array( $item( true ), $item( false ), $item( null ) ) ) );
+		update_option( 'poocommerce_agent_readiness_report', $report( array( $item( true ), $item( false ), $item( null ) ) ) );
 		$this->assertStringContainsString( '1 of 3 found, 1 not checked', $this->render_page() );
 	}
 
@@ -529,7 +529,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertSame( $published, (int) get_option( AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION ) );
 		$this->assertSame( '', (string) get_option( AgenticCommerceSettings::FAQ_PAGE_OPTION ), 'An empty choice clears a stored draft' );
 		$this->assertSame( $published, (int) get_option( AgenticCommerceSettings::WARRANTY_PAGE_OPTION ) );
-		$this->assertFalse( get_option( 'woocommerce_return_policy_summary' ), 'There is no return policy summary' );
+		$this->assertFalse( get_option( 'poocommerce_return_policy_summary' ), 'There is no return policy summary' );
 	}
 
 	/**
@@ -542,7 +542,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $checkout );
+		update_option( 'poocommerce_checkout_page_id', $checkout );
 		$terms_field = array();
 		foreach ( $this->page()->get_settings_for_section( '' ) as $field ) {
 			if ( AgenticCommerceSettings::TERMS_PAGE_OPTION === ( $field['id'] ?? '' ) ) {
@@ -570,7 +570,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'post_title'  => 'Cart',
 			)
 		);
-		update_option( 'woocommerce_cart_page_id', $cart );
+		update_option( 'poocommerce_cart_page_id', $cart );
 		update_option( AgenticCommerceSettings::TERMS_PAGE_OPTION, $cart );
 
 		$settings = $this->page()->get_settings_for_section( '' );
@@ -635,7 +635,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox The switch stays disabled until the required checks pass.
 	 */
 	public function test_switch_disabled_until_required_checks_pass(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$blocked = $this->render_page();
 		$this->assertMatchesRegularExpression( '/<button[^>]*wc-agentic-commerce-ucp-switch[^>]*disabled=([\'"])disabled\\1/', $blocked );
@@ -649,10 +649,10 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * A fresh settings page.
 	 */
 	private function page(): AgenticCommerceSettingsPage {
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'yes' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->sut->handle_init();
-		$pages = $this->sut->handle_woocommerce_get_settings_pages( array() );
+		$pages = $this->sut->handle_poocommerce_get_settings_pages( array() );
 		return $pages[0];
 	}
 

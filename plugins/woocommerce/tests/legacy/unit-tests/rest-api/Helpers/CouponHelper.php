@@ -5,7 +5,7 @@
  * This helper class should ONLY be used for unit tests!.
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests\Helpers;
+namespace Automattic\PooCommerce\RestApi\UnitTests\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -95,9 +95,9 @@ class CouponHelper {
 		self::$custom_types[ $coupon_type ] = "Testing custom type {$coupon_type}";
 
 		if ( ! $filters_added ) {
-			add_filter( 'woocommerce_coupon_discount_types', array( __CLASS__, 'filter_discount_types' ) );
-			add_filter( 'woocommerce_coupon_get_discount_amount', array( __CLASS__, 'filter_get_discount_amount' ), 10, 5 );
-			add_filter( 'woocommerce_coupon_is_valid_for_product', '__return_true' );
+			add_filter( 'poocommerce_coupon_discount_types', array( __CLASS__, 'filter_discount_types' ) );
+			add_filter( 'poocommerce_coupon_get_discount_amount', array( __CLASS__, 'filter_get_discount_amount' ), 10, 5 );
+			add_filter( 'poocommerce_coupon_is_valid_for_product', '__return_true' );
 			$filters_added = true;
 		}
 	}
@@ -110,9 +110,9 @@ class CouponHelper {
 	public static function unregister_custom_type( $coupon_type ) {
 		unset( self::$custom_types[ $coupon_type ] );
 		if ( empty( self::$custom_types ) ) {
-			remove_filter( 'woocommerce_coupon_discount_types', array( __CLASS__, 'filter_discount_types' ) );
-			remove_filter( 'woocommerce_coupon_get_discount_amount', array( __CLASS__, 'filter_get_discount_amount' ) );
-			remove_filter( 'woocommerce_coupon_is_valid_for_product', '__return_true' );
+			remove_filter( 'poocommerce_coupon_discount_types', array( __CLASS__, 'filter_discount_types' ) );
+			remove_filter( 'poocommerce_coupon_get_discount_amount', array( __CLASS__, 'filter_get_discount_amount' ) );
+			remove_filter( 'poocommerce_coupon_is_valid_for_product', '__return_true' );
 		}
 	}
 

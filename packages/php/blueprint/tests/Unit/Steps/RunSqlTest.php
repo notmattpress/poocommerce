@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
 
 /**
  * Unit tests for RunSql class.
@@ -22,7 +22,7 @@ class RunSqlTest extends TestCase {
 	public function testFromTableRowUsesPlaceholderPrefix() {
 		$step = RunSql::from_table_row(
 			array( 'name' => 'Zone A' ),
-			'woocommerce_shipping_zones'
+			'poocommerce_shipping_zones'
 		);
 
 		$this->assertInstanceOf( RunSql::class, $step );
@@ -30,7 +30,7 @@ class RunSqlTest extends TestCase {
 		$sql = $step->prepare_json_array()['sql']['contents'];
 
 		$this->assertStringContainsString(
-			RunSql::TABLE_PREFIX_PLACEHOLDER . 'woocommerce_shipping_zones',
+			RunSql::TABLE_PREFIX_PLACEHOLDER . 'poocommerce_shipping_zones',
 			$sql
 		);
 		// Defaults to an idempotent replace-into so re-imports don't duplicate rows.
@@ -43,7 +43,7 @@ class RunSqlTest extends TestCase {
 	public function testFromTableRowAcceptsCustomType() {
 		$step = RunSql::from_table_row(
 			array( 'name' => 'Zone A' ),
-			'woocommerce_shipping_zones',
+			'poocommerce_shipping_zones',
 			'insert'
 		);
 

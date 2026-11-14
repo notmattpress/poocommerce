@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { OptimisticCartItem } from '@woocommerce/stores/woocommerce/cart';
+import type { OptimisticCartItem } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ) );
 
 /**
  * An optimistic cart item with optional response-only fields used by these tests.

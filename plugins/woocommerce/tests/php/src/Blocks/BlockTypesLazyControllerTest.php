@@ -1,15 +1,15 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\BlockTypes\CartItemsBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\CheckoutActionsBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EmptyMiniCartContentsBlock;
-use Automattic\WooCommerce\Blocks\BlockTypesLazyController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\BlockTypes\CartItemsBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\CheckoutActionsBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EmptyMiniCartContentsBlock;
+use Automattic\PooCommerce\Blocks\BlockTypesLazyController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
 use WC_Unit_Test_Case;
 
 /**
@@ -24,9 +24,9 @@ final class BlockTypesLazyControllerTest extends WC_Unit_Test_Case {
 	 * @var array<string,string>
 	 */
 	private const TEST_BLOCKS = array(
-		CartItemsBlock::class             => 'woocommerce/cart-items-block',
-		CheckoutActionsBlock::class       => 'woocommerce/checkout-actions-block',
-		EmptyMiniCartContentsBlock::class => 'woocommerce/empty-mini-cart-contents-block',
+		CartItemsBlock::class             => 'poocommerce/cart-items-block',
+		CheckoutActionsBlock::class       => 'poocommerce/checkout-actions-block',
+		EmptyMiniCartContentsBlock::class => 'poocommerce/empty-mini-cart-contents-block',
 	);
 
 	/**

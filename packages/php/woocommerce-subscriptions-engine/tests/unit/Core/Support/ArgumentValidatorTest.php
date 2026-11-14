@@ -3,23 +3,23 @@
  * Unit tests for the Core argument checks. Running under the WordPress-free unit
  * bootstrap proves they stay in the Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
  */
 class ArgumentValidatorTest extends TestCase {
 

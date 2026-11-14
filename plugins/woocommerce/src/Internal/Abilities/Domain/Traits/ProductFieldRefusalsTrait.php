@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 

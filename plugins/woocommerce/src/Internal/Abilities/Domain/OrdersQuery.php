@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce orders query ability.
+ * Registers the PooCommerce orders query ability.
  */
 class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -30,7 +30,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 10.9.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/orders-query';
+		return 'poocommerce/orders-query';
 	}
 
 	/**
@@ -42,12 +42,12 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query orders', 'woocommerce' ),
+			'label'               => __( 'Query orders', 'poocommerce' ),
 			'description'         => __(
 				'Find orders by ID or common order filters.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_collection_output_schema( 'orders', self::get_order_output_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -87,24 +87,24 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 
 		if ( ! empty( $input['id'] ) && ! empty( $input['filters'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_filters_with_id',
-				__( 'Send either an id or filters, not both.', 'woocommerce' ),
+				'poocommerce_ability_filters_with_id',
+				__( 'Send either an id or filters, not both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( ! empty( $input['id'] ) && ! empty( $input['include'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_include_with_id',
-				__( 'Send either an id or include, not both.', 'woocommerce' ),
+				'poocommerce_ability_order_include_with_id',
+				__( 'Send either an id or include, not both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( ! empty( $input['id'] ) && isset( $input['search'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_search_with_id',
-				__( 'Send either an id or search, not both.', 'woocommerce' ),
+				'poocommerce_ability_order_search_with_id',
+				__( 'Send either an id or search, not both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -114,8 +114,8 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 		$search = isset( $input['search'] ) ? trim( str_replace( 'Order #', '', sanitize_text_field( $input['search'] ) ) ) : null;
 		if ( '' === $search || '0' === $search ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_search_empty',
-				__( 'Send search with text to match, or leave it out to list all orders. A search of only "0" is not supported.', 'woocommerce' ),
+				'poocommerce_ability_order_search_empty',
+				__( 'Send search with text to match, or leave it out to list all orders. A search of only "0" is not supported.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -293,12 +293,12 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'type'               => array(
 					'type'        => 'string',
-					'description' => __( 'Order type to list. Extensions can register more order types. Defaults to shop_order.', 'woocommerce' ),
+					'description' => __( 'Order type to list. Extensions can register more order types. Defaults to shop_order.', 'poocommerce' ),
 					'enum'        => self::get_order_type_slugs(),
 					'default'     => 'shop_order',
 				),
 				'status'             => array(
-					'description' => __( 'Limit results to these order status slugs, without the wc- prefix. Send one status as a list of one. An empty list applies no status filter. Custom order types may add their own statuses.', 'woocommerce' ),
+					'description' => __( 'Limit results to these order status slugs, without the wc- prefix. Send one status as a list of one. An empty list applies no status filter. Custom order types may add their own statuses.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'string',
@@ -307,7 +307,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'customer_id'        => array(
 					'type'        => 'integer',
-					'description' => __( 'Filter by customer ID. Use 0 to filter guest orders.', 'woocommerce' ),
+					'description' => __( 'Filter by customer ID. Use 0 to filter guest orders.', 'poocommerce' ),
 					'minimum'     => 0,
 				),
 				'billing_email'      => array(
@@ -316,16 +316,16 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'search'             => array(
 					'type'        => 'string',
-					'description' => __( 'Find orders by order number, or whose billing or shipping details (name, email, phone, address) or item names (products, shipping methods, fees, coupons) contain this text. With HPOS it also matches the transaction ID, and with the HPOS full-text index on it matches only the start of a word. A short term such as "Free" can match many orders, so add customer_id or other filters to narrow the results.', 'woocommerce' ),
+					'description' => __( 'Find orders by order number, or whose billing or shipping details (name, email, phone, address) or item names (products, shipping methods, fees, coupons) contain this text. With HPOS it also matches the transaction ID, and with the HPOS full-text index on it matches only the start of a word. A short term such as "Free" can match many orders, so add customer_id or other filters to narrow the results.', 'poocommerce' ),
 				),
 				'parent'             => array(
 					'type'        => 'integer',
-					'description' => __( 'Filter by parent order ID.', 'woocommerce' ),
+					'description' => __( 'Filter by parent order ID.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'include'            => array(
 					'type'        => 'array',
-					'description' => __( 'Return only these order IDs, up to 100. IDs that don\'t match type or status are left out. Without per_page, they come back in one page.', 'woocommerce' ),
+					'description' => __( 'Return only these order IDs, up to 100. IDs that don\'t match type or status are left out. Without per_page, they come back in one page.', 'poocommerce' ),
 					'minItems'    => 1,
 					'maxItems'    => 100,
 					'items'       => array(
@@ -335,7 +335,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'exclude'            => array(
 					'type'        => 'array',
-					'description' => __( 'Order IDs to exclude from the results.', 'woocommerce' ),
+					'description' => __( 'Order IDs to exclude from the results.', 'poocommerce' ),
 					'items'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,
@@ -343,22 +343,22 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'date_after'         => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders created after this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'woocommerce' ),
+					'description' => __( 'Filter orders created after this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'date_before'        => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders created before this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'woocommerce' ),
+					'description' => __( 'Filter orders created before this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'modified_after'     => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders modified after this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'woocommerce' ),
+					'description' => __( 'Filter orders modified after this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'modified_before'    => array(
 					'type'        => 'string',
-					'description' => __( 'Filter orders modified before this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'woocommerce' ),
+					'description' => __( 'Filter orders modified before this date and time, in ISO 8601 format. A value without a UTC offset, such as 2025-07-15T10:00:00, is in the store timezone. Add Z or an offset such as +02:00 to use another timezone.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'orderby'            => array(
@@ -373,13 +373,13 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 					'type'        => 'boolean',
 					'description' => __(
 						'Whether to include order line items in each returned order. Defaults to false.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),
 				'include_lines'      => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether to include the shipping, fee, coupon and tax lines in each returned order. Defaults to false.', 'woocommerce' ),
+					'description' => __( 'Whether to include the shipping, fee, coupon and tax lines in each returned order. Defaults to false.', 'poocommerce' ),
 					'default'     => false,
 				),
 				'page'               => array(
@@ -389,7 +389,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'per_page'           => array(
 					'type'        => 'integer',
-					'description' => __( 'Orders per page. Defaults to 10, or to the number of IDs in include.', 'woocommerce' ),
+					'description' => __( 'Orders per page. Defaults to 10, or to the number of IDs in include.', 'poocommerce' ),
 					'minimum'     => 1,
 					'maximum'     => 100,
 				),
@@ -516,7 +516,7 @@ class OrdersQuery extends AbstractDomainAbility implements AbilityDefinition {
 	/**
 	 * Add the `wc-` prefix to a status of another order type that is registered
 	 * with it. The order query adds the prefix to order statuses itself, so those
-	 * stay without it, as `woocommerce_order_query_args` callbacks expect.
+	 * stay without it, as `poocommerce_order_query_args` callbacks expect.
 	 *
 	 * @param string $status Status slug without the `wc-` prefix.
 	 * @return string

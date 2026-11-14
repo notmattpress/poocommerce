@@ -1,1 +1,1 @@
-export const NAME_SPACE = 'woocommerce/email-editor-integration';
+export const NAME_SPACE = 'poocommerce/email-editor-integration';

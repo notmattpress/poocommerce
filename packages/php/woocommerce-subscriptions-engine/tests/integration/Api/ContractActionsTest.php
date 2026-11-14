@@ -2,28 +2,28 @@
 /**
  * Integration tests for the contract actions registration facade.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry
  */
 class ContractActionsTest extends EngineIntegrationTestCase {
 
 	private const EXTENSION_SLUG = 'test-extension';
 
-	private const REGISTER = 'Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions::register';
+	private const REGISTER = 'Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions::register';
 
 	public function set_up(): void {
 		parent::set_up();
@@ -206,7 +206,7 @@ class ContractActionsTest extends EngineIntegrationTestCase {
 	private function valid_args(): array {
 		return array(
 			'callback'   => array( $this, 'return_contract' ),
-			'permission' => 'manage_woocommerce',
+			'permission' => 'manage_poocommerce',
 		);
 	}
 

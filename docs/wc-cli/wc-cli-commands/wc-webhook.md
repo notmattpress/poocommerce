@@ -3,7 +3,7 @@ title: wc webhook
 sidebar_label: wc webhook
 ---
 
-Manage WooCommerce webhook resources.
+Manage PooCommerce webhook resources.
 
 ## wc webhook list
 

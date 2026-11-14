@@ -6,7 +6,7 @@ import {
 	getProductAttributeIds,
 	test as base,
 	expect,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	templateCompiler: async ( { requestUtils }, provideTemplate ) => {
@@ -17,7 +17,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filters - Frontend', () => {
+test.describe( 'poocommerce/product-filters - Frontend', () => {
 	test.describe( 'Overlay', () => {
 		test.beforeEach( async ( { templateCompiler, page } ) => {
 			const { colorAttributeId } = await getProductAttributeIds();
@@ -194,7 +194,7 @@ test.describe( 'woocommerce/product-filters - Frontend', () => {
 			await page.goto( '/shop' );
 
 			const productFilters = page.locator(
-				'.wp-block-woocommerce-product-filters'
+				'.wp-block-poocommerce-product-filters'
 			);
 			await expect( productFilters ).toHaveCount( 2 );
 

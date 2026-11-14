@@ -1,6 +1,6 @@
 <?php
 /**
- * Stubs for WooCommerce classes and interfaces.
+ * Stubs for PooCommerce classes and interfaces.
  */
 
 require_once __DIR__ . '/WPCli.php';

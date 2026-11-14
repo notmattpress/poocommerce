@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Prepares the data the My Account stock notifications template renders.
@@ -71,7 +71,7 @@ final class MyAccountView {
 			$can_resend   = MyAccountEndpoint::can_resend( $notification );
 			$can_cancel   = MyAccountEndpoint::is_cancellable( $notification );
 
-			$label_name = '' !== $product_name ? $product_name : __( 'an unavailable product', 'woocommerce' );
+			$label_name = '' !== $product_name ? $product_name : __( 'an unavailable product', 'poocommerce' );
 			if ( '' !== $variation ) {
 				$label_name .= ' ' . $variation;
 			}
@@ -86,10 +86,10 @@ final class MyAccountView {
 				'date_display' => $date_created ? \wc_format_datetime( $date_created ) : '',
 				'resend_url'   => $can_resend ? MyAccountEndpoint::get_action_url( MyAccountEndpoint::ACTION_RESEND, $id, $current_page ) : '',
 				/* translators: %s: product name, followed by its variation attributes when the sign-up is for a variation. */
-				'resend_label' => $can_resend ? sprintf( __( 'Resend verification email for %s', 'woocommerce' ), $label_name ) : '',
+				'resend_label' => $can_resend ? sprintf( __( 'Resend verification email for %s', 'poocommerce' ), $label_name ) : '',
 				'cancel_url'   => $can_cancel ? MyAccountEndpoint::get_action_url( MyAccountEndpoint::ACTION_CANCEL, $id, $current_page ) : '',
 				/* translators: %s: product name, followed by its variation attributes when the sign-up is for a variation. */
-				'cancel_label' => $can_cancel ? sprintf( __( 'Cancel stock notification for %s', 'woocommerce' ), $label_name ) : '',
+				'cancel_label' => $can_cancel ? sprintf( __( 'Cancel stock notification for %s', 'poocommerce' ), $label_name ) : '',
 			);
 		}
 

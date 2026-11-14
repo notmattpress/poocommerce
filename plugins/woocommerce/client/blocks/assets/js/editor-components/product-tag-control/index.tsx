@@ -3,8 +3,8 @@
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { useState, useEffect, useCallback, useMemo } from '@wordpress/element';
-import ProductTaxonomyControl from '@woocommerce/editor-components/product-taxonomy-control';
-import { getSetting } from '@woocommerce/settings';
+import ProductTaxonomyControl from '@poocommerce/editor-components/product-taxonomy-control';
+import { getSetting } from '@poocommerce/settings';
 import { useDebouncedCallback } from 'use-debounce';
 
 /**
@@ -60,30 +60,30 @@ const ProductTagControl = ( {
 	const debouncedOnSearch = useDebouncedCallback( onSearch, 400 );
 
 	const messages = {
-		clear: __( 'Clear all product tags', 'woocommerce' ),
-		list: __( 'Product Tags', 'woocommerce' ),
+		clear: __( 'Clear all product tags', 'poocommerce' ),
+		list: __( 'Product Tags', 'poocommerce' ),
 		noItems: __(
 			'You have not set up any product tags on your store.',
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product tags', 'woocommerce' ),
+		search: __( 'Search for product tags', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of selected tags. */
-				_n( '%d tag selected', '%d tags selected', n, 'woocommerce' ),
+				_n( '%d tag selected', '%d tags selected', n, 'poocommerce' ),
 				n
 			),
-		updated: __( 'Tag search results updated.', 'woocommerce' ),
+		updated: __( 'Tag search results updated.', 'poocommerce' ),
 	};
 
 	return (
 		<ProductTaxonomyControl
-			className="woocommerce-product-tags"
+			className="poocommerce-product-tags"
 			isCompact={ isCompact }
 			isHierarchical
 			isLoading={ loading }
 			isSingle={ false }
-			itemClassName="woocommerce-product-tags__item"
+			itemClassName="poocommerce-product-tags__item"
 			list={ list }
 			messages={ messages }
 			onChange={ onChange }
@@ -91,13 +91,13 @@ const ProductTagControl = ( {
 			operator={
 				onOperatorChange
 					? {
-							className: 'woocommerce-product-tags__operator',
+							className: 'poocommerce-product-tags__operator',
 							labels: {
-								all: __( 'All selected tags', 'woocommerce' ),
-								any: __( 'Any selected tags', 'woocommerce' ),
+								all: __( 'All selected tags', 'poocommerce' ),
+								any: __( 'Any selected tags', 'poocommerce' ),
 								help: __(
 									'Pick at least two tags to use this setting.',
-									'woocommerce'
+									'poocommerce'
 								),
 							},
 							onChange: onOperatorChange,

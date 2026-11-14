@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, queryByText, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ const mockReplaceInnerBlocks = jest.fn();
 const mockSelectBlock = jest.fn();
 let mockCheckoutBlocks = [];
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
@@ -67,13 +67,13 @@ jest.mock( '@wordpress/block-editor', () => ( {
 	InspectorControls: jest.fn( ( { children } ) => <div>{ children }</div> ),
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	PRIVACY_URL: '/privacy-policy',
 	TERMS_URL: '/terms-and-conditions',
 } ) );
 
-const blockSettingsMock = jest.requireMock( '@woocommerce/block-settings' );
+const blockSettingsMock = jest.requireMock( '@poocommerce/block-settings' );
 
 describe( 'Edit', () => {
 	beforeEach( () => {
@@ -174,7 +174,7 @@ describe( 'Edit', () => {
 			mockCheckoutBlocks = [
 				{
 					clientId: 'terms-1',
-					name: 'woocommerce/checkout-terms-block',
+					name: 'poocommerce/checkout-terms-block',
 					attributes: {
 						checkbox,
 						text: 'Custom terms',
@@ -183,12 +183,12 @@ describe( 'Edit', () => {
 				},
 				{
 					clientId: 'payment-1',
-					name: 'woocommerce/checkout-payment-block',
+					name: 'poocommerce/checkout-payment-block',
 					attributes: {},
 				},
 				{
 					clientId: 'actions-1',
-					name: 'woocommerce/checkout-actions-block',
+					name: 'poocommerce/checkout-actions-block',
 					attributes: { showReturnToCart: true, cartPageId: 123 },
 				},
 			];

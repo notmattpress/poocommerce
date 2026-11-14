@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Show the currency symbol in the Mini-Cart, Cart and Checkout blocks where extensions place it with the woocommerce_price_format filter.
+Show the currency symbol in the Mini-Cart, Cart and Checkout blocks where extensions place it with the poocommerce_price_format filter.

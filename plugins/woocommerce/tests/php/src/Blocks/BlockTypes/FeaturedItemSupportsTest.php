@@ -2,12 +2,12 @@
 /**
  * Featured item block support rendering tests.
  *
- * @package WooCommerce\Tests\Blocks
+ * @package PooCommerce\Tests\Blocks
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -142,7 +142,7 @@ class FeaturedItemSupportsTest extends WC_Unit_Test_Case {
 	public function test_inherited_category_with_supports(): void {
 		$attributes = $this->get_item_attributes( 'category' );
 		$block      = new \WP_Block(
-			parse_blocks( '<!-- wp:woocommerce/featured-category {"style":{"dimensions":{"aspectRatio":"1"}}} --><!-- wp:woocommerce/category-title /--><!-- /wp:woocommerce/featured-category -->' )[0],
+			parse_blocks( '<!-- wp:poocommerce/featured-category {"style":{"dimensions":{"aspectRatio":"1"}}} --><!-- wp:poocommerce/category-title /--><!-- /wp:poocommerce/featured-category -->' )[0],
 			array(
 				'termId'       => $attributes['categoryId'],
 				'termTaxonomy' => 'product_cat',
@@ -179,6 +179,6 @@ class FeaturedItemSupportsTest extends WC_Unit_Test_Case {
 	 * @return string
 	 */
 	private function render_item( string $kind, array $attributes ): string {
-		return do_blocks( '<!-- wp:woocommerce/featured-' . $kind . ' ' . wp_json_encode( $attributes ) . ' --><!-- wp:paragraph --><p>Saved content</p><!-- /wp:paragraph --><!-- /wp:woocommerce/featured-' . $kind . ' -->' );
+		return do_blocks( '<!-- wp:poocommerce/featured-' . $kind . ' ' . wp_json_encode( $attributes ) . ' --><!-- wp:paragraph --><p>Saved content</p><!-- /wp:paragraph --><!-- /wp:poocommerce/featured-' . $kind . ' -->' );
 	}
 }

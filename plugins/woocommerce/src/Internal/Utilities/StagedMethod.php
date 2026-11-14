@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,10 +60,10 @@ final class StagedMethod {
 		if ( null !== $class_name ) {
 			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- A plain text message for a client, built from PHP names.
 			throw new \WC_Data_Exception(
-				'woocommerce_data_staging_unsupported',
+				'poocommerce_data_staging_unsupported',
 				sprintf(
 					/* translators: 1: PHP class name of the object, 2: method that the class overrides, 3: method that the class needs to override. */
-					__( 'This object does not support this change yet. The class %1$s overrides %2$s() and needs to override %3$s() too.', 'woocommerce' ),
+					__( 'This object does not support this change yet. The class %1$s overrides %2$s() and needs to override %3$s() too.', 'poocommerce' ),
 					$class_name,
 					$method,
 					$stage_method

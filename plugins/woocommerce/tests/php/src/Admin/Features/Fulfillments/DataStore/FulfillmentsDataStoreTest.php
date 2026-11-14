@@ -2,17 +2,17 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\DataStore;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\DataStore;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Meta_Data;
 
 /**
  * Tests for the WC_Order_Fulfillment_Data_Store_Test class.
  *
- * @package WooCommerce\Tests\Order_Fulfillment
+ * @package PooCommerce\Tests\Order_Fulfillment
  */
 class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 	/**
@@ -808,14 +808,14 @@ class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 		$after_delete_called  = false;
 
 		add_action(
-			'woocommerce_fulfillment_before_delete',
+			'poocommerce_fulfillment_before_delete',
 			function () use ( &$before_delete_called ) {
 				$before_delete_called = true;
 			}
 		);
 
 		add_action(
-			'woocommerce_fulfillment_after_delete',
+			'poocommerce_fulfillment_after_delete',
 			function () use ( &$after_delete_called ) {
 				$after_delete_called = true;
 			}

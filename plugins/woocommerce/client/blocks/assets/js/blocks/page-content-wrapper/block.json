@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/page-content-wrapper",
-	"title": "WooCommerce Page",
-	"description": "Displays WooCommerce page content.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"name": "poocommerce/page-content-wrapper",
+	"title": "PooCommerce Page",
+	"description": "Displays PooCommerce page content.",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"multiple": false,

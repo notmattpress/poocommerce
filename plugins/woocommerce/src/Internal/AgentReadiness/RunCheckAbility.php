@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ class RunCheckAbility implements AbilityDefinition {
 
 	use ReadinessAbility;
 
-	public const NAME = 'woocommerce/run-agent-readiness-check';
+	public const NAME = 'poocommerce/run-agent-readiness-check';
 
 	/**
 	 * Ability name, or an empty string while the feature is disabled.
@@ -35,15 +35,15 @@ class RunCheckAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Run agent readiness check', 'woocommerce' ),
-			'description'         => __( 'Check one product again now, after fixing it, and get its failing checks and status per channel. Without a product id, queue a check of the whole store in the background; read the result with woocommerce/get-agent-readiness once scan_pending is false. When scan_stalled is true, scheduled actions are not running on the store and the check waits for them.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Run agent readiness check', 'poocommerce' ),
+			'description'         => __( 'Check one product again now, after fixing it, and get its failing checks and status per channel. Without a product id, queue a check of the whole store in the background; read the result with poocommerce/get-agent-readiness once scan_pending is false. When scan_stalled is true, scheduled actions are not running on the store and the check waits for them.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'product_id' => array(
 						'type'        => 'integer',
-						'description' => __( 'Product or variation to check now. A variation is checked as its parent product.', 'woocommerce' ),
+						'description' => __( 'Product or variation to check now. A variation is checked as its parent product.', 'poocommerce' ),
 						'minimum'     => 1,
 					),
 				),
@@ -92,11 +92,11 @@ class RunCheckAbility implements AbilityDefinition {
 		$readiness = wc_get_container()->get( AgentReadiness::class );
 		$product   = wc_get_product( $product_id );
 		if ( ! $product instanceof \WC_Product ) {
-			return new \WP_Error( 'woocommerce_agent_readiness_product_not_found', __( 'Product not found.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'poocommerce_agent_readiness_product_not_found', __( 'Product not found.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 		$result = $readiness->check_product( $product );
 		if ( null === $result ) {
-			return new \WP_Error( 'woocommerce_agent_readiness_product_not_checked', __( 'Only published simple and variable products shown in the shop catalog are checked.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_agent_readiness_product_not_checked', __( 'Only published simple and variable products shown in the shop catalog are checked.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$rules  = $readiness->get_default_rules();
@@ -130,15 +130,15 @@ class RunCheckAbility implements AbilityDefinition {
 			'properties' => array(
 				'scan_pending'        => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whole store: whether the queued check has not finished yet.', 'woocommerce' ),
+					'description' => __( 'Whole store: whether the queued check has not finished yet.', 'poocommerce' ),
 				),
 				'scan_stalled'        => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whole store: whether the queued check has not started because scheduled actions are not running on the store. It runs once they do; until then the report does not change.', 'woocommerce' ),
+					'description' => __( 'Whole store: whether the queued check has not started because scheduled actions are not running on the store. It runs once they do; until then the report does not change.', 'poocommerce' ),
 				),
 				'report_generated_at' => array(
 					'type'        => array( 'string', 'null' ),
-					'description' => __( 'Whole store: when the report agents can read now was made; it changes when the queued check finishes.', 'woocommerce' ),
+					'description' => __( 'Whole store: when the report agents can read now was made; it changes when the queued check finishes.', 'poocommerce' ),
 				),
 				'product'             => array(
 					'type'       => 'object',
@@ -147,7 +147,7 @@ class RunCheckAbility implements AbilityDefinition {
 						'edit_url'   => array( 'type' => 'string' ),
 						'statuses'   => array(
 							'type'                 => 'object',
-							'description'          => __( 'Status by channel id: not_listable, with_gaps or complete.', 'woocommerce' ),
+							'description'          => __( 'Status by channel id: not_listable, with_gaps or complete.', 'poocommerce' ),
 							'additionalProperties' => array(
 								'type' => 'string',
 								'enum' => array( ProductScan::NOT_LISTABLE, ProductScan::WITH_GAPS, ProductScan::COMPLETE ),

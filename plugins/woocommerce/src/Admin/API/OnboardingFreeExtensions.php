@@ -5,11 +5,11 @@
  * Handles requests to /onboarding/free-extensions
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\Init as RemoteFreeExtensions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\Init as RemoteFreeExtensions;
 use WC_REST_Data_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -64,7 +64,7 @@ class OnboardingFreeExtensions extends WC_REST_Data_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -80,13 +80,13 @@ class OnboardingFreeExtensions extends WC_REST_Data_Controller {
 	public function get_available_extensions( $request ) {
 		$extensions = RemoteFreeExtensions::get_extensions();
 		/**
-		* Allows removing Jetpack suggestions from WooCommerce Admin when false.
+		* Allows removing Jetpack suggestions from PooCommerce Admin when false.
 		 *
-		 * In this instance it is removed from the list of extensions suggested in the Onboarding Profiler. This list is first retrieved from the WooCommerce.com API, then if a plugin with the 'jetpack' slug is found, it is removed.
+		 * In this instance it is removed from the list of extensions suggested in the Onboarding Profiler. This list is first retrieved from the PooCommerce.com API, then if a plugin with the 'jetpack' slug is found, it is removed.
 		 *
 		 * @since 7.8
 		*/
-		if ( false === apply_filters( 'woocommerce_suggest_jetpack', true ) ) {
+		if ( false === apply_filters( 'poocommerce_suggest_jetpack', true ) ) {
 			foreach ( $extensions as &$extension ) {
 				$extension['plugins'] = array_filter(
 					$extension['plugins'],

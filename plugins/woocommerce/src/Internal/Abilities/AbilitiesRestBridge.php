@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\MCP\McpEndpointRemoval;
+use Automattic\PooCommerce\Internal\MCP\McpEndpointRemoval;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Formerly registered REST-derived abilities for the WooCommerce MCP endpoint.
+ * Formerly registered REST-derived abilities for the PooCommerce MCP endpoint.
  *
  * Kept so existing callers don't fatal. The methods do nothing except report incorrect usage.
  *
- * @deprecated 11.3.0 Removed along with the WooCommerce MCP endpoint. Use the WooCommerce abilities registered through the WordPress Abilities API.
+ * @deprecated 11.3.0 Removed along with the PooCommerce MCP endpoint. Use the PooCommerce abilities registered through the WordPress Abilities API.
  */
 class AbilitiesRestBridge {
 

@@ -7,7 +7,7 @@
 	}
 
 	const toggle = document.querySelector( '.wc-agentic-commerce-ucp-switch' );
-	const knob = toggle && toggle.querySelector( '.woocommerce-input-toggle' );
+	const knob = toggle && toggle.querySelector( '.poocommerce-input-toggle' );
 	const message = document.querySelector( '.wc-agentic-commerce-ucp-message' );
 	const statusBadge = document.querySelector( '.wc-agentic-commerce-status' );
 	const accessSummary = document.querySelector(
@@ -16,8 +16,8 @@
 
 	const render = ( enabled ) => {
 		toggle.setAttribute( 'aria-checked', enabled ? 'true' : 'false' );
-		knob.classList.toggle( 'woocommerce-input-toggle--enabled', enabled );
-		knob.classList.toggle( 'woocommerce-input-toggle--disabled', ! enabled );
+		knob.classList.toggle( 'poocommerce-input-toggle--enabled', enabled );
+		knob.classList.toggle( 'poocommerce-input-toggle--disabled', ! enabled );
 	};
 
 	const renderStatus = ( status ) => {
@@ -38,7 +38,7 @@
 		toggle.addEventListener( 'click', async () => {
 			const enable = toggle.getAttribute( 'aria-checked' ) !== 'true';
 			toggle.disabled = true;
-			knob.classList.add( 'woocommerce-input-toggle--loading' );
+			knob.classList.add( 'poocommerce-input-toggle--loading' );
 			try {
 				const response = await window.wp.apiFetch( {
 					path: settings.path,
@@ -57,7 +57,7 @@
 				message.textContent = ( error && error.message ) || settings.i18n.error;
 			} finally {
 				toggle.disabled = false;
-				knob.classList.remove( 'woocommerce-input-toggle--loading' );
+				knob.classList.remove( 'poocommerce-input-toggle--loading' );
 			}
 		} );
 	}

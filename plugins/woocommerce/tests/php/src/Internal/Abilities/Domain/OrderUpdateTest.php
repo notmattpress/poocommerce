@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -89,10 +89,10 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 
 		$this->assertEqualsCanonicalizing(
 			array(
-				'woocommerce_ability_order_billing_email_invalid',
-				'woocommerce_ability_order_billing_state_invalid',
-				'woocommerce_ability_order_billing_postcode_invalid',
-				'woocommerce_ability_order_shipping_country_invalid',
+				'poocommerce_ability_order_billing_email_invalid',
+				'poocommerce_ability_order_billing_state_invalid',
+				'poocommerce_ability_order_billing_postcode_invalid',
+				'poocommerce_ability_order_shipping_country_invalid',
 			),
 			$error->get_error_codes(),
 			'A bad country should skip the postcode check, which depends on the country.'
@@ -183,9 +183,9 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 
 		$this->assertEqualsCanonicalizing(
 			array(
-				'woocommerce_ability_order_shipping_line_method_title_required',
-				'woocommerce_ability_order_shipping_line_total_invalid',
-				'woocommerce_ability_order_line_not_found',
+				'poocommerce_ability_order_shipping_line_method_title_required',
+				'poocommerce_ability_order_shipping_line_total_invalid',
+				'poocommerce_ability_order_line_not_found',
 			),
 			$error->get_error_codes()
 		);
@@ -265,7 +265,7 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		$saves   = 0;
 		add_action(
-			'woocommerce_before_order_object_save',
+			'poocommerce_before_order_object_save',
 			static function () use ( &$saves ): void {
 				if ( ++$saves > 1 ) {
 					throw new \Exception( 'Forced recalculation save failure' );
@@ -280,7 +280,7 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_save_failed', $error->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_save_failed', $error->get_error_code() );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_items() );
 	}
 
@@ -291,7 +291,7 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 		$order    = WC_Helper_Order::create_order();
 		$variable = WC_Helper_Product::create_variation_product();
 		$simple   = WC_Helper_Product::create_simple_product();
-		add_filter( 'woocommerce_quantity_input_min_admin', static fn() => 5 );
+		add_filter( 'poocommerce_quantity_input_min_admin', static fn() => 5 );
 
 		$error = $this->execute_error(
 			array(
@@ -313,10 +313,10 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 
 		$this->assertEqualsCanonicalizing(
 			array(
-				'woocommerce_ability_order_product_not_found',
-				'woocommerce_ability_order_product_variable',
-				'woocommerce_ability_order_line_item_quantity_invalid',
-				'woocommerce_ability_order_line_item_target_invalid',
+				'poocommerce_ability_order_product_not_found',
+				'poocommerce_ability_order_product_variable',
+				'poocommerce_ability_order_line_item_quantity_invalid',
+				'poocommerce_ability_order_line_item_target_invalid',
 			),
 			$error->get_error_codes()
 		);
@@ -366,7 +366,7 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 	 * @return array
 	 */
 	private function execute( array $input ): array {
-		$result = wp_get_ability( 'woocommerce/order-update' )->execute( $input );
+		$result = wp_get_ability( 'poocommerce/order-update' )->execute( $input );
 
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 
@@ -380,7 +380,7 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 	 * @return \WP_Error
 	 */
 	private function execute_error( array $input ): \WP_Error {
-		$result = wp_get_ability( 'woocommerce/order-update' )->execute( $input );
+		$result = wp_get_ability( 'poocommerce/order-update' )->execute( $input );
 
 		$this->assertWPError( $result );
 
@@ -393,6 +393,6 @@ class OrderUpdateTest extends WC_Unit_Test_Case {
 	 * @param bool $enabled Whether the feature is on.
 	 */
 	private function set_feature( bool $enabled ): void {
-		update_option( 'woocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', $enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', $enabled ? 'yes' : 'no' );
 	}
 }

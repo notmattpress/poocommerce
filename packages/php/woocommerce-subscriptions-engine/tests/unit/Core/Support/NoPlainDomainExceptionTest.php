@@ -2,12 +2,12 @@
 /**
  * Guards that every validation throw carries a code.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
 
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;

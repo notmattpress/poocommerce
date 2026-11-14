@@ -4,7 +4,7 @@
  *
  * Handles requests to the /customers/<customer_id>/downloads endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Customers controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Customer_Downloads_V1_Controller
  */
 class WC_REST_Customer_Downloads_V2_Controller extends WC_REST_Customer_Downloads_V1_Controller {
@@ -63,7 +63,7 @@ class WC_REST_Customer_Downloads_V2_Controller extends WC_REST_Customer_Download
 		 * @param stdClass         $download  Download object used to create response.
 		 * @param WP_REST_Request  $request   Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_customer_download', $response, $download, $request );
+		return apply_filters( 'poocommerce_rest_prepare_customer_download', $response, $download, $request );
 	}
 
 	/**
@@ -78,79 +78,79 @@ class WC_REST_Customer_Downloads_V2_Controller extends WC_REST_Customer_Download
 			'type'       => 'object',
 			'properties' => array(
 				'download_id'         => array(
-					'description' => __( 'Download ID.', 'woocommerce' ),
+					'description' => __( 'Download ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'download_url'        => array(
-					'description' => __( 'Download file URL.', 'woocommerce' ),
+					'description' => __( 'Download file URL.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'product_id'          => array(
-					'description' => __( 'Downloadable product ID.', 'woocommerce' ),
+					'description' => __( 'Downloadable product ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'product_name'        => array(
-					'description' => __( 'Product name.', 'woocommerce' ),
+					'description' => __( 'Product name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'download_name'       => array(
-					'description' => __( 'Downloadable file name.', 'woocommerce' ),
+					'description' => __( 'Downloadable file name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'order_id'            => array(
-					'description' => __( 'Order ID.', 'woocommerce' ),
+					'description' => __( 'Order ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'order_key'           => array(
-					'description' => __( 'Order key.', 'woocommerce' ),
+					'description' => __( 'Order key.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'downloads_remaining' => array(
-					'description' => __( 'Number of downloads remaining.', 'woocommerce' ),
+					'description' => __( 'Number of downloads remaining.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'access_expires'      => array(
-					'description' => __( "The date when download access expires, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date when download access expires, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'access_expires_gmt'  => array(
-					'description' => __( 'The date when download access expires, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date when download access expires, as GMT.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'file'                => array(
-					'description' => __( 'File details.', 'woocommerce' ),
+					'description' => __( 'File details.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'properties'  => array(
 						'name' => array(
-							'description' => __( 'File name.', 'woocommerce' ),
+							'description' => __( 'File name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view' ),
 							'readonly'    => true,
 						),
 						'file' => array(
-							'description' => __( 'File URL.', 'woocommerce' ),
+							'description' => __( 'File URL.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view' ),
 							'readonly'    => true,

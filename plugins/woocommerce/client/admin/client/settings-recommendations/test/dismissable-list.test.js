@@ -64,7 +64,7 @@ describe( 'DismissableList', () => {
 			);
 
 			const wrapper = container.querySelector(
-				'.woocommerce-dismissable-list__wrapper'
+				'.poocommerce-dismissable-list__wrapper'
 			);
 
 			rerender(

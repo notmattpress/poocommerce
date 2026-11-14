@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Enums\CurrencyPosition;
+use Automattic\PooCommerce\Enums\CurrencyPosition;
 
 /**
  * Provides the currency symbol and its position for non-HTML consumers (client settings payloads, APIs).
  *
- * The position is read from the filtered price format rather than the `woocommerce_currency_pos`
- * option, so extensions that filter `woocommerce_price_format` (e.g. currency switchers) apply here too.
+ * The position is read from the filtered price format rather than the `poocommerce_currency_pos`
+ * option, so extensions that filter `poocommerce_price_format` (e.g. currency switchers) apply here too.
  *
  * @since 11.4.0
  */
@@ -23,7 +23,7 @@ class CurrencySymbol {
 	 * @return string
 	 */
 	public static function get_symbol(): string {
-		return html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5 );
+		return html_entity_decode( get_poocommerce_currency_symbol(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5 );
 	}
 
 	/**
@@ -36,12 +36,12 @@ class CurrencySymbol {
 	 * @return string
 	 */
 	public static function get_position(): string {
-		$format     = (string) get_woocommerce_price_format();
+		$format     = (string) get_poocommerce_price_format();
 		$symbol_pos = strpos( $format, '%1$s' );
 		$amount_pos = strpos( $format, '%2$s' );
 
 		if ( false === $symbol_pos || false === $amount_pos ) {
-			return (string) get_option( 'woocommerce_currency_pos' );
+			return (string) get_option( 'poocommerce_currency_pos' );
 		}
 
 		$placeholder_length = strlen( '%1$s' );

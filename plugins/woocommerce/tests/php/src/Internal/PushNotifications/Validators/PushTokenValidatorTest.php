@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Validators;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Validators;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
 use WC_Unit_Test_Case;
 use WP_Error;
 

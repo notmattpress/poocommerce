@@ -4,8 +4,8 @@
 import {
 	PlainPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
-import type { PaymentResult } from '@woocommerce/types';
+} from '@poocommerce/types';
+import type { PaymentResult } from '@poocommerce/types';
 
 /**
  * Internal dependencies

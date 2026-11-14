@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 
 /**
  * Product Filter: Checkbox List Block.
@@ -35,13 +35,13 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		if ( empty( $block->context['woocommerce/selectableItems'] ) ) {
+		if ( empty( $block->context['poocommerce/selectableItems'] ) ) {
 			return '';
 		}
 
-		$block_context   = $block->context['woocommerce/selectableItems'];
+		$block_context   = $block->context['poocommerce/selectableItems'];
 		$items           = is_array( $block_context['items'] ?? null ) ? $block_context['items'] : array();
-		$store_namespace = $block_context['storeNamespace'] ?? 'woocommerce/product-filters';
+		$store_namespace = $block_context['storeNamespace'] ?? 'poocommerce/product-filters';
 		$filter_type     = $block_context['filterType'] ?? '';
 		$display_limit   = self::DISPLAY_LIMIT;
 		$is_rating       = 'rating' === $filter_type;
@@ -55,7 +55,7 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 		}
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filter-checkbox-list',
+			'data-wp-interactive' => 'poocommerce/product-filter-checkbox-list',
 			'data-wp-context'     => (string) wp_json_encode(
 				array(
 					'storeNamespace' => $store_namespace,
@@ -134,7 +134,7 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 											class="wc-block-product-filter-checkbox-list__stars"
 											aria-label="<?php echo esc_attr( $item['ariaLabel'] ?? '' ); ?>"
 											style="<?php echo esc_attr( $rating_style ); ?>"
-											data-wp-bind--style="woocommerce/product-filter-checkbox-list::state.ratingStyle"
+											data-wp-bind--style="poocommerce/product-filter-checkbox-list::state.ratingStyle"
 										>
 											<?php echo $stars_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 										</span>
@@ -195,7 +195,7 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 										<span
 											class="wc-block-product-filter-checkbox-list__stars"
 											data-wp-bind--aria-label="context.item.ariaLabel"
-											data-wp-bind--style="woocommerce/product-filter-checkbox-list::state.ratingStyle"
+											data-wp-bind--style="poocommerce/product-filter-checkbox-list::state.ratingStyle"
 										>
 											<?php echo $stars_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 										</span>
@@ -203,8 +203,8 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 										<?php if ( $has_visual_swatches ) : ?>
 											<span
 												class="wc-block-product-filter-checkbox-list__color-swatch"
-												data-wp-class--is-empty="woocommerce/product-filter-checkbox-list::state.isColorSwatchEmpty"
-												data-wp-bind--style="woocommerce/product-filter-checkbox-list::state.colorSwatchStyle"
+												data-wp-class--is-empty="poocommerce/product-filter-checkbox-list::state.isColorSwatchEmpty"
+												data-wp-bind--style="poocommerce/product-filter-checkbox-list::state.colorSwatchStyle"
 												aria-hidden="true"
 											></span>
 										<?php endif; ?>
@@ -233,7 +233,7 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 						>
 							<?php
 							/* translators: %d: number of hidden items */
-							echo esc_html( sprintf( __( 'Show %d more', 'woocommerce' ), $hidden_count ) );
+							echo esc_html( sprintf( __( 'Show %d more', 'poocommerce' ), $hidden_count ) );
 							?>
 						</button>
 					</div>

@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -124,11 +124,11 @@ trait OrderEditTrait {
 			if ( null !== $error ) {
 				wc_get_logger()->error(
 					sprintf( 'Ability "%s" failed to save the recalculated order: %s', $this->get_name(), $error->getMessage() ),
-					array( 'source' => 'woocommerce-abilities' )
+					array( 'source' => 'poocommerce-abilities' )
 				);
 				return new \WP_Error(
-					'woocommerce_ability_save_failed',
-					__( 'The change could not be saved.', 'woocommerce' ),
+					'poocommerce_ability_save_failed',
+					__( 'The change could not be saved.', 'poocommerce' ),
 					array( 'status' => 500 )
 				);
 			}
@@ -155,7 +155,7 @@ trait OrderEditTrait {
 				self::address_error(
 					$type,
 					'email',
-					__( 'The billing email is not a valid email address. Send a valid address.', 'woocommerce' )
+					__( 'The billing email is not a valid email address. Send a valid address.', 'poocommerce' )
 				)
 			);
 			unset( $address['email'] );
@@ -171,7 +171,7 @@ trait OrderEditTrait {
 					$type,
 					'country',
 					/* translators: %s: country sent by the client. */
-					sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'woocommerce' ), $country )
+					sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'poocommerce' ), $country )
 				)
 			);
 			unset( $address['country'], $address['state'], $address['postcode'] );
@@ -184,7 +184,7 @@ trait OrderEditTrait {
 						$type,
 						'state',
 						/* translators: 1: state sent by the client or kept from the order, 2: country code, 3: comma-separated state codes. */
-						sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'woocommerce' ), $state, $country, implode( ', ', array_keys( $states ) ) )
+						sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'poocommerce' ), $state, $country, implode( ', ', array_keys( $states ) ) )
 					)
 				);
 				unset( $address['state'] );
@@ -197,7 +197,7 @@ trait OrderEditTrait {
 							$type,
 							'postcode',
 							/* translators: 1: postcode sent by the client or kept from the order, 2: country code. */
-							sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'woocommerce' ), $postcode, $country )
+							sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'poocommerce' ), $postcode, $country )
 						)
 					);
 					unset( $address['postcode'] );
@@ -223,7 +223,7 @@ trait OrderEditTrait {
 	 * @return \WP_Error
 	 */
 	private static function address_error( string $type, string $field, string $message ): \WP_Error {
-		return new \WP_Error( "woocommerce_ability_order_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
+		return new \WP_Error( "poocommerce_ability_order_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
 	}
 
 	/**
@@ -237,9 +237,9 @@ trait OrderEditTrait {
 		// wc_format_decimal() drops the exponent of a number such as 1e3, which changes its value.
 		if ( isset( $line['total'] ) && ( ! is_numeric( $line['total'] ) || false !== stripos( (string) $line['total'], 'e' ) || (float) $line['total'] < 0 ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_shipping_line_total_invalid',
+				'poocommerce_ability_order_shipping_line_total_invalid',
 				/* translators: %s: shipping total sent by the client. */
-				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'woocommerce' ), $line['total'] ),
+				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'poocommerce' ), $line['total'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -247,8 +247,8 @@ trait OrderEditTrait {
 		if ( empty( $line['id'] ) ) {
 			if ( empty( $line['method_title'] ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_order_shipping_line_method_title_required',
-					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'woocommerce' ),
+					'poocommerce_ability_order_shipping_line_method_title_required',
+					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -296,18 +296,18 @@ trait OrderEditTrait {
 
 		if ( ! $product instanceof \WC_Product ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_not_found',
+				'poocommerce_ability_order_product_not_found',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d does not exist. Use the woocommerce/products-query ability to find the product ID.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d does not exist. Use the poocommerce/products-query ability to find the product ID.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( $product->is_type( ProductType::VARIABLE ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_variable',
+				'poocommerce_ability_order_product_variable',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -336,9 +336,9 @@ trait OrderEditTrait {
 	 */
 	private static function line_not_found( int $item_id ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_line_not_found',
+			'poocommerce_ability_order_line_not_found',
 			/* translators: %d: order item ID. */
-			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the woocommerce/orders-query ability with include_line_items and include_lines to read the IDs of the product and shipping lines.', 'woocommerce' ), $item_id ),
+			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the poocommerce/orders-query ability with include_line_items and include_lines to read the IDs of the product and shipping lines.', 'poocommerce' ), $item_id ),
 			array( 'status' => 400 )
 		);
 	}
@@ -350,7 +350,7 @@ trait OrderEditTrait {
 	 * @return \WP_Error
 	 */
 	private static function quantity_error( \Exception $exception ): \WP_Error {
-		return new \WP_Error( 'woocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
+		return new \WP_Error( 'poocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
 	}
 
 	/**
@@ -362,7 +362,7 @@ trait OrderEditTrait {
 	private static function get_address_input_schema( array $fields ): array {
 		return array(
 			'type'                 => 'object',
-			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use WooCommerce state codes.', 'woocommerce' ),
+			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use PooCommerce state codes.', 'poocommerce' ),
 			'properties'           => array_fill_keys( $fields, array( 'type' => 'string' ) ),
 			'additionalProperties' => false,
 			'minProperties'        => 1,

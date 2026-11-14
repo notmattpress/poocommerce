@@ -2,7 +2,7 @@
   "$comment": "Contract between `gh local-ci` (publisher) and the receipt lookup action in ci.yml (consumer). CI reads this file from trunk; a PR that changes it gets a full CI run. Who may publish is the allowlist compiled into gh local-ci, not this file.",
   "version": 1,
   "host": "github.com",
-  "repository": "woocommerce/woocommerce",
+  "repository": "poocommerce/poocommerce",
   "app": { "clientId": "Iv23lix7ORqAqQLsB13K", "appId": 4830646 },
   "baseBranch": "trunk",
   "receiptPrefix": "local-ci/v1: ",
@@ -27,15 +27,15 @@
       "namePrefix": "JavaScript",
       "sampleRate": 10,
       "prepare": {
-        "$comment": "Mirrors setup-woocommerce-monorepo with install='<project>...' and build-type=dependencies. Re-validate and update mirrors.sha256 when that action changes.",
+        "$comment": "Mirrors setup-poocommerce-monorepo with install='<project>...' and build-type=dependencies. Re-validate and update mirrors.sha256 when that action changes.",
         "env": { "CI": "true", "GITHUB_ACTIONS": "true", "BROWSERSLIST_IGNORE_OLD_DATA": "true" },
-        "clean": [ "plugins/woocommerce/assets/client/blocks" ],
+        "clean": [ "plugins/poocommerce/assets/client/blocks" ],
         "steps": [
           [ "pnpm", "install", "{projects:--filter=%s...}", "--frozen-lockfile" ],
           [ "pnpm", "--if-present", "--workspace-concurrency=Infinity", "--stream", "{projects:--filter=%s^...}", "/^build:project:.*$/" ]
         ],
         "mirrors": {
-          "action": ".github/actions/setup-woocommerce-monorepo/action.yml",
+          "action": ".github/actions/setup-poocommerce-monorepo/action.yml",
           "sha256": "9aa17d624c6b2f4e5666763e9354b424c5c988f1b6e506d26ca8df40ad9c0fa0"
         }
       },
@@ -48,15 +48,15 @@
       "namePrefix": "JS build and typecheck",
       "sampleRate": 10,
       "prepare": {
-        "$comment": "Mirrors setup-woocommerce-monorepo with install='<project>...' and build-type=dependencies.",
+        "$comment": "Mirrors setup-poocommerce-monorepo with install='<project>...' and build-type=dependencies.",
         "env": { "CI": "true", "GITHUB_ACTIONS": "true", "BROWSERSLIST_IGNORE_OLD_DATA": "true" },
-        "clean": [ "plugins/woocommerce/assets/client/blocks" ],
+        "clean": [ "plugins/poocommerce/assets/client/blocks" ],
         "steps": [
           [ "pnpm", "install", "{projects:--filter=%s...}", "--frozen-lockfile" ],
           [ "pnpm", "--if-present", "--workspace-concurrency=Infinity", "--stream", "{projects:--filter=%s^...}", "/^build:project:.*$/" ]
         ],
         "mirrors": {
-          "action": ".github/actions/setup-woocommerce-monorepo/action.yml",
+          "action": ".github/actions/setup-poocommerce-monorepo/action.yml",
           "sha256": "9aa17d624c6b2f4e5666763e9354b424c5c988f1b6e506d26ca8df40ad9c0fa0"
         }
       },
@@ -71,15 +71,15 @@
       "serial": "phpstan-{project}",
       "sampleRate": 10,
       "prepare": {
-        "$comment": "Mirrors setup-woocommerce-monorepo with install='<project>...' and build-type=dependencies.",
+        "$comment": "Mirrors setup-poocommerce-monorepo with install='<project>...' and build-type=dependencies.",
         "env": { "CI": "true", "GITHUB_ACTIONS": "true", "BROWSERSLIST_IGNORE_OLD_DATA": "true" },
-        "clean": [ "plugins/woocommerce/assets/client/blocks" ],
+        "clean": [ "plugins/poocommerce/assets/client/blocks" ],
         "steps": [
           [ "pnpm", "install", "{projects:--filter=%s...}", "--frozen-lockfile" ],
           [ "pnpm", "--if-present", "--workspace-concurrency=Infinity", "--stream", "{projects:--filter=%s^...}", "/^build:project:.*$/" ]
         ],
         "mirrors": {
-          "action": ".github/actions/setup-woocommerce-monorepo/action.yml",
+          "action": ".github/actions/setup-poocommerce-monorepo/action.yml",
           "sha256": "9aa17d624c6b2f4e5666763e9354b424c5c988f1b6e506d26ca8df40ad9c0fa0"
         }
       },
@@ -87,21 +87,21 @@
     },
     {
       "id": "php-unit",
-      "$comment": "PHPUnit without wp-env. The test job installs PHP 7.4 for every unit:php job (setup-woocommerce-monorepo's default), so this runs on 7.4 whatever the job name says. gh local-ci runs a rule that names an image only with --docker, so a receipt for it never comes from the host's PHP. Jobs with a test environment have [WP ...] in their names: the core plugin's are the php-cells rule's, and the rest are left to CI.",
+      "$comment": "PHPUnit without wp-env. The test job installs PHP 7.4 for every unit:php job (setup-poocommerce-monorepo's default), so this runs on 7.4 whatever the job name says. gh local-ci runs a rule that names an image only with --docker, so a receipt for it never comes from the host's PHP. Jobs with a test environment have [WP ...] in their names: the core plugin's are the php-cells rule's, and the rest are left to CI.",
       "type": "unit:php",
       "namePrefix": "PHP: 8.1 ",
       "exclude": [ "[WP " ],
       "image": "php7.4",
       "sampleRate": 10,
       "prepare": {
-        "$comment": "Mirrors setup-woocommerce-monorepo with install='<project>...' and build-type=backend.",
+        "$comment": "Mirrors setup-poocommerce-monorepo with install='<project>...' and build-type=backend.",
         "env": { "CI": "true", "GITHUB_ACTIONS": "true", "BROWSERSLIST_IGNORE_OLD_DATA": "true" },
         "steps": [
           [ "pnpm", "install", "{projects:--filter=%s...}", "--frozen-lockfile" ],
-          [ "pnpm", "--filter=@woocommerce/admin-library", "build:project:feature-config" ]
+          [ "pnpm", "--filter=@poocommerce/admin-library", "build:project:feature-config" ]
         ],
         "mirrors": {
-          "action": ".github/actions/setup-woocommerce-monorepo/action.yml",
+          "action": ".github/actions/setup-poocommerce-monorepo/action.yml",
           "sha256": "9aa17d624c6b2f4e5666763e9354b424c5c988f1b6e506d26ca8df40ad9c0fa0"
         }
       },
@@ -113,10 +113,10 @@
       "type": "unit:php",
       "exclude": [
         "WP: pre-release",
-        "@woocommerce/blueprint",
-        "@woocommerce/email-editor-config",
-        "@automattic/woocommerce-subscriptions-engine",
-        "@automattic/woocommerce-analytics"
+        "@poocommerce/blueprint",
+        "@poocommerce/email-editor-config",
+        "@automattic/poocommerce-subscriptions-engine",
+        "@automattic/poocommerce-analytics"
       ],
       "serial": "wp-env",
       "enabledByDefault": false,
@@ -130,7 +130,7 @@
   ],
 
   "docker": {
-    "$comment": "For run --docker. gh local-ci builds each image from .github/local-ci/php.Dockerfile as committed, and rebuilds it only when that directory or its args change. The default image is PHP 8.3 with Composer and Node, as on the ubuntu-24.04 runner, because pnpm install runs composer install in the postinstall of plugins/woocommerce, the beta tester and four PHP packages. The pnpm store lives on the per-clone HOME volume, so no mounts are needed.",
+    "$comment": "For run --docker. gh local-ci builds each image from .github/local-ci/php.Dockerfile as committed, and rebuilds it only when that directory or its args change. The default image is PHP 8.3 with Composer and Node, as on the ubuntu-24.04 runner, because pnpm install runs composer install in the postinstall of plugins/poocommerce, the beta tester and four PHP packages. The pnpm store lives on the per-clone HOME volume, so no mounts are needed.",
     "build": { "context": ".github/local-ci", "dockerfile": "php.Dockerfile", "args": { "PHP_IMAGE": "php:8.3-cli-bookworm@sha256:cdb77e306d6bb99db40e513fbe036ecc6c53b575cbcb7e581387845fef26d755" } },
     "images": {
       "php8.3": { "build": { "context": ".github/local-ci", "dockerfile": "php.Dockerfile", "args": { "PHP_IMAGE": "php:8.3-cli-bookworm@sha256:cdb77e306d6bb99db40e513fbe036ecc6c53b575cbcb7e581387845fef26d755" } } },
@@ -142,7 +142,7 @@
 
   "toolchain": [
     {
-      "$comment": "CI's Node: setup-woocommerce-monorepo runs setup-node with node-version-file .nvmrc. Locally every job runs through pnpm, which uses useNodeVersion from pnpm-workspace.yaml whatever node is on PATH, so the check asks pnpm, not PATH. pnpm is not checked: action-setup reads it from packageManager in package.json, and expectFrom takes a file that holds only the version. Nor is PHP: the PHPStan and PHP 8.1 rules run only under --docker, where the image is the toolchain, and each PHP cell runs on wp-env's PHP.",
+      "$comment": "CI's Node: setup-poocommerce-monorepo runs setup-node with node-version-file .nvmrc. Locally every job runs through pnpm, which uses useNodeVersion from pnpm-workspace.yaml whatever node is on PATH, so the check asks pnpm, not PATH. pnpm is not checked: action-setup reads it from packageManager in package.json, and expectFrom takes a file that holds only the version. Nor is PHP: the PHPStan and PHP 8.1 rules run only under --docker, where the image is the toolchain, and each PHP cell runs on wp-env's PHP.",
       "run": "pnpm exec node -v",
       "expectFrom": ".nvmrc"
     }

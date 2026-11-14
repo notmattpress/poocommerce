@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
 use WP_UnitTestCase;
 
 /**
@@ -25,9 +25,9 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		delete_option( 'woocommerce_checkout_phone_field' );
-		delete_option( 'woocommerce_checkout_company_field' );
-		delete_option( 'woocommerce_checkout_address_2_field' );
+		delete_option( 'poocommerce_checkout_phone_field' );
+		delete_option( 'poocommerce_checkout_company_field' );
+		delete_option( 'poocommerce_checkout_address_2_field' );
 	}
 
 	/**
@@ -35,12 +35,12 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	 */
 	public function test_migrate_checkout_block_field_visibility_attributes() {
 		// Default migration without checkout page.
-		delete_option( 'woocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'optional', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'optional', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'optional', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'optional', get_option( 'poocommerce_checkout_address_2_field' ) );
 
 		// Populate checkout page.
 		$page = array(
@@ -49,8 +49,8 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 			'content' => '',
 		);
 
-		$page_id         = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
-		$updated_content = '<!-- wp:woocommerce/checkout {"showApartmentField":false,"showCompanyField":false,"showPhoneField":false,"requireApartmentField":false,"requireCompanyField":false,"requirePhoneField":false} --> <div class="wp-block-woocommerce-checkout is-loading"></div> <!-- /wp:woocommerce/checkout -->';
+		$page_id         = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$updated_content = '<!-- wp:poocommerce/checkout {"showApartmentField":false,"showCompanyField":false,"showPhoneField":false,"requireApartmentField":false,"requireCompanyField":false,"requirePhoneField":false} --> <div class="wp-block-poocommerce-checkout is-loading"></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -59,12 +59,12 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 		);
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_address_2_field' ) );
 
 		// Repeat with different settings.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showApartmentField":true,"showCompanyField":true,"showPhoneField":true,"requireApartmentField":true,"requireCompanyField":true,"requirePhoneField":true} --> <div class="wp-block-woocommerce-checkout is-loading"></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showApartmentField":true,"showCompanyField":true,"showPhoneField":true,"requireApartmentField":true,"requireCompanyField":true,"requirePhoneField":true} --> <div class="wp-block-poocommerce-checkout is-loading"></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -73,18 +73,18 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 		);
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_address_2_field' ) );
 	}
 
 	/**
 	 * Test has_cart_page() function.
 	 */
 	public function test_has_cart_page() {
-		wc_create_page( 'cart', 'woocommerce_cart_page_id', 'Cart', '' );
+		wc_create_page( 'cart', 'poocommerce_cart_page_id', 'Cart', '' );
 		$this->assertTrue( CartCheckoutUtils::has_cart_page() );
-		delete_option( 'woocommerce_cart_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
 		$this->assertFalse( CartCheckoutUtils::has_cart_page() );
 	}
 
@@ -92,7 +92,7 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	 * Test finding express checkout attributes in top-level blocks.
 	 */
 	public function test_find_express_checkout_attributes_top_level() {
-		$post_content = '<!-- wp:woocommerce/cart-express-payment-block {"buttonStyle":"dark","buttonHeight":48} /-->';
+		$post_content = '<!-- wp:poocommerce/cart-express-payment-block {"buttonStyle":"dark","buttonHeight":48} /-->';
 
 		$result = CartCheckoutUtils::find_express_checkout_attributes( $post_content, 'cart' );
 
@@ -109,9 +109,9 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	 * Test finding express checkout attributes in nested blocks.
 	 */
 	public function test_find_express_checkout_attributes_nested() {
-		$post_content = '<!-- wp:woocommerce/cart -->
-    <!-- wp:woocommerce/cart-express-payment-block {"buttonStyle":"light","buttonHeight":48} /-->
-    <!-- /wp:woocommerce/cart -->';
+		$post_content = '<!-- wp:poocommerce/cart -->
+    <!-- wp:poocommerce/cart-express-payment-block {"buttonStyle":"light","buttonHeight":48} /-->
+    <!-- /wp:poocommerce/cart -->';
 
 		$result = CartCheckoutUtils::find_express_checkout_attributes( $post_content, 'cart' );
 
@@ -144,124 +144,124 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 		return array(
 			// Test case name => [block_id, attribute, value, content, expected_result].
 			'empty_content'                                => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
 				'',
 				false,
 			),
 			'null_content'                                 => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
 				null,
 				false,
 			),
 			'block_doesnt_exist'                           => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
 				'<!-- wp:paragraph --><p>Some content</p><!-- /wp:paragraph -->',
 				false,
 			),
 			'attribute_value_mismatch'                     => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
-				'<!-- wp:woocommerce/cart {"displayType":"compact"} -->',
+				'<!-- wp:poocommerce/cart {"displayType":"compact"} -->',
 				false,
 			),
 			'attribute_doesnt_exist'                       => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
-				'<!-- wp:woocommerce/cart {"someOtherAttr":"value"} -->',
+				'<!-- wp:poocommerce/cart {"someOtherAttr":"value"} -->',
 				false,
 			),
 			'successful_match'                             => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
-				'<!-- wp:woocommerce/cart {"displayType":"full"} -->',
+				'<!-- wp:poocommerce/cart {"displayType":"full"} -->',
 				true,
 			),
 			'multiple_blocks_one_matches'                  => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
 				'<!-- wp:paragraph --><p>Content</p><!-- /wp:paragraph -->
-				<!-- wp:woocommerce/cart {"displayType":"compact"} -->
-				<!-- wp:woocommerce/cart {"displayType":"full"} -->',
+				<!-- wp:poocommerce/cart {"displayType":"compact"} -->
+				<!-- wp:poocommerce/cart {"displayType":"full"} -->',
 				true,
 			),
 			'classic_shortcode_empty_attrs_defaults_to_cart' => array(
-				'woocommerce/classic-shortcode',
+				'poocommerce/classic-shortcode',
 				'shortcode',
 				'cart',
-				'<!-- wp:woocommerce/classic-shortcode {} -->',
+				'<!-- wp:poocommerce/classic-shortcode {} -->',
 				true,
 			),
 			'classic_shortcode_no_attrs_defaults_to_cart'  => array(
-				'woocommerce/classic-shortcode',
+				'poocommerce/classic-shortcode',
 				'shortcode',
 				'cart',
-				'<!-- wp:woocommerce/classic-shortcode -->',
+				'<!-- wp:poocommerce/classic-shortcode -->',
 				true,
 			),
 			'classic_shortcode_explicit_cart'              => array(
-				'woocommerce/classic-shortcode',
+				'poocommerce/classic-shortcode',
 				'shortcode',
 				'cart',
-				'<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"} -->',
+				'<!-- wp:poocommerce/classic-shortcode {"shortcode":"cart"} -->',
 				true,
 			),
 			'classic_shortcode_different_value'            => array(
-				'woocommerce/classic-shortcode',
+				'poocommerce/classic-shortcode',
 				'shortcode',
 				'cart',
-				'<!-- wp:woocommerce/classic-shortcode {"shortcode":"checkout"} -->',
+				'<!-- wp:poocommerce/classic-shortcode {"shortcode":"checkout"} -->',
 				false,
 			),
 			'classic_shortcode_special_case_only_for_cart' => array(
-				'woocommerce/classic-shortcode',
+				'poocommerce/classic-shortcode',
 				'shortcode',
 				'checkout',
-				'<!-- wp:woocommerce/classic-shortcode -->',
+				'<!-- wp:poocommerce/classic-shortcode -->',
 				false,
 			),
 			'string_numeric_match'                         => array(
-				'woocommerce/product-gallery',
+				'poocommerce/product-gallery',
 				'columns',
 				'3',
-				'<!-- wp:woocommerce/product-gallery {"columns":"3"} -->',
+				'<!-- wp:poocommerce/product-gallery {"columns":"3"} -->',
 				true,
 			),
 			'strict_comparison_type_mismatch'              => array(
-				'woocommerce/product-gallery',
+				'poocommerce/product-gallery',
 				'columns',
 				'3',
-				'<!-- wp:woocommerce/product-gallery {"columns":3} -->',
+				'<!-- wp:poocommerce/product-gallery {"columns":3} -->',
 				false,
 			),
 			'boolean_attribute_true'                       => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'showShipping',
 				true,
-				'<!-- wp:woocommerce/cart {"showShipping":true} -->',
+				'<!-- wp:poocommerce/cart {"showShipping":true} -->',
 				true,
 			),
 			'boolean_attribute_false'                      => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'showShipping',
 				false,
-				'<!-- wp:woocommerce/cart {"showShipping":false} -->',
+				'<!-- wp:poocommerce/cart {"showShipping":false} -->',
 				true,
 			),
 			'block_name_case_sensitive'                    => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
-				'<!-- wp:WooCommerce/Cart {"displayType":"full"} -->',
+				'<!-- wp:PooCommerce/Cart {"displayType":"full"} -->',
 				false,
 			),
 			'paragraph_block_center_align'                 => array(
@@ -279,32 +279,32 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 				false,
 			),
 			'multiple_attributes_target_matches'           => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
-				'<!-- wp:woocommerce/cart {"displayType":"full","color":"blue","size":"large"} -->
-				<div class="wp-block-woocommerce-cart"></div>
-				<!-- /wp:woocommerce/cart -->',
+				'<!-- wp:poocommerce/cart {"displayType":"full","color":"blue","size":"large"} -->
+				<div class="wp-block-poocommerce-cart"></div>
+				<!-- /wp:poocommerce/cart -->',
 				true,
 			),
 			'empty_attribute_value'                        => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'',
-				'<!-- wp:woocommerce/cart {"displayType":""} -->
-				<div class="wp-block-woocommerce-cart"></div>
-				<!-- /wp:woocommerce/cart -->',
+				'<!-- wp:poocommerce/cart {"displayType":""} -->
+				<div class="wp-block-poocommerce-cart"></div>
+				<!-- /wp:poocommerce/cart -->',
 				true,
 			),
 			'nested_block_found'                           => array(
-				'woocommerce/cart',
+				'poocommerce/cart',
 				'displayType',
 				'full',
 				'<!-- wp:group -->
 					<div class="wp-block-group">
-						<!-- wp:woocommerce/cart {"displayType":"full"} -->
-						<div class="wp-block-woocommerce-cart">Cart content</div>
-						<!-- /wp:woocommerce/cart -->
+						<!-- wp:poocommerce/cart {"displayType":"full"} -->
+						<div class="wp-block-poocommerce-cart">Cart content</div>
+						<!-- /wp:poocommerce/cart -->
 					</div>
 				<!-- /wp:group -->',
 				true,

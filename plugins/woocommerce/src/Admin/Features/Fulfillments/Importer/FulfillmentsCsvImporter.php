@@ -2,12 +2,12 @@
 /**
  * Fulfillments CSV importer service.
  *
- * @package Automattic\WooCommerce\Admin\Features\Fulfillments\Importer
+ * @package Automattic\PooCommerce\Admin\Features\Fulfillments\Importer
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Importer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -343,7 +343,7 @@ class FulfillmentsCsvImporter {
 		$records                 = $this->read_records( $handle, $delimiter, 1 );
 		$header                  = $this->next_data_record( $records );
 		if ( null === $header ) {
-			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'woocommerce' ) );
+			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'poocommerce' ) );
 		}
 
 		$last_row_number = (int) $header['row_number'];
@@ -353,7 +353,7 @@ class FulfillmentsCsvImporter {
 			// Drop the header generator before seeking so it cannot read again from the new position.
 			unset( $records );
 			if ( 0 !== fseek( $handle, $byte_offset ) ) {
-				return $this->error( 'byte_offset_invalid', __( 'Could not resume reading the CSV file.', 'woocommerce' ) );
+				return $this->error( 'byte_offset_invalid', __( 'Could not resume reading the CSV file.', 'poocommerce' ) );
 			}
 			$record_number   = isset( $options['record_number'] ) ? max( 1, (int) $options['record_number'] ) : 1;
 			$records         = $this->read_records( $handle, $delimiter, $record_number );
@@ -448,13 +448,13 @@ class FulfillmentsCsvImporter {
 		$delimiter = '' === $delimiter_override ? $this->options['delimiter'] : self::normalize_delimiter( $delimiter_override );
 
 		if ( ! is_readable( $this->file ) ) {
-			return $this->error( 'file_not_readable', __( 'File is not readable.', 'woocommerce' ) );
+			return $this->error( 'file_not_readable', __( 'File is not readable.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Streaming a staged local CSV; WP_Filesystem has no line reader.
 		$handle = fopen( $this->file, 'rb' );
 		if ( false === $handle ) {
-			return $this->error( 'file_open_failed', __( 'Could not open file.', 'woocommerce' ) );
+			return $this->error( 'file_open_failed', __( 'Could not open file.', 'poocommerce' ) );
 		}
 
 		if ( $this->is_utf16( $handle ) ) {
@@ -463,7 +463,7 @@ class FulfillmentsCsvImporter {
 			// Excel's "Unicode Text" export. fgetcsv() would return cells with a NUL after every character.
 			return $this->error(
 				'utf16_encoding',
-				__( 'This file is saved as UTF-16 and cannot be read. Re-save it as a UTF-8 CSV and try again.', 'woocommerce' )
+				__( 'This file is saved as UTF-16 and cannot be read. Re-save it as a UTF-8 CSV and try again.', 'poocommerce' )
 			);
 		}
 
@@ -473,7 +473,7 @@ class FulfillmentsCsvImporter {
 			// fgetcsv() only splits on LF. auto_detect_line_endings is deprecated, so a CR-only file would be one record.
 			return $this->error(
 				'cr_line_endings',
-				__( 'This file uses old Mac line endings and cannot be read. Re-save it as CSV and try again.', 'woocommerce' )
+				__( 'This file uses old Mac line endings and cannot be read. Re-save it as CSV and try again.', 'poocommerce' )
 			);
 		}
 
@@ -548,7 +548,7 @@ class FulfillmentsCsvImporter {
 		$records                 = $this->read_records( $handle, $delimiter, 1 );
 		$header                  = $this->next_data_record( $records );
 		if ( null === $header ) {
-			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'woocommerce' ) );
+			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'poocommerce' ) );
 		}
 
 		$sample       = array();
@@ -586,7 +586,7 @@ class FulfillmentsCsvImporter {
 	private function unsupported_encoding_error(): array {
 		return $this->error(
 			'unsupported_encoding',
-			__( 'This file is not valid UTF-8 and could not be converted. Save it as a UTF-8 CSV and try again.', 'woocommerce' )
+			__( 'This file is not valid UTF-8 and could not be converted. Save it as a UTF-8 CSV and try again.', 'poocommerce' )
 		);
 	}
 
@@ -859,7 +859,7 @@ class FulfillmentsCsvImporter {
 		 *
 		 * @param array<string, array<int, string>> $aliases Default alias map.
 		 */
-		$aliases = apply_filters( 'woocommerce_fulfillments_csv_importer_column_aliases', $defaults );
+		$aliases = apply_filters( 'poocommerce_fulfillments_csv_importer_column_aliases', $defaults );
 
 		// Any callback can return anything; drop malformed entries instead of
 		// letting a non-array alias list fatal in build_header_map().

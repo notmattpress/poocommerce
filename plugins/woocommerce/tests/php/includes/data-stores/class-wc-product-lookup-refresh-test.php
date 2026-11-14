@@ -2,12 +2,12 @@
 /**
  * Product-type data store coverage for direct lookup refreshes.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for lookup refreshes after sales, stock and scheduled price updates.
@@ -54,7 +54,7 @@ class WC_Product_Lookup_Refresh_Test extends WC_Unit_Test_Case {
 			$store = 'WC_Test_Lookup_Store_Alias';
 		}
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) use ( $store ) {
 				$stores['product-simple'] = $store;
 				return $stores;
@@ -92,7 +92,7 @@ class WC_Product_Lookup_Refresh_Test extends WC_Unit_Test_Case {
 				$order = wc_create_order();
 				$order->add_product( $product, 2 );
 				$order->save();
-				add_filter( 'woocommerce_payment_complete_reduce_order_stock', '__return_false' );
+				add_filter( 'poocommerce_payment_complete_reduce_order_stock', '__return_false' );
 				$order->set_status( OrderStatus::PROCESSING );
 				$order->save();
 				$this->assertSame( 2, (int) $lookup()['total_sales'] );
@@ -137,7 +137,7 @@ class WC_Product_Lookup_Refresh_Test extends WC_Unit_Test_Case {
 			}
 		};
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) use ( $store ) {
 				$stores['product'] = $store;
 				return $stores;
@@ -175,7 +175,7 @@ class WC_Product_Lookup_Refresh_Test extends WC_Unit_Test_Case {
 			}
 		};
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) use ( $store ) {
 				$stores['product-simple'] = $store;
 				return $stores;
@@ -240,7 +240,7 @@ class WC_Product_Lookup_Refresh_Test extends WC_Unit_Test_Case {
 			}
 		};
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) use ( $store ) {
 				$stores['product-simple'] = $store;
 				return $stores;

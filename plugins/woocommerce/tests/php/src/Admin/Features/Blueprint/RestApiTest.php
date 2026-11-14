@@ -5,9 +5,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\RestApi;
+use Automattic\PooCommerce\Admin\Features\Blueprint\RestApi;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -46,8 +46,8 @@ class RestApiTest extends WC_Unit_Test_Case {
 					array(
 						'step'     => 'setWCSettings',
 						'settings' => array(
-							'woocommerce_store_address' => '123 Test St',
-							'woocommerce_store_city'    => 'Test City',
+							'poocommerce_store_address' => '123 Test St',
+							'poocommerce_store_city'    => 'Test City',
 						),
 					),
 				),
@@ -98,7 +98,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 	public function test_import_allowed_respects_permissions( string $role, bool $expected ): void {
 		$user_id = $this->factory->user->create( array( 'role' => $role ) );
 		wp_set_current_user( $user_id );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		if ( is_multisite() && $expected ) {
 			grant_super_admin( $user_id );
 		}
@@ -109,7 +109,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 
 			$this->assertSame( 200, $response->get_status() );
 			$this->assertSame( $expected, $response->get_data()['import_allowed'] );
-			update_option( 'woocommerce_coming_soon', 'no' );
+			update_option( 'poocommerce_coming_soon', 'no' );
 			$this->assertFalse( $this->rest_api->get_import_allowed()->get_data()['import_allowed'] );
 		} finally {
 			if ( is_multisite() && $expected ) {
@@ -126,7 +126,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 		if ( ! is_multisite() ) {
 			$this->markTestSkipped( 'Requires multisite.' );
 		}
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$this->assertFalse( is_super_admin( $this->user ) );
 		$this->assertWPError( $this->rest_api->check_import_permission() );
@@ -146,7 +146,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 	 */
 	public function test_cannot_import_blueprint_in_live_mode() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'no';
 			}
@@ -159,7 +159,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 					'step_definition' => array(
 						'step'    => 'setSiteOptions',
 						'options' => array(
-							'woocommerce_store_address' => '123 Test St',
+							'poocommerce_store_address' => '123 Test St',
 						),
 					),
 				)
@@ -179,7 +179,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 	 */
 	public function test_import_step_file_size_validation() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'yes';
 			}
@@ -214,7 +214,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 	 */
 	public function test_import_blueprint() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'yes';
 			}
@@ -227,7 +227,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 					'step_definition' => array(
 						'step'    => 'setSiteOptions',
 						'options' => array(
-							'woocommerce_store_address' => '123 Test St',
+							'poocommerce_store_address' => '123 Test St',
 						),
 					),
 				)
@@ -239,7 +239,7 @@ class RestApiTest extends WC_Unit_Test_Case {
 		$response_data = $response->get_data();
 		$this->assertTrue( $response_data['success'], $response_data['messages'][0]['message'] );
 		$this->assertCount( 1, $response_data['messages'] );
-		$this->assertStringContainsString( 'woocommerce_store_address has been updated', $response_data['messages'][0]['message'] );
+		$this->assertStringContainsString( 'poocommerce_store_address has been updated', $response_data['messages'][0]['message'] );
 	}
 
 	/**
@@ -254,38 +254,38 @@ class RestApiTest extends WC_Unit_Test_Case {
 		wp_using_ext_object_cache( $external_object_cache );
 
 		try {
-			update_option( 'woocommerce_coming_soon', 'yes' );
-			update_option( 'woocommerce_store_pages_only', 'no' );
+			update_option( 'poocommerce_coming_soon', 'yes' );
+			update_option( 'poocommerce_store_pages_only', 'no' );
 
 			$response = $this->rest_api->import_step(
-				$this->create_import_request( array( 'woocommerce_coming_soon' => 'no' ) )
+				$this->create_import_request( array( 'poocommerce_coming_soon' => 'no' ) )
 			);
 			$this->assertInstanceOf( \WP_REST_Response::class, $response );
 			$this->assertTrue( $response->get_data()['success'], 'The step that makes the site live should succeed.' );
-			$this->assertSame( 'no', get_option( 'woocommerce_coming_soon' ) );
+			$this->assertSame( 'no', get_option( 'poocommerce_coming_soon' ) );
 
 			$session_token = $response->get_headers()['X-Blueprint-Import-Session'];
 			$this->assertNotEmpty( $session_token, 'The first response should supply a session token.' );
 
 			$response = $this->rest_api->import_step(
-				$this->create_import_request( array( 'woocommerce_store_pages_only' => 'yes' ), $session_token )
+				$this->create_import_request( array( 'poocommerce_store_pages_only' => 'yes' ), $session_token )
 			);
 			$this->assertInstanceOf( \WP_REST_Response::class, $response, 'The existing session should continue on a live site.' );
 			$this->assertTrue( $response->get_data()['success'] );
 
 			$response = $this->rest_api->import_step(
-				$this->create_import_request( array( 'woocommerce_store_address' => 'Continued import' ), $session_token )
+				$this->create_import_request( array( 'poocommerce_store_address' => 'Continued import' ), $session_token )
 			);
 			$this->assertInstanceOf( \WP_REST_Response::class, $response, 'The session should survive a cache flush in a later step.' );
 			$this->assertTrue( $response->get_data()['success'] );
-			$this->assertSame( 'Continued import', get_option( 'woocommerce_store_address' ) );
+			$this->assertSame( 'Continued import', get_option( 'poocommerce_store_address' ) );
 
 			foreach ( array( '', wp_generate_uuid4() ) as $invalid_session_token ) {
 				$response = $this->rest_api->import_step(
-					$this->create_import_request( array( 'woocommerce_store_address' => 'Blocked import' ), $invalid_session_token )
+					$this->create_import_request( array( 'poocommerce_store_address' => 'Blocked import' ), $invalid_session_token )
 				);
 				$this->assertFalse( $response['success'], 'A missing or unknown session must not allow an import on a live site.' );
-				$this->assertSame( 'Continued import', get_option( 'woocommerce_store_address' ) );
+				$this->assertSame( 'Continued import', get_option( 'poocommerce_store_address' ) );
 			}
 		} finally {
 			wp_using_ext_object_cache( $previous_external_object_cache );

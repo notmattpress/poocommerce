@@ -52,10 +52,10 @@ export default class OrdersReport extends Component {
 					advancedFilters={ advancedFilters }
 				/>
 				<ReportDateTour
-					optionName="woocommerce_orders_report_date_tour_shown"
+					optionName="poocommerce_orders_report_date_tour_shown"
 					headingText={ __(
 						'Orders are now reported based on the payment dates ✅',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 			</Fragment>

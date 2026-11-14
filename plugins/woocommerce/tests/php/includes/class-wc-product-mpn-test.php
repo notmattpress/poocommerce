@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Integration tests for manufacturer part numbers.
@@ -89,13 +89,13 @@ class WC_Product_Mpn_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_mpn_schema_upgrade_does_not_backfill_existing_values(): void {
 		$sut = $this->create_product( ProductType::SIMPLE );
-		update_option( 'woocommerce_schema_version', '920' );
+		update_option( 'poocommerce_schema_version', '920' );
 		$sut->set_mpn( 'PRE-UPGRADE' );
 		$sut->save();
 		$this->assertSame( 'PRE-UPGRADE', wc_get_product( $sut->get_id() )->get_mpn() );
 		$this->assertSame( '', $this->get_lookup_mpn( $sut->get_id() ) );
 
-		update_option( 'woocommerce_schema_version', '1140' );
+		update_option( 'poocommerce_schema_version', '1140' );
 		wc_update_1140_add_mpn_to_product_lookup_table();
 		wc_update_1140_add_mpn_to_product_lookup_table();
 		$this->assertSame( 'PRE-UPGRADE', wc_get_product( $sut->get_id() )->get_mpn() );

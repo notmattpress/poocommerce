@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Product_Variable;
@@ -26,8 +26,8 @@ class ProductPriceTest extends WC_Unit_Test_Case {
 	 * @param bool   $expected_interactive Whether the block switches to the selected variation's price.
 	 */
 	public function test_same_price_variations_switch_price_only_for_tax_tag_suffix( string $suffix, string $calc_taxes, string $tax_status, bool $expected_interactive ): void {
-		update_option( 'woocommerce_calc_taxes', $calc_taxes );
-		update_option( 'woocommerce_price_display_suffix', $suffix );
+		update_option( 'poocommerce_calc_taxes', $calc_taxes );
+		update_option( 'poocommerce_price_display_suffix', $suffix );
 		$product = WC_Helper_Product::create_variation_product();
 		$product->set_tax_status( $tax_status );
 		$product->save();
@@ -39,7 +39,7 @@ class ProductPriceTest extends WC_Unit_Test_Case {
 		}
 		WC_Product_Variable::sync( $product->get_id() );
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:woocommerce/product-price /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} --><!-- wp:poocommerce/product-price /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertSame( $expected_interactive, str_contains( $markup, 'data-wp-watch="callbacks.updateValue"' ) );
 	}

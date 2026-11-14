@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use WP_Translation_Controller;
 
 /**
- * Resolves the configured site locale and translates WooCommerce slugs into it.
+ * Resolves the configured site locale and translates PooCommerce slugs into it.
  *
  * Persisted slugs must not depend on an administrator's language or a request's locale filter.
  *
@@ -52,7 +52,7 @@ class SiteLocale {
 	}
 
 	/**
-	 * Translate a WooCommerce slug into the site locale.
+	 * Translate a PooCommerce slug into the site locale.
 	 *
 	 * Translation loaders and gettext filters run in the site locale without changing request translations.
 	 *
@@ -87,15 +87,15 @@ class SiteLocale {
 
 				if ( false === $translated_slug && $is_site_locale_request ) {
 					// A loader may have supplied a request catalog without registering a translation file.
-					$translated_slug = get_translations_for_domain( 'woocommerce' )->translate( $slug, 'slug' );
+					$translated_slug = get_translations_for_domain( 'poocommerce' )->translate( $slug, 'slug' );
 				}
 
 				$translated_slug = is_string( $translated_slug ) && '' !== $translated_slug ? $translated_slug : $slug;
 
-				// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment -- Both filters are documented in wp-includes/l10n.php.
-				$filtered_slug = apply_filters( 'gettext_with_context', $translated_slug, $slug, 'slug', 'woocommerce' );
-				$filtered_slug = apply_filters( 'gettext_with_context_woocommerce', $filtered_slug, $slug, 'slug', 'woocommerce' );
-				// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment
+				// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment -- Both filters are documented in wp-includes/l10n.php.
+				$filtered_slug = apply_filters( 'gettext_with_context', $translated_slug, $slug, 'slug', 'poocommerce' );
+				$filtered_slug = apply_filters( 'gettext_with_context_poocommerce', $filtered_slug, $slug, 'slug', 'poocommerce' );
+				// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment
 			} finally {
 				remove_filter( 'pre_determine_locale', $use_site_locale, PHP_INT_MAX );
 				remove_filter( 'locale', $use_site_locale, PHP_INT_MAX );
@@ -125,37 +125,37 @@ class SiteLocale {
 
 		$translation_controller = WP_Translation_Controller::get_instance();
 
-		if ( $translation_controller->is_textdomain_loaded( 'woocommerce', $locale ) ) {
-			return $translation_controller->translate( $slug, 'slug', 'woocommerce', $locale );
+		if ( $translation_controller->is_textdomain_loaded( 'poocommerce', $locale ) ) {
+			return $translation_controller->translate( $slug, 'slug', 'poocommerce', $locale );
 		}
 
-		$translation_path        = $wp_textdomain_registry->get( 'woocommerce', $locale );
-		$custom_translation_file = WP_LANG_DIR . '/woocommerce/woocommerce-' . $locale . '.mo';
-		$previous_translations   = $l10n['woocommerce'] ?? null;
+		$translation_path        = $wp_textdomain_registry->get( 'poocommerce', $locale );
+		$custom_translation_file = WP_LANG_DIR . '/poocommerce/poocommerce-' . $locale . '.mo';
+		$previous_translations   = $l10n['poocommerce'] ?? null;
 
-		unset( $l10n['woocommerce'] );
+		unset( $l10n['poocommerce'] );
 
 		try {
 			if ( is_readable( $custom_translation_file ) ) {
-				load_textdomain( 'woocommerce', $custom_translation_file, $locale );
+				load_textdomain( 'poocommerce', $custom_translation_file, $locale );
 			}
 
 			if ( is_string( $translation_path ) && '' !== $translation_path ) {
 				// Like core, a language directory inside the active theme holds files named after the locale only.
 				$translation_path = trailingslashit( $translation_path );
 				$is_theme_path    = str_starts_with( $translation_path, trailingslashit( get_template_directory() ) ) || str_starts_with( $translation_path, trailingslashit( get_stylesheet_directory() ) );
-				load_textdomain( 'woocommerce', $translation_path . ( $is_theme_path ? '' : 'woocommerce-' ) . $locale . '.mo', $locale );
+				load_textdomain( 'poocommerce', $translation_path . ( $is_theme_path ? '' : 'poocommerce-' ) . $locale . '.mo', $locale );
 			}
 
-			$translated_slug = $translation_controller->translate( $slug, 'slug', 'woocommerce', $locale );
+			$translated_slug = $translation_controller->translate( $slug, 'slug', 'poocommerce', $locale );
 
 			// Override loaders can supply a legacy catalog without populating the translation controller.
-			return false === $translated_slug && isset( $l10n['woocommerce'] ) ? $l10n['woocommerce']->translate( $slug, 'slug' ) : $translated_slug;
+			return false === $translated_slug && isset( $l10n['poocommerce'] ) ? $l10n['poocommerce']->translate( $slug, 'slug' ) : $translated_slug;
 		} finally {
 			if ( null !== $previous_translations ) {
-				$l10n['woocommerce'] = $previous_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the translations isolated above.
+				$l10n['poocommerce'] = $previous_translations; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the translations isolated above.
 			} else {
-				unset( $l10n['woocommerce'] );
+				unset( $l10n['poocommerce'] );
 			}
 		}
 	}

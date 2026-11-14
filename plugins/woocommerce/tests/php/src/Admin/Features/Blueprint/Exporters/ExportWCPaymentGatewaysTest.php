@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCPaymentGateways;
 use WC_Unit_Test_Case;
 
 /**

@@ -16,7 +16,7 @@ export interface ProductResponseItemBaseData {
 	/**
 	 * Machine-readable name for the entry, never translated, so it is safe to
 	 * match on. Entity-encoded like every other value here, so a bare `&`
-	 * arrives as `&amp;`. Added in WooCommerce 11.2.0.
+	 * arrives as `&amp;`. Added in PooCommerce 11.2.0.
 	 */
 	raw_key?: string;
 	/**

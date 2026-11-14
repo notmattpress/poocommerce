@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Variations\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Variations\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Variations\Stats\Controller;
+use Automattic\PooCommerce\Admin\API\Reports\Variations\Stats\Controller;
 use ReflectionMethod;
 use WC_Unit_Test_Case;
 use WP_REST_Request;

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldTypes;
 
 /**
  * The "text" additional checkout field type.

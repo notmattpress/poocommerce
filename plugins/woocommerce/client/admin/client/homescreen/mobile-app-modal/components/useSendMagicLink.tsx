@@ -3,10 +3,10 @@
  */
 import { useState, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 export const SendMagicLinkStates = {
 	INIT: 'initializing',
@@ -47,7 +47,7 @@ export const useSendMagicLink = () => {
 					setRequestState( SendMagicLinkStates.ERROR );
 					createNotice(
 						'error',
-						__( 'Sorry, an unknown error occurred.', 'woocommerce' )
+						__( 'Sorry, an unknown error occurred.', 'poocommerce' )
 					);
 				}
 			} )
@@ -65,7 +65,7 @@ export const useSendMagicLink = () => {
 
 				const genericRetry = __(
 					'We couldn’t send the link. Try again in a few seconds.',
-					'woocommerce'
+					'poocommerce'
 				);
 
 				if ( response.code === 'error_sending_mobile_magic_link' ) {
@@ -85,7 +85,7 @@ export const useSendMagicLink = () => {
 						'error',
 						__(
 							'Sorry, your account doesn’t have sufficient permission.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 				} else if ( response.code === 'jetpack_not_connected' ) {

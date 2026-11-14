@@ -46,7 +46,7 @@ const data = {
 	name: 'Brazil',
 };
 
-WooCommerce.post( 'shipping/zones', data )
+PooCommerce.post( 'shipping/zones', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -64,7 +64,7 @@ $data = [
     'name' => 'Brazil'
 ];
 
-print_r($woocommerce->post('shipping/zones', $data));
+print_r($poocommerce->post('shipping/zones', $data));
 ?>
 ```
 
@@ -87,7 +87,7 @@ data = {
   name: "Brazil"
 }
 
-woocommerce.post("shipping/zones", data).parsed_response
+poocommerce.post("shipping/zones", data).parsed_response
 ```
 
   </TabItem>
@@ -141,7 +141,7 @@ curl https://example.com/wp-json/wc/v3/shipping/zones/5 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'shipping/zones/5' )
+PooCommerce.get( 'shipping/zones/5' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -154,7 +154,7 @@ WooCommerce.get( 'shipping/zones/5' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('shipping/zones/5')); ?>
+<?php print_r($poocommerce->get('shipping/zones/5')); ?>
 ```
 
   </TabItem>
@@ -168,7 +168,7 @@ print(wcapi.get("shipping/zones/5").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("shipping/zones/5").parsed_response
+poocommerce.get("shipping/zones/5").parsed_response
 ```
 
   </TabItem>
@@ -222,7 +222,7 @@ curl https://example.com/wp-json/wc/v3/shipping/zones \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get( 'shipping/zones' )
+PooCommerce.get( 'shipping/zones' )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -235,7 +235,7 @@ WooCommerce.get( 'shipping/zones' )
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('shipping/zones')); ?>
+<?php print_r($poocommerce->get('shipping/zones')); ?>
 ```
 
   </TabItem>
@@ -249,7 +249,7 @@ print(wcapi.get("shipping/zones").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("shipping/zones").parsed_response
+poocommerce.get("shipping/zones").parsed_response
 ```
 
   </TabItem>
@@ -335,7 +335,7 @@ const data = {
 	order: 1,
 };
 
-WooCommerce.put( 'shipping/zones/5', data )
+PooCommerce.put( 'shipping/zones/5', data )
 	.then( ( response ) => {
 		console.log( response.data );
 	} )
@@ -353,7 +353,7 @@ $data = [
     'order' => 1
 ];
 
-print_r($woocommerce->put('shipping/zones/5', $data));
+print_r($poocommerce->put('shipping/zones/5', $data));
 ?>
 ```
 
@@ -376,7 +376,7 @@ data = {
   order: 1
 }
 
-woocommerce.put("shipping/zones/5", data).parsed_response
+poocommerce.put("shipping/zones/5", data).parsed_response
 ```
 
   </TabItem>
@@ -430,7 +430,7 @@ curl -X DELETE https://example.com/wp-json/wc/v3/shipping/zones/5?force=true \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete( 'shipping/zones/5', {
+PooCommerce.delete( 'shipping/zones/5', {
 	force: true,
 } )
 	.then( ( response ) => {
@@ -445,7 +445,7 @@ WooCommerce.delete( 'shipping/zones/5', {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('shipping/zones/5', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('shipping/zones/5', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -459,7 +459,7 @@ print(wcapi.delete("shipping/zones/5", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("shipping/zones/5", force: true).parsed_response
+poocommerce.delete("shipping/zones/5", force: true).parsed_response
 ```
 
   </TabItem>

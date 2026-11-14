@@ -25,7 +25,7 @@ jest.mock( '../../../components/header', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/onboarding', () => {
+jest.mock( '@poocommerce/onboarding', () => {
 	const MockLoader = ( { children }: { children: React.ReactNode } ) => (
 		<div data-testid="loader">{ children }</div>
 	);
@@ -50,7 +50,7 @@ jest.mock( '@woocommerce/onboarding', () => {
 	return { Loader: MockLoader };
 } );
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	navigateTo: jest.fn(),
 	getNewPath: jest.fn( () => '' ),
 } ) );
@@ -96,7 +96,7 @@ describe( 'TestAccountStep', () => {
 		const context = createMockContext();
 		mockUseOnboardingContext.mockReturnValue( context );
 		mockApiFetch.mockRejectedValue( {
-			code: 'woocommerce_woopayments_onboarding_test_account_non_recoverable_error',
+			code: 'poocommerce_woopayments_onboarding_test_account_non_recoverable_error',
 			message:
 				'A test account could not be created, but onboarding can continue without it.',
 		} );

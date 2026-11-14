@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
  * Tests for the Hydration class.
@@ -219,7 +219,7 @@ class HydrationTest extends \WP_UnitTestCase {
 
 		$notices_during_render = null;
 		add_filter(
-			'woocommerce_hydration_request_after_callbacks',
+			'poocommerce_hydration_request_after_callbacks',
 			function ( $response ) use ( &$notices_during_render ) {
 				$notices_during_render = wc_get_notices();
 				wc_add_notice( 'Notice injected during render', 'success' );
@@ -263,7 +263,7 @@ class HydrationTest extends \WP_UnitTestCase {
 		$hydration = $this->create_hydration_with_forced_availability( false );
 
 		add_filter(
-			'woocommerce_hydration_request_after_callbacks',
+			'poocommerce_hydration_request_after_callbacks',
 			function ( $response ) use ( $hydration ) {
 				// Simulate the notice functions becoming defined mid-render, e.g. via wc_load_cart().
 				$hydration->notice_functions_available = true;

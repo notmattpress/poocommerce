@@ -2,7 +2,7 @@
 /**
  * WC_Admin_Menus unit tests.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
@@ -133,7 +133,7 @@ class WC_Admin_Menus_Test extends WC_Unit_Test_Case {
 		$this->assertNotContains( 'add-product_cat', $hidden );
 		$this->assertNotContains( 'add-product_tag', $hidden );
 		$this->assertNotContains( 'add-product_brand', $hidden );
-		$this->assertNotContains( 'woocommerce_endpoints_nav_link', $hidden );
+		$this->assertNotContains( 'poocommerce_endpoints_nav_link', $hidden );
 	}
 
 	/**
@@ -199,7 +199,7 @@ class WC_Admin_Menus_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * A box registered after admin_head-nav-menus.php fires (the "WooCommerce
+	 * A box registered after admin_head-nav-menus.php fires (the "PooCommerce
 	 * endpoints" box) must stay visible. The option is read twice on the same
 	 * page load: once before admin_head and again inside do_accordion_sections()
 	 * after admin_head-nav-menus.php. The persisted snapshot keeps the hidden
@@ -216,10 +216,10 @@ class WC_Admin_Menus_Test extends WC_Unit_Test_Case {
 		// First read happens before admin_head-nav-menus.php, so the endpoints box is not yet registered.
 		$hidden_before = get_user_option( 'metaboxhidden_nav-menus', $user_id );
 
-		// Simulate admin_head-nav-menus.php registering the WooCommerce endpoints box.
-		$GLOBALS['wp_meta_boxes']['nav-menus']['side']['low']['woocommerce_endpoints_nav_link'] = array( // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			'id'    => 'woocommerce_endpoints_nav_link',
-			'title' => 'WooCommerce endpoints',
+		// Simulate admin_head-nav-menus.php registering the PooCommerce endpoints box.
+		$GLOBALS['wp_meta_boxes']['nav-menus']['side']['low']['poocommerce_endpoints_nav_link'] = array( // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			'id'    => 'poocommerce_endpoints_nav_link',
+			'title' => 'PooCommerce endpoints',
 		);
 
 		// Second read happens inside do_accordion_sections(), after the box was registered.
@@ -228,7 +228,7 @@ class WC_Admin_Menus_Test extends WC_Unit_Test_Case {
 		$this->assertIsArray( $hidden_before );
 		$this->assertIsArray( $hidden_after );
 		$this->assertSame( $hidden_before, $hidden_after );
-		$this->assertNotContains( 'woocommerce_endpoints_nav_link', $hidden_after );
+		$this->assertNotContains( 'poocommerce_endpoints_nav_link', $hidden_after );
 	}
 
 	/**

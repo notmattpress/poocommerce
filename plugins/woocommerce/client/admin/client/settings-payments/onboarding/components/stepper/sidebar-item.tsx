@@ -35,14 +35,14 @@ export default function SidebarItem( {
 							WC_ASSET_URL +
 							'images/onboarding/icons/complete.svg'
 						}
-						alt={ __( 'Step completed', 'woocommerce' ) }
+						alt={ __( 'Step completed', 'poocommerce' ) }
 					/>
 				) : (
 					<img
 						src={
 							WC_ASSET_URL + 'images/onboarding/icons/pending.svg'
 						}
-						alt={ __( 'Step active', 'woocommerce' ) }
+						alt={ __( 'Step active', 'poocommerce' ) }
 					/>
 				) }
 			</span>

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Notes;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Internal\Admin\Notes\RefundDoubleCountToolNotice;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Internal\Admin\Notes\RefundDoubleCountToolNotice;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class RefundDoubleCountToolNoticeTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 		update_option( \WC_Install::INITIAL_INSTALLED_VERSION, '10.5.0' );
 	}
 
@@ -50,10 +50,10 @@ class RefundDoubleCountToolNoticeTest extends WC_Unit_Test_Case {
 				update_option( \WC_Install::INITIAL_INSTALLED_VERSION, '11.1.0' );
 				break;
 			case 'old refund data':
-				update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'yes' );
+				update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'yes' );
 				break;
 			case 'analytics disabled':
-				update_option( 'woocommerce_analytics_enabled', 'no' );
+				update_option( 'poocommerce_analytics_enabled', 'no' );
 				break;
 		}
 

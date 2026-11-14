@@ -77,7 +77,7 @@
 			window.wp.data
 				.dispatch( window.wc.wcBlocksData.CHECKOUT_STORE_KEY )
 				.setExtensionData(
-					'woocommerce/order-attribution',
+					'poocommerce/order-attribution',
 					values,
 					true
 				);
@@ -112,7 +112,7 @@
 				session_length: Number( params.session ),
 				base64: Boolean( params.base64 ),
 				timezone_offset: '0', // utc
-				// Only store the fields WooCommerce reads. An empty list stores every field.
+				// Only store the fields PooCommerce reads. An empty list stores every field.
 				fields: params.cookieFields,
 			} );
 		}

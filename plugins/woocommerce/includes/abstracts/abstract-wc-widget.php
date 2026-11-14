@@ -3,7 +3,7 @@
  * Abstract widget class
  *
  * @class WC_Widget
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  */
 
 use Automattic\Jetpack\Constants;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Widget
  *
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  * @version  2.5.0
  * @extends  WP_Widget
  */
@@ -227,7 +227,7 @@ abstract class WC_Widget extends WP_Widget {
 			/**
 			 * Sanitize the value of a setting.
 			 */
-			$instance[ $key ] = apply_filters( 'woocommerce_widget_settings_sanitize_option', $instance[ $key ], $new_instance, $key, $setting );
+			$instance[ $key ] = apply_filters( 'poocommerce_widget_settings_sanitize_option', $instance[ $key ], $new_instance, $key, $setting );
 		}
 
 		$this->flush_widget_cache();
@@ -309,7 +309,7 @@ abstract class WC_Widget extends WP_Widget {
 
 				// Default: run an action.
 				default:
-					do_action( 'woocommerce_widget_field_' . $setting['type'], $key, $value, $setting, $instance );
+					do_action( 'poocommerce_widget_field_' . $setting['type'], $key, $value, $setting, $instance );
 					break;
 			}
 		}
@@ -385,7 +385,7 @@ abstract class WC_Widget extends WP_Widget {
 			}
 		}
 
-		return apply_filters( 'woocommerce_widget_get_current_page_url', $link, $this );
+		return apply_filters( 'poocommerce_widget_get_current_page_url', $link, $this );
 	}
 
 	/**
@@ -403,6 +403,6 @@ abstract class WC_Widget extends WP_Widget {
 			$widget_id_for_cache = $widget_id . '-' . ( is_ssl() ? 'https' : 'http' );
 		}
 
-		return apply_filters( 'woocommerce_cached_widget_id', $widget_id_for_cache );
+		return apply_filters( 'poocommerce_cached_widget_id', $widget_id_for_cache );
 	}
 }

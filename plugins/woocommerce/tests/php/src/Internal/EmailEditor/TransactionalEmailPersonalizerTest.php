@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
 use WC_Unit_Test_Case;
 
 /**
@@ -34,7 +34,7 @@ class TransactionalEmailPersonalizerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_email_editor_integration_personalizer_context_data' );
+		remove_all_filters( 'poocommerce_email_editor_integration_personalizer_context_data' );
 		Email_Editor_Container::container()->get( Personalization_Tags_Registry::class )->unregister( '[test/text-tag]' );
 		parent::tearDown();
 	}
@@ -86,7 +86,7 @@ class TransactionalEmailPersonalizerTest extends WC_Unit_Test_Case {
 		$mock_email->object = new \stdClass();
 
 		add_filter(
-			'woocommerce_email_editor_integration_personalizer_context_data',
+			'poocommerce_email_editor_integration_personalizer_context_data',
 			function ( $context ) use ( $mock_user ) {
 				$context['wp_user'] = $mock_user;
 				return $context;
@@ -135,7 +135,7 @@ class TransactionalEmailPersonalizerTest extends WC_Unit_Test_Case {
 		$mock_email->object = new \stdClass();
 
 		add_filter(
-			'woocommerce_email_editor_integration_personalizer_context_data',
+			'poocommerce_email_editor_integration_personalizer_context_data',
 			function ( $context ) use ( &$received_context ) {
 				$received_context = $context;
 				return $context;
@@ -160,7 +160,7 @@ class TransactionalEmailPersonalizerTest extends WC_Unit_Test_Case {
 		$mock_email->object = new \stdClass();
 
 		add_filter(
-			'woocommerce_email_editor_integration_personalizer_context_data',
+			'poocommerce_email_editor_integration_personalizer_context_data',
 			function () {
 				return 'not_an_array';
 			}

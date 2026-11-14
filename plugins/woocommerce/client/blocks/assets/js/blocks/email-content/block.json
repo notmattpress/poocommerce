@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/email-content",
+	"name": "poocommerce/email-content",
 	"title": "Email Content",
 	"description": "A placeholder block for email content.",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"inserter": false,
 		"email": true

@@ -6,8 +6,8 @@ import { persistenceLayer } from '../persistence-layer';
 describe( 'persistenceLayer', () => {
 	beforeEach( () => {
 		window.localStorage.clear();
-		document.cookie = 'woocommerce_items_in_cart=1';
-		document.cookie = 'woocommerce_cart_hash=abc';
+		document.cookie = 'poocommerce_items_in_cart=1';
+		document.cookie = 'poocommerce_cart_hash=abc';
 		window.localStorage.setItem( 'storeApiCartHash', 'abc' );
 	} );
 

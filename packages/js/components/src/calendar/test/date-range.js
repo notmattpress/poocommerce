@@ -90,7 +90,7 @@ describe( 'DateRange', () => {
 	it( 'labels calendar days with the translated format', () => {
 		setLocaleData(
 			{ 'dddd, MMMM D, YYYY': [ 'dddd, D. MMMM YYYY' ] },
-			'woocommerce'
+			'poocommerce'
 		);
 
 		const { container } = renderDateRange();

@@ -33,8 +33,8 @@
 <p class="has-text-color has-link-color has-small-font-size" style="color:#FFFFFF;line-height:1.71"><?php
 	printf(
 		/* translators: %1$s: opening anchor tag. %2$s: closing anchor tag. */
-		esc_html__( 'All rights reserved. Designed with %1$sWooCommerce%2$s.', 'purple' ),
-		'<a href="' . esc_url( __( 'https://woocommerce.com/', 'purple' ) ) . '" rel="nofollow">',
+		esc_html__( 'All rights reserved. Designed with %1$sPooCommerce%2$s.', 'purple' ),
+		'<a href="' . esc_url( __( 'https://poocommerce.com/', 'purple' ) ) . '" rel="nofollow">',
 		'</a>'
 	);
 	?></p>

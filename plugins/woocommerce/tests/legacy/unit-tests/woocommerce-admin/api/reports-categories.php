@@ -2,12 +2,12 @@
 /**
  * Reports Categories REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\CategoryLookup;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\CategoryLookup;
 
 /**
  * Class WC_Admin_Tests_API_Reports_Categories

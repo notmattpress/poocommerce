@@ -1,9 +1,9 @@
 ---
-name: woocommerce-performance
-description: Identify performance issues in WooCommerce PHP code. Use when writing or reviewing code that loads collections of post-based objects (products, orders), renders product lists with images, reads multiple options in a loop or method, or writes SQL queries involving joins, aggregates, meta lookups, or range queries.
+name: poocommerce-performance
+description: Identify performance issues in PooCommerce PHP code. Use when writing or reviewing code that loads collections of post-based objects (products, orders), renders product lists with images, reads multiple options in a loop or method, or writes SQL queries involving joins, aggregates, meta lookups, or range queries.
 ---
 
-# WooCommerce Performance
+# PooCommerce Performance
 
 ## Post Cache Priming — [cache-priming.md](cache-priming.md)
 
@@ -15,4 +15,4 @@ Use when writing or reviewing code that reads multiple non-autoloaded options in
 
 ## SQL Query Patterns — [sql-query-patterns.md](sql-query-patterns.md)
 
-Use when writing or reviewing any SQL query in WooCommerce PHP code. Covers: redundant posts joins, fan-out JOIN on `wp_term_relationships`, N-query loops, OR index-merge, cross-product meta conditions, multi-fan join decoupling, WooCommerce lookup table preference (`wc_product_meta_lookup`, `wc_product_attributes_lookup`), and MIN/MAX full-scan elimination.
+Use when writing or reviewing any SQL query in PooCommerce PHP code. Covers: redundant posts joins, fan-out JOIN on `wp_term_relationships`, N-query loops, OR index-merge, cross-product meta conditions, multi-fan join decoupling, PooCommerce lookup table preference (`wc_product_meta_lookup`, `wc_product_attributes_lookup`), and MIN/MAX full-scan elimination.

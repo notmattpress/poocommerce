@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\IdempotencyClaim;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\IdempotencyStore;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\RequestFingerprint;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\IdempotencyClaim;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\IdempotencyStore;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\RequestFingerprint;
 
 /**
  * Tests for `Idempotency-Key` handling on the /wc/ucp/v1/carts writes.
@@ -187,7 +187,7 @@ class UcpIdempotency extends UcpCartTestCase {
 	 * A keyless write goes through once a site turns strict mode off.
 	 */
 	public function test_a_keyless_write_passes_when_strict_mode_is_off(): void {
-		add_filter( 'woocommerce_ucp_idempotency_strict', '__return_false' );
+		add_filter( 'poocommerce_ucp_idempotency_strict', '__return_false' );
 
 		$response = $this->request( 'POST', '/carts', $this->cart_body( 0 ) );
 
@@ -297,13 +297,13 @@ class UcpIdempotency extends UcpCartTestCase {
 
 		$previous_suppress_errors = $wpdb->suppress_errors( true );
 		add_filter( 'query', $query_filter );
-		add_filter( 'woocommerce_logging_class', $logger_filter );
+		add_filter( 'poocommerce_logging_class', $logger_filter );
 
 		try {
 			$response = $this->request( 'POST', '/carts', $this->cart_body( 0 ), wp_generate_uuid4() );
 		} finally {
 			remove_filter( 'query', $query_filter );
-			remove_filter( 'woocommerce_logging_class', $logger_filter );
+			remove_filter( 'poocommerce_logging_class', $logger_filter );
 			$wpdb->suppress_errors( $previous_suppress_errors );
 		}
 
@@ -386,7 +386,7 @@ class UcpIdempotency extends UcpCartTestCase {
 	 * The kill switch takes the whole mechanism out of the way.
 	 */
 	public function test_the_kill_switch_stores_nothing(): void {
-		add_filter( 'woocommerce_ucp_idempotency_enabled', '__return_false' );
+		add_filter( 'poocommerce_ucp_idempotency_enabled', '__return_false' );
 
 		$key = wp_generate_uuid4();
 
@@ -594,7 +594,7 @@ class UcpIdempotency extends UcpCartTestCase {
 	public function test_cleanup_spares_a_running_claim_under_short_retention(): void {
 		global $wpdb;
 
-		add_filter( 'woocommerce_ucp_idempotency_retention_seconds', static fn () => 1 );
+		add_filter( 'poocommerce_ucp_idempotency_retention_seconds', static fn () => 1 );
 
 		$running  = wp_generate_uuid4();
 		$finished = wp_generate_uuid4();
@@ -627,7 +627,7 @@ class UcpIdempotency extends UcpCartTestCase {
 		$fail = static function () {
 			throw new \RuntimeException( 'Storage went away mid-write.' );
 		};
-		add_action( 'woocommerce_add_to_cart', $fail );
+		add_action( 'poocommerce_add_to_cart', $fail );
 
 		$key      = wp_generate_uuid4();
 		$body     = $this->cart_body( 0 );
@@ -636,7 +636,7 @@ class UcpIdempotency extends UcpCartTestCase {
 		$this->assertGreaterThanOrEqual( 500, $response->get_status() );
 		$this->assertNull( IdempotencyStore::find( $key ) );
 
-		remove_action( 'woocommerce_add_to_cart', $fail );
+		remove_action( 'poocommerce_add_to_cart', $fail );
 
 		$retry = $this->request( 'POST', '/carts', $body, $key );
 

@@ -5,18 +5,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared product helpers for WooCommerce domain ability definitions.
+ * Shared product helpers for PooCommerce domain ability definitions.
  */
 trait ProductAbilityTrait {
 
@@ -44,7 +44,7 @@ trait ProductAbilityTrait {
 	 * The schema is one flat object with the fields of every supported product
 	 * type. The description of `type` lists the fields that each type takes,
 	 * and the ability refuses a field that the type does not take with
-	 * `woocommerce_product_field_unsupported`, naming the fields it takes.
+	 * `poocommerce_product_field_unsupported`, naming the fields it takes.
 	 *
 	 * @param bool $creating Whether the schema is for product-create.
 	 * @return array
@@ -59,11 +59,11 @@ trait ProductAbilityTrait {
 			$lines[] = $product_type . ': ' . implode( ', ', $config['fields'] );
 		}
 
-		$type_schema['description'] .= ' ' . __( 'Fields each type takes.', 'woocommerce' ) . ' ' . implode( '; ', $lines ) . '.';
+		$type_schema['description'] .= ' ' . __( 'Fields each type takes.', 'poocommerce' ) . ' ' . implode( '; ', $lines ) . '.';
 
 		if ( $creating ) {
 			$type_schema['default']      = ProductType::SIMPLE;
-			$type_schema['description'] .= ' ' . __( 'A product without a type is simple.', 'woocommerce' );
+			$type_schema['description'] .= ' ' . __( 'A product without a type is simple.', 'poocommerce' );
 		}
 
 		$properties = $creating ? array() : array(
@@ -102,7 +102,7 @@ trait ProductAbilityTrait {
 	private static function get_product_create_attributes_schema(): array {
 		return array(
 			'type'        => 'array',
-			'description' => __( 'On a variable product, the attributes with their options. On a variation, the option it picks for each attribute of its parent.', 'woocommerce' ),
+			'description' => __( 'On a variable product, the attributes with their options. On a variation, the option it picks for each attribute of its parent.', 'poocommerce' ),
 			'items'       => array(
 				'anyOf' => array(
 					self::get_product_attributes_schema( false )['items'],
@@ -126,7 +126,7 @@ trait ProductAbilityTrait {
 		if ( $for_variation ) {
 			return array(
 				'type'        => 'array',
-				'description' => __( 'The option this variation picks for each attribute of its parent, by attribute name or global attribute id. For a global attribute the option is the term slug. An attribute with no option matches any option of the attribute.', 'woocommerce' ),
+				'description' => __( 'The option this variation picks for each attribute of its parent, by attribute name or global attribute id. For a global attribute the option is the term slug. An attribute with no option matches any option of the attribute.', 'poocommerce' ),
 				'items'       => array(
 					'type'                 => 'object',
 					'properties'           => array(
@@ -141,7 +141,7 @@ trait ProductAbilityTrait {
 
 		return array(
 			'type'        => 'array',
-			'description' => __( 'Attributes of the product, such as Size with the options S, M and L. Each variation picks one option of every attribute that is for variations. A name is an attribute of this product only, unless global is true or an id names a global attribute. The options of a global attribute are term names or slugs, and missing terms are created.', 'woocommerce' ),
+			'description' => __( 'Attributes of the product, such as Size with the options S, M and L. Each variation picks one option of every attribute that is for variations. A name is an attribute of this product only, unless global is true or an id names a global attribute. The options of a global attribute are term names or slugs, and missing terms are created.', 'poocommerce' ),
 			'items'       => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -149,7 +149,7 @@ trait ProductAbilityTrait {
 					'name'      => array( 'type' => 'string' ),
 					'global'    => array(
 						'type'        => 'boolean',
-						'description' => __( 'Use the global attribute with this name. The input is refused when there is none. Defaults to false.', 'woocommerce' ),
+						'description' => __( 'Use the global attribute with this name. The input is refused when there is none. Defaults to false.', 'poocommerce' ),
 					),
 					'options'   => array(
 						'type'     => 'array',
@@ -158,11 +158,11 @@ trait ProductAbilityTrait {
 					),
 					'visible'   => array(
 						'type'        => 'boolean',
-						'description' => __( 'Whether the attribute shows on the product page. Defaults to true.', 'woocommerce' ),
+						'description' => __( 'Whether the attribute shows on the product page. Defaults to true.', 'poocommerce' ),
 					),
 					'variation' => array(
 						'type'        => 'boolean',
-						'description' => __( 'Whether the variations pick an option of this attribute. Defaults to true. An attribute that is not for variations only shows on the product page.', 'woocommerce' ),
+						'description' => __( 'Whether the variations pick an option of this attribute. Defaults to true. An attribute that is not for variations only shows on the product page.', 'poocommerce' ),
 					),
 				),
 				'required'             => array( 'options' ),
@@ -179,7 +179,7 @@ trait ProductAbilityTrait {
 	private static function get_global_attribute_id_schema(): array {
 		return array(
 			'type'        => 'integer',
-			'description' => __( 'ID of a global attribute. 0 or absent for an attribute of this product only.', 'woocommerce' ),
+			'description' => __( 'ID of a global attribute. 0 or absent for an attribute of this product only.', 'poocommerce' ),
 			'minimum'     => 0,
 		);
 	}
@@ -200,12 +200,12 @@ trait ProductAbilityTrait {
 		if ( ! $creating ) {
 			$properties['id']     = array(
 				'type'        => 'integer',
-				'description' => __( 'ID of the variation to change. Leave it out to create a variation.', 'woocommerce' ),
+				'description' => __( 'ID of the variation to change. Leave it out to create a variation.', 'poocommerce' ),
 				'minimum'     => 1,
 			);
 			$properties['delete'] = array(
 				'type'        => 'boolean',
-				'description' => __( 'Delete the variation with this id.', 'woocommerce' ),
+				'description' => __( 'Delete the variation with this id.', 'poocommerce' ),
 			);
 		}
 		$properties = array_merge( $properties, self::get_product_mutation_field_schemas_for_fields( self::get_variation_config()['fields'], true ) );
@@ -217,8 +217,8 @@ trait ProductAbilityTrait {
 		return array(
 			'type'        => 'array',
 			'description' => $creating
-				? __( 'Variations to create with the product. Each one picks one option of every attribute, and no two pick the same options.', 'woocommerce' )
-				: __( 'Variations to create, change or delete. An item with an id changes or deletes that variation, an item without one creates a variation. Other variations stay as they are.', 'woocommerce' ),
+				? __( 'Variations to create with the product. Each one picks one option of every attribute, and no two pick the same options.', 'poocommerce' )
+				: __( 'Variations to create, change or delete. An item with an id changes or deletes that variation, an item without one creates a variation. Other variations stay as they are.', 'poocommerce' ),
 			'maxItems'    => 100,
 			'items'       => array(
 				'type'                 => 'object',
@@ -247,7 +247,7 @@ trait ProductAbilityTrait {
 			);
 			if ( count( $product_types ) < count( $configs ) ) {
 				/* translators: %s: Comma-separated list of product types. */
-				$applies_to                             = sprintf( __( 'Applies to: %s.', 'woocommerce' ), implode( ', ', $product_types ) );
+				$applies_to                             = sprintf( __( 'Applies to: %s.', 'poocommerce' ), implode( ', ', $product_types ) );
 				$field_schemas[ $field ]['description'] = trim( ( $field_schema['description'] ?? '' ) . ' ' . $applies_to );
 			}
 		}
@@ -263,7 +263,7 @@ trait ProductAbilityTrait {
 	protected static function get_product_type_schema( array $product_types ): array {
 		return array(
 			'type'        => 'string',
-			'description' => __( 'Product type, from the product types that WooCommerce and extensions register.', 'woocommerce' ),
+			'description' => __( 'Product type, from the product types that PooCommerce and extensions register.', 'poocommerce' ),
 			'enum'        => $product_types,
 		);
 	}
@@ -278,11 +278,11 @@ trait ProductAbilityTrait {
 		return array(
 			'name'               => array(
 				'type'        => 'string',
-				'description' => __( 'Required, except on a variation, which takes its name from its parent.', 'woocommerce' ),
+				'description' => __( 'Required, except on a variation, which takes its name from its parent.', 'poocommerce' ),
 			),
 			'parent_id'          => array(
 				'type'        => 'integer',
-				'description' => __( 'ID of the variable product this variation belongs to.', 'woocommerce' ),
+				'description' => __( 'ID of the variable product this variation belongs to.', 'poocommerce' ),
 				'minimum'     => 1,
 			),
 			'attributes'         => self::get_product_attributes_schema( $for_variation ),
@@ -290,21 +290,21 @@ trait ProductAbilityTrait {
 			'sku'                => array( 'type' => 'string' ),
 			'regular_price'      => array(
 				'type'        => 'string',
-				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'woocommerce' ),
+				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'poocommerce' ),
 				'pattern'     => self::get_product_price_input_pattern(),
 			),
 			'sale_price'         => array(
 				'type'        => 'string',
-				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'woocommerce' ),
+				'description' => __( 'Decimal price as a string, without a currency symbol or thousand separators.', 'poocommerce' ),
 				'pattern'     => self::get_product_price_input_pattern(),
 			),
 			'description'        => array(
 				'type'        => 'string',
-				'description' => __( 'Product description content. Safe HTML is allowed.', 'woocommerce' ),
+				'description' => __( 'Product description content. Safe HTML is allowed.', 'poocommerce' ),
 			),
 			'short_description'  => array(
 				'type'        => 'string',
-				'description' => __( 'Short product description content. Safe HTML is allowed.', 'woocommerce' ),
+				'description' => __( 'Short product description content. Safe HTML is allowed.', 'poocommerce' ),
 			),
 			'status'             => array(
 				'type' => 'string',
@@ -312,16 +312,16 @@ trait ProductAbilityTrait {
 			),
 			'virtual'            => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether the product is not shipped.', 'woocommerce' ),
+				'description' => __( 'Whether the product is not shipped.', 'poocommerce' ),
 			),
 			'downloadable'       => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether the product gives the customer files to download.', 'woocommerce' ),
+				'description' => __( 'Whether the product gives the customer files to download.', 'poocommerce' ),
 			),
 			'manage_stock'       => array( 'type' => 'boolean' ),
 			'stock_quantity'     => array(
 				'type'        => self::get_product_stock_quantity_schema_type(),
-				'description' => __( 'Available stock quantity when product-level stock management is used.', 'woocommerce' ),
+				'description' => __( 'Available stock quantity when product-level stock management is used.', 'poocommerce' ),
 			),
 			'stock_status'       => array(
 				'type' => 'string',
@@ -329,25 +329,25 @@ trait ProductAbilityTrait {
 			),
 			'external_url'       => array(
 				'type'        => 'string',
-				'description' => __( 'External destination URL for external products.', 'woocommerce' ),
+				'description' => __( 'External destination URL for external products.', 'poocommerce' ),
 				'format'      => 'uri',
 			),
 			'button_text'        => array(
 				'type'        => 'string',
-				'description' => __( 'Button text for external products.', 'woocommerce' ),
+				'description' => __( 'Button text for external products.', 'poocommerce' ),
 			),
 			'grouped_products'   => array(
 				'type'        => 'array',
-				'description' => __( 'Product IDs to include as children of a grouped product.', 'woocommerce' ),
+				'description' => __( 'Product IDs to include as children of a grouped product.', 'poocommerce' ),
 				'items'       => array(
 					'type'    => 'integer',
 					'minimum' => 1,
 				),
 			),
-			'categories'         => self::get_product_id_list_input_schema( __( 'Category IDs, replacing the current ones. Empty means the default category.', 'woocommerce' ) ),
-			'tags'               => self::get_product_id_list_input_schema( __( 'Tag IDs, replacing the current ones.', 'woocommerce' ) ),
-			'brands'             => self::get_product_id_list_input_schema( __( 'Brand IDs, replacing the current ones.', 'woocommerce' ) ),
-			'images'             => self::get_product_id_list_input_schema( __( 'Image attachment IDs, replacing the current ones. The first is the featured image.', 'woocommerce' ) ),
+			'categories'         => self::get_product_id_list_input_schema( __( 'Category IDs, replacing the current ones. Empty means the default category.', 'poocommerce' ) ),
+			'tags'               => self::get_product_id_list_input_schema( __( 'Tag IDs, replacing the current ones.', 'poocommerce' ) ),
+			'brands'             => self::get_product_id_list_input_schema( __( 'Brand IDs, replacing the current ones.', 'poocommerce' ) ),
+			'images'             => self::get_product_id_list_input_schema( __( 'Image attachment IDs, replacing the current ones. The first is the featured image.', 'poocommerce' ) ),
 			'catalog_visibility' => array(
 				'type' => 'string',
 				'enum' => array_keys( wc_get_product_visibility_options() ),
@@ -355,12 +355,12 @@ trait ProductAbilityTrait {
 			'featured'           => array( 'type' => 'boolean' ),
 			'date_on_sale_from'  => array(
 				'type'        => 'string',
-				'description' => __( 'Store time, YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS. Empty removes it.', 'woocommerce' ),
+				'description' => __( 'Store time, YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS. Empty removes it.', 'poocommerce' ),
 				'pattern'     => self::get_product_date_input_pattern(),
 			),
 			'date_on_sale_to'    => array(
 				'type'        => 'string',
-				'description' => __( 'Store time, YYYY-MM-DD to end with that day or YYYY-MM-DDTHH:MM:SS. Empty removes it.', 'woocommerce' ),
+				'description' => __( 'Store time, YYYY-MM-DD to end with that day or YYYY-MM-DDTHH:MM:SS. Empty removes it.', 'poocommerce' ),
 				'pattern'     => self::get_product_date_input_pattern(),
 			),
 			'tax_status'         => array(
@@ -369,14 +369,14 @@ trait ProductAbilityTrait {
 			),
 			'sold_individually'  => array(
 				'type'        => 'boolean',
-				'description' => __( 'Limit to one per order.', 'woocommerce' ),
+				'description' => __( 'Limit to one per order.', 'poocommerce' ),
 			),
 			'weight'             => array(
 				'type'        => 'string',
 				'description' => sprintf(
 					/* translators: %s: weight unit, such as kg. */
-					__( 'Decimal in %s. Empty removes it.', 'woocommerce' ),
-					get_option( 'woocommerce_weight_unit' )
+					__( 'Decimal in %s. Empty removes it.', 'poocommerce' ),
+					get_option( 'poocommerce_weight_unit' )
 				),
 				'pattern'     => self::get_product_measurement_input_pattern(),
 			),
@@ -384,8 +384,8 @@ trait ProductAbilityTrait {
 				'type'                 => 'object',
 				'description'          => sprintf(
 					/* translators: %s: dimension unit, such as cm. */
-					__( 'Decimals in %s. Only the keys sent change.', 'woocommerce' ),
-					get_option( 'woocommerce_dimension_unit' )
+					__( 'Decimals in %s. Only the keys sent change.', 'poocommerce' ),
+					get_option( 'poocommerce_dimension_unit' )
 				),
 				'properties'           => array_fill_keys(
 					array( 'length', 'width', 'height' ),
@@ -398,7 +398,7 @@ trait ProductAbilityTrait {
 			),
 			'shipping_class'     => array(
 				'type'        => 'string',
-				'description' => __( 'Shipping class slug. Empty removes it.', 'woocommerce' ),
+				'description' => __( 'Shipping class slug. Empty removes it.', 'poocommerce' ),
 			),
 		);
 	}
@@ -483,7 +483,7 @@ trait ProductAbilityTrait {
 	 * `attributes` on create only: on update its options change through the
 	 * `variations` input of its parent. An item of that input takes the create
 	 * fields without `parent_id`. The owner of a type changes the list with the
-	 * `woocommerce_ability_product_type_fields` filter.
+	 * `poocommerce_ability_product_type_fields` filter.
 	 *
 	 * `WC_Product_Factory` returns `WC_Product_Simple` itself for a type that
 	 * has no class. Such a type is refused. A class that extends
@@ -539,7 +539,7 @@ trait ProductAbilityTrait {
 		/**
 		 * Filter the Core fields that the product abilities accept for a product type.
 		 *
-		 * WooCommerce picks the fields from the product class. The owner of a
+		 * PooCommerce picks the fields from the product class. The owner of a
 		 * type adds a Core field that its type needs, such as a price for a
 		 * bundle, or removes one. An extension field names its types in
 		 * `object_types` of `ExtensibleAbilities::register_field()`.
@@ -549,7 +549,7 @@ trait ProductAbilityTrait {
 		 * @param array<int, string> $fields       Field names.
 		 * @param string             $product_type Product type.
 		 */
-		$fields = apply_filters( 'woocommerce_ability_product_type_fields', $fields, $product_type );
+		$fields = apply_filters( 'poocommerce_ability_product_type_fields', $fields, $product_type );
 
 		return array(
 			'fields'        => $fields,
@@ -564,8 +564,8 @@ trait ProductAbilityTrait {
 	 */
 	private static function get_unsupported_product_type_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_product_type_unsupported',
-			__( 'Product type is not supported by this ability.', 'woocommerce' ),
+			'poocommerce_product_type_unsupported',
+			__( 'Product type is not supported by this ability.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -577,8 +577,8 @@ trait ProductAbilityTrait {
 	 */
 	private static function get_invalid_product_type_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_invalid_product_type',
-			__( 'Invalid product type.', 'woocommerce' ),
+			'poocommerce_invalid_product_type',
+			__( 'Invalid product type.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -635,7 +635,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * The statuses a variation can have. WooCommerce counts a variation as a
+	 * The statuses a variation can have. PooCommerce counts a variation as a
 	 * child of its parent only when it is published or private.
 	 *
 	 * @return array<int, string>
@@ -683,8 +683,8 @@ trait ProductAbilityTrait {
 
 		if ( ! $product ) {
 			return new \WP_Error(
-				'woocommerce_product_not_found',
-				__( 'Product not found.', 'woocommerce' ),
+				'poocommerce_product_not_found',
+				__( 'Product not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -796,15 +796,15 @@ trait ProductAbilityTrait {
 		if (
 			! in_array( $status, array( ProductStatus::PUBLISH, ProductStatus::FUTURE, ProductStatus::PRIVATE ), true )
 			|| ( $product && $product->get_status() === $status )
-			// phpcs:ignore WordPress.WP.Capabilities.Unknown -- WooCommerce registers the publish_products capability.
+			// phpcs:ignore WordPress.WP.Capabilities.Unknown -- PooCommerce registers the publish_products capability.
 			|| current_user_can( 'publish_products' )
 		) {
 			return null;
 		}
 
 		return new \WP_Error(
-			'woocommerce_product_publish_forbidden',
-			__( 'You are not allowed to publish products.', 'woocommerce' ),
+			'poocommerce_product_publish_forbidden',
+			__( 'You are not allowed to publish products.', 'poocommerce' ),
 			array( 'status' => rest_authorization_required_code() )
 		);
 	}
@@ -855,16 +855,16 @@ trait ProductAbilityTrait {
 		 * Filter the product type of a new variation of a variable product.
 		 *
 		 * The product factory must build a `WC_Product_Variation` subclass for
-		 * the type, by its class name or through the `woocommerce_product_class`
+		 * the type, by its class name or through the `poocommerce_product_class`
 		 * filter. The subclass must have a data store and answer true to
-		 * `is_type( 'variation' )`, as WooCommerce expects of any variation.
+		 * `is_type( 'variation' )`, as PooCommerce expects of any variation.
 		 *
 		 * @since 11.4.0
 		 *
 		 * @param string               $variation_type Product type. Default `variation`.
 		 * @param \WC_Product_Variable $parent_product Parent, saved or not.
 		 */
-		$variation_type = (string) apply_filters( 'woocommerce_ability_variation_product_type', ProductType::VARIATION, $parent_product );
+		$variation_type = (string) apply_filters( 'poocommerce_ability_variation_product_type', ProductType::VARIATION, $parent_product );
 		$variation      = self::get_product_object_for_type( $variation_type );
 
 		if ( is_wp_error( $variation ) || $variation instanceof \WC_Product_Variation ) {
@@ -929,9 +929,9 @@ trait ProductAbilityTrait {
 
 			if ( $delete && ( $id <= 0 || count( $item ) > 2 ) ) {
 				return new \WP_Error(
-					'woocommerce_product_variation_invalid',
+					'poocommerce_product_variation_invalid',
 					/* translators: %d: variation position. */
-					sprintf( __( 'Variation %d: an item with delete takes an id and nothing else.', 'woocommerce' ), $position ),
+					sprintf( __( 'Variation %d: an item with delete takes an id and nothing else.', 'poocommerce' ), $position ),
 					array( 'status' => 400 )
 				);
 			}
@@ -940,17 +940,17 @@ trait ProductAbilityTrait {
 				$variation = wc_get_product( $id );
 				if ( ! $variation instanceof \WC_Product_Variation || $variation->get_parent_id() !== $parent_product->get_id() ) {
 					return new \WP_Error(
-						'woocommerce_product_variation_not_found',
+						'poocommerce_product_variation_not_found',
 						/* translators: %d: variation position. */
-						sprintf( __( 'Variation %d is not a variation of this product.', 'woocommerce' ), $position ),
+						sprintf( __( 'Variation %d is not a variation of this product.', 'poocommerce' ), $position ),
 						array( 'status' => 404 )
 					);
 				}
 				if ( isset( $named[ $id ] ) ) {
 					return new \WP_Error(
-						'woocommerce_product_variation_invalid',
+						'poocommerce_product_variation_invalid',
 						/* translators: %d: variation position. */
-						sprintf( __( 'Variation %d names a variation that an earlier item already names.', 'woocommerce' ), $position ),
+						sprintf( __( 'Variation %d names a variation that an earlier item already names.', 'poocommerce' ), $position ),
 						array( 'status' => 400 )
 					);
 				}
@@ -1009,7 +1009,7 @@ trait ProductAbilityTrait {
 
 	/**
 	 * The variations of a parent, from the data store. `WC_Product_Variable::get_children()`
-	 * runs the `woocommerce_get_children` filter, which a plugin can use to hide
+	 * runs the `poocommerce_get_children` filter, which a plugin can use to hide
 	 * variations from a user, so checks and output read the data store instead.
 	 *
 	 * @param \WC_Product_Variable $parent_product Parent product.
@@ -1050,9 +1050,9 @@ trait ProductAbilityTrait {
 			$combination = self::get_variation_combination( $variation );
 			if ( isset( $combinations[ $combination ] ) ) {
 				return new \WP_Error(
-					'woocommerce_product_variation_duplicate',
+					'poocommerce_product_variation_duplicate',
 					/* translators: %d: variation position. */
-					sprintf( __( 'Variation %d picks the same options as another variation.', 'woocommerce' ), $position ),
+					sprintf( __( 'Variation %d picks the same options as another variation.', 'poocommerce' ), $position ),
 					array( 'status' => 400 )
 				);
 			}
@@ -1061,9 +1061,9 @@ trait ProductAbilityTrait {
 			$sku = $variation->get_sku( 'edit' );
 			if ( '' !== $sku && isset( $skus[ $sku ] ) ) {
 				return new \WP_Error(
-					'woocommerce_product_variation_sku_duplicate',
+					'poocommerce_product_variation_sku_duplicate',
 					/* translators: %d: variation position. */
-					sprintf( __( 'Variation %d repeats the SKU of the product or of another variation. Give each one its own SKU.', 'woocommerce' ), $position ),
+					sprintf( __( 'Variation %d repeats the SKU of the product or of another variation. Give each one its own SKU.', 'poocommerce' ), $position ),
 					array( 'status' => 400 )
 				);
 			}
@@ -1108,7 +1108,7 @@ trait ProductAbilityTrait {
 		foreach ( $plan['delete'] as $variation ) {
 			$variation_id = $variation->get_id();
 			if ( ! $variation->delete( true ) || null !== get_post( $variation_id ) ) {
-				return new \WP_Error( $failure_code, __( 'Failed to delete a variation.', 'woocommerce' ), array( 'status' => 500 ) );
+				return new \WP_Error( $failure_code, __( 'Failed to delete a variation.', 'poocommerce' ), array( 'status' => 500 ) );
 			}
 		}
 
@@ -1170,10 +1170,10 @@ trait ProductAbilityTrait {
 			$name     = '' === $taxonomy ? sanitize_text_field( trim( $item['name'] ?? '' ) ) : $taxonomy;
 			if ( '' === $taxonomy && ( ! empty( $item['id'] ) || ( $item['global'] ?? false ) ) ) {
 				return new \WP_Error(
-					'woocommerce_product_attributes_invalid',
+					'poocommerce_product_attributes_invalid',
 					sprintf(
 						/* translators: %s: attribute name or id. */
-						__( 'There is no global attribute "%s".', 'woocommerce' ),
+						__( 'There is no global attribute "%s".', 'poocommerce' ),
 						$item['id'] ?? $item['name'] ?? ''
 					),
 					array( 'status' => 400 )
@@ -1202,8 +1202,8 @@ trait ProductAbilityTrait {
 
 		if ( count( $attributes ) !== count( $value ) ) {
 			return new \WP_Error(
-				'woocommerce_product_attributes_invalid',
-				__( 'Two attributes have the same name.', 'woocommerce' ),
+				'poocommerce_product_attributes_invalid',
+				__( 'Two attributes have the same name.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1295,10 +1295,10 @@ trait ProductAbilityTrait {
 		$missing = array_diff_key( $options, $attributes );
 		if ( empty( $options ) || ! empty( $missing ) || count( $attributes ) !== count( $options ) ) {
 			return new \WP_Error(
-				'woocommerce_product_variation_attributes_invalid',
+				'poocommerce_product_variation_attributes_invalid',
 				sprintf(
 					/* translators: 1: "Variation N" or "The variation", 2: comma-separated attribute names. */
-					__( '%1$s must pick one option of each of these attributes: %2$s.', 'woocommerce' ),
+					__( '%1$s must pick one option of each of these attributes: %2$s.', 'poocommerce' ),
 					self::get_variation_label( $position ),
 					implode( ', ', array_keys( $options ) )
 				),
@@ -1312,10 +1312,10 @@ trait ProductAbilityTrait {
 			}
 			if ( ! in_array( sanitize_title( $option ), $options[ $slug ], true ) ) {
 				return new \WP_Error(
-					'woocommerce_product_variation_attributes_invalid',
+					'poocommerce_product_variation_attributes_invalid',
 					sprintf(
 						/* translators: 1: "Variation N" or "The variation", 2: attribute name, 3: option. */
-						__( '%1$s picks the option "%3$s" that the attribute "%2$s" does not have.', 'woocommerce' ),
+						__( '%1$s picks the option "%3$s" that the attribute "%2$s" does not have.', 'poocommerce' ),
 						self::get_variation_label( $position ),
 						$slug,
 						$option
@@ -1339,7 +1339,7 @@ trait ProductAbilityTrait {
 	 */
 	private static function get_variation_label( int $position ): string {
 		/* translators: %d: variation position in the input. */
-		return $position > 0 ? sprintf( __( 'Variation %d', 'woocommerce' ), $position ) : __( 'The variation', 'woocommerce' );
+		return $position > 0 ? sprintf( __( 'Variation %d', 'poocommerce' ), $position ) : __( 'The variation', 'poocommerce' );
 	}
 
 	/**
@@ -1349,8 +1349,8 @@ trait ProductAbilityTrait {
 	 */
 	private static function get_invalid_product_attributes_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_product_attributes_invalid',
-			__( 'Each attribute needs a name and, on a parent product, at least one option. On a variation, the option is a single value, and no option matches any option.', 'woocommerce' ),
+			'poocommerce_product_attributes_invalid',
+			__( 'Each attribute needs a name and, on a parent product, at least one option. On a variation, the option is a single value, and no option matches any option.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -1425,10 +1425,10 @@ trait ProductAbilityTrait {
 		}
 
 		return new \WP_Error(
-			'woocommerce_product_field_unsupported',
+			'poocommerce_product_field_unsupported',
 			sprintf(
 				/* translators: 1: product type, 2: comma-separated list of the fields sent, 3: comma-separated list of the fields the type takes. */
-				__( 'The %1$s product type does not take %2$s. It takes %3$s.', 'woocommerce' ),
+				__( 'The %1$s product type does not take %2$s. It takes %3$s.', 'poocommerce' ),
 				$product->get_type(),
 				implode( ', ', $unsupported ),
 				implode( ', ', $supported )
@@ -1508,10 +1508,10 @@ trait ProductAbilityTrait {
 
 		if ( ! empty( $missing_ids ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_term_not_found',
+				'poocommerce_ability_product_term_not_found',
 				sprintf(
 					/* translators: 1: input field, such as categories. 2: comma-separated term IDs. */
-					__( 'These %1$s do not exist: %2$s.', 'woocommerce' ),
+					__( 'These %1$s do not exist: %2$s.', 'poocommerce' ),
 					$field,
 					implode( ', ', $missing_ids )
 				),
@@ -1535,10 +1535,10 @@ trait ProductAbilityTrait {
 
 		if ( ! empty( $invalid_ids ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_image_invalid',
+				'poocommerce_ability_product_image_invalid',
 				sprintf(
 					/* translators: %s: comma-separated attachment IDs. */
-					__( 'These IDs are not images in the media library: %s.', 'woocommerce' ),
+					__( 'These IDs are not images in the media library: %s.', 'poocommerce' ),
 					implode( ', ', $invalid_ids )
 				),
 				array( 'status' => 400 )
@@ -1560,8 +1560,8 @@ trait ProductAbilityTrait {
 
 		if ( '' !== $value && ! $is_real_date ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_date_invalid',
-				__( 'Sale dates must be real dates and times, such as 2030-01-31 or 2030-01-31T18:30:00.', 'woocommerce' ),
+				'poocommerce_ability_product_date_invalid',
+				__( 'Sale dates must be real dates and times, such as 2030-01-31 or 2030-01-31T18:30:00.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1597,10 +1597,10 @@ trait ProductAbilityTrait {
 
 		if ( ! $term instanceof \WP_Term ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_shipping_class_not_found',
+				'poocommerce_ability_product_shipping_class_not_found',
 				sprintf(
 					/* translators: %s: shipping class slug sent in the input. */
-					__( 'Shipping class "%s" not found. Send the slug of an existing shipping class, or an empty string to remove it.', 'woocommerce' ),
+					__( 'Shipping class "%s" not found. Send the slug of an existing shipping class, or an empty string to remove it.', 'poocommerce' ),
 					$value
 				),
 				array( 'status' => 400 )
@@ -1639,7 +1639,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * Get decimal separators accepted by WooCommerce decimal formatting.
+	 * Get decimal separators accepted by PooCommerce decimal formatting.
 	 *
 	 * @return array<int, string>
 	 */
@@ -1663,7 +1663,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * Convert a WooCommerce data exception to a WordPress error.
+	 * Convert a PooCommerce data exception to a WordPress error.
 	 *
 	 * @param \WC_Data_Exception $exception Exception.
 	 * @return \WP_Error
@@ -1677,7 +1677,7 @@ trait ProductAbilityTrait {
 	}
 
 	/**
-	 * Save a product and return a failure if WooCommerce did not persist it.
+	 * Save a product and return a failure if PooCommerce did not persist it.
 	 *
 	 * @param \WC_Product $product      Product object.
 	 * @param string      $failure_code Error code to use when save returns no ID.
@@ -1691,9 +1691,9 @@ trait ProductAbilityTrait {
 		} catch ( \Exception $exception ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
 				wc_get_logger()->error(
-					'WooCommerce domain ability failed to save product.',
+					'PooCommerce domain ability failed to save product.',
 					array(
-						'source'        => 'woocommerce-abilities',
+						'source'        => 'poocommerce-abilities',
 						'failure_code'  => $failure_code,
 						'product_id'    => $product->get_id(),
 						'exception'     => get_class( $exception ),
@@ -1704,7 +1704,7 @@ trait ProductAbilityTrait {
 
 			return new \WP_Error(
 				$failure_code,
-				__( 'Failed to save product.', 'woocommerce' ),
+				__( 'Failed to save product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1712,7 +1712,7 @@ trait ProductAbilityTrait {
 		if ( $product_id <= 0 || $product->get_id() <= 0 ) {
 			return new \WP_Error(
 				$failure_code,
-				__( 'Failed to save product.', 'woocommerce' ),
+				__( 'Failed to save product.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1768,9 +1768,9 @@ trait ProductAbilityTrait {
 			'type'               => $product->get_type(),
 			'status'             => $product->get_status(),
 			'sku'                => $product->get_sku(),
-			'currency'           => get_woocommerce_currency(),
+			'currency'           => get_poocommerce_currency(),
 			'currency_symbol'    => html_entity_decode(
-				get_woocommerce_currency_symbol(),
+				get_poocommerce_currency_symbol(),
 				ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
 			),
 			'price'              => self::format_amount_for_response( $product->get_price() ),
@@ -1887,7 +1887,7 @@ trait ProductAbilityTrait {
 
 		$schema['properties']['variations'] = array(
 			'type'        => 'array',
-			'description' => __( 'The variations the call created or changed, in input order. Deleted variations are not listed.', 'woocommerce' ),
+			'description' => __( 'The variations the call created or changed, in input order. Deleted variations are not listed.', 'poocommerce' ),
 			'items'       => ExtensibleAbilities::add_fields_schema( self::get_single_product_output_schema(), 'product', array( self::class, 'field_applies_to_variations' ) ),
 		);
 
@@ -1923,7 +1923,7 @@ trait ProductAbilityTrait {
 	 * Whether a product field can apply to a variation, from its `object_types`.
 	 *
 	 * The variation schemas list a field for every `WC_Product_Variation`
-	 * subclass type, such as one from the `woocommerce_ability_variation_product_type`
+	 * subclass type, such as one from the `poocommerce_ability_variation_product_type`
 	 * filter. A write still refuses the field when the variation's exact type is
 	 * not in `object_types`.
 	 *
@@ -2033,12 +2033,12 @@ trait ProductAbilityTrait {
 				'slug'               => array( 'type' => 'string' ),
 				'permalink'          => array(
 					'type'        => 'string',
-					'description' => __( 'Product permalink. Omitted when no public permalink is available.', 'woocommerce' ),
+					'description' => __( 'Product permalink. Omitted when no public permalink is available.', 'poocommerce' ),
 					'format'      => 'uri',
 				),
 				'type'               => array(
 					'type'        => 'string',
-					'description' => __( 'Internal product type slug, such as simple, external, grouped, variable or variation.', 'woocommerce' ),
+					'description' => __( 'Internal product type slug, such as simple, external, grouped, variable or variation.', 'poocommerce' ),
 				),
 				'status'             => array(
 					'type' => 'string',
@@ -2047,33 +2047,33 @@ trait ProductAbilityTrait {
 				'sku'                => array( 'type' => 'string' ),
 				'currency'           => array(
 					'type' => 'string',
-					'enum' => array_keys( get_woocommerce_currencies() ),
+					'enum' => array_keys( get_poocommerce_currencies() ),
 				),
 				'currency_symbol'    => array( 'type' => 'string' ),
 				'price'              => array(
 					'type'        => 'string',
-					'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+					'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 				),
 				'regular_price'      => array(
 					'type'        => 'string',
-					'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+					'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 				),
 				'sale_price'         => array(
 					'type'        => 'string',
-					'description' => __( 'Decimal price as a string, without a currency symbol.', 'woocommerce' ),
+					'description' => __( 'Decimal price as a string, without a currency symbol.', 'poocommerce' ),
 				),
 				'on_sale'            => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the sale price applies now, taking the sale dates into account.', 'woocommerce' ),
+					'description' => __( 'Whether the sale price applies now, taking the sale dates into account.', 'poocommerce' ),
 				),
 				'date_on_sale_from'  => array(
 					'type'        => 'string',
-					'description' => __( 'Start of the sale in the store timezone. Omitted when the sale has no start date.', 'woocommerce' ),
+					'description' => __( 'Start of the sale in the store timezone. Omitted when the sale has no start date.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'date_on_sale_to'    => array(
 					'type'        => 'string',
-					'description' => __( 'End of the sale in the store timezone. Omitted when the sale has no end date.', 'woocommerce' ),
+					'description' => __( 'End of the sale in the store timezone. Omitted when the sale has no end date.', 'poocommerce' ),
 					'format'      => 'date-time',
 				),
 				'stock_status'       => array(
@@ -2082,7 +2082,7 @@ trait ProductAbilityTrait {
 				),
 				'stock_quantity'     => array(
 					'type'        => self::get_product_stock_quantity_schema_type(),
-					'description' => __( 'Current stock quantity. Omitted when no stock quantity is set.', 'woocommerce' ),
+					'description' => __( 'Current stock quantity. Omitted when no stock quantity is set.', 'poocommerce' ),
 				),
 				'manage_stock'       => array( 'type' => 'boolean' ),
 				'sold_individually'  => array( 'type' => 'boolean' ),
@@ -2090,31 +2090,31 @@ trait ProductAbilityTrait {
 				'downloadable'       => array( 'type' => 'boolean' ),
 				'external_url'       => array(
 					'type'        => 'string',
-					'description' => __( 'External product URL. Omitted when the product is not external or no URL is set.', 'woocommerce' ),
+					'description' => __( 'External product URL. Omitted when the product is not external or no URL is set.', 'poocommerce' ),
 					'format'      => 'uri',
 				),
 				'button_text'        => array(
 					'type'        => 'string',
-					'description' => __( 'Button text. Omitted when the product is not external or no button text is set.', 'woocommerce' ),
+					'description' => __( 'Button text. Omitted when the product is not external or no button text is set.', 'poocommerce' ),
 				),
 				'grouped_products'   => array(
 					'type'        => 'array',
-					'description' => __( 'Product IDs included as children of a grouped product.', 'woocommerce' ),
+					'description' => __( 'Product IDs included as children of a grouped product.', 'poocommerce' ),
 					'items'       => array( 'type' => 'integer' ),
 				),
 				'parent_id'          => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the variable product of a variation, or 0.', 'woocommerce' ),
+					'description' => __( 'ID of the variable product of a variation, or 0.', 'poocommerce' ),
 				),
 				'attributes'         => array(
 					'type'        => 'array',
-					'description' => __( 'Attributes with their options on a product, or the option each attribute picks on a variation. For a global attribute the options are term slugs.', 'woocommerce' ),
+					'description' => __( 'Attributes with their options on a product, or the option each attribute picks on a variation. For a global attribute the options are term slugs.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
 							'id'        => array(
 								'type'        => 'integer',
-								'description' => __( 'ID of the global attribute, or 0 for an attribute of this product only.', 'woocommerce' ),
+								'description' => __( 'ID of the global attribute, or 0 for an attribute of this product only.', 'poocommerce' ),
 							),
 							'name'      => array( 'type' => 'string' ),
 							'options'   => array(
@@ -2123,12 +2123,12 @@ trait ProductAbilityTrait {
 							),
 							'option'    => array(
 								'type'        => 'string',
-								'description' => __( 'The option a variation picks. Omitted when the variation matches any option.', 'woocommerce' ),
+								'description' => __( 'The option a variation picks. Omitted when the variation matches any option.', 'poocommerce' ),
 							),
 							'visible'   => array( 'type' => 'boolean' ),
 							'variation' => array(
 								'type'        => 'boolean',
-								'description' => __( 'Whether the variations pick an option of this attribute.', 'woocommerce' ),
+								'description' => __( 'Whether the variations pick an option of this attribute.', 'poocommerce' ),
 							),
 						),
 						'required'             => array( 'name' ),
@@ -2147,7 +2147,7 @@ trait ProductAbilityTrait {
 				'short_description'  => array( 'type' => 'string' ),
 				'images'             => array(
 					'type'        => 'array',
-					'description' => __( 'Featured image first, then the gallery.', 'woocommerce' ),
+					'description' => __( 'Featured image first, then the gallery.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
@@ -2166,16 +2166,16 @@ trait ProductAbilityTrait {
 					'type'        => 'string',
 					'description' => sprintf(
 						/* translators: %s: weight unit, such as kg. */
-						__( 'Decimal string in %s, or empty when not set.', 'woocommerce' ),
-						get_option( 'woocommerce_weight_unit' )
+						__( 'Decimal string in %s, or empty when not set.', 'poocommerce' ),
+						get_option( 'poocommerce_weight_unit' )
 					),
 				),
 				'dimensions'         => array(
 					'type'                 => 'object',
 					'description'          => sprintf(
 						/* translators: %s: dimension unit, such as cm. */
-						__( 'Decimal strings in %s, each empty when not set.', 'woocommerce' ),
-						get_option( 'woocommerce_dimension_unit' )
+						__( 'Decimal strings in %s, each empty when not set.', 'poocommerce' ),
+						get_option( 'poocommerce_dimension_unit' )
 					),
 					'properties'           => array(
 						'length' => array( 'type' => 'string' ),
@@ -2187,11 +2187,11 @@ trait ProductAbilityTrait {
 				'shipping_required'  => array( 'type' => 'boolean' ),
 				'shipping_class'     => array(
 					'type'        => 'string',
-					'description' => __( 'Shipping class slug, or empty when the product has none.', 'woocommerce' ),
+					'description' => __( 'Shipping class slug, or empty when the product has none.', 'poocommerce' ),
 				),
 				'shipping_class_id'  => array(
 					'type'        => 'integer',
-					'description' => __( 'Shipping class term ID, or 0 when the product has none.', 'woocommerce' ),
+					'description' => __( 'Shipping class term ID, or 0 when the product has none.', 'poocommerce' ),
 				),
 				'tax_status'         => array(
 					'type' => 'string',
@@ -2199,7 +2199,7 @@ trait ProductAbilityTrait {
 				),
 				'tax_class'          => array(
 					'type'        => 'string',
-					'description' => __( 'Tax class slug, or empty for the standard rate.', 'woocommerce' ),
+					'description' => __( 'Tax class slug, or empty for the standard rate.', 'poocommerce' ),
 				),
 				'backorders'         => array(
 					'type' => 'string',
@@ -2207,32 +2207,32 @@ trait ProductAbilityTrait {
 				),
 				'low_stock_amount'   => array(
 					'type'        => self::get_product_stock_quantity_schema_type(),
-					'description' => __( 'Low stock threshold of the product. Omitted when the store-wide threshold applies.', 'woocommerce' ),
+					'description' => __( 'Low stock threshold of the product. Omitted when the store-wide threshold applies.', 'poocommerce' ),
 				),
 				'variation_ids'      => array(
 					'type'        => 'array',
-					'description' => __( 'IDs of the variations of a variable product.', 'woocommerce' ),
+					'description' => __( 'IDs of the variations of a variable product.', 'poocommerce' ),
 					'items'       => array( 'type' => 'integer' ),
 				),
 				'date_created'       => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Product creation date in the store timezone. Omitted when no creation date is available.', 'woocommerce' ),
+					'description' => __( 'Product creation date in the store timezone. Omitted when no creation date is available.', 'poocommerce' ),
 				),
 				'date_created_gmt'   => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Product creation date in UTC. Omitted when no creation date is available.', 'woocommerce' ),
+					'description' => __( 'Product creation date in UTC. Omitted when no creation date is available.', 'poocommerce' ),
 				),
 				'date_modified'      => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Product modification date in the store timezone. Omitted when no modification date is available.', 'woocommerce' ),
+					'description' => __( 'Product modification date in the store timezone. Omitted when no modification date is available.', 'poocommerce' ),
 				),
 				'date_modified_gmt'  => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Product modification date in UTC. Omitted when no modification date is available.', 'woocommerce' ),
+					'description' => __( 'Product modification date in UTC. Omitted when no modification date is available.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,
@@ -2262,7 +2262,7 @@ trait ProductAbilityTrait {
 	/**
 	 * Get the schema type for product stock quantities.
 	 *
-	 * WooCommerce stock quantities can support fractional values when the
+	 * PooCommerce stock quantities can support fractional values when the
 	 * stock amount filter is configured to return non-integer amounts.
 	 *
 	 * @return string

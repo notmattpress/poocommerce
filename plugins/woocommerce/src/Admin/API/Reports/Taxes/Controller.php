@@ -5,14 +5,14 @@
  * Handles requests to the /reports/taxes endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableTraits;
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableTraits;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -93,7 +93,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_taxes', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_taxes', $response, $report, $request );
 	}
 
 	/**
@@ -124,79 +124,79 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'tax_rate_id'             => array(
-					'description' => __( 'Tax rate ID.', 'woocommerce' ),
+					'description' => __( 'Tax rate ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'                    => array(
-					'description' => __( 'Tax rate name.', 'woocommerce' ),
+					'description' => __( 'Tax rate name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'tax_rate'                => array(
-					'description' => __( 'Tax rate.', 'woocommerce' ),
+					'description' => __( 'Tax rate.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'country'                 => array(
-					'description' => __( 'Country / Region.', 'woocommerce' ),
+					'description' => __( 'Country / Region.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'state'                   => array(
-					'description' => __( 'State.', 'woocommerce' ),
+					'description' => __( 'State.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'priority'                => array(
-					'description' => __( 'Priority.', 'woocommerce' ),
+					'description' => __( 'Priority.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'total_tax'               => array(
-					'description' => __( 'Total tax.', 'woocommerce' ),
+					'description' => __( 'Total tax.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'order_tax'               => array(
-					'description' => __( 'Order tax.', 'woocommerce' ),
+					'description' => __( 'Order tax.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'shipping_tax'            => array(
-					'description' => __( 'Shipping tax.', 'woocommerce' ),
+					'description' => __( 'Shipping tax.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'taxable_amount'          => array(
-					'description' => __( 'Taxable amount.', 'woocommerce' ),
+					'description' => __( 'Taxable amount.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'order_taxable_amount'    => array(
-					'description' => __( 'Taxable amount of line items and fees.', 'woocommerce' ),
+					'description' => __( 'Taxable amount of line items and fees.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'shipping_taxable_amount' => array(
-					'description' => __( 'Taxable amount of shipping.', 'woocommerce' ),
+					'description' => __( 'Taxable amount of shipping.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'orders_count'            => array(
-					'description' => __( 'Number of orders.', 'woocommerce' ),
+					'description' => __( 'Number of orders.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -231,7 +231,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['taxes']              = array(
-			'description'       => __( 'Limit result set to items assigned one or more tax rates.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items assigned one or more tax rates.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -240,12 +240,12 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['location_includes']  = array(
-			'description'       => __( 'Includes tax rates by location (state, country). Provide a comma-separated list of locations. Each location can be a country code (e.g. GB) or combination of country and state (e.g. US:CA).', 'woocommerce' ),
+			'description'       => __( 'Includes tax rates by location (state, country). Provide a comma-separated list of locations. Each location can be a country code (e.g. GB) or combination of country and state (e.g. US:CA).', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['location_excludes']  = array(
-			'description'       => __( 'Excludes tax rates by location (state, country). Provide a comma-separated list of locations. Each location can be a country code (e.g. GB) or combination of country and state (e.g. US:CA).', 'woocommerce' ),
+			'description'       => __( 'Excludes tax rates by location (state, country). Provide a comma-separated list of locations. Each location can be a country code (e.g. GB) or combination of country and state (e.g. US:CA).', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -260,15 +260,15 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'tax_code'                => __( 'Tax code', 'woocommerce' ),
-			'rate'                    => __( 'Rate', 'woocommerce' ),
-			'total_tax'               => __( 'Total tax', 'woocommerce' ),
-			'order_tax'               => __( 'Order tax', 'woocommerce' ),
-			'shipping_tax'            => __( 'Shipping tax', 'woocommerce' ),
-			'taxable_amount'          => __( 'Taxable amount', 'woocommerce' ),
-			'order_taxable_amount'    => __( 'Order gross', 'woocommerce' ),
-			'shipping_taxable_amount' => __( 'Shipping gross', 'woocommerce' ),
-			'orders_count'            => __( 'Orders', 'woocommerce' ),
+			'tax_code'                => __( 'Tax code', 'poocommerce' ),
+			'rate'                    => __( 'Rate', 'poocommerce' ),
+			'total_tax'               => __( 'Total tax', 'poocommerce' ),
+			'order_tax'               => __( 'Order tax', 'poocommerce' ),
+			'shipping_tax'            => __( 'Shipping tax', 'poocommerce' ),
+			'taxable_amount'          => __( 'Taxable amount', 'poocommerce' ),
+			'order_taxable_amount'    => __( 'Order gross', 'poocommerce' ),
+			'shipping_taxable_amount' => __( 'Shipping gross', 'poocommerce' ),
+			'orders_count'            => __( 'Orders', 'poocommerce' ),
 		);
 
 		/**
@@ -277,7 +277,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 10.7.0
 		 * @param array $export_columns Key value pair of column ID and label.
 		 */
-		return apply_filters( 'woocommerce_report_taxes_export_columns', $export_columns );
+		return apply_filters( 'poocommerce_report_taxes_export_columns', $export_columns );
 	}
 
 	/**
@@ -315,7 +315,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param array $export_item Key value pair of column ID and row value.
 		 * @param array $item        The original report item.
 		 */
-		return apply_filters( 'woocommerce_report_taxes_prepare_export_item', $export_item, $item );
+		return apply_filters( 'poocommerce_report_taxes_prepare_export_item', $export_item, $item );
 	}
 
 	/**

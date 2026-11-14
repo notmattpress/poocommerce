@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CustomersQuery;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CustomersQuery;
 
 /**
  * Tests customer queries through the Abilities API.
@@ -188,17 +188,17 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 			$property->setValue( null, array() );
 		}
 		try {
-			update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+			update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 			$ids      = array( $this->customer(), $this->customer(), $this->customer() );
 			$input    = array( 'include' => $ids );
 			$baseline = CustomersQuery::execute( $input );
 			$schema   = CustomersQuery::get_registration_args()['output_schema'];
 
-			update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
-			add_action( 'woocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
-			do_action( 'woocommerce_extensible_abilities_resources_init' );
+			update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
+			add_action( 'poocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
+			do_action( 'poocommerce_extensible_abilities_resources_init' );
 			add_action(
-				'woocommerce_extensible_abilities_init',
+				'poocommerce_extensible_abilities_init',
 				static function () use ( $ids ) {
 					ExtensibleAbilities::register_field(
 						array(
@@ -220,7 +220,7 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 					);
 				}
 			);
-			do_action( 'woocommerce_extensible_abilities_init' );
+			do_action( 'poocommerce_extensible_abilities_init' );
 			$ability = new \WP_Ability( CustomersQuery::get_name(), CustomersQuery::get_registration_args() );
 
 			$result = $ability->execute( $input );
@@ -238,7 +238,7 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 			);
 			$this->assertSame( array( $ids[1] ), array_column( $result['customers'], 'id' ), 'An extension filter narrows include instead of adding to it.' );
 
-			update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+			update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 			$this->assertSame( $baseline, CustomersQuery::execute( $input ) );
 			$this->assertSame( $schema, CustomersQuery::get_registration_args()['output_schema'] );
 		} finally {

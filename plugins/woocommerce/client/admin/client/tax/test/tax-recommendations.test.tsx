@@ -4,7 +4,7 @@
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -66,7 +66,7 @@ describe( 'TaxRecommendations', () => {
 			fn( () => ( {
 				getSettings: () => ( {
 					general: {
-						woocommerce_default_country: countryCode,
+						poocommerce_default_country: countryCode,
 					},
 				} ),
 				getInstalledPlugins: () => installedPlugins,
@@ -88,9 +88,9 @@ describe( 'TaxRecommendations', () => {
 		} );
 	} );
 
-	it( 'renders WooCommerce Tax and Anrok with install buttons when no related plugins are present', () => {
+	it( 'renders PooCommerce Tax and Anrok with install buttons when no related plugins are present', () => {
 		render( <TaxRecommendations /> );
-		expect( screen.getByText( 'WooCommerce Tax' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'PooCommerce Tax' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Anrok' ) ).toBeInTheDocument();
 		expect( screen.getAllByText( 'Install' ) ).toHaveLength( 2 );
 	} );
@@ -100,7 +100,7 @@ describe( 'TaxRecommendations', () => {
 
 		render( <TaxRecommendations /> );
 
-		expect( screen.getByText( 'WooCommerce Tax' ) ).toBeInTheDocument();
+		expect( screen.getByText( 'PooCommerce Tax' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Anrok' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Activate' ) ).toBeInTheDocument();
 	} );
@@ -123,14 +123,14 @@ describe( 'TaxRecommendations', () => {
 		expect( activatePluginsMock ).not.toHaveBeenCalled();
 	} );
 
-	it( 'shows Active for WooCommerce Tax when the services alias is active', () => {
-		activePlugins = [ 'woocommerce-services' ];
+	it( 'shows Active for PooCommerce Tax when the services alias is active', () => {
+		activePlugins = [ 'poocommerce-services' ];
 
 		render( <TaxRecommendations /> );
 
 		expect(
 			screen.getByRole( 'button', {
-				name: 'WooCommerce Tax is already active',
+				name: 'PooCommerce Tax is already active',
 			} )
 		).toHaveTextContent( 'Active' );
 	} );
@@ -141,7 +141,7 @@ describe( 'TaxRecommendations', () => {
 		render( <TaxRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Tax' )
+			screen.queryByText( 'PooCommerce Tax' )
 		).not.toBeInTheDocument();
 		expect( screen.getByText( 'Anrok' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'Install' ) ).toBeInTheDocument();
@@ -153,7 +153,7 @@ describe( 'TaxRecommendations', () => {
 		expect( recordEvent ).toHaveBeenCalledWith( 'tax_partner_impression', {
 			context: 'settings',
 			country: 'US',
-			plugins: 'woocommerce-services,anrok-tax',
+			plugins: 'poocommerce-services,anrok-tax',
 		} );
 	} );
 
@@ -180,12 +180,12 @@ describe( 'TaxRecommendations', () => {
 		);
 	} );
 
-	it( 'installs WooCommerce Tax using the WooCommerce Services slug', async () => {
+	it( 'installs PooCommerce Tax using the PooCommerce Services slug', async () => {
 		render( <TaxRecommendations /> );
 
 		const wooCommerceTaxItem = screen
-			.getByText( 'WooCommerce Tax' )
-			.closest( '.woocommerce-list__item' );
+			.getByText( 'PooCommerce Tax' )
+			.closest( '.poocommerce-list__item' );
 
 		expect( wooCommerceTaxItem ).not.toBeNull();
 
@@ -197,25 +197,25 @@ describe( 'TaxRecommendations', () => {
 
 		await waitFor( () => {
 			expect( installPluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-services',
+				'poocommerce-services',
 			] );
 		} );
 
 		expect( recordEvent ).toHaveBeenCalledWith( 'tax_partner_click', {
 			context: 'settings',
-			selected_plugin: 'woocommerce-services',
+			selected_plugin: 'poocommerce-services',
 		} );
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_tax_recommendation_setup_click',
 			{
-				plugin: 'woocommerce-services',
+				plugin: 'poocommerce-services',
 				action: 'install',
 			}
 		);
 
 		await waitFor( () => {
 			expect( createSuccessNoticeMock ).toHaveBeenCalledWith(
-				'WooCommerce Tax is installed!',
+				'PooCommerce Tax is installed!',
 				expect.anything()
 			);
 		} );
@@ -223,20 +223,20 @@ describe( 'TaxRecommendations', () => {
 		await waitFor( () => {
 			expect( recordEvent ).toHaveBeenCalledWith( 'tax_partner_install', {
 				context: 'settings',
-				selected_plugin: 'woocommerce-services',
+				selected_plugin: 'poocommerce-services',
 				success: true,
 			} );
 		} );
 	} );
 
-	it( 'activates the installed WooCommerce Tax alias when one is already present', async () => {
-		installedPlugins = [ 'woocommerce-tax' ];
+	it( 'activates the installed PooCommerce Tax alias when one is already present', async () => {
+		installedPlugins = [ 'poocommerce-tax' ];
 
 		render( <TaxRecommendations /> );
 
 		const wooCommerceTaxItem = screen
-			.getByText( 'WooCommerce Tax' )
-			.closest( '.woocommerce-list__item' );
+			.getByText( 'PooCommerce Tax' )
+			.closest( '.poocommerce-list__item' );
 
 		expect( wooCommerceTaxItem ).not.toBeNull();
 
@@ -248,25 +248,25 @@ describe( 'TaxRecommendations', () => {
 
 		await waitFor( () => {
 			expect( activatePluginsMock ).toHaveBeenCalledWith( [
-				'woocommerce-tax',
+				'poocommerce-tax',
 			] );
 		} );
 
 		expect( recordEvent ).toHaveBeenCalledWith( 'tax_partner_click', {
 			context: 'settings',
-			selected_plugin: 'woocommerce-tax',
+			selected_plugin: 'poocommerce-tax',
 		} );
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_tax_recommendation_setup_click',
 			{
-				plugin: 'woocommerce-tax',
+				plugin: 'poocommerce-tax',
 				action: 'activate',
 			}
 		);
 
 		await waitFor( () => {
 			expect( createSuccessNoticeMock ).toHaveBeenCalledWith(
-				'WooCommerce Tax activated!',
+				'PooCommerce Tax activated!',
 				expect.anything()
 			);
 		} );
@@ -276,7 +276,7 @@ describe( 'TaxRecommendations', () => {
 				'tax_partner_activate',
 				{
 					context: 'settings',
-					selected_plugin: 'woocommerce-tax',
+					selected_plugin: 'poocommerce-tax',
 					success: true,
 				}
 			);
@@ -289,8 +289,8 @@ describe( 'TaxRecommendations', () => {
 		render( <TaxRecommendations /> );
 
 		const wooCommerceTaxItem = screen
-			.getByText( 'WooCommerce Tax' )
-			.closest( '.woocommerce-list__item' );
+			.getByText( 'PooCommerce Tax' )
+			.closest( '.poocommerce-list__item' );
 
 		expect( wooCommerceTaxItem ).not.toBeNull();
 
@@ -303,7 +303,7 @@ describe( 'TaxRecommendations', () => {
 		await waitFor( () => {
 			expect( recordEvent ).toHaveBeenCalledWith( 'tax_partner_install', {
 				context: 'settings',
-				selected_plugin: 'woocommerce-services',
+				selected_plugin: 'poocommerce-services',
 				success: false,
 			} );
 		} );
@@ -317,7 +317,7 @@ describe( 'TaxRecommendations', () => {
 
 		const anrokItem = screen
 			.getByText( 'Anrok' )
-			.closest( '.woocommerce-list__item' );
+			.closest( '.poocommerce-list__item' );
 
 		expect( anrokItem ).not.toBeNull();
 

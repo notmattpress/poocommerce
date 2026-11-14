@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Shared swap for server-preformatted HTML fields (`price_html`,

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -43,7 +43,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->set_permalink_structure( '/%postname%/' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Blue & Gold Mug' ) );
 		$this->sut     = wc_get_container()->get( StoreOutputChecks::class );
 	}
@@ -101,7 +101,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * A page as an SEO plugin and WooCommerce print it, with extra head markup.
+	 * A page as an SEO plugin and PooCommerce print it, with extra head markup.
 	 *
 	 * @param string $head Extra head markup, after the defaults.
 	 * @param string $body Body markup.
@@ -241,7 +241,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox The price is matched as the store formats it, here with trailing zeros trimmed.
 	 */
 	public function test_price_in_store_format(): void {
-		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+		add_filter( 'poocommerce_price_trim_zeros', '__return_true' );
 		$responses                          = $this->good_store();
 		$responses[ $this->product_path() ] = array( 200, self::page( '', '<h1>Blue &amp; Gold Mug</h1><p class="price">&#36;10</p>' ) );
 		$this->serve( $responses );
@@ -268,7 +268,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox With UCP on, the profile and catalog search checks read the served profile and POST to the endpoint it names.
 	 */
 	public function test_ucp_checks(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$endpoint = home_url( '/wp-json/wc/ucp/v1' );
 		$path     = substr( $endpoint, strlen( untrailingslashit( home_url() ) ) );
 		$service  = array(
@@ -304,14 +304,14 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$results = $this->results();
 		$this->assertFalse( $results['ucp_profile'] );
 		$this->assertNull( $results['ucp_profile_version'], 'No profile is reported by ucp_profile alone' );
-		$this->assertFalse( $results['ucp_endpoints_live'], 'Without a profile, WooCommerce\'s endpoint is tried' );
+		$this->assertFalse( $results['ucp_endpoints_live'], 'Without a profile, PooCommerce\'s endpoint is tried' );
 	}
 
 	/**
-	 * @testdox Checks for output WooCommerce doesn't build yet don't run, and are reported as pending.
+	 * @testdox Checks for output PooCommerce doesn't build yet don't run, and are reported as pending.
 	 */
 	public function test_pending_checks(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->serve( $this->good_store() );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
@@ -353,7 +353,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox Every store output check, UCP ones included, names the question it answers on the settings page.
 	 */
 	public function test_every_check_has_a_group(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->serve( array() );
 		$checks = $this->sut->all();
 		$this->assertContains( 'ucp_profile', array_column( $checks, 'id' ) );

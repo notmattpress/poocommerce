@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { recordPageView } from '@woocommerce/tracks';
+import { recordPageView } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

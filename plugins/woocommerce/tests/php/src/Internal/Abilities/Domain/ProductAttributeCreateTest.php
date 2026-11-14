@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
 use WC_Unit_Test_Case;
 
 /**
@@ -38,7 +38,7 @@ class ProductAttributeCreateTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->taxonomies_before = get_taxonomies();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->sut = new Ability( ProductAttributeCreate::get_name(), ProductAttributeCreate::get_registration_args() );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 	}
@@ -95,16 +95,16 @@ class ProductAttributeCreateTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should refuse an input it cannot store, with an ability error code.
-	 * @testWith ["Other", "test-colour", "woocommerce_ability_product_attribute_slug_exists"]
-	 *           ["Other", "pa_test-colour", "woocommerce_ability_product_attribute_slug_exists"]
-	 *           ["TEST COLOR", "other-color", "woocommerce_ability_product_attribute_name_exists"]
-	 *           ["Shade", "test-color", "woocommerce_ability_product_attribute_name_ambiguous"]
-	 *           ["Test Colour", "shade", "woocommerce_ability_product_attribute_name_ambiguous"]
-	 *           ["Test Color!", "!!!", "woocommerce_ability_product_attribute_name_ambiguous"]
-	 *           ["!!!", "???", "woocommerce_ability_product_attribute_slug_empty"]
-	 *           ["Type", "type", "woocommerce_ability_product_attribute_slug_reserved"]
-	 *           ["Long", "abcdefghijklmnopqrstuvwxyz0123", "woocommerce_ability_product_attribute_slug_too_long"]
-	 *           ["<b></b>", "blank", "woocommerce_ability_product_attribute_name_empty"]
+	 * @testWith ["Other", "test-colour", "poocommerce_ability_product_attribute_slug_exists"]
+	 *           ["Other", "pa_test-colour", "poocommerce_ability_product_attribute_slug_exists"]
+	 *           ["TEST COLOR", "other-color", "poocommerce_ability_product_attribute_name_exists"]
+	 *           ["Shade", "test-color", "poocommerce_ability_product_attribute_name_ambiguous"]
+	 *           ["Test Colour", "shade", "poocommerce_ability_product_attribute_name_ambiguous"]
+	 *           ["Test Color!", "!!!", "poocommerce_ability_product_attribute_name_ambiguous"]
+	 *           ["!!!", "???", "poocommerce_ability_product_attribute_slug_empty"]
+	 *           ["Type", "type", "poocommerce_ability_product_attribute_slug_reserved"]
+	 *           ["Long", "abcdefghijklmnopqrstuvwxyz0123", "poocommerce_ability_product_attribute_slug_too_long"]
+	 *           ["<b></b>", "blank", "poocommerce_ability_product_attribute_name_empty"]
 	 * @param string $name Attribute name.
 	 * @param string $slug Attribute slug.
 	 * @param string $code Expected error code.
@@ -252,6 +252,6 @@ class ProductAttributeCreateTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_attributes_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_attributes_invalid', $result->get_error_code() );
 	}
 }

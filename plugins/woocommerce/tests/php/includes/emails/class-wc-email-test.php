@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * WC_Email test.
@@ -44,7 +44,7 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_cc_bcc_are_ignored_when_email_does_not_support_them(): void {
 		update_option(
-			'woocommerce_no_cc_bcc_test_settings',
+			'poocommerce_no_cc_bcc_test_settings',
 			array(
 				'cc'  => 'cc@example.com',
 				'bcc' => 'bcc@example.com',
@@ -79,7 +79,7 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_cc_bcc_filters_apply_when_email_does_not_support_them( string $type, string $header ): void {
 		add_filter(
-			"woocommerce_email_{$type}_recipient_no_cc_bcc_test",
+			"poocommerce_email_{$type}_recipient_no_cc_bcc_test",
 			function ( $value ) {
 				$this->assertSame( '', $value, 'Filter must not receive a stored value' );
 				return 'audit@example.com';
@@ -96,8 +96,8 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 *
 	 * @testWith ["WC_Email_Customer_Reset_Password"]
 	 *           ["WC_Email_Customer_New_Account"]
-	 *           ["Automattic\\WooCommerce\\Internal\\CustomerEmailVerification\\Emails\\CustomerVerifyEmail"]
-	 *           ["Automattic\\WooCommerce\\Internal\\StockNotifications\\Emails\\CustomerStockNotificationVerifyEmail"]
+	 *           ["Automattic\\PooCommerce\\Internal\\CustomerEmailVerification\\Emails\\CustomerVerifyEmail"]
+	 *           ["Automattic\\PooCommerce\\Internal\\StockNotifications\\Emails\\CustomerStockNotificationVerifyEmail"]
 	 *
 	 * @param string $class_name Email class name.
 	 */

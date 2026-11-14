@@ -2,20 +2,20 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { useUserPreferences } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { PerformanceMetricsTour } from '../performance-metrics-tour';
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -31,7 +31,7 @@ type MockTourConfig = {
 
 const mockRenderedConfigs: MockTourConfig[] = [];
 
-jest.mock( '@woocommerce/components', () => ( {
+jest.mock( '@poocommerce/components', () => ( {
 	TourKit: ( { config }: { config: MockTourConfig } ) => {
 		mockRenderedConfigs.push( config );
 		return (

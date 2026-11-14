@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
+use Automattic\PooCommerce\Internal\ProductAttributes\VisualAttributeTermMeta;
 
 /**
  * Dropdown block for single or multiple selection.
@@ -44,11 +44,11 @@ final class Dropdown extends AbstractBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		if ( empty( $block->context['woocommerce/selectableItems'] ) ) {
+		if ( empty( $block->context['poocommerce/selectableItems'] ) ) {
 			return '';
 		}
 
-		$selectable_items = $block->context['woocommerce/selectableItems'];
+		$selectable_items = $block->context['poocommerce/selectableItems'];
 		$items            = is_array( $selectable_items['items'] ?? null ) ? $selectable_items['items'] : array();
 
 		if ( empty( $items ) ) {
@@ -92,8 +92,8 @@ final class Dropdown extends AbstractBlock {
 	 */
 	private function render_single( array $selectable_items, \WP_Block $block, array $field_props ): string {
 		$items              = $selectable_items['items'];
-		$store_namespace    = is_string( $selectable_items['storeNamespace'] ?? null ) ? $selectable_items['storeNamespace'] : 'woocommerce/add-to-cart-with-options';
-		$attribute_id       = $block->context['woocommerce/attributeId'] ?? '';
+		$store_namespace    = is_string( $selectable_items['storeNamespace'] ?? null ) ? $selectable_items['storeNamespace'] : 'poocommerce/add-to-cart-with-options';
+		$attribute_id       = $block->context['poocommerce/attributeId'] ?? '';
 		$has_external_label = is_string( $attribute_id ) && '' !== $attribute_id;
 		$select_id          = $has_external_label
 			? $attribute_id
@@ -101,7 +101,7 @@ final class Dropdown extends AbstractBlock {
 
 		$wrapper_attributes = array(
 			'class'               => 'wc-block-dropdown',
-			'data-wp-interactive' => 'woocommerce/dropdown',
+			'data-wp-interactive' => 'poocommerce/dropdown',
 			'data-wp-context'     => (string) wp_json_encode(
 				array(
 					'storeNamespace' => $store_namespace,
@@ -110,14 +110,14 @@ final class Dropdown extends AbstractBlock {
 			),
 		);
 
-		$aria_label = isset( $selectable_items['groupLabel'] ) && is_string( $selectable_items['groupLabel'] ) ? $selectable_items['groupLabel'] : __( 'Choose an option', 'woocommerce' );
+		$aria_label = isset( $selectable_items['groupLabel'] ) && is_string( $selectable_items['groupLabel'] ) ? $selectable_items['groupLabel'] : __( 'Choose an option', 'poocommerce' );
 
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<fieldset class="wc-block-dropdown__fieldset">
 				<?php if ( ! $has_external_label ) : ?>
-					<legend class="screen-reader-text"><?php echo esc_html( __( 'Choose an option', 'woocommerce' ) ); ?></legend>
+					<legend class="screen-reader-text"><?php echo esc_html( __( 'Choose an option', 'poocommerce' ) ); ?></legend>
 				<?php endif; ?>
 				<select
 					class="<?php echo esc_attr( trim( 'wc-block-dropdown__select ' . $field_props['classnames'] ) ); ?>"
@@ -132,7 +132,7 @@ final class Dropdown extends AbstractBlock {
 					data-wp-on--change="actions.onDropdownChange"
 				>
 					<option value="">
-						<?php echo esc_html( __( 'Choose an option', 'woocommerce' ) ); ?>
+						<?php echo esc_html( __( 'Choose an option', 'poocommerce' ) ); ?>
 					</option>
 					<?php foreach ( $items as $item ) : ?>
 						<?php
@@ -199,7 +199,7 @@ final class Dropdown extends AbstractBlock {
 		if ( count( $selected ) > 2 ) {
 			return $summary . ' +' . ( count( $selected ) - 2 );
 		}
-		return '' !== $summary ? $summary : __( 'Choose options', 'woocommerce' );
+		return '' !== $summary ? $summary : __( 'Choose options', 'poocommerce' );
 	}
 
 	/**
@@ -214,7 +214,7 @@ final class Dropdown extends AbstractBlock {
 		$id    = wp_unique_id( 'wc-block-dropdown-' );
 
 		wp_interactivity_state(
-			'woocommerce/dropdown',
+			'poocommerce/dropdown',
 			array(
 				'triggerStyle'       => static function () {
 					$context = wp_interactivity_get_context();
@@ -250,7 +250,7 @@ final class Dropdown extends AbstractBlock {
 
 		$wrapper_attributes = array(
 			'class'                      => 'wc-block-dropdown wc-block-dropdown--multiple',
-			'data-wp-interactive'        => 'woocommerce/dropdown',
+			'data-wp-interactive'        => 'poocommerce/dropdown',
 			'data-wp-on--keydown'        => 'actions.onKeydown',
 			'data-wp-on--focusout'       => 'actions.closeOnFocusOutside',
 			'data-wp-on-document--click' => 'actions.closeOnClickOutside',
@@ -258,7 +258,7 @@ final class Dropdown extends AbstractBlock {
 			'data-wp-context'            => (string) wp_json_encode(
 				array(
 					'storeNamespace' => $selectable_items['storeNamespace'],
-					'placeholder'    => __( 'Choose options', 'woocommerce' ),
+					'placeholder'    => __( 'Choose options', 'poocommerce' ),
 					'items'          => $items,
 					'isOpen'         => false,
 					'fieldStyle'     => $field_props['css'],
@@ -273,13 +273,13 @@ final class Dropdown extends AbstractBlock {
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<button type="button" class="<?php echo esc_attr( trim( 'wc-block-dropdown__trigger ' . $field_props['classnames'] ) ); ?>" style="<?php echo esc_attr( $field_props['css'] ); ?>" data-wp-bind--style="state.triggerStyle" id="<?php echo esc_attr( $id ); ?>" aria-expanded="false" data-wp-bind--aria-expanded="context.isOpen" aria-controls="<?php echo esc_attr( $id . '-options' ); ?>" data-wp-on--click="actions.togglePanel">
-				<span class="screen-reader-text"><?php echo esc_html( ( $selectable_items['groupLabel'] ?? __( 'Filter options', 'woocommerce' ) ) . ': ' ); ?></span>
+				<span class="screen-reader-text"><?php echo esc_html( ( $selectable_items['groupLabel'] ?? __( 'Filter options', 'poocommerce' ) ) . ': ' ); ?></span>
 				<span class="wc-block-dropdown__summary" data-wp-text="state.selectionSummary"><?php echo esc_html( $this->get_selection_summary( $items ) ); ?></span>
 				<span class="wc-block-dropdown__chevron" aria-hidden="true"></span>
 			</button>
 			<div class="<?php echo esc_attr( trim( 'wc-block-dropdown__panel wc-block-product-filter-checkbox-list ' . $field_props['classnames'] ) ); ?>" style="<?php echo esc_attr( $field_props['css'] . 'border-top-width:0;border-top-left-radius:0;border-top-right-radius:0;' ); ?>" id="<?php echo esc_attr( $id . '-options' ); ?>" hidden data-wp-bind--hidden="!context.isOpen">
 				<fieldset>
-					<legend class="screen-reader-text"><?php echo esc_html( $selectable_items['groupLabel'] ?? __( 'Filter options', 'woocommerce' ) ); ?></legend>
+					<legend class="screen-reader-text"><?php echo esc_html( $selectable_items['groupLabel'] ?? __( 'Filter options', 'poocommerce' ) ); ?></legend>
 					<template data-wp-each--item="state.items" data-wp-each-key="context.item.id">
 						<div class="wc-block-product-filter-checkbox-list__item" data-wp-bind--hidden="context.item.hidden">
 							<label class="wc-block-product-filter-checkbox-list__label">

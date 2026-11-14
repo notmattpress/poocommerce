@@ -3,7 +3,7 @@ title: wc shop_order
 sidebar_label: wc shop_order
 ---
 
-Manage WooCommerce shop order resources.
+Manage PooCommerce shop order resources.
 
 ## wc shop_order list
 

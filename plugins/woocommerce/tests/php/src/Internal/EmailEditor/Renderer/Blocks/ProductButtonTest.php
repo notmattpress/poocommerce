@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Button;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Button;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -45,7 +45,7 @@ class ProductButtonTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_add_to_cart_text_falls_back(): void {
 		$product = WC_Helper_Product::create_simple_product();
-		add_filter( 'woocommerce_product_add_to_cart_text', '__return_empty_string' );
+		add_filter( 'poocommerce_product_add_to_cart_text', '__return_empty_string' );
 
 		$this->assertStringContainsString( '>Add to cart</a>', $this->render( $product->get_id() ) );
 	}
@@ -56,7 +56,7 @@ class ProductButtonTest extends WC_Unit_Test_Case {
 	public function test_cart_contents_collection_links_to_cart(): void {
 		$product = WC_Helper_Product::create_simple_product();
 
-		$html = $this->render( $product->get_id(), 'woocommerce/product-collection/cart-contents' );
+		$html = $this->render( $product->get_id(), 'poocommerce/product-collection/cart-contents' );
 
 		$this->assertStringContainsString( 'href="' . esc_url( wc_get_cart_url() ) . '"', $html );
 		$this->assertStringContainsString( '>Finish checkout</a>', $html );
@@ -99,7 +99,7 @@ class ProductButtonTest extends WC_Unit_Test_Case {
 	 */
 	private function render( int $product_id, string $collection = '' ): string {
 		$parsed_block = array(
-			'blockName' => 'woocommerce/product-button',
+			'blockName' => 'poocommerce/product-button',
 			'attrs'     => array(),
 			'context'   => array(
 				'postId'     => $product_id,

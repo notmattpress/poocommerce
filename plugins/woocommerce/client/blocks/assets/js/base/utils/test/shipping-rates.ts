@@ -4,11 +4,11 @@
 import {
 	hasCollectableRate,
 	isPackageRateCollectable,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import {
 	CartShippingRate,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/type-defs/cart';
+} from '@poocommerce/type-defs/cart';
 
 /**
  * Internal dependencies
@@ -19,26 +19,26 @@ import {
 } from '../../../blocks/checkout/inner-blocks/checkout-shipping-method-block/shared/helpers';
 import { generateShippingRate } from '../../../mocks/shipping-package';
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSetting: jest.fn().mockImplementation( ( setting: string ) => {
 			if ( setting === 'collectableMethodIds' ) {
 				return [ 'local_pickup' ];
 			}
 			return jest
-				.requireActual( '@woocommerce/settings' )
+				.requireActual( '@poocommerce/settings' )
 				.getSetting( setting );
 		} ),
 	};
 } );
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	__esModule: true,
-	...jest.requireActual( '@woocommerce/block-settings' ),
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	LOCAL_PICKUP_ENABLED: true,
 } ) );
-const blockSettingsMock = jest.requireMock( '@woocommerce/block-settings' );
+const blockSettingsMock = jest.requireMock( '@poocommerce/block-settings' );
 
 // A test package with 5 shipping rates
 const testPackage: CartShippingRate = {

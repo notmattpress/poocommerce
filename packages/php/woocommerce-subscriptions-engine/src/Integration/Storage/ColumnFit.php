@@ -2,14 +2,14 @@
 /**
  * ColumnFit - checks a string fits its column before a write, as `$wpdb->insert()` does.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\Coercion;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\Coercion;
 
 defined( 'ABSPATH' ) || exit;
 

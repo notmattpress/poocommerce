@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\LegacyReportsMenu;
+use Automattic\PooCommerce\Internal\Admin\LegacyReportsMenu;
 use WC_Admin_Menus;
 use WC_Admin_Reports;
 use WC_Install;
@@ -46,7 +46,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 		$GLOBALS['menu']    = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$GLOBALS['submenu'] = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
-		update_option( 'woocommerce_analytics_enabled', 'yes' );
+		update_option( 'poocommerce_analytics_enabled', 'yes' );
 		update_option( WC_Install::INITIAL_INSTALLED_VERSION, '11.3.0' );
 		update_option( WC_Install::NEWLY_INSTALLED_OPTION, 'no' );
 		wp_set_current_user( $this->factory->user->create( array( 'role' => 'administrator' ) ) );
@@ -111,7 +111,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 * @testdox Should hide the menu on a new store without extensions.
 	 */
 	public function test_hidden_on_new_store_without_extensions(): void {
-		$this->assertFalse( has_filter( 'woocommerce_admin_reports' ), 'Precondition: core does not hook the legacy reports filter' );
+		$this->assertFalse( has_filter( 'poocommerce_admin_reports' ), 'Precondition: core does not hook the legacy reports filter' );
 
 		$this->assertFalse( $this->is_menu_shown() );
 	}
@@ -120,7 +120,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 * @testdox Should show the menu on a new store when Analytics is disabled.
 	 */
 	public function test_shown_on_new_store_when_analytics_disabled(): void {
-		update_option( 'woocommerce_analytics_enabled', 'no' );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
 
 		$this->assertTrue( $this->is_menu_shown() );
 	}
@@ -130,7 +130,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_shown_when_legacy_group_added(): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) {
 				$reports['subscriptions'] = array(
 					'title'   => 'Subscriptions',
@@ -153,7 +153,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_shown_when_report_added_to_core_group(): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) {
 				$reports['stock']['reports']['insufficient_stock'] = array(
 					'title'    => 'Insufficient stock',
@@ -171,7 +171,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_shown_when_legacy_charts_keys_used(): void {
 		add_filter(
-			'woocommerce_reports_charts',
+			'poocommerce_reports_charts',
 			function ( $reports ) {
 				$reports['legacy'] = array(
 					'title'  => 'Legacy',
@@ -199,7 +199,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_shown_when_core_report_callback_replaced( string $key ): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) use ( $key ) {
 				$reports['orders']['reports']['sales_by_date'][ $key ] = '__return_empty_string';
 				return $reports;
@@ -214,7 +214,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_hidden_when_only_analytics_report_added(): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) {
 				$reports[] = array(
 					'slug'        => 'my-extension/stats',
@@ -233,7 +233,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_shown_when_callback_returns_both_shapes(): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) {
 				$reports[]           = array(
 					'slug'        => 'my-extension/stats',
@@ -260,7 +260,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_hidden_when_reports_only_removed(): void {
 		add_filter(
-			'woocommerce_admin_reports',
+			'poocommerce_admin_reports',
 			function ( $reports ) {
 				unset( $reports['customers'], $reports['orders']['reports']['downloads'] );
 				return $reports;
@@ -304,7 +304,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	public function test_override_filter( $filtered, string $initial_version, bool $expected ): void {
 		update_option( WC_Install::INITIAL_INSTALLED_VERSION, $initial_version );
 		add_filter(
-			'woocommerce_show_legacy_reports_menu',
+			'poocommerce_show_legacy_reports_menu',
 			function () use ( $filtered ) {
 				return $filtered;
 			}
@@ -329,11 +329,11 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 			$callback = function () use ( $invalid ) {
 				return $invalid;
 			};
-			add_filter( 'woocommerce_show_legacy_reports_menu', $callback );
+			add_filter( 'poocommerce_show_legacy_reports_menu', $callback );
 
 			$this->assertSame( $expected, $this->is_menu_shown(), 'Invalid value: ' . wp_json_encode( $invalid ) );
 
-			remove_filter( 'woocommerce_show_legacy_reports_menu', $callback );
+			remove_filter( 'poocommerce_show_legacy_reports_menu', $callback );
 		}
 	}
 
@@ -341,7 +341,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 * @testdox Should keep the core report list in sync with the unfiltered legacy reports.
 	 */
 	public function test_core_reports_list_matches_legacy_reports(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$expected = array();
 		foreach ( WC_Admin_Reports::get_reports() as $group_key => $group ) {
@@ -360,7 +360,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 *           ["no", true]
 	 *           [null, true]
 	 *
-	 * @param string|null $newly_installed The woocommerce_newly_installed option value, or null when missing.
+	 * @param string|null $newly_installed The poocommerce_newly_installed option value, or null when missing.
 	 * @param bool        $expected_show   Whether the menu is expected to be shown.
 	 */
 	public function test_new_store_detection_before_version_is_recorded( ?string $newly_installed, bool $expected_show ): void {
@@ -371,7 +371,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 			update_option( WC_Install::NEWLY_INSTALLED_OPTION, $newly_installed );
 		}
 
-		$this->register_woocommerce_menu();
+		$this->register_poocommerce_menu();
 		$this->sut->handle_admin_menu();
 
 		$this->assertSame( $expected_show, ! $this->has_hide_class( 'submenu', 'wc-reports' ) );
@@ -385,7 +385,7 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 		remove_all_actions( 'admin_menu' );
 		new WC_Admin_Menus();
 
-		do_action( 'admin_menu', '' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'admin_menu', '' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$handler = array( wc_get_container()->get( LegacyReportsMenu::class ), 'handle_admin_menu' );
 		$this->assertSame( PHP_INT_MAX, has_action( 'admin_menu', $handler ), 'reports_menu() must hook the handler late on admin_menu' );
@@ -393,10 +393,10 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should hide the WooCommerce > Reports item on a new store but keep the page accessible.
+	 * @testdox Should hide the PooCommerce > Reports item on a new store but keep the page accessible.
 	 */
 	public function test_admin_menu_hides_submenu_item_and_keeps_page_accessible(): void {
-		$this->register_woocommerce_menu();
+		$this->register_poocommerce_menu();
 
 		$this->sut->handle_admin_menu();
 
@@ -406,11 +406,11 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should not hide the WooCommerce > Reports item on an existing store.
+	 * @testdox Should not hide the PooCommerce > Reports item on an existing store.
 	 */
 	public function test_admin_menu_keeps_submenu_item_on_existing_store(): void {
 		update_option( WC_Install::INITIAL_INSTALLED_VERSION, '11.2.0' );
-		$this->register_woocommerce_menu();
+		$this->register_poocommerce_menu();
 
 		$this->sut->handle_admin_menu();
 
@@ -418,10 +418,10 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should not hide Reports when it is the first WooCommerce submenu item, since WordPress links the parent to it.
+	 * @testdox Should not hide Reports when it is the first PooCommerce submenu item, since WordPress links the parent to it.
 	 */
 	public function test_admin_menu_keeps_reports_when_first_submenu_item(): void {
-		$GLOBALS['submenu']['woocommerce'] = array( array( 'Reports', 'view_woocommerce_reports', 'wc-reports', 'Reports' ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$GLOBALS['submenu']['poocommerce'] = array( array( 'Reports', 'view_poocommerce_reports', 'wc-reports', 'Reports' ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$this->sut->handle_admin_menu();
 
@@ -432,8 +432,8 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	 * @testdox Should not recreate a Reports item that another plugin removed.
 	 */
 	public function test_admin_menu_does_not_recreate_removed_item(): void {
-		$this->register_woocommerce_menu();
-		remove_submenu_page( 'woocommerce', 'wc-reports' );
+		$this->register_poocommerce_menu();
+		remove_submenu_page( 'poocommerce', 'wc-reports' );
 		$submenu_before = $GLOBALS['submenu'];
 
 		$this->sut->handle_admin_menu();
@@ -442,11 +442,11 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should hide the top-level Sales reports item for users who can view reports but not the WooCommerce menu.
+	 * @testdox Should hide the top-level Sales reports item for users who can view reports but not the PooCommerce menu.
 	 */
 	public function test_admin_menu_hides_top_level_item_for_reports_only_user(): void {
 		wp_set_current_user( $this->create_reports_only_user() );
-		$this->assertFalse( WC_Admin_Menus::can_view_woocommerce_menu_item(), 'Precondition: user cannot see the WooCommerce menu' );
+		$this->assertFalse( WC_Admin_Menus::can_view_poocommerce_menu_item(), 'Precondition: user cannot see the PooCommerce menu' );
 
 		( new WC_Admin_Menus() )->reports_menu();
 		$this->sut->handle_admin_menu();
@@ -468,14 +468,14 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Build the WooCommerce menu, run the admin_menu handler on a fresh instance, and report whether Reports is visible.
+	 * Build the PooCommerce menu, run the admin_menu handler on a fresh instance, and report whether Reports is visible.
 	 *
 	 * @return bool
 	 */
 	private function is_menu_shown(): bool {
 		$GLOBALS['menu']    = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$GLOBALS['submenu'] = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		$this->register_woocommerce_menu();
+		$this->register_poocommerce_menu();
 
 		( new LegacyReportsMenu() )->handle_admin_menu();
 
@@ -483,9 +483,9 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Register the WooCommerce menu with Reports and Settings items, as admin_menu does.
+	 * Register the PooCommerce menu with Reports and Settings items, as admin_menu does.
 	 */
-	private function register_woocommerce_menu(): void {
+	private function register_poocommerce_menu(): void {
 		$menus = new WC_Admin_Menus();
 		$menus->admin_menu();
 		$menus->reports_menu();
@@ -493,19 +493,19 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Create a user that can view reports but cannot see the WooCommerce menu.
+	 * Create a user that can view reports but cannot see the PooCommerce menu.
 	 *
 	 * @return int
 	 */
 	private function create_reports_only_user(): int {
 		$user_id = $this->factory->user->create( array( 'role' => 'subscriber' ) );
-		( new \WP_User( $user_id ) )->add_cap( 'view_woocommerce_reports' );
+		( new \WP_User( $user_id ) )->add_cap( 'view_poocommerce_reports' );
 
 		return $user_id;
 	}
 
 	/**
-	 * Whether the wc-* item in $menu or $submenu['woocommerce'] has the hide class.
+	 * Whether the wc-* item in $menu or $submenu['poocommerce'] has the hide class.
 	 *
 	 * @param string $menu_global The global to search: 'menu' or 'submenu'.
 	 * @param string $slug        The menu slug.
@@ -516,14 +516,14 @@ class LegacyReportsMenuTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Get the CSS classes of the wc-* item in $menu or $submenu['woocommerce'].
+	 * Get the CSS classes of the wc-* item in $menu or $submenu['poocommerce'].
 	 *
 	 * @param string $menu_global The global to search: 'menu' or 'submenu'.
 	 * @param string $slug        The menu slug.
 	 * @return string
 	 */
 	private function get_menu_item_classes( string $menu_global, string $slug ): string {
-		$items = 'menu' === $menu_global ? $GLOBALS['menu'] : ( $GLOBALS['submenu']['woocommerce'] ?? array() );
+		$items = 'menu' === $menu_global ? $GLOBALS['menu'] : ( $GLOBALS['submenu']['poocommerce'] ?? array() );
 
 		foreach ( $items as $item ) {
 			if ( $slug === $item[2] ) {

@@ -5,12 +5,12 @@
  * Handles requests to /onboarding/profile
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Jetpack\JetpackConnection;
-use Automattic\WooCommerce\Internal\RestApi\InteractiveSessionCheck;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Jetpack\JetpackConnection;
+use Automattic\PooCommerce\Internal\RestApi\InteractiveSessionCheck;
 use WC_REST_Data_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -123,14 +123,14 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 							'required'          => false,
-							'default'           => 'woocommerce-onboarding',
+							'default'           => 'poocommerce-onboarding',
 						),
 					),
 				),
 			)
 		);
-		add_action( 'woocommerce_plugins_install_error', array( $this, 'log_plugins_install_error' ), 10, 4 );
-		add_action( 'woocommerce_plugins_install_api_error', array( $this, 'log_plugins_install_api_error' ), 10, 2 );
+		add_action( 'poocommerce_plugins_install_error', array( $this, 'log_plugins_install_error' ), 10, 4 );
+		add_action( 'poocommerce_plugins_install_api_error', array( $this, 'log_plugins_install_api_error' ), 10, 2 );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 		$source  = $request->get_param( 'source' );
 		$job_id  = uniqid();
 
-		WC()->queue()->add( 'woocommerce_plugins_install_and_activate_async_callback', array( $plugins, $job_id, $source ) );
+		WC()->queue()->add( 'poocommerce_plugins_install_and_activate_async_callback', array( $plugins, $job_id, $source ) );
 
 		$plugin_status = array();
 		foreach ( $plugins as $plugin ) {
@@ -189,7 +189,7 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 
 		$actions = WC()->queue()->search(
 			array(
-				'hook'    => 'woocommerce_plugins_install_and_activate_async_callback',
+				'hook'    => 'poocommerce_plugins_install_and_activate_async_callback',
 				'search'  => $job_id,
 				'orderby' => 'date',
 				'order'   => 'DESC',
@@ -212,7 +212,7 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 			'status' => $actions[0]['status'],
 		);
 
-		$option = get_option( 'woocommerce_onboarding_plugins_install_and_activate_async_' . $job_id );
+		$option = get_option( 'poocommerce_onboarding_plugins_install_and_activate_async_' . $job_id );
 		if ( isset( $option['plugins'] ) ) {
 			$response['plugins'] = $option['plugins'];
 		}
@@ -242,8 +242,8 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 	public function can_install_plugins() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_update',
-				__( 'You do not have permissions to manage plugins. Please contact your site administrator.', 'woocommerce' ),
+				'poocommerce_rest_cannot_update',
+				__( 'You do not have permissions to manage plugins. Please contact your site administrator.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -278,8 +278,8 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 	public function can_install_and_activate_plugins() {
 		if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_update',
-				__( 'You do not have permissions to manage plugins. Please contact your site administrator.', 'woocommerce' ),
+				'poocommerce_rest_cannot_update',
+				__( 'You do not have permissions to manage plugins. Please contact your site administrator.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -395,10 +395,10 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 	public function log_plugins_install_error( $slug, $api, $result, $upgrader ) {
 		$properties = array(
 			'error_message'         => sprintf(
-			/* translators: %s: plugin slug (example: woocommerce-services) */
+			/* translators: %s: plugin slug (example: poocommerce-services) */
 				__(
 					'The requested plugin `%s` could not be installed.',
-					'woocommerce'
+					'poocommerce'
 				),
 				$slug
 			),
@@ -415,10 +415,10 @@ class OnboardingPlugins extends WC_REST_Data_Controller {
 	public function log_plugins_install_api_error( $slug, $api ) {
 		$properties = array(
 			'error_message'     => sprintf(
-			// translators: %s: plugin slug (example: woocommerce-services).
+			// translators: %s: plugin slug (example: poocommerce-services).
 				__(
 					'We couldn\'t install `%s`. Try again in a few minutes, or install it later from the Extensions page.',
-					'woocommerce'
+					'poocommerce'
 				),
 				$slug
 			),

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Class WC_Shipping_Zones_Test file.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 
 /**
@@ -87,7 +87,7 @@ class WC_Shipping_Zones_Test extends WC_Unit_Test_Case {
 	 * @testdox Should not warn when a higher-priority zone has only custom locations.
 	 */
 	public function test_does_not_warn_when_higher_priority_zone_has_only_custom_locations(): void {
-		add_filter( 'woocommerce_valid_location_types', array( $this, 'add_custom_location_type' ) );
+		add_filter( 'poocommerce_valid_location_types', array( $this, 'add_custom_location_type' ) );
 
 		$this->create_zone(
 			'Custom Region',

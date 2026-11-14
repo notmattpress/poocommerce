@@ -2,16 +2,16 @@
 /**
  * ContractActionRegistry - the contract actions extensions register for the action endpoint.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest;
 
 use UnexpectedValueException;
 use WP_REST_Request;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * Registered contract actions, keyed by extension slug then action, and their per-request
  * resolution (permission, availability, args schema) against a contract.
  *
- * @internal Written through {@see \Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions::register()} only, which validates every definition.
+ * @internal Written through {@see \Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions::register()} only, which validates every definition.
  *
  * @phpstan-type ContractActionDefinition array{extension_slug: string, action: string, callback: callable, permission: string|callable, description: string, args: array<string, array<string, mixed>>|callable, is_available: callable|null}
  */

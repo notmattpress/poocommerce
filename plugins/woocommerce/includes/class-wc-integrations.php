@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Integrations class
+ * PooCommerce Integrations class
  *
- * Loads Integrations into WooCommerce.
+ * Loads Integrations into PooCommerce.
  *
  * @version 3.9.0
- * @package WooCommerce\Classes\Integrations
+ * @package PooCommerce\Classes\Integrations
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -27,13 +27,13 @@ class WC_Integrations {
 	 */
 	public function __construct() {
 
-		do_action( 'woocommerce_integrations_init' );
+		do_action( 'poocommerce_integrations_init' );
 
 		$load_integrations = array(
 			'WC_Integration_MaxMind_Geolocation',
 		);
 
-		$load_integrations = apply_filters( 'woocommerce_integrations', $load_integrations );
+		$load_integrations = apply_filters( 'poocommerce_integrations', $load_integrations );
 
 		// Load integration classes.
 		foreach ( $load_integrations as $integration ) {

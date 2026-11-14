@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
 import { VisuallyHidden } from '@wordpress/components';
 import { Icon, external } from '@wordpress/icons';
-import { Text } from '@woocommerce/experimental';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ export type ProductRecommendation = {
 };
 
 const CONTEXT = 'products-list-empty-body';
-const HEADING_ID = 'woocommerce-product-recommendations-heading';
+const HEADING_ID = 'poocommerce-product-recommendations-heading';
 const BROWSE_ALL_URL = getAdminLink(
 	'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=merchandising'
 );
@@ -74,13 +74,13 @@ export const ProductRecommendations = ( {
 				<>
 					{ item.copy }
 					<VisuallyHidden as="span">
-						{ __( '(opens in a new tab)', 'woocommerce' ) }
+						{ __( '(opens in a new tab)', 'poocommerce' ) }
 					</VisuallyHidden>
 				</>
 			),
 			before: item.icon && (
 				<img
-					className="woocommerce-product-recommendations__icon"
+					className="poocommerce-product-recommendations__icon"
 					src={ item.icon }
 					alt=""
 					width={ 40 }
@@ -88,7 +88,7 @@ export const ProductRecommendations = ( {
 				/>
 			),
 			after: <Icon icon={ external } />,
-			className: 'woocommerce-products-list__item-advert',
+			className: 'poocommerce-products-list__item-advert',
 			onClick: () => {
 				recordEvent(
 					'marketplace_suggestion_clicked',
@@ -105,29 +105,29 @@ export const ProductRecommendations = ( {
 
 	return (
 		<section
-			className="woocommerce-product-recommendations"
+			className="poocommerce-product-recommendations"
 			aria-labelledby={ HEADING_ID }
 		>
-			<div className="woocommerce-product-recommendations__intro">
+			<div className="poocommerce-product-recommendations__intro">
 				<Text
 					variant="title"
 					as="h3"
 					id={ HEADING_ID }
-					className="woocommerce-task-products__title"
+					className="poocommerce-task-products__title"
 				>
 					{ __(
 						'Expand your store with more product options',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Text>
 				<Text
 					as="p"
 					lineHeight="20px"
-					className="woocommerce-product-recommendations__description"
+					className="poocommerce-product-recommendations__description"
 				>
 					{ __(
 						'Discover extensions to do more with your store.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Text>
 			</div>
@@ -135,19 +135,19 @@ export const ProductRecommendations = ( {
 			<TrackedLink
 				textProps={ {
 					className:
-						'woocommerce-product-recommendations__browse-all',
+						'poocommerce-product-recommendations__browse-all',
 				} }
 				message={ __(
 					// translators: {{Link}} is a placeholder for a html element.
-					'Browse all the extensions. {{Link}}Visit the WooCommerce Marketplace{{/Link}}',
-					'woocommerce'
+					'Browse all the extensions. {{Link}}Visit the PooCommerce Marketplace{{/Link}}',
+					'poocommerce'
 				) }
 				eventName="marketplace_suggestion_clicked"
 				eventProperties={ {
 					suggestion_slug: 'products-empty-footer-browse-all',
 					context: 'products-list-empty-footer',
 					product: '',
-					promoted: 'category-woocommerce-extensions',
+					promoted: 'category-poocommerce-extensions',
 					target: BROWSE_ALL_URL,
 				} }
 				targetUrl={ BROWSE_ALL_URL }

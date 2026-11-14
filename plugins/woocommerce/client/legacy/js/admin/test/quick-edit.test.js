@@ -9,8 +9,8 @@ describe( 'Product Quick Edit measurements', () => {
 		$ = require( 'jquery' );
 		global.jQuery = $;
 		global.inlineEditPost = { revert: jest.fn() };
-		global.woocommerce_admin = { decimal_point: '.' };
-		global.woocommerce_quick_edit = { strings: { allow_reviews: '' } };
+		global.poocommerce_admin = { decimal_point: '.' };
+		global.poocommerce_quick_edit = { strings: { allow_reviews: '' } };
 
 		document.body.innerHTML = `
 			<table>
@@ -20,7 +20,7 @@ describe( 'Product Quick Edit measurements', () => {
 					</tr>
 				</tbody>
 			</table>
-			<div id="woocommerce_inline_1">
+			<div id="poocommerce_inline_1">
 				<div class="weight">1.25</div>
 				<div class="length">2.50</div>
 				<div class="width">3.75</div>
@@ -43,8 +43,8 @@ describe( 'Product Quick Edit measurements', () => {
 		document.body.innerHTML = '';
 		delete global.jQuery;
 		delete global.inlineEditPost;
-		delete global.woocommerce_admin;
-		delete global.woocommerce_quick_edit;
+		delete global.poocommerce_admin;
+		delete global.poocommerce_quick_edit;
 	} );
 
 	test.each( [
@@ -53,7 +53,7 @@ describe( 'Product Quick Edit measurements', () => {
 	] )(
 		'populates measurements when the decimal separator is %s',
 		( decimalPoint, weight, length, width, height ) => {
-			global.woocommerce_admin.decimal_point = decimalPoint;
+			global.poocommerce_admin.decimal_point = decimalPoint;
 			$( '.editinline' ).trigger( 'click' );
 
 			expect( document.querySelector( 'input[name="_weight"]' ).value ).toBe( weight );

@@ -9,8 +9,8 @@ import { render } from '@testing-library/react';
 import { Setup } from '..';
 import { enqueueScript } from '~/utils/enqueue-script';
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		DynamicForm: () => <div />,
@@ -19,7 +19,7 @@ jest.mock( '@woocommerce/components', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings' );
 jest.mock( '~/utils/enqueue-script' );
 
 const mockGateway = {

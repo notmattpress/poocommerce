@@ -3,7 +3,7 @@ title: wc product_tag
 sidebar_label: wc product_tag
 ---
 
-Manage WooCommerce product tag resources.
+Manage PooCommerce product tag resources.
 
 ## wc product_tag list
 

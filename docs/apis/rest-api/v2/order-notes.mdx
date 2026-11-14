@@ -46,7 +46,7 @@ const data = {
   note: "Order ok!!!"
 };
 
-WooCommerce.post("orders/723/notes", data)
+PooCommerce.post("orders/723/notes", data)
   .then((response) => {
     console.log(response.data);
   })
@@ -64,7 +64,7 @@ $data = [
     'note' => 'Order ok!!!'
 ];
 
-print_r($woocommerce->post('orders/723/notes', $data));
+print_r($poocommerce->post('orders/723/notes', $data));
 ?>
 ```
 
@@ -87,7 +87,7 @@ data = {
   note: "Order ok!!!"
 }
 
-woocommerce.post("orders/723/notes", data).parsed_response
+poocommerce.post("orders/723/notes", data).parsed_response
 ```
 
   </TabItem>
@@ -142,7 +142,7 @@ curl https://example.com/wp-json/wc/v2/orders/723/notes/281 \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/723/notes/281")
+PooCommerce.get("orders/723/notes/281")
   .then((response) => {
     console.log(response.data);
   })
@@ -155,7 +155,7 @@ WooCommerce.get("orders/723/notes/281")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/notes/281')); ?>
+<?php print_r($poocommerce->get('orders/723/notes/281')); ?>
 ```
 
   </TabItem>
@@ -169,7 +169,7 @@ print(wcapi.get("orders/723/notes/281").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/notes/281").parsed_response
+poocommerce.get("orders/723/notes/281").parsed_response
 ```
 
   </TabItem>
@@ -224,7 +224,7 @@ curl https://example.com/wp-json/wc/v2/orders/723/notes \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("orders/723/notes")
+PooCommerce.get("orders/723/notes")
   .then((response) => {
     console.log(response.data);
   })
@@ -237,7 +237,7 @@ WooCommerce.get("orders/723/notes")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('orders/723/notes')); ?>
+<?php print_r($poocommerce->get('orders/723/notes')); ?>
 ```
 
   </TabItem>
@@ -251,7 +251,7 @@ print(wcapi.get("orders/723/notes").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("orders/723/notes").parsed_response
+poocommerce.get("orders/723/notes").parsed_response
 ```
 
   </TabItem>
@@ -362,7 +362,7 @@ curl -X DELETE https://example.com/wp-json/wc/v2/orders/723/notes/281?force=true
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.delete("orders/723/notes/281", {
+PooCommerce.delete("orders/723/notes/281", {
   force: true
 })
   .then((response) => {
@@ -377,7 +377,7 @@ WooCommerce.delete("orders/723/notes/281", {
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->delete('orders/723/notes/281', ['force' => true])); ?>
+<?php print_r($poocommerce->delete('orders/723/notes/281', ['force' => true])); ?>
 ```
 
   </TabItem>
@@ -391,7 +391,7 @@ print(wcapi.delete("orders/723/notes/281", params={"force": True}).json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.delete("orders/723/notes/281", force: true).parsed_response
+poocommerce.delete("orders/723/notes/281", force: true).parsed_response
 ```
 
   </TabItem>

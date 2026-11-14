@@ -1,12 +1,12 @@
-/* global ajaxurl, jQuery, purpleWooCommerceNotice */
+/* global ajaxurl, jQuery, purplePooCommerceNotice */
 ( function ( $ ) {
 	$( document ).on(
 		'click',
-		'#purple-woocommerce-notice .notice-dismiss',
+		'#purple-poocommerce-notice .notice-dismiss',
 		function () {
 			$.post( ajaxurl, {
-				action: 'purple_dismiss_woocommerce_notice',
-				nonce: purpleWooCommerceNotice.nonce,
+				action: 'purple_dismiss_poocommerce_notice',
+				nonce: purplePooCommerceNotice.nonce,
 			} );
 		}
 	);

@@ -2,15 +2,15 @@
 /**
  * PageController tests
  *
- * @package WooCommerce\Admin\Tests\PageController
+ * @package PooCommerce\Admin\Tests\PageController
  */
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
  * WC_Admin_Tests_Page_Controller Class
  *
- * @package WooCommerce\Admin\Tests\PageController
+ * @package PooCommerce\Admin\Tests\PageController
  */
 class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 
@@ -21,7 +21,7 @@ class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 
 		// orders page registration data.
 		$orders_page = array(
-			'id'        => 'woocommerce-orders',
+			'id'        => 'poocommerce-orders',
 			'screen_id' => 'edit-shop_order',
 			'path'      => add_query_arg( 'post_type', 'shop_order', 'edit.php' ),
 			'title'     => array( 'Orders' ),
@@ -52,10 +52,10 @@ class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 		$this->assertEquals(
 			array(
 				'admin.php?page=wc-admin',
-				'WooCommerce',
+				'PooCommerce',
 			),
 			$breadcrumbs[0],
-			'Orders home breadcrumb should be WooCommerce.'
+			'Orders home breadcrumb should be PooCommerce.'
 		);
 
 		$this->assertEquals(
@@ -72,8 +72,8 @@ class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 
 		// coupon page registration data.
 		$coupon_page = array(
-			'id'        => 'woocommerce-coupons',
-			'parent'    => 'woocommerce-marketing',
+			'id'        => 'poocommerce-coupons',
+			'parent'    => 'poocommerce-marketing',
 			'screen_id' => 'edit-shop_coupon',
 			'path'      => add_query_arg( 'post_type', 'shop_coupon', 'edit.php' ),
 			'title'     => array( 'Coupons' ),
@@ -81,7 +81,7 @@ class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 
 		// marketing page registration data.
 		$marketing_page = array(
-			'id'       => 'woocommerce-marketing',
+			'id'       => 'poocommerce-marketing',
 			'title'    => 'Marketing',
 			'path'     => '/marketing',
 			'icon'     => 'dashicons-megaphone',
@@ -116,10 +116,10 @@ class WC_Admin_Tests_Page_Controller extends WP_UnitTestCase {
 		$this->assertEquals(
 			array(
 				'admin.php?page=wc-admin',
-				'WooCommerce',
+				'PooCommerce',
 			),
 			$breadcrumbs[0],
-			'Coupons home breadcrumb should be WooCommerce.'
+			'Coupons home breadcrumb should be PooCommerce.'
 		);
 
 		$this->assertEquals(

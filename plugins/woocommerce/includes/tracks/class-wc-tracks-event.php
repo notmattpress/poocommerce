@@ -2,7 +2,7 @@
 /**
  * This class represents an event used to record a Tracks event
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 use Automattic\Jetpack\Constants;
@@ -94,12 +94,12 @@ class WC_Tracks_Event {
 		}
 
 		if ( ! self::event_name_is_valid( $_event->_en ) ) {
-			return new WP_Error( 'invalid_event_name', __( 'A valid event name must be specified.', 'woocommerce' ) );
+			return new WP_Error( 'invalid_event_name', __( 'A valid event name must be specified.', 'poocommerce' ) );
 		}
 
 		foreach ( array_keys( (array) $_event ) as $key ) {
 			if ( ! self::prop_name_is_valid( $key ) && '_en' !== $key ) {
-				return new WP_Error( 'invalid_prop_name', __( 'A valid prop name must be specified', 'woocommerce' ) );
+				return new WP_Error( 'invalid_prop_name', __( 'A valid prop name must be specified', 'poocommerce' ) );
 			}
 		}
 

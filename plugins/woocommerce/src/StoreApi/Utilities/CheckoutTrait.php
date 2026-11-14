@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1);
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Payments\PaymentContext;
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Checkout\PaymentRecovery;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentContext;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Checkout\PaymentRecovery;
 use WC_Customer;
 
 /**
@@ -53,8 +53,8 @@ trait CheckoutTrait {
 	private function get_order_or_throw(): \WC_Order {
 		if ( ! $this->order instanceof \WC_Order ) {
 			throw new RouteException(
-				'woocommerce_rest_checkout_missing_order',
-				esc_html__( 'Unable to create order', 'woocommerce' ),
+				'poocommerce_rest_checkout_missing_order',
+				esc_html__( 'Unable to create order', 'poocommerce' ),
 				500
 			);
 		}
@@ -76,8 +76,8 @@ trait CheckoutTrait {
 		}
 
 		throw new RouteException(
-			'woocommerce_rest_checkout_order_not_saved',
-			esc_html__( 'Your order could not be saved. Please try again.', 'woocommerce' ),
+			'poocommerce_rest_checkout_order_not_saved',
+			esc_html__( 'Your order could not be saved. Please try again.', 'poocommerce' ),
 			500
 		);
 	}
@@ -100,8 +100,8 @@ trait CheckoutTrait {
 		// A cancelled order can reach this path after a stale cache read; never revive it without payment.
 		if ( 0 < $order->get_total() && ! $order->is_paid() && $order->has_status( OrderStatus::CANCELLED ) ) {
 			throw new RouteException(
-				'woocommerce_rest_checkout_payment_required',
-				esc_html__( 'This order cannot be completed without payment. Please try again.', 'woocommerce' ),
+				'poocommerce_rest_checkout_payment_required',
+				esc_html__( 'This order cannot be completed without payment. Please try again.', 'poocommerce' ),
 				400
 			);
 		}
@@ -151,17 +151,17 @@ trait CheckoutTrait {
 			/**
 			 * Process payment with context.
 			 *
-			 * @hook woocommerce_rest_checkout_process_payment_with_context
+			 * @hook poocommerce_rest_checkout_process_payment_with_context
 			 *
 			 * @throws \Exception If there is an error taking payment, an \Exception object can be thrown with an error message.
 			 *
 			 * @param PaymentContext $context        Holds context for the payment, including order ID and payment method.
 			 * @param PaymentResult  $payment_result Result object for the transaction.
 			 */
-			do_action_ref_array( 'woocommerce_rest_checkout_process_payment_with_context', [ $context, &$payment_result ] );
+			do_action_ref_array( 'poocommerce_rest_checkout_process_payment_with_context', [ $context, &$payment_result ] );
 
 			if ( ! $payment_result instanceof PaymentResult ) {
-				throw new RouteException( 'woocommerce_rest_checkout_invalid_payment_result', __( 'Invalid payment result received from payment method.', 'woocommerce' ), 500 );
+				throw new RouteException( 'poocommerce_rest_checkout_invalid_payment_result', __( 'Invalid payment result received from payment method.', 'poocommerce' ), 500 );
 			}
 		} catch ( \Throwable $e ) {
 			/*
@@ -185,19 +185,19 @@ trait CheckoutTrait {
 
 			$additional_data = [];
 
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/**
 			 * Allows to check if WP_DEBUG mode is enabled before returning previous Exception.
 			 *
 			 * @param bool $return_previous_exceptions Whether to include the previous exception. Defaults to the WP_DEBUG value.
 			 */
-			if ( apply_filters( 'woocommerce_return_previous_exceptions', Constants::is_true( 'WP_DEBUG' ) ) && $e->getPrevious() ) {
+			if ( apply_filters( 'poocommerce_return_previous_exceptions', Constants::is_true( 'WP_DEBUG' ) ) && $e->getPrevious() ) {
 				$additional_data = [
 					'previous' => get_class( $e->getPrevious() ),
 				];
 			}
 
-			throw new RouteException( 'woocommerce_rest_checkout_process_payment_error', esc_html( $e->getMessage() ), 400, array_map( 'esc_attr', $additional_data ) );
+			throw new RouteException( 'poocommerce_rest_checkout_process_payment_error', esc_html( $e->getMessage() ), 400, array_map( 'esc_attr', $additional_data ) );
 		}
 	}
 
@@ -227,7 +227,7 @@ trait CheckoutTrait {
 		 * Keep both redirect fields in sync, as Legacy::process_legacy_payment does on the normal
 		 * path. Setting only one leaves a success result core would never otherwise emit, and
 		 * gateway client code reads the redirect from the payment details rather than from
-		 * redirect_url: WooPayments and WooCommerce Stripe both call String.match() on it
+		 * redirect_url: WooPayments and PooCommerce Stripe both call String.match() on it
 		 * unguarded, stranding the shopper on the checkout of an order that was in fact paid.
 		 */
 		$payment_details = $payment_result->get_payment_details();
@@ -292,8 +292,8 @@ trait CheckoutTrait {
 			$order_needs_payment = $order->needs_payment();
 			if ( $order_needs_payment && 'POST' === $request->get_method() ) {
 				throw new RouteException(
-					'woocommerce_rest_checkout_missing_payment_method',
-					esc_html__( 'No payment method provided.', 'woocommerce' ),
+					'poocommerce_rest_checkout_missing_payment_method',
+					esc_html__( 'No payment method provided.', 'poocommerce' ),
 					400
 				);
 			}
@@ -318,25 +318,25 @@ trait CheckoutTrait {
 		);
 
 		wc_do_deprecated_action(
-			'__experimental_woocommerce_blocks_checkout_update_order_from_request',
+			'__experimental_poocommerce_blocks_checkout_update_order_from_request',
 			array(
 				$order,
 				$request,
 			),
 			'6.3.0',
-			'woocommerce_store_api_checkout_update_order_from_request',
-			'This action was deprecated in WooCommerce Blocks version 6.3.0. Please use woocommerce_store_api_checkout_update_order_from_request instead.'
+			'poocommerce_store_api_checkout_update_order_from_request',
+			'This action was deprecated in PooCommerce Blocks version 6.3.0. Please use poocommerce_store_api_checkout_update_order_from_request instead.'
 		);
 
 		wc_do_deprecated_action(
-			'woocommerce_blocks_checkout_update_order_from_request',
+			'poocommerce_blocks_checkout_update_order_from_request',
 			array(
 				$order,
 				$request,
 			),
 			'7.2.0',
-			'woocommerce_store_api_checkout_update_order_from_request',
-			'This action was deprecated in WooCommerce Blocks version 7.2.0. Please use woocommerce_store_api_checkout_update_order_from_request instead.'
+			'poocommerce_store_api_checkout_update_order_from_request',
+			'This action was deprecated in PooCommerce Blocks version 7.2.0. Please use poocommerce_store_api_checkout_update_order_from_request instead.'
 		);
 
 		/**
@@ -350,7 +350,7 @@ trait CheckoutTrait {
 		 * @param \WC_Order $order Order object.
 		 * @param \WP_REST_Request $request Full details about the request.
 		 */
-		do_action( 'woocommerce_store_api_checkout_update_order_from_request', $order, $request );
+		do_action( 'poocommerce_store_api_checkout_update_order_from_request', $order, $request );
 
 		if ( $persist ) {
 			$order->save();

@@ -28,13 +28,13 @@ function extractTitle( post: { title: unknown } ): string {
 }
 
 /**
- * Mounts the review drawer into the WooCommerce email editor's plugin
+ * Mounts the review drawer into the PooCommerce email editor's plugin
  * scope. The drawer's open / close state lives in the
- * `woocommerce/email-editor-integration` store, so any other surface
+ * `poocommerce/email-editor-integration` store, so any other surface
  * can open it via:
  *
  * ```
- * wp.data.dispatch( 'woocommerce/email-editor-integration' )
+ * wp.data.dispatch( 'poocommerce/email-editor-integration' )
  *   .openReviewDrawer();
  * ```
  *

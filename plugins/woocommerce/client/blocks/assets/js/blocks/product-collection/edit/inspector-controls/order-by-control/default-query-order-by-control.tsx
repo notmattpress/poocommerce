@@ -8,7 +8,7 @@ import { useState } from '@wordpress/element';
 import {
 	CoreFilterNames,
 	TrackInteraction,
-} from '@woocommerce/blocks/product-collection/types';
+} from '@poocommerce/blocks/product-collection/types';
 
 /**
  * Internal dependencies
@@ -17,30 +17,30 @@ import OrderByControl from './order-by-control';
 
 const orderOptions = [
 	{
-		label: __( 'Newest to oldest', 'woocommerce' ),
+		label: __( 'Newest to oldest', 'poocommerce' ),
 		value: 'date',
 	},
 	{
-		label: __( 'Price, high to low', 'woocommerce' ),
+		label: __( 'Price, high to low', 'poocommerce' ),
 		value: 'price-desc',
 	},
 	{
-		label: __( 'Price, low to high', 'woocommerce' ),
+		label: __( 'Price, low to high', 'poocommerce' ),
 		value: 'price',
 	},
 	{
-		label: __( 'Sales, high to low', 'woocommerce' ),
+		label: __( 'Sales, high to low', 'poocommerce' ),
 		value: 'popularity',
 	},
 	{
-		label: __( 'Rating, high to low', 'woocommerce' ),
+		label: __( 'Rating, high to low', 'poocommerce' ),
 		value: 'rating',
 	},
 	{
-		// In WooCommerce, "Manual (menu order + name)" refers to a custom ordering set by the store owner.
-		// Products can be manually arranged in the desired order in the WooCommerce admin panel.
+		// In PooCommerce, "Manual (menu order + name)" refers to a custom ordering set by the store owner.
+		// Products can be manually arranged in the desired order in the PooCommerce admin panel.
 		value: 'menu_order',
-		label: __( 'Manual (menu order + name)', 'woocommerce' ),
+		label: __( 'Manual (menu order + name)', 'poocommerce' ),
 	},
 ];
 
@@ -55,7 +55,7 @@ const DefaultQueryOrderByControl = ( {
 	) as Record< string, string >;
 
 	const [ value, setValue ] = useState(
-		settings.woocommerce_default_catalog_orderby || 'menu_order'
+		settings.poocommerce_default_catalog_orderby || 'menu_order'
 	);
 
 	const onChange = ( newValue: string ) => {
@@ -65,7 +65,7 @@ const DefaultQueryOrderByControl = ( {
 			'site',
 			undefined,
 			{
-				[ `woocommerce_default_catalog_orderby` ]: newValue,
+				[ `poocommerce_default_catalog_orderby` ]: newValue,
 			}
 		);
 		trackInteraction( CoreFilterNames.DEFAULT_ORDER );
@@ -73,13 +73,13 @@ const DefaultQueryOrderByControl = ( {
 
 	return (
 		<OrderByControl
-			label={ __( 'Default sort by', 'woocommerce' ) }
+			label={ __( 'Default sort by', 'poocommerce' ) }
 			selectedValue={ value }
 			orderOptions={ orderOptions }
 			onChange={ onChange }
 			help={ __(
 				'All Product Collection blocks using the Default Query will sync to this sort order.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);

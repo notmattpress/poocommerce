@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * Provides an easy method of assessing URLs, including filepaths (which will be silently
@@ -113,7 +113,7 @@ class URL {
 			throw new URLException(
 				sprintf(
 				/* translators: %s is the URL. */
-					__( '%s is not a valid URL.', 'woocommerce' ),
+					__( '%s is not a valid URL.', 'poocommerce' ),
 					$this->url
 				)
 			);

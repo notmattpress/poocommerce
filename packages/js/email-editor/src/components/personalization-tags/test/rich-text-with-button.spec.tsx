@@ -11,7 +11,7 @@ import '@testing-library/jest-dom';
  */
 import { RichTextWithButton } from '../rich-text-with-button';
 
-const TAG = '[woocommerce/customer-first-name]';
+const TAG = '[poocommerce/customer-first-name]';
 
 const mockRenderCount = { count: 0 };
 const mockPopover: {
@@ -86,7 +86,7 @@ jest.mock( '../personalization-tags-modal', () => ( {
 	} ) => (
 		<button
 			onClick={ () =>
-				onInsert( '[woocommerce/customer-first-name]', null )
+				onInsert( '[poocommerce/customer-first-name]', null )
 			}
 		>
 			insert-tag

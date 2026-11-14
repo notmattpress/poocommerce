@@ -4,11 +4,11 @@
 import {
 	registerExpressPaymentMethod,
 	registerPaymentMethod,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
-import { getPaymentMethodData, WC_ASSET_URL } from '@woocommerce/settings';
+import { getPaymentMethodData, WC_ASSET_URL } from '@poocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import { lazy, Suspense, RawHTML } from '@wordpress/element';
 /**
  * Internal dependencies
@@ -30,16 +30,16 @@ const paypalPaymentMethod = {
 		<img
 			src={ `${ WC_ASSET_URL }/images/paypal.png` }
 			alt={ decodeEntities(
-				settings.title || __( 'PayPal', 'woocommerce' )
+				settings.title || __( 'PayPal', 'poocommerce' )
 			) }
 		/>
 	),
-	placeOrderButtonLabel: __( 'Proceed to PayPal', 'woocommerce' ),
+	placeOrderButtonLabel: __( 'Proceed to PayPal', 'poocommerce' ),
 	content: <Content />,
 	edit: <Content />,
 	canMakePayment: () => true,
 	ariaLabel: decodeEntities(
-		settings?.title || __( 'Payment via PayPal', 'woocommerce' )
+		settings?.title || __( 'Payment via PayPal', 'poocommerce' )
 	),
 	supports: {
 		features: settings.supports ?? [],
@@ -79,9 +79,9 @@ if ( settings.isButtonsEnabled ) {
 	};
 
 	registerExpressPaymentMethod( {
-		name: __( 'PayPal', 'woocommerce' ),
-		title: __( 'PayPal', 'woocommerce' ),
-		description: __( 'PayPal Buttons', 'woocommerce' ),
+		name: __( 'PayPal', 'poocommerce' ),
+		title: __( 'PayPal', 'poocommerce' ),
+		description: __( 'PayPal Buttons', 'poocommerce' ),
 		gatewayId: 'paypal',
 		paymentMethodId: 'paypal',
 		content: <LazyPayPalButtonsContainer />,

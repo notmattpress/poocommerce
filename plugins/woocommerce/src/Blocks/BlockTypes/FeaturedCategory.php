@@ -1,6 +1,6 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * FeaturedCategory class.
@@ -59,7 +59,7 @@ class FeaturedCategory extends FeaturedItem {
 	public function update_context( $context, $parsed_block, $parent_block ) {
 		$context = parent::update_context( $context, $parsed_block, $parent_block );
 
-		if ( is_array( $context ) && $parent_block instanceof \WP_Block && 'woocommerce/featured-category' === $parent_block->name ) {
+		if ( is_array( $context ) && $parent_block instanceof \WP_Block && 'poocommerce/featured-category' === $parent_block->name ) {
 			$category_id = self::resolve_category_id( $parent_block->attributes, $parent_block->context );
 			if ( $category_id ) {
 				$context['termId']       = $category_id;

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Registry;
+namespace Automattic\PooCommerce\Blocks\Registry;
 
 /**
  * An abstract class for dependency types.

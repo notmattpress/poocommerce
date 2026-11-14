@@ -11,23 +11,23 @@ import { WC_ASSET_URL } from '../../../../utils/admin-settings';
 
 const StoreDetailsHeader = ( { task, goToTask } ) => {
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Store location illustration', 'woocommerce' ) }
+				alt={ __( 'Store location illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL +
 					'images/task_list/store-details-illustration.png'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
+			<div className="poocommerce-task-header__contents">
 				<h1>
-					{ __( 'First, tell us about your store', 'woocommerce' ) }
+					{ __( 'First, tell us about your store', 'poocommerce' ) }
 				</h1>
 				<p>
 					{ __(
 						'Get your store up and running in no time. Add your store’s address to set up shipping, tax and payments faster.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
@@ -35,7 +35,7 @@ const StoreDetailsHeader = ( { task, goToTask } ) => {
 					isPrimary={ ! task.isComplete }
 					onClick={ goToTask }
 				>
-					{ __( 'Add details', 'woocommerce' ) }
+					{ __( 'Add details', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

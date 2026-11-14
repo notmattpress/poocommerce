@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions;
+namespace Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Helper;
 
 /**
@@ -46,7 +46,7 @@ class ShippingPartnerSuggestionsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		return array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/shipping-partner-suggestions/2.0/suggestions.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/shipping-partner-suggestions/2.0/suggestions.json',
 		);
 	}
 }

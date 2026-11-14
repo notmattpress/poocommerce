@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
 use WP_Query;
 
 /**
@@ -45,7 +45,7 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 
 		foreach ( $parsed_block['innerBlocks'] as $inner_block ) {
 			switch ( $inner_block['blockName'] ) {
-				case 'woocommerce/product-template':
+				case 'poocommerce/product-template':
 					$content .= $this->render_product_template( $inner_block, $query, $collection_type, $columns, $rendering_context );
 					break;
 				default:
@@ -238,10 +238,10 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 
 			++$inner_index;
 			switch ( $inner_block['blockName'] ) {
-				case 'woocommerce/product-price':
-				case 'woocommerce/product-button':
-				case 'woocommerce/product-sale-badge':
-				case 'woocommerce/product-image':
+				case 'poocommerce/product-price':
+				case 'poocommerce/product-button':
+				case 'poocommerce/product-sale-badge':
+				case 'poocommerce/product-image':
 					$inner_block['context']               = $inner_block['context'] ?? array();
 					$inner_block['context']['postId']     = $product->get_id();
 					$inner_block['context']['collection'] = $collection_type;
@@ -317,21 +317,21 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 		}
 
 		// Handle handpicked products.
-		if ( ! empty( $query_attrs['woocommerceHandPickedProducts'] ) ) {
+		if ( ! empty( $query_attrs['poocommerceHandPickedProducts'] ) ) {
 			$query_args['post__in'] = array_map(
 				static function ( $id ) {
 					return is_numeric( $id ) ? (int) $id : 0;
 				},
-				$query_attrs['woocommerceHandPickedProducts']
+				$query_attrs['poocommerceHandPickedProducts']
 			);
 			$query_args['orderby']  = 'post__in';
 		}
 
 		$visibility_terms = wc_get_product_visibility_term_ids();
 
-		// Handle featured products - use the WooCommerce way.
+		// Handle featured products - use the PooCommerce way.
 		$is_featured = $query_attrs['featured'] ?? false;
-		if ( 'woocommerce/product-collection/featured' === $collection || $is_featured ) {
+		if ( 'poocommerce/product-collection/featured' === $collection || $is_featured ) {
 			if ( isset( $visibility_terms['featured'] ) ) {
 				$query_args['tax_query'][] = array(
 					'taxonomy' => 'product_visibility',
@@ -344,14 +344,14 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 
 		// Handle on-sale products the way the shop does: the sale must be running now, and variable
 		// products count when one of their variations is on sale.
-		$is_on_sale = $query_attrs['woocommerceOnSale'] ?? false;
-		if ( 'woocommerce/product-collection/on-sale' === $collection || $is_on_sale ) {
+		$is_on_sale = $query_attrs['poocommerceOnSale'] ?? false;
+		if ( 'poocommerce/product-collection/on-sale' === $collection || $is_on_sale ) {
 			$query_args['post__in'] = $this->restrict_post_ids( $query_args['post__in'] ?? null, wc_get_product_ids_on_sale() );
 		}
 
 		// Leave out products hidden from the shop catalog, as the shop's Product Collection does.
 		// Cart contents keep them: the shop's cart lists every cart item, hidden or not.
-		if ( 'woocommerce/product-collection/cart-contents' !== $collection && ! empty( $visibility_terms['exclude-from-catalog'] ) ) {
+		if ( 'poocommerce/product-collection/cart-contents' !== $collection && ! empty( $visibility_terms['exclude-from-catalog'] ) ) {
 			$query_args['tax_query'][] = array(
 				'taxonomy' => 'product_visibility',
 				'field'    => 'term_taxonomy_id',
@@ -361,7 +361,7 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 		}
 
 		// Handle stock status (only if not all statuses are selected).
-		$stock_status = $query_attrs['woocommerceStockStatus'] ?? array();
+		$stock_status = $query_attrs['poocommerceStockStatus'] ?? array();
 		if ( ! empty( $stock_status ) && ! $this->is_all_stock_statuses( $stock_status ) ) {
 			$query_args['meta_query'][] = array(
 				'key'     => '_stock_status',
@@ -377,8 +377,8 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 		}
 
 		// Handle product attributes.
-		if ( ! empty( $query_attrs['woocommerceAttributes'] ) ) {
-			$attribute_queries       = $this->build_attribute_query( $query_attrs['woocommerceAttributes'] );
+		if ( ! empty( $query_attrs['poocommerceAttributes'] ) ) {
+			$attribute_queries       = $this->build_attribute_query( $query_attrs['poocommerceAttributes'] );
 			$query_args['tax_query'] = array_merge( $query_args['tax_query'], $attribute_queries ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 		}
 
@@ -482,7 +482,7 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 	}
 
 	/**
-	 * Build attribute query from woocommerceAttributes block attributes.
+	 * Build attribute query from poocommerceAttributes block attributes.
 	 *
 	 * @param array $attributes Attribute filters from block attributes.
 	 * @return array
@@ -513,16 +513,16 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 	 */
 	private function get_collection_specific_product_ids( string $collection, array $parsed_block, Rendering_Context $rendering_context ): array {
 		switch ( $collection ) {
-			case 'woocommerce/product-collection/upsells':
+			case 'poocommerce/product-collection/upsells':
 				return $this->get_upsell_product_ids( $parsed_block );
 
-			case 'woocommerce/product-collection/cross-sells':
+			case 'poocommerce/product-collection/cross-sells':
 				return $this->get_cross_sell_product_ids( $parsed_block );
 
-			case 'woocommerce/product-collection/related':
+			case 'poocommerce/product-collection/related':
 				return $this->get_related_product_ids( $parsed_block );
 
-			case 'woocommerce/product-collection/cart-contents':
+			case 'poocommerce/product-collection/cart-contents':
 				return $this->get_cart_contents_product_ids( $parsed_block, $rendering_context );
 
 			default:
@@ -619,7 +619,7 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 			return array( -1 );
 		}
 
-		// Get related products using WooCommerce's built-in function.
+		// Get related products using PooCommerce's built-in function.
 		$related_ids = wc_get_related_products( $product_reference, 100 );
 		return ! empty( $related_ids ) ? $related_ids : array( -1 );
 	}
@@ -687,11 +687,11 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 		$user_id = $rendering_context->get_user_id();
 		$email   = $rendering_context->get_recipient_email();
 
-		// Use shared utility if available (WooCommerce 10.4+).
-		if ( class_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) &&
-			method_exists( '\Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils', 'get_cart_product_ids_for_user' ) ) {
-			// @phpstan-ignore-next-line - Method exists in newer WooCommerce versions.
-			return \Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils::get_cart_product_ids_for_user( $user_id, $email );
+		// Use shared utility if available (PooCommerce 10.4+).
+		if ( class_exists( '\Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils' ) &&
+			method_exists( '\Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils', 'get_cart_product_ids_for_user' ) ) {
+			// @phpstan-ignore-next-line - Method exists in newer PooCommerce versions.
+			return \Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils::get_cart_product_ids_for_user( $user_id, $email );
 		}
 
 		// Fallback: Get user ID from email if needed, then fetch cart.
@@ -706,8 +706,8 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 			return array();
 		}
 
-		// Fallback implementation for older WooCommerce versions.
-		$cart_data = get_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), true );
+		// Fallback implementation for older PooCommerce versions.
+		$cart_data = get_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), true );
 
 		if ( ! is_array( $cart_data ) || empty( $cart_data ) || ! isset( $cart_data['cart'] ) || ! is_array( $cart_data['cart'] ) ) {
 			return array();
@@ -762,7 +762,7 @@ class Product_Collection extends Abstract_Product_Block_Renderer {
 	private function render_no_results_message(): string {
 		return sprintf(
 			'<div style="text-align: center; padding: 20px; color: #666;">%s</div>',
-			esc_html__( 'No products found.', 'woocommerce' )
+			esc_html__( 'No products found.', 'poocommerce' )
 		);
 	}
 }

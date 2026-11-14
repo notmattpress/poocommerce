@@ -1,8 +1,8 @@
 <?php
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Internal\Utilities\ProductUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Internal\Utilities\ProductUtil;
 
 /**
  * Class WC_REST_System_Status_Tools_V2_Controller.
@@ -120,7 +120,7 @@ class WC_REST_System_Status_Tools_V2_Controller_Test extends WC_REST_Unit_Test_C
 	}
 
 	/**
-	 * @testdox Clear transients tool clears the wc_attribute_taxonomies transient and invalidates the woocommerce-attributes cache group.
+	 * @testdox Clear transients tool clears the wc_attribute_taxonomies transient and invalidates the poocommerce-attributes cache group.
 	 */
 	public function test_execute_tool_clear_transients() {
 		wp_set_current_user( $this->user );
@@ -132,7 +132,7 @@ class WC_REST_System_Status_Tools_V2_Controller_Test extends WC_REST_Unit_Test_C
 		$mock_attribute->attribute_label = 'Test Attr';
 		set_transient( 'wc_attribute_taxonomies', array( $mock_attribute ) );
 
-		$prefix_before = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+		$prefix_before = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'PUT', '/wc/v2/system_status/tools/clear_transients' ) );
 
@@ -145,8 +145,8 @@ class WC_REST_System_Status_Tools_V2_Controller_Test extends WC_REST_Unit_Test_C
 		// Verify the transient was deleted.
 		$this->assertFalse( get_transient( 'wc_attribute_taxonomies' ) );
 
-		// Verify the woocommerce-attributes cache group was invalidated by checking that the prefix changed.
-		$prefix_after = WC_Cache_Helper::get_cache_prefix( 'woocommerce-attributes' );
+		// Verify the poocommerce-attributes cache group was invalidated by checking that the prefix changed.
+		$prefix_after = WC_Cache_Helper::get_cache_prefix( 'poocommerce-attributes' );
 		$this->assertNotEquals( $prefix_before, $prefix_after, 'Cache prefix should have changed after invalidation' );
 	}
 
@@ -247,21 +247,21 @@ class WC_REST_System_Status_Tools_V2_Controller_Test extends WC_REST_Unit_Test_C
 				$this->assertTrue( $this->endpoint->execute_tool( 'clear_transients' )['success'] );
 				$pending = as_get_scheduled_actions(
 					array(
-						'hook'   => 'woocommerce_delete_product_transients_batch',
+						'hook'   => 'poocommerce_delete_product_transients_batch',
 						'status' => ActionScheduler_Store::STATUS_PENDING,
 					),
 					'ids'
 				);
 				$this->assertCount( 1, $pending, 'A second run must not queue an overlapping cleanup.' );
-				do_action( 'woocommerce_delete_product_transients_batch', 0 );
+				do_action( 'poocommerce_delete_product_transients_batch', 0 );
 				$this->assertFalse( get_transient( 'wc_var_prices_' . $ids[0] ) );
 				$this->assertSame( 'cached', get_transient( 'wc_var_prices_' . $ids[ $batch_size ] ) );
-				$this->assertTrue( as_has_scheduled_action( 'woocommerce_delete_product_transients_batch', array( $ids[ $batch_size - 1 ] ), 'woocommerce' ) );
+				$this->assertTrue( as_has_scheduled_action( 'poocommerce_delete_product_transients_batch', array( $ids[ $batch_size - 1 ] ), 'poocommerce' ) );
 				$this->endpoint->execute_tool( 'clear_transients' );
-				$this->assertFalse( as_has_scheduled_action( 'woocommerce_delete_product_transients_batch', array( $ids[ $batch_size - 1 ] ), 'woocommerce' ), 'A new run must replace the queued cleanup.' );
-				$this->assertTrue( as_has_scheduled_action( 'woocommerce_delete_product_transients_batch', array( 0 ), 'woocommerce' ), 'A new run must restart cleanup from the first product.' );
-				do_action( 'woocommerce_delete_product_transients_batch', $ids[ $batch_size - 1 ] );
-				$this->assertFalse( as_has_scheduled_action( 'woocommerce_delete_product_transients_batch', array( $variation_id ), 'woocommerce' ) );
+				$this->assertFalse( as_has_scheduled_action( 'poocommerce_delete_product_transients_batch', array( $ids[ $batch_size - 1 ] ), 'poocommerce' ), 'A new run must replace the queued cleanup.' );
+				$this->assertTrue( as_has_scheduled_action( 'poocommerce_delete_product_transients_batch', array( 0 ), 'poocommerce' ), 'A new run must restart cleanup from the first product.' );
+				do_action( 'poocommerce_delete_product_transients_batch', $ids[ $batch_size - 1 ] );
+				$this->assertFalse( as_has_scheduled_action( 'poocommerce_delete_product_transients_batch', array( $variation_id ), 'poocommerce' ) );
 			}
 			if ( ! $external_cache ) {
 				wp_cache_flush(); // Discard the request-local option values left after the SQL sweep.

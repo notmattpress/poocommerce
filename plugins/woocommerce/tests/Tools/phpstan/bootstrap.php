@@ -2,7 +2,7 @@
 /**
  * Bootstrap for the PHPStan rule tests. PHPStan reflects test fixtures only through registered autoloaders.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );

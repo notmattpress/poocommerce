@@ -28,7 +28,7 @@ const tracking = {
 export function TemplateSettingsPanel() {
 	// Allow plugins to add custom template sections
 	const templateSections = applyFilters(
-		'woocommerce_email_editor_template_sections',
+		'poocommerce_email_editor_template_sections',
 		[],
 		tracking
 	) as TemplatePanelSection[];
@@ -41,7 +41,7 @@ export function TemplateSettingsPanel() {
 		<PluginDocumentSettingPanel
 			name="template-settings-panel"
 			title={ __( 'Settings', __i18n_text_domain__ ) }
-			className="woocommerce-email-editor__settings-panel"
+			className="poocommerce-email-editor__settings-panel"
 		>
 			{ templateSections.map( ( section ) => (
 				<ErrorBoundary key={ `error-boundary-${ section.id }` }>

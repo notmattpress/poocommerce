@@ -2,7 +2,7 @@
 /**
  * REST API Layout Templates controller (compatibility stub).
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare(strict_types=1);

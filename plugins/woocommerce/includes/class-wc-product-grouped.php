@@ -4,12 +4,12 @@
  *
  * Grouped products cannot be purchased - they are wrappers for other products.
  *
- * @package WooCommerce\Classes\Products
+ * @package PooCommerce\Classes\Products
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ class WC_Product_Grouped extends WC_Product {
 	 * @return string
 	 */
 	public function add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_add_to_cart_text', __( 'View products', 'woocommerce' ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_text', __( 'View products', 'poocommerce' ), $this );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class WC_Product_Grouped extends WC_Product {
 	 */
 	public function add_to_cart_description() {
 		/* translators: %s: Product title */
-		return apply_filters( 'woocommerce_product_add_to_cart_description', sprintf( __( 'View products in the &ldquo;%s&rdquo; group', 'woocommerce' ), $this->get_name() ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_description', sprintf( __( 'View products in the &ldquo;%s&rdquo; group', 'poocommerce' ), $this->get_name() ), $this );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class WC_Product_Grouped extends WC_Product {
 			}
 		}
 
-		return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
+		return 'view' === $context ? apply_filters( 'poocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
 	}
 
 	/**
@@ -82,7 +82,7 @@ class WC_Product_Grouped extends WC_Product {
 	 * @return bool
 	 */
 	public function is_purchasable() {
-		return apply_filters( 'woocommerce_is_purchasable', false, $this );
+		return apply_filters( 'poocommerce_is_purchasable', false, $this );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class WC_Product_Grouped extends WC_Product {
 	 * @return string
 	 */
 	public function get_price_html( $price = '' ) {
-		$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display_mode = get_option( 'poocommerce_tax_display_shop' );
 		$child_prices     = array();
 		$children         = $this->get_primed_visible_children();
 
@@ -120,15 +120,15 @@ class WC_Product_Grouped extends WC_Product {
 			$is_free = 0 === $min_price && 0 === $max_price;
 
 			if ( $is_free ) {
-				$price = apply_filters( 'woocommerce_grouped_free_price_html', __( 'Free!', 'woocommerce' ), $this );
+				$price = apply_filters( 'poocommerce_grouped_free_price_html', __( 'Free!', 'poocommerce' ), $this );
 			} else {
-				$price = apply_filters( 'woocommerce_grouped_price_html', $price . $this->get_price_suffix(), $this, $child_prices );
+				$price = apply_filters( 'poocommerce_grouped_price_html', $price . $this->get_price_suffix(), $this, $child_prices );
 			}
 		} else {
-			$price = apply_filters( 'woocommerce_grouped_empty_price_html', '', $this );
+			$price = apply_filters( 'poocommerce_grouped_empty_price_html', '', $this );
 		}
 
-		return apply_filters( 'woocommerce_get_price_html', $price, $this );
+		return apply_filters( 'poocommerce_get_price_html', $price, $this );
 	}
 
 	/*

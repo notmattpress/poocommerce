@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin\Templates;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin\Templates;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
