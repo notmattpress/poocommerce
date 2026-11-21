@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\DataStores;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogFileReader;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use WC_Unit_Test_Case;
 
 /**

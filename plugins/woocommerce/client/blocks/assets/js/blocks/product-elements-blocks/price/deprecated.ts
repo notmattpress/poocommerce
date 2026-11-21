@@ -6,7 +6,7 @@ import save from '../save';
 
 const { attributes: blockAttributes } = metadata;
 
-// In https://github.com/woocommerce/woocommerce/pull/66287, the `isDescendentOf*` attributes were removed from editor-load updates and block attributes.
+// In https://github.com/poocommerce/poocommerce/pull/66287, the `isDescendentOf*` attributes were removed from editor-load updates and block attributes.
 const v1 = {
 	attributes: {
 		...blockAttributes,

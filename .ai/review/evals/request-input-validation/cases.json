@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G07A-v4",
-			"path": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+			"path": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 			"before": {
 				"file": "fixtures/G07A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+						"file": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 						"lines": [
 							5,
 							5
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G07B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+			"path": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 			"before": {
 				"file": "fixtures/G07B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+						"file": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 						"lines": [
 							4,
 							4
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G07C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+			"path": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 			"before": {
 				"file": "fixtures/G07C/before.php"
 			},
@@ -62,12 +62,12 @@
 		},
 		{
 			"id": "G07D-v4",
-			"path": "plugins/woocommerce/includes/class-wc-request-input-validation.php",
+			"path": "plugins/poocommerce/includes/class-wc-request-input-validation.php",
 			"before": {
-				"code": "<?php\n/* REST search endpoint; the callback is local to this route registration. */\nadd_action( 'rest_api_init', static function () {\n    register_rest_route( 'wc-export/v1', '/search', array(\n        'methods' => 'GET',\n        'callback' => static function ( $request ) {\n            $term = $request->get_param( 'search' );\n            if ( ! is_string( $term ) ) { return ''; }\n            return urldecode( $term );\n        },\n        'permission_callback' => static function () { return current_user_can( 'manage_woocommerce' ); },\n        'args' => array( 'search' => array( 'type' => 'string', 'required' => true ) ),\n    ) );\n} );\n"
+				"code": "<?php\n/* REST search endpoint; the callback is local to this route registration. */\nadd_action( 'rest_api_init', static function () {\n    register_rest_route( 'wc-export/v1', '/search', array(\n        'methods' => 'GET',\n        'callback' => static function ( $request ) {\n            $term = $request->get_param( 'search' );\n            if ( ! is_string( $term ) ) { return ''; }\n            return urldecode( $term );\n        },\n        'permission_callback' => static function () { return current_user_can( 'manage_poocommerce' ); },\n        'args' => array( 'search' => array( 'type' => 'string', 'required' => true ) ),\n    ) );\n} );\n"
 			},
 			"after": {
-				"code": "<?php\n/* REST search endpoint; the callback is local to this route registration. */\nadd_action( 'rest_api_init', static function () {\n    register_rest_route( 'wc-export/v1', '/search', array(\n        'methods' => 'GET',\n        'callback' => static function ( $request ) {\n            $term = $request->get_param( 'search' );\n            return urldecode( $term );\n        },\n        'permission_callback' => static function () { return current_user_can( 'manage_woocommerce' ); },\n        'args' => array( 'search' => array( 'type' => 'string', 'required' => true ) ),\n    ) );\n} );\n"
+				"code": "<?php\n/* REST search endpoint; the callback is local to this route registration. */\nadd_action( 'rest_api_init', static function () {\n    register_rest_route( 'wc-export/v1', '/search', array(\n        'methods' => 'GET',\n        'callback' => static function ( $request ) {\n            $term = $request->get_param( 'search' );\n            return urldecode( $term );\n        },\n        'permission_callback' => static function () { return current_user_can( 'manage_poocommerce' ); },\n        'args' => array( 'search' => array( 'type' => 'string', 'required' => true ) ),\n    ) );\n} );\n"
 			},
 			"expect": {
 				"outcome": "quiet"

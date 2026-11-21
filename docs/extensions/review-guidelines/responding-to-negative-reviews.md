@@ -1,9 +1,9 @@
 ---
-post_title: How to respond to negative WooCommerce extension reviews
+post_title: How to respond to negative PooCommerce extension reviews
 sidebar_label: Responding to negative reviews
 ---
 
-# How to respond to negative WooCommerce extension reviews
+# How to respond to negative PooCommerce extension reviews
 
 An unpleasant event in the merchant's journey can lead them to leave a public, negative review. These events usually are:
 

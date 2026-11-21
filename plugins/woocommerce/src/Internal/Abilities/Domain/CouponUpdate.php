@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce coupon update ability.
+ * Registers the PooCommerce coupon update ability.
  */
 class CouponUpdate extends ActionableAbility {
 
@@ -22,7 +22,7 @@ class CouponUpdate extends ActionableAbility {
 	use DomainAbilityHelpers;
 
 	/** Ability name. */
-	public const ABILITY_NAME = 'woocommerce/coupon-update';
+	public const ABILITY_NAME = 'poocommerce/coupon-update';
 
 	/**
 	 * Get the ability registration arguments.
@@ -33,12 +33,12 @@ class CouponUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update coupon', 'woocommerce' ),
+			'label'               => __( 'Update coupon', 'poocommerce' ),
 			'description'         => __(
 				'Update an existing coupon, such as its amount, expiry date or usage limits.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'coupon', self::get_coupon_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_update_coupon' ),
@@ -107,7 +107,7 @@ class CouponUpdate extends ActionableAbility {
 			$status = 'publish';
 		}
 		if ( $status !== $previous_status && in_array( $status, array( 'publish', 'future', 'private' ), true ) && ! wc_rest_check_post_permissions( 'shop_coupon', 'create' ) ) {
-			return new \WP_Error( 'woocommerce_ability_coupon_publish_forbidden', __( 'You are not allowed to publish coupons.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_ability_coupon_publish_forbidden', __( 'You are not allowed to publish coupons.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return null;
 	}

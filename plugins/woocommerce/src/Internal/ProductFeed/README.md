@@ -35,7 +35,7 @@ ProductFeed/
 `Mapping\ProductShapeMapperInterface` is the minimal contract shared by all consumers:
 
 ```php
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
 
 class MyCatalogMapper implements ProductShapeMapperInterface {
 	public function map_product( \WC_Product $product ): array {
@@ -65,7 +65,7 @@ A push-feed integration implements `Integrations\IntegrationInterface`, which co
 `Feed\ProductWalker` ties these together: it iterates the catalog in batches (with memory management and progress reporting), runs every product through the mapper, drops rows the validator rejects, and writes the rest to the feed:
 
 ```php
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductWalker;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductWalker;
 
 $feed   = $integration->create_feed();
 $walker = ProductWalker::from_integration( $integration, $feed );
@@ -77,7 +77,7 @@ $file_path = $feed->get_file_path();
 Integrations register themselves through `ProductFeed::register_integration()`:
 
 ```php
-use Automattic\WooCommerce\Internal\ProductFeed\ProductFeed;
+use Automattic\PooCommerce\Internal\ProductFeed\ProductFeed;
 
 wc_get_container()->get( ProductFeed::class )->register_integration( new MyIntegration() );
 ```
@@ -87,7 +87,7 @@ wc_get_container()->get( ProductFeed::class )->register_integration( new MyInteg
 A pull consumer keeps its own querying and transport, and reuses only the mapping abstraction:
 
 ```php
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
 
 class MyCatalogController {
 	private ProductShapeMapperInterface $mapper;
@@ -110,7 +110,7 @@ Because the mapper is delivery-agnostic, the same implementation can also back a
 
 ## Scope and future direction
 
-The framework currently models two consumption patterns: push feeds (file assembly and delivery) and pull/live-query mapping. A third pattern exists in the WooCommerce ecosystem — batched API push with change-trigger hooks, as implemented by Google Listings & Ads (`WCProductAdapter` → `ProductSyncer` → `BatchProductHelper` → `SyncerHooks`). That model is the most mature product-export abstraction in the ecosystem and is a candidate blueprint for a future, richer export framework that push-feed, pull/query, and API-push integrations could all share. Migrating existing API-push integrations onto this framework is intentionally out of scope for now; `ProductShapeMapperInterface` is the shared mapping kernel any such evolution would build on.
+The framework currently models two consumption patterns: push feeds (file assembly and delivery) and pull/live-query mapping. A third pattern exists in the PooCommerce ecosystem — batched API push with change-trigger hooks, as implemented by Google Listings & Ads (`WCProductAdapter` → `ProductSyncer` → `BatchProductHelper` → `SyncerHooks`). That model is the most mature product-export abstraction in the ecosystem and is a candidate blueprint for a future, richer export framework that push-feed, pull/query, and API-push integrations could all share. Migrating existing API-push integrations onto this framework is intentionally out of scope for now; `ProductShapeMapperInterface` is the shared mapping kernel any such evolution would build on.
 
 ## Backwards compatibility notes
 

@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Email;
+namespace Automattic\PooCommerce\Tests\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Email\EmailStyleSync;
+use Automattic\PooCommerce\Internal\Email\EmailStyleSync;
 use WC_Unit_Test_Case;
 
 /**
  * EmailStyleSync test.
  *
- * @covers \Automattic\WooCommerce\Internal\Email\EmailStyleSync
+ * @covers \Automattic\PooCommerce\Internal\Email\EmailStyleSync
  */
 class EmailStyleSyncTest extends WC_Unit_Test_Case {
 	/**

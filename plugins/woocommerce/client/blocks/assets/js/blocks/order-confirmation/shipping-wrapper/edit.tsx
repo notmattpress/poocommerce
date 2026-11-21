@@ -30,7 +30,7 @@ const Edit = ( {
 						},
 					],
 					[
-						'woocommerce/order-confirmation-shipping-address',
+						'poocommerce/order-confirmation-shipping-address',
 						{
 							lock: {
 								remove: true,

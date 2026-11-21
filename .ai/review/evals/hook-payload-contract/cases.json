@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G01A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 			"before": {
 				"file": "fixtures/G01A/before.php"
 			},
@@ -14,19 +14,19 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+						"file": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 						"lines": [
 							3,
 							3
 						],
-						"anchor": "    do_action( 'woocommerce_order_export_status', $id, 'wc-' . $status );"
+						"anchor": "    do_action( 'poocommerce_order_export_status', $id, 'wc-' . $status );"
 					}
 				]
 			}
 		},
 		{
 			"id": "G01B-v4",
-			"path": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 			"before": {
 				"file": "fixtures/G01B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+						"file": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 						"lines": [
 							3,
 							3
@@ -45,7 +45,7 @@
 						"anchor": "    $args = array( 'id' => $order->get_id(), 'state' => $order->get_status() );"
 					},
 					{
-						"file": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+						"file": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 						"lines": [
 							8,
 							8
@@ -57,7 +57,7 @@
 		},
 		{
 			"id": "G01C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 			"before": {
 				"file": "fixtures/G01C/before.php"
 			},
@@ -70,7 +70,7 @@
 		},
 		{
 			"id": "G01D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-payload-contract.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-payload-contract.php",
 			"before": {
 				"file": "fixtures/G01D/before.php"
 			},

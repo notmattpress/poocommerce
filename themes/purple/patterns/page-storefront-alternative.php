@@ -15,9 +15,9 @@
 ?>
 
 <!-- wp:pattern {"slug":"purple/hero-with-text-and-one-button"} /-->
-<!-- wp:pattern {"slug":"purple/woocommerce-best-sellers-3-columns"} /-->
+<!-- wp:pattern {"slug":"purple/poocommerce-best-sellers-3-columns"} /-->
 <!-- wp:pattern {"slug":"purple/testimonials-in-two-columns"} /-->
-<!-- wp:pattern {"slug":"purple/woocommerce-featured-products"} /-->
+<!-- wp:pattern {"slug":"purple/poocommerce-featured-products"} /-->
 <!-- wp:pattern {"slug":"purple/two-columns-highlights-sections"} /-->
 <!-- wp:pattern {"slug":"purple/about-2-columns-with-heading"} /-->
 <!-- wp:pattern {"slug":"purple/store-features-three-columns"} /-->

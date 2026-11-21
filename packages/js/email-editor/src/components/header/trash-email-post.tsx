@@ -82,7 +82,7 @@ function getModalTitle(
 
 const getTrashEmailPostAction = () => {
 	const shouldPermanentlyDelete = applyFilters(
-		'woocommerce_email_editor_trash_modal_should_permanently_delete',
+		'poocommerce_email_editor_trash_modal_should_permanently_delete',
 		false
 	) as boolean;
 

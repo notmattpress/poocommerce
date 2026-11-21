@@ -1,11 +1,11 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer;
 
 require_once __DIR__ . '/FulfillmentsCsvReadTracker.php';
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 
 /**
  * Tests for the Fulfillments CSV importer service.
@@ -92,14 +92,14 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases['warehouse_bay'] = array( 'bay' );
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$csv    = "order_number,tracking_number,shipment_provider,bay\n1,UNKNOWN-KEY,ups,A1\n";
 			$sut    = new FulfillmentsCsvImporter( $this->make_csv( $csv ) );
 			$parsed = $sut->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		// An unknown key would be auto-detected here even though the importer can never import it.
@@ -117,13 +117,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases[0] = array( 'zero' );
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$csv    = "order_number,tracking_number,shipment_provider,items\n1,ALIAS-BAD,ups,\n";
 			$parsed = ( new FulfillmentsCsvImporter( $this->make_csv( $csv ) ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertArrayNotHasKey( 'error', $parsed );
@@ -432,13 +432,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases[ FulfillmentsCsvImporter::COL_ORDER_NUMBER ][] = 'PO Number';
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$file   = $this->make_csv( "po_number,tracking_number,shipment_provider\n1,PO-1,ups\n" );
 			$parsed = ( new FulfillmentsCsvImporter( $file ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertSame( FulfillmentsCsvImporter::COL_ORDER_NUMBER, $parsed['detected_mapping'][0] );
@@ -451,13 +451,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$filter = function () {
 			return array( FulfillmentsCsvImporter::COL_ORDER_NUMBER => array( 42, '', '  ' ) );
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$file   = $this->make_csv( "order_number,tracking_number,shipment_provider\n1,DEF-1,ups\n" );
 			$parsed = ( new FulfillmentsCsvImporter( $file ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertSame(

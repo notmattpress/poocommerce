@@ -6,19 +6,19 @@ These are the instructions for releasing `{release_version}`, scheduled for `{re
 
 Perform all the steps below in order. When running _any_ GitHub workflow, ensure you do it from the `trunk` branch (the default) and input the release version or branch as indicated.
 
-Keep the _[Release Troubleshooting & Recovery](https://developer.woocommerce.com/docs/contribution/releases/troubleshooting/)_ guide handy, in case you encounter any issues.
+Keep the _[Release Troubleshooting & Recovery](https://developer.poocommerce.com/docs/contribution/releases/troubleshooting/)_ guide handy, in case you encounter any issues.
 
 ----
 
 ### 1. Release readiness review
 
-Run this with the Product DRIs named on the parent tracking issue before starting the build - ping `@woo-core-release` in Slack if you need to reach them or aren't sure who's available. The RC doesn't exist yet, so the evidence is the latest beta and everything reported since feature freeze. See the [readiness guide](https://developer.woocommerce.com/docs/contribution/releases/readiness/) for details on each item.
+Run this with the Product DRIs named on the parent tracking issue before starting the build - ping `@woo-core-release` in Slack if you need to reach them or aren't sure who's available. The RC doesn't exist yet, so the evidence is the latest beta and everything reported since feature freeze. See the [readiness guide](https://developer.poocommerce.com/docs/contribution/releases/readiness/) for details on each item.
 
 Record each item as a comment on this GitHub issue: the links you checked and the verdict. A new comment thread started on the Linear mirror does not sync back here.
 
 - [ ] **Compatibility sweep.** Open the QIT compatibility regression sweep for the latest beta. Record the run link and, for each introduced issue, whether it blocks the release.
-- [ ] **Open findings.** Check the comments on this cycle's pre-release notes post on the developer blog, the [WordPress.org support forum](https://wordpress.org/support/plugin/woocommerce/), the canonical extensions testing post, and the [GitHub issues opened since feature freeze]({repository_url}/issues?q=is%3Aissue%20sort%3Acreated-desc). Record each finding that touches code in this release with its issue link and a verdict per the [release decision matrix](https://developer.woocommerce.com/docs/contribution/releases/decision-matrix/): release-blocking / fix in a point release / next release / not a bug. For the rest, record how many you checked and why they don't apply.
-- [ ] **Rollback path.** Record who reverts and how, and anything in this release that a revert would not undo, such as database migrations or new settings (see the [troubleshooting guide](https://developer.woocommerce.com/docs/contribution/releases/troubleshooting/)).
+- [ ] **Open findings.** Check the comments on this cycle's pre-release notes post on the developer blog, the [WordPress.org support forum](https://wordpress.org/support/plugin/poocommerce/), the canonical extensions testing post, and the [GitHub issues opened since feature freeze]({repository_url}/issues?q=is%3Aissue%20sort%3Acreated-desc). Record each finding that touches code in this release with its issue link and a verdict per the [release decision matrix](https://developer.poocommerce.com/docs/contribution/releases/decision-matrix/): release-blocking / fix in a point release / next release / not a bug. For the rest, record how many you checked and why they don't apply.
+- [ ] **Rollback path.** Record who reverts and how, and anything in this release that a revert would not undo, such as database migrations or new settings (see the [troubleshooting guide](https://developer.poocommerce.com/docs/contribution/releases/troubleshooting/)).
 - [ ] **Comms.** Record that the changelog is reviewed, and the known-issues list for the release post - or "none".
 
 If an item can't be checked, raise it in `#woo-core-releases` before continuing - delaying an RC is cheaper than reverting a stable.
@@ -29,7 +29,7 @@ If an item can't be checked, raise it in `#woo-core-releases` before continuing 
 - [ ] Confirm [GitHub services](https://www.githubstatus.com/) are operational.
 - [ ] Verify no open [issues]({repository_url}/issues?q=is:open+is:issue+milestone:{release_milestone}) or [pull requests]({repository_url}/pulls?q=is:open+is:pr+draft:false+milestone:{release_milestone}) exist against the `{release_milestone}` milestone. Ping authors as needed to merge or close.
 - [ ] Ensure that there aren't any pull requests [with label "cherry pick failed"]({repository_url}/pulls?q=is:pr+label:%22cherry+pick+failed%22) that apply to this release that haven't been actioned.
-- [ ] Confirm the `Stable tag` value [in the readme.txt on the release branch]({repository_url}/blob/{release_branch}/plugins/woocommerce/readme.txt#L7) matches the one [on WordPress.org's `trunk`](https://plugins.trac.wordpress.org/browser/woocommerce/trunk/readme.txt#L7).
+- [ ] Confirm the `Stable tag` value [in the readme.txt on the release branch]({repository_url}/blob/{release_branch}/plugins/poocommerce/readme.txt#L7) matches the one [on WordPress.org's `trunk`](https://plugins.trac.wordpress.org/browser/poocommerce/trunk/readme.txt#L7).
 
 
 ### 3. Build the release package
@@ -39,15 +39,15 @@ If an item can't be checked, raise it in `#woo-core-releases` before continuing 
 - [ ] Run workflow **[Release: Compile changelog]({repository_url}/actions/workflows/release-compile-changelog.yml)**: enter `{release_main_version}` as _Version_ and leave _Release date_ empty, except when building the package ahead of schedule.
 - [ ] Review and merge the PRs that were generated: one against `trunk` and another one against the release branch. Both are linked in the workflow run.
 - [ ] Run workflow **[Release: Build ZIP file]({repository_url}/actions/workflows/release-build-zip-file.yml)** to build the asset and create the GitHub release: enter `{release_main_version}` as _Release branch_ and check _Create GitHub release_.
-- [ ] Confirm that a draft `{release_version}` release [was created in the repository]({repository_url}/releases) with an attached `woocommerce.zip` asset.
+- [ ] Confirm that a draft `{release_version}` release [was created in the repository]({repository_url}/releases) with an attached `poocommerce.zip` asset.
 
 
 ### 4. Upload the release to WordPress.org
 
 - [ ] Run workflow **[Release: Upload release to WordPress.org]({repository_url}/actions/workflows/release-upload-to-wporg.yml)**: enter `{release_version}` as _Release tag to upload_ and make sure to check 'I confirm that I want to upload a release to WordPress.org.'
-- [ ] Confirm that SVN tag `{release_version}` [exists on WordPress.org SVN](https://plugins.svn.wordpress.org/woocommerce/tags/{release_version}).
-- [ ] Log [into WordPress.org](https://wordpress.org/plugins/developers/releases/) using the credentials from the `WordPress.org "WooCommerce" user account` secret in the secret store and approve the release.
-- [ ] After a few minutes, confirm that [`{release_version}` is available for download](https://downloads.wordpress.org/plugin/woocommerce.{release_version}.zip).
+- [ ] Confirm that SVN tag `{release_version}` [exists on WordPress.org SVN](https://plugins.svn.wordpress.org/poocommerce/tags/{release_version}).
+- [ ] Log [into WordPress.org](https://wordpress.org/plugins/developers/releases/) using the credentials from the `WordPress.org "PooCommerce" user account` secret in the secret store and approve the release.
+- [ ] After a few minutes, confirm that [`{release_version}` is available for download](https://downloads.wordpress.org/plugin/poocommerce.{release_version}.zip).
 
 
 ### 5. Deploy to the staging environment
@@ -58,7 +58,7 @@ If an item can't be checked, raise it in `#woo-core-releases` before continuing 
 **If a critical issue was detected while monitoring...**
 
 - [ ] Request a revert in the staging environment.
-- [ ] Pause the release process and **do not continue with any steps on this issue**. Follow the procedure in the [troubleshooting guide](https://developer.woocommerce.com/docs/contribution/releases/troubleshooting/#deploy-serious-bug) instead.
+- [ ] Pause the release process and **do not continue with any steps on this issue**. Follow the procedure in the [troubleshooting guide](https://developer.poocommerce.com/docs/contribution/releases/troubleshooting/#deploy-serious-bug) instead.
 
 
 ### 6. Publish the release

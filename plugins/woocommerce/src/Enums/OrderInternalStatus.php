@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
  * Enum class for all the internal order statuses.
- * These statuses are used internally by WooCommerce to query database directly.
+ * These statuses are used internally by PooCommerce to query database directly.
  */
 final class OrderInternalStatus {
 	/**
@@ -63,7 +63,7 @@ final class OrderInternalStatus {
 	 * prefixed slugs.
 	 *
 	 * These are the seven core statuses, which is narrower than the set an order can hold. The enum
-	 * has no `wc-checkout-draft`, a status WooCommerce registers through the `wc_order_statuses`
+	 * has no `wc-checkout-draft`, a status PooCommerce registers through the `wc_order_statuses`
 	 * filter and the Store API assigns to live orders during checkout. It cannot carry statuses an
 	 * extension registers either.
 	 *

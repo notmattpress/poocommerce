@@ -1,5 +1,5 @@
 <%
-  const commitCount = contributors[ 'WooCommerce Core' ]?.totalCommits ?? 0;
+  const commitCount = contributors[ 'PooCommerce Core' ]?.totalCommits ?? 0;
   const contributorDisplayVersion =
     typeof displayVersion !== 'undefined'
       ? displayVersion
@@ -9,7 +9,7 @@
 -%>
 <% if ( contributorNames.length ) { -%>
 <!-- wp:paragraph -->
-<p>WooCommerce <%= contributorDisplayVersion %> includes <%= commitCount %> commits. Thanks to <%= contributorNames.length %> contributors:</p>
+<p>PooCommerce <%= contributorDisplayVersion %> includes <%= commitCount %> commits. Thanks to <%= contributorNames.length %> contributors:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast-2"}}}},"textColor":"contrast-2"} -->

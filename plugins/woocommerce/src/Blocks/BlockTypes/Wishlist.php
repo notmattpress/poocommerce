@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListRenderer;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListRenderer;
 
 /**
  * Wishlist block.
  *
  * Renders the shopper's wishlist, wired to the `shopper-lists` Store API
- * endpoints via the shared `woocommerce/shopper-lists` iAPI store. PHP
+ * endpoints via the shared `poocommerce/shopper-lists` iAPI store. PHP
  * prefetches the list so the first paint is already populated; JS then
  * takes over for adds, removes, and the per-row "Add to cart" action.
  *
@@ -63,7 +63,7 @@ final class Wishlist extends AbstractBlock {
 
 		wp_enqueue_script_module( $this->get_full_block_name() );
 
-		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 		BlocksSharedState::load_store_config( $consent );
 		BlocksSharedState::load_placeholder_image( $consent );
 		// `Add to cart` calls into the shared cart store, which expects
@@ -82,7 +82,7 @@ final class Wishlist extends AbstractBlock {
 		// avoids deadlocking mutations that await `isNonceReady` before
 		// any GET has fired).
 		wp_interactivity_state(
-			'woocommerce/shopper-lists',
+			'poocommerce/shopper-lists',
 			array(
 				'restUrl' => get_rest_url(),
 				'nonce'   => wp_create_nonce( 'wc_store_api' ),
@@ -99,7 +99,7 @@ final class Wishlist extends AbstractBlock {
 		// interpolation; visible strings (empty state, action label) are
 		// rendered server-side and toggled with directives.
 		wp_interactivity_config(
-			'woocommerce/wishlist',
+			'poocommerce/wishlist',
 			array(
 				'removeLabelTemplate' => $this->get_remove_label_template(),
 			)
@@ -115,7 +115,7 @@ final class Wishlist extends AbstractBlock {
 		// namespace alongside the block's own context on the same wrapper.
 		$wrapper_attributes = array(
 			'class'                     => 'wc-block-wishlist',
-			'data-wp-interactive'       => 'woocommerce/wishlist',
+			'data-wp-interactive'       => 'poocommerce/wishlist',
 			'data-wp-context'           => (string) wp_json_encode(
 				array(
 					// `stdClass` so it serialises as `{}`, not `[]` —
@@ -124,7 +124,7 @@ final class Wishlist extends AbstractBlock {
 					'pendingKeys' => new \stdClass(),
 				)
 			),
-			'data-wp-context---notices' => 'woocommerce/store-notices::' . (string) wp_json_encode( array( 'notices' => array() ) ),
+			'data-wp-context---notices' => 'poocommerce/store-notices::' . (string) wp_json_encode( array( 'notices' => array() ) ),
 		);
 
 		$list_class  = sprintf( 'wc-block-wishlist__list columns-%d', $column_count );
@@ -308,7 +308,7 @@ final class Wishlist extends AbstractBlock {
 	 */
 	private function render_empty_markup( array $items ): string {
 		return ShopperListRenderer::render_empty_state(
-			__( 'Your wishlist is empty. Items you add to your wishlist will appear here.', 'woocommerce' ),
+			__( 'Your wishlist is empty. Items you add to your wishlist will appear here.', 'poocommerce' ),
 			'wc-block-wishlist__empty',
 			! empty( $items )
 		);
@@ -322,7 +322,7 @@ final class Wishlist extends AbstractBlock {
 	 */
 	private function get_remove_label_template(): string {
 		/* translators: %s: product name. */
-		return __( 'Remove %s from wishlist', 'woocommerce' );
+		return __( 'Remove %s from wishlist', 'poocommerce' );
 	}
 
 	/**
@@ -330,7 +330,7 @@ final class Wishlist extends AbstractBlock {
 	 * iAPI `<template>` and the SSR per-row markup.
 	 */
 	private function get_add_to_cart_label(): string {
-		return __( 'Add to cart', 'woocommerce' );
+		return __( 'Add to cart', 'poocommerce' );
 	}
 
 	/**

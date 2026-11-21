@@ -33,13 +33,13 @@ describe( 'Classic checkout payment method radios', () => {
 			.join( '' );
 
 		return `
-			<div id="payment" class="woocommerce-checkout-payment">
+			<div id="payment" class="poocommerce-checkout-payment">
 				<ul class="wc_payment_methods payment_methods methods"${ attribute }>${ items }</ul>
 			</div>`;
 	}
 
 	function loadCheckout( section ) {
-		document.body.innerHTML = `<form class="checkout woocommerce-checkout">${ paymentSection(
+		document.body.innerHTML = `<form class="checkout poocommerce-checkout">${ paymentSection(
 			section
 		) }</form>`;
 
@@ -63,7 +63,7 @@ describe( 'Classic checkout payment method radios', () => {
 				has_errors: false,
 				messages: '',
 				fragments: {
-					'.woocommerce-checkout-payment': nextPaymentSection,
+					'.poocommerce-checkout-payment': nextPaymentSection,
 				},
 			} );
 			return { abort: jest.fn() };

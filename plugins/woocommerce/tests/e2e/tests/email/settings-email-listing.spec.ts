@@ -19,12 +19,12 @@ const setBlockEmailEditorFeatureFlag = async (
 ) =>
 	await setFeatureFlag(
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		value
 	);
 
 test.describe(
-	'WooCommerce Email Settings List View',
+	'PooCommerce Email Settings List View',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -39,12 +39,12 @@ test.describe(
 		} ) => {
 			await setBlockEmailEditorFeatureFlag( baseURL, 'yes' );
 
-			// Navigate to WooCommerce Email Settings page
+			// Navigate to PooCommerce Email Settings page
 			await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=email' );
 
 			// Check that the ListView component is present
 			const listViewLocator = page.locator(
-				'.woocommerce-email-listing-listview'
+				'.poocommerce-email-listing-listview'
 			);
 
 			await expect( listViewLocator ).toBeVisible();
@@ -148,7 +148,7 @@ test.describe(
 
 			await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=email' );
 			const listViewLocator = page.locator(
-				'.woocommerce-email-listing-listview'
+				'.poocommerce-email-listing-listview'
 			);
 			await expect( listViewLocator ).toBeVisible();
 

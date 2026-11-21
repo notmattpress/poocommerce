@@ -10,7 +10,7 @@ import type {
 	PaymentMethodConfigInstance,
 	PaymentMethodIcons,
 	CustomPlaceOrderButtonComponent,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -157,7 +157,7 @@ export default class PaymentMethodConfig implements PaymentMethodConfigInstance 
 				'Passing savePaymentInfo when registering a payment method.',
 				{
 					alternative: 'Pass showSavedCards and showSaveOption',
-					link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3686',
+					link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3686',
 				}
 			);
 		}

@@ -3,12 +3,12 @@
  * Handles polling and storage of specs
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Admin\RemoteInboxNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
 use WC_Helper;
 
 /**
@@ -22,7 +22,7 @@ class RemoteInboxNotificationsDataSourcePoller extends DataSourcePoller {
 	/**
 	 * Transient holding the latest read's fetch time and published slugs, or null slugs for an inconclusive read.
 	 */
-	private const PUBLISHED_SNAPSHOT_TRANSIENT = 'woocommerce_admin_remote_inbox_notifications_published_snapshot';
+	private const PUBLISHED_SNAPSHOT_TRANSIENT = 'poocommerce_admin_remote_inbox_notifications_published_snapshot';
 
 	/**
 	 * Published identities from this read's canonical response, or null when it is not authoritative.
@@ -63,7 +63,7 @@ class RemoteInboxNotificationsDataSourcePoller extends DataSourcePoller {
 	}
 
 	/**
-	 * Read the data sources and record the identities published by the canonical WooCommerce.com feed.
+	 * Read the data sources and record the identities published by the canonical PooCommerce.com feed.
 	 *
 	 * Invalid specs with usable slugs still count as published. An inconclusive response retains only its timestamp to reject older reads.
 	 *
@@ -141,7 +141,7 @@ class RemoteInboxNotificationsDataSourcePoller extends DataSourcePoller {
 			}
 			$slugs[ $slug ] = $slug;
 		}
-		// An empty list is inconclusive: WooCommerce.com also serves one when its own notifications query fails.
+		// An empty list is inconclusive: PooCommerce.com also serves one when its own notifications query fails.
 		if ( ! empty( $slugs ) ) {
 			$this->published_slugs = array_values( $slugs );
 		}
@@ -352,7 +352,7 @@ class RemoteInboxNotificationsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		return array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/inbox-notifications/2.0/notifications.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/inbox-notifications/2.0/notifications.json',
 		);
 	}
 }

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ImportExport;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\TempDirectoryGuard;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\TempDirectoryGuard;
 use WC_Unit_Test_Case;
 
 /**

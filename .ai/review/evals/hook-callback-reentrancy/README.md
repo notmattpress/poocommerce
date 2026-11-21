@@ -1,6 +1,6 @@
 # Hook callback re-entrancy cases
 
-These reduced cases follow the GUID and attachment-metadata cycle introduced in [#70198](https://github.com/woocommerce/woocommerce/pull/70198), fixed in [#70782](https://github.com/woocommerce/woocommerce/pull/70782), and covered by the guideline from [#70788](https://github.com/woocommerce/woocommerce/pull/70788).
+These reduced cases follow the GUID and attachment-metadata cycle introduced in [#70198](https://github.com/poocommerce/poocommerce/pull/70198), fixed in [#70782](https://github.com/poocommerce/poocommerce/pull/70782), and covered by the guideline from [#70788](https://github.com/poocommerce/poocommerce/pull/70788).
 
 - G41A-v2 adds an unguarded metadata read to a GUID callback. The behavior harness supplies an external media-plugin callback that fires the GUID hook again; it is not included in the reviewer fixture.
 - G41B-v2 removes `finally` cleanup from a guard. A caught metadata-provider exception leaves later GUID reads bypassing the download check.

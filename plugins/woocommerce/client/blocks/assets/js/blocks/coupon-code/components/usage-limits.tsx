@@ -20,14 +20,14 @@ export function UsageLimits( {
 }: UsageLimitsProps ): JSX.Element {
 	return (
 		<PanelBody
-			title={ __( 'Usage limits', 'woocommerce' ) }
+			title={ __( 'Usage limits', 'poocommerce' ) }
 			initialOpen={ false }
 		>
 			<TextControl
-				label={ __( 'Usage limit per coupon', 'woocommerce' ) }
+				label={ __( 'Usage limit per coupon', 'poocommerce' ) }
 				help={ __(
 					'How many times this coupon can be used before it is void. Set to 0 for unlimited.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				value={ String( attributes.usageLimit ) }
 				type="number"
@@ -41,10 +41,10 @@ export function UsageLimits( {
 				__next40pxDefaultSize
 			/>
 			<TextControl
-				label={ __( 'Usage limit per user', 'woocommerce' ) }
+				label={ __( 'Usage limit per user', 'poocommerce' ) }
 				help={ __(
 					'How many times this coupon can be used by an individual user. Set to 0 for unlimited.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				value={ String( attributes.usageLimitPerUser ) }
 				type="number"

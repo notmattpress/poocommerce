@@ -7,7 +7,7 @@ import {
 	enableTestPlugin,
 	guestFile,
 	wpCLI,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ test.describe( 'Custom Place Order Button', () => {
 	test.beforeEach( async ( { context } ) => {
 		await enableTestPlugin( context, 'custom-place-order-button-test' );
 		await wpCLI(
-			'option set woocommerce_test-custom-button_settings --format=json \'{"enabled":"yes"}\''
+			'option set poocommerce_test-custom-button_settings --format=json \'{"enabled":"yes"}\''
 		);
 	} );
 

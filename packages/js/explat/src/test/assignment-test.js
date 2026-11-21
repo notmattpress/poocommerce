@@ -26,9 +26,9 @@ global.fetch = jest.fn().mockImplementation( () =>
 const fetchMock = jest.spyOn( global, 'fetch' );
 
 describe( 'fetchExperimentAssignment', () => {
-	it( 'applies woocommerce_explat_request_args before constructing the full URL', async () => {
+	it( 'applies poocommerce_explat_request_args before constructing the full URL', async () => {
 		addFilter(
-			'woocommerce_explat_request_args',
+			'poocommerce_explat_request_args',
 			'test',
 			function ( args ) {
 				args.test = 'test';
@@ -42,7 +42,7 @@ describe( 'fetchExperimentAssignment', () => {
 		} );
 
 		expect( fetchMock ).toHaveBeenCalledWith(
-			'https://public-api.wordpress.com/wpcom/v2/experiments/0.1.0/assignments/woocommerce?experiment_name=123&anon_id=abc&test=test'
+			'https://public-api.wordpress.com/wpcom/v2/experiments/0.1.0/assignments/poocommerce?experiment_name=123&anon_id=abc&test=test'
 		);
 		await fetchPromise;
 	} );
@@ -73,7 +73,7 @@ describe( 'fetchExperimentAssignment', () => {
 
 	it( 'should return .json response', async () => {
 		const data = {
-			variations: { woocommerce_test: null },
+			variations: { poocommerce_test: null },
 			ttl: 60,
 			debug: { backend_aa_result: 'request not sampled' },
 		};
@@ -86,7 +86,7 @@ describe( 'fetchExperimentAssignment', () => {
 		);
 
 		const assignment = await fetchExperimentAssignment( {
-			experimentName: 'woocommerce_test',
+			experimentName: 'poocommerce_test',
 			anonId: '1234',
 		} );
 		await expect( assignment ).toEqual( data );
@@ -95,7 +95,7 @@ describe( 'fetchExperimentAssignment', () => {
 	it( 'adds woo_wcadmin_install_timestamp to request args', async () => {
 		const filterArgs = { args: {} };
 		addFilter(
-			'woocommerce_explat_request_args',
+			'poocommerce_explat_request_args',
 			'woo_wcadmin_install_timestamp_test',
 			function ( args ) {
 				filterArgs.args = args;
@@ -119,27 +119,27 @@ describe( 'fetchExperimentAssignmentWithDefaultVariationName', () => {
 	it.each( [
 		[
 			'returns the default variation by name',
-			{ woocommerce_test: null },
-			{ woocommerce_test: { variation: 'control' } },
-			{ woocommerce_test: 'control' },
+			{ poocommerce_test: null },
+			{ poocommerce_test: { variation: 'control' } },
+			{ poocommerce_test: 'control' },
 		],
 		[
 			'keeps a non-default variation',
-			{ woocommerce_test: 'treatment' },
-			{ woocommerce_test: { variation: 'treatment' } },
-			{ woocommerce_test: 'treatment' },
+			{ poocommerce_test: 'treatment' },
+			{ poocommerce_test: { variation: 'treatment' } },
+			{ poocommerce_test: 'treatment' },
 		],
 		[
 			'keeps null when the traffic ramp leaves the store out',
-			{ woocommerce_test: null },
-			{ woocommerce_test: { variation: null } },
-			{ woocommerce_test: null },
+			{ poocommerce_test: null },
+			{ poocommerce_test: { variation: null } },
+			{ poocommerce_test: null },
 		],
 		[
 			'keeps null when the assignment entry is null',
-			{ woocommerce_test: null },
-			{ woocommerce_test: null },
-			{ woocommerce_test: null },
+			{ poocommerce_test: null },
+			{ poocommerce_test: null },
+			{ poocommerce_test: null },
 		],
 		[ 'keeps the response when the experiment is not running', {}, {}, {} ],
 	] )( '%s', async ( _case, variations, assignments, expected ) => {
@@ -154,7 +154,7 @@ describe( 'fetchExperimentAssignmentWithDefaultVariationName', () => {
 
 		const response =
 			await fetchExperimentAssignmentWithDefaultVariationName( {
-				experimentName: 'woocommerce_test',
+				experimentName: 'poocommerce_test',
 				anonId: '1234',
 			} );
 
@@ -163,10 +163,10 @@ describe( 'fetchExperimentAssignmentWithDefaultVariationName', () => {
 } );
 
 describe( 'fetchExperimentAssignmentWithAuth', () => {
-	it( 'applies woocommerce_explat_request_args before constructing the full URL', async () => {
+	it( 'applies poocommerce_explat_request_args before constructing the full URL', async () => {
 		fetchMock.mockClear();
 		addFilter(
-			'woocommerce_explat_request_args',
+			'poocommerce_explat_request_args',
 			'test',
 			function ( args ) {
 				args.test = 'test';
@@ -193,7 +193,7 @@ describe( 'fetchExperimentAssignmentWithAuth', () => {
 	it( 'adds woo_wcadmin_install_timestamp to request args', async () => {
 		const filterArgs = { args: {} };
 		addFilter(
-			'woocommerce_explat_request_args',
+			'poocommerce_explat_request_args',
 			'woo_wcadmin_install_timestamp_test',
 			function ( args ) {
 				filterArgs.args = args;

@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -45,7 +45,7 @@ trait AddressInputTrait {
 					$resource_name,
 					$type,
 					'email',
-					__( 'The billing email is not a valid email address. Send a valid address.', 'woocommerce' )
+					__( 'The billing email is not a valid email address. Send a valid address.', 'poocommerce' )
 				)
 			);
 			unset( $address['email'] );
@@ -69,8 +69,8 @@ trait AddressInputTrait {
 					'country',
 					$sent( 'country' )
 						/* translators: %s: country sent by the client. */
-						? sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'woocommerce' ), $country )
-						: __( 'The saved country is not valid. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'woocommerce' )
+						? sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'poocommerce' ), $country )
+						: __( 'The saved country is not valid. Send an ISO 3166-1 alpha-2 country code, such as PT.', 'poocommerce' )
 				)
 			);
 			unset( $address['country'], $address['state'], $address['postcode'] );
@@ -126,14 +126,14 @@ trait AddressInputTrait {
 	private static function get_state_message( bool $state_sent, bool $country_sent, string $state, string $country, array $state_codes ): string {
 		if ( $state_sent && $country_sent ) {
 			/* translators: 1: state sent by the client, 2: country code sent by the client, 3: comma-separated state codes. */
-			return sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'woocommerce' ), $state, $country, implode( ', ', $state_codes ) );
+			return sprintf( __( '"%1$s" is not a state of %2$s. Send the state with one of these codes: %3$s.', 'poocommerce' ), $state, $country, implode( ', ', $state_codes ) );
 		}
 		if ( $country_sent ) {
 			/* translators: 1: country code sent by the client, 2: comma-separated state codes. */
-			return sprintf( __( 'The saved state is not a state of %1$s. Send the state with one of these codes: %2$s.', 'woocommerce' ), $country, implode( ', ', $state_codes ) );
+			return sprintf( __( 'The saved state is not a state of %1$s. Send the state with one of these codes: %2$s.', 'poocommerce' ), $country, implode( ', ', $state_codes ) );
 		}
 		/* translators: %s: state sent by the client. */
-		return sprintf( __( '"%s" is not a state of the saved country. Send the country and the state together.', 'woocommerce' ), $state );
+		return sprintf( __( '"%s" is not a state of the saved country. Send the country and the state together.', 'poocommerce' ), $state );
 	}
 
 	/**
@@ -148,14 +148,14 @@ trait AddressInputTrait {
 	private static function get_postcode_message( bool $postcode_sent, bool $country_sent, string $postcode, string $country ): string {
 		if ( $postcode_sent && $country_sent ) {
 			/* translators: 1: postcode sent by the client, 2: country code sent by the client. */
-			return sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'woocommerce' ), $postcode, $country );
+			return sprintf( __( '"%1$s" is not a valid postcode for %2$s. Send a postcode in the format of that country.', 'poocommerce' ), $postcode, $country );
 		}
 		if ( $country_sent ) {
 			/* translators: %s: country code sent by the client. */
-			return sprintf( __( 'The saved postcode is not valid for %s. Send a postcode in the format of that country.', 'woocommerce' ), $country );
+			return sprintf( __( 'The saved postcode is not valid for %s. Send a postcode in the format of that country.', 'poocommerce' ), $country );
 		}
 		/* translators: %s: postcode sent by the client. */
-		return sprintf( __( '"%s" is not a valid postcode for the saved country. Send a postcode in the format of that country.', 'woocommerce' ), $postcode );
+		return sprintf( __( '"%s" is not a valid postcode for the saved country. Send a postcode in the format of that country.', 'poocommerce' ), $postcode );
 	}
 
 	/**
@@ -168,7 +168,7 @@ trait AddressInputTrait {
 	 * @return \WP_Error
 	 */
 	private static function address_error( string $resource_name, string $type, string $field, string $message ): \WP_Error {
-		return new \WP_Error( "woocommerce_ability_{$resource_name}_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
+		return new \WP_Error( "poocommerce_ability_{$resource_name}_{$type}_{$field}_invalid", $message, array( 'status' => 400 ) );
 	}
 
 	/**
@@ -180,7 +180,7 @@ trait AddressInputTrait {
 	private static function get_address_input_schema( array $fields ): array {
 		return array(
 			'type'                 => 'object',
-			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use WooCommerce state codes.', 'woocommerce' ),
+			'description'          => __( 'Countries use ISO 3166-1 alpha-2 codes, and states use PooCommerce state codes.', 'poocommerce' ),
 			'properties'           => array_fill_keys( $fields, array( 'type' => 'string' ) ),
 			'additionalProperties' => false,
 			'minProperties'        => 1,

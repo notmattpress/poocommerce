@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductVariations;
+namespace Automattic\PooCommerce\Tests\Internal\ProductVariations;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\ProductVariations\VariationMatcher;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\ProductVariations\VariationMatcher;
 use WC_Product_Attribute;
 use WC_Product_Variable;
 use WC_Product_Variation;
@@ -113,7 +113,7 @@ class VariationMatcherTest extends WC_Unit_Test_Case {
 	 * @testdox An out-of-stock earlier variation is ignored when out-of-stock products are hidden.
 	 */
 	public function test_ignores_out_of_stock_earlier_variation_when_hidden_from_catalog(): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = $this->create_variable_product(
 			array(
@@ -140,7 +140,7 @@ class VariationMatcherTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox An earlier variation hidden by woocommerce_available_variation is ignored.
+	 * @testdox An earlier variation hidden by poocommerce_available_variation is ignored.
 	 */
 	public function test_ignores_earlier_variation_hidden_by_available_variation_filter(): void {
 		$product = $this->create_variable_product(
@@ -155,7 +155,7 @@ class VariationMatcherTest extends WC_Unit_Test_Case {
 		$any     = $this->create_variation( $product, array( 'color' => '' ), '40', 1 );
 
 		add_filter(
-			'woocommerce_available_variation',
+			'poocommerce_available_variation',
 			static function ( $data, $variable_product, $variation ) use ( $blue ) {
 				unset( $variable_product );
 				if ( $variation instanceof WC_Product_Variation && $blue->get_id() === $variation->get_id() ) {
@@ -174,7 +174,7 @@ class VariationMatcherTest extends WC_Unit_Test_Case {
 					'attribute_color' => 'Blue',
 				)
 			),
-			'An earlier variation hidden by woocommerce_available_variation should be ignored.'
+			'An earlier variation hidden by poocommerce_available_variation should be ignored.'
 		);
 	}
 

@@ -1,20 +1,20 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestionIncentives;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestionIncentives;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Class WCPayWelcomePage
  *
- * @deprecated 9.9.0 The WooPayments welcome page is deprecated and will be removed in a future version of WooCommerce.
+ * @deprecated 9.9.0 The WooPayments welcome page is deprecated and will be removed in a future version of PooCommerce.
  */
 class WcPayWelcomePage {
 	/**
@@ -68,7 +68,7 @@ class WcPayWelcomePage {
 		}
 
 		// Suggestions not disabled via a setting.
-		if ( get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
+		if ( get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
 			return false;
 		}
 
@@ -79,7 +79,7 @@ class WcPayWelcomePage {
 		 *
 		 * @since 3.6.0
 		 */
-		if ( ! apply_filters( 'woocommerce_allow_marketplace_suggestions', true ) ) {
+		if ( ! apply_filters( 'poocommerce_allow_marketplace_suggestions', true ) ) {
 			return false;
 		}
 
@@ -155,9 +155,9 @@ class WcPayWelcomePage {
 	/**
 	 * Get the slug of the active payments task.
 	 *
-	 * It can be either 'woocommerce-payments' or 'payments'.
+	 * It can be either 'poocommerce-payments' or 'payments'.
 	 *
-	 * @return string Either 'woocommerce-payments' or 'payments'. Empty string if no task is found.
+	 * @return string Either 'poocommerce-payments' or 'payments'. Empty string if no task is found.
 	 */
 	private function get_active_payments_task_slug(): string {
 		$setup_task_list    = TaskLists::get_list( 'setup' );
@@ -190,9 +190,9 @@ class WcPayWelcomePage {
 
 		// The WooPayments task in the setup task list.
 		if ( ! empty( $setup_task_list ) && $setup_task_list->is_visible() ) {
-			$payments_task = $setup_task_list->get_task( 'woocommerce-payments' );
+			$payments_task = $setup_task_list->get_task( 'poocommerce-payments' );
 			if ( ! empty( $payments_task ) && $payments_task->can_view() ) {
-				return 'woocommerce-payments';
+				return 'poocommerce-payments';
 			}
 		}
 
@@ -200,7 +200,7 @@ class WcPayWelcomePage {
 	}
 
 	/**
-	 * Get the WooCommerce setup task list Payments task instance.
+	 * Get the PooCommerce setup task list Payments task instance.
 	 *
 	 * @return Task|null The Payments task instance. null if the task is not found.
 	 */
@@ -219,7 +219,7 @@ class WcPayWelcomePage {
 	}
 
 	/**
-	 * Determine if the WooCommerce setup task list Payments task is complete.
+	 * Determine if the PooCommerce setup task list Payments task is complete.
 	 *
 	 * @return bool True if the Payments task is complete, false otherwise.
 	 */

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G19B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-cart-totals.php",
+			"path": "plugins/poocommerce/includes/class-wc-cart-totals.php",
 			"before": {
 				"file": "fixtures/G19B/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-cart-totals.php",
+						"file": "plugins/poocommerce/includes/class-wc-cart-totals.php",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G19D-v3",
-			"path": "plugins/woocommerce/includes/wc-order-functions.php",
+			"path": "plugins/poocommerce/includes/wc-order-functions.php",
 			"before": {
 				"file": "fixtures/G19D/before.php"
 			},
@@ -39,7 +39,7 @@
 		},
 		{
 			"id": "G19A-v5",
-			"path": "plugins/woocommerce/includes/wc-order-functions.php",
+			"path": "plugins/poocommerce/includes/wc-order-functions.php",
 			"before": {
 				"code": "<?php\n/* Admin note editor for saved orders. */\nfunction save_order_note( $order, $note ) {\n    $order->set_customer_note( $note );\n    $order->save();\n}\n\nfunction edit_saved_order_note( $order_id, $note ) {\n    $order = wc_get_order( $order_id );\n    if ( ! $order ) { return; }\n    save_order_note( $order, $note );\n}\n"
 			},
@@ -50,7 +50,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/wc-order-functions.php",
+						"file": "plugins/poocommerce/includes/wc-order-functions.php",
 						"lines": [
 							5,
 							5
@@ -62,12 +62,12 @@
 		},
 		{
 			"id": "G19C-v4",
-			"path": "plugins/woocommerce/includes/wc-order-functions.php",
+			"path": "plugins/poocommerce/includes/wc-order-functions.php",
 			"before": {
 				"code": "<?php\n/* Synthetic order-draft composer. For an opted-in new order, computing totals from\n * its current items, taxes, fees and shipping is the intended initialization step;\n * this is not an import of authoritative precomputed monetary totals.\n * Existing orders retain their supplied totals. The fixture uses the ordinary\n * WC_Order::calculate_totals() implementation, which persists the order itself.\n */\nfinal class WC_Order_Total_Controller {\n    public function persist( WC_Order $order ) {\n        $order->save();\n    }\n}\n"
 			},
 			"after": {
-				"code": "<?php\n/* Synthetic order-draft composer. For an opted-in new order, computing totals from\n * its current items, taxes, fees and shipping is the intended initialization step;\n * this is not an import of authoritative precomputed monetary totals.\n * Existing orders retain their supplied totals. The fixture uses the ordinary\n * WC_Order::calculate_totals() implementation, which persists the order itself.\n */\nfinal class WC_Order_Total_Controller {\n    public function persist( WC_Order $order ) {\n        if ( 0 === $order->get_id() && 'yes' === get_option( 'woocommerce_calculate_new_order_totals', 'no' ) ) {\n            $order->calculate_totals();\n            return;\n        }\n        $order->save();\n    }\n}\n"
+				"code": "<?php\n/* Synthetic order-draft composer. For an opted-in new order, computing totals from\n * its current items, taxes, fees and shipping is the intended initialization step;\n * this is not an import of authoritative precomputed monetary totals.\n * Existing orders retain their supplied totals. The fixture uses the ordinary\n * WC_Order::calculate_totals() implementation, which persists the order itself.\n */\nfinal class WC_Order_Total_Controller {\n    public function persist( WC_Order $order ) {\n        if ( 0 === $order->get_id() && 'yes' === get_option( 'poocommerce_calculate_new_order_totals', 'no' ) ) {\n            $order->calculate_totals();\n            return;\n        }\n        $order->save();\n    }\n}\n"
 			},
 			"expect": {
 				"outcome": "quiet"

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStockException;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\OrderAttributionController;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStockException;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\OrderAttributionController;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * UCP `POST /checkout-sessions/{id}/complete` route.
@@ -92,7 +92,7 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 		// The cart or its addresses can change behind the checkout, through the Store API or a price edit, and
 		// a new order is then made for it: the one already handed off must not stay payable too.
 		if ( ! empty( $state['order_id'] ) && ( ! $order || $order->get_id() !== (int) $state['order_id'] || ( $state['fingerprint'] ?? '' ) !== $fingerprint ) ) {
-			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session cart changed after payment was handed off.', 'woocommerce' ) );
+			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session cart changed after payment was handed off.', 'poocommerce' ) );
 
 			if ( ! empty( $state['order_id'] ) ) {
 				return $this->refuse_kept_order();
@@ -103,7 +103,7 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 
 		if ( CheckoutMapper::STATUS_READY_FOR_COMPLETE !== ( new CheckoutMapper() )->build_checkout( $cart, $checkout_id, $state )['status'] ) {
 			// An order handed off while the checkout was ready, for stock since taken say, must not stay payable.
-			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session is no longer ready to complete.', 'woocommerce' ) );
+			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session is no longer ready to complete.', 'poocommerce' ) );
 
 			if ( $this->hand_off_is_payable( $state ) ) {
 				return $this->refuse_kept_order();
@@ -113,7 +113,7 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 		}
 
 		if ( ! $this->cart_controller->get_cart_instance()->needs_payment() ) {
-			return $this->ucp_error( 'payment_not_required', __( 'This checkout has nothing to pay, so it cannot be handed off for payment. It must be made on the store itself.', 'woocommerce' ), 'unrecoverable', 200 );
+			return $this->ucp_error( 'payment_not_required', __( 'This checkout has nothing to pay, so it cannot be handed off for payment. It must be made on the store itself.', 'poocommerce' ), 'unrecoverable', 200 );
 		}
 
 		// Handed off already and unchanged. The buyer may be paying this order now, so it is not written to again.
@@ -128,14 +128,14 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 		}
 
 		if ( ! $order->get_id() ) {
-			return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The order could not be created. Please try again.', 'woocommerce' ), 'recoverable', 500 );
+			return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The order could not be created. Please try again.', 'poocommerce' ), 'recoverable', 500 );
 		}
 
 		// Remembered before the hold so a refused hold leaves a draft the next attempt reuses.
 		$this->set_draft_order_id( $order->get_id() );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Store API hook, documented in Routes\V1\Checkout.
-		do_action( 'woocommerce_store_api_checkout_update_order_meta', $order );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Store API hook, documented in Routes\V1\Checkout.
+		do_action( 'poocommerce_store_api_checkout_update_order_meta', $order );
 
 		try {
 			$this->order_controller->validate_order_before_payment( $order );
@@ -182,8 +182,8 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 		$error = null;
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Store API hook, documented in Routes\V1\Checkout.
-			do_action( 'woocommerce_store_api_checkout_order_processed', $order );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Store API hook, documented in Routes\V1\Checkout.
+			do_action( 'poocommerce_store_api_checkout_order_processed', $order );
 		} catch ( \Throwable $e ) {
 			$error = $e;
 		}
@@ -201,7 +201,7 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 
 		if ( $error ) {
 			// The pending order already spent its coupons and holds stock, and must not outlive the refused attempt.
-			$kept = $this->cancel_handed_off_order( $state, __( 'UCP checkout session could not be completed.', 'woocommerce' ) );
+			$kept = $this->cancel_handed_off_order( $state, __( 'UCP checkout session could not be completed.', 'poocommerce' ) );
 
 			// An order that could not be cancelled, or that the hook had paid, stays tracked.
 			if ( ! empty( $kept['order_id'] ) ) {
@@ -247,8 +247,8 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 			)
 		);
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in OrderAttributionController.
-		do_action( 'woocommerce_order_save_attribution_data', $order, $data );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in OrderAttributionController.
+		do_action( 'poocommerce_order_save_attribution_data', $order, $data );
 	}
 
 	/**
@@ -331,7 +331,7 @@ class CheckoutSessionsComplete extends AbstractCheckoutRoute {
 			$data['messages'][] = array(
 				'type'         => 'warning',
 				'code'         => 'ALREADY_HANDED_OFF',
-				'content'      => __( 'Payment for this checkout session was already handed off, so it was returned unchanged. Update the checkout session to change it, or send the buyer to the payment page.', 'woocommerce' ),
+				'content'      => __( 'Payment for this checkout session was already handed off, so it was returned unchanged. Update the checkout session to change it, or send the buyer to the payment page.', 'poocommerce' ),
 				'path'         => '$.status',
 				'content_type' => 'plain',
 			);

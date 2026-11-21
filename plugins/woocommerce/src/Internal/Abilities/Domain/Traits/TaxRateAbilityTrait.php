@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,9 +37,9 @@ trait TaxRateAbilityTrait {
 	 */
 	private static function get_tax_class_not_found_error( string $slug ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_tax_rate_class_not_found',
+			'poocommerce_ability_tax_rate_class_not_found',
 			/* translators: 1: tax class slug, 2: comma-separated tax class slugs. */
-			sprintf( __( 'There is no tax class %1$s. Use one of: %2$s.', 'woocommerce' ), $slug, implode( ', ', array_merge( array( 'standard' ), \WC_Tax::get_tax_class_slugs() ) ) ),
+			sprintf( __( 'There is no tax class %1$s. Use one of: %2$s.', 'poocommerce' ), $slug, implode( ', ', array_merge( array( 'standard' ), \WC_Tax::get_tax_class_slugs() ) ) ),
 			array( 'status' => 400 )
 		);
 	}
@@ -54,9 +54,9 @@ trait TaxRateAbilityTrait {
 		$rate = \WC_Tax::_get_tax_rate( $rate_id, OBJECT );
 		if ( ! $rate instanceof \stdClass ) {
 			return new \WP_Error(
-				'woocommerce_ability_tax_rate_not_found',
+				'poocommerce_ability_tax_rate_not_found',
 				/* translators: %d: tax rate ID. */
-				sprintf( __( 'There is no tax rate with ID %d.', 'woocommerce' ), $rate_id ),
+				sprintf( __( 'There is no tax rate with ID %d.', 'poocommerce' ), $rate_id ),
 				array( 'status' => 404 )
 			);
 		}
@@ -130,9 +130,9 @@ trait TaxRateAbilityTrait {
 
 		if ( ! array_key_exists( $country, WC()->countries->get_countries() ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_tax_rate_country_invalid',
+				'poocommerce_ability_tax_rate_country_invalid',
 				/* translators: %s: country code. */
-				sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as GB, or empty for every country.', 'woocommerce' ), $country ),
+				sprintf( __( '"%s" is not a valid country. Send an ISO 3166-1 alpha-2 country code, such as GB, or empty for every country.', 'poocommerce' ), $country ),
 				array( 'status' => 400 )
 			);
 		}
@@ -140,9 +140,9 @@ trait TaxRateAbilityTrait {
 		$states = WC()->countries->get_states( $country );
 		if ( '' !== $state && ! empty( $states ) && ! array_key_exists( $state, $states ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_tax_rate_state_invalid',
+				'poocommerce_ability_tax_rate_state_invalid',
 				/* translators: 1: state sent or kept from the rate, 2: country code, 3: comma-separated state codes. */
-				sprintf( __( '"%1$s" is not a state of %2$s. Send one of these codes, or empty for every state: %3$s.', 'woocommerce' ), $sent_state, $country, implode( ', ', array_keys( $states ) ) ),
+				sprintf( __( '"%1$s" is not a state of %2$s. Send one of these codes, or empty for every state: %3$s.', 'poocommerce' ), $sent_state, $country, implode( ', ', array_keys( $states ) ) ),
 				array( 'status' => 400 )
 			);
 		}
@@ -172,9 +172,9 @@ trait TaxRateAbilityTrait {
 			$refused = array_intersect( $values, array( '', '*' ) );
 			if ( $refused ) {
 				return new \WP_Error(
-					'woocommerce_ability_tax_rate_location_empty',
+					'poocommerce_ability_tax_rate_location_empty',
 					/* translators: 1: postcodes or cities, 2: zero-based position of the refused entry. */
-					sprintf( __( '%1$s[%2$d] needs a letter or number once HTML tags and percent-encoded characters are removed.', 'woocommerce' ), $field, key( $refused ) ),
+					sprintf( __( '%1$s[%2$d] needs a letter or number once HTML tags and percent-encoded characters are removed.', 'poocommerce' ), $field, key( $refused ) ),
 					array( 'status' => 400 )
 				);
 			}
@@ -220,9 +220,9 @@ trait TaxRateAbilityTrait {
 	 */
 	private static function get_locations_failed_error( int $rate_id, string $field ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_tax_rate_locations_failed',
+			'poocommerce_ability_tax_rate_locations_failed',
 			/* translators: 1: tax rate ID, 2: postcodes or cities. */
-			sprintf( __( 'Tax rate %1$d was saved, but its %2$s were not, so it may now apply everywhere. Send the %2$s again with tax-rate-update.', 'woocommerce' ), $rate_id, $field ),
+			sprintf( __( 'Tax rate %1$d was saved, but its %2$s were not, so it may now apply everywhere. Send the %2$s again with tax-rate-update.', 'poocommerce' ), $rate_id, $field ),
 			array(
 				'status'  => 500,
 				'rate_id' => $rate_id,
@@ -256,46 +256,46 @@ trait TaxRateAbilityTrait {
 		return array(
 			'rate'      => array(
 				'type'        => 'string',
-				'description' => __( 'Percentage as a decimal string, such as "19" or "7.25".', 'woocommerce' ),
+				'description' => __( 'Percentage as a decimal string, such as "19" or "7.25".', 'poocommerce' ),
 				'pattern'     => '^([0-9]{1,3}|[0-9]{0,3}\.[0-9]{1,4})$',
 			),
 			'country'   => array(
 				'type'        => 'string',
-				'description' => __( 'Two-letter country code, or empty for every country.', 'woocommerce' ),
+				'description' => __( 'Two-letter country code, or empty for every country.', 'poocommerce' ),
 				'pattern'     => '^([A-Za-z]{2})?$',
 			),
 			'state'     => array(
 				'type'        => 'string',
-				'description' => __( 'State code such as CA, or empty for every state. For a country with no state list, the state as customers enter it.', 'woocommerce' ),
+				'description' => __( 'State code such as CA, or empty for every state. For a country with no state list, the state as customers enter it.', 'poocommerce' ),
 				'maxLength'   => 200,
 			),
 			'postcodes' => $list + array(
-				'description' => __( 'Postcodes the rate is limited to. Takes ranges such as 10000...19999 and wildcards such as 10*. Empty for every postcode.', 'woocommerce' ),
+				'description' => __( 'Postcodes the rate is limited to. Takes ranges such as 10000...19999 and wildcards such as 10*. Empty for every postcode.', 'poocommerce' ),
 			),
 			'cities'    => $list + array(
-				'description' => __( 'Cities the rate is limited to. Empty for every city.', 'woocommerce' ),
+				'description' => __( 'Cities the rate is limited to. Empty for every city.', 'poocommerce' ),
 			),
 			'name'      => array(
 				'type'        => 'string',
-				'description' => __( 'Name shown on the cart, checkout and invoices. Empty saves the name Tax.', 'woocommerce' ),
+				'description' => __( 'Name shown on the cart, checkout and invoices. Empty saves the name Tax.', 'poocommerce' ),
 				'maxLength'   => 200,
 			),
 			'priority'  => array(
 				'type'        => 'integer',
-				'description' => __( 'Only one matching rate per priority applies. Use a different priority to stack rates.', 'woocommerce' ),
+				'description' => __( 'Only one matching rate per priority applies. Use a different priority to stack rates.', 'poocommerce' ),
 				'minimum'     => 0,
 			),
 			'compound'  => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether the rate applies on top of the other taxes.', 'woocommerce' ),
+				'description' => __( 'Whether the rate applies on top of the other taxes.', 'poocommerce' ),
 			),
 			'shipping'  => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether the rate also applies to shipping.', 'woocommerce' ),
+				'description' => __( 'Whether the rate also applies to shipping.', 'poocommerce' ),
 			),
 			'class'     => array(
 				'type'        => 'string',
-				'description' => __( 'Tax class slug; standard for the standard rates.', 'woocommerce' ),
+				'description' => __( 'Tax class slug; standard for the standard rates.', 'poocommerce' ),
 			),
 		);
 	}
@@ -317,7 +317,7 @@ trait TaxRateAbilityTrait {
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- The placeholders are generated for each ID.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT tax_rate_id, location_code, location_type FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id IN ({$placeholders}) ORDER BY location_id",
+				"SELECT tax_rate_id, location_code, location_type FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id IN ({$placeholders}) ORDER BY location_id",
 				$rate_ids
 			)
 		);
@@ -374,21 +374,21 @@ trait TaxRateAbilityTrait {
 				'id'        => array( 'type' => 'integer' ),
 				'country'   => array(
 					'type'        => 'string',
-					'description' => __( 'Empty for every country.', 'woocommerce' ),
+					'description' => __( 'Empty for every country.', 'poocommerce' ),
 				),
 				'state'     => array( 'type' => 'string' ),
 				'postcodes' => $list,
 				'cities'    => $list,
 				'rate'      => array(
 					'type'        => 'string',
-					'description' => __( 'Percentage as a decimal string.', 'woocommerce' ),
+					'description' => __( 'Percentage as a decimal string.', 'poocommerce' ),
 				),
 				'name'      => array( 'type' => 'string' ),
 				'priority'  => array( 'type' => 'integer' ),
 				'compound'  => array( 'type' => 'boolean' ),
 				'shipping'  => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the rate also applies to shipping.', 'woocommerce' ),
+					'description' => __( 'Whether the rate also applies to shipping.', 'poocommerce' ),
 				),
 				'class'     => array( 'type' => 'string' ),
 			),

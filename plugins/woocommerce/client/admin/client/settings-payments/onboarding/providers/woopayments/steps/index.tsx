@@ -23,7 +23,7 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 		id: 'payment_methods',
 		order: 1,
 		type: 'backend',
-		label: __( 'Choose your payment methods', 'woocommerce' ),
+		label: __( 'Choose your payment methods', 'poocommerce' ),
 		content: <PaymentMethodsSelection />,
 	},
 	{
@@ -32,7 +32,7 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 		type: 'backend',
 		label: sprintf(
 			/* translators: %s: WordPress.com */
-			__( 'Connect with %s', 'woocommerce' ),
+			__( 'Connect with %s', 'poocommerce' ),
 			'WordPress.com'
 		),
 		content: <WordPressComStep />,
@@ -42,13 +42,13 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 		id: 'activate_payments',
 		order: 3,
 		type: 'frontend',
-		label: __( 'Activate payments', 'woocommerce' ),
+		label: __( 'Activate payments', 'poocommerce' ),
 		subSteps: [
 			{
 				id: 'test_or_live_account',
 				order: 1,
 				type: 'frontend',
-				label: __( 'Test or live account', 'woocommerce' ),
+				label: __( 'Test or live account', 'poocommerce' ),
 				dependencies: [ 'wpcom_connection' ],
 				content: <TestOrLiveAccountStep />,
 			},
@@ -56,7 +56,7 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 				id: TESTING_ACCOUNT_STEP_ID,
 				order: 2,
 				type: 'backend',
-				label: __( 'Ready to test payments', 'woocommerce' ),
+				label: __( 'Ready to test payments', 'poocommerce' ),
 				dependencies: [ 'test_or_live_account' ],
 				content: <TestAccountStep />,
 			},
@@ -64,7 +64,7 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 				id: LIVE_ACCOUNT_STEP_ID,
 				order: 3,
 				type: 'backend',
-				label: __( 'Activate payments', 'woocommerce' ),
+				label: __( 'Activate payments', 'poocommerce' ),
 				dependencies: [ 'test_or_live_account' ],
 				content: <BusinessVerificationStep />,
 			},
@@ -74,7 +74,7 @@ export const steps: WooPaymentsProviderOnboardingStep[] = [
 		id: 'finish',
 		order: 4,
 		type: 'frontend',
-		label: __( 'Submit for verification', 'woocommerce' ),
+		label: __( 'Submit for verification', 'poocommerce' ),
 		dependencies: [ LIVE_ACCOUNT_STEP_ID ],
 		content: <FinishStep />,
 	},
@@ -85,7 +85,7 @@ export const LYSPaymentsSteps: WooPaymentsProviderOnboardingStep[] = [
 		id: 'payment_methods',
 		order: 1,
 		type: 'backend',
-		label: __( 'Choose your payment methods', 'woocommerce' ),
+		label: __( 'Choose your payment methods', 'poocommerce' ),
 		content: <PaymentMethodsSelection />,
 	},
 	{
@@ -94,7 +94,7 @@ export const LYSPaymentsSteps: WooPaymentsProviderOnboardingStep[] = [
 		type: 'backend',
 		label: sprintf(
 			/* translators: %s: WordPress.com */
-			__( 'Connect with %s', 'woocommerce' ),
+			__( 'Connect with %s', 'poocommerce' ),
 			'WordPress.com'
 		),
 		content: <WordPressComStep />,
@@ -104,7 +104,7 @@ export const LYSPaymentsSteps: WooPaymentsProviderOnboardingStep[] = [
 		id: LIVE_ACCOUNT_STEP_ID,
 		order: 3,
 		type: 'backend',
-		label: __( 'Activate payments', 'woocommerce' ),
+		label: __( 'Activate payments', 'poocommerce' ),
 		dependencies: [ 'wpcom_connection' ],
 		content: <BusinessVerificationStep />,
 	},

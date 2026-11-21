@@ -8,7 +8,7 @@ describe( 'Product sale schedule cancel', () => {
 
 		$ = require( 'jquery' );
 		global.jQuery = $;
-		global.woocommerce_admin_meta_boxes = { product_types: [] };
+		global.poocommerce_admin_meta_boxes = { product_types: [] };
 		global._ = { escape: ( value ) => value };
 		[ 'tipTip', 'datepicker', 'sortable', 'selectWoo' ].forEach(
 			( plugin ) => {
@@ -19,8 +19,8 @@ describe( 'Product sale schedule cancel', () => {
 		);
 
 		document.body.innerHTML = `
-			<div id="woocommerce-product-data">
-				<div class="woocommerce_variation">
+			<div id="poocommerce-product-data">
+				<div class="poocommerce_variation">
 					<p class="form-row">
 						<label>
 							<a href="#" class="sale_schedule">Schedule</a>
@@ -43,7 +43,7 @@ describe( 'Product sale schedule cancel', () => {
 	afterAll( () => {
 		document.body.innerHTML = '';
 		delete global.jQuery;
-		delete global.woocommerce_admin_meta_boxes;
+		delete global.poocommerce_admin_meta_boxes;
 		delete global._;
 	} );
 

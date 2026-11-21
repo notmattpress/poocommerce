@@ -259,7 +259,7 @@ describe( 'SaveButton', () => {
 			);
 			expect( mockRegisterShortcut ).toHaveBeenCalledWith(
 				expect.objectContaining( {
-					name: 'woocommerce/email-editor/save',
+					name: 'poocommerce/email-editor/save',
 					keyCombination: { modifier: 'primary', character: 's' },
 				} )
 			);
@@ -292,7 +292,7 @@ describe( 'SaveButton', () => {
 			);
 			expect( mockRegisterShortcut ).toHaveBeenCalledWith(
 				expect.objectContaining( {
-					name: 'woocommerce/email-editor/save',
+					name: 'poocommerce/email-editor/save',
 				} )
 			);
 		} );
@@ -302,7 +302,7 @@ describe( 'SaveButton', () => {
 
 			render( <SaveButton /> );
 			const event = makeKeydownEvent();
-			shortcutHandlers[ 'woocommerce/email-editor/save' ]( event );
+			shortcutHandlers[ 'poocommerce/email-editor/save' ]( event );
 
 			expect( event.preventDefault ).toHaveBeenCalled();
 			expect( mockEditPost ).toHaveBeenCalledWith( {
@@ -316,7 +316,7 @@ describe( 'SaveButton', () => {
 
 			render( <SaveButton /> );
 			const event = makeKeydownEvent();
-			shortcutHandlers[ 'woocommerce/email-editor/save' ]( event );
+			shortcutHandlers[ 'poocommerce/email-editor/save' ]( event );
 
 			expect( event.preventDefault ).toHaveBeenCalled();
 			expect( mockSavePost ).not.toHaveBeenCalled();
@@ -330,7 +330,7 @@ describe( 'SaveButton', () => {
 			unmount();
 
 			expect( mockUnregisterShortcut ).toHaveBeenCalledWith(
-				'woocommerce/email-editor/save'
+				'poocommerce/email-editor/save'
 			);
 			expect( mockRegisterShortcut ).toHaveBeenCalledWith(
 				expect.objectContaining( {
@@ -384,7 +384,7 @@ describe( 'registerWooEmailSaveButton', () => {
 
 		const { applyFilters } = require( '@wordpress/hooks' );
 		return applyFilters(
-			'woocommerce_email_editor_wrap_editor_component',
+			'poocommerce_email_editor_wrap_editor_component',
 			MockEditor
 		) as React.ComponentType< Record< string, unknown > >;
 	};

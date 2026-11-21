@@ -5,14 +5,14 @@
  * Consumers read cycles through this view instead of the Core entity. Getters may be
  * added, never removed.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api\View
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api\View
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api\View;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
 
 defined( 'ABSPATH' ) || exit;
 

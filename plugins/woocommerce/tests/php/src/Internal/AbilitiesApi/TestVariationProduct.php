@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
 /**
  * A variation class of an extension.
@@ -22,7 +22,7 @@ class TestVariationProduct extends \WC_Product_Variation {
 	}
 
 	/**
-	 * A variation of this class is also a variation for WooCommerce.
+	 * A variation of this class is also a variation for PooCommerce.
 	 *
 	 * @param string|string[] $type Type or types to check.
 	 * @return bool

@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/extension-changelogger",
+	"name": "@poocommerce/extension-changelogger",
 	"private": true,
-	"description": "Jetpack Changelogger formatter for WooCommerce extensions.",
+	"description": "Jetpack Changelogger formatter for PooCommerce extensions.",
 	"scripts": {
 		"build:composer-package": "bash tasks/build-package.sh",
 		"changelog": "XDEBUG_MODE=off composer install --quiet && composer exec -- changelogger",

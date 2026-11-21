@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Extension } from '@woocommerce/data';
+import type { Extension } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ type DriverProps = Pick< CoreProfilerPageComponent, 'sendEvent' >;
 
 export const possibleDefaultStoreNames = [
 	undefined,
-	'woocommerce',
+	'poocommerce',
 	'Site Title',
 	'',
 ];

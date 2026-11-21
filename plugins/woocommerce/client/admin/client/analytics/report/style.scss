@@ -1,9 +1,9 @@
-.woocommerce-analytics__table-placeholder {
-	.woocommerce-card__body {
+.poocommerce-analytics__table-placeholder {
+	.poocommerce-card__body {
 		padding: 0;
 	}
 
-	.woocommerce-table__table {
+	.poocommerce-table__table {
 		margin-bottom: 0;
 
 		tr:last-child {
@@ -17,7 +17,7 @@
 // rows carrying one end up taller than rows without. Flex alone (no wrap) is
 // enough for that; the name itself is still allowed to wrap onto multiple
 // lines within the bounds below, so a long name doesn't force one endless row.
-.woocommerce-analytics__inline-list {
+.poocommerce-analytics__inline-list {
 	display: inline-flex;
 	align-items: center;
 	max-width: 80ch;
@@ -31,7 +31,7 @@
 
 	// The badge carries overflow: hidden and text-overflow: ellipsis, so it
 	// renders as "+…" if flex is allowed to shrink it.
-	> .woocommerce-view-more-list {
+	> .poocommerce-view-more-list {
 		flex-shrink: 0;
 	}
 }

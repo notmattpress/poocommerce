@@ -2,7 +2,7 @@
 /**
  * Unit tests for the coupons admin list table.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
@@ -12,7 +12,7 @@ require_once WC_ABSPATH . 'includes/admin/list-tables/class-wc-admin-list-table-
 /**
  * WC_Admin_List_Table_Coupons tests.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_List_Table_Coupons_Test extends WC_Unit_Test_Case {
 

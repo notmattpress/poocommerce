@@ -2,12 +2,12 @@
 /**
  * Admin report functionality.
  *
- * @package WooCommerce\Admin\Reports
+ * @package PooCommerce\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Reports\HposLegacyOrderReportQueryBuilder;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Reports\HposLegacyOrderReportQueryBuilder;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Extended by reports to show charts and stats in admin.
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Admin_Report {
@@ -111,7 +111,7 @@ class WC_Admin_Report {
 			'order_status'        => array( OrderStatus::COMPLETED, OrderStatus::PROCESSING, OrderStatus::ON_HOLD ),
 			'parent_order_status' => false,
 		);
-		$args         = apply_filters( 'woocommerce_reports_get_order_report_data_args', $args );
+		$args         = apply_filters( 'poocommerce_reports_get_order_report_data_args', $args );
 		$args         = wp_parse_args( $args, $default_args );
 
 		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
@@ -121,7 +121,7 @@ class WC_Admin_Report {
 			return '';
 		}
 
-		$order_status = apply_filters( 'woocommerce_reports_order_statuses', $order_status );
+		$order_status = apply_filters( 'poocommerce_reports_order_statuses', $order_status );
 
 		$args['order_status'] = $order_status;
 
@@ -190,18 +190,18 @@ class WC_Admin_Report {
 						$joins[ "parent_meta_{$key}" ] = "{$join_type} JOIN {$wpdb->postmeta} AS parent_meta_{$key} ON (posts.post_parent = parent_meta_{$key}.post_id) AND (parent_meta_{$key}.meta_key = '{$raw_key}')";
 						break;
 					case 'order_item_meta':
-						$joins['order_items'] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON (posts.ID = order_items.order_id)";
+						$joins['order_items'] = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON (posts.ID = order_items.order_id)";
 
 						if ( ! empty( $value['order_item_type'] ) ) {
 							$joins['order_items'] .= " AND (order_items.order_item_type = '{$value['order_item_type']}')";
 						}
 
-						$joins[ "order_item_meta_{$key}" ] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON " .
+						$joins[ "order_item_meta_{$key}" ] = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS order_item_meta_{$key} ON " .
 															"(order_items.order_item_id = order_item_meta_{$key}.order_item_id) " .
 															" AND (order_item_meta_{$key}.meta_key = '{$raw_key}')";
 						break;
 					case 'order_item':
-						$joins['order_items'] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
+						$joins['order_items'] = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
 						break;
 				}
 			}
@@ -217,8 +217,8 @@ class WC_Admin_Report {
 
 					if ( 'order_item_meta' === $type ) {
 
-						$joins['order_items']              = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
-						$joins[ "order_item_meta_{$key}" ] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON order_items.order_item_id = order_item_meta_{$key}.order_item_id";
+						$joins['order_items']              = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
+						$joins[ "order_item_meta_{$key}" ] = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS order_item_meta_{$key} ON order_items.order_item_id = order_item_meta_{$key}.order_item_id";
 
 					} else {
 						// If we have a where clause for meta, join the postmeta table.
@@ -361,7 +361,7 @@ class WC_Admin_Report {
 		 *
 		 * @since 2.1.0
 		 */
-		$query = apply_filters( 'woocommerce_reports_get_order_report_query', $query );
+		$query = apply_filters( 'poocommerce_reports_get_order_report_query', $query );
 		$query = implode( ' ', $query );
 
 		if ( $debug ) {
@@ -381,7 +381,7 @@ class WC_Admin_Report {
 			 *
 			 * @since 2.1.0
 			 */
-			$result = apply_filters( 'woocommerce_reports_get_order_report_data', $wpdb->$query_type( $query ), $data );
+			$result = apply_filters( 'poocommerce_reports_get_order_report_data', $wpdb->$query_type( $query ), $data );
 		} else {
 			$query_hash = md5( $query_type . $query );
 			$result     = $this->get_cached_query( $query_hash );
@@ -396,7 +396,7 @@ class WC_Admin_Report {
 				 *
 				 * @since 2.1.0
 				 */
-				$result = apply_filters( 'woocommerce_reports_get_order_report_data', $wpdb->$query_type( $query ), $data );
+				$result = apply_filters( 'poocommerce_reports_get_order_report_data', $wpdb->$query_type( $query ), $data );
 			}
 			$this->set_cached_query( $query_hash, $result );
 		}
@@ -666,10 +666,10 @@ class WC_Admin_Report {
 
 		if ( 'sales' === $type ) {
 			/* translators: 1: total income 2: days */
-			$tooltip = sprintf( __( 'Sold %1$s worth in the last %2$d days', 'woocommerce' ), wp_strip_all_tags( wc_price( $total ) ), $days );
+			$tooltip = sprintf( __( 'Sold %1$s worth in the last %2$d days', 'poocommerce' ), wp_strip_all_tags( wc_price( $total ) ), $days );
 		} else {
 			/* translators: 1: total items sold 2: days */
-			$tooltip = sprintf( _n( 'Sold %1$d item in the last %2$d days', 'Sold %1$d items in the last %2$d days', $total, 'woocommerce' ), $total, $days );
+			$tooltip = sprintf( _n( 'Sold %1$d item in the last %2$d days', 'Sold %1$d items in the last %2$d days', $total, 'poocommerce' ), $total, $days );
 		}
 
 		$sparkline_data = $sparkline['data'];
@@ -769,14 +769,14 @@ class WC_Admin_Report {
 	}
 
 	/**
-	 * Return currency tooltip JS based on WooCommerce currency position settings.
+	 * Return currency tooltip JS based on PooCommerce currency position settings.
 	 *
 	 * @return string
 	 */
 	public function get_currency_tooltip() {
-		$currency_symbol = get_woocommerce_currency_symbol();
+		$currency_symbol = get_poocommerce_currency_symbol();
 
-		switch ( get_option( 'woocommerce_currency_pos' ) ) {
+		switch ( get_option( 'poocommerce_currency_pos' ) ) {
 			case 'right':
 				$currency_tooltip = 'append_tooltip: ' . wp_json_encode( $currency_symbol, JSON_UNESCAPED_UNICODE );
 				break;
@@ -843,8 +843,8 @@ class WC_Admin_Report {
 			// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			wp_die(
 				/* translators: %1$s: open link, %2$s: close link */
-				sprintf( esc_html__( 'This report link has expired. %1$sClick here to view the filtered report%2$s.', 'woocommerce' ), '<a href="' . esc_url( wp_nonce_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ), 'custom_range', 'wc_reports_nonce' ) ) . '">', '</a>' ),
-				esc_attr__( 'Confirm navigation', 'woocommerce' )
+				sprintf( esc_html__( 'This report link has expired. %1$sClick here to view the filtered report%2$s.', 'poocommerce' ), '<a href="' . esc_url( wp_nonce_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ), 'custom_range', 'wc_reports_nonce' ) ) . '">', '</a>' ),
+				esc_attr__( 'Confirm navigation', 'poocommerce' )
 			);
 			// phpcs:enable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			exit;

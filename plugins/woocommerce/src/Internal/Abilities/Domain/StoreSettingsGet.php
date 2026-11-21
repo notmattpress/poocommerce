@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Enums\CurrencyPosition;
-use Automattic\WooCommerce\Enums\DimensionUnit;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\Enums\WeightUnit;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Enums\CurrencyPosition;
+use Automattic\PooCommerce\Enums\DimensionUnit;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Enums\WeightUnit;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class StoreSettingsGet implements AbilityDefinition {
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/store-settings-get';
+		return 'poocommerce/store-settings-get';
 	}
 
 	/**
@@ -38,9 +38,9 @@ class StoreSettingsGet implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Get store settings', 'woocommerce' ),
-			'description'         => __( 'Read store location, currency, units, tax, stock and checkout configuration. Fields whose WooCommerce settings are not opted into ability reads are omitted. For site identity use core/get-site-info.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Get store settings', 'poocommerce' ),
+			'description'         => __( 'Read store location, currency, units, tax, stock and checkout configuration. Fields whose PooCommerce settings are not opted into ability reads are omitted. For site identity use core/get-site-info.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'default'              => array(),
@@ -87,23 +87,23 @@ class StoreSettingsGet implements AbilityDefinition {
 
 		$readable = self::get_readable_settings();
 
-		// `woocommerce_default_country` stores country and state as "US:CA".
-		$country_parts = isset( $readable['woocommerce_default_country'] ) ? explode( ':', (string) get_option( 'woocommerce_default_country', '' ), 2 ) : null;
+		// `poocommerce_default_country` stores country and state as "US:CA".
+		$country_parts = isset( $readable['poocommerce_default_country'] ) ? explode( ':', (string) get_option( 'poocommerce_default_country', '' ), 2 ) : null;
 
 		$result = array(
 			'address'             => array(
 				'street'       => self::get_street( $readable ),
-				'city'         => isset( $readable['woocommerce_store_city'] ) ? (string) get_option( 'woocommerce_store_city', '' ) : null,
-				'postcode'     => isset( $readable['woocommerce_store_postcode'] ) ? (string) get_option( 'woocommerce_store_postcode', '' ) : null,
+				'city'         => isset( $readable['poocommerce_store_city'] ) ? (string) get_option( 'poocommerce_store_city', '' ) : null,
+				'postcode'     => isset( $readable['poocommerce_store_postcode'] ) ? (string) get_option( 'poocommerce_store_postcode', '' ) : null,
 				'country_code' => $country_parts[0] ?? null,
 				'state_code'   => null !== $country_parts ? $country_parts[1] ?? '' : null,
 			),
 			'units'               => array(
-				'dimension' => isset( $readable['woocommerce_dimension_unit'] ) ? (string) get_option( 'woocommerce_dimension_unit', DimensionUnit::CENTIMETER ) : null,
-				'weight'    => isset( $readable['woocommerce_weight_unit'] ) ? (string) get_option( 'woocommerce_weight_unit', WeightUnit::KILOGRAM ) : null,
+				'dimension' => isset( $readable['poocommerce_dimension_unit'] ) ? (string) get_option( 'poocommerce_dimension_unit', DimensionUnit::CENTIMETER ) : null,
+				'weight'    => isset( $readable['poocommerce_weight_unit'] ) ? (string) get_option( 'poocommerce_weight_unit', WeightUnit::KILOGRAM ) : null,
 			),
-			'selling_locations'   => isset( $readable['woocommerce_allowed_countries'] ) ? self::get_selling_locations( $readable ) : null,
-			'shipping_locations'  => isset( $readable['woocommerce_ship_to_countries'] ) ? self::get_shipping_locations( $readable ) : null,
+			'selling_locations'   => isset( $readable['poocommerce_allowed_countries'] ) ? self::get_selling_locations( $readable ) : null,
+			'shipping_locations'  => isset( $readable['poocommerce_ship_to_countries'] ) ? self::get_shipping_locations( $readable ) : null,
 			'currency'            => self::get_currency( $readable ),
 			'timezone'            => wp_timezone_string(),
 			'gmt_offset'          => (float) get_option( 'gmt_offset', 0 ),
@@ -111,23 +111,23 @@ class StoreSettingsGet implements AbilityDefinition {
 			'time_format'         => (string) get_option( 'time_format', '' ),
 			'start_of_week'       => (int) get_option( 'start_of_week', 0 ),
 			'tax'                 => array(
-				'prices_include_tax' => isset( $readable['woocommerce_prices_include_tax'] ) ? 'yes' === get_option( 'woocommerce_prices_include_tax', 'no' ) : null,
-				'display_in_shop'    => isset( $readable['woocommerce_tax_display_shop'] ) ? (string) get_option( 'woocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE ) : null,
-				'display_in_cart'    => isset( $readable['woocommerce_tax_display_cart'] ) ? (string) get_option( 'woocommerce_tax_display_cart', TaxDisplayMode::EXCLUSIVE ) : null,
+				'prices_include_tax' => isset( $readable['poocommerce_prices_include_tax'] ) ? 'yes' === get_option( 'poocommerce_prices_include_tax', 'no' ) : null,
+				'display_in_shop'    => isset( $readable['poocommerce_tax_display_shop'] ) ? (string) get_option( 'poocommerce_tax_display_shop', TaxDisplayMode::EXCLUSIVE ) : null,
+				'display_in_cart'    => isset( $readable['poocommerce_tax_display_cart'] ) ? (string) get_option( 'poocommerce_tax_display_cart', TaxDisplayMode::EXCLUSIVE ) : null,
 			),
 			'stock'               => array(
-				'manage_stock'            => isset( $readable['woocommerce_manage_stock'] ) ? 'yes' === get_option( 'woocommerce_manage_stock', 'yes' ) : null,
-				'low_stock_threshold'     => isset( $readable['woocommerce_notify_low_stock_amount'] ) ? (int) get_option( 'woocommerce_notify_low_stock_amount', 2 ) : null,
-				'hide_out_of_stock_items' => isset( $readable['woocommerce_hide_out_of_stock_items'] ) ? 'yes' === get_option( 'woocommerce_hide_out_of_stock_items', 'no' ) : null,
+				'manage_stock'            => isset( $readable['poocommerce_manage_stock'] ) ? 'yes' === get_option( 'poocommerce_manage_stock', 'yes' ) : null,
+				'low_stock_threshold'     => isset( $readable['poocommerce_notify_low_stock_amount'] ) ? (int) get_option( 'poocommerce_notify_low_stock_amount', 2 ) : null,
+				'hide_out_of_stock_items' => isset( $readable['poocommerce_hide_out_of_stock_items'] ) ? 'yes' === get_option( 'poocommerce_hide_out_of_stock_items', 'no' ) : null,
 			),
 			'capabilities'        => array(
-				'coupons_enabled'        => isset( $readable['woocommerce_enable_coupons'] ) ? 'yes' === get_option( 'woocommerce_enable_coupons', 'yes' ) : null,
-				'guest_checkout'         => isset( $readable['woocommerce_enable_guest_checkout'] ) ? 'yes' === get_option( 'woocommerce_enable_guest_checkout', 'yes' ) : null,
-				'review_ratings_enabled' => isset( $readable['woocommerce_enable_review_rating'] ) ? 'yes' === get_option( 'woocommerce_enable_review_rating', 'yes' ) : null,
+				'coupons_enabled'        => isset( $readable['poocommerce_enable_coupons'] ) ? 'yes' === get_option( 'poocommerce_enable_coupons', 'yes' ) : null,
+				'guest_checkout'         => isset( $readable['poocommerce_enable_guest_checkout'] ) ? 'yes' === get_option( 'poocommerce_enable_guest_checkout', 'yes' ) : null,
+				'review_ratings_enabled' => isset( $readable['poocommerce_enable_review_rating'] ) ? 'yes' === get_option( 'poocommerce_enable_review_rating', 'yes' ) : null,
 			),
 			'onboarding_profile'  => (object) self::get_onboarding_profile(),
-			'woocommerce_version' => WC_VERSION,
-			'installed_at'        => (int) get_option( 'woocommerce_admin_install_timestamp', 0 ),
+			'poocommerce_version' => WC_VERSION,
+			'installed_at'        => (int) get_option( 'poocommerce_admin_install_timestamp', 0 ),
 		);
 		foreach ( $result as $key => $value ) {
 			if ( is_array( $value ) ) {
@@ -153,7 +153,7 @@ class StoreSettingsGet implements AbilityDefinition {
 			 * @since 3.0.0
 			 * @param array $settings Registered settings.
 			 */
-			$settings = apply_filters( 'woocommerce_settings-' . $group, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			$settings = apply_filters( 'poocommerce_settings-' . $group, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			foreach ( is_array( $settings ) ? $settings : array() as $setting ) {
 				if ( is_array( $setting ) && is_string( $setting['id'] ?? null ) && is_array( $setting['abilities'] ?? null ) && true === ( $setting['abilities']['read'] ?? false ) && is_string( $setting['type'] ?? null ) && ! in_array( $setting['type'], array( 'password', 'title', 'sectionend' ), true ) ) {
 					$readable[ $setting['id'] ] = true;
@@ -171,7 +171,7 @@ class StoreSettingsGet implements AbilityDefinition {
 	 */
 	private static function get_street( array $readable ): ?string {
 		$lines = array();
-		foreach ( array( 'woocommerce_store_address', 'woocommerce_store_address_2' ) as $id ) {
+		foreach ( array( 'poocommerce_store_address', 'poocommerce_store_address_2' ) as $id ) {
 			if ( isset( $readable[ $id ] ) ) {
 				$lines[] = (string) get_option( $id, '' );
 			}
@@ -186,19 +186,19 @@ class StoreSettingsGet implements AbilityDefinition {
 	 * @return array<string, mixed>
 	 */
 	private static function get_selling_locations( array $readable ): array {
-		$scope = (string) get_option( 'woocommerce_allowed_countries', 'all' );
+		$scope = (string) get_option( 'poocommerce_allowed_countries', 'all' );
 
 		if ( 'specific' === $scope ) {
 			return array(
 				'scope'              => $scope,
-				'included_countries' => isset( $readable['woocommerce_specific_allowed_countries'] ) ? self::country_codes( get_option( 'woocommerce_specific_allowed_countries', array() ) ) : null,
+				'included_countries' => isset( $readable['poocommerce_specific_allowed_countries'] ) ? self::country_codes( get_option( 'poocommerce_specific_allowed_countries', array() ) ) : null,
 			);
 		}
 
 		if ( 'all_except' === $scope ) {
 			return array(
 				'scope'              => $scope,
-				'excluded_countries' => isset( $readable['woocommerce_all_except_countries'] ) ? self::country_codes( get_option( 'woocommerce_all_except_countries', array() ) ) : null,
+				'excluded_countries' => isset( $readable['poocommerce_all_except_countries'] ) ? self::country_codes( get_option( 'poocommerce_all_except_countries', array() ) ) : null,
 			);
 		}
 
@@ -212,12 +212,12 @@ class StoreSettingsGet implements AbilityDefinition {
 	 * @return array<string, mixed>
 	 */
 	private static function get_shipping_locations( array $readable ): array {
-		$scope = (string) get_option( 'woocommerce_ship_to_countries', '' );
+		$scope = (string) get_option( 'poocommerce_ship_to_countries', '' );
 
 		if ( 'specific' === $scope ) {
 			return array(
 				'scope'              => $scope,
-				'included_countries' => isset( $readable['woocommerce_specific_ship_to_countries'] ) ? self::country_codes( get_option( 'woocommerce_specific_ship_to_countries', array() ) ) : null,
+				'included_countries' => isset( $readable['poocommerce_specific_ship_to_countries'] ) ? self::country_codes( get_option( 'poocommerce_specific_ship_to_countries', array() ) ) : null,
 			);
 		}
 
@@ -246,14 +246,14 @@ class StoreSettingsGet implements AbilityDefinition {
 	 */
 	private static function get_currency( array $readable ): array {
 		return array(
-			'code'               => isset( $readable['woocommerce_currency'] ) ? get_woocommerce_currency() : null,
-			// WooCommerce stores the symbol as an HTML entity; the agent reads it as text.
-			'symbol'             => isset( $readable['woocommerce_currency'] ) ? html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ) : null,
-			'precision'          => isset( $readable['woocommerce_price_num_decimals'] ) ? wc_get_price_decimals() : null,
-			'symbol_position'    => isset( $readable['woocommerce_currency_pos'] ) ? (string) get_option( 'woocommerce_currency_pos', CurrencyPosition::LEFT ) : null,
-			'decimal_separator'  => isset( $readable['woocommerce_price_decimal_sep'] ) ? wc_get_price_decimal_separator() : null,
-			'thousand_separator' => isset( $readable['woocommerce_price_thousand_sep'] ) ? wc_get_price_thousand_separator() : null,
-			'price_format'       => isset( $readable['woocommerce_currency_pos'] ) ? get_woocommerce_price_format() : null,
+			'code'               => isset( $readable['poocommerce_currency'] ) ? get_poocommerce_currency() : null,
+			// PooCommerce stores the symbol as an HTML entity; the agent reads it as text.
+			'symbol'             => isset( $readable['poocommerce_currency'] ) ? html_entity_decode( get_poocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ) : null,
+			'precision'          => isset( $readable['poocommerce_price_num_decimals'] ) ? wc_get_price_decimals() : null,
+			'symbol_position'    => isset( $readable['poocommerce_currency_pos'] ) ? (string) get_option( 'poocommerce_currency_pos', CurrencyPosition::LEFT ) : null,
+			'decimal_separator'  => isset( $readable['poocommerce_price_decimal_sep'] ) ? wc_get_price_decimal_separator() : null,
+			'thousand_separator' => isset( $readable['poocommerce_price_thousand_sep'] ) ? wc_get_price_thousand_separator() : null,
+			'price_format'       => isset( $readable['poocommerce_currency_pos'] ) ? get_poocommerce_price_format() : null,
 		);
 	}
 
@@ -316,7 +316,7 @@ class StoreSettingsGet implements AbilityDefinition {
 	 * @return array
 	 */
 	private static function get_onboarding_profile(): array {
-		$profile = get_option( 'woocommerce_onboarding_profile', array() );
+		$profile = get_option( 'poocommerce_onboarding_profile', array() );
 		$result  = array();
 		foreach ( self::get_onboarding_schema()['properties'] as $key => $schema ) {
 			if ( is_array( $profile ) && array_key_exists( $key, $profile ) && true === rest_validate_value_from_schema( $profile[ $key ], $schema ) ) {
@@ -455,7 +455,7 @@ class StoreSettingsGet implements AbilityDefinition {
 					),
 					'additionalProperties' => false,
 				),
-				'woocommerce_version' => array(
+				'poocommerce_version' => array(
 					'type' => 'string',
 				),
 				'installed_at'        => array(

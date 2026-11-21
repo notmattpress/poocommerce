@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, ProductTemplate } from '@woocommerce/e2e-utils';
+import { test as base, expect, ProductTemplate } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { test as base, expect, ProductTemplate } from '@woocommerce/e2e-utils';
 
 import { ProductGalleryPage } from '../../product-gallery.page';
 const blockData = {
-	name: 'woocommerce/product-gallery-large-image',
+	name: 'poocommerce/product-gallery-large-image',
 	selectors: {
 		frontend: {},
 		editor: {},

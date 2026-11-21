@@ -44,7 +44,7 @@ export const ShoppingChecklist = ( {
 	checklist: Checklist;
 } ) => {
 	const [ open, setOpen ] = useState( false );
-	const issue = __( 'Issue:', 'woocommerce' );
+	const issue = __( 'Issue:', 'poocommerce' );
 
 	return (
 		<div className="wc-ai-shopping-checklist">
@@ -105,7 +105,7 @@ export const ShoppingChecklist = ( {
 									key={ step.id }
 									done
 									title={ step.title }
-									srState={ __( 'Passed:', 'woocommerce' ) }
+									srState={ __( 'Passed:', 'poocommerce' ) }
 								>
 									<Text
 										variant="body-sm"

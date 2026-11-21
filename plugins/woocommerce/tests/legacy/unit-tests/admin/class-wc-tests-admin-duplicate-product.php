@@ -2,15 +2,15 @@
 /**
  * Unit tests for the admin product duplication class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * WC_Tests_Admin_Duplicate_Product tests.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  * @since 3.9.0
  */
 class WC_Tests_Admin_Duplicate_Product extends WC_Unit_Test_Case {

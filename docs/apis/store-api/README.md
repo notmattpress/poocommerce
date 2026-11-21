@@ -4,11 +4,11 @@ category_slug: store-api
 post_title: Store API
 ---
 
-# WooCommerce Store API
+# PooCommerce Store API
 
 **The Store API provides public Rest API endpoints for the development of customer-facing cart, checkout, and product functionality. It follows many of the patterns used in the [WordPress REST API](https://developer.wordpress.org/rest-api/key-concepts/).**
 
-In contrast to the WooCommerce REST API, the Store API is unauthenticated and does not provide access to sensitive store data or other customer information.
+In contrast to the PooCommerce REST API, the Store API is unauthenticated and does not provide access to sensitive store data or other customer information.
 
 Example of a valid API request using cURL:
 
@@ -27,7 +27,7 @@ Possible uses of the Store API include:
 
 * This is an unauthenticated API. It does not require API keys or authentication tokens for access.
 * All API responses return JSON-formatted data.
-* Data returned from the API is reflective of the current user (customer). Customer sessions in WooCommerce are cookie-based.
+* Data returned from the API is reflective of the current user (customer). Customer sessions in PooCommerce are cookie-based.
 * Store API cannot be used to look up other customers and orders by ID; only data belonging to the current user.
 * Likewise, Store API cannot be used to write store data e.g. settings. For more extensive access, use the authenticated [WC REST API.](/docs/apis/rest-api/)
 * Endpoints that do allow writes, for example, updating the current customer address, require a [nonce-token](https://developer.wordpress.org/plugins/security/nonces/).
@@ -132,7 +132,7 @@ There are 3 main parts to each route in the Store API:
 
 1. Route - Responsible for mapping requests to endpoints. Routes in the Store API extend the `AbstractRoute` class; this class contains shared functionality for handling requests and returning JSON responses. Routes ensure a valid response is returned and handle collections, errors, and pagination.
 2. Schema - Routes do not format resources. Instead we use _Schema_ classes that represent each type of resource, for example, a Product, a Cart, or a Cart Item. Schema classes in the Store API should extend the `AbstractSchema` class.
-3. Utility - In more advanced cases where the Store API needs to access complex data from WooCommerce core, or where multiple routes need access to the same data, routes should use a Controller or Utility class. For example, the Store API has an Order Controller and a Cart Controller for looking up order and cart data respectfully.
+3. Utility - In more advanced cases where the Store API needs to access complex data from PooCommerce core, or where multiple routes need access to the same data, routes should use a Controller or Utility class. For example, the Store API has an Order Controller and a Cart Controller for looking up order and cart data respectfully.
 
 Typically, routes handle the following types of requests:
 
@@ -166,7 +166,7 @@ If you're looking to add _new routes and endpoints_, rather than extending the S
 
 ### Accessing the customer's cart from a custom route
 
-WooCommerce doesn't load the cart for REST requests outside the Store API, so `WC()->cart` is `null` in a route registered with `register_rest_route()`. Load it in your callback before using it:
+PooCommerce doesn't load the cart for REST requests outside the Store API, so `WC()->cart` is `null` in a route registered with `register_rest_route()`. Load it in your callback before using it:
 
 ```php
 add_action(
@@ -186,7 +186,7 @@ add_action(
 				},
 				'callback'            => function () {
 					if ( ! function_exists( 'wc_load_cart' ) ) {
-						return new WP_Error( 'cart_unavailable', 'WooCommerce is not active.', array( 'status' => 503 ) );
+						return new WP_Error( 'cart_unavailable', 'PooCommerce is not active.', array( 'status' => 503 ) );
 					}
 
 					wc_load_cart();

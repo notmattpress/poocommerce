@@ -2,12 +2,12 @@
 /**
  * ValidationErrorCode - the stable reasons a validation error reports.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Support;
 
 defined( 'ABSPATH' ) || exit;
 

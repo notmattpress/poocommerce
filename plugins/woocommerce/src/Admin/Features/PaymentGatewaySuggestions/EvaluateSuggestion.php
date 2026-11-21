@@ -3,11 +3,11 @@
  * Evaluates the spec and returns a status.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
+namespace Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 /**
  * Evaluates the spec and returns the evaluated suggestion.

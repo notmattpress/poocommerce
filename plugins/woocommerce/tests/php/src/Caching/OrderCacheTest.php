@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Helper_Order;
 
 /**
@@ -147,7 +147,7 @@ class OrderCacheTest extends \WC_Unit_Test_Case {
 		$clone->save();
 		$clone->save();
 
-		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = %d AND meta_key = 'test'", $item->get_id() ) );
+		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$wpdb->prefix}poocommerce_order_itemmeta WHERE order_item_id = %d AND meta_key = 'test'", $item->get_id() ) );
 		$this->assertCount( 1, $rows );
 		$this->assertSame( (string) $meta_id, $rows[0]->meta_id );
 		$this->assertSame( 'clone', $rows[0]->meta_value );

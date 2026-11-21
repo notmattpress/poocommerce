@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 
@@ -12,7 +12,7 @@ use WC_Helper_Product;
 class ProductButton extends \WP_UnitTestCase {
 
 	/**
-	 * Previous WooCommerce options to restore after each test.
+	 * Previous PooCommerce options to restore after each test.
 	 *
 	 * @var array<string, mixed>
 	 */
@@ -24,14 +24,14 @@ class ProductButton extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		foreach ( array( 'woocommerce_cart_redirect_after_add', 'woocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
+		foreach ( array( 'poocommerce_cart_redirect_after_add', 'poocommerce_enable_ajax_add_to_cart' ) as $option_name ) {
 			$this->previous_options[ $option_name ] = get_option( $option_name, null );
 			update_option( $option_name, 'no' );
 		}
 	}
 
 	/**
-	 * Restore test options and remove the published `woocommerce` state, which the base class does not reset.
+	 * Restore test options and remove the published `poocommerce` state, which the base class does not reset.
 	 */
 	protected function tearDown(): void {
 		try {
@@ -47,7 +47,7 @@ class ProductButton extends \WP_UnitTestCase {
 			$property      = new \ReflectionProperty( $interactivity, 'state_data' );
 			$property->setAccessible( true );
 			$state_data = $property->getValue( $interactivity );
-			unset( $state_data['woocommerce'] );
+			unset( $state_data['poocommerce'] );
 			$property->setValue( $interactivity, $state_data );
 		} finally {
 			parent::tearDown();
@@ -62,7 +62,7 @@ class ProductButton extends \WP_UnitTestCase {
 	 */
 	private function render_product_button( \WC_Product $product ): string {
 		return do_blocks(
-			'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} --><div class="product-button-test-wrapper"><!-- wp:woocommerce/product-button /--></div><!-- /wp:woocommerce/single-product -->'
+			'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} --><div class="product-button-test-wrapper"><!-- wp:poocommerce/product-button /--></div><!-- /wp:poocommerce/single-product -->'
 		);
 	}
 
@@ -88,11 +88,11 @@ class ProductButton extends \WP_UnitTestCase {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertIsArray( $filtered_args );
@@ -129,10 +129,10 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @param string $expected Expected aria-label.
 	 */
 	public function test_ajax_button_aria_label_starts_with_button_text( int $quantity, string $expected ): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Beanie' ) );
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'cart' => array(
 					'items' => array(
@@ -154,10 +154,10 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @testdox AJAX button aria-label replaces only the first placeholder when product name contains placeholder characters.
 	 */
 	public function test_ajax_button_aria_label_replaces_only_first_placeholder(): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Box ### Special' ) );
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'cart' => array(
 					'items' => array(
@@ -179,18 +179,18 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @testdox Labels that become empty after sanitization are omitted.
 	 */
 	public function test_product_button_omits_aria_label_when_sanitization_results_in_empty(): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', 'yes' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', 'yes' );
 		$product = WC_Helper_Product::create_simple_product();
 		$filter  = static function ( array $args ): array {
 			$args['attributes']['aria-label'] = '<em></em>';
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$markup = $this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$processor = new \WP_HTML_Tag_Processor( $markup );
@@ -228,17 +228,17 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @param bool $ajax_enabled Whether AJAX add to cart is enabled.
 	 */
 	public function test_product_button_uses_minimum_purchase_quantity( bool $ajax_enabled ): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', $ajax_enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', $ajax_enabled ? 'yes' : 'no' );
 		$product = WC_Helper_Product::create_simple_product();
 		$filter  = static function () {
 			return 10;
 		};
 
-		add_filter( 'woocommerce_quantity_input_min', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $filter );
 		try {
 			$markup = $this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $filter );
 		}
 
 		$this->assertSame( 10, $this->get_quantity_to_add( $markup ), 'The button context should use the minimum purchase quantity.' );
@@ -263,11 +263,11 @@ class ProductButton extends \WP_UnitTestCase {
 			return 10;
 		};
 
-		add_filter( 'woocommerce_quantity_input_min', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $filter );
 		try {
 			$markup = $this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $filter );
 		}
 
 		$this->assertSame( 1, $this->get_quantity_to_add( $markup ), 'Sold-individually products should still add one item.' );
@@ -281,7 +281,7 @@ class ProductButton extends \WP_UnitTestCase {
 	 * @param bool $ajax_enabled Whether AJAX is enabled.
 	 */
 	public function test_loop_add_to_cart_args_sets_initial_quantity( bool $ajax_enabled ): void {
-		update_option( 'woocommerce_enable_ajax_add_to_cart', $ajax_enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_enable_ajax_add_to_cart', $ajax_enabled ? 'yes' : 'no' );
 		$product = WC_Helper_Product::create_simple_product();
 		$minimum = static fn() => 10;
 		$filter  = static function ( $args ) {
@@ -289,13 +289,13 @@ class ProductButton extends \WP_UnitTestCase {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$markup = $this->render_product_button( $product );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertSame( 30, $this->get_quantity_to_add( $markup ) );
@@ -337,8 +337,8 @@ class ProductButton extends \WP_UnitTestCase {
 			$args['quantity'] = 10;
 			return $args;
 		};
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
-		add_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
 		try {
 			$markup = $this->render_product_button( $product );
 			$this->assertSame( 30, $this->get_quantity_to_add( $markup ) );
@@ -346,20 +346,20 @@ class ProductButton extends \WP_UnitTestCase {
 			$this->assertStringContainsString( 'aria-label="Add 30 to cart:', $markup );
 			$this->assertStringContainsString( 'quantity=30', $markup );
 
-			$grid = do_blocks( '<!-- wp:woocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
+			$grid = do_blocks( '<!-- wp:poocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
 			$this->assertStringContainsString( 'data-quantity="30"', $grid );
 			$this->assertStringContainsString( '>Add 30 to cart</a>', $grid );
 			$this->assertStringContainsString( 'quantity=30', $grid );
 
-			add_filter( 'woocommerce_loop_add_to_cart_args', $args_filter );
+			add_filter( 'poocommerce_loop_add_to_cart_args', $args_filter );
 			$markup = $this->render_product_button( $product );
 			$this->assertSame( 10, $this->get_quantity_to_add( $markup ) );
 			$this->assertStringContainsString( '>Add 10 to cart</span>', $markup );
 			$this->assertStringContainsString( 'quantity=10', $markup );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
-			remove_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $args_filter );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $args_filter );
 		}
 	}
 
@@ -369,21 +369,21 @@ class ProductButton extends \WP_UnitTestCase {
 	public function test_form_button_retains_description(): void {
 		$product = WC_Helper_Product::create_simple_product();
 		$minimum = static fn() => 10;
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
 		try {
 			$block  = new \WP_Block(
 				array(
-					'blockName' => 'woocommerce/product-button',
+					'blockName' => 'poocommerce/product-button',
 					'attrs'     => array(),
 				),
 				array(
 					'postId' => $product->get_id(),
-					'woocommerce/isDescendantOfAddToCartWithOptions' => true,
+					'poocommerce/isDescendantOfAddToCartWithOptions' => true,
 				)
 			);
 			$markup = $block->render();
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
 		}
 		$this->assertStringContainsString( '>Add to cart</span>', $markup );
 		$this->assertStringContainsString( 'Add to cart:', $this->get_button_aria_label( $markup ) );
@@ -404,13 +404,13 @@ class ProductButton extends \WP_UnitTestCase {
 			$filtered_quantity = $attributes['data-quantity'];
 			return $attributes;
 		};
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
-		add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
 		try {
-			$markup = do_blocks( '<!-- wp:woocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
+			$markup = do_blocks( '<!-- wp:poocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
-			remove_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
 		}
 
 		$this->assertSame( (string) $quantity, $filtered_quantity, 'The public grid attribute filter must receive a string quantity.' );
@@ -430,15 +430,15 @@ class ProductButton extends \WP_UnitTestCase {
 			$attributes['data-quantity'] = $quantity;
 			return $attributes;
 		};
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
 		if ( 30 === $quantity ) {
-			add_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
+			add_filter( 'poocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
 		}
 		try {
-			$markup = do_blocks( '<!-- wp:woocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
+			$markup = do_blocks( '<!-- wp:poocommerce/handpicked-products {"products":[' . $product->get_id() . ']} /-->' );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
-			remove_filter( 'woocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_blocks_product_grid_add_to_cart_attributes', $filter );
 		}
 		$this->assertStringContainsString( 'data-quantity="' . $quantity . '"', $markup );
 		$this->assertStringContainsString( '>Add ' . $quantity . ' to cart</a>', $markup );

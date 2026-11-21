@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, useEffect } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { Slot, Fill } from '@wordpress/components';
 
 /**
@@ -26,8 +26,8 @@ export const trackView = async ( taskId: string, variant?: string ) => {
 	recordEvent( 'task_view', {
 		task_name: taskId,
 		variant,
-		wcs_installed: installedPlugins.includes( 'woocommerce-services' ),
-		wcs_active: activePlugins.includes( 'woocommerce-services' ),
+		wcs_installed: installedPlugins.includes( 'poocommerce-services' ),
+		wcs_active: activePlugins.includes( 'poocommerce-services' ),
 		jetpack_installed: installedPlugins.includes( 'jetpack' ),
 		jetpack_active: activePlugins.includes( 'jetpack' ),
 		jetpack_connected: isJetpackConnected,
@@ -49,14 +49,14 @@ type WooOnboardingTaskSlotProps = {
  * A Fill for adding Onboarding tasks.
  *
  * @slotFill WooOnboardingTask
- * @scope woocommerce-tasks
+ * @scope poocommerce-tasks
  * @param {Object} props           React props.
  * @param {string} [props.variant] The variant of the task.
  * @param {Object} props.children  React component children
  * @param {string} props.id        Task id.
  */
 const WooOnboardingTask = ( { id, ...props }: WooOnboardingTaskProps ) => {
-	return <Fill name={ 'woocommerce_onboarding_task_' + id } { ...props } />;
+	return <Fill name={ 'poocommerce_onboarding_task_' + id } { ...props } />;
 };
 
 WooOnboardingTask.Slot = ( { id, fillProps }: WooOnboardingTaskSlotProps ) => {
@@ -68,7 +68,7 @@ WooOnboardingTask.Slot = ( { id, fillProps }: WooOnboardingTaskSlotProps ) => {
 
 	return (
 		<Slot
-			name={ 'woocommerce_onboarding_task_' + id }
+			name={ 'poocommerce_onboarding_task_' + id }
 			fillProps={ fillProps }
 		/>
 	);

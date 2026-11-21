@@ -6,9 +6,9 @@ category_slug: order-fulfillments
 
 # Order fulfillments
 
-Order fulfillments add a first-class fulfillment record to WooCommerce orders. A single order can have multiple fulfillment records, each with its own status, item allocations, tracking information, and customer notification flow.
+Order fulfillments add a first-class fulfillment record to PooCommerce orders. A single order can have multiple fulfillment records, each with its own status, item allocations, tracking information, and customer notification flow.
 
-This feature is intended for developers who need to create, update, read, or extend fulfillment data from custom code, integrations, or admin tooling. WooCommerce exposes order fulfillments through a dedicated data store, REST API controllers, custom database tables, and WordPress hooks.
+This feature is intended for developers who need to create, update, read, or extend fulfillment data from custom code, integrations, or admin tooling. PooCommerce exposes order fulfillments through a dedicated data store, REST API controllers, custom database tables, and WordPress hooks.
 
 ## Architecture overview
 
@@ -20,12 +20,12 @@ The fulfillment system is built with several key components working together to 
 - **Fulfillment**: The main data object representing a fulfillment with methods for accessing and modifying fulfillment state.
 - **FulfillmentsDataStore**: Data persistence layer that handles reading and writing fulfillment data to the custom database tables.
 - **FulfillmentUtils**: Static helpers for the provider registry, the status vocabularies, provider display labels, and tracking number validation.
-- **FulfillmentsSettings**: Handles WooCommerce settings integration including auto-fulfill options and the shipping providers admin page.
+- **FulfillmentsSettings**: Handles PooCommerce settings integration including auto-fulfill options and the shipping providers admin page.
 - **OrderFulfillmentsRestController**: REST API endpoints for v3 order-scoped routes, allowing client access to fulfillments under the `/wp-json/wc/v3/orders/{order_id}/fulfillments` namespace. See the [order fulfillments REST API reference](/docs/apis/rest-api/v3/order-fulfillments) for endpoints, request bodies, and error responses.
 
 ### Frontend components
 
-- **React-based UI**: Modern interface built with WordPress components used by the WooCommerce admin and order details pages.
+- **React-based UI**: Modern interface built with WordPress components used by the PooCommerce admin and order details pages.
 - **WP Data Store**: State management for fulfillment data using the WordPress data API, available under the `order/fulfillments` namespace.
 
 ## Enable the feature
@@ -35,10 +35,10 @@ The fulfillments data store, database tables, and REST routes are only registere
 For local development, the simplest way to enable it is with WP-CLI:
 
 ```bash
-wp option update woocommerce_feature_fulfillments_enabled yes
+wp option update poocommerce_feature_fulfillments_enabled yes
 ```
 
-When the feature initializes, WooCommerce registers the `order-fulfillment` data store, creates the fulfillment tables if they do not already exist, and exposes the REST API endpoints used by the WooCommerce admin and customer-facing order views.
+When the feature initializes, PooCommerce registers the `order-fulfillment` data store, creates the fulfillment tables if they do not already exist, and exposes the REST API endpoints used by the PooCommerce admin and customer-facing order views.
 
 ## Data model
 
@@ -84,7 +84,7 @@ The metadata table itself has these columns:
 | `date_updated` | Last update timestamp. |
 | `date_deleted` | Soft-delete timestamp. Adding, updating, or deleting metadata on a soft-deleted fulfillment throws an exception. |
 
-The `Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment` object wraps these values with helper methods such as `get_items()`, `set_items()`, `get_tracking_number()`, and `set_tracking_url()`.
+The `Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment` object wraps these values with helper methods such as `get_items()`, `set_items()`, `get_tracking_number()`, and `set_tracking_url()`.
 
 ### Statuses
 
@@ -92,8 +92,8 @@ Fulfillment records and orders use separate status vocabularies.
 
 | Scope | Default statuses | Filter |
 | --- | --- | --- |
-| Fulfillment record | `unfulfilled`, `fulfilled` | `woocommerce_fulfillment_fulfillment_statuses` |
-| Order | `unfulfilled`, `partially_fulfilled`, `fulfilled` | `woocommerce_fulfillment_order_fulfillment_statuses` |
+| Fulfillment record | `unfulfilled`, `fulfilled` | `poocommerce_fulfillment_fulfillment_statuses` |
+| Order | `unfulfilled`, `partially_fulfilled`, `fulfilled` | `poocommerce_fulfillment_order_fulfillment_statuses` |
 
 Each entry is keyed by the status slug and holds a `label`, `background_color`, and `text_color`. Fulfillment record statuses also carry `is_fulfilled`, which is what fills the `is_fulfilled` column.
 
@@ -101,7 +101,7 @@ Each entry is keyed by the status slug and holds a `label`, `background_color`, 
 
 ### Fulfillment
 
-The main data object representing a fulfillment. The `Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment` class extends `WC_Data` and wraps fulfillment record values with helper methods.
+The main data object representing a fulfillment. The `Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment` class extends `WC_Data` and wraps fulfillment record values with helper methods.
 
 #### Core methods
 
@@ -141,7 +141,7 @@ The items array contains objects with at least `item_id` (the order line item ID
 - `get_lock_message()`: Get lock message
 - `set_locked( $locked, $message )`: Set lock status and optional message
 
-**What locking means**: A locked fulfillment cannot be edited by merchants through the WooCommerce admin UI. Extensions use locking to communicate that a fulfillment is being managed externally and should not be modified manually. Common use cases include:
+**What locking means**: A locked fulfillment cannot be edited by merchants through the PooCommerce admin UI. Extensions use locking to communicate that a fulfillment is being managed externally and should not be modified manually. Common use cases include:
 
 - Marking fulfillments created or updated automatically by a 3rd-party shipping integration as read-only.
 - Preventing further edits once a fulfillment has been handed off to a carrier and confirmed.
@@ -191,14 +191,14 @@ The Fulfillment class inherits standard WC_Data metadata methods:
 - `set_meta_data( $data )`: Set all metadata from array
 - `save_meta_data()`: Save metadata changes to database
 
-**Private vs public metadata**: Metadata keys prefixed with an underscore (`_`) are considered private/internal and are not displayed in the admin UI. Keys without an underscore prefix are treated as public metadata and are shown to the merchant in the fulfillment section below the tracking number field. The label for public keys can be customized using the `woocommerce_fulfillment_meta_key_translations` and `woocommerce_fulfillment_translate_meta_key` filters.
+**Private vs public metadata**: Metadata keys prefixed with an underscore (`_`) are considered private/internal and are not displayed in the admin UI. Keys without an underscore prefix are treated as public metadata and are shown to the merchant in the fulfillment section below the tracking number field. The label for public keys can be customized using the `poocommerce_fulfillment_meta_key_translations` and `poocommerce_fulfillment_translate_meta_key` filters.
 
 #### Usage examples
 
 **Creating a new fulfillment:**
 
 ```php
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
 
 $fulfillment = new Fulfillment();
 $fulfillment->set_entity_type( WC_Order::class );
@@ -292,14 +292,14 @@ To extend fulfillment functionality, you can register custom shipping providers 
 
 #### Option 1: Via the admin UI
 
-Navigate to **WooCommerce → Settings → Shipping → Shipping providers** to add a provider name, icon, and tracking URL template through the admin interface. Providers added this way appear immediately in the fulfillment tracking provider selector. They are stored as terms in the `wc_fulfillment_shipping_provider` taxonomy, with the icon and tracking URL template in the `icon` and `tracking_url_template` term meta.
+Navigate to **PooCommerce → Settings → Shipping → Shipping providers** to add a provider name, icon, and tracking URL template through the admin interface. Providers added this way appear immediately in the fulfillment tracking provider selector. They are stored as terms in the `wc_fulfillment_shipping_provider` taxonomy, with the icon and tracking URL template in the `icon` and `tracking_url_template` term meta.
 
 > **Note**: Providers added through the UI do not support automatic tracking number parsing. If you need to detect a specific tracking number format and auto-select the correct provider, you must register the provider in code (Option 2) and implement `try_parse_tracking_number()`.
 
 #### Option 2: Via code (supports tracking number parsing)
 
 ```php
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\AbstractShippingProvider;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\AbstractShippingProvider;
 
 class My_Custom_Shipping_Provider extends AbstractShippingProvider {
     public function get_key(): string {
@@ -342,7 +342,7 @@ class My_Custom_Shipping_Provider extends AbstractShippingProvider {
 }
 
 // Register your custom shipping provider.
-add_filter( 'woocommerce_fulfillment_shipping_providers', function( $providers ) {
+add_filter( 'poocommerce_fulfillment_shipping_providers', function( $providers ) {
     $providers[] = My_Custom_Shipping_Provider::class;
     return $providers;
 } );
@@ -350,11 +350,11 @@ add_filter( 'woocommerce_fulfillment_shipping_providers', function( $providers )
 
 `AbstractShippingProvider` also provides `can_ship_from()`, `can_ship_to()`, and `can_ship_from_to()`, which the built-in providers check before parsing so that a tracking number only matches on routes the carrier serves. They read the two country lists above, which default to empty arrays, so `can_ship_from_to()` returns `false` until you override them.
 
-WooCommerce fills this filter itself, adding the built-in providers at priority 10 and the providers added through the admin UI at priority 20. Both callbacks merge into the array they receive, so a callback at the default priority sees the built-in list and can append to it.
+PooCommerce fills this filter itself, adding the built-in providers at priority 10 and the providers added through the admin UI at priority 20. Both callbacks merge into the array they receive, so a callback at the default priority sees the built-in list and can append to it.
 
 ## Frontend integration
 
-The WooCommerce admin uses a WordPress data store for state management of fulfillment data. You can access and interact with fulfillments from React components using the standard WordPress data API.
+The PooCommerce admin uses a WordPress data store for state management of fulfillment data. You can access and interact with fulfillments from React components using the standard WordPress data API.
 
 ### Data store
 
@@ -406,6 +406,6 @@ Use the [hooks reference](./hooks.md) for lifecycle filters, notification action
 
 ## Shipping providers and tracking lookups
 
-WooCommerce ships with a provider registry that powers the admin UI and tracking link generation. Developers can extend that registry with filters (see [Custom shipping provider](#custom-shipping-provider) above) or through the **WooCommerce → Settings → Shipping → Shipping providers** admin page.
+PooCommerce ships with a provider registry that powers the admin UI and tracking link generation. Developers can extend that registry with filters (see [Custom shipping provider](#custom-shipping-provider) above) or through the **PooCommerce → Settings → Shipping → Shipping providers** admin page.
 
-The feature also exposes a tracking lookup route that runs the `woocommerce_fulfillment_parse_tracking_number` filter with the store base country and the order shipping country. That makes it possible to normalize tracking numbers or infer the correct provider without modifying the REST controller.
+The feature also exposes a tracking lookup route that runs the `poocommerce_fulfillment_parse_tracking_number` filter with the store base country and the order shipping country. That makes it possible to normalize tracking numbers or infer the correct provider without modifying the REST controller.

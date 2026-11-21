@@ -2,16 +2,16 @@
 /**
  * Webflow Mapper Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
-use Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures\MockWebflowData;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow\WebflowMapper;
+use Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow\Fixtures\MockWebflowData;
 
 require_once __DIR__ . '/Fixtures/MockWebflowData.php';
 
@@ -162,7 +162,7 @@ class WebflowMapperTest extends \WC_Unit_Test_Case {
 	 * Test SKU passes through and weight is converted to the store unit.
 	 */
 	public function test_simple_product_sku_and_weight(): void {
-		update_option( 'woocommerce_weight_unit', 'kg' );
+		update_option( 'poocommerce_weight_unit', 'kg' );
 
 		$result = $this->mapper->map_product_data( MockWebflowData::simple_product_item() );
 

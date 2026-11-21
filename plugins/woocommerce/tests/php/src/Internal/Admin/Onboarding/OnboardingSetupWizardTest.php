@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingSetupWizard;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingSetupWizard;
 use RuntimeException;
 use WC_Unit_Test_Case;
 use WPDieException;
@@ -14,7 +14,7 @@ use WPDieException;
  */
 class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 
-	private const ACTION = 'woocommerce_skip_onboarding_setup';
+	private const ACTION = 'poocommerce_skip_onboarding_setup';
 
 	/**
 	 * The System Under Test.
@@ -70,7 +70,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 	 * @testdox The production singleton handles only the authenticated skip action.
 	 */
 	public function test_registers_authenticated_skip_action_only(): void {
-		$callback = array( $this->sut, 'handle_admin_post_woocommerce_skip_onboarding_setup' );
+		$callback = array( $this->sut, 'handle_admin_post_poocommerce_skip_onboarding_setup' );
 		set_current_screen( 'dashboard' );
 		$this->sut->init();
 
@@ -213,7 +213,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A valid request persists only the skipped flag and confirms it with links to Site Health and WooCommerce Home.
+	 * @testdox A valid request persists only the skipped flag and confirms it with links to Site Health and PooCommerce Home.
 	 *
 	 * @dataProvider data_provider_test_valid_request_persists_skipped_and_confirms
 	 *
@@ -227,27 +227,27 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 		$observe_rest_update = static function () use ( &$rest_update_actions ): void {
 			++$rest_update_actions;
 		};
-		add_action( 'woocommerce_onboarding_profile_data_updated', $observe_rest_update, 10, 0 );
+		add_action( 'poocommerce_onboarding_profile_data_updated', $observe_rest_update, 10, 0 );
 
 		try {
 			$response = $this->dispatch_request();
 		} finally {
-			remove_action( 'woocommerce_onboarding_profile_data_updated', $observe_rest_update, 10 );
+			remove_action( 'poocommerce_onboarding_profile_data_updated', $observe_rest_update, 10 );
 		}
 		$stored = get_option( OnboardingProfile::DATA_OPTION );
 
 		$page = $response->getMessage();
 		$this->assertSame( 200, $response->getCode(), 'A successful fallback should answer with HTTP 200.' );
-		$this->assertStringStartsWith( '<h1>WooCommerce setup skipped</h1><p>Your choice to skip setup is saved.', $page, 'The confirmation should open with its heading and say the skip is saved.' );
+		$this->assertStringStartsWith( '<h1>PooCommerce setup skipped</h1><p>Your choice to skip setup is saved.', $page, 'The confirmation should open with its heading and say the skip is saved.' );
 		$this->assertStringContainsString(
-			'<p>If WooCommerce screens keep failing to load, check <a href="' . esc_url( admin_url( 'site-health.php' ) ) . '">Site Health</a> for problems with the REST API.</p>',
+			'<p>If PooCommerce screens keep failing to load, check <a href="' . esc_url( admin_url( 'site-health.php' ) ) . '">Site Health</a> for problems with the REST API.</p>',
 			$page,
 			'Administrators should be pointed to Site Health.'
 		);
 		$this->assertStringEndsWith(
-			'<p><a class="button button-primary" href="' . esc_url( wc_admin_url() ) . '">Continue to WooCommerce Home</a></p>',
+			'<p><a class="button button-primary" href="' . esc_url( wc_admin_url() ) . '">Continue to PooCommerce Home</a></p>',
 			$page,
-			'The confirmation should end with a link to WooCommerce Home.'
+			'The confirmation should end with a link to PooCommerce Home.'
 		);
 		$this->assertSame( $expected_profile, $stored, 'The fallback should preserve all profile fields except skipped.' );
 		$this->assertTrue( $stored['skipped'], 'The persisted skipped value should be strictly true.' );
@@ -318,7 +318,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 	public function test_confirmation_mentions_unsaved_store_location_only_when_flagged(): void {
 		$this->prepare_valid_request( self::$admin_id );
 		// wp_kses_post() turns esc_url()'s &#038; into &amp;, so the rendered link uses &amp;.
-		$settings_link = '<a href="' . admin_url( 'admin.php?page=wc-settings&amp;tab=general' ) . '">WooCommerce &gt; Settings &gt; General</a>';
+		$settings_link = '<a href="' . admin_url( 'admin.php?page=wc-settings&amp;tab=general' ) . '">PooCommerce &gt; Settings &gt; General</a>';
 
 		$unflagged_page = $this->dispatch_request()->getMessage();
 
@@ -327,7 +327,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 
 		$this->assertStringNotContainsString( 'store location', $unflagged_page, 'Without the flag, the confirmation should not mention the store location.' );
 		$this->assertStringContainsString(
-			'until that is fixed.</p><p>Your store location and currency were not saved. Set them in ' . $settings_link . ', since taxes and prices depend on them.</p><p>If WooCommerce screens keep failing to load',
+			'until that is fixed.</p><p>Your store location and currency were not saved. Set them in ' . $settings_link . ', since taxes and prices depend on them.</p><p>If PooCommerce screens keep failing to load',
 			$flagged_page,
 			'With the flag, the confirmation should link to the general settings in its own paragraph, between the summary and the next step.'
 		);
@@ -373,7 +373,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 		}
 
 		$this->assertSame(
-			esc_html__( 'You do not have permission to skip WooCommerce setup.', 'woocommerce' ),
+			esc_html__( 'You do not have permission to skip PooCommerce setup.', 'poocommerce' ),
 			$exception->getMessage(),
 			'Capability denial should win over the invalid nonce.'
 		);
@@ -450,7 +450,7 @@ class OnboardingSetupWizardTest extends WC_Unit_Test_Case {
 	 */
 	private function dispatch_request(): WPDieException {
 		try {
-			$this->sut->handle_admin_post_woocommerce_skip_onboarding_setup();
+			$this->sut->handle_admin_post_poocommerce_skip_onboarding_setup();
 		} catch ( WPDieException $exception ) {
 			return $exception;
 		}

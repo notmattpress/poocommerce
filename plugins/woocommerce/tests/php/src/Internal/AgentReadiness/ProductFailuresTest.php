@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -116,11 +116,11 @@ class ProductFailuresTest extends WC_Unit_Test_Case {
 			$product->set_catalog_visibility( 'hidden' );
 			$product->save();
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 		try {
 			$this->readiness->refresh_report();
 		} finally {
-			remove_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+			remove_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 		}
 
 		$this->assertSame( array(), ProductFailures::for_product( $id ) );
@@ -142,12 +142,12 @@ class ProductFailuresTest extends WC_Unit_Test_Case {
 			$during_id = WC_Helper_Product::create_simple_product()->get_id();
 			add_post_meta( $during_id, ProductFailures::META_KEY, 'missing_images' );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 
 		try {
 			$this->readiness->refresh_report();
 		} finally {
-			remove_action( 'woocommerce_agent_readiness_scan_batch', $hook );
+			remove_action( 'poocommerce_agent_readiness_scan_batch', $hook );
 		}
 
 		$this->assertGreaterThan( 0, $during_id );
@@ -188,16 +188,16 @@ class ProductFailuresTest extends WC_Unit_Test_Case {
 	 * @testdox A check's share of sales is dropped once its count changes after the scan, since it was measured on the products failing then.
 	 */
 	public function test_sales_share_dropped_when_count_changes(): void {
-		update_option( 'woocommerce_analytics_enabled', 'yes' );
+		update_option( 'poocommerce_analytics_enabled', 'yes' );
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 10 ) );
-		for ( $i = 0; $i < \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
+		for ( $i = 0; $i < \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
 			$order = wc_create_order();
 			$order->add_product( $product, 1 );
 			$order->set_status( 'completed' );
 			$order->calculate_totals();
 			$order->save();
-			\Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
-			\Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
 		}
 		$share = fn(): ?float => array_column( (array) $this->readiness->get_cached_report()['checks'], 'sales_share', 'id' )['missing_images'];
 

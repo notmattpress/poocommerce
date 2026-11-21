@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Woo_Update_Manager_Plugin class
  *
- * @package WooCommerce\Tests\Admin\Helper
+ * @package PooCommerce\Tests\Admin\Helper
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 class WC_Woo_Update_Manager_Plugin_Test extends WC_Unit_Test_Case {
 	/**
-	 * @testdox Hosts WooCommerce.com can't reach count as local, public ones don't.
+	 * @testdox Hosts PooCommerce.com can't reach count as local, public ones don't.
 	 *
 	 * @dataProvider urls
 	 *

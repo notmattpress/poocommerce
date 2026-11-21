@@ -2,7 +2,7 @@
 /**
  * Class WC_Mock_Enhanced_Payment_Gateway
  *
- * @package WooCommerce\Admin\Tests\Framework
+ * @package PooCommerce\Admin\Tests\Framework
  */
 
 /**
@@ -36,7 +36,7 @@ class WC_Mock_Enhanced_Payment_Gateway extends WC_Payment_Gateway {
 				'default' => 'yes',
 			),
 			'api_key' => array(
-				'title'   => __( 'API Key', 'woocommerce-admin' ),
+				'title'   => __( 'API Key', 'poocommerce-admin' ),
 				'type'    => 'text',
 				'default' => '',
 			),
@@ -47,7 +47,7 @@ class WC_Mock_Enhanced_Payment_Gateway extends WC_Payment_Gateway {
 	 * Determine if the gateway requires further setup.
 	 */
 	public function needs_setup() {
-		$settings = get_option( 'woocommerce_mock-enhanced_settings', array() );
+		$settings = get_option( 'poocommerce_mock-enhanced_settings', array() );
 		return ! empty( $settings['api_key'] );
 	}
 

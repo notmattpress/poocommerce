@@ -2,13 +2,13 @@
 /**
  * ActionController class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ use WC_REST_Exception;
 use WP_REST_Request;
 use WP_Error;
 use WC_Order;
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
 
 /**
  * ActionController class.
@@ -35,12 +35,12 @@ class ActionController {
 	public function get_endpoint_args_for_actions(): array {
 		return array(
 			'payment_complete'           => array(
-				'description' => __( 'Marks the order as paid. Updates the order status and reduces line item stock if necessary.', 'woocommerce' ),
+				'description' => __( 'Marks the order as paid. Updates the order status and reduces line item stock if necessary.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 			),
 			'reset_download_permissions' => array(
-				'description' => __( 'Resets any download permissions linked to the order.', 'woocommerce' ),
+				'description' => __( 'Resets any download permissions linked to the order.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 			),
@@ -65,7 +65,7 @@ class ActionController {
 				$result = call_user_func( array( $this, $callback ), $param, $order, $request );
 
 				if ( is_wp_error( $result ) ) {
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_action', esc_html( $result->get_error_message() ) );
+					throw new WC_REST_Exception( 'poocommerce_rest_invalid_action', esc_html( $result->get_error_message() ) );
 				}
 			}
 		}
@@ -94,12 +94,12 @@ class ActionController {
 
 		$user_agent = esc_html( $request->get_header( 'User-Agent' ) );
 		$order->add_order_note(
-			esc_html__( 'Download permissions were reset manually.', 'woocommerce' ),
+			esc_html__( 'Download permissions were reset manually.', 'poocommerce' ),
 			false,
 			true,
 			array(
 				'user_agent' => $user_agent ? $user_agent : 'REST API',
-				'note_title' => __( 'Download permissions', 'woocommerce' ),
+				'note_title' => __( 'Download permissions', 'poocommerce' ),
 				'note_group' => OrderNoteGroup::ORDER_UPDATE,
 			)
 		);
@@ -120,7 +120,7 @@ class ActionController {
 			$result = $order->payment_complete( $request['transaction_id'] ?? '' );
 
 			if ( ! $result ) {
-				return new WP_Error( 'woocommerce_rest_payment_complete_failed', __( 'Could not mark the order as paid.', 'woocommerce' ) );
+				return new WP_Error( 'poocommerce_rest_payment_complete_failed', __( 'Could not mark the order as paid.', 'poocommerce' ) );
 			}
 		}
 		return true;

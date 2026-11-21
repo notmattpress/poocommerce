@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductCustoms;
+namespace Automattic\PooCommerce\Internal\ProductCustoms;
 
 use WC_Countries;
 use WC_Data_Exception;
@@ -57,14 +57,14 @@ final class CustomsDataValidator {
 		}
 
 		throw new WC_Data_Exception(
-			'woocommerce_product_invalid_customs_commodity_code',
-			__( 'The customs commodity code must contain 6 to 14 digits, with optional punctuation or spaces.', 'woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
+			'poocommerce_product_invalid_customs_commodity_code',
+			__( 'The customs commodity code must contain 6 to 14 digits, with optional punctuation or spaces.', 'poocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
 			400
 		);
 	}
 
 	/**
-	 * Normalizes an origin country against the full WooCommerce country list.
+	 * Normalizes an origin country against the full PooCommerce country list.
 	 *
 	 * @since 11.3.0
 	 *
@@ -84,7 +84,7 @@ final class CustomsDataValidator {
 			if ( '' === $code ) {
 				return null;
 			}
-			// WC()->countries is only set once WooCommerce has initialized.
+			// WC()->countries is only set once PooCommerce has initialized.
 			$countries = WC()->countries instanceof WC_Countries ? WC()->countries : new WC_Countries();
 			if ( $countries->country_exists( $code ) ) {
 				return $code;
@@ -92,8 +92,8 @@ final class CustomsDataValidator {
 		}
 
 		throw new WC_Data_Exception(
-			'woocommerce_product_invalid_customs_country_of_origin',
-			__( 'Select a valid country of origin.', 'woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
+			'poocommerce_product_invalid_customs_country_of_origin',
+			__( 'Select a valid country of origin.', 'poocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
 			400
 		);
 	}
@@ -125,8 +125,8 @@ final class CustomsDataValidator {
 		}
 
 		throw new WC_Data_Exception(
-			'woocommerce_product_invalid_customs_description',
-			__( 'The customs description must be plain text with no more than 35 characters, without emoji or special symbols.', 'woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
+			'poocommerce_product_invalid_customs_description',
+			__( 'The customs description must be plain text with no more than 35 characters, without emoji or special symbols.', 'poocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped when output.
 			400
 		);
 	}

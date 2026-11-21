@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Patterns;
+namespace Automattic\PooCommerce\Blocks\Patterns;
 
 /**
  * PatternRegistry class.
@@ -19,13 +19,13 @@ class PatternRegistry {
 	 */
 	private function get_category_labels() {
 		return [
-			'woo-commerce'     => __( 'Shop', 'woocommerce' ),
-			'intro'            => __( 'Intro', 'woocommerce' ),
-			'featured-selling' => __( 'Featured Selling', 'woocommerce' ),
-			'about'            => __( 'About', 'woocommerce' ),
-			'social-media'     => __( 'Social Media', 'woocommerce' ),
-			'services'         => __( 'Services', 'woocommerce' ),
-			'reviews'          => __( 'Reviews', 'woocommerce' ),
+			'woo-commerce'     => __( 'Shop', 'poocommerce' ),
+			'intro'            => __( 'Intro', 'poocommerce' ),
+			'featured-selling' => __( 'Featured Selling', 'poocommerce' ),
+			'about'            => __( 'About', 'poocommerce' ),
+			'social-media'     => __( 'Social Media', 'poocommerce' ),
+			'services'         => __( 'Services', 'poocommerce' ),
+			'reviews'          => __( 'Reviews', 'poocommerce' ),
 		];
 	}
 
@@ -134,10 +134,10 @@ class PatternRegistry {
 		}
 
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-		$pattern_data['title'] = _x( wp_strip_all_tags( html_entity_decode( (string) $pattern_data['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ), 'Pattern title', 'woocommerce' );
+		$pattern_data['title'] = _x( wp_strip_all_tags( html_entity_decode( (string) $pattern_data['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ), 'Pattern title', 'poocommerce' );
 		if ( ! empty( $pattern_data['description'] ) ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-			$pattern_data['description'] = _x( $pattern_data['description'], 'Pattern description', 'woocommerce' );
+			$pattern_data['description'] = _x( $pattern_data['description'], 'Pattern description', 'poocommerce' );
 		}
 
 		// A pattern is registrable as long as it provides either inline content

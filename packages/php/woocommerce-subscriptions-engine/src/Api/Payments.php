@@ -5,18 +5,18 @@
  * Gateways integrate once: they declare the `subscriptions_engine` feature in their
  * `$supports`, charge on the scheduled-payment action and answer nothing else. What a
  * gateway can do for a subscription (renewal payments, payment method changes, ...) it
- * declares with the existing WooCommerce gateway features, which the engine does not
+ * declares with the existing PooCommerce gateway features, which the engine does not
  * interpret. Extensions ask whether a gateway supports the engine and the features an
  * operation needs, request a scheduled payment for an order they built, and answer whether an order
  * needs a reusable payment method. The engine fires and aggregates; it reads no outcome
  * and writes nothing.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Api
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Api
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Api;
 
 use Throwable;
 use WC_Order;
@@ -33,7 +33,7 @@ final class Payments {
 
 	/**
 	 * The feature a gateway adds to its `$supports` to integrate with the engine: it charges
-	 * an order off-session on `woocommerce_subscriptions_engine_scheduled_payment_{gateway_id}`
+	 * an order off-session on `poocommerce_subscriptions_engine_scheduled_payment_{gateway_id}`
 	 * and reports the outcome through the order status. It is the only feature the engine
 	 * defines; what the gateway can do beyond that it declares with existing gateway features.
 	 */
@@ -42,13 +42,13 @@ final class Payments {
 	/**
 	 * Logger source tag.
 	 */
-	private const LOG_SOURCE = 'woocommerce-subscriptions-engine';
+	private const LOG_SOURCE = 'poocommerce-subscriptions-engine';
 
 	/**
 	 * Whether a registered gateway supports the engine ({@see self::GATEWAY_FEATURE}) and
 	 * every feature in `$features`. The features are the caller's to choose (for example
 	 * `subscriptions` before charging a renewal); the engine passes them to the gateway's
-	 * `supports()` without interpreting them, so core's `woocommerce_payment_gateway_supports`
+	 * `supports()` without interpreting them, so core's `poocommerce_payment_gateway_supports`
 	 * filter applies to each. False for an empty or unknown id.
 	 *
 	 * @param string          $gateway_id Gateway id.
@@ -73,7 +73,7 @@ final class Payments {
 	/**
 	 * Ask the order's gateway to take a scheduled payment for it off-session.
 	 *
-	 * Fires `woocommerce_subscriptions_engine_scheduled_payment_{gateway_id}` with the order
+	 * Fires `poocommerce_subscriptions_engine_scheduled_payment_{gateway_id}` with the order
 	 * when the order's gateway supports the engine. Everything else is the caller's: whether
 	 * the order should be paid at all (paid, $0 or already in flight) and which further
 	 * gateway features the payment needs (such as `subscriptions` for a renewal, checked with
@@ -111,7 +111,7 @@ final class Payments {
 			return false;
 		}
 
-		$hook = 'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id;
+		$hook = 'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id;
 		if ( ! has_action( $hook ) ) {
 			wc_get_logger()->error(
 				sprintf( 'Payments::process_scheduled_payment(): order %d was not sent for payment because the "%s" gateway declares engine support but has no callback on %s.', $order->get_id(), $gateway_id, $hook ),
@@ -133,7 +133,7 @@ final class Payments {
 			 *
 			 * @param WC_Order $order The order to pay.
 			 */
-			do_action( 'woocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id, $order );
+			do_action( 'poocommerce_subscriptions_engine_scheduled_payment_' . $gateway_id, $order );
 		} catch ( Throwable $e ) {
 			wc_get_logger()->error(
 				sprintf( 'Payments::process_scheduled_payment(): the %s gateway threw while paying order %d: %s', $gateway_id, $order->get_id(), $e->getMessage() ),
@@ -168,7 +168,7 @@ final class Payments {
 		 * @param bool          $requires Whether a reusable payment method is required. Default false.
 		 * @param WC_Order|null $order    The order being paid, or null for the current cart.
 		 */
-		$requires = apply_filters( 'woocommerce_subscriptions_engine_requires_reusable_payment_method', false, $order );
+		$requires = apply_filters( 'poocommerce_subscriptions_engine_requires_reusable_payment_method', false, $order );
 
 		return (bool) $requires;
 	}

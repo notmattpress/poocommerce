@@ -5,14 +5,14 @@
 # Local only. CI installs the test suite in its own PHPUnit workflow (see .github/workflows/).
 #
 # USAGE
-#   pnpm run test:php:env [phpunit args]      Run PHPUnit; installs WP + WooCommerce on first run
-#   pnpm run test:php:env:setup               Reinstall WP + WooCommerce (e.g. after changing a version)
+#   pnpm run test:php:env [phpunit args]      Run PHPUnit; installs WP + PooCommerce on first run
+#   pnpm run test:php:env:setup               Reinstall WP + PooCommerce (e.g. after changing a version)
 #   pnpm run test:php:env:help                Show this message
 #   woo-extension-tooling phpunit direct <config> [args]   Use a pre-provisioned site
 #
 # OPTIONS (env vars)
 #   WC_ORDER_DATASTORE=hpos   Order storage: cpt (default) or hpos; CI runs both
-#   UNIT_WC_VERSION=trunk     WooCommerce: latest (default, as CI), nightly, trunk, or X.Y.Z  (setup only)
+#   UNIT_WC_VERSION=trunk     PooCommerce: latest (default, as CI), nightly, trunk, or X.Y.Z  (setup only)
 #   UNIT_WP_VERSION=7.0       WordPress:   latest (default, as CI), nightly, or X.Y[.Z] (setup only)
 #   The variables in package.json config.woo.phpunit.passEnv are passed into the container when set.
 #
@@ -69,7 +69,7 @@ run() {
 	fi
 	# install.sh empties each directory before refilling it, so any missing file means a failed or interrupted setup.
 	# wp-tests-config.php is the last file the test library step writes, so it catches a setup that stopped partway through it.
-	if ! compose exec -T cli test -f /tmp/wordpress/wp-settings.php -a -f "${TESTS_DIR}/includes/functions.php" -a -f "${TESTS_DIR}/wp-tests-config.php" -a -f /tmp/woocommerce/woocommerce.php; then
+	if ! compose exec -T cli test -f /tmp/wordpress/wp-settings.php -a -f "${TESTS_DIR}/includes/functions.php" -a -f "${TESTS_DIR}/wp-tests-config.php" -a -f /tmp/poocommerce/poocommerce.php; then
 		echo "Test suite missing or incomplete in the tests site; running setup first."
 		setup
 	fi

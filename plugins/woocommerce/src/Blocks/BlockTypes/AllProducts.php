@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * AllProducts class.
@@ -46,21 +46,21 @@ class AllProducts extends AbstractBlock {
 	}
 
 	/**
-	 * Get the store thumbnail aspect ratio from WooCommerce Customizer settings.
+	 * Get the store thumbnail aspect ratio from PooCommerce Customizer settings.
 	 * This method is a copy from the one in ProductImage.php.
 	 *
 	 * @return string|null CSS aspect ratio value (e.g. "1/1", "4/3"), or null when uncropped.
 	 */
 	private function get_store_thumbnail_aspect_ratio() {
-		$cropping = get_option( 'woocommerce_thumbnail_cropping', '1:1' );
+		$cropping = get_option( 'poocommerce_thumbnail_cropping', '1:1' );
 
 		if ( 'uncropped' === $cropping ) {
 			return null;
 		}
 
 		if ( 'custom' === $cropping ) {
-			$width  = max( 1, (float) get_option( 'woocommerce_thumbnail_cropping_custom_width', '4' ) );
-			$height = max( 1, (float) get_option( 'woocommerce_thumbnail_cropping_custom_height', '3' ) );
+			$width  = max( 1, (float) get_option( 'poocommerce_thumbnail_cropping_custom_width', '4' ) );
+			$height = max( 1, (float) get_option( 'poocommerce_thumbnail_cropping_custom_height', '3' ) );
 
 			return $width . '/' . $height;
 		}

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Internal\OrderReviews\StarRating;
+use Automattic\PooCommerce\Internal\OrderReviews\StarRating;
 use WC_Unit_Test_Case;
 
 /**
@@ -77,7 +77,7 @@ class StarRatingTest extends WC_Unit_Test_Case {
 			'#id="review-rating-42-4"[^>]*checked#',
 			$html
 		);
-		$this->assertMatchesRegularExpression( '#class="woocommerce-star-rating__caption"[^<]*>\s*Good\s*</span>#s', $html );
+		$this->assertMatchesRegularExpression( '#class="poocommerce-star-rating__caption"[^<]*>\s*Good\s*</span>#s', $html );
 	}
 
 	/**
@@ -116,11 +116,11 @@ class StarRatingTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_review_order_rating_labels filter overrides the defaults.
+	 * @testdox poocommerce_review_order_rating_labels filter overrides the defaults.
 	 */
 	public function test_filter_can_override_labels(): void {
 		add_filter(
-			'woocommerce_review_order_rating_labels',
+			'poocommerce_review_order_rating_labels',
 			static function () {
 				return array(
 					1 => 'Hated it',
@@ -140,7 +140,7 @@ class StarRatingTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_falls_back_when_keys_missing(): void {
 		add_filter(
-			'woocommerce_review_order_rating_labels',
+			'poocommerce_review_order_rating_labels',
 			static function () {
 				// Drop entries 2 and 4 entirely; replace 5.
 				return array(

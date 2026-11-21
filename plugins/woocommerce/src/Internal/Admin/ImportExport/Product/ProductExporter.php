@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport\Product;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport\Product;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\TempDirectoryGuard;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\TempDirectoryGuard;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
 use InvalidArgumentException;
 use RuntimeException;
 use WC_Product_CSV_Exporter;
@@ -31,7 +31,7 @@ final class ProductExporter {
 	 *
 	 * @param MemoryManager $memory_manager Frees the in-memory caches between batches.
 	 */
-	final public function init( MemoryManager $memory_manager ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules
+	final public function init( MemoryManager $memory_manager ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules
 		$this->memory_manager = $memory_manager;
 	}
 
@@ -80,7 +80,7 @@ final class ProductExporter {
 	/**
 	 * Return the exportable columns as key => label.
 	 *
-	 * Uses `get_column_names()`, so columns added through `woocommerce_product_export_column_names`
+	 * Uses `get_column_names()`, so columns added through `poocommerce_product_export_column_names`
 	 * are listed and selectable, matching what an unfiltered export writes.
 	 *
 	 * `downloads` and `attributes` are not part of `get_default_column_names()` because they
@@ -97,8 +97,8 @@ final class ProductExporter {
 		return array_merge(
 			( new WC_Product_CSV_Exporter() )->get_column_names(),
 			array(
-				'downloads'  => __( 'Downloads', 'woocommerce' ),
-				'attributes' => __( 'Attributes', 'woocommerce' ),
+				'downloads'  => __( 'Downloads', 'poocommerce' ),
+				'attributes' => __( 'Attributes', 'poocommerce' ),
 			)
 		);
 	}

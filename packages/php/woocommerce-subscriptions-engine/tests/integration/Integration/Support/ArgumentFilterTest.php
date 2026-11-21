@@ -2,18 +2,18 @@
 /**
  * Integration tests for the shared facade unknown-key filtering.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Support;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter
  */
 class ArgumentFilterTest extends EngineIntegrationTestCase {
 

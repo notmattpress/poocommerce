@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductSales;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductSales;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -29,7 +29,7 @@ class ProductSalesTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		// Orders other tests left in the Analytics tables would count too.
 		\WC_Helper_Reports::reset_stats_dbs();
-		update_option( 'woocommerce_analytics_enabled', 'yes' );
+		update_option( 'poocommerce_analytics_enabled', 'yes' );
 		$this->sut = new ProductSales();
 	}
 
@@ -170,7 +170,7 @@ class ProductSalesTest extends WC_Unit_Test_Case {
 		$this->assertSame( 0, $sales['orders'] );
 		$this->assertSame( 0.0, $sales['total'] );
 
-		update_option( 'woocommerce_analytics_enabled', 'no' );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
 		$this->assertNull( $this->sut->last_days() );
 	}
 
@@ -181,19 +181,19 @@ class ProductSalesTest extends WC_Unit_Test_Case {
 		$mug = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 10 ) );
 		$this->order( array( array( $mug, 1 ) ), OrderStatus::COMPLETED );
 		$this->order( array( array( $mug, 1 ) ), OrderStatus::CANCELLED );
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
 
 		$this->assertSame( 2, $this->sut->last_days()['orders'], 'Nothing excluded' );
 
-		remove_filter( 'woocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
+		remove_filter( 'poocommerce_analytics_excluded_order_statuses', '__return_empty_array' );
 		global $wpdb;
 		$wpdb->update( $wpdb->prefix . 'wc_order_stats', array( 'status' => 'wc-awaiting-collecti' ), array( 'status' => 'wc-cancelled' ) );
 		$long = static fn(): array => array( 'awaiting-collection-at-store' );
-		add_filter( 'woocommerce_analytics_excluded_order_statuses', $long );
+		add_filter( 'poocommerce_analytics_excluded_order_statuses', $long );
 		try {
 			$this->assertSame( 1, $this->sut->last_days()['orders'], 'The long status, stored cut short, is still left out' );
 		} finally {
-			remove_filter( 'woocommerce_analytics_excluded_order_statuses', $long );
+			remove_filter( 'poocommerce_analytics_excluded_order_statuses', $long );
 		}
 	}
 

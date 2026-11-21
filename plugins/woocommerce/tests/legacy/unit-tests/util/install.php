@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Install class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
@@ -24,7 +24,7 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 		delete_transient( 'wc_installing' );
 		delete_option( 'wc_installing' );
 
-		// Reinstall WooCommerce to ensure test environment is clean, and commit it: the next class
+		// Reinstall PooCommerce to ensure test environment is clean, and commit it: the next class
 		// reconnects to the database, which would drop the writes the install made after its last
 		// schema change, including the release of its lock.
 		WC_Install::install();
@@ -43,21 +43,21 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	 * Test check version.
 	 */
 	public function test_check_version() {
-		update_option( 'woocommerce_version', ( (float) WC()->version - 1 ) );
+		update_option( 'poocommerce_version', ( (float) WC()->version - 1 ) );
 		WC_Install::check_version();
 
-		$this->assertTrue( did_action( 'woocommerce_updated' ) === 1 );
+		$this->assertTrue( did_action( 'poocommerce_updated' ) === 1 );
 
-		update_option( 'woocommerce_version', WC()->version );
+		update_option( 'poocommerce_version', WC()->version );
 		WC_Install::check_version();
 
-		$this->assertTrue( did_action( 'woocommerce_updated' ) === 1 );
+		$this->assertTrue( did_action( 'poocommerce_updated' ) === 1 );
 
-		update_option( 'woocommerce_version', (float) WC()->version + 1 );
+		update_option( 'poocommerce_version', (float) WC()->version + 1 );
 		WC_Install::check_version();
 
 		$this->assertTrue(
-			did_action( 'woocommerce_updated' ) === 1,
+			did_action( 'poocommerce_updated' ) === 1,
 			'WC_Install::check_version() should not call install routine when the WC version stored in the database is bigger than the version in the code as downgrades are not supported.'
 		);
 	}
@@ -70,7 +70,7 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 
 		WC_Install::install();
 
-		$this->assertEquals( WC()->version, get_option( 'woocommerce_version' ) );
+		$this->assertEquals( WC()->version, get_option( 'poocommerce_version' ) );
 	}
 	 *
 	 **/
@@ -80,41 +80,41 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	 */
 	public function test_create_pages() {
 		// Clear options.
-		delete_option( 'woocommerce_shop_page_id' );
-		delete_option( 'woocommerce_cart_page_id' );
-		delete_option( 'woocommerce_checkout_page_id' );
-		delete_option( 'woocommerce_myaccount_page_id' );
-		delete_option( 'woocommerce_refund_returns_page_id' );
+		delete_option( 'poocommerce_shop_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_refund_returns_page_id' );
 
 		WC_Install::create_pages();
 
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_shop_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_cart_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_checkout_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_myaccount_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_refund_returns_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_shop_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_cart_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_checkout_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_myaccount_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_refund_returns_page_id' ) );
 
 		// Delete pages.
-		wp_delete_post( get_option( 'woocommerce_shop_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_cart_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_checkout_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_myaccount_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_refund_returns_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_shop_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_cart_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_checkout_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_myaccount_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_refund_returns_page_id' ), true );
 
 		// Clear options.
-		delete_option( 'woocommerce_shop_page_id' );
-		delete_option( 'woocommerce_cart_page_id' );
-		delete_option( 'woocommerce_checkout_page_id' );
-		delete_option( 'woocommerce_myaccount_page_id' );
-		delete_option( 'woocommerce_refund_returns_page_id' );
+		delete_option( 'poocommerce_shop_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_refund_returns_page_id' );
 
 		WC_Install::create_pages();
 
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_shop_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_cart_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_checkout_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_myaccount_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_refund_returns_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_shop_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_cart_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_checkout_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_myaccount_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_refund_returns_page_id' ) );
 	}
 
 	/**
@@ -140,9 +140,9 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Uninstalling with WC_REMOVE_ALL_DATA removes WooCommerce experimental-feature user meta without matching core-style or third-party meta keys.
+	 * @testdox Uninstalling with WC_REMOVE_ALL_DATA removes PooCommerce experimental-feature user meta without matching core-style or third-party meta keys.
 	 *
-	 * @ddlInTransaction Uninstalling drops the WooCommerce tables.
+	 * @ddlInTransaction Uninstalling drops the PooCommerce tables.
 	 */
 	public function test_uninstall_removes_experimental_user_meta_but_preserves_other_meta() {
 		global $wpdb;
@@ -150,19 +150,19 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 		$user_id     = $this->factory()->user->create();
 		$blog_suffix = '_' . rtrim( $wpdb->get_blog_prefix( get_current_blog_id() ), '_' );
 
-		// WooCommerce user meta that a full-data-removal uninstall must delete. Seeded through the same
+		// PooCommerce user meta that a full-data-removal uninstall must delete. Seeded through the same
 		// site-aware helper the features use so the stored key format (..._<blog_prefix>) matches production,
 		// and via the owning class constants where public so a constant rename would surface here. The two
 		// email keys mirror EmailVerificationService::VERIFIED_META / ::KEY_META, which are private consts and
 		// are therefore spelled out as the same literals uninstall.php carries.
 		$wc_base_keys = array(
-			\Automattic\WooCommerce\Internal\ShopperLists\ShopperList::META_KEY_PREFIX . 'saved-for-later',
+			\Automattic\PooCommerce\Internal\ShopperLists\ShopperList::META_KEY_PREFIX . 'saved-for-later',
 			'_wc_email_verified',
 			'_wc_email_verification_key',
-			\Automattic\WooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore::META_KEY,
+			\Automattic\PooCommerce\Internal\PushNotifications\DataStores\NotificationPreferencesDataStore::META_KEY,
 		);
 		foreach ( $wc_base_keys as $base_key ) {
-			\Automattic\WooCommerce\Internal\Utilities\Users::update_site_user_meta( $user_id, $base_key, 'seeded-value' );
+			\Automattic\PooCommerce\Internal\Utilities\Users::update_site_user_meta( $user_id, $base_key, 'seeded-value' );
 		}
 
 		// Meta that must survive. wc_capabilities / wc_user_level reproduce the exact key names WordPress core
@@ -186,11 +186,11 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 
 		foreach ( $wc_base_keys as $base_key ) {
 			$stored_key = $base_key . $blog_suffix;
-			$this->assertFalse( metadata_exists( 'user', $user_id, $stored_key ), "Uninstall should have removed WooCommerce user meta '{$stored_key}'." );
+			$this->assertFalse( metadata_exists( 'user', $user_id, $stored_key ), "Uninstall should have removed PooCommerce user meta '{$stored_key}'." );
 		}
 
 		foreach ( array_merge( $seeded_preserved_keys, array( $real_capabilities_key ) ) as $meta_key ) {
-			$this->assertTrue( metadata_exists( 'user', $user_id, $meta_key ), "Uninstall must not remove non-WooCommerce user meta '{$meta_key}'." );
+			$this->assertTrue( metadata_exists( 'user', $user_id, $meta_key ), "Uninstall must not remove non-PooCommerce user meta '{$meta_key}'." );
 		}
 
 		if ( is_multisite() ) {
@@ -232,13 +232,13 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test - get tables should apply the woocommerce_install_get_tables filter.
+	 * Test - get tables should apply the poocommerce_install_get_tables filter.
 	 */
 	public function test_get_tables_enables_filter() {
 		$this->assertNotContains( 'some_table_name', WC_Install::get_tables() );
 
 		add_filter(
-			'woocommerce_install_get_tables',
+			'poocommerce_install_get_tables',
 			function ( $tables ) {
 				$tables[] = 'some_table_name';
 

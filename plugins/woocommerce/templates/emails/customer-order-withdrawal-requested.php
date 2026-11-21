@@ -2,16 +2,16 @@
 /**
  * Customer order withdrawal request email
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-order-withdrawal-requested.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/customer-order-withdrawal-requested.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 11.2.0
  *
  * @var string              $email_heading      Email heading.
@@ -23,7 +23,7 @@
  * @var \WC_Email           $email              Email object.
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,10 +35,10 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
  * @hooked WC_Emails::email_header()
  * @since 3.7.0
  */
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action( 'poocommerce_email_header', $email_heading, $email ); ?>
 
 <?php echo $email_improvements_enabled ? '<div class="email-introduction">' : ''; ?>
-<p><?php esc_html_e( 'We have received your request to withdraw from the order below.', 'woocommerce' ); ?></p>
+<p><?php esc_html_e( 'We have received your request to withdraw from the order below.', 'poocommerce' ); ?></p>
 <?php echo $email_improvements_enabled ? '</div>' : ''; ?>
 
 <ul>
@@ -60,4 +60,4 @@ if ( $additional_content ) {
  * @hooked WC_Emails::email_footer()
  * @since 3.7.0
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action( 'poocommerce_email_footer', $email );

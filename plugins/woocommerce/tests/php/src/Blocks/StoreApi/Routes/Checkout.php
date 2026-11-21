@@ -3,23 +3,23 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\CheckoutOrder as CheckoutOrderRoute;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\CheckoutOrder as CheckoutOrderRoute;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use WC_Gateway_BACS;
 use WC_Tax;
@@ -64,7 +64,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	private $paypal_gateway_before_test;
 
 	/**
-	 * $_COOKIE before the test. filter_woocommerce_set_cookie_enabled() writes the cookies the
+	 * $_COOKIE before the test. filter_poocommerce_set_cookie_enabled() writes the cookies the
 	 * checkout sets, such as the session and login cookies, into it.
 	 *
 	 * @var array<string, string>
@@ -117,7 +117,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * Delete class products through WooCommerce data stores.
+	 * Delete class products through PooCommerce data stores.
 	 */
 	public static function wpTearDownAfterClass(): void {
 		try {
@@ -135,11 +135,11 @@ class Checkout extends \WP_Test_REST_TestCase {
 		parent::setUp();
 
 		$this->cookies_before_test = $_COOKIE;
-		add_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ), 10, 4 );
+		add_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ), 10, 4 );
 
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		$this->initialize_store_api_server();
 
@@ -192,13 +192,13 @@ class Checkout extends \WP_Test_REST_TestCase {
 		try {
 			$this->remove_inserted_tax_rates();
 
-			remove_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ) );
+			remove_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ) );
 
-			update_option( 'woocommerce_ship_to_countries', 'all' );
-			update_option( 'woocommerce_ship_to_destination', 'billing' );
-			update_option( 'woocommerce_allowed_countries', 'all' );
-			update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-			update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+			update_option( 'poocommerce_ship_to_countries', 'all' );
+			update_option( 'poocommerce_ship_to_destination', 'billing' );
+			update_option( 'poocommerce_allowed_countries', 'all' );
+			update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+			update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 			$fixtures = new FixtureData();
 			$fixtures->shipping_remove_pickup_location();
@@ -232,7 +232,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * Enable taxes and add a 10% US/CA rate, so an address in California changes the cart total.
 	 */
 	private function enable_taxes_with_us_ca_rate(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$this->inserted_tax_rate_ids[] = WC_Tax::_insert_tax_rate(
 			array(
@@ -261,7 +261,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		}
 
 		$this->inserted_tax_rate_ids = array();
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 	}
 
 	/**
@@ -276,19 +276,19 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	private function invalidate_checkout_option_caches(): void {
 		$option_names = array(
-			'woocommerce_checkout_phone_field',
-			'woocommerce_enable_guest_checkout',
-			'woocommerce_enable_signup_and_login_from_checkout',
-			'woocommerce_ship_to_countries',
-			'woocommerce_allowed_countries',
-			'woocommerce_specific_ship_to_countries',
-			'woocommerce_specific_allowed_countries',
-			'woocommerce_bacs_settings',
-			'woocommerce_pickup_location_settings',
+			'poocommerce_checkout_phone_field',
+			'poocommerce_enable_guest_checkout',
+			'poocommerce_enable_signup_and_login_from_checkout',
+			'poocommerce_ship_to_countries',
+			'poocommerce_allowed_countries',
+			'poocommerce_specific_ship_to_countries',
+			'poocommerce_specific_allowed_countries',
+			'poocommerce_bacs_settings',
+			'poocommerce_pickup_location_settings',
 			'pickup_location_pickup_locations',
-			'woocommerce_calc_taxes',
-			'woocommerce_tax_based_on',
-			'woocommerce_ship_to_destination',
+			'poocommerce_calc_taxes',
+			'poocommerce_tax_based_on',
+			'poocommerce_ship_to_destination',
 		);
 
 		foreach ( $option_names as $option_name ) {
@@ -308,7 +308,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 *
 	 * @return false
 	 */
-	public function filter_woocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
+	public function filter_poocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
 		if ( $expire < time() ) {
 			unset( $_COOKIE[ $name ] );
 		} else {
@@ -372,11 +372,11 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_checkout_preserves_cart_tax_totals( string $tax_mode, string $country, bool $adjust_non_base_prices, string $expected_subtotal, string $expected_tax, string $expected_total ): void {
 		$options          = array(
-			'woocommerce_calc_taxes'         => 'yes',
-			'woocommerce_prices_include_tax' => $tax_mode,
-			'woocommerce_tax_based_on'       => 'billing',
-			'woocommerce_default_country'    => 'GB',
-			'woocommerce_price_num_decimals' => '2',
+			'poocommerce_calc_taxes'         => 'yes',
+			'poocommerce_prices_include_tax' => $tax_mode,
+			'poocommerce_tax_based_on'       => 'billing',
+			'poocommerce_default_country'    => 'GB',
+			'poocommerce_price_num_decimals' => '2',
 		);
 		$previous_options = array();
 		foreach ( $options as $name => $value ) {
@@ -384,7 +384,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 			update_option( $name, $value );
 		}
 		$adjust_prices_filter = $adjust_non_base_prices ? '__return_true' : '__return_false';
-		add_filter( 'woocommerce_adjust_non_base_location_prices', $adjust_prices_filter );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', $adjust_prices_filter );
 		$tax_rate_ids = array();
 
 		try {
@@ -452,14 +452,14 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$this->assertSame( 200, $response->get_status(), print_r( $response->get_data(), true ) );
 			$this->assertGreaterThan( 0, $response->get_data()['order_id'], 'Checkout should create an order.' );
 
-			update_option( 'woocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
+			update_option( 'poocommerce_prices_include_tax', 'yes' === $tax_mode ? 'no' : 'yes' );
 			$order = new \WC_Order( $response->get_data()['order_id'] );
 			$this->assertSame( 'yes' === $tax_mode, $order->get_prices_include_tax(), 'Persisted checkout tax mode should survive a store setting change.' );
 			$this->assertSame( (float) $expected_subtotal / 100, (float) $order->get_subtotal(), 'Saved line subtotal should match the cart.' );
 			$this->assertSame( (float) $expected_tax / 100, (float) $order->get_total_tax(), 'Saved order tax should match the cart.' );
 			$this->assertSame( (float) $expected_total / 100, (float) $order->get_total(), 'Saved order total should match the cart.' );
 		} finally {
-			remove_filter( 'woocommerce_adjust_non_base_location_prices', $adjust_prices_filter );
+			remove_filter( 'poocommerce_adjust_non_base_location_prices', $adjust_prices_filter );
 			foreach ( $tax_rate_ids as $tax_rate_id ) {
 				\WC_Tax::_delete_tax_rate( $tax_rate_id );
 			}
@@ -579,7 +579,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 409, $response->get_status(), print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_checkout_total_mismatch', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_total_mismatch', $data['code'] );
 		$this->assertArrayHasKey( 'cart', $data['data'], 'The refreshed cart should be returned so the client can display the updated total.' );
 		$this->assertEquals( 1, $data['data']['expected_total'] );
 		$this->assertGreaterThan( 1, $data['data']['actual_total'] );
@@ -732,7 +732,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 409, $response->get_status(), 'The order should be rejected because the CA address in this request raises the total above what the shopper confirmed: ' . print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_checkout_total_mismatch', $data['code'], 'The rejection should come from the expected_total guard, not another 409.' );
+		$this->assertEquals( 'poocommerce_rest_checkout_total_mismatch', $data['code'], 'The rejection should come from the expected_total guard, not another 409.' );
 		$this->assertEquals( (int) $expected_total, $data['data']['expected_total'] );
 		$this->assertGreaterThan( (int) $expected_total, $data['data']['actual_total'] );
 	}
@@ -943,7 +943,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	public function test_each_checkout_hands_gateway_its_own_payment_data() {
 		$seen_payment_data = array();
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context ) use ( &$seen_payment_data ) {
 				$seen_payment_data[] = $context->payment_data['token'] ?? null;
 			}
@@ -1052,7 +1052,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox A failed checkout request leaves other orders' reserved stock alone.
 	 */
 	public function test_failed_checkout_request_keeps_other_orders_reserved_stock() {
-		update_option( 'woocommerce_hold_stock_minutes', '60' );
+		update_option( 'poocommerce_hold_stock_minutes', '60' );
 
 		$fixtures = new FixtureData();
 		$product  = $fixtures->get_simple_product(
@@ -1079,7 +1079,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		wc_reserve_stock_for_order( $order );
 		wc()->session->set( 'store_api_draft_order', $order->get_id() );
 
-		$reserve = new \Automattic\WooCommerce\Checkout\Helpers\ReserveStock();
+		$reserve = new \Automattic\PooCommerce\Checkout\Helpers\ReserveStock();
 		$this->assertSame( 3, $reserve->get_reserved_stock( $product, 0 ), 'Setup: the order should hold 3 reserved units.' );
 
 		$request = new \WP_REST_Request( 'GET', '/wc/store/v1/checkout' );
@@ -1091,7 +1091,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 		$request->set_body_params( array( 'billing_address' => (object) $this->get_fallback_billing_address() ) );
-		$this->assertSame( 'woocommerce_rest_cart_empty', rest_get_server()->dispatch( $request )->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_cart_empty', rest_get_server()->dispatch( $request )->get_data()['code'] );
 
 		// The first order still holds its reserved stock.
 		$this->assertSame( 3, $reserve->get_reserved_stock( $product, 0 ) );
@@ -1748,7 +1748,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_checkout_persists_additional_address_field_zero() {
 		$field_id = 'plugin-namespace/unit-number';
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => $field_id,
 				'label'    => 'Unit number',
@@ -1776,7 +1776,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Checkout should ship to the billing address when the store ships to the billing address only, whatever shipping address the request sends.
 	 */
 	public function test_shipping_address_is_ignored_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 		$this->assertTrue( WC()->cart->needs_shipping(), 'Test cart is expected to need shipping.' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
@@ -1805,7 +1805,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Checkout should not keep session shipping values the request's billing address leaves out when the store ships to the billing address only.
 	 */
 	public function test_session_shipping_values_are_replaced_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		WC()->customer->set_billing_company( 'Billing Company' );
 		WC()->customer->set_shipping_company( 'Session Company' );
@@ -1839,7 +1839,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Updating the customer should set the shipping address to the billing address when the store ships to the billing address only.
 	 */
 	public function test_cart_update_customer_uses_billing_address_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/cart/update-customer' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -2308,7 +2308,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_locale_required_filtering_post_data() {
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['US']['state']['required'] = false;
 				return $locale;
@@ -2326,7 +2326,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 
-		// Test that a country that usually requires state can be overridden with woocommerce_get_country_locale filter.
+		// Test that a country that usually requires state can be overridden with poocommerce_get_country_locale filter.
 		$request->set_body_params(
 			array(
 				'billing_address'  => (object) array(
@@ -2367,7 +2367,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_locale_label_filtering_post_data() {
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['FR']['state']['label']    = 'French state';
 				$locale['FR']['state']['required'] = true;
@@ -2381,7 +2381,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 
-		// Test that a country that usually requires state can be overridden with woocommerce_get_country_locale filter.
+		// Test that a country that usually requires state can be overridden with poocommerce_get_country_locale filter.
 		$request->set_body_params(
 			array(
 				'billing_address'  => (object) array(
@@ -2488,7 +2488,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 				),
 			)
 		)->once();
-		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
+		add_action( 'poocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 200, $response->get_status() );
 	}
@@ -2751,8 +2751,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 		WC()->session->set_customer_session_cookie( true );
 		WC()->session->save_data();
 
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -2858,7 +2858,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		global $wpdb;
 		$shipping_methods = \WC_Shipping_Zones::get_zone( 0 )->get_shipping_methods();
 		foreach ( $shipping_methods as $shipping_method ) {
-			$wpdb->update( "{$wpdb->prefix}woocommerce_shipping_zone_methods", array( 'is_enabled' => '0' ), array( 'instance_id' => absint( $shipping_method->instance_id ) ) );
+			$wpdb->update( "{$wpdb->prefix}poocommerce_shipping_zone_methods", array( 'is_enabled' => '0' ), array( 'instance_id' => absint( $shipping_method->instance_id ) ) );
 		}
 		$fixtures = new FixtureData();
 		$fixtures->shipping_remove_pickup_location();
@@ -2906,7 +2906,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$status   = $response->get_status();
 		$data     = $response->get_data();
 		$this->assertEquals( 400, $status, print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_invalid_shipping_option', $data['code'], print_r( $data, true ) );
+		$this->assertEquals( 'poocommerce_rest_invalid_shipping_option', $data['code'], print_r( $data, true ) );
 		$this->assertEquals( 'Sorry, this order requires a shipping option.', $data['message'], print_r( $data, true ) );
 	}
 
@@ -2924,7 +2924,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// ever looks at the address, so the cart would rate "0" on trunk too and this regression
 		// test would quietly stop testing anything.
 		$fixtures->shipping_remove_pickup_location();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		// setUp() adds the rate instance but leaves it free, and a free rate cannot show the
 		// difference between charging shipping and skipping it.
@@ -2994,8 +2994,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 		WC()->session->set_customer_session_cookie( true );
 		WC()->session->save_data();
 
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'no' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -3041,7 +3041,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 403, $status, print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_guest_checkout_disabled', $data['code'], print_r( $data, true ) );
+		$this->assertEquals( 'poocommerce_rest_guest_checkout_disabled', $data['code'], print_r( $data, true ) );
 		$this->assertEquals( 'You must be logged in to checkout.', $data['message'], print_r( $data, true ) );
 	}
 
@@ -3078,12 +3078,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 			),
 			array(
 				'id'       => 'plugin-namespace/leave-on-porch',
-				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'location' => 'order',
 				'type'     => 'checkbox',
 			),
 		);
-		array_map( 'woocommerce_register_additional_checkout_field', $fields );
+		array_map( 'poocommerce_register_additional_checkout_field', $fields );
 
 		// PATCH the checkout with the additional fields. Under deferred draft creation,
 		// PATCH does not materialise an order — values are captured to the field store.
@@ -3209,12 +3209,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testDox Test that perform_custom_order_validation throws a RouteException with a custom error.
 	 */
 	public function test_perform_custom_order_validation() {
-		$order_controller = new \Automattic\WooCommerce\StoreApi\Utilities\OrderController();
+		$order_controller = new \Automattic\PooCommerce\StoreApi\Utilities\OrderController();
 		$order            = new \WC_Order();
 
 		// Set up a test action to add a custom validation error.
 		add_action(
-			'woocommerce_checkout_validate_order_before_payment',
+			'poocommerce_checkout_validate_order_before_payment',
 			function ( $order, $errors ) {
 				$errors->add( 'custom_error', 'This is a custom validation error' );
 			},
@@ -3228,7 +3228,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$method->setAccessible( true );
 
 		// Assert that the method throws a RouteException with our custom error.
-		$this->expectException( \Automattic\WooCommerce\StoreApi\Exceptions\RouteException::class );
+		$this->expectException( \Automattic\PooCommerce\StoreApi\Exceptions\RouteException::class );
 		$this->expectExceptionMessage( 'This is a custom validation error' );
 
 		$method->invoke( $order_controller, $order );
@@ -3239,8 +3239,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_local_pickup_country_validation() {
 		// Set shipping to a country that's not enabled for shipping.
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'GB' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'GB' ) );
 
 		// Set chosen shipping method to pickup location.
 		WC()->session->set( 'chosen_shipping_methods', array( 'pickup_location:0' ) );
@@ -3285,8 +3285,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_local_pickup_invalid_billing_country() {
 		// Set allowed countries to just US.
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US' ) );
 
 		// Set chosen shipping method.
 		WC()->session->set( 'chosen_shipping_methods', array( 'pickup_location:0' ) );
@@ -3324,7 +3324,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_address_country', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_address_country', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'Sorry, we do not allow orders from the provided country (France)', $response->get_data()['message'] );
 	}
 
@@ -3384,10 +3384,10 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should not persist address data when country validation fails.
 	 */
 	public function test_checkout_order_does_not_persist_invalid_country_address() {
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US' ) );
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'US' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'US' ) );
 
 		$order = \WC_Helper_Order::create_order( 0 );
 
@@ -3412,7 +3412,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, $invalid_address, $invalid_address );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_address_country', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_address_country', $response->get_data()['code'] );
 
 		$stored_order = wc_get_order( $order->get_id() );
 		$this->assertEquals( $original_billing_country, $stored_order->get_billing_country() );
@@ -3429,8 +3429,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @param bool   $expect_rejected Whether the shipping country should be rejected.
 	 */
 	public function test_checkout_order_rejects_shipping_country_the_store_does_not_ship_to( string $method_id, bool $expect_rejected ) {
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'US' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'US' ) );
 		wc_empty_cart();
 
 		// A merchant-created order with no address yet, so the shopper fills in the first one.
@@ -3462,7 +3462,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$stored_order = wc_get_order( $order->get_id() );
 		if ( $expect_rejected ) {
 			$this->assertEquals( 400, $response->get_status() );
-			$this->assertEquals( 'woocommerce_rest_invalid_address_country', $response->get_data()['code'] );
+			$this->assertEquals( 'poocommerce_rest_invalid_address_country', $response->get_data()['code'] );
 			$this->assertEquals( OrderStatus::PENDING, $stored_order->get_status() );
 			$this->assertEquals( '', $stored_order->get_shipping_country() );
 		} else {
@@ -3557,8 +3557,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @param string $group Address group tax is based on: 'billing' or 'shipping'.
 	 */
 	private function set_taxes_based_on( string $group ) {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_based_on', $group );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_based_on', $group );
 	}
 
 	/**
@@ -3569,7 +3569,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	private function make_shipping_unavailable( bool $disable_shipping ): ?\Closure {
 		if ( $disable_shipping ) {
-			update_option( 'woocommerce_ship_to_countries', 'disabled' );
+			update_option( 'poocommerce_ship_to_countries', 'disabled' );
 			return null;
 		}
 
@@ -3598,7 +3598,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), $this->get_different_destination() );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		// The message is what distinguishes the shipping zone check from the tax check below it.
 		$this->assertStringContainsString( 'the shipping cost was calculated', $response->get_data()['message'] );
 
@@ -3681,7 +3681,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// A shipping extension may decide from the submitted address, so the hook must see billing after it is set.
 		add_filter(
-			'woocommerce_order_needs_shipping',
+			'poocommerce_order_needs_shipping',
 			static function ( $needs_shipping, $filtered_order ) {
 				return 'US' !== $filtered_order->get_billing_country() || $needs_shipping;
 			},
@@ -3703,7 +3703,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$order->save();
 
 		add_filter(
-			'woocommerce_get_order_address',
+			'poocommerce_get_order_address',
 			static function ( $address, $address_type ) {
 				if ( 'billing' === $address_type ) {
 					$address['postcode'] = 'FILTERED';
@@ -3745,7 +3745,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$shipping_countries = array();
 		add_filter(
-			'woocommerce_order_needs_shipping',
+			'poocommerce_order_needs_shipping',
 			static function ( $needs_shipping, $filtered_order ) use ( &$shipping_countries ) {
 				$shipping_countries[] = $filtered_order->get_shipping_country();
 				return 'US' === $filtered_order->get_shipping_country() || $needs_shipping;
@@ -3919,7 +3919,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$this->assertSame( 1, wc_get_shipping_method_count( true ) );
 		$this->assertSame( $enabled_methods, wc_get_shipping_method_count( false, true ) );
-		add_filter( 'woocommerce_order_needs_shipping', '__return_false' );
+		add_filter( 'poocommerce_order_needs_shipping', '__return_false' );
 
 		// A merchant-created order for a physical product that an extension says ships nothing, with no address yet.
 		$order = \WC_Helper_Order::create_order( 0 );
@@ -3927,7 +3927,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$order->save();
 
 		$response = $this->dispatch_pay_for_order_request( $order, array( 'country' => 'US' ), $this->get_different_destination() );
-		remove_filter( 'woocommerce_order_needs_shipping', '__return_false' );
+		remove_filter( 'poocommerce_order_needs_shipping', '__return_false' );
 		remove_filter( 'pre_transient_wc_shipping_method_count', $method_counts );
 
 		$this->assertEquals( 200, $response->get_status(), wp_json_encode( $response->get_data() ) );
@@ -3947,7 +3947,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), $this->get_different_destination() );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'the shipping cost was calculated', $response->get_data()['message'] );
 		$this->assertEquals( '', wc_get_order( $order->get_id() )->get_shipping_country() );
 	}
@@ -3965,7 +3965,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), $this->get_different_destination() );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		// A virtual order skips the shipping zone check, so only the tax check can reject this.
 		$this->assertStringContainsString( 'the tax was calculated', $response->get_data()['message'] );
 		$this->assertEquals( '', wc_get_order( $order->get_id() )->get_shipping_country() );
@@ -4010,8 +4010,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should reject a billing change when the store ships to the billing address only.
 	 */
 	public function test_checkout_order_rejects_billing_change_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		$order = $this->create_pay_for_order_with_shipping_address();
 
@@ -4019,7 +4019,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, $this->get_different_destination(), null );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'the shipping cost was calculated', $response->get_data()['message'] );
 		$this->assertEquals( 'US', wc_get_order( $order->get_id() )->get_shipping_country() );
 	}
@@ -4028,8 +4028,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should ship to billing when the store ships to the billing address only, whatever shipping address the request sends.
 	 */
 	public function test_checkout_order_ignores_shipping_address_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		$order = $this->create_pay_for_order_with_shipping_address();
 
@@ -4046,8 +4046,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should keep an order's own shipping address when the store ships to the billing address only.
 	 */
 	public function test_checkout_order_keeps_distinct_shipping_address_when_store_ships_to_billing_only() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_ship_to_destination', 'billing_only' );
 
 		// An order made in the admin can ship somewhere other than its billing address, even on this store.
 		$order = \WC_Helper_Order::create_order( 0 );
@@ -4074,7 +4074,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), array( 'city' => 'Elsewhere' ) );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'the shipping cost was calculated', $response->get_data()['message'] );
 	}
 
@@ -4107,8 +4107,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should allow an address change when the store does not collect tax.
 	 */
 	public function test_checkout_order_allows_address_change_when_taxes_are_disabled() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		// A digital order has no shipping cost either, so the address cannot change the total.
 		$virtual_product = \WC_Helper_Product::create_simple_product( true, array( 'virtual' => true ) );
@@ -4242,7 +4242,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array( 'state' => 'NY' ) );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'the tax was calculated', $response->get_data()['message'] );
 		$this->assertEquals( $original_total, wc_get_order( $order->get_id() )->get_total(), 'A rejected request must not change the total' );
 	}
@@ -4258,7 +4258,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, $this->get_different_destination() );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_order_address_change_not_allowed', $response->get_data()['code'] );
 		// Shipping is untouched, so only the tax check can reject this.
 		$this->assertStringContainsString( 'the tax was calculated', $response->get_data()['message'] );
 		$this->assertEquals( 'US', wc_get_order( $order->get_id() )->get_billing_country() );
@@ -4291,9 +4291,9 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	private function restrict_offline_gateway( string $gateway_id, array $enable_for_methods, bool $enable_for_virtual = true ) {
 		update_option(
-			"woocommerce_{$gateway_id}_settings",
+			"poocommerce_{$gateway_id}_settings",
 			array_merge(
-				(array) get_option( "woocommerce_{$gateway_id}_settings", array() ),
+				(array) get_option( "poocommerce_{$gateway_id}_settings", array() ),
 				array(
 					'enabled'            => 'yes',
 					'enable_for_methods' => $enable_for_methods,
@@ -4322,7 +4322,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), null, true, $gateway_id );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
 		$this->assertEquals( OrderStatus::PENDING, wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -4330,7 +4330,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Existing order payment should refuse a gateway the order's shipping method excludes when the pay endpoint is renamed.
 	 */
 	public function test_checkout_order_refuses_gateway_not_enabled_for_order_shipping_method_with_renamed_pay_endpoint() {
-		update_option( 'woocommerce_checkout_pay_endpoint', 'pay' );
+		update_option( 'poocommerce_checkout_pay_endpoint', 'pay' );
 		WC()->query->init_query_vars();
 
 		try {
@@ -4342,9 +4342,9 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$response = $this->dispatch_pay_for_order_request( $order, array(), null, true, 'cod' );
 
 			$this->assertEquals( 400, $response->get_status() );
-			$this->assertEquals( 'woocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
+			$this->assertEquals( 'poocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
 		} finally {
-			delete_option( 'woocommerce_checkout_pay_endpoint' );
+			delete_option( 'poocommerce_checkout_pay_endpoint' );
 			WC()->query->init_query_vars();
 		}
 	}
@@ -4365,7 +4365,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), null, true, 'cod' );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
 		$this->assertEquals( OrderStatus::PENDING, wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -4436,7 +4436,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$responses = rest_get_server()->dispatch( $request )->get_data()['responses'];
 
 		$this->assertEquals( 400, $responses[0]['status'], 'Cash on delivery is refused for the flat rate order.' );
-		$this->assertEquals( 'woocommerce_rest_checkout_payment_method_disabled', $responses[0]['body']['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_payment_method_disabled', $responses[0]['body']['code'] );
 		$this->assertEquals( OrderStatus::PENDING, wc_get_order( $flat_rate_order->get_id() )->get_status() );
 		$this->assertEquals( 200, $responses[1]['status'], 'Cash on delivery is accepted for the local pickup order: ' . wp_json_encode( $responses[1]['body'] ) );
 		$this->assertEquals( OrderStatus::PROCESSING, wc_get_order( $pickup_order->get_id() )->get_status() );
@@ -4459,7 +4459,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array(), null, true, 'cod' );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_checkout_payment_method_disabled', $response->get_data()['code'] );
 		$this->assertEquals( 'checkout-draft', wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -4499,7 +4499,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$this->assertContains( $code, $codes );
 		} else {
 			$this->assertNotContains( $code, $codes );
-			$this->assertEquals( 'woocommerce_rest_order_coupon_errors', $response->get_data()['code'] );
+			$this->assertEquals( 'poocommerce_rest_order_coupon_errors', $response->get_data()['code'] );
 		}
 	}
 
@@ -4529,7 +4529,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = $this->dispatch_pay_for_order_request( $order, array( 'email' => 'buyer@example.com' ) );
 
 		$this->assertSame( 409, $response->get_status(), print_r( $response->get_data(), true ) );
-		$this->assertSame( 'woocommerce_rest_order_coupon_errors', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_order_coupon_errors', $response->get_data()['code'] );
 
 		$coupon = new \WC_Coupon( 'route-changed-email' );
 		$this->assertSame( array( 'buyer@example.com' ), array_values( $coupon->get_used_by() ) );
@@ -4542,7 +4542,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	public function test_checkout_rejects_cancelled_unpaid_non_zero_order(): void {
 		$order_id = 0;
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( &$order_id ) {
 				$order->set_status( OrderStatus::CANCELLED );
 				$order->save();
@@ -4553,7 +4553,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
 		$this->assertSame( 400, $response->get_status(), print_r( $response->get_data(), true ) );
-		$this->assertSame( 'woocommerce_rest_checkout_payment_required', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_payment_required', $response->get_data()['code'] );
 		$this->assertSame( 'This order cannot be completed without payment. Please try again.', $response->get_data()['message'] );
 		$this->assertGreaterThan( 0, $order_id, 'Checkout should have created an order before refusing to complete it.' );
 
@@ -4566,7 +4566,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Checkout allows extensions to waive payment for a pending non-zero order.
 	 */
 	public function test_checkout_allows_waived_payment_for_pending_non_zero_order(): void {
-		add_filter( 'woocommerce_order_needs_payment', '__return_false' );
+		add_filter( 'poocommerce_order_needs_payment', '__return_false' );
 
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
@@ -4586,7 +4586,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	private function register_custom_order_status( $status_name, $add_to_payment_statuses = false ) {
 		add_filter(
-			'woocommerce_register_shop_order_post_statuses',
+			'poocommerce_register_shop_order_post_statuses',
 			function ( $order_statuses ) use ( $status_name ) {
 				$order_statuses[ 'wc-' . $status_name ] = array(
 					'label'                     => 'Custom status for testing',
@@ -4609,7 +4609,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		if ( $add_to_payment_statuses ) {
 			add_filter(
-				'woocommerce_valid_order_statuses_for_payment',
+				'poocommerce_valid_order_statuses_for_payment',
 				function ( $statuses ) use ( $status_name ) {
 					$statuses[] = $status_name;
 					return $statuses;
@@ -4637,7 +4637,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// Hook into the checkout process to set the custom status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				$order->set_status( $status_name );
 				$order->save();
@@ -4756,7 +4756,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// Hook into the checkout process to set the custom status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				$order->set_status( $status_name );
 				$order->save();
@@ -4822,7 +4822,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// Add a hook to check the needs_payment() result and set the status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				// Set our custom status.
 				$order->set_status( $status_name );
@@ -4912,12 +4912,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * GET should not fire `woocommerce_store_api_checkout_update_order_meta` (only PATCH/POST do).
+	 * GET should not fire `poocommerce_store_api_checkout_update_order_meta` (only PATCH/POST do).
 	 */
 	public function test_get_does_not_fire_update_order_meta_action() {
 		$fired = false;
 		add_action(
-			'woocommerce_store_api_checkout_update_order_meta',
+			'poocommerce_store_api_checkout_update_order_meta',
 			function () use ( &$fired ) {
 				$fired = true;
 			}
@@ -4927,19 +4927,19 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 		rest_get_server()->dispatch( $request );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_meta' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_meta' );
 
 		$this->assertFalse( $fired, 'update_order_meta should not fire on GET — it should only fire when the draft is materialised.' );
 	}
 
 	/**
 	 * Phase 2: POST is the only place that materialises a draft order, and the
-	 * `woocommerce_store_api_checkout_order_created` action fires once at that point.
+	 * `poocommerce_store_api_checkout_order_created` action fires once at that point.
 	 */
 	public function test_post_creates_order_and_fires_order_created_action() {
 		$created_order_ids = array();
 		add_action(
-			'woocommerce_store_api_checkout_order_created',
+			'poocommerce_store_api_checkout_order_created',
 			function ( $order ) use ( &$created_order_ids ) {
 				$created_order_ids[] = $order->get_id();
 			}
@@ -4981,7 +4981,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$post_response = rest_get_server()->dispatch( $post_request );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_order_created' );
+		remove_all_actions( 'poocommerce_store_api_checkout_order_created' );
 
 		$this->assertEquals( 200, $post_response->get_status(), print_r( $post_response->get_data(), true ) );
 
@@ -5039,13 +5039,13 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$update_from_request_orders = array();
 
 		add_action(
-			'woocommerce_store_api_checkout_update_order_meta',
+			'poocommerce_store_api_checkout_update_order_meta',
 			function ( $order ) use ( &$update_meta_orders ) {
 				$update_meta_orders[] = $order->get_id();
 			}
 		);
 		add_action(
-			'woocommerce_store_api_checkout_update_order_from_request',
+			'poocommerce_store_api_checkout_update_order_from_request',
 			function ( $order ) use ( &$update_from_request_orders ) {
 				$update_from_request_orders[] = $order->get_id();
 			}
@@ -5060,8 +5060,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 		);
 		$response = rest_get_server()->dispatch( $request );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_meta' );
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_from_request' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_meta' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_from_request' );
 
 		$this->assertEquals( 200, $response->get_status() );
 		$this->assertSame( array(), $update_meta_orders, 'update_order_meta must not fire on PATCH.' );
@@ -5069,7 +5069,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * The new `woocommerce_store_api_checkout_update_draft` action fires once per PATCH
+	 * The new `poocommerce_store_api_checkout_update_draft` action fires once per PATCH
 	 * with the request, and is the only hook extensions should subscribe to for live
 	 * PATCH-time observation. No `WC_Order` is constructed.
 	 */
@@ -5077,7 +5077,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$received_requests = array();
 
 		add_action(
-			'woocommerce_store_api_checkout_update_draft',
+			'poocommerce_store_api_checkout_update_draft',
 			function ( $request ) use ( &$received_requests ) {
 				$received_requests[] = $request;
 			}
@@ -5092,7 +5092,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		);
 		$response = rest_get_server()->dispatch( $request );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_draft' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_draft' );
 
 		$this->assertEquals( 200, $response->get_status(), print_r( $response->get_data(), true ) );
 		$this->assertCount( 1, $received_requests, 'update_draft should fire exactly once per PATCH.' );
@@ -5114,19 +5114,19 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$draft_request_ids = array();
 
 		add_action(
-			'woocommerce_store_api_checkout_update_order_meta',
+			'poocommerce_store_api_checkout_update_order_meta',
 			function ( $order ) use ( &$meta_ids ) {
 				$meta_ids[] = $order->get_id();
 			}
 		);
 		add_action(
-			'woocommerce_store_api_checkout_update_order_from_request',
+			'poocommerce_store_api_checkout_update_order_from_request',
 			function ( $order ) use ( &$from_request_ids ) {
 				$from_request_ids[] = $order->get_id();
 			}
 		);
 		add_action(
-			'woocommerce_store_api_checkout_update_draft',
+			'poocommerce_store_api_checkout_update_draft',
 			function ( $request ) use ( &$draft_request_ids ) {
 				$draft_request_ids[] = $request->get_method();
 			}
@@ -5134,9 +5134,9 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$post_response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_meta' );
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_from_request' );
-		remove_all_actions( 'woocommerce_store_api_checkout_update_draft' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_meta' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_from_request' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_draft' );
 
 		$this->assertEquals( 200, $post_response->get_status(), print_r( $post_response->get_data(), true ) );
 		$order_id = $post_response->get_data()['order_id'];
@@ -5158,7 +5158,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// PATCH handler — capture live state from cart/customer/request into session.
 		add_action(
-			'woocommerce_store_api_checkout_update_draft',
+			'poocommerce_store_api_checkout_update_draft',
 			function ( $request ) use ( $session_key ) {
 				WC()->session->set(
 					$session_key,
@@ -5172,7 +5172,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// POST handler — apply session-stored state to the real order.
 		add_action(
-			'woocommerce_store_api_checkout_update_order_meta',
+			'poocommerce_store_api_checkout_update_order_meta',
 			function ( $order ) use ( $session_key ) {
 				$pending = WC()->session->get( $session_key );
 				if ( ! is_array( $pending ) ) {
@@ -5199,8 +5199,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$post_response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_draft' );
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_meta' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_draft' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_meta' );
 
 		$this->assertEquals( 200, $post_response->get_status(), print_r( $post_response->get_data(), true ) );
 		$order_id = $post_response->get_data()['order_id'];
@@ -5221,7 +5221,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	public function test_extension_immediate_post_without_patch() {
 		add_action(
-			'woocommerce_store_api_checkout_update_order_meta',
+			'poocommerce_store_api_checkout_update_order_meta',
 			function ( $order ) {
 				$order->update_meta_data( '_sample_ext_no_patch_meta', 'placed-directly' );
 			}
@@ -5229,7 +5229,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$post_response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
-		remove_all_actions( 'woocommerce_store_api_checkout_update_order_meta' );
+		remove_all_actions( 'poocommerce_store_api_checkout_update_order_meta' );
 
 		$this->assertEquals( 200, $post_response->get_status(), print_r( $post_response->get_data(), true ) );
 		$order = wc_get_order( $post_response->get_data()['order_id'] );
@@ -5237,7 +5237,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * Regression test for https://github.com/woocommerce/woocommerce/issues/64792.
+	 * Regression test for https://github.com/poocommerce/poocommerce/issues/64792.
 	 *
 	 * After a failed payment, the customer's session holds a pointer to the pending
 	 * order. A second POST on the same session must reuse that order — otherwise the
@@ -5251,13 +5251,13 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// order has been created and the session pointer set, but before the cart-
 		// clear that would normally follow a successful checkout.
 		$fail_hook = function () {
-			throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
-				'woocommerce_rest_checkout_payment_failed',
+			throw new \Automattic\PooCommerce\StoreApi\Exceptions\RouteException(
+				'poocommerce_rest_checkout_payment_failed',
 				'Forced failure for issue #64792 repro',
 				400
 			);
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
 
 		$first_response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 		$this->assertEquals( 400, $first_response->get_status(), 'First POST should fail per the forced-failure hook.' );
@@ -5269,19 +5269,19 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$this->assertInstanceOf( \WC_Order::class, $first_order );
 		$this->assertTrue( $first_order->has_status( 'pending' ), 'First order should be left in pending status after payment failure.' );
 
-		remove_action( 'woocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
+		remove_action( 'poocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
 
 		// Second POST on the same session should reuse the existing pending order.
 		$session_order_id_during_retry = null;
 		$capture_session_order_id      = function () use ( &$session_order_id_during_retry ) {
 			$session_order_id_during_retry = (int) WC()->session->get( 'store_api_draft_order' );
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $capture_session_order_id, 999, 0 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $capture_session_order_id, 999, 0 );
 
 		try {
 			$second_response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 		} finally {
-			remove_action( 'woocommerce_store_api_checkout_order_processed', $capture_session_order_id, 999 );
+			remove_action( 'poocommerce_store_api_checkout_order_processed', $capture_session_order_id, 999 );
 		}
 
 		$this->assertEquals( 200, $second_response->get_status(), print_r( $second_response->get_data(), true ) );
@@ -5306,7 +5306,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_place_order_request() );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertTrue( wc_get_order( $order_id )->has_status( OrderStatus::CHECKOUT_DRAFT ), 'The order must not move on to payment.' );
 		$this->assertEmpty( WC()->session->get( 'store_api_draft_order' ), 'The order whose save failed must not stay in the session to be resumed.' );
 	}
@@ -5318,7 +5318,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$order_id = $this->create_draft_order_then_remove_first_cart_line();
 		$fail     = $this->fail_saves_of_order( $order_id );
 		rest_get_server()->dispatch( $this->build_place_order_request() );
-		remove_action( 'woocommerce_update_order', $fail );
+		remove_action( 'poocommerce_update_order', $fail );
 
 		$response = rest_get_server()->dispatch( $this->build_place_order_request() );
 
@@ -5339,10 +5339,10 @@ class Checkout extends \WP_Test_REST_TestCase {
 				throw new \Exception( 'Forced save failure' );
 			}
 		};
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		$processed = false;
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function () use ( &$processed ) {
 				$processed = true;
 			}
@@ -5351,16 +5351,16 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertFalse( $processed, 'The order must not reach the processed action or payment.' );
 		$this->assertEmpty( WC()->session->get( 'store_api_draft_order' ) );
 	}
 
 	/**
 	 * @testdox Checkout stops before payment when an extension's save of the order fails on $hook.
-	 * @testWith ["woocommerce_store_api_checkout_order_processed"]
-	 *           ["woocommerce_valid_order_statuses_for_payment"]
-	 *           ["woocommerce_order_needs_payment"]
+	 * @testWith ["poocommerce_store_api_checkout_order_processed"]
+	 *           ["poocommerce_valid_order_statuses_for_payment"]
+	 *           ["poocommerce_order_needs_payment"]
 	 *
 	 * @param string $hook Action or filter that receives the order after its last save point.
 	 */
@@ -5382,7 +5382,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		);
 		$payment_attempted = false;
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function () use ( &$payment_attempted ) {
 				$payment_attempted = true;
 			}
@@ -5391,7 +5391,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertFalse( $payment_attempted, 'Payment must not be attempted for an order that could not be saved.' );
 		$this->assertTrue( wc_get_order( $order_id )->has_status( OrderStatus::PENDING ), 'The order must stay pending.' );
 		$this->assertEmpty( WC()->session->get( 'store_api_draft_order' ), 'The order whose save failed must not stay in the session to be resumed.' );
@@ -5401,16 +5401,16 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * @testdox Checkout of an order that needs no payment fails when marking it paid cannot save it.
 	 */
 	public function test_post_without_payment_rejects_order_when_payment_complete_fails_to_save(): void {
-		add_filter( 'woocommerce_order_needs_payment', '__return_false' );
+		add_filter( 'poocommerce_order_needs_payment', '__return_false' );
 		$order_id = 0;
 		$this->record_processed_order_id( $order_id );
 		// As an extension saving invalid data from this filter would, make the payment_complete() save fail.
 		add_filter(
-			'woocommerce_payment_complete_order_status',
+			'poocommerce_payment_complete_order_status',
 			function ( $status ) use ( &$order_id ) {
 				if ( $order_id ) {
 					add_action(
-						'woocommerce_before_order_object_save',
+						'poocommerce_before_order_object_save',
 						function () {
 							throw new \Exception( 'Forced save failure' );
 						}
@@ -5423,7 +5423,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$order = wc_get_order( $order_id );
 		$this->assertTrue( $order->has_status( OrderStatus::PENDING ), 'The order must stay pending.' );
 		$this->assertNull( $order->get_date_paid(), 'The order must not be marked paid.' );
@@ -5437,7 +5437,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	private function record_processed_order_id( int &$order_id ): void {
 		$order_id = 0;
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( $order ) use ( &$order_id ) {
 				$order_id = $order->get_id();
 			},
@@ -5454,9 +5454,9 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$fail = function () {
 			throw new \Exception( 'Forced save failure' );
 		};
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		$order->save();
-		remove_action( 'woocommerce_before_order_object_save', $fail );
+		remove_action( 'poocommerce_before_order_object_save', $fail );
 	}
 
 	/**
@@ -5473,7 +5473,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $request );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertEmpty( WC()->session->get( 'store_api_draft_order' ) );
 	}
 
@@ -5488,15 +5488,15 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_pay_for_order_request( $order ) );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertTrue( wc_get_order( $order_id )->has_status( OrderStatus::PENDING ), 'The order must not move on to payment.' );
 	}
 
 	/**
 	 * @testdox Pay for order stops before payment when an extension's save of the order fails on $hook.
-	 * @testWith ["woocommerce_store_api_checkout_order_processed"]
-	 *           ["woocommerce_valid_order_statuses_for_payment"]
-	 *           ["woocommerce_order_needs_payment"]
+	 * @testWith ["poocommerce_store_api_checkout_order_processed"]
+	 *           ["poocommerce_valid_order_statuses_for_payment"]
+	 *           ["poocommerce_order_needs_payment"]
 	 *
 	 * @param string $hook Action or filter that receives the order after its last save point.
 	 */
@@ -5519,7 +5519,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		);
 		$payment_attempted = false;
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function () use ( &$payment_attempted ) {
 				$payment_attempted = true;
 			}
@@ -5528,7 +5528,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_pay_for_order_request( $order ) );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_order_not_saved', $response->get_data()['code'] );
 		$this->assertFalse( $payment_attempted, 'Payment must not be attempted for an order that could not be saved.' );
 		$this->assertTrue( wc_get_order( $order->get_id() )->has_status( OrderStatus::PENDING ), 'The order must stay pending.' );
 	}
@@ -5597,7 +5597,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 * Make every save of the given order fail, as a database error would.
 	 *
 	 * @param int $order_id Order ID.
-	 * @return callable The callback added to woocommerce_update_order.
+	 * @return callable The callback added to poocommerce_update_order.
 	 */
 	private function fail_saves_of_order( int $order_id ): callable {
 		$fail = function ( $updated_order_id ) use ( $order_id ) {
@@ -5605,7 +5605,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 				throw new \Exception( 'Forced save failure' );
 			}
 		};
-		add_action( 'woocommerce_update_order', $fail );
+		add_action( 'poocommerce_update_order', $fail );
 		return $fail;
 	}
 
@@ -5657,12 +5657,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * @testdox Checkout does not reuse a positive-total order from the session when woocommerce_order_needs_payment says it needs no payment.
+	 * @testdox Checkout does not reuse a positive-total order from the session when poocommerce_order_needs_payment says it needs no payment.
 	 */
 	public function test_post_respects_needs_payment_filter_for_positive_total_order_from_session(): void {
 		$order = $this->create_session_order_from_cart( OrderStatus::PENDING );
 		add_filter(
-			'woocommerce_order_needs_payment',
+			'poocommerce_order_needs_payment',
 			function ( $needs_payment, $filtered_order ) use ( $order ) {
 				return $filtered_order->get_id() === $order->get_id() ? false : $needs_payment;
 			},
@@ -5721,12 +5721,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$payment_result->set_status( 'success' );
 		};
 
-		add_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
+		add_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
 
 		try {
 			$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 		} finally {
-			remove_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
+			remove_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
 		}
 
 		$this->assertEquals( 200, $response->get_status(), print_r( $response->get_data(), true ) );
@@ -5749,12 +5749,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$payment_result->set_status( 'success' );
 		};
 
-		add_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
+		add_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
 
 		try {
 			$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 		} finally {
-			remove_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
+			remove_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
 		}
 
 		$this->assertEquals( 200, $response->get_status(), print_r( $response->get_data(), true ) );
@@ -5771,7 +5771,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 			$payment_result->set_status( 'failure' );
 		};
 
-		add_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
+		add_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1, 2 );
 
 		try {
 			foreach ( array( 'ALPHA', 'BETA' ) as $marker ) {
@@ -5790,7 +5790,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 				$this->assertSame( 'failure', $data['payment_result']['payment_status'] ?? null, "Checkout {$marker} should end with the handler's failed payment: " . print_r( $data, true ) );
 			}
 		} finally {
-			remove_action( 'woocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
+			remove_action( 'poocommerce_rest_checkout_process_payment_with_context', $payment_handler, 1 );
 		}
 
 		$this->assertSame( array( 'ALPHA', 'BETA' ), $received_markers, 'The second checkout must not receive payment data from the first.' );
@@ -5810,9 +5810,9 @@ class Checkout extends \WP_Test_REST_TestCase {
 		WC()->customer->save();
 
 		$fail_hook = function () {
-			throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( 'woocommerce_rest_checkout_payment_failed', 'Payment declined.', 400 );
+			throw new \Automattic\PooCommerce\StoreApi\Exceptions\RouteException( 'poocommerce_rest_checkout_payment_failed', 'Payment declined.', 400 );
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $fail_hook, 999 );
 
 		$response = rest_get_server()->dispatch( $this->build_valid_post_request() );
 		$this->assertEquals( 400, $response->get_status(), 'Checkout should fail per the forced-failure hook.' );
@@ -5885,7 +5885,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 			++$gateway_resolution_count;
 			return $gateways;
 		};
-		add_filter( 'woocommerce_available_payment_gateways', $counter );
+		add_filter( 'poocommerce_available_payment_gateways', $counter );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 
@@ -5895,7 +5895,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		try {
 			$result = $method->invoke( $sut, $request );
 		} finally {
-			remove_filter( 'woocommerce_available_payment_gateways', $counter );
+			remove_filter( 'poocommerce_available_payment_gateways', $counter );
 		}
 
 		$this->assertNull( $result, 'No payment method should resolve to a null gateway.' );
@@ -5924,7 +5924,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 			++$gateway_resolution_count;
 			return $gateways;
 		};
-		add_filter( 'woocommerce_available_payment_gateways', $counter );
+		add_filter( 'poocommerce_available_payment_gateways', $counter );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout/' . $order->get_id() );
 
@@ -5934,7 +5934,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		try {
 			$result = $method->invoke( $sut, $request );
 		} finally {
-			remove_filter( 'woocommerce_available_payment_gateways', $counter );
+			remove_filter( 'poocommerce_available_payment_gateways', $counter );
 			$order->delete( true );
 		}
 
@@ -5950,31 +5950,31 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		// The route restores the cart only when this action has not run yet, so reset
 		// the counter to put the process back into the state a REST request starts in.
-		$load_action_count = $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] ?? null;
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+		$load_action_count = $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] ?? null;
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 
 		$cart_backup = WC()->cart;
 		$callback    = static function () {
 			throw new \RuntimeException( 'Synthetic Store API cart-session failure.' );
 		};
-		add_filter( 'woocommerce_get_cart_item_from_session', $callback );
+		add_filter( 'poocommerce_get_cart_item_from_session', $callback );
 
 		try {
 			$response = rest_get_server()->dispatch( new \WP_REST_Request( 'GET', '/wc/store/v1/checkout' ) );
 		} finally {
-			remove_filter( 'woocommerce_get_cart_item_from_session', $callback );
+			remove_filter( 'poocommerce_get_cart_item_from_session', $callback );
 			\WC_Cart_Session::set_updates_enabled_for_cart( $cart_backup, true );
 			WC()->cart = $cart_backup;
 			if ( null === $load_action_count ) {
-				unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+				unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 			} else {
 				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the action count changed by the test.
-				$GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] = $load_action_count;
+				$GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] = $load_action_count;
 			}
 		}
 
 		$this->assertSame( 500, $response->get_status(), 'A cart session failure should return a Store API error response.' );
-		$this->assertSame( 'woocommerce_rest_unknown_server_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_unknown_server_error', $response->get_data()['code'] );
 	}
 
 	/**
@@ -5987,7 +5987,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 	 */
 	private function fail_after_payment_is_taken(): void {
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context ) {
 				$context->order->payment_complete();
 				throw new \Exception( 'Transactional email integration failed.' );
@@ -6139,18 +6139,18 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// POST stops before payment, as an exit inside the transition would stop before the
 		// catch, and the gateway's payment_complete() is then run on the order directly.
 		$stop_before_payment = function () {
-			throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
-				'woocommerce_rest_checkout_payment_failed',
+			throw new \Automattic\PooCommerce\StoreApi\Exceptions\RouteException(
+				'poocommerce_rest_checkout_payment_failed',
 				'Stands in for the request dying after payment_complete()',
 				400
 			);
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
 
 		try {
 			rest_get_server()->dispatch( $this->build_checkout_post_request() );
 		} finally {
-			remove_action( 'woocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
+			remove_action( 'poocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
 		}
 
 		$first_order_id = (int) WC()->session->get( 'store_api_draft_order' );
@@ -6195,7 +6195,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$product->set_stock_quantity( 1 );
 		$product->set_backorders( 'no' );
 		$product->save();
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		WC()->cart->empty_cart();
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -6203,18 +6203,18 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// Same arrangement as the test above: the first POST stops before payment, then the gateway's
 		// payment_complete() runs on the order directly, which takes the last unit.
 		$stop_before_payment = function () {
-			throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException(
-				'woocommerce_rest_checkout_payment_failed',
+			throw new \Automattic\PooCommerce\StoreApi\Exceptions\RouteException(
+				'poocommerce_rest_checkout_payment_failed',
 				'Stands in for the request dying after payment_complete()',
 				400
 			);
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
 
 		try {
 			rest_get_server()->dispatch( $this->build_checkout_post_request() );
 		} finally {
-			remove_action( 'woocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
+			remove_action( 'poocommerce_store_api_checkout_order_processed', $stop_before_payment, 999 );
 		}
 
 		$first_order_id = (int) WC()->session->get( 'store_api_draft_order' );
@@ -6250,7 +6250,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// shopper checking out in a second tab has moved the cart on. Model that by changing the
 		// cart after the order was built from it, so the hashes no longer agree.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context ) {
 				$context->order->payment_complete();
 				WC()->cart->add_to_cart( $this->products[0]->get_id(), 1 );
@@ -6271,7 +6271,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// Priority 1000 runs after Legacy::process_legacy_payment (999), so BACS has really
 		// processed the payment and moved the order on before this throws.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function () {
 				throw new \Exception( 'Transactional email integration failed.' );
 			},
@@ -6351,8 +6351,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$product->set_backorders( 'no' );
 		$product->save();
 
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 
 		WC()->cart->empty_cart();
 		WC()->cart->add_to_cart( $product->get_id(), 2 );
@@ -6360,12 +6360,12 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// The only extension hooks between wc_reserve_stock_for_order() and update_status( 'pending' )
 		// are deprecated ones, and that window is exactly what this test covers, so the notice is
 		// expected rather than a signal to hook something else.
-		$this->setExpectedDeprecated( 'woocommerce_blocks_checkout_order_processed' );
+		$this->setExpectedDeprecated( 'poocommerce_blocks_checkout_order_processed' );
 
 		// Fires while the order is still checkout-draft and holding stock.
 		$state_at_failure = null;
 		add_action(
-			'woocommerce_blocks_checkout_order_processed',
+			'poocommerce_blocks_checkout_order_processed',
 			function () use ( &$state_at_failure, $product, $failure ) {
 				$draft_ids = wc_get_orders(
 					array(
@@ -6406,7 +6406,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// No payment_complete() here: the order is still awaiting payment when this lands, so the
 		// recovery path must not claim it, and the Error must reach the client as a failure.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function () {
 				// Raises Error: call to a member function on null.
 				$integration = null;
@@ -6418,7 +6418,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_checkout_post_request() );
 
 		$this->assertSame( 500, $response->get_status(), 'An Error with no payment taken must be reported as a failed checkout: ' . print_r( $response->get_data(), true ) );
-		$this->assertSame( 'woocommerce_rest_unknown_server_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_unknown_server_error', $response->get_data()['code'] );
 
 		$orders = wc_get_orders(
 			array(
@@ -6439,7 +6439,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// the order on-hold before it empties the cart, so this lands between the two, as the
 		// report did. This is the test that fails if the catch narrows back to \Exception.
 		add_action(
-			'woocommerce_order_status_on-hold',
+			'poocommerce_order_status_on-hold',
 			function () {
 				// Raises Error: call to a member function on null.
 				$integration = null;
@@ -6480,7 +6480,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// A gateway that parks the order in the custom status and then declines. No payment was
 		// taken, so the status must read as awaiting payment rather than as moved past it.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context ) use ( $status_name ) {
 				$context->order->update_status( $status_name );
 				throw new \Exception( 'Your card was declined.' );
@@ -6491,7 +6491,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$response = rest_get_server()->dispatch( $this->build_checkout_post_request() );
 
 		$this->assertEquals( 400, $response->get_status(), 'A decline while the order is awaiting payment must be reported: ' . print_r( $response->get_data(), true ) );
-		$this->assertSame( 'woocommerce_rest_checkout_process_payment_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_checkout_process_payment_error', $response->get_data()['code'] );
 		$this->assertFalse( WC()->cart->is_empty(), 'The cart must survive so the shopper can retry.' );
 	}
 
@@ -6533,7 +6533,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$gateway_redirect = 'https://example.com/3ds-challenge';
 
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context, &$payment_result ) use ( $gateway_redirect ) {
 				$context->order->update_status( OrderStatus::ON_HOLD );
 				$payment_result->set_redirect_url( $gateway_redirect );
@@ -6559,7 +6559,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// Parks the order on-hold with an authentication step still outstanding, sets the redirect
 		// that step needs, then fails. The shopper still has to complete the challenge.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context, &$payment_result ) use ( $gateway_redirect ) {
 				$context->order->update_status( OrderStatus::ON_HOLD );
 				$payment_result->set_redirect_url( $gateway_redirect );
@@ -6600,8 +6600,8 @@ class Checkout extends \WP_Test_REST_TestCase {
 		$coupon->set_usage_limit( 1 );
 		$coupon->save();
 
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_hold_stock_minutes', 60 );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_hold_stock_minutes', 60 );
 
 		WC()->cart->empty_cart();
 		WC()->cart->add_to_cart( $product->get_id(), 2 );
@@ -6609,7 +6609,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 
 		$state_at_failure = null;
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( $order ) use ( &$state_at_failure, $product ) {
 				$state_at_failure = array(
 					'total'  => (float) $order->get_total(),
@@ -6657,7 +6657,7 @@ class Checkout extends \WP_Test_REST_TestCase {
 		// Takes payment, then hands back something that is not a PaymentResult. The route rejects
 		// the result, and recovery has to cope with the replacement rather than fatal on it.
 		add_action(
-			'woocommerce_rest_checkout_process_payment_with_context',
+			'poocommerce_rest_checkout_process_payment_with_context',
 			function ( $context, &$payment_result ) {
 				$context->order->payment_complete();
 				$payment_result = null;

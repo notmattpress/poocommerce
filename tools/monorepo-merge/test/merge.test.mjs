@@ -9,7 +9,7 @@ import {
 	validateArgs,
 } from '../src/merge.mjs';
 
-const SOURCE = 'woocommerce/example';
+const SOURCE = 'poocommerce/example';
 const DESTINATION_ERROR =
 	'The "destination" argument must point to a path inside the monorepo';
 
@@ -32,7 +32,7 @@ describe( 'source validation', () => {
 	it( 'accepts a repository name with dots', async () => {
 		await assert.doesNotReject( () =>
 			validateArgs(
-				'woocommerce/example.com',
+				'poocommerce/example.com',
 				'tools/__monorepo_merge_test__'
 			)
 		);
@@ -40,7 +40,7 @@ describe( 'source validation', () => {
 
 	it( 'rejects a repository name made only of dots', async () => {
 		await assert.rejects(
-			validateArgs( 'woocommerce/..', 'tools/__monorepo_merge_test__' ),
+			validateArgs( 'poocommerce/..', 'tools/__monorepo_merge_test__' ),
 			{
 				message:
 					'The "source" argument must be in "organization/repository" format',
@@ -77,7 +77,7 @@ describe( 'destination validation', () => {
 	} );
 
 	it( 'rejects a sibling path with the monorepo name as its prefix', async () => {
-		await assert.rejects( validateArgs( SOURCE, '../woocommerce-copy' ), {
+		await assert.rejects( validateArgs( SOURCE, '../poocommerce-copy' ), {
 			message: DESTINATION_ERROR,
 		} );
 	} );
@@ -87,37 +87,37 @@ describe( 'commit message rewriting', () => {
 	it( 'rewrites parenthesized references as pull request links', () => {
 		assert.equal(
 			rewriteMessage( 'Fix the regression (#123).' ),
-			'Fix the regression (https://github.com/woocommerce/example/pull/123).'
+			'Fix the regression (https://github.com/poocommerce/example/pull/123).'
 		);
 	} );
 
 	it( 'qualifies bare issue references with the source repository', () => {
 		assert.equal(
 			rewriteMessage( 'Follow up in #456.' ),
-			'Follow up in woocommerce/example#456.'
+			'Follow up in poocommerce/example#456.'
 		);
 	} );
 
 	it( 'rewrites adjacent valid references', () => {
 		assert.equal(
 			rewriteMessage( '(#12)(#34) #56 #78' ),
-			'(https://github.com/woocommerce/example/pull/12)' +
-				'(https://github.com/woocommerce/example/pull/34) ' +
-				'woocommerce/example#56 woocommerce/example#78'
+			'(https://github.com/poocommerce/example/pull/12)' +
+				'(https://github.com/poocommerce/example/pull/34) ' +
+				'poocommerce/example#56 poocommerce/example#78'
 		);
 	} );
 
 	it( 'qualifies every reference in a parenthesized list', () => {
 		assert.equal(
 			rewriteMessage( 'Fix widget (#12, #34)' ),
-			'Fix widget (woocommerce/example#12, woocommerce/example#34)'
+			'Fix widget (poocommerce/example#12, poocommerce/example#34)'
 		);
 	} );
 
 	it( 'qualifies references inside parenthesized text', () => {
 		assert.equal(
 			rewriteMessage( 'Tidy up (see #12).' ),
-			'Tidy up (see woocommerce/example#12).'
+			'Tidy up (see poocommerce/example#12).'
 		);
 	} );
 

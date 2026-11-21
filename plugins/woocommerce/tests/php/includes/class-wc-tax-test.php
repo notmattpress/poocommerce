@@ -2,14 +2,14 @@
 /**
  * Class WC_Tax_Test file.
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 
 declare( strict_types=1 );
 
 /**
  * Unit tests for the WC_Tax class get_shipping_tax_rates method and related functionality.
- * Covers edge case bug from https://github.com/woocommerce/woocommerce/issues/58757
+ * Covers edge case bug from https://github.com/poocommerce/poocommerce/issues/58757
  */
 class WC_Tax_Test extends WC_Unit_Test_Case {
 
@@ -22,7 +22,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		// Clear any existing tax rates and settings.
 		$this->clean_up_tax_rates();
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Ensure required tax classes exist for testing.
 		$this->ensure_tax_classes_exist();
@@ -36,8 +36,8 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	 */
 	private function clean_up_tax_rates() {
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 		wp_cache_flush();
 		\WC_Cache_Helper::invalidate_cache_group( 'taxes' );
 	}
@@ -97,7 +97,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$tax_rate_id = WC_Tax::_insert_tax_rate( $tax_rate );
 
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Create product with standard tax class and add to cart.
 		$product = $this->create_product_with_tax_class( '', 'Standard Tax Product' );
@@ -133,7 +133,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$reduced_tax_rate_id = WC_Tax::_insert_tax_rate( $reduced_tax_rate );
 
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Create product with reduced rate tax class and add to cart.
 		$product = $this->create_product_with_tax_class( 'reduced-rate', 'Reduced Rate Product' );
@@ -151,7 +151,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	/**
 	 * Test the correct behavior: when reduced rate items have no shipping tax rates,
 	 * it should return empty array (no shipping tax) rather than falling back to standard rates.
-	 * This tests the fix for https://github.com/woocommerce/woocommerce/issues/58757
+	 * This tests the fix for https://github.com/poocommerce/poocommerce/issues/58757
 	 */
 	public function test_get_shipping_tax_rates_edge_case_no_reduced_shipping_rates() {
 		// Create standard tax rate with shipping enabled.
@@ -184,7 +184,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$reduced_tax_rate_id  = WC_Tax::_insert_tax_rate( $reduced_tax_rate );
 
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Create product with reduced rate tax class and add to cart (the problematic scenario).
 		$product = $this->create_product_with_tax_class( 'reduced-rate', 'Reduced Rate Product' );
@@ -220,7 +220,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$reduced_tax_rate_id = WC_Tax::_insert_tax_rate( $reduced_tax_rate );
 
 		// Set explicit shipping tax class (not inherit).
-		update_option( 'woocommerce_shipping_tax_class', 'reduced-rate' );
+		update_option( 'poocommerce_shipping_tax_class', 'reduced-rate' );
 
 		// Create product with standard tax class - should be ignored due to explicit setting.
 		$product = $this->create_product_with_tax_class( '', 'Standard Tax Product' );
@@ -239,7 +239,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_shipping_tax_rates_no_taxable_items() {
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Create product with no tax status (non-taxable) and add to cart.
 		$product = new WC_Product_Simple();
@@ -288,7 +288,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$reduced_tax_rate_id  = WC_Tax::_insert_tax_rate( $reduced_tax_rate );
 
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Add products with mixed tax classes to cart.
 		$standard_product = $this->create_product_with_tax_class( '', 'Standard Tax Product' );
@@ -312,7 +312,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_shipping_tax_rates_empty_cart() {
 		// Set shipping tax class to inherit.
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		// Ensure cart is empty.
 		WC()->cart->empty_cart();
@@ -424,10 +424,10 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_shipping_tax_class filter fires with correct parameters.
+	 * Test poocommerce_shipping_tax_class filter fires with correct parameters.
 	 */
 	public function test_shipping_tax_class_filter_fires_with_correct_parameters() {
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$product = $this->create_product_with_tax_class( '', 'Standard Product' );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -438,7 +438,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$filter_params = array();
 
 		add_filter(
-			'woocommerce_shipping_tax_class',
+			'poocommerce_shipping_tax_class',
 			function ( $tax_class, $cart, $customer, $location ) use ( &$filter_called, &$filter_params ) {
 				$filter_called = true;
 				$filter_params = array(
@@ -463,7 +463,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_shipping_tax_class filter can modify tax class.
+	 * Test poocommerce_shipping_tax_class filter can modify tax class.
 	 */
 	public function test_shipping_tax_class_filter_can_modify_tax_class() {
 		$standard_product = $this->create_product_with_tax_class( '', 'Standard Product' );
@@ -472,7 +472,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->create_tax_rate_for_class( '', 20.0 );
 		$this->create_tax_rate_for_class( 'reduced-rate', 10.0 );
 
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$rates_without_filter = WC_Tax::get_shipping_tax_rates();
 		$this->assertNotEmpty( $rates_without_filter );
@@ -480,7 +480,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( '20.0000', $rate_without_filter['rate'] );
 
 		add_filter(
-			'woocommerce_shipping_tax_class',
+			'poocommerce_shipping_tax_class',
 			function () {
 				return 'reduced-rate';
 			}
@@ -496,10 +496,10 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_shipping_tax_class filter receives empty string when standard tax class.
+	 * Test poocommerce_shipping_tax_class filter receives empty string when standard tax class.
 	 */
 	public function test_shipping_tax_class_filter_receives_empty_string_for_standard() {
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$product = $this->create_product_with_tax_class( '', 'Standard Product' );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -509,7 +509,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$received_tax_class = null;
 
 		add_filter(
-			'woocommerce_shipping_tax_class',
+			'poocommerce_shipping_tax_class',
 			function ( $tax_class ) use ( &$received_tax_class ) {
 				$received_tax_class = $tax_class;
 				return $tax_class;
@@ -522,10 +522,10 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_shipping_tax_class filter can return null to indicate no taxable items.
+	 * Test poocommerce_shipping_tax_class filter can return null to indicate no taxable items.
 	 */
 	public function test_shipping_tax_class_filter_can_return_null() {
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$product = $this->create_product_with_tax_class( '', 'Standard Product' );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
@@ -533,7 +533,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->create_tax_rate_for_class( '', 20.0 );
 
 		add_filter(
-			'woocommerce_shipping_tax_class',
+			'poocommerce_shipping_tax_class',
 			function () {
 				return null;
 			}
@@ -557,7 +557,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->create_tax_rate_for_class( '', 20.0 );
 		$this->create_tax_rate_for_class( 'reduced-rate', 10.0 );
 
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
 
 		$rates = WC_Tax::get_shipping_tax_rates();
 
@@ -567,7 +567,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce_shipping_tax_class filter works with explicit shipping tax class setting.
+	 * Test poocommerce_shipping_tax_class filter works with explicit shipping tax class setting.
 	 */
 	public function test_shipping_tax_class_filter_with_explicit_setting() {
 		$standard_product = $this->create_product_with_tax_class( '', 'Standard Product' );
@@ -576,12 +576,12 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->create_tax_rate_for_class( '', 20.0 );
 		$this->create_tax_rate_for_class( 'reduced-rate', 10.0 );
 
-		update_option( 'woocommerce_shipping_tax_class', 'reduced-rate' );
+		update_option( 'poocommerce_shipping_tax_class', 'reduced-rate' );
 
 		$received_tax_class = null;
 
 		add_filter(
-			'woocommerce_shipping_tax_class',
+			'poocommerce_shipping_tax_class',
 			function ( $tax_class ) use ( &$received_tax_class ) {
 				$received_tax_class = $tax_class;
 				return $tax_class;
@@ -685,9 +685,9 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 
 		// With filter: shipping cost is gross, tax is calculated from inclusive price.
 		// 10.00 gross, tax = 10.00 - (10.00 / 1.20) ≈ 1.67.
-		add_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		add_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 		$taxes = WC_Tax::calc_shipping_tax( 10.00, $tax_rates );
-		remove_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		remove_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 
 		$expected_tax = 10.00 - ( 10.00 / 1.20 );
 		$this->assertEqualsWithDelta( $expected_tax, array_sum( $taxes ), 0.01, 'Inclusive: tax should be calculated from gross price' );
@@ -726,7 +726,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 2.00, array_sum( $taxes_exclusive ), 'Without filter: tax should be 2.00' );
 
 		// With filter: 10.00 is gross, tax = 10.00 - (10.00 / 1.20) ≈ 1.67.
-		add_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		add_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 		$taxes_inclusive = WC_Tax::calc_shipping_tax( 10.00, $tax_rates );
 		$expected_tax    = 10.00 - ( 10.00 / 1.20 );
 		$this->assertEqualsWithDelta( $expected_tax, array_sum( $taxes_inclusive ), 0.01, 'With filter: tax should be calculated from gross' );
@@ -769,7 +769,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$taxes_exclusive = WC_Tax::calc_shipping_tax( 10.00, $tax_rates );
 		$this->assertEquals( 0.00, array_sum( $taxes_exclusive ), 'Zero tax: exclusive should be 0' );
 
-		add_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		add_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 		$taxes_inclusive = WC_Tax::calc_shipping_tax( 10.00, $tax_rates );
 		$this->assertEquals( 0.00, array_sum( $taxes_inclusive ), 'Zero tax: inclusive should be 0' );
 	}
@@ -781,7 +781,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$taxes = WC_Tax::calc_shipping_tax( 10.00, array() );
 		$this->assertEmpty( $taxes, 'No tax rates should return empty array' );
 
-		add_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		add_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 		$taxes = WC_Tax::calc_shipping_tax( 10.00, array() );
 		$this->assertEmpty( $taxes, 'No tax rates with filter should return empty array' );
 	}
@@ -817,7 +817,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 		$received_args = null;
 
 		add_filter(
-			'woocommerce_shipping_prices_include_tax',
+			'poocommerce_shipping_prices_include_tax',
 			// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Parameter is captured via func_get_args() for the assertion.
 			function ( $include_tax ) use ( &$received_args ) {
 				$received_args = func_get_args();
@@ -905,7 +905,7 @@ class WC_Tax_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		add_filter( 'woocommerce_shipping_prices_include_tax', '__return_true' );
+		add_filter( 'poocommerce_shipping_prices_include_tax', '__return_true' );
 
 		// Two items at 6 each. Price includes tax.
 		$cost_item1 = 6.00;

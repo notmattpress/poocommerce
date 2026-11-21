@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 use Automattic\Jetpack\Status;
 use WP_Error;
@@ -14,7 +14,7 @@ use WP_REST_Request;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Records Tracks events for WooCommerce abilities, including extension abilities registered through its loader.
+ * Records Tracks events for PooCommerce abilities, including extension abilities registered through its loader.
  *
  * Hooks only collect data in memory. Events are sent once per request on shutdown through the batched
  * Tracks client. Ability input and output are never recorded, except the name of a registered ability an agent
@@ -54,7 +54,7 @@ class AbilitiesTracking {
 	 *
 	 * @var string
 	 */
-	private const ABILITY_PREFIX = 'woocommerce/';
+	private const ABILITY_PREFIX = 'poocommerce/';
 
 	/**
 	 * Upper bound of tracked invocations per request, to keep memory and the shutdown flush bounded.
@@ -914,7 +914,7 @@ class AbilitiesTracking {
 	 */
 	private static function is_tracking_allowed(): bool {
 		try {
-			return 'yes' === get_option( 'woocommerce_allow_tracking' ) && \WC_Site_Tracking::is_tracking_enabled();
+			return 'yes' === get_option( 'poocommerce_allow_tracking' ) && \WC_Site_Tracking::is_tracking_enabled();
 		} catch ( \Throwable $e ) {
 			// The consent filters are third-party code; a failure there must not break the ability call.
 			return false;
@@ -922,7 +922,7 @@ class AbilitiesTracking {
 	}
 
 	/**
-	 * Whether an ability uses WooCommerce's namespace or was registered through its loader.
+	 * Whether an ability uses PooCommerce's namespace or was registered through its loader.
 	 *
 	 * @param mixed $ability_name The ability name.
 	 * @return bool

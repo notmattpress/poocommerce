@@ -3,7 +3,7 @@
  */
 import ErrorPlaceholder, {
 	ErrorObject,
-} from '@woocommerce/editor-components/error-placeholder';
+} from '@poocommerce/editor-components/error-placeholder';
 import type { Block } from '@wordpress/blocks';
 import type { ComponentType } from 'react';
 

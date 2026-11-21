@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\Document;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\Document;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
 
 /**
  * This class parses CSS from text into a data structure.

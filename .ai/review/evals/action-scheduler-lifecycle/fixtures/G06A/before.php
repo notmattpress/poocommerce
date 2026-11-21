@@ -2,6 +2,6 @@
 /* Queue registration is loaded in web and runner bootstrap after action_scheduler_init. */
 function wc_export_queue_tick() {
     wc_process_export_batch();
-    as_schedule_single_action( time() + 60, 'woocommerce_export_queue_tick', array(), 'wc-export', false );
+    as_schedule_single_action( time() + 60, 'poocommerce_export_queue_tick', array(), 'wc-export', false );
 }
-add_action( 'woocommerce_export_queue_tick', 'wc_export_queue_tick' );
+add_action( 'poocommerce_export_queue_tick', 'wc_export_queue_tick' );

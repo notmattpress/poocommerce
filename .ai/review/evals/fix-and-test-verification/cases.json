@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G24A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-24.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-24.php",
 			"before": {
 				"file": "fixtures/G24A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-24.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-24.php",
 						"lines": [
 							4,
 							4
@@ -22,7 +22,7 @@
 						"anchor": "    return 'wc-cancelled' === $status ? 'Cancelled' : 'Other';"
 					},
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-24.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-24.php",
 						"lines": [
 							12,
 							13
@@ -34,7 +34,7 @@
 		},
 		{
 			"id": "G24B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-24.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-24.php",
 			"before": {
 				"file": "fixtures/G24B/before.php"
 			},
@@ -45,7 +45,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-24.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-24.php",
 						"lines": [
 							4,
 							4
@@ -53,7 +53,7 @@
 						"anchor": "    return array( 'post_type' => 'product', 'posts_per_page' => 1, 'orderby' => 'ID', 'order' => 'ASC', 'catalog_page' => max( 1, $paged ) );"
 					},
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-24.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-24.php",
 						"lines": [
 							12,
 							12
@@ -65,7 +65,7 @@
 		},
 		{
 			"id": "G24C-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-24.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-24.php",
 			"before": {
 				"file": "fixtures/G24C/before.php"
 			},
@@ -78,7 +78,7 @@
 		},
 		{
 			"id": "G24D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-24.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-24.php",
 			"before": {
 				"file": "fixtures/G24D/before.php"
 			},

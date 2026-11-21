@@ -7,10 +7,10 @@ import {
 	cartStore,
 	checkoutStore,
 	paymentStore,
-} from '@woocommerce/block-data';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
-import { previewCart } from '@woocommerce/resource-previews';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
+} from '@poocommerce/block-data';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
+import { previewCart } from '@poocommerce/resource-previews';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { EditorProvider } from '../../../editor-context';
 
 // Mock the registry functions. Like the real registry, they return the same objects on every call, so a re-render does
 // not re-run the provider's payment method check.
-jest.mock( '@woocommerce/blocks-registry', () => {
+jest.mock( '@poocommerce/blocks-registry', () => {
 	const paymentMethods = {};
 	const expressPaymentMethods = {
 		stripe: {
@@ -186,12 +186,12 @@ describe( 'CheckoutEventsProvider payment method checks', () => {
 	beforeAll( () => {
 		// Tell the cart store the shopper has items in their cart, so it waits for the cart request instead of
 		// treating the cart as empty and marking it loaded when the window load event fires.
-		document.cookie = 'woocommerce_items_in_cart=1';
+		document.cookie = 'poocommerce_items_in_cart=1';
 	} );
 
 	afterAll( () => {
 		document.cookie =
-			'woocommerce_items_in_cart=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+			'poocommerce_items_in_cart=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 	} );
 
 	beforeEach( () => {

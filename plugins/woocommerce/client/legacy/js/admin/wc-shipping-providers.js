@@ -17,7 +17,7 @@
 				save: function( changes ) {
 					var self = this;
 					$.ajax({
-						url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_providers_save_changes',
+						url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_providers_save_changes',
 						type: 'POST',
 						data: {
 							wc_shipping_providers_nonce : data.wc_shipping_providers_nonce,

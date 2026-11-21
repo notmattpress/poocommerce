@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates;
 
 /**
- * Basic template for WooCommerce transactional emails used in the email editor.
+ * Basic template for PooCommerce transactional emails used in the email editor.
  */
 class WooEmailTemplate {
 	/**
@@ -26,7 +26,7 @@ class WooEmailTemplate {
 	 * @return string Localized template title.
 	 */
 	public function get_title(): string {
-		return __( 'Woo Email Template', 'woocommerce' );
+		return __( 'Woo Email Template', 'poocommerce' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class WooEmailTemplate {
 	 * @return string Localized template description.
 	 */
 	public function get_description(): string {
-		return __( 'Basic template for WooCommerce transactional emails used in the email editor', 'woocommerce' );
+		return __( 'Basic template for PooCommerce transactional emails used in the email editor', 'poocommerce' );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class WooEmailTemplate {
 
 <!-- wp:group {"style":{"spacing":{"padding":{"right":"0","left":"0","top":"var:preset|spacing|10","bottom":"var:preset|spacing|10"}}}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--10);padding-right:0;padding-bottom:var(--wp--preset--spacing--10);padding-left:0"><!-- wp:paragraph {"align":"center","style":{"border":{"top":{"color":"var:preset|color|cyan-bluish-gray","width":"1px","style":"solid"},"right":[],"bottom":[],"left":[]},"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}},"color":{"text":"#787c82"},"elements":{"link":{"color":{"text":"#787c82"}}}},"fontSize":"small"} -->
-<p class="has-text-align-center has-text-color has-link-color has-small-font-size" style="border-top-color:var(--wp--preset--color--cyan-bluish-gray);border-top-style:solid;border-top-width:1px;color:#787c82;padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">© <!--[woocommerce/store-name]-->. ' . esc_html__( 'All Rights Reserved.', 'woocommerce' ) . '<br><!--[woocommerce/store-address]--> </p>
+<p class="has-text-align-center has-text-color has-link-color has-small-font-size" style="border-top-color:var(--wp--preset--color--cyan-bluish-gray);border-top-style:solid;border-top-width:1px;color:#787c82;padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)">© <!--[poocommerce/store-name]-->. ' . esc_html__( 'All Rights Reserved.', 'poocommerce' ) . '<br><!--[poocommerce/store-address]--> </p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 </div>

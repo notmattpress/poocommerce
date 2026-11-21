@@ -1,25 +1,25 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Tests\Admin\RemoteInboxNotifications;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Unit_Test_Case;
 use WP_Error;
 
 /**
  * Tests for the published snapshot recorded by the remote inbox notifications poller.
  *
- * @covers \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller
+ * @covers \Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller
  */
 class RemoteInboxNotificationsDataSourcePollerTest extends WC_Unit_Test_Case {
 
 	/**
 	 * Transient holding the latest complete read.
 	 */
-	private const SNAPSHOT_TRANSIENT = 'woocommerce_admin_remote_inbox_notifications_published_snapshot';
+	private const SNAPSHOT_TRANSIENT = 'poocommerce_admin_remote_inbox_notifications_published_snapshot';
 
 	/**
 	 * Auxiliary data source added through the data sources filter.
@@ -61,7 +61,7 @@ class RemoteInboxNotificationsDataSourcePollerTest extends WC_Unit_Test_Case {
 			self::AUXILIARY_URL => $this->encode_specs( 'remote-alert-c' ),
 		);
 
-		delete_transient( 'woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
+		delete_transient( 'poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs' );
 		delete_transient( self::SNAPSHOT_TRANSIENT );
 
 		add_filter(
@@ -431,7 +431,7 @@ class RemoteInboxNotificationsDataSourcePollerTest extends WC_Unit_Test_Case {
 			'slug'    => $slug,
 			'status'  => Note::E_WC_ADMIN_NOTE_UNACTIONED,
 			'type'    => Note::E_WC_ADMIN_NOTE_UPDATE,
-			'source'  => 'woocommerce.com',
+			'source'  => 'poocommerce.com',
 			'locales' => array(
 				(object) array(
 					'locale'  => 'en_US',

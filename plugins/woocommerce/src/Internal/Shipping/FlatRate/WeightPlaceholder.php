@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Shipping\FlatRate;
+namespace Automattic\PooCommerce\Internal\Shipping\FlatRate;
 
 use WC_Product;
 
@@ -41,7 +41,7 @@ class WeightPlaceholder {
 	 * Sum the weight of the given items, multiplied by their quantity.
 	 *
 	 * Items that don't need shipping, and items without a weight, contribute nothing. To adjust the weight a
-	 * cost formula sees, hook `woocommerce_evaluate_shipping_cost_args` and change its `weight` argument.
+	 * cost formula sees, hook `poocommerce_evaluate_shipping_cost_args` and change its `weight` argument.
 	 *
 	 * @param array $items Cart items, in the shape of a package's `contents`.
 	 * @return float
@@ -89,7 +89,7 @@ class WeightPlaceholder {
 					throw new \InvalidArgumentException(
 						sprintf(
 							/* translators: %s: weight placeholder attribute, either min or max. */
-							esc_html__( 'The [weight] %s value must be a non-negative number with a dot decimal separator and no thousands separators, e.g. 1000.5.', 'woocommerce' ),
+							esc_html__( 'The [weight] %s value must be a non-negative number with a dot decimal separator and no thousands separators, e.g. 1000.5.', 'poocommerce' ),
 							esc_html( $attribute )
 						)
 					);
@@ -100,7 +100,7 @@ class WeightPlaceholder {
 			$max = $atts['max'] ?? '';
 
 			if ( '' !== $min && '' !== $max && (float) $min > (float) $max ) {
-				throw new \InvalidArgumentException( esc_html__( 'The [weight] min value cannot be greater than the max value.', 'woocommerce' ) );
+				throw new \InvalidArgumentException( esc_html__( 'The [weight] min value cannot be greater than the max value.', 'poocommerce' ) );
 			}
 		}
 	}

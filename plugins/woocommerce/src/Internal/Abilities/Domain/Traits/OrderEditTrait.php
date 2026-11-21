@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Admin\Orders\ItemQuantityLimits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -126,11 +126,11 @@ trait OrderEditTrait {
 			if ( null !== $error ) {
 				wc_get_logger()->error(
 					sprintf( 'Ability "%s" failed to save the recalculated order: %s', $this->get_name(), $error->getMessage() ),
-					array( 'source' => 'woocommerce-abilities' )
+					array( 'source' => 'poocommerce-abilities' )
 				);
 				return new \WP_Error(
-					'woocommerce_ability_save_failed',
-					__( 'The change could not be saved.', 'woocommerce' ),
+					'poocommerce_ability_save_failed',
+					__( 'The change could not be saved.', 'poocommerce' ),
 					array( 'status' => 500 )
 				);
 			}
@@ -150,9 +150,9 @@ trait OrderEditTrait {
 		// wc_format_decimal() drops the exponent of a number such as 1e3, which changes its value.
 		if ( isset( $line['total'] ) && ( ! is_numeric( $line['total'] ) || false !== stripos( (string) $line['total'], 'e' ) || (float) $line['total'] < 0 ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_shipping_line_total_invalid',
+				'poocommerce_ability_order_shipping_line_total_invalid',
 				/* translators: %s: shipping total sent by the client. */
-				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'woocommerce' ), $line['total'] ),
+				sprintf( __( '"%s" is not a valid shipping total. Send a decimal number that is not negative, such as 9.99.', 'poocommerce' ), $line['total'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -160,8 +160,8 @@ trait OrderEditTrait {
 		if ( empty( $line['id'] ) ) {
 			if ( empty( $line['method_title'] ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_order_shipping_line_method_title_required',
-					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'woocommerce' ),
+					'poocommerce_ability_order_shipping_line_method_title_required',
+					__( 'A new shipping line needs a method_title. Send method_title, or send the id of the shipping line to change.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -209,18 +209,18 @@ trait OrderEditTrait {
 
 		if ( ! $product instanceof \WC_Product ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_not_found',
+				'poocommerce_ability_order_product_not_found',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d does not exist. Use the woocommerce/products-query ability to find the product ID.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d does not exist. Use the poocommerce/products-query ability to find the product ID.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( $product->is_type( ProductType::VARIABLE ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_product_variable',
+				'poocommerce_ability_order_product_variable',
 				/* translators: %d: product ID. */
-				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'woocommerce' ), $line['product_id'] ),
+				sprintf( __( 'Product %d is a variable product and cannot be added. Send the ID of one of its variations as product_id.', 'poocommerce' ), $line['product_id'] ),
 				array( 'status' => 400 )
 			);
 		}
@@ -249,9 +249,9 @@ trait OrderEditTrait {
 	 */
 	private static function line_not_found( int $item_id ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_line_not_found',
+			'poocommerce_ability_order_line_not_found',
 			/* translators: %d: order item ID. */
-			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the woocommerce/orders-query ability with include_line_items and include_lines to read the IDs of the product and shipping lines.', 'woocommerce' ), $item_id ),
+			sprintf( __( 'Item %d is not a line of this order that this ability can change. Use the poocommerce/orders-query ability with include_line_items and include_lines to read the IDs of the product and shipping lines.', 'poocommerce' ), $item_id ),
 			array( 'status' => 400 )
 		);
 	}
@@ -263,6 +263,6 @@ trait OrderEditTrait {
 	 * @return \WP_Error
 	 */
 	private static function quantity_error( \Exception $exception ): \WP_Error {
-		return new \WP_Error( 'woocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
+		return new \WP_Error( 'poocommerce_ability_order_line_item_quantity_invalid', $exception->getMessage(), array( 'status' => 400 ) );
 	}
 }

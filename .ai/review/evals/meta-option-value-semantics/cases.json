@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G09A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+			"path": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 			"before": {
 				"file": "fixtures/G09A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+						"file": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G09B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+			"path": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 			"before": {
 				"file": "fixtures/G09B/before.php"
 			},
@@ -37,19 +37,19 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+						"file": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 						"lines": [
 							4,
 							4
 						],
-						"anchor": "    update_option( 'woocommerce_export_settings', array( 'enabled' => $enabled ) );"
+						"anchor": "    update_option( 'poocommerce_export_settings', array( 'enabled' => $enabled ) );"
 					}
 				]
 			}
 		},
 		{
 			"id": "G09C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+			"path": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 			"before": {
 				"file": "fixtures/G09C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G09D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-meta-option-value-semantics.php",
+			"path": "plugins/poocommerce/includes/class-wc-meta-option-value-semantics.php",
 			"before": {
 				"file": "fixtures/G09D/before.php"
 			},

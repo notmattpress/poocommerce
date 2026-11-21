@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\WCPayPromotion;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
-use Automattic\WooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions;
 use WC_Unit_Test_Case;
 
 /**
  * DefaultPromotionsTest test.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions
+ * @covers \Automattic\PooCommerce\Internal\Admin\WCPayPromotion\DefaultPromotions
  */
 class DefaultPromotionsTest extends WC_Unit_Test_Case {
 
@@ -20,13 +20,13 @@ class DefaultPromotionsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		/*
 		 * Required for the BaseLocationCountryRuleProcessor
 		 * to not return false for "US:CA" country-state combo.
 		 */
-		update_option( 'woocommerce_store_address', 'foo' );
+		update_option( 'poocommerce_store_address', 'foo' );
 
 		update_option( 'active_plugins', array( 'foo/foo.php' ) );
 
@@ -56,7 +56,7 @@ class DefaultPromotionsTest extends WC_Unit_Test_Case {
 
 		$this->assertCount( 0, $results['errors'] );
 		$this->assertCount( 2, $results['suggestions'] );
-		$this->assertEquals( 'woocommerce_payments:woopay', $results['suggestions'][0]->id );
+		$this->assertEquals( 'poocommerce_payments:woopay', $results['suggestions'][0]->id );
 	}
 
 	/**
@@ -65,14 +65,14 @@ class DefaultPromotionsTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_woopay_recommendation_is_not_present() {
-		update_option( 'woocommerce_default_country', 'RO' );
+		update_option( 'poocommerce_default_country', 'RO' );
 
 		$specs   = DefaultPromotions::get_all();
 		$results = EvaluateSuggestion::evaluate_specs( $specs );
 
 		$this->assertCount( 0, $results['errors'] );
 		$this->assertCount( 1, $results['suggestions'] );
-		$this->assertEquals( 'woocommerce_payments', $results['suggestions'][0]->id );
+		$this->assertEquals( 'poocommerce_payments', $results['suggestions'][0]->id );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class DefaultPromotionsTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_no_recommendations_if_in_an_unsupported_country() {
-		update_option( 'woocommerce_default_country', 'FOO' );
+		update_option( 'poocommerce_default_country', 'FOO' );
 
 		$specs   = DefaultPromotions::get_all();
 		$results = EvaluateSuggestion::evaluate_specs( $specs );

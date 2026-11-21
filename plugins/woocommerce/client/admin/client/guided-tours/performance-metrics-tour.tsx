@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
-import { useUserPreferences } from '@woocommerce/data';
+import { useUserPreferences } from '@poocommerce/data';
 import { createElement, useEffect, useRef } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 // Setting effects replaces the TourKit defaults, so they are repeated here
 // alongside autoScroll. Merchants can move the Performance section below the
@@ -79,22 +79,22 @@ export const PerformanceMetricsTour = ( {
 			{
 				referenceElements: {
 					desktop:
-						'.woocommerce-dashboard__performance-menu .woocommerce-ellipsis-menu__toggle',
+						'.poocommerce-dashboard__performance-menu .poocommerce-ellipsis-menu__toggle',
 				},
 				meta: {
 					name: 'performance-metrics',
 					heading: __(
 						'Choose which metrics to display',
-						'woocommerce'
+						'poocommerce'
 					),
 					descriptions: {
 						desktop: __(
 							'Some are hidden by default. Add or remove them from this menu.',
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 					primaryButton: {
-						text: __( 'Got it', 'woocommerce' ),
+						text: __( 'Got it', 'poocommerce' ),
 					},
 				},
 			},

@@ -3,19 +3,19 @@
  * Handles stored state setup for products.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 
 /**
  * Handles stored state setup for products.
  */
 class StoredStateSetupForProducts {
 	const ASYNC_RUN_REMOTE_NOTIFICATIONS_ACTION_NAME =
-		'woocommerce_admin/stored_state_setup_for_products/async/run_remote_notifications';
+		'poocommerce_admin/stored_state_setup_for_products/async/run_remote_notifications';
 
 	/**
 	 * Initialize the class via the admin_init hook.

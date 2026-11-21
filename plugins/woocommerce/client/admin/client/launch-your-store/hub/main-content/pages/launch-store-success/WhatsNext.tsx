@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
-import type { TaskListType } from '@woocommerce/data';
+import type { TaskListType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -62,76 +62,76 @@ export const getActionsList = ( {
 	const isMobileTaskCompleted =
 		extendedTasksCompletion?.[ 'get-mobile-app' ] || false;
 	const isMailChimpActivated = activePlugins.includes(
-		'mailchimp-for-woocommerce'
+		'mailchimp-for-poocommerce'
 	);
 
 	const marketing = {
-		title: __( 'Promote your products', 'woocommerce' ),
+		title: __( 'Promote your products', 'poocommerce' ),
 		description: __(
 			'Grow your customer base by promoting your products to millions of engaged shoppers.',
-			'woocommerce'
+			'poocommerce'
 		),
 		link: `${ ADMIN_URL }admin.php?page=wc-admin&task=marketing`,
-		linkText: __( 'Promote products', 'woocommerce' ),
+		linkText: __( 'Promote products', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_marketing_click',
 	};
 
 	const payments = {
-		title: __( 'Provide more ways to pay', 'woocommerce' ),
+		title: __( 'Provide more ways to pay', 'poocommerce' ),
 		description: __(
 			'Give your shoppers more ways to pay by adding additional payment methods to your store.',
-			'woocommerce'
+			'poocommerce'
 		),
 		link: `${ ADMIN_URL }admin.php?page=wc-settings&tab=checkout`,
-		linkText: __( 'Add payment methods', 'woocommerce' ),
+		linkText: __( 'Add payment methods', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_payments_click',
 	};
 
 	const mailchimp = {
-		title: __( 'Build customer relationships', 'woocommerce' ),
+		title: __( 'Build customer relationships', 'poocommerce' ),
 		description: __(
 			'Keep your shoppers up to date with what’s new in your store and set up clever post-purchase automations.',
-			'woocommerce'
+			'poocommerce'
 		),
 		link: isMailChimpActivated
-			? `${ ADMIN_URL }admin.php?page=mailchimp-woocommerce`
-			: 'https://woo.com/products/mailchimp-for-woocommerce/?utm_source=launch_your_store&utm_medium=product',
+			? `${ ADMIN_URL }admin.php?page=mailchimp-poocommerce`
+			: 'https://woo.com/products/mailchimp-for-poocommerce/?utm_source=launch_your_store&utm_medium=product',
 		linkText: isMailChimpActivated
-			? __( 'Manage Mailchimp', 'woocommerce' )
-			: __( 'Install Mailchimp', 'woocommerce' ),
+			? __( 'Manage Mailchimp', 'poocommerce' )
+			: __( 'Install Mailchimp', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_mailchimp_click',
 	};
 
 	const extensions = {
-		title: __( 'Power up your store', 'woocommerce' ),
+		title: __( 'Power up your store', 'poocommerce' ),
 		description: __(
 			'Add extra features and functionality to your store with Woo extensions.',
-			'woocommerce'
+			'poocommerce'
 		),
 		link: `${ ADMIN_URL }admin.php?page=wc-admin&path=%2Fextensions`,
-		linkText: __( 'Add extensions', 'woocommerce' ),
+		linkText: __( 'Add extensions', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_extensions_click',
 	};
 
 	const mobileApp = {
-		title: __( 'Manage your store on the go', 'woocommerce' ),
+		title: __( 'Manage your store on the go', 'poocommerce' ),
 		description: __(
-			'Manage your store anywhere with the free WooCommerce Mobile App.',
-			'woocommerce'
+			'Manage your store anywhere with the free PooCommerce Mobile App.',
+			'poocommerce'
 		),
 		link: `${ ADMIN_URL }admin.php?page=wc-admin&mobileAppModal=true`,
-		linkText: __( 'Get the app', 'woocommerce' ),
+		linkText: __( 'Get the app', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_mobile_app_click',
 	};
 
 	const externalDocumentation = {
-		title: __( 'Help is on hand', 'woocommerce' ),
+		title: __( 'Help is on hand', 'poocommerce' ),
 		description: __(
 			'Detailed guides and our support team are always available if you’re feeling stuck or need some guidance.',
-			'woocommerce'
+			'poocommerce'
 		),
-		link: `https://woo.com/documentation/woocommerce/?utm_source=launch_your_store&utm_medium=product`,
-		linkText: __( 'Explore support resources', 'woocommerce' ),
+		link: `https://woo.com/documentation/poocommerce/?utm_source=launch_your_store&utm_medium=product`,
+		linkText: __( 'Explore support resources', 'poocommerce' ),
 		trackEvent: 'launch_you_store_congrats_external_documentation_click',
 	};
 
@@ -162,13 +162,13 @@ export const WhatsNext = ( {
 	}, [ activePlugins, allTasklists ] );
 
 	return (
-		<div className="woocommerce-launch-store__congrats-main-actions">
+		<div className="poocommerce-launch-store__congrats-main-actions">
 			{ actions.map( ( item, index ) => (
 				<div
-					className="woocommerce-launch-store__congrats-action"
+					className="poocommerce-launch-store__congrats-action"
 					key={ index }
 				>
-					<div className="woocommerce-launch-store__congrats-action__content">
+					<div className="poocommerce-launch-store__congrats-action__content">
 						<h3>{ item.title }</h3>
 						<p>{ item.description }</p>
 						<Button

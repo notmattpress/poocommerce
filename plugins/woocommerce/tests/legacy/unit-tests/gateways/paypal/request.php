@@ -2,7 +2,7 @@
 /**
  * Unit tests for Paypal standard gateway request.
  *
- * @package WooCommerce\Tests\Gateways\Paypal
+ * @package PooCommerce\Tests\Gateways\Paypal
  */
 
 /**
@@ -363,8 +363,8 @@ class WC_Tests_Paypal_Gateway_Request extends WC_Unit_Test_Case {
 	 */
 	public function test_request_url_without_sandbox() {
 		$this->login_as_administrator();
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$this->check_small_order( 5, false, false );
 	}
@@ -381,15 +381,15 @@ class WC_Tests_Paypal_Gateway_Request extends WC_Unit_Test_Case {
 	 *           ["yes", "no", false]
 	 *           ["yes", "yes", true]
 	 *
-	 * @param string $calc_taxes            The woocommerce_calc_taxes option.
-	 * @param string $prices_include_tax    The woocommerce_prices_include_tax option.
+	 * @param string $calc_taxes            The poocommerce_calc_taxes option.
+	 * @param string $prices_include_tax    The poocommerce_prices_include_tax option.
 	 * @param bool   $shipping_tax_included Whether the shipping tax should be included.
 	 * @throws WC_Data_Exception Exception on failure.
 	 */
 	public function test_request_url( string $calc_taxes, string $prices_include_tax, bool $shipping_tax_included ) {
 		$this->login_as_administrator();
-		update_option( 'woocommerce_calc_taxes', $calc_taxes );
-		update_option( 'woocommerce_prices_include_tax', $prices_include_tax );
+		update_option( 'poocommerce_calc_taxes', $calc_taxes );
+		update_option( 'poocommerce_prices_include_tax', $prices_include_tax );
 		$testmode = true;
 
 		// Test order with < 9 items (URL shorter than limit).

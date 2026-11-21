@@ -10,9 +10,9 @@ import metadata from './block.json';
 import save from './save';
 
 const LEGACY_ATTRIBUTE_OPTIONS_BLOCK =
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options';
-const INNER_CHIPS = 'woocommerce/product-filter-chips';
-const INNER_DROPDOWN = 'woocommerce/dropdown';
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options';
+const INNER_CHIPS = 'poocommerce/product-filter-chips';
+const INNER_DROPDOWN = 'poocommerce/dropdown';
 
 interface MigratedAttributeSettings {
 	displayStyle: string;

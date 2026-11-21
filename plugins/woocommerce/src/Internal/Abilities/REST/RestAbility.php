@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\REST;
+namespace Automattic\PooCommerce\Internal\Abilities\REST;
 
-use Automattic\WooCommerce\Internal\MCP\McpEndpointRemoval;
+use Automattic\PooCommerce\Internal\MCP\McpEndpointRemoval;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,11 +15,11 @@ defined( 'ABSPATH' ) || exit;
  * Custom WP_Ability subclass for REST API-based abilities.
  *
  * This class extends the base WP_Ability class but skips output validation
- * to handle the discrepancies between WooCommerce REST API schemas and
- * actual output. This is necessary because WooCommerce schemas are often
+ * to handle the discrepancies between PooCommerce REST API schemas and
+ * actual output. This is necessary because PooCommerce schemas are often
  * incomplete or inaccurate regarding nullable fields and type variations.
  *
- * @deprecated 11.3.0 Removed along with the WooCommerce MCP endpoint's REST-derived abilities. Still works, but reports incorrect usage.
+ * @deprecated 11.3.0 Removed along with the PooCommerce MCP endpoint's REST-derived abilities. Still works, but reports incorrect usage.
  */
 class RestAbility extends \WP_Ability {
 
@@ -37,7 +37,7 @@ class RestAbility extends \WP_Ability {
 	/**
 	 * Skip output validation for REST abilities.
 	 *
-	 * WooCommerce REST API schemas often don't accurately reflect the actual
+	 * PooCommerce REST API schemas often don't accurately reflect the actual
 	 * output, particularly for nullable fields and type variations. Rather than
 	 * trying to fix all schema inconsistencies, we skip output validation for
 	 * REST-based abilities while maintaining input validation and permissions.

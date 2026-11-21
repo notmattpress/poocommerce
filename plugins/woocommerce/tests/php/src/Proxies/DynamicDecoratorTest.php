@@ -3,10 +3,10 @@
  * DynamicDecorator class file
  */
 
-namespace Automattic\WooCommerce\Tests\Proxies;
+namespace Automattic\PooCommerce\Tests\Proxies;
 
-use Automattic\WooCommerce\Testing\Tools\DynamicDecorator;
-use Automattic\WooCommerce\Tests\Proxies\ExampleClasses\ClassWithReplaceableMembers;
+use Automattic\PooCommerce\Testing\Tools\DynamicDecorator;
+use Automattic\PooCommerce\Tests\Proxies\ExampleClasses\ClassWithReplaceableMembers;
 
 /**
  * Tests for DynamicDecorator

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
@@ -20,7 +20,7 @@ export const App = () => {
 	return (
 		<>
 			<Heading level={ 1 }>
-				Live Branches - Install and test WooCommerce PRs
+				Live Branches - Install and test PooCommerce PRs
 			</Heading>
 			{ isError && <p>Something Went Wrong!</p> }
 			{ isLoading && <Spinner /> }

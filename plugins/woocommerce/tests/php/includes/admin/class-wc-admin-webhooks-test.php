@@ -137,7 +137,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$_REQUEST = array(
 			'action'   => $action,
 			'webhook'  => array( $webhook->get_id() ),
-			'_wpnonce' => wp_create_nonce( 'woocommerce-settings' ),
+			'_wpnonce' => wp_create_nonce( 'poocommerce-settings' ),
 		);
 		$sut      = new WC_Admin_Webhooks_Table_List();
 		$redirect = $this->capture_redirect(
@@ -178,7 +178,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$_REQUEST = array(
 			'action'   => 'pause',
 			'webhook'  => array( $webhook->get_id() ),
-			'_wpnonce' => wp_create_nonce( 'woocommerce-settings' ),
+			'_wpnonce' => wp_create_nonce( 'poocommerce-settings' ),
 		);
 
 		$sut      = new WC_Admin_Webhooks_Table_List();

@@ -17,7 +17,7 @@ import { RunStatus } from '../components/run-status';
 import { ErrorNotice } from '../components/error-notice';
 
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 const mockFetch = apiFetch as unknown as jest.Mock;
 
 const view = ( pending: boolean, label = 'Run check' ) => ( {
@@ -35,7 +35,7 @@ describe( 'useReadinessView', () => {
 		jest.useFakeTimers();
 		mockFetch.mockReset();
 		// Tracks calls from one test must not reach the next one's assertions.
-		jest.requireMock( '@woocommerce/tracks' ).recordEvent.mockClear();
+		jest.requireMock( '@poocommerce/tracks' ).recordEvent.mockClear();
 	} );
 	afterEach( () => jest.useRealTimers() );
 
@@ -154,7 +154,7 @@ describe( 'useReadinessView', () => {
 	} );
 
 	it( 'does not record a load error or clear the page when a poll fails', async () => {
-		const { recordEvent } = jest.requireMock( '@woocommerce/tracks' );
+		const { recordEvent } = jest.requireMock( '@poocommerce/tracks' );
 		mockFetch
 			.mockResolvedValueOnce( view( true ) )
 			.mockRejectedValueOnce( new Error( 'network' ) );
@@ -172,7 +172,7 @@ describe( 'useReadinessView', () => {
 	} );
 
 	it( 'does not record viewed after unmount', async () => {
-		const { recordEvent } = jest.requireMock( '@woocommerce/tracks' );
+		const { recordEvent } = jest.requireMock( '@poocommerce/tracks' );
 		let finish: ( value: unknown ) => void = () => {};
 		mockFetch.mockImplementationOnce(
 			() =>

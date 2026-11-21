@@ -1,10 +1,10 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
-use Automattic\WooCommerce\Tests\Internal\TransientFiles\TransientFilesTestStreamWrapper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Tests\Internal\TransientFiles\TransientFilesTestStreamWrapper;
 
 /**
  * Tests for the ImportSession value object.
@@ -14,7 +14,7 @@ class ImportSessionTest extends \WC_Unit_Test_Case {
 	/**
 	 * Action Scheduler group the session schedules its cleanup in.
 	 */
-	private const CLEANUP_GROUP = 'woocommerce-fulfillments-importer';
+	private const CLEANUP_GROUP = 'poocommerce-fulfillments-importer';
 
 	/**
 	 * Scheme the stream wrapper tests register their uploads directory under.

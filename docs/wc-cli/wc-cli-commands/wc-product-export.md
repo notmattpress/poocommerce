@@ -4,7 +4,7 @@ sidebar_label: wc product export
 ---
 
 Export products to a CSV file using the same underlying engine as the admin product exporter
-(**WooCommerce > Products > Export**).
+(**PooCommerce > Products > Export**).
 
 ## wc product export `[<file>]`
 
@@ -12,7 +12,7 @@ Export products to a CSV file, or `-` to print the CSV to STDOUT. Required unles
 is used.
 
 - `--columns=<list>` - Comma-separated column keys to export. Defaults to all. Use `--list-columns` to see keys.
-- `--types=<list>` - Comma-separated product types, such as simple, variable, variation, grouped, and external. Also accepts types registered by extensions or added through `woocommerce_exporter_product_types`. Defaults to all.
+- `--types=<list>` - Comma-separated product types, such as simple, variable, variation, grouped, and external. Also accepts types registered by extensions or added through `poocommerce_exporter_product_types`. Defaults to all.
 - `--category=<list>` - Comma-separated category slugs.
 - `--ids=<list>` - Comma-separated product IDs. Takes priority over `--types` and `--category`, which are ignored. A variable product's variations are included.
 - `--meta` - Include custom meta columns.

@@ -8,10 +8,10 @@ import clsx from 'clsx';
 import {
 	SummaryNumber,
 	SummaryNumberPlaceholder,
-} from '@woocommerce/components';
-import { getPersistedQuery } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/components';
+import { getPersistedQuery } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ export const StatsList = ( {
 
 	return (
 		<ul
-			className={ clsx( 'woocommerce-stats-overview__stats', {
+			className={ clsx( 'poocommerce-stats-overview__stats', {
 				'is-even': stats.length % 2 === 0,
 			} ) }
 		>
@@ -72,7 +72,7 @@ export const StatsList = ( {
 						hrefType={ reportUrlType }
 						label={ item.label }
 						value={ primaryValue }
-						prevLabel={ __( 'Previous period:', 'woocommerce' ) }
+						prevLabel={ __( 'Previous period:', 'poocommerce' ) }
 						prevValue={ secondaryValue }
 						delta={ delta }
 						onLinkClickCallback={ () => {

@@ -2,10 +2,10 @@
 /**
  * Options REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\Experiments;
+use Automattic\PooCommerce\Admin\API\Experiments;
 
 /**
  * WC Tests API Options

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Unit_Test_Case;
 
 /**
@@ -96,7 +96,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 		$order = OrderHelper::create_order();
 
 		$first   = $this->execute( array( 'id' => $order->get_id() ) );
-		$second  = wp_get_ability( 'woocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
+		$second  = wp_get_ability( 'poocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
 		$trashed = wc_get_order( $order->get_id() )->get_status();
 		$deleted = $this->execute(
 			array(
@@ -110,7 +110,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'status', $first );
 		$this->assertSame( 'trash', $first['status'] );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_already_trashed', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_already_trashed', $second->get_error_code() );
 		$this->assertSame( 409, $second->get_error_data()['status'] );
 		$this->assertSame( OrderStatus::TRASH, $trashed );
 		$this->assertSame( 'deleted', $deleted['status'] );
@@ -159,9 +159,9 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 				'amount'   => 1,
 			)
 		);
-		add_filter( 'woocommerce_pre_delete_order_refund', '__return_false' );
+		add_filter( 'poocommerce_pre_delete_order_refund', '__return_false' );
 
-		$result = wp_get_ability( 'woocommerce/order-delete' )->execute(
+		$result = wp_get_ability( 'poocommerce/order-delete' )->execute(
 			array(
 				'id'    => $order->get_id(),
 				'force' => true,
@@ -169,7 +169,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_delete_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_delete_failed', $result->get_error_code() );
 		$this->assertInstanceOf( \WC_Order::class, wc_get_order( $order->get_id() ), 'The rollback should restore the order.' );
 		$this->assertInstanceOf( \WC_Order_Refund::class, wc_get_order( $refund->get_id() ) );
 	}
@@ -179,9 +179,9 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 	 */
 	public function test_refuses_trash_when_trash_is_disabled(): void {
 		$order = OrderHelper::create_order();
-		add_filter( 'woocommerce_order_object_trashable', '__return_false' );
+		add_filter( 'poocommerce_order_object_trashable', '__return_false' );
 
-		$refused = wp_get_ability( 'woocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
+		$refused = wp_get_ability( 'poocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
 		$deleted = $this->execute(
 			array(
 				'id'    => $order->get_id(),
@@ -190,7 +190,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $refused );
-		$this->assertSame( 'woocommerce_ability_order_trash_not_supported', $refused->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_trash_not_supported', $refused->get_error_code() );
 		$this->assertSame( 'deleted', $deleted['status'] );
 	}
 
@@ -203,12 +203,12 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 	public function test_reports_a_delete_that_did_not_happen( bool $hpos ): void {
 		$this->use_storage( $hpos );
 		$order = OrderHelper::create_order();
-		add_filter( 'woocommerce_pre_delete_order', '__return_false' );
+		add_filter( 'poocommerce_pre_delete_order', '__return_false' );
 
-		$result = wp_get_ability( 'woocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_delete_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_delete_failed', $result->get_error_code() );
 		$this->assertNotSame( OrderStatus::TRASH, wc_get_order( $order->get_id() )->get_status() );
 	}
 
@@ -231,14 +231,14 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 		);
 		$order = OrderHelper::create_order();
 		$wpdb->update( $wpdb->posts, array( 'post_type' => 'shop_test_custom' ), array( 'ID' => $order->get_id() ) );
-		$wpdb->update( \Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_orders_table_name(), array( 'type' => 'shop_test_custom' ), array( 'id' => $order->get_id() ) );
+		$wpdb->update( \Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_orders_table_name(), array( 'type' => 'shop_test_custom' ), array( 'id' => $order->get_id() ) );
 		clean_post_cache( $order->get_id() );
 		wp_cache_flush();
 		$manager = self::factory()->user->create( array( 'role' => 'shop_manager' ) );
 		wp_set_current_user( $manager );
 
 		try {
-			$refused = wp_get_ability( 'woocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
+			$refused = wp_get_ability( 'poocommerce/order-delete' )->execute( array( 'id' => $order->get_id() ) );
 			wp_get_current_user()->add_cap( 'delete_others_shop_test_customs' );
 			wp_get_current_user()->add_cap( 'delete_published_shop_test_customs' );
 			$trashed = $this->execute( array( 'id' => $order->get_id() ) );
@@ -258,7 +258,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 	 */
 	public function test_checks_delete_access_for_an_unknown_order_id(): void {
 		$order   = OrderHelper::create_order();
-		$ability = wp_get_ability( 'woocommerce/order-delete' );
+		$ability = wp_get_ability( 'poocommerce/order-delete' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'subscriber' ) ) );
 		wp_get_current_user()->add_cap( 'edit_shop_orders' );
 		wp_get_current_user()->add_cap( 'edit_others_shop_orders' );
@@ -280,7 +280,7 @@ class OrderDeleteTest extends WC_Unit_Test_Case {
 	 * @return array
 	 */
 	private function execute( array $input ): array {
-		$result = wp_get_ability( 'woocommerce/order-delete' )->execute( $input );
+		$result = wp_get_ability( 'poocommerce/order-delete' )->execute( $input );
 
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 

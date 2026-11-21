@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { useStoreCart } from '@woocommerce/base-context';
+import { useStoreCart } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import {
 	generateShippingRate,
 } from '../../../../../mocks/shipping-package';
 
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	useStoreCart: jest.fn(),
 	useEditorContext: jest.fn( () => ( { isEditor: false } ) ),
 	useShippingData: jest.fn( () => ( {
@@ -31,7 +31,7 @@ const renderLoading = (
 		<ShippingRatesControl
 			shippingRates={ shippingRates }
 			isLoadingRates={ true }
-			context="woocommerce/checkout"
+			context="poocommerce/checkout"
 		/>
 	);
 

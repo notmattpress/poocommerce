@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isNumber } from '@woocommerce/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isNumber } from '@poocommerce/types';
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
@@ -19,9 +19,9 @@ import { CoreFilterNames, TrackInteraction } from '../../types';
 
 const MIN_PRODUCTS_PER_PAGE = 1;
 const MAX_PRODUCTS_PER_PAGE = 100;
-const OPTION_NAME = 'woocommerce_catalog_products_per_page';
+const OPTION_NAME = 'poocommerce_catalog_products_per_page';
 
-const label = __( 'Products per page', 'woocommerce' );
+const label = __( 'Products per page', 'poocommerce' );
 
 const DefaultQueryProductsPerPageControl = ( {
 	trackInteraction,
@@ -67,7 +67,7 @@ const DefaultQueryProductsPerPageControl = ( {
 				label={ label }
 				help={ __(
 					'Applies to all Product Collection blocks using the Default Query.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				min={ MIN_PRODUCTS_PER_PAGE }
 				max={ MAX_PRODUCTS_PER_PAGE }

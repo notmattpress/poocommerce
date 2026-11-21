@@ -36,7 +36,7 @@ jest.mock( '../useQRLoginAvailability', () => {
 } );
 
 // Mock tracks to keep tests isolated from analytics side-effects.
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -46,7 +46,7 @@ const mockedUseQRLoginToken = useQRLoginToken as jest.MockedFunction<
 
 const readyTokenState = {
 	state: QRLoginTokenStates.READY,
-	qrUrl: 'woocommerce://qr-login?token=abc&siteUrl=https%3A%2F%2Fexample.test',
+	qrUrl: 'poocommerce://qr-login?token=abc&siteUrl=https%3A%2F%2Fexample.test',
 	secondsRemaining: 300,
 	errorMessage: null,
 	errorCode: null,

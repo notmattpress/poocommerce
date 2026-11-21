@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness\Checks;
+namespace Automattic\PooCommerce\Internal\AgentReadiness\Checks;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFields;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFields;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,21 +29,21 @@ class MissingRegularPriceCheck extends AbstractReadinessCheck {
 	 * Merchant-facing label.
 	 */
 	public function label(): string {
-		return __( 'Products with no price', 'woocommerce' );
+		return __( 'Products with no price', 'poocommerce' );
 	}
 
 	/**
 	 * Why it matters.
 	 */
 	public function why(): string {
-		return __( 'Every channel\'s spec requires a price, and Google rejects a product without one. A variable product still lists its priced variations.', 'woocommerce' );
+		return __( 'Every channel\'s spec requires a price, and Google rejects a product without one. A variable product still lists its priced variations.', 'poocommerce' );
 	}
 
 	/**
 	 * What to do about it.
 	 */
 	public function fix(): string {
-		return __( 'Set a price on the product, or on each variation.', 'woocommerce' );
+		return __( 'Set a price on the product, or on each variation.', 'poocommerce' );
 	}
 
 	/**

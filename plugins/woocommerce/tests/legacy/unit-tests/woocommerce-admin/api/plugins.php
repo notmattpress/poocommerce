@@ -2,11 +2,11 @@
 /**
  * Plugins REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\Plugins;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\API\Plugins;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * WC Tests API Plugins
@@ -157,7 +157,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_install_plugin_async() {
 		wp_set_current_user( $this->user );
-		as_unschedule_all_actions( 'woocommerce_plugins_install_callback' );
+		as_unschedule_all_actions( 'poocommerce_plugins_install_callback' );
 
 		try {
 			$request = new WP_REST_Request( 'POST', $this->endpoint . '/install' );
@@ -175,12 +175,12 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 			$this->assertNotEmpty( $data['data']['job_id'] );
 			$this->assertTrue(
 				as_has_scheduled_action(
-					'woocommerce_plugins_install_callback',
+					'poocommerce_plugins_install_callback',
 					array( array( self::TEST_PLUGIN_SLUG ) )
 				)
 			);
 		} finally {
-			as_unschedule_all_actions( 'woocommerce_plugins_install_callback' );
+			as_unschedule_all_actions( 'poocommerce_plugins_install_callback' );
 		}
 	}
 
@@ -194,7 +194,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 403, $response->get_status(), 'A request without an interactive session nonce must be rejected.' );
-		$this->assertEquals( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -294,7 +294,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 403, $response->get_status(), 'A cookie session without a valid wp_rest nonce must be rejected.' );
-		$this->assertEquals( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -309,7 +309,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 403, $response->get_status(), 'A wp_rest nonce without a cookie session must be rejected.' );
-		$this->assertEquals( 'woocommerce_rest_missing_session', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_session', $response->get_data()['code'] );
 	}
 
 	/**
@@ -332,7 +332,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertNotEquals( 403, $response->get_status(), 'An admin browser session must pass the interactive-session check.' );
-		$this->assertNotEquals( 'woocommerce_rest_missing_session', $response->get_data()['code'] ?? '' );
+		$this->assertNotEquals( 'poocommerce_rest_missing_session', $response->get_data()['code'] ?? '' );
 	}
 
 	/**

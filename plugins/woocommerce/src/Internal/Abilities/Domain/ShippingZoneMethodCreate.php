@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  * Adds a flat rate, free shipping or local pickup method to a zone.
  *
  * A method is a table row plus an option, not a WC_Data object, so a failed settings write removes the method again instead of rolling back.
- * Listeners then see woocommerce_shipping_zone_method_added and, right after, woocommerce_shipping_zone_method_deleted.
+ * Listeners then see poocommerce_shipping_zone_method_added and, right after, poocommerce_shipping_zone_method_deleted.
  */
 class ShippingZoneMethodCreate extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -30,7 +30,7 @@ class ShippingZoneMethodCreate extends AbstractDomainAbility implements AbilityD
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/shipping-zone-method-create';
+		return 'poocommerce/shipping-zone-method-create';
 	}
 
 	/**
@@ -42,9 +42,9 @@ class ShippingZoneMethodCreate extends AbstractDomainAbility implements AbilityD
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Add shipping method to zone', 'woocommerce' ),
-			'description'         => __( 'Add a flat rate, free shipping or local pickup method to a shipping zone, with its settings. Zone 0 covers every location no other zone matches.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Add shipping method to zone', 'poocommerce' ),
+			'description'         => __( 'Add a flat rate, free shipping or local pickup method to a shipping zone, with its settings. Zone 0 covers every location no other zone matches.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array_merge(
@@ -100,7 +100,7 @@ class ShippingZoneMethodCreate extends AbstractDomainAbility implements AbilityD
 			return $zone;
 		}
 
-		// A woocommerce_shipping_methods callback can remove a Core method or replace its class.
+		// A poocommerce_shipping_methods callback can remove a Core method or replace its class.
 		$available = WC()->shipping()->get_shipping_methods();
 		$prototype = $available[ $input['method_id'] ] ?? null;
 		if ( ! $prototype instanceof \WC_Shipping_Method || ! self::is_core_method( $prototype ) ) {
@@ -113,7 +113,7 @@ class ShippingZoneMethodCreate extends AbstractDomainAbility implements AbilityD
 			if ( $instance_id ) {
 				$zone->delete_shipping_method( $instance_id );
 			}
-			return new \WP_Error( 'woocommerce_ability_shipping_method_create_failed', __( 'The shipping method could not be added to the zone.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_shipping_method_create_failed', __( 'The shipping method could not be added to the zone.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$error = self::write_method_changes( $method, $zone, $input );

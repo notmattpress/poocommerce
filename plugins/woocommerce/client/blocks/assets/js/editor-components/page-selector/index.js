@@ -33,7 +33,7 @@ const PageSelector = ( { setPageId, pageId, labels } ) => {
 				resetAll={ () => setPageId( 0 ) }
 			>
 				<ToolsPanelItem
-					label={ __( 'Link to', 'woocommerce' ) }
+					label={ __( 'Link to', 'poocommerce' ) }
 					hasValue={ () =>
 						typeof pageId === 'number' && pageId !== 0
 					}
@@ -41,7 +41,7 @@ const PageSelector = ( { setPageId, pageId, labels } ) => {
 					isShownByDefault
 				>
 					<SelectControl
-						label={ __( 'Link to', 'woocommerce' ) }
+						label={ __( 'Link to', 'poocommerce' ) }
 						value={ pageId }
 						options={ [
 							{

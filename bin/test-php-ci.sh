@@ -9,7 +9,7 @@
 #   pnpm test:php:ci --cell 8.3 --tests tests/php/includes/abstracts/class-wc-abstract-product-test.php
 #   pnpm test:php:ci --cell 8.3 --tests suite:wc-phpunit-legacy
 #
-# Install mirrors the "backend" path of setup-woocommerce-monorepo; cells,
+# Install mirrors the "backend" path of setup-poocommerce-monorepo; cells,
 # versions and commands come from `pnpm utils ci-jobs`, as in CI. Cells start
 # without `--update` so they stay warm, unless their WordPress is not the
 # version the cell needs; `--fresh` starts them as CI does.
@@ -17,8 +17,8 @@
 
 set -euo pipefail
 
-project="@woocommerce/plugin-woocommerce"
-project_dir="plugins/woocommerce"
+project="@poocommerce/plugin-poocommerce"
+project_dir="plugins/poocommerce"
 list=0
 all=0
 fresh=0
@@ -55,7 +55,7 @@ if [[ $list -eq 0 && $all -eq 0 && ${#cells[@]} -eq 0 ]]; then
 	usage
 fi
 [[ "$jobs" =~ ^[1-9][0-9]*$ ]] || usage
-# gh local-ci (https://github.com/woocommerce/gh-local-ci) runs CI jobs on a
+# gh local-ci (https://github.com/poocommerce/gh-local-ci) runs CI jobs on a
 # developer's machine and sets LOCAL_CI=1; its receipt lets CI skip the job
 # (.github/actions/local-ci-receipt/README.md). A receipt says the whole CI
 # job passed, so a run under it may not narrow the tests.
@@ -198,7 +198,7 @@ else
 			fi
 		done
 		if [[ ${#matches[@]} -ne 1 ]]; then
-			echo "error: --cell '$want' matches ${#matches[@]} cells (only @woocommerce/plugin-woocommerce cells are supported); use --list and pick one index" >&2
+			echo "error: --cell '$want' matches ${#matches[@]} cells (only @poocommerce/plugin-poocommerce cells are supported); use --list and pick one index" >&2
 			exit 2
 		fi
 		[[ " ${selected[*]:-} " == *" ${matches[0]} "* ]] || selected+=( "${matches[0]}" )
@@ -213,7 +213,7 @@ run pnpm install --filter="$project" --frozen-lockfile --ignore-scripts || pnpm_
 composer_status=0
 wait "$composer_pid" || composer_status=$?
 [[ $pnpm_status -eq 0 && $composer_status -eq 0 ]] || exit 1
-run pnpm --filter=@woocommerce/admin-library build:project:feature-config
+run pnpm --filter=@poocommerce/admin-library build:project:feature-config
 
 # A fresh CI database has no leftover scheduled actions; phpunit never drops these tables.
 # wp-env writes wp-tests-config.php as a copy of wp-config.php, so PHPUnit uses the wp_ prefix, not wptests_.

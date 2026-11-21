@@ -1,20 +1,20 @@
 <?php
 /**
- * WooCommerce Payment Gateways
+ * PooCommerce Payment Gateways
  *
  * Loads payment gateways via hooks for use in the store.
  *
  * @version 2.2.0
- * @package WooCommerce\Classes\Payment
+ * @package PooCommerce\Classes\Payment
  */
 
-use Automattic\WooCommerce\Enums\PaymentGatewayFeature;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments as SettingsPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\StoreApi\Utilities\PaymentUtils;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\PaymentGatewayFeature;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments as SettingsPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\StoreApi\Utilities\PaymentUtils;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -90,21 +90,21 @@ class WC_Payment_Gateways {
 		);
 
 		// Filter.
-		$load_gateways = apply_filters( 'woocommerce_payment_gateways', $load_gateways );
+		$load_gateways = apply_filters( 'poocommerce_payment_gateways', $load_gateways );
 
 		// Preload option caches to minimize future queries for options that do not yet exist or are not set to autoload.
 		wp_prime_option_caches(
 			array(
-				'woocommerce_bacs_settings',
-				'woocommerce_bacs_accounts',
-				'woocommerce_cheque_settings',
-				'woocommerce_cod_settings',
-				'woocommerce_paypal_settings',
+				'poocommerce_bacs_settings',
+				'poocommerce_bacs_accounts',
+				'poocommerce_cheque_settings',
+				'poocommerce_cod_settings',
+				'poocommerce_paypal_settings',
 			)
 		);
 
 		// Get sort order option.
-		$ordering  = (array) get_option( 'woocommerce_gateway_order' );
+		$ordering  = (array) get_option( 'poocommerce_gateway_order' );
 		$order_end = 999;
 
 		// Load gateways in order.
@@ -155,7 +155,7 @@ class WC_Payment_Gateways {
 	 * @param WC_Payment_Gateways $wc_payment_gateways The WC_Payment_Gateways instance.
 	 * @since 8.5.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function on_payment_gateways_initialized( WC_Payment_Gateways $wc_payment_gateways ) {
 		foreach ( $this->payment_gateways as $gateway ) {
@@ -229,7 +229,7 @@ class WC_Payment_Gateways {
 			 *
 			 * @since 10.7.0
 			 */
-			do_action( 'woocommerce_payment_gateway_enabled', $gateway );
+			do_action( 'poocommerce_payment_gateway_enabled', $gateway );
 
 			// Track the gateway enable.
 			$this->record_gateway_event( 'enable', $gateway );
@@ -386,7 +386,7 @@ class WC_Payment_Gateways {
 			}
 		}
 
-		return array_filter( (array) apply_filters( 'woocommerce_available_payment_gateways', $_available_gateways ), array( $this, 'filter_valid_gateway_class' ) );
+		return array_filter( (array) apply_filters( 'poocommerce_available_payment_gateways', $_available_gateways ), array( $this, 'filter_valid_gateway_class' ) );
 	}
 
 	/**
@@ -404,9 +404,9 @@ class WC_Payment_Gateways {
 	 * Set the current, active gateway.
 	 *
 	 * The shopper's session choice wins while it is in `$gateways`; otherwise the default from
-	 * PaymentUtils::get_shortcode_checkout_payment_method(), which runs the `woocommerce_default_payment_method`
+	 * PaymentUtils::get_shortcode_checkout_payment_method(), which runs the `poocommerce_default_payment_method`
 	 * filter and falls back to the first of `$gateways`. An empty answer leaves no gateway current.
-	 * WooCommerce's own answer can name a gateway that isn't in `$gateways`, for example a saved card's
+	 * PooCommerce's own answer can name a gateway that isn't in `$gateways`, for example a saved card's
 	 * gateway that isn't available for this cart; the first of `$gateways` is current then, as before.
 	 * Without a session the first of `$gateways` is current and the filter isn't asked, as before.
 	 *
@@ -464,7 +464,7 @@ class WC_Payment_Gateways {
 			}
 		}
 
-		update_option( 'woocommerce_gateway_order', $order );
+		update_option( 'poocommerce_gateway_order', $order );
 	}
 
 	/**

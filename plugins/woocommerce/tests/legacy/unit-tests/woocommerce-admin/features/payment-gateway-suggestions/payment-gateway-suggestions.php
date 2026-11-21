@@ -2,14 +2,14 @@
 /**
  * Test the class that parses the payment suggestions.
  *
- * @package WooCommerce\Admin\Tests\PaymentGatewaySuggestions
+ * @package PooCommerce\Admin\Tests\PaymentGatewaySuggestions
  */
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as PaymentGatewaySuggestions;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as PaymentGatewaySuggestions;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
 
 /**
  * class WC_Admin_Tests_PaymentGatewaySuggestions_Init
@@ -22,9 +22,9 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 		add_filter(
-			'transient_woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'transient_poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			function ( $value ) {
 				if ( $value ) {
 					return $value;
@@ -55,7 +55,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 */
 	public function test_use_default_specs_when_remote_specs_empty() {
 		// Arrange.
-		remove_all_filters( 'transient_woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
 		add_filter(
 			DataSourcePoller::FILTER_NAME,
 			function () {
@@ -76,7 +76,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 */
 	public function test_use_default_specs_when_marketplace_suggestions_off() {
 		// Arrange.
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
 		// Act.
 		$specs    = PaymentGatewaySuggestions::get_specs();
@@ -100,7 +100,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 			),
 		);
 		set_transient(
-			'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => $expected_suggestions,
 			)
@@ -129,7 +129,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 			),
 		);
 		set_transient(
-			'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => $expected_suggestions,
 			)
@@ -166,7 +166,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 */
 	public function test_cached_or_default_suggestions_when_marketplace_suggestions_off() {
 		// Arrange.
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 		PaymentGatewaySuggestionsDataSourcePoller::get_instance()->delete_specs_transient();
 
 		// Act.
@@ -183,9 +183,9 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 */
 	public function test_matching_suggestions() {
 		// Arrange.
-		update_option( 'woocommerce_default_country', 'US' );
+		update_option( 'poocommerce_default_country', 'US' );
 		set_transient(
-			'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -223,7 +223,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	public function test_specs_locale_transient() {
 		// Arrange.
 		set_transient(
-			'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -257,10 +257,10 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_remote_suggestions_fallback_to_defaults() {
 		// Arrange.
-		update_option( 'woocommerce_default_country', 'US' );
+		update_option( 'poocommerce_default_country', 'US' );
 		// Make sure there are no specs in the transient.
 		set_transient(
-			'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(),
 			)
@@ -304,7 +304,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 
 		// Finally return empty specs that should default the suggestions to the default payment gateways suggestions.
 		add_filter(
-			'woocommerce_admin_payment_gateway_suggestion_specs',
+			'poocommerce_admin_payment_gateway_suggestion_specs',
 			function () {
 				return array();
 			}
@@ -312,7 +312,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 
 		// Act.
 		$suggestions               = PaymentGatewaySuggestions::get_suggestions();
-		$stored_specs_in_transient = get_transient( 'woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
+		$stored_specs_in_transient = get_transient( 'poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
 
 		// Assert.
 		$default_specs       = DefaultPaymentGateways::get_all();
@@ -321,7 +321,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 		$this->assertEquals( $default_suggestions, $suggestions );
 
 		$this->assertEquals( $stored_specs_in_transient['en_US'], $default_specs );
-		$expires = (int) get_transient( '_transient_timeout_woocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
+		$expires = (int) get_transient( '_transient_timeout_poocommerce_admin_' . PaymentGatewaySuggestionsDataSourcePoller::ID . '_specs' );
 		$this->assertTrue( ( $expires - time() ) <= 3 * HOUR_IN_SECONDS );
 	}
 
@@ -329,7 +329,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 * Test that the suggestions can be displayed when a user has marketplace suggestions enabled.
 	 */
 	public function test_should_display() {
-		update_option( 'woocommerce_show_marketplace_suggestions', 'yes' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'yes' );
 		$this->assertTrue( PaymentGatewaySuggestions::should_display() );
 	}
 
@@ -337,7 +337,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_Init extends WC_Unit_Test_Case {
 	 * Test that suggestions are not shown when the marketplace suggestions are off.
 	 */
 	public function test_should_not_display_when_marketplace_suggestions_off() {
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 		$this->assertFalse( PaymentGatewaySuggestions::should_display() );
 	}
 

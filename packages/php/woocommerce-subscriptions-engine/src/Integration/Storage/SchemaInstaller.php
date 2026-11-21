@@ -10,12 +10,12 @@
  * {@see self::maybe_install()} (a version-gated check on boot), as the engine is
  * bundled rather than independently activated.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -224,7 +224,7 @@ final class SchemaInstaller {
 		$snapshots          = $names[ self::TABLE_SNAPSHOTS ];
 
 		// Mirrors the HPOS orders meta table indexes, including its meta_value prefix length.
-		$meta_value_index_length = max( min( absint( apply_filters( 'woocommerce_database_max_index_length', 191 ) ), 767 ) - 8 - 100 - 1, 20 );
+		$meta_value_index_length = max( min( absint( apply_filters( 'poocommerce_database_max_index_length', 191 ) ), 767 ) - 8 - 100 - 1, 20 );
 
 		// Owner columns and the creation key compare binary: values differing only in case or
 		// accents are distinct, as in the engine's PHP comparisons. For owners this backs up the

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { renderHook } from '@testing-library/react';
-import { useSchemaParser } from '@woocommerce/base-hooks';
-import type { KeyedFormFields } from '@woocommerce/settings';
+import { useSchemaParser } from '@poocommerce/base-hooks';
+import type { KeyedFormFields } from '@poocommerce/settings';
 import Ajv from 'ajv';
 
 /**
@@ -12,15 +12,15 @@ import Ajv from 'ajv';
 import { compileSchema, hasUncompilablePattern } from '../compile-schema';
 import { useFormValidation } from '../use-form-validation';
 
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	useSchemaParser: jest.fn(),
 	usePrevious: jest.fn(),
 } ) );
 
 let mockIsAdmin = true;
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	get CURRENT_USER_IS_ADMIN() {
 		return mockIsAdmin;
 	},

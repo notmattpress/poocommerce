@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class TaxRateDelete extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/tax-rate-delete';
+		return 'poocommerce/tax-rate-delete';
 	}
 
 	/**
@@ -39,9 +39,9 @@ class TaxRateDelete extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Delete tax rate', 'woocommerce' ),
-			'description'         => __( 'Permanently delete a tax rate by its id from tax-rates-query. Returns the deleted rate; send its fields except id to tax-rate-create to add it back.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Delete tax rate', 'poocommerce' ),
+			'description'         => __( 'Permanently delete a tax rate by its id from tax-rates-query. Returns the deleted rate; send its fields except id to tax-rate-create to add it back.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
@@ -94,7 +94,7 @@ class TaxRateDelete extends AbstractDomainAbility implements AbilityDefinition {
 		// The deleted hook may run queries of its own, so check the row rather than $wpdb->rows_affected.
 		// A failed check returns no row too, so its error counts as a failed delete.
 		if ( \WC_Tax::_get_tax_rate( $input['id'] ) || '' !== $wpdb->last_error ) {
-			return new \WP_Error( 'woocommerce_ability_tax_rate_delete_failed', __( 'The tax rate could not be deleted.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_tax_rate_delete_failed', __( 'The tax rate could not be deleted.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		return array( 'rate' => $rate );

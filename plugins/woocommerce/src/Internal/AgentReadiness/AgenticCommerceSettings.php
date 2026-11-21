@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Jetpack\JetpackConnection;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Jetpack\JetpackConnection;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Adds the WooCommerce > Settings > AI tools tab while the
+ * Adds the PooCommerce > Settings > AI tools tab while the
  * agent_readiness feature is enabled, and names the options it saves.
  *
  * @since 11.4.0
@@ -29,7 +29,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 	/**
 	 * The admin-post action, and its nonce action, behind Connect to WordPress.com on the Overview.
 	 */
-	public const CONNECT_ACTION = 'woocommerce_ai_tools_connect';
+	public const CONNECT_ACTION = 'poocommerce_ai_tools_connect';
 
 	/**
 	 * Query argument the Overview gets back after connecting: connected or error.
@@ -38,18 +38,18 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 
 	public const PRIVACY_PAGE_OPTION = 'wp_page_for_privacy_policy';
 
-	public const TERMS_PAGE_OPTION = 'woocommerce_terms_page_id';
+	public const TERMS_PAGE_OPTION = 'poocommerce_terms_page_id';
 
-	public const REFUND_RETURNS_PAGE_OPTION = 'woocommerce_refund_returns_page_id';
+	public const REFUND_RETURNS_PAGE_OPTION = 'poocommerce_refund_returns_page_id';
 
-	public const SHIPPING_POLICY_PAGE_OPTION = 'woocommerce_shipping_policy_page_id';
+	public const SHIPPING_POLICY_PAGE_OPTION = 'poocommerce_shipping_policy_page_id';
 
-	public const FAQ_PAGE_OPTION = 'woocommerce_faq_page_id';
+	public const FAQ_PAGE_OPTION = 'poocommerce_faq_page_id';
 
 	/**
 	 * UCP Phase 1 sends it as the warranty_policy link. Not in the settings design yet.
 	 */
-	public const WARRANTY_PAGE_OPTION = 'woocommerce_warranty_page_id';
+	public const WARRANTY_PAGE_OPTION = 'poocommerce_warranty_page_id';
 
 	/**
 	 * Features controller.
@@ -121,10 +121,10 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 		if ( ! is_admin() || ! $this->features_controller->feature_is_enabled( self::FEATURE_ID ) ) {
 			return;
 		}
-		add_filter( 'woocommerce_get_settings_pages', array( $this, 'handle_woocommerce_get_settings_pages' ) );
+		add_filter( 'poocommerce_get_settings_pages', array( $this, 'handle_poocommerce_get_settings_pages' ) );
 		add_action( 'admin_post_' . self::CONNECT_ACTION, array( $this, 'handle_connect' ) );
 		add_filter( 'admin_body_class', array( $this, 'handle_admin_body_class' ), 20 );
-		// After WooCommerce's rating request (priority 1) and version (20).
+		// After PooCommerce's rating request (priority 1) and version (20).
 		add_filter( 'admin_footer_text', array( $this, 'handle_admin_footer' ), 99 );
 		add_filter( 'update_footer', array( $this, 'handle_admin_footer' ), 99 );
 	}
@@ -138,8 +138,8 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 	 * @internal
 	 */
 	public function handle_connect(): void {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to connect this store.', 'woocommerce' ), 403 );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to connect this store.', 'poocommerce' ), 403 );
 		}
 		check_admin_referer( self::CONNECT_ACTION );
 		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- wordpress_com_https_url() allows only https on wordpress.com.
@@ -155,7 +155,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 	 */
 	public static function connect_redirect(): string {
 		self::ensure_jetpack_activation_source();
-		$result    = JetpackConnection::get_authorization_url( add_query_arg( self::CONNECT_RESULT, 'connected', self::url() ), 'woocommerce-core-profiler' );
+		$result    = JetpackConnection::get_authorization_url( add_query_arg( self::CONNECT_RESULT, 'connected', self::url() ), 'poocommerce-core-profiler' );
 		$candidate = ! empty( $result['success'] ) && is_string( $result['url'] ?? null ) ? $result['url'] : '';
 		$url       = self::wordpress_com_https_url( $candidate );
 		return '' !== $url ? $url : add_query_arg( self::CONNECT_RESULT, 'error', self::url() );
@@ -171,7 +171,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 		if ( is_array( $source ) && isset( $source[0], $source[1] ) ) {
 			return;
 		}
-		update_option( 'jetpack_activation_source', array( 'woocommerce', 'ai-tools' ) );
+		update_option( 'jetpack_activation_source', array( 'poocommerce', 'ai-tools' ) );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 		if ( ! is_string( $classes ) || self::TAB !== $current_tab ) {
 			return $classes;
 		}
-		return "$classes woocommerce-settings-agentic-commerce-tab";
+		return "$classes poocommerce-settings-agentic-commerce-tab";
 	}
 
 	/**
@@ -277,7 +277,7 @@ class AgenticCommerceSettings implements RegisterHooksInterface {
 	 * @param mixed $pages Settings pages.
 	 * @return mixed
 	 */
-	public function handle_woocommerce_get_settings_pages( $pages ) {
+	public function handle_poocommerce_get_settings_pages( $pages ) {
 		if ( ! is_array( $pages ) || ! class_exists( \WC_Settings_Page::class, false ) ) {
 			return $pages;
 		}

@@ -12,7 +12,7 @@ import {
 	ApiClient,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ type SeededOrder = {
 // `restApi` is admin basic-auth.
 
 const FEATURE_FLAG_OPTION =
-	'woocommerce_feature_customer_review_request_enabled';
+	'poocommerce_feature_customer_review_request_enabled';
 
 test.describe(
 	'Customer Review Request — Review Order page',
@@ -55,7 +55,7 @@ test.describe(
 			await deleteOption(
 				request,
 				baseURL || '',
-				'woocommerce_review_order_page_id'
+				'poocommerce_review_order_page_id'
 			);
 
 			const { data } = await restApi.get(
@@ -86,7 +86,7 @@ test.describe(
 		// the label triggers the radio without needing { force: true }.
 		const rateRow = ( row: Locator, stars: number ) =>
 			row
-				.locator( 'label.woocommerce-star-rating__star' )
+				.locator( 'label.poocommerce-star-rating__star' )
 				.filter( {
 					hasText: new RegExp( `${ stars } out of 5 stars` ),
 				} )
@@ -283,10 +283,10 @@ test.describe(
 					'WP-CLI theme skipping is independent of HPOS and is covered by the core serial projects.'
 				);
 
-				// Setup and inspection must not load WooCommerce, or those commands could consume the queue they are measuring.
+				// Setup and inspection must not load PooCommerce, or those commands could consume the queue they are measuring.
 				const coreOnlyFlags = [ '--skip-plugins', '--skip-themes' ];
 				const pendingOption =
-					'woocommerce_review_order_flush_rewrite_pending';
+					'poocommerce_review_order_flush_rewrite_pending';
 				const seedPendingRewrite = () =>
 					wpCLI( [
 						'wp',
@@ -314,7 +314,7 @@ test.describe(
 					] )
 				).stdout
 					.split( /\r?\n/ )
-					.filter( ( plugin ) => plugin && plugin !== 'woocommerce' );
+					.filter( ( plugin ) => plugin && plugin !== 'poocommerce' );
 				const skipUnrelatedPlugins = unrelatedPlugins.length
 					? [ `--skip-plugins=${ unrelatedPlugins.join( ',' ) }` ]
 					: [];
@@ -417,14 +417,14 @@ test.describe(
 					} )
 				).toBeVisible();
 				await expect(
-					page.locator( '.woocommerce-review-order__meta' )
+					page.locator( '.poocommerce-review-order__meta' )
 				).toContainText( `Order #${ order.id }` );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				await expect( rows ).toHaveCount( 2 );
 
 				const submit = page.locator(
-					'.woocommerce-review-order__submit'
+					'.poocommerce-review-order__submit'
 				);
 				await expect( submit ).toBeDisabled();
 
@@ -434,7 +434,7 @@ test.describe(
 
 				// The dynamic caption reflects the chosen rating.
 				await expect(
-					firstRow.locator( '.woocommerce-star-rating__caption' )
+					firstRow.locator( '.poocommerce-star-rating__caption' )
 				).not.toBeEmpty();
 				await expect( submit ).toBeEnabled();
 
@@ -449,7 +449,7 @@ test.describe(
 				).toBeVisible();
 				// Meta line stays visible alongside the thank-you view.
 				await expect(
-					page.locator( '.woocommerce-review-order__meta' )
+					page.locator( '.poocommerce-review-order__meta' )
 				).toBeVisible();
 
 				// Verify the saved review via REST.
@@ -482,9 +482,9 @@ test.describe(
 			try {
 				await page.goto( url );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				const submit = page.locator(
-					'.woocommerce-review-order__submit'
+					'.poocommerce-review-order__submit'
 				);
 				const rowA = rows.nth( 0 );
 
@@ -503,7 +503,7 @@ test.describe(
 				await page.goto( url );
 
 				const rowsAfter = page.locator(
-					'.woocommerce-review-order__item'
+					'.poocommerce-review-order__item'
 				);
 				await expect( rowsAfter ).toHaveCount( 2 );
 
@@ -522,11 +522,11 @@ test.describe(
 
 				// Submit is disabled until a row diverges from its initial state.
 				await expect(
-					page.locator( '.woocommerce-review-order__submit' )
+					page.locator( '.poocommerce-review-order__submit' )
 				).toBeDisabled();
 				await rateRow( rowsAfter.nth( 1 ), 5 );
 				await expect(
-					page.locator( '.woocommerce-review-order__submit' )
+					page.locator( '.poocommerce-review-order__submit' )
 				).toBeEnabled();
 			} finally {
 				await cleanupOrder( restApi, order.id );
@@ -550,19 +550,19 @@ test.describe(
 			try {
 				await page.goto( reviewOrderUrl( order ) );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 				await expect( rows ).toHaveCount( 2 );
 
 				// Both rows show the variation attribute summary inside the title.
 				await expect(
 					rows
 						.nth( 0 )
-						.locator( '.woocommerce-review-order__item-variation' )
+						.locator( '.poocommerce-review-order__item-variation' )
 				).toContainText( /Size:\s*Small/i );
 				await expect(
 					rows
 						.nth( 1 )
-						.locator( '.woocommerce-review-order__item-variation' )
+						.locator( '.poocommerce-review-order__item-variation' )
 				).toContainText( /Size:\s*Medium/i );
 			} finally {
 				await cleanupOrder( restApi, order.id );
@@ -582,7 +582,7 @@ test.describe(
 			try {
 				await page.goto( reviewOrderUrl( order ) );
 
-				const rows = page.locator( '.woocommerce-review-order__item' );
+				const rows = page.locator( '.poocommerce-review-order__item' );
 
 				// Submit only the Small variation.
 				await rateRow( rows.nth( 0 ), 5 );
@@ -592,7 +592,7 @@ test.describe(
 					.fill( 'Small fit great.' );
 
 				await page
-					.locator( '.woocommerce-review-order__submit' )
+					.locator( '.poocommerce-review-order__submit' )
 					.click();
 				await expect(
 					page.getByRole( 'heading', {
@@ -606,17 +606,17 @@ test.describe(
 				// the whole form and the thank-you state would persist.
 				await page.goto( reviewOrderUrl( order ) );
 				await expect(
-					page.locator( '.woocommerce-review-order__item' )
+					page.locator( '.poocommerce-review-order__item' )
 				).toHaveCount( 2 );
 				await expect(
 					page
-						.locator( '.woocommerce-review-order__item' )
+						.locator( '.poocommerce-review-order__item' )
 						.nth( 0 )
 						.locator( 'textarea' )
 				).toHaveValue( 'Small fit great.' );
 				await expect(
 					page
-						.locator( '.woocommerce-review-order__item' )
+						.locator( '.poocommerce-review-order__item' )
 						.nth( 1 )
 						.locator( 'textarea' )
 				).toHaveValue( '' );
@@ -642,27 +642,27 @@ test.describe(
 				// fill that is still fading in.
 				await page.addStyleTag( {
 					content:
-						'.woocommerce-star-rating__icon { transition: none !important; }',
+						'.poocommerce-star-rating__icon { transition: none !important; }',
 				} );
 
 				const row = page
-					.locator( '.woocommerce-review-order__item' )
+					.locator( '.poocommerce-review-order__item' )
 					.nth( 0 );
 				const starInput = ( stars: number ) =>
 					row.locator(
-						`.woocommerce-star-rating__input[value="${ stars }"]`
+						`.poocommerce-star-rating__input[value="${ stars }"]`
 					);
 				const starLabel = ( stars: number ) =>
 					row.locator(
-						`.woocommerce-star-rating__input[value="${ stars }"] + label`
+						`.poocommerce-star-rating__input[value="${ stars }"] + label`
 					);
 				const checkedValue = () =>
 					row
-						.locator( '.woocommerce-star-rating__input:checked' )
+						.locator( '.poocommerce-star-rating__input:checked' )
 						.getAttribute( 'value' );
 				const iconOpacity = ( stars: number ) =>
 					starLabel( stars )
-						.locator( '.woocommerce-star-rating__icon' )
+						.locator( '.poocommerce-star-rating__icon' )
 						.evaluate( ( icon ) =>
 							parseFloat(
 								window.getComputedStyle( icon ).opacity
@@ -729,7 +729,7 @@ test.describe(
 
 			try {
 				const row = page
-					.locator( '.woocommerce-review-order__item' )
+					.locator( '.poocommerce-review-order__item' )
 					.nth( 0 );
 
 				// Viewport emulation rather than real zoom: WCAG 1.4.10 states its
@@ -755,7 +755,7 @@ test.describe(
 					// on a fractional layout, and on both edges so the mirror failure
 					// in RTL is visible too.
 					const overflowing = await page
-						.locator( '.woocommerce-review-order' )
+						.locator( '.poocommerce-review-order' )
 						.evaluate( ( root ) => {
 							const bounds = root.getBoundingClientRect();
 							return Array.from( root.querySelectorAll( '*' ) )
@@ -793,13 +793,13 @@ test.describe(
 
 					await expect( row.locator( 'textarea' ) ).toBeVisible();
 					await expect(
-						page.locator( '.woocommerce-review-order__submit' )
+						page.locator( '.poocommerce-review-order__submit' )
 					).toBeVisible();
 
 					// Still operable at this width.
 					await rateRow( row, 3 );
 					await expect(
-						row.locator( '.woocommerce-star-rating__input:checked' )
+						row.locator( '.poocommerce-star-rating__input:checked' )
 					).toHaveAttribute( 'value', '3' );
 				}
 			} finally {
@@ -820,7 +820,7 @@ test.describe(
 				await page.goto( reviewOrderUrl( order ) );
 
 				const row = page
-					.locator( '.woocommerce-review-order__item' )
+					.locator( '.poocommerce-review-order__item' )
 					.nth( 0 );
 				await rateRow( row, 4 );
 				await row
@@ -828,7 +828,7 @@ test.describe(
 					.fill( 'Submitted by keyboard.' );
 
 				const submit = page.locator(
-					'.woocommerce-review-order__submit'
+					'.poocommerce-review-order__submit'
 				);
 				await submit.focus();
 				await page.keyboard.press( 'Enter' );
@@ -843,7 +843,7 @@ test.describe(
 				// so focus must move to something with a name.
 				await expect(
 					page.locator(
-						'.woocommerce-review-order__success .woocommerce-review-order__empty-title'
+						'.poocommerce-review-order__success .poocommerce-review-order__empty-title'
 					)
 				).toBeFocused();
 			} finally {
@@ -865,18 +865,18 @@ test.describe(
 				await page.goto( reviewOrderUrl( order ) );
 
 				const row = page
-					.locator( '.woocommerce-review-order__item' )
+					.locator( '.poocommerce-review-order__item' )
 					.nth( 0 );
 				await row
 					.locator( 'textarea' )
 					.fill( 'Text without a rating.' );
 				await page
-					.locator( '.woocommerce-review-order__submit' )
+					.locator( '.poocommerce-review-order__submit' )
 					.click();
 
 				// On the radio that takes focus, not on the wrapper.
 				const lowest = row.locator(
-					'.woocommerce-star-rating__input[value="1"]'
+					'.poocommerce-star-rating__input[value="1"]'
 				);
 				await expect( lowest ).toHaveAttribute(
 					'aria-invalid',
@@ -884,7 +884,7 @@ test.describe(
 				);
 
 				const errorId = await row
-					.locator( '.woocommerce-review-order__item-rating-error' )
+					.locator( '.poocommerce-review-order__item-rating-error' )
 					.getAttribute( 'id' );
 				expect(
 					await lowest.getAttribute( 'aria-describedby' )
@@ -898,7 +898,7 @@ test.describe(
 				// resolves to `medium` even with `outline-style: none`.
 				const outline = await row
 					.locator(
-						'.woocommerce-star-rating__input[value="1"] + label'
+						'.poocommerce-star-rating__input[value="1"] + label'
 					)
 					.evaluate( ( label ) => {
 						const style = window.getComputedStyle( label );
@@ -937,20 +937,20 @@ test.describe(
 					await page.setViewportSize( size );
 					await page.goto( reviewOrderUrl( order ) );
 					const second = page
-						.locator( '.woocommerce-review-order__item' )
+						.locator( '.poocommerce-review-order__item' )
 						.nth( 1 );
 					await second
 						.locator( 'textarea' )
 						.fill( 'Text without a rating.' );
 					await page
-						.locator( '.woocommerce-review-order__submit' )
+						.locator( '.poocommerce-review-order__submit' )
 						.click();
 					return second;
 				};
 				const errorSelector =
-					'.woocommerce-review-order__item-rating-error';
+					'.poocommerce-review-order__item-rating-error';
 				const starSelector =
-					'.woocommerce-star-rating__input[value="1"] + label';
+					'.poocommerce-star-rating__input[value="1"] + label';
 
 				// Stacked, the error sits above a 240px image column, which
 				// puts 364px between it and the stars. Both still fit here.
@@ -986,18 +986,18 @@ test.describe(
 				await page.goto( reviewOrderUrl( order ) );
 
 				const notice = page.locator(
-					'.woocommerce-review-order__notice'
+					'.poocommerce-review-order__notice'
 				);
 				await expect( notice ).toBeVisible();
 
 				await notice
-					.locator( '.woocommerce-review-order__notice-dismiss' )
+					.locator( '.poocommerce-review-order__notice-dismiss' )
 					.click();
 
 				await expect( notice ).toBeHidden();
 				// Focus must not fall back to the document.
 				await expect(
-					page.locator( '.woocommerce-review-order__title' )
+					page.locator( '.poocommerce-review-order__title' )
 				).toBeFocused();
 			} finally {
 				await cleanupOrder( restApi, order.id );

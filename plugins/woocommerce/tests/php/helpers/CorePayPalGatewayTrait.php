@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\RestApi\UnitTests;
+namespace Automattic\PooCommerce\RestApi\UnitTests;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
 /**
  * Trait CorePayPalGatewayTrait.
@@ -47,8 +47,8 @@ trait CorePayPalGatewayTrait {
 	 * Clean up the WC core PayPal gateway.
 	 */
 	protected function unload_core_paypal_pg(): void {
-		delete_option( 'woocommerce_paypal_settings' );
-		delete_option( 'woocommerce_currency' );
+		delete_option( 'poocommerce_paypal_settings' );
+		delete_option( 'poocommerce_currency' );
 
 		$this->get_payments_providers_service()->clear_cache();
 	}
@@ -60,14 +60,14 @@ trait CorePayPalGatewayTrait {
 	 */
 	private function set_core_paypal_pg_enabled( bool $enabled ): void {
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'_should_load' => 'yes',
 				'enabled'      => $enabled ? 'yes' : 'no',
 			)
 		);
 		// Make sure the store currency is supported by the gateway.
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 
 		self::reload_payment_gateways();
 

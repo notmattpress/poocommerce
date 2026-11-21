@@ -1,7 +1,7 @@
 <?php
 function wc_notify_customer_created( $customer, $is_new ) {
     if ( $customer ) {
-        do_action( 'woocommerce_analytics_new_customer', $customer->get_id() );
+        do_action( 'poocommerce_analytics_new_customer', $customer->get_id() );
     }
     return $customer;
 }

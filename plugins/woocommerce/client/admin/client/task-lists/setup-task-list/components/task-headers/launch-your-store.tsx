@@ -3,7 +3,7 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -18,31 +18,31 @@ const LaunchYourStoreHeader = ( {
 } ) => {
 	return (
 		<div
-			className={ `woocommerce-task-header__contents-container woocommerce-task-header__${ task.id }` }
+			className={ `poocommerce-task-header__contents-container poocommerce-task-header__${ task.id }` }
 		>
 			<img
-				alt={ __( 'Launch Your Store illustration', 'woocommerce' ) }
+				alt={ __( 'Launch Your Store illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL +
 					'images/task_list/launch-your-store-illustration.svg'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
+			<div className="poocommerce-task-header__contents">
 				<h1>
-					{ __( 'Your store is ready for launch!', 'woocommerce' ) }
+					{ __( 'Your store is ready for launch!', 'poocommerce' ) }
 				</h1>
 				<p>
 					{ __(
 						'It’s time to celebrate – you’re ready to launch your store! Woo! Hit the button to preview your store and make it public.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
 					variant={ task.isComplete ? 'secondary' : 'primary' }
 					onClick={ goToTask }
 				>
-					{ __( 'Launch store', 'woocommerce' ) }
+					{ __( 'Launch store', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

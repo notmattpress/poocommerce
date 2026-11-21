@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abilities Categories class for WooCommerce.
+ * Abilities Categories class for PooCommerce.
  *
- * Registers categories for WooCommerce abilities to improve organization
+ * Registers categories for PooCommerce abilities to improve organization
  * and discoverability in the WordPress Abilities API v0.3.0+.
  */
 class AbilitiesCategories {
@@ -27,27 +27,27 @@ class AbilitiesCategories {
 	}
 
 	/**
-	 * Register WooCommerce ability categories.
+	 * Register PooCommerce ability categories.
 	 *
 	 * @since 10.9.0
 	 */
 	public static function register_categories(): void {
-		if ( ! wp_has_ability_category( 'woocommerce' ) ) {
+		if ( ! wp_has_ability_category( 'poocommerce' ) ) {
 			wp_register_ability_category(
-				'woocommerce',
+				'poocommerce',
 				array(
-					'label'       => __( 'WooCommerce', 'woocommerce' ),
-					'description' => __( 'Abilities for WooCommerce store operations, including core commerce features and extension-provided capabilities.', 'woocommerce' ),
+					'label'       => __( 'PooCommerce', 'poocommerce' ),
+					'description' => __( 'Abilities for PooCommerce store operations, including core commerce features and extension-provided capabilities.', 'poocommerce' ),
 				)
 			);
 		}
 
-		if ( ! wp_has_ability_category( 'woocommerce-rest' ) ) {
+		if ( ! wp_has_ability_category( 'poocommerce-rest' ) ) {
 			wp_register_ability_category(
-				'woocommerce-rest',
+				'poocommerce-rest',
 				array(
-					'label'       => __( 'WooCommerce REST API', 'woocommerce' ),
-					'description' => __( 'REST API operations for store resources including products, orders, and other store data.', 'woocommerce' ),
+					'label'       => __( 'PooCommerce REST API', 'poocommerce' ),
+					'description' => __( 'REST API operations for store resources including products, orders, and other store data.', 'poocommerce' ),
 				)
 			);
 		}

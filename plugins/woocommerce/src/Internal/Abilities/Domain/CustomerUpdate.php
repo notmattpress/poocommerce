@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\AddressInputTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\AddressInputTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class CustomerUpdate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/customer-update';
+	public const ABILITY_NAME = 'poocommerce/customer-update';
 
 	/**
 	 * Fields that change() changed, as `first_name` or `billing.city`, and each extension field sent, as `extensions.<namespace>.<field>`.
@@ -50,12 +50,12 @@ class CustomerUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update customer', 'woocommerce' ),
+			'label'               => __( 'Update customer', 'poocommerce' ),
 			'description'         => __(
-				'Update the first name, last name, billing address and shipping address of a registered customer. Fields that are not sent keep their value. Guest customers have no account to update; their addresses live on their orders. The response lists the changed fields without their values. Analytics refreshes the name and address it searches only for customer roles; for other roles, woocommerce/customers-query finds the old values until their next order.',
-				'woocommerce'
+				'Update the first name, last name, billing address and shipping address of a registered customer. Fields that are not sent keep their value. Guest customers have no account to update; their addresses live on their orders. The response lists the changed fields without their values. Analytics refreshes the name and address it searches only for customer roles; for other roles, poocommerce/customers-query finds the old values until their next order.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema(
 				'customer',
@@ -66,7 +66,7 @@ class CustomerUpdate extends ActionableAbility {
 						'user_id'        => array( 'type' => 'integer' ),
 						'updated_fields' => array(
 							'type'        => 'array',
-							'description' => __( 'Fields whose value changed, such as first_name or billing.city, and each extension field sent, as extensions.<namespace>.<field>.', 'woocommerce' ),
+							'description' => __( 'Fields whose value changed, such as first_name or billing.city, and each extension field sent, as extensions.<namespace>.<field>.', 'poocommerce' ),
 							'items'       => array( 'type' => 'string' ),
 						),
 					),
@@ -129,7 +129,7 @@ class CustomerUpdate extends ActionableAbility {
 		 * @param bool $can_edit Whether the current user can edit them.
 		 * @param int  $user_id  User ID of the customer.
 		 */
-		return (bool) apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user_id );
+		return (bool) apply_filters( 'poocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_poocommerce' ), $user_id );
 	}
 
 	/**
@@ -162,9 +162,9 @@ class CustomerUpdate extends ActionableAbility {
 
 		if ( null === $user_id ) {
 			return new \WP_Error(
-				'woocommerce_ability_customer_guest',
+				'poocommerce_ability_customer_guest',
 				/* translators: %d: customer ID. */
-				sprintf( __( 'Customer %d is a guest, with no account to update. A guest\'s addresses are saved only on their orders, which the woocommerce/order-update ability changes by order ID.', 'woocommerce' ), $input['id'] ),
+				sprintf( __( 'Customer %d is a guest, with no account to update. A guest\'s addresses are saved only on their orders, which the poocommerce/order-update ability changes by order ID.', 'poocommerce' ), $input['id'] ),
 				array( 'status' => 409 )
 			);
 		}
@@ -172,16 +172,16 @@ class CustomerUpdate extends ActionableAbility {
 		// The permission check may have passed for a guest whose row has since been linked to an account.
 		if ( ! self::can_edit_user( $user_id ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_customer_forbidden',
-				__( 'You are not allowed to edit this customer.', 'woocommerce' ),
+				'poocommerce_ability_customer_forbidden',
+				__( 'You are not allowed to edit this customer.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
 
 		if ( empty( array_diff( array_keys( $input ), array( 'id' ) ) ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_customer_no_fields',
-				__( 'No change was sent. Send at least one customer field to change, in addition to the id.', 'woocommerce' ),
+				'poocommerce_ability_customer_no_fields',
+				__( 'No change was sent. Send at least one customer field to change, in addition to the id.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -237,8 +237,8 @@ class CustomerUpdate extends ActionableAbility {
 
 		if ( empty( $this->updated_fields ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_customer_unchanged',
-				__( 'The customer already has every value sent, so nothing was changed.', 'woocommerce' ),
+				'poocommerce_ability_customer_unchanged',
+				__( 'The customer already has every value sent, so nothing was changed.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -270,9 +270,9 @@ class CustomerUpdate extends ActionableAbility {
 	 */
 	private static function not_found( int $customer_id ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_customer_not_found',
+			'poocommerce_ability_customer_not_found',
 			/* translators: %d: customer ID. */
-			sprintf( __( 'Customer %d does not exist. Use the woocommerce/customers-query ability to find the customer ID.', 'woocommerce' ), $customer_id ),
+			sprintf( __( 'Customer %d does not exist. Use the poocommerce/customers-query ability to find the customer ID.', 'poocommerce' ), $customer_id ),
 			array( 'status' => 404 )
 		);
 	}
@@ -288,7 +288,7 @@ class CustomerUpdate extends ActionableAbility {
 			'properties'           => array(
 				'id'         => array(
 					'type'        => 'integer',
-					'description' => __( 'Customer ID from the woocommerce/customers-query ability.', 'woocommerce' ),
+					'description' => __( 'Customer ID from the poocommerce/customers-query ability.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'first_name' => array( 'type' => 'string' ),

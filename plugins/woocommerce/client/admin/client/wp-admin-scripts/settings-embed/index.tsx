@@ -60,7 +60,7 @@ const renderPaymentsSettings = () => {
 			component: <SettingsPaymentsCodWrapper />,
 		},
 		{
-			id: 'experimental_wc_settings_payments_woocommerce_payments',
+			id: 'experimental_wc_settings_payments_poocommerce_payments',
 			component: <SettingsPaymentsWooPaymentsWrapper />,
 		},
 	];
@@ -84,7 +84,7 @@ const SalesReadinessOverview = lazy(
 );
 
 /**
- * WooCommerce > Settings > AI tools opens on the Overview, which the PHP tab leaves a root for.
+ * PooCommerce > Settings > AI tools opens on the Overview, which the PHP tab leaves a root for.
  */
 const renderSalesReadinessOverview = () => {
 	const root = document.getElementById( 'wc-agent-readiness-overview' );

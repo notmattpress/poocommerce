@@ -2,7 +2,7 @@
 /**
  * Exercise the WordPress log marker without starting a test site.
  *
- * @package WooCommerce\ExtensionTooling
+ * @package PooCommerce\ExtensionTooling
  */
 
 function add_action( $hook, $callback ) {

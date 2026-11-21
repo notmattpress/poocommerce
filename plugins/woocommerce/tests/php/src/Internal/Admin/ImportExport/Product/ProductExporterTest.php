@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ImportExport\Product;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ImportExport\Product;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\Product\ProductExporter;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\Product\ProductExporter;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -110,19 +110,19 @@ class ProductExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should offer columns added through the `woocommerce_product_export_column_names` filter.
+	 * @testdox Should offer columns added through the `poocommerce_product_export_column_names` filter.
 	 */
 	public function test_get_available_columns_includes_filtered_column_names(): void {
 		$add_column = static function ( array $columns ): array {
 			$columns['custom_column'] = 'Custom column';
 			return $columns;
 		};
-		add_filter( 'woocommerce_product_export_column_names', $add_column );
+		add_filter( 'poocommerce_product_export_column_names', $add_column );
 
 		try {
 			$columns = $this->sut->get_available_columns();
 		} finally {
-			remove_filter( 'woocommerce_product_export_column_names', $add_column );
+			remove_filter( 'poocommerce_product_export_column_names', $add_column );
 		}
 
 		$this->assertSame( 'Custom column', $columns['custom_column'] ?? null );
@@ -217,7 +217,7 @@ class ProductExporterTest extends WC_Unit_Test_Case {
 			throw new \RuntimeException( 'Simulated failure mid-batch.' );
 		};
 
-		add_filter( 'woocommerce_product_export_row_data', $callback );
+		add_filter( 'poocommerce_product_export_row_data', $callback );
 
 		try {
 			$this->sut->run( $destination, array() );
@@ -225,7 +225,7 @@ class ProductExporterTest extends WC_Unit_Test_Case {
 		} catch ( \RuntimeException $exception ) {
 			$this->assertSame( 'Simulated failure mid-batch.', $exception->getMessage() );
 		} finally {
-			remove_filter( 'woocommerce_product_export_row_data', $callback );
+			remove_filter( 'poocommerce_product_export_row_data', $callback );
 		}
 
 		$after_listing = glob( trailingslashit( get_temp_dir() ) . 'wc-product-export-*' );

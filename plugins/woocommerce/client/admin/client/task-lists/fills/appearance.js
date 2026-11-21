@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 import { registerPlugin } from '@wordpress/plugins';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 export const useAppearanceClick = () => {
 	const onClick = () => {
@@ -30,6 +30,6 @@ const AppearanceFill = () => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-appearance', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => <AppearanceFill />,
 } );

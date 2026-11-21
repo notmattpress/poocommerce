@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -79,7 +79,7 @@ class ReadinessRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Key in the WooCommerce REST namespaces list.
+	 * Key in the PooCommerce REST namespaces list.
 	 */
 	protected function get_rest_api_namespace(): string {
 		return 'agent-readiness';
@@ -99,7 +99,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'get_status' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 				),
 				'schema' => array( $this, 'get_status_schema' ),
 			)
@@ -111,7 +111,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'queue_scan' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 				),
 				'schema' => array( $this, 'get_status_schema' ),
 			)
@@ -123,7 +123,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'get_view' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 				),
 				'schema' => array( $this, 'get_view_schema' ),
 			)
@@ -135,10 +135,10 @@ class ReadinessRestController extends RestApiControllerBase {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'set_ucp_enabled' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 					'args'                => array(
 						'enabled' => array(
-							'description' => __( 'Whether AI agents can shop the store through UCP.', 'woocommerce' ),
+							'description' => __( 'Whether AI agents can shop the store through UCP.', 'poocommerce' ),
 							'type'        => 'boolean',
 							'required'    => true,
 						),
@@ -201,15 +201,15 @@ class ReadinessRestController extends RestApiControllerBase {
 		$result = $this->ucp_switch->set_enabled( $enable );
 		if ( $enable && ! $result['enabled'] && array() === $result['failing_checks'] ) {
 			return new \WP_Error(
-				'woocommerce_ucp_not_changed',
-				__( 'UCP could not be turned on. Try again.', 'woocommerce' ),
+				'poocommerce_ucp_not_changed',
+				__( 'UCP could not be turned on. Try again.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
 		if ( $enable && ! $result['enabled'] ) {
 			return new \WP_Error(
-				'woocommerce_ucp_required_checks_failing',
-				__( 'Finish the required setup checks before letting agents shop your store.', 'woocommerce' ),
+				'poocommerce_ucp_required_checks_failing',
+				__( 'Finish the required setup checks before letting agents shop your store.', 'poocommerce' ),
 				array(
 					'status'         => 409,
 					'failing_checks' => $result['failing_checks'],
@@ -237,7 +237,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				'context' => array( 'view' ),
 			),
 			'last_checked' => array(
-				'description' => __( 'When the store was last checked, as text.', 'woocommerce' ),
+				'description' => __( 'When the store was last checked, as text.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view' ),
 			),
@@ -250,7 +250,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				'context' => array( 'view' ),
 			),
 			'run'          => array(
-				'description' => __( 'The check button: its label, whether a check is pending or stalled, and a status message.', 'woocommerce' ),
+				'description' => __( 'The check button: its label, whether a check is pending or stalled, and a status message.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => array( 'view' ),
 			),
@@ -259,7 +259,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				'context' => array( 'view' ),
 			),
 			'sections'     => array(
-				'description' => __( 'One section per merchant question, with its badge and check rows.', 'woocommerce' ),
+				'description' => __( 'One section per merchant question, with its badge and check rows.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view' ),
 			),
@@ -268,7 +268,7 @@ class ReadinessRestController extends RestApiControllerBase {
 				'context' => array( 'view' ),
 			),
 			'overview'     => array(
-				'description' => __( 'The AI tools Overview: the AI shopping card and the link to every check.', 'woocommerce' ),
+				'description' => __( 'The AI tools Overview: the AI shopping card and the link to every check.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => array( 'view' ),
 			),
@@ -286,19 +286,19 @@ class ReadinessRestController extends RestApiControllerBase {
 		$schema['title']      = 'agent_readiness';
 		$schema['properties'] = array(
 			'report'       => array(
-				'description' => __( 'The last stored readiness report, or null before the first scan.', 'woocommerce' ),
+				'description' => __( 'The last stored readiness report, or null before the first scan.', 'poocommerce' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'scan_pending' => array(
-				'description' => __( 'Whether a requested scan has not finished yet.', 'woocommerce' ),
+				'description' => __( 'Whether a requested scan has not finished yet.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'scan_stalled' => array(
-				'description' => __( 'Whether the requested scan has not started because scheduled actions are not running. It stays queued and runs once they are.', 'woocommerce' ),
+				'description' => __( 'Whether the requested scan has not started because scheduled actions are not running. It stays queued and runs once they are.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => array( 'view' ),
 				'readonly'    => true,

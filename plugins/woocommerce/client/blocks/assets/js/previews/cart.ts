@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import {
 	SHIPPING_ENABLED,
 	WC_BLOCKS_IMAGE_URL,
-} from '@woocommerce/block-settings';
-import { CartResponse } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/block-settings';
+import { CartResponse } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { API_SITE_CURRENCY, displayForMinorUnit } from './utils';
  * wc_get_price_including_tax or wc_get_price_excluding_tax. It is correct that this setting changes the cart preview
  * data.
  *
- * WooCommerce core has 2 settings which control this, one for cart (displayCartPricesIncludingTax), and one for the
+ * PooCommerce core has 2 settings which control this, one for cart (displayCartPricesIncludingTax), and one for the
  * rest of the store (displayProductPricesIncludingTax). Because of this, Cart endpoints use displayCartPricesIncludingTax
  * which is the most appropriate.
  *
@@ -31,7 +31,7 @@ const displayWithTax = getSetting( 'displayCartPricesIncludingTax', false );
 
 // Sample data for cart block.
 // This closely resembles the data returned from the Store API /cart endpoint.
-// https://github.com/woocommerce/woocommerce/tree/trunk/docs/apis/store-api/resources-endpoints/cart.md#cart-response
+// https://github.com/poocommerce/poocommerce/tree/trunk/docs/apis/store-api/resources-endpoints/cart.md#cart-response
 export const previewCart: CartResponse = {
 	coupons: [],
 	shipping_rates:
@@ -47,9 +47,9 @@ export const previewCart: CartResponse = {
 			type: 'simple',
 			quantity: 2,
 			catalog_visibility: 'visible',
-			name: __( 'Beanie', 'woocommerce' ),
-			summary: __( 'Beanie', 'woocommerce' ),
-			short_description: __( 'Warm hat for winter', 'woocommerce' ),
+			name: __( 'Beanie', 'poocommerce' ),
+			summary: __( 'Beanie', 'poocommerce' ),
+			short_description: __( 'Warm hat for winter', 'poocommerce' ),
 			description:
 				'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
 			sku: 'woo-beanie',
@@ -77,12 +77,12 @@ export const previewCart: CartResponse = {
 			],
 			variation: [
 				{
-					attribute: __( 'Color', 'woocommerce' ),
-					value: __( 'Yellow', 'woocommerce' ),
+					attribute: __( 'Color', 'poocommerce' ),
+					value: __( 'Yellow', 'poocommerce' ),
 				},
 				{
-					attribute: __( 'Size', 'woocommerce' ),
-					value: __( 'Small', 'woocommerce' ),
+					attribute: __( 'Size', 'poocommerce' ),
+					value: __( 'Small', 'poocommerce' ),
 				},
 			],
 			prices: {
@@ -121,9 +121,9 @@ export const previewCart: CartResponse = {
 			type: 'simple',
 			quantity: 1,
 			catalog_visibility: 'visible',
-			name: __( 'Cap', 'woocommerce' ),
-			summary: __( 'Cap', 'woocommerce' ),
-			short_description: __( 'Lightweight baseball cap', 'woocommerce' ),
+			name: __( 'Cap', 'poocommerce' ),
+			summary: __( 'Cap', 'poocommerce' ),
+			short_description: __( 'Lightweight baseball cap', 'poocommerce' ),
 			description:
 				'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
 			sku: 'woo-cap',
@@ -151,8 +151,8 @@ export const previewCart: CartResponse = {
 			],
 			variation: [
 				{
-					attribute: __( 'Color', 'woocommerce' ),
-					value: __( 'Orange', 'woocommerce' ),
+					attribute: __( 'Color', 'poocommerce' ),
+					value: __( 'Orange', 'poocommerce' ),
 				},
 			],
 			prices: {
@@ -186,15 +186,15 @@ export const previewCart: CartResponse = {
 	cross_sells: [
 		{
 			id: 1,
-			name: __( 'Polo', 'woocommerce' ),
+			name: __( 'Polo', 'poocommerce' ),
 			slug: 'polo',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-polo',
-			short_description: __( 'Polo', 'woocommerce' ),
-			description: __( 'Polo', 'woocommerce' ),
+			short_description: __( 'Polo', 'poocommerce' ),
+			description: __( 'Polo', 'poocommerce' ),
 			on_sale: false,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -244,15 +244,15 @@ export const previewCart: CartResponse = {
 		},
 		{
 			id: 2,
-			name: __( 'Long Sleeve Tee', 'woocommerce' ),
+			name: __( 'Long Sleeve Tee', 'poocommerce' ),
 			slug: 'long-sleeve-tee',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-long-sleeve-tee',
-			short_description: __( 'Long Sleeve Tee', 'woocommerce' ),
-			description: __( 'Long Sleeve Tee', 'woocommerce' ),
+			short_description: __( 'Long Sleeve Tee', 'poocommerce' ),
+			description: __( 'Long Sleeve Tee', 'poocommerce' ),
 			on_sale: false,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -303,15 +303,15 @@ export const previewCart: CartResponse = {
 		},
 		{
 			id: 3,
-			name: __( 'Hoodie with Zipper', 'woocommerce' ),
+			name: __( 'Hoodie with Zipper', 'poocommerce' ),
 			slug: 'hoodie-with-zipper',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-hoodie-with-zipper',
-			short_description: __( 'Hoodie with Zipper', 'woocommerce' ),
-			description: __( 'Hoodie with Zipper', 'woocommerce' ),
+			short_description: __( 'Hoodie with Zipper', 'poocommerce' ),
+			description: __( 'Hoodie with Zipper', 'poocommerce' ),
 			on_sale: true,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -363,15 +363,15 @@ export const previewCart: CartResponse = {
 		},
 		{
 			id: 4,
-			name: __( 'Hoodie with Logo', 'woocommerce' ),
+			name: __( 'Hoodie with Logo', 'poocommerce' ),
 			slug: 'hoodie-with-logo',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-hoodie-with-logo',
-			short_description: __( 'Polo', 'woocommerce' ),
-			description: __( 'Polo', 'woocommerce' ),
+			short_description: __( 'Polo', 'poocommerce' ),
+			description: __( 'Polo', 'poocommerce' ),
 			on_sale: false,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -420,15 +420,15 @@ export const previewCart: CartResponse = {
 		},
 		{
 			id: 5,
-			name: __( 'Hoodie with Pocket', 'woocommerce' ),
+			name: __( 'Hoodie with Pocket', 'poocommerce' ),
 			slug: 'hoodie-with-pocket',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-hoodie-with-pocket',
-			short_description: __( 'Hoodie with Pocket', 'woocommerce' ),
-			description: __( 'Hoodie with Pocket', 'woocommerce' ),
+			short_description: __( 'Hoodie with Pocket', 'poocommerce' ),
+			description: __( 'Hoodie with Pocket', 'poocommerce' ),
 			on_sale: true,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -478,15 +478,15 @@ export const previewCart: CartResponse = {
 		},
 		{
 			id: 6,
-			name: __( 'T-Shirt', 'woocommerce' ),
+			name: __( 'T-Shirt', 'poocommerce' ),
 			slug: 't-shirt',
 			parent: 0,
 			type: 'simple',
 			variation: '',
 			permalink: 'https://example.org',
 			sku: 'woo-t-shirt',
-			short_description: __( 'T-Shirt', 'woocommerce' ),
-			description: __( 'T-Shirt', 'woocommerce' ),
+			short_description: __( 'T-Shirt', 'poocommerce' ),
+			description: __( 'T-Shirt', 'poocommerce' ),
 			on_sale: false,
 			prices: {
 				...API_SITE_CURRENCY,
@@ -536,7 +536,7 @@ export const previewCart: CartResponse = {
 	fees: [
 		{
 			id: 'fee',
-			name: __( 'Fee', 'woocommerce' ),
+			name: __( 'Fee', 'poocommerce' ),
 			totals: {
 				...API_SITE_CURRENCY,
 				total: displayForMinorUnit( '100' ),
@@ -588,7 +588,7 @@ export const previewCart: CartResponse = {
 		total_price: displayForMinorUnit( '4920' ),
 		tax_lines: [
 			{
-				name: __( 'Sales tax', 'woocommerce' ),
+				name: __( 'Sales tax', 'poocommerce' ),
 				rate: '20%',
 				price: displayForMinorUnit( '820' ),
 			},

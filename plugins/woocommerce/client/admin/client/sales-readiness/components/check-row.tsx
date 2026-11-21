@@ -214,10 +214,10 @@ export const CheckRow = ( {
 	surface?: Surface;
 } ) => {
 	const states: Record< CheckRowData[ 'state' ], string > = {
-		open: __( 'Issue:', 'woocommerce' ),
-		required: __( 'Issue:', 'woocommerce' ),
-		unknown: __( "Couldn't check:", 'woocommerce' ),
-		pass: __( 'Passed:', 'woocommerce' ),
+		open: __( 'Issue:', 'poocommerce' ),
+		required: __( 'Issue:', 'poocommerce' ),
+		unknown: __( "Couldn't check:", 'poocommerce' ),
+		pass: __( 'Passed:', 'poocommerce' ),
 	};
 	return (
 		<Row
@@ -258,7 +258,7 @@ export const CheckRow = ( {
 					{ createInterpolateElement(
 						sprintf(
 							/* translators: %s: page title where the issue was found. */
-							__( 'Found on <link>%s</link>', 'woocommerce' ),
+							__( 'Found on <link>%s</link>', 'poocommerce' ),
 							row.seen_at.text
 						),
 						{

@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests the registered store configuration read.
@@ -28,7 +28,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 		add_action( 'wp_abilities_api_init', array( AbilitiesLoader::class, 'register_abilities' ) );
 		do_action( 'wp_abilities_api_init' );
-		$this->sut = wp_get_ability( 'woocommerce/store-settings-get' );
+		$this->sut = wp_get_ability( 'poocommerce/store-settings-get' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
 	}
 
@@ -36,10 +36,10 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 * @testdox Should read current configuration without requiring input.
 	 */
 	public function test_reads_configuration_without_input(): void {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_currency', 'EUR' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_admin_install_timestamp', 1609459200 );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_currency', 'EUR' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_admin_install_timestamp', 1609459200 );
 		$result = $this->sut->execute();
 		$this->assertIsArray( $result );
 		$this->assertSame( 'US', $result['address']['country_code'] );
@@ -52,11 +52,11 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should omit summary fields when their source is not readable.
-	 * @testWith ["general", "woocommerce_default_country", "address", ["country_code", "state_code"]]
-	 *           ["general", "woocommerce_currency_pos", "currency", ["symbol_position", "price_format"]]
-	 *           ["products", "woocommerce_weight_unit", "units", ["weight"]]
-	 *           ["tax", "woocommerce_tax_display_cart", "tax", ["display_in_cart"]]
-	 *           ["account", "woocommerce_enable_guest_checkout", "capabilities", ["guest_checkout"]]
+	 * @testWith ["general", "poocommerce_default_country", "address", ["country_code", "state_code"]]
+	 *           ["general", "poocommerce_currency_pos", "currency", ["symbol_position", "price_format"]]
+	 *           ["products", "poocommerce_weight_unit", "units", ["weight"]]
+	 *           ["tax", "poocommerce_tax_display_cart", "tax", ["display_in_cart"]]
+	 *           ["account", "poocommerce_enable_guest_checkout", "capabilities", ["guest_checkout"]]
 	 * @param string $group Source group.
 	 * @param string $id Source setting.
 	 * @param string $section Summary section.
@@ -68,7 +68,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 			$this->assertArrayHasKey( $field, $before[ $section ] );
 		}
 		add_filter(
-			'woocommerce_settings-' . $group,
+			'poocommerce_settings-' . $group,
 			static function ( $settings ) use ( $id ) {
 				foreach ( $settings as &$setting ) {
 					if ( $id === $setting['id'] ) {
@@ -85,22 +85,22 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 			$this->assertArrayNotHasKey( $field, $result[ $section ] );
 		}
 		$this->assertSame( $before['timezone'], $result['timezone'] );
-		$this->assertSame( WC_VERSION, $result['woocommerce_version'] );
+		$this->assertSame( WC_VERSION, $result['poocommerce_version'] );
 	}
 
 	/**
 	 * @testdox Should combine only readable address lines and retain empty object schemas.
-	 * @testWith [["woocommerce_store_address"], "Suite 2"]
-	 *           [["woocommerce_store_address_2"], "Main Street"]
-	 *           [["woocommerce_store_address", "woocommerce_store_address_2"], null]
+	 * @testWith [["poocommerce_store_address"], "Suite 2"]
+	 *           [["poocommerce_store_address_2"], "Main Street"]
+	 *           [["poocommerce_store_address", "poocommerce_store_address_2"], null]
 	 * @param array       $denied Hidden setting IDs.
 	 * @param string|null $street Expected street.
 	 */
 	public function test_partial_address( array $denied, ?string $street ): void {
-		update_option( 'woocommerce_store_address', 'Main Street' );
-		update_option( 'woocommerce_store_address_2', 'Suite 2' );
+		update_option( 'poocommerce_store_address', 'Main Street' );
+		update_option( 'poocommerce_store_address_2', 'Suite 2' );
 		add_filter(
-			'woocommerce_settings-general',
+			'poocommerce_settings-general',
 			static function ( $settings ) use ( $denied ) {
 				return array_filter( $settings, static fn( $setting ) => ! in_array( $setting['id'], $denied, true ) );
 			},
@@ -112,7 +112,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 		} else {
 			$this->assertSame( $street, $result['address']['street'] );
 		}
-		add_filter( 'woocommerce_settings-general', '__return_empty_array', 101 );
+		add_filter( 'poocommerce_settings-general', '__return_empty_array', 101 );
 		$result = $this->sut->execute();
 		$this->assertInstanceOf( \stdClass::class, $result['address'] );
 		$this->assertSame( array(), (array) $result['address'] );
@@ -123,13 +123,13 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 * @testdox Should omit a country list independently of its readable scope and reject password opt-ins.
 	 */
 	public function test_country_list_opt_out(): void {
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'GB' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'GB' ) );
 		add_filter(
-			'woocommerce_settings-general',
+			'poocommerce_settings-general',
 			static function ( $settings ) {
 				foreach ( $settings as &$setting ) {
-					if ( 'woocommerce_specific_allowed_countries' === $setting['id'] ) {
+					if ( 'poocommerce_specific_allowed_countries' === $setting['id'] ) {
 						$setting['type'] = 'password';
 					}
 				}
@@ -145,7 +145,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 * @testdox Should honor a truthy integer returned by the REST permission filter.
 	 */
 	public function test_integer_permission_filter(): void {
-		add_filter( 'woocommerce_rest_check_permissions', static fn() => 1 );
+		add_filter( 'poocommerce_rest_check_permissions', static fn() => 1 );
 		$this->assertIsArray( $this->sut->execute() );
 	}
 
@@ -160,7 +160,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_onboarding_boolean_values( $stored, bool $expected ): void {
 		update_option(
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 			array(
 				'completed' => $stored,
 				'industry'  => array( 'fashion' ),
@@ -175,16 +175,16 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 * @testdox Should expose only the country lists used by the active location settings.
 	 */
 	public function test_location_scopes(): void {
-		update_option( 'woocommerce_allowed_countries', 'all_except' );
-		update_option( 'woocommerce_all_except_countries', array( 'US' ) );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'GB' ) );
-		update_option( 'woocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_allowed_countries', 'all_except' );
+		update_option( 'poocommerce_all_except_countries', array( 'US' ) );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'GB' ) );
+		update_option( 'poocommerce_ship_to_countries', '' );
 		$result = $this->sut->execute();
 		$this->assertSame( array( 'US' ), $result['selling_locations']['excluded_countries'] );
 		$this->assertArrayNotHasKey( 'included_countries', $result['selling_locations'] );
 		$this->assertSame( 'same_as_selling_locations', $result['shipping_locations']['scope'] );
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'CA' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'CA' ) );
 		$this->assertSame( array( 'CA' ), $this->sut->execute()['shipping_locations']['included_countries'] );
 	}
 
@@ -193,7 +193,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_onboarding_secrets_are_excluded(): void {
 		update_option(
-			'woocommerce_onboarding_profile',
+			'poocommerce_onboarding_profile',
 			array(
 				'completed'       => true,
 				'business_choice' => null,
@@ -214,7 +214,7 @@ class StoreSettingsGetTest extends \WC_Unit_Test_Case {
 	 * @testdox Should serialize an empty onboarding profile as a schema-valid object.
 	 */
 	public function test_empty_onboarding_profile_shape(): void {
-		delete_option( 'woocommerce_onboarding_profile' );
+		delete_option( 'poocommerce_onboarding_profile' );
 		$result = json_decode( wp_json_encode( $this->sut->execute() ) );
 		$this->assertInstanceOf( \stdClass::class, $result->onboarding_profile );
 	}

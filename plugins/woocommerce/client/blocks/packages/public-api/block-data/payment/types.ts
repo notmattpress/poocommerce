@@ -4,18 +4,18 @@
 import {
 	PlainPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type {
 	EmptyObjectType,
 	ObjectType,
 	FieldValidationStatus,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { DataRegistry } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import type { EventObserversType } from '@woocommerce/base-context/event-emit';
+import type { EventObserversType } from '@poocommerce/base-context/event-emit';
 import type { DispatchFromMap } from '../mapped-types';
 import * as actions from './actions';
 
@@ -35,7 +35,7 @@ export interface SavedPaymentMethod {
 	expires: string;
 	is_default: boolean;
 	/**
-	 * The token's own label, from `WC_Payment_Token::get_display_name()`. Absent in data from WooCommerce versions before 11.3.0.
+	 * The token's own label, from `WC_Payment_Token::get_display_name()`. Absent in data from PooCommerce versions before 11.3.0.
 	 */
 	display_name?: string;
 	tokenId: number;

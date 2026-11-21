@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer;
 
 /**
  * Integration test for core/post-content block rendering
@@ -301,10 +301,10 @@ class Post_Content_Test extends \Email_Editor_Integration_Test_Case {
 			array( 'postId' => $post_id )
 		);
 
-		do_action( 'woocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_start' );
 		$rendered         = ( new Post_Content() )->render_stateless( array(), '', $block );
 		$attachment_image = wp_get_attachment_image( $attachment_id, 'full' );
-		do_action( 'woocommerce_email_editor_render_end' );
+		do_action( 'poocommerce_email_editor_render_end' );
 
 		$this->assertSame( 4, substr_count( $rendered, '<img' ) );
 		$this->assertStringContainsString( '<img', $attachment_image );
@@ -351,8 +351,8 @@ class Post_Content_Test extends \Email_Editor_Integration_Test_Case {
 	public function testItKeepsAnotherPluginsImageFilterAfterRender(): void {
 		add_filter( 'wp_calculate_image_srcset_meta', '__return_empty_array', PHP_INT_MAX );
 
-		do_action( 'woocommerce_email_editor_render_start' );
-		do_action( 'woocommerce_email_editor_render_end' );
+		do_action( 'poocommerce_email_editor_render_start' );
+		do_action( 'poocommerce_email_editor_render_end' );
 		$priority = has_filter( 'wp_calculate_image_srcset_meta', '__return_empty_array' );
 		remove_filter( 'wp_calculate_image_srcset_meta', '__return_empty_array', PHP_INT_MAX );
 

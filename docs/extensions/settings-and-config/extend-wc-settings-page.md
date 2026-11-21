@@ -6,24 +6,24 @@ sidebar_position: 2
 
 # How to add a settings page
 
-Use `WC_Settings_Page` when your extension needs a full tab under **WooCommerce > Settings**. A settings page class registers the tab, renders one or more sections, defines fields with WooCommerce's settings array format, and lets WooCommerce handle saving through the existing settings form.
+Use `WC_Settings_Page` when your extension needs a full tab under **PooCommerce > Settings**. A settings page class registers the tab, renders one or more sections, defines fields with PooCommerce's settings array format, and lets PooCommerce handle saving through the existing settings form.
 
-If your extension only needs a few settings that clearly belong under an existing WooCommerce settings tab, add a section to that tab instead of creating a new top-level tab. See [How to add a section to a settings tab](./adding-a-section-to-a-settings-tab.md). If your settings belong to a payment gateway, shipping method, or integration, also check whether `WC_Payment_Gateway`, `WC_Shipping_Method`, `WC_Integration`, or `WC_Settings_API` is the better fit.
+If your extension only needs a few settings that clearly belong under an existing PooCommerce settings tab, add a section to that tab instead of creating a new top-level tab. See [How to add a section to a settings tab](./adding-a-section-to-a-settings-tab.md). If your settings belong to a payment gateway, shipping method, or integration, also check whether `WC_Payment_Gateway`, `WC_Shipping_Method`, `WC_Integration`, or `WC_Settings_API` is the better fit.
 
 ## How settings pages are loaded
 
-WooCommerce loads settings page objects from `WC_Admin_Settings::get_settings_pages()`. Core pages are loaded first, then extensions can add their own page objects through the `woocommerce_get_settings_pages` filter.
+PooCommerce loads settings page objects from `WC_Admin_Settings::get_settings_pages()`. Core pages are loaded first, then extensions can add their own page objects through the `poocommerce_get_settings_pages` filter.
 
 A `WC_Settings_Page` subclass must set its `$id` and `$label` before calling `parent::__construct()`. The parent constructor uses the page ID to register these hooks:
 
-- `woocommerce_settings_tabs_array` adds the settings tab.
-- `woocommerce_sections_{$page_id}` outputs section navigation.
-- `woocommerce_settings_{$page_id}` outputs the fields.
-- `woocommerce_settings_save_{$page_id}` saves the fields.
+- `poocommerce_settings_tabs_array` adds the settings tab.
+- `poocommerce_sections_{$page_id}` outputs section navigation.
+- `poocommerce_settings_{$page_id}` outputs the fields.
+- `poocommerce_settings_save_{$page_id}` saves the fields.
 
 ## Create a settings page class
 
-Load your class only after `WC_Settings_Page` is available. WooCommerce includes the base class before it applies `woocommerce_get_settings_pages`, so a common pattern is to require your settings page class from that filter callback.
+Load your class only after `WC_Settings_Page` is available. PooCommerce includes the base class before it applies `poocommerce_get_settings_pages`, so a common pattern is to require your settings page class from that filter callback.
 
 The example below defines a full **My plugin** tab with two sections. Place the class in a file such as `includes/class-my-plugin-settings-page.php`, and load that file from the registration callback shown after the class.
 
@@ -107,7 +107,7 @@ Register the settings page from your main plugin file:
 
 ```php
 add_filter(
-	'woocommerce_get_settings_pages',
+	'poocommerce_get_settings_pages',
 	function ( array $settings_pages ): array {
 		require_once __DIR__ . '/includes/class-my-plugin-settings-page.php';
 
@@ -144,7 +144,7 @@ protected function get_own_sections() {
 }
 ```
 
-If the page has only one section, you can omit `get_own_sections()` and WooCommerce will use a single **General** section. Section IDs appear in URLs, so keep them stable and use lowercase values. If you rely on the `get_settings_for_{$section_id}_section()` method-name convention, use section IDs that are valid in PHP method names, such as `advanced` or `my_plugin_section`.
+If the page has only one section, you can omit `get_own_sections()` and PooCommerce will use a single **General** section. Section IDs appear in URLs, so keep them stable and use lowercase values. If you rely on the `get_settings_for_{$section_id}_section()` method-name convention, use section IDs that are valid in PHP method names, such as `advanced` or `my_plugin_section`.
 
 ## Define settings for each section
 
@@ -154,9 +154,9 @@ For new settings pages, define fields with section-specific methods:
 - `get_settings_for_{$section_id}_section()` returns fields for a named section, such as `get_settings_for_advanced_section()`. This convention requires the section ID to work in a PHP method name.
 - `get_settings_for_section_core( $section_id )` can be overridden when the page needs one generic method for many dynamic sections.
 
-Do not override `get_settings()` for new code. WooCommerce still calls it internally for backward compatibility with older extensions, but it is deprecated. New code should use the section-specific methods above.
+Do not override `get_settings()` for new code. PooCommerce still calls it internally for backward compatibility with older extensions, but it is deprecated. New code should use the section-specific methods above.
 
-Each method returns a WooCommerce settings array. A section usually starts with a `title` field and ends with a matching `sectionend` field.
+Each method returns a PooCommerce settings array. A section usually starts with a `title` field and ends with a matching `sectionend` field.
 
 ```php
 protected function get_settings_for_default_section() {
@@ -186,7 +186,7 @@ protected function get_settings_for_default_section() {
 
 ## Field array reference
 
-WooCommerce renders and saves fields based on each field array.
+PooCommerce renders and saves fields based on each field array.
 
 | Key | Purpose |
 | --- | ------- |
@@ -225,18 +225,18 @@ Common field types include:
 - `multi_select_countries`
 - `relative_date_selector`
 
-Custom field types can be rendered with the `woocommerce_admin_field_{$type}` action.
+Custom field types can be rendered with the `poocommerce_admin_field_{$type}` action.
 
 ## Saving settings
 
-When the merchant saves a settings page, WooCommerce verifies the `manage_woocommerce` capability and the settings nonce, then fires the page-specific save hooks. For a `WC_Settings_Page` subclass, the registered `save()` method saves the current section's fields with `WC_Admin_Settings::save_fields()`.
+When the merchant saves a settings page, PooCommerce verifies the `manage_poocommerce` capability and the settings nonce, then fires the page-specific save hooks. For a `WC_Settings_Page` subclass, the registered `save()` method saves the current section's fields with `WC_Admin_Settings::save_fields()`.
 
 The save routine:
 
 1. Reads submitted values from `$_POST`.
 2. Sanitizes values according to field type.
-3. Applies `woocommerce_admin_settings_sanitize_option`.
-4. Applies `woocommerce_admin_settings_sanitize_option_{$option_name}`.
+3. Applies `poocommerce_admin_settings_sanitize_option`.
+4. Applies `poocommerce_admin_settings_sanitize_option_{$option_name}`.
 5. Updates the WordPress option named by `field_name` or `id`.
 
 Checkboxes are saved as `yes` or `no`. Select fields are constrained to the keys in `options`. Password fields are trimmed but otherwise preserved so special characters are not corrupted.
@@ -249,7 +249,7 @@ Use the option-specific sanitize filter when a field needs validation beyond the
 
 ```php
 add_filter(
-	'woocommerce_admin_settings_sanitize_option_my_plugin_items_per_page',
+	'poocommerce_admin_settings_sanitize_option_my_plugin_items_per_page',
 	function ( $value, array $option, $raw_value ) {
 		return (string) max( 1, absint( $raw_value ) );
 	},
@@ -266,18 +266,18 @@ Use the section-specific update action when saving a section needs side effects,
 
 ```php
 add_action(
-	'woocommerce_update_options_my_plugin_advanced',
+	'poocommerce_update_options_my_plugin_advanced',
 	function (): void {
 		delete_transient( 'my_plugin_expensive_data' );
 	}
 );
 ```
 
-The default section does not fire a section-specific `woocommerce_update_options_{$page_id}_{$section_id}` action because its section ID is empty. If you need custom behavior for every save on the tab, use `woocommerce_update_options_{$page_id}`:
+The default section does not fire a section-specific `poocommerce_update_options_{$page_id}_{$section_id}` action because its section ID is empty. If you need custom behavior for every save on the tab, use `poocommerce_update_options_{$page_id}`:
 
 ```php
 add_action(
-	'woocommerce_update_options_my_plugin',
+	'poocommerce_update_options_my_plugin',
 	function (): void {
 		delete_transient( 'my_plugin_expensive_data' );
 	}
@@ -290,12 +290,12 @@ Override `save()` only when the page must change the order of operations or save
 
 Many extensions should not create a new settings tab. If the settings belong under an existing tab, register a section under that tab instead.
 
-For WooCommerce versions that support the settings section registry, create a `SettingsSection` and register it on `woocommerce_settings_sections_registration`. This keeps section metadata, fields, Settings UI scripts, and save behavior together.
+For PooCommerce versions that support the settings section registry, create a `SettingsSection` and register it on `poocommerce_settings_sections_registration`. This keeps section metadata, fields, Settings UI scripts, and save behavior together.
 
 ```php
 <?php
-use Automattic\WooCommerce\Admin\Settings\SettingsSection;
-use Automattic\WooCommerce\Admin\Settings\SettingsSectionRegistry;
+use Automattic\PooCommerce\Admin\Settings\SettingsSection;
+use Automattic\PooCommerce\Admin\Settings\SettingsSectionRegistry;
 
 final class My_Plugin_Products_Settings_Section extends SettingsSection {
 	public function get_parent_page_id(): string {
@@ -333,14 +333,14 @@ final class My_Plugin_Products_Settings_Section extends SettingsSection {
 }
 
 add_action(
-	'woocommerce_settings_sections_registration',
+	'poocommerce_settings_sections_registration',
 	function ( SettingsSectionRegistry $registry ): void {
 		$registry->register( new My_Plugin_Products_Settings_Section() );
 	}
 );
 ```
 
-For older WooCommerce versions, use the filter-based approach documented in [How to add a section to a settings tab](./adding-a-section-to-a-settings-tab.md).
+For older PooCommerce versions, use the filter-based approach documented in [How to add a section to a settings tab](./adding-a-section-to-a-settings-tab.md).
 
 ## Opt in to the React settings UI
 
@@ -349,27 +349,27 @@ For older WooCommerce versions, use the filter-based approach documented in [How
 `WC_Settings_Page` still owns registration, permissions, schema, and persistence when a page opts in to the React settings UI. To render a page with the React settings UI when the feature flag is enabled, return a settings UI adapter from `get_settings_ui_page()`.
 
 ```php
-use Automattic\WooCommerce\Admin\Settings\LegacySettingsPageAdapter;
-use Automattic\WooCommerce\Admin\Settings\SettingsUIPageInterface;
+use Automattic\PooCommerce\Admin\Settings\LegacySettingsPageAdapter;
+use Automattic\PooCommerce\Admin\Settings\SettingsUIPageInterface;
 
 public function get_settings_ui_page(): ?SettingsUIPageInterface {
 	return new LegacySettingsPageAdapter( $this );
 }
 ```
 
-This is optional. If the feature flag is disabled, or the page does not return an adapter, WooCommerce renders the classic PHP settings table. See [Settings UI](./settings-ui.md) for custom React components, script handles, save adapters, and migration details.
+This is optional. If the feature flag is disabled, or the page does not return an adapter, PooCommerce renders the classic PHP settings table. See [Settings UI](./settings-ui.md) for custom React components, script handles, save adapters, and migration details.
 
 ## Further reading
 
-- [WooCommerce Settings API](./settings-api.md)
+- [PooCommerce Settings API](./settings-api.md)
 - [How to add a section to a settings tab](./adding-a-section-to-a-settings-tab.md)
 - [Settings UI](./settings-ui.md)
-- [WC_Settings_Page code reference](https://woocommerce.github.io/code-reference/classes/WC-Settings-Page.html)
-- [WC_Admin_Settings code reference](https://woocommerce.github.io/code-reference/classes/WC-Admin-Settings.html)
+- [WC_Settings_Page code reference](https://poocommerce.github.io/code-reference/classes/WC-Settings-Page.html)
+- [WC_Admin_Settings code reference](https://poocommerce.github.io/code-reference/classes/WC-Admin-Settings.html)
 
 ## Opt a setting into abilities
 
-Starting with WooCommerce 11.4, the settings abilities only see fields whose definition opts in. Set `abilities.read` to the boolean `true` to let `woocommerce/settings-query` read a field. Also set `abilities.write` to `true` to let `woocommerce/settings-update` change it. Write without read has no effect, so a caller can always check the current value first. Add the metadata beside the field's `id` and `type`:
+Starting with PooCommerce 11.4, the settings abilities only see fields whose definition opts in. Set `abilities.read` to the boolean `true` to let `poocommerce/settings-query` read a field. Also set `abilities.write` to `true` to let `poocommerce/settings-update` change it. Write without read has no effect, so a caller can always check the current value first. Add the metadata beside the field's `id` and `type`:
 
 ```php
 array(
@@ -388,14 +388,14 @@ array(
 ),
 ```
 
-The same metadata works on email form fields exposed through a settings group. It does not register a new group or expose payment gateway or shipping-instance settings automatically. Callers need permission to read WooCommerce settings, or to edit them for writes. Password fields are never read or written, even when opted in. Never opt in API keys, tokens or other secrets stored in text fields, and never opt settings that let a scheduled job delete data, such as retention periods, into writes. Keep settings that enable irreversible personal data removal or change what the store shares with third parties, such as erasure request handling, usage tracking and address autocomplete, read-only too. The same applies to settings that weaken access to paid downloads, such as the redirect download method or downloads without login, since a file URL that has leaked stays leaked. Review defaults and choices as well as stored values, since reads return all three.
+The same metadata works on email form fields exposed through a settings group. It does not register a new group or expose payment gateway or shipping-instance settings automatically. Callers need permission to read PooCommerce settings, or to edit them for writes. Password fields are never read or written, even when opted in. Never opt in API keys, tokens or other secrets stored in text fields, and never opt settings that let a scheduled job delete data, such as retention periods, into writes. Keep settings that enable irreversible personal data removal or change what the store shares with third parties, such as erasure request handling, usage tracking and address autocomplete, read-only too. The same applies to settings that weaken access to paid downloads, such as the redirect download method or downloads without login, since a file URL that has leaked stays leaked. Review defaults and choices as well as stored values, since reads return all three.
 
 **Reads.** Fields without opt-in are omitted, even when requested by ID. The response lists known but withheld setting IDs in `omitted`; unknown IDs and presentation fields are not listed. This list follows `include` and is computed before pagination. Totals count only returned settings. Supported values are scalars, lists of scalars and the retention-period object with `number` and `unit` members; other object shapes are omitted. Choices are returned only when supplied in the field definition. Country fields return country or country/state codes without choice lists, keeping group responses small. The read uses a non-null `fixed_value` first, then a non-null `value` supplied by the definition, then the stored option and its default. This follows the admin field value precedence and supports settings such as additional tax classes that are not stored as options.
 
-**The store summary.** The same metadata controls fields in the fixed `woocommerce/store-settings-get` summary that come from WooCommerce setting definitions. Missing opt-in or a password type omits the corresponding summary fields, including derived fields such as the currency symbol. The street address combines only readable address lines. Country scopes and their country lists are checked separately. Summary fields without a WooCommerce setting definition (WordPress timezone/date settings, version, install timestamp and the reviewed onboarding fields) retain their fixed inclusion policy. There is no per-field personal-data sharing control yet. Opt-in allows the field to be returned to authorized callers without a separate PII check.
+**The store summary.** The same metadata controls fields in the fixed `poocommerce/store-settings-get` summary that come from PooCommerce setting definitions. Missing opt-in or a password type omits the corresponding summary fields, including derived fields such as the currency symbol. The street address combines only readable address lines. Country scopes and their country lists are checked separately. Summary fields without a PooCommerce setting definition (WordPress timezone/date settings, version, install timestamp and the reviewed onboarding fields) retain their fixed inclusion policy. There is no per-field personal-data sharing control yet. Opt-in allows the field to be returned to authorized callers without a separate PII check.
 
-**Writes.** Each item sends either `value` or, for `multiselect` and `multi_select_countries` fields, `values` with a list. Fields with a non-null `fixed_value` or a `value` supplied by the definition are refused, since no option stores them. Values go through the same per-type validation as the REST settings API, then must match a shape that `woocommerce/settings-query` can return. Select and multiselect values must be one of the field's choices, country fields must be known country or country/state codes, and page fields must be a published page ID or empty. As in the admin form, cart, checkout and My account cannot share a page, the terms page cannot be the checkout page, the refund and returns policy cannot use the cart, checkout, shop or My account page, and changing a field whose ID ends in `_endpoint` queues a rewrite rules flush. Fields with a string option key are saved through `WC_Admin_Settings::save_fields()`, so the `woocommerce_admin_settings_sanitize_option` filters run as they do in the admin form.
+**Writes.** Each item sends either `value` or, for `multiselect` and `multi_select_countries` fields, `values` with a list. Fields with a non-null `fixed_value` or a `value` supplied by the definition are refused, since no option stores them. Values go through the same per-type validation as the REST settings API, then must match a shape that `poocommerce/settings-query` can return. Select and multiselect values must be one of the field's choices, country fields must be known country or country/state codes, and page fields must be a published page ID or empty. As in the admin form, cart, checkout and My account cannot share a page, the terms page cannot be the checkout page, the refund and returns policy cannot use the cart, checkout, shop or My account page, and changing a field whose ID ends in `_endpoint` queues a rewrite rules flush. Fields with a string option key are saved through `WC_Admin_Settings::save_fields()`, so the `poocommerce_admin_settings_sanitize_option` filters run as they do in the admin form.
 
-Updates are all or nothing: if any requested ID is unknown, not opted in or has an invalid value, the ability returns one error and saves nothing. Unknown and withheld IDs return the same `woocommerce_ability_settings_not_writable` error, so callers cannot probe for hidden fields. Each saved setting returns its `previous` value, so a change can be undone. For a field with `field_name`, the abilities read and write the option the admin form saves to, the one named by `field_name`. The admin form displays the option named by `id` unless the definition supplies `value`, so set `value` on such fields to keep the screen in step. Like the REST settings update endpoint, the ability checks only the edit permission, so permission to edit a setting also lets the caller read the value it replaces. The ability is annotated as destructive, since each change overwrites a stored value.
+Updates are all or nothing: if any requested ID is unknown, not opted in or has an invalid value, the ability returns one error and saves nothing. Unknown and withheld IDs return the same `poocommerce_ability_settings_not_writable` error, so callers cannot probe for hidden fields. Each saved setting returns its `previous` value, so a change can be undone. For a field with `field_name`, the abilities read and write the option the admin form saves to, the one named by `field_name`. The admin form displays the option named by `id` unless the definition supplies `value`, so set `value` on such fields to keep the screen in step. Like the REST settings update endpoint, the ability checks only the edit permission, so permission to edit a setting also lets the caller read the value it replaces. The ability is annotated as destructive, since each change overwrites a stored value.
 
 Existing REST settings reads and writes retain their current behavior.

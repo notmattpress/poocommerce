@@ -25,7 +25,7 @@ import Menu from './menu';
 const SummaryList = ( {
 	children,
 	isDropdownBreakpoint,
-	label = __( 'Performance Indicators', 'woocommerce' ),
+	label = __( 'Performance Indicators', 'poocommerce' ),
 } ) => {
 	const items = children( {} );
 	// We default to "one" because we can't have empty children.
@@ -52,7 +52,7 @@ const SummaryList = ( {
 
 	return (
 		<Dropdown
-			className="woocommerce-summary"
+			className="poocommerce-summary"
 			popoverProps={ {
 				placement: 'bottom',
 			} }

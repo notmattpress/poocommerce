@@ -8,7 +8,7 @@ declare( strict_types = 1);
  *
  * This class is responsible for setting and getting brand settings for a coupon.
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
  * @version 9.4.0
  */

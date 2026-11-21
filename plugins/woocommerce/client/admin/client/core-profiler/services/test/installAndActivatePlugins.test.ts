@@ -28,21 +28,21 @@ describe( 'pluginInstallerMachine', () => {
 	} );
 
 	it.each< [ string, string, number, number ] >( [
-		[ 'woocommerce-services:tax', 'woocommerce-services', 4000, 4000 ],
-		[ 'woocommerce-services', 'woocommerce-services', 4000, 4000 ],
+		[ 'poocommerce-services:tax', 'poocommerce-services', 4000, 4000 ],
+		[ 'poocommerce-services', 'poocommerce-services', 4000, 4000 ],
 		[ 'mailpoet', 'mailpoet', 4000, 4000 ],
 		[ 'mailpoet:alt', 'mailpoet', 4000, 4000 ],
-		[ 'woocommerce-services:tax', 'unrelated-plugin', 4000, 0 ],
-		[ 'woocommerce-services:shipping', 'woocommerce-services', 4000, 4000 ],
-		[ 'woocommerce-services:shipping', 'unrelated-plugin', 4000, 0 ],
+		[ 'poocommerce-services:tax', 'unrelated-plugin', 4000, 0 ],
+		[ 'poocommerce-services:shipping', 'poocommerce-services', 4000, 4000 ],
+		[ 'poocommerce-services:shipping', 'unrelated-plugin', 4000, 0 ],
 		[
-			'woocommerce-paypal-payments:wallet-only',
-			'woocommerce-paypal-payments',
+			'poocommerce-paypal-payments:wallet-only',
+			'poocommerce-paypal-payments',
 			4000,
 			4000,
 		],
 		[
-			'woocommerce-paypal-payments:wallet-only',
+			'poocommerce-paypal-payments:wallet-only',
 			'unrelated-plugin',
 			4000,
 			0,
@@ -81,7 +81,7 @@ describe( 'pluginInstallerMachine', () => {
 		mockInstallPlugin.mockResolvedValueOnce( {
 			data: {
 				install_time: {
-					'woocommerce-payments': 1000,
+					'poocommerce-payments': 1000,
 				},
 			},
 		} );
@@ -96,7 +96,7 @@ describe( 'pluginInstallerMachine', () => {
 
 		const service = createActor( machineUnderTest, {
 			input: {
-				selectedPlugins: [ 'woocommerce-payments' ],
+				selectedPlugins: [ 'poocommerce-payments' ],
 				pluginsAvailable: [],
 			},
 		} ).start();
@@ -109,7 +109,7 @@ describe( 'pluginInstallerMachine', () => {
 			context: {
 				installedPlugins: [
 					{
-						plugin: 'woocommerce-payments',
+						plugin: 'poocommerce-payments',
 						installTime: 1000,
 					},
 				],
@@ -128,7 +128,7 @@ describe( 'pluginInstallerMachine', () => {
 			.mockResolvedValueOnce( {
 				data: {
 					install_time: {
-						'woocommerce-payments': 1000,
+						'poocommerce-payments': 1000,
 					},
 				},
 			} )
@@ -149,7 +149,7 @@ describe( 'pluginInstallerMachine', () => {
 
 		const service = createActor( machineUnderTest, {
 			input: {
-				selectedPlugins: [ 'woocommerce-payments', 'jetpack' ],
+				selectedPlugins: [ 'poocommerce-payments', 'jetpack' ],
 				pluginsAvailable: [],
 			},
 		} ).start();
@@ -163,7 +163,7 @@ describe( 'pluginInstallerMachine', () => {
 			context: {
 				installedPlugins: [
 					{
-						plugin: 'woocommerce-payments',
+						plugin: 'poocommerce-payments',
 						installTime: 1000,
 					},
 					{
@@ -187,7 +187,7 @@ describe( 'pluginInstallerMachine', () => {
 			.mockResolvedValueOnce( {
 				data: {
 					install_time: {
-						'woocommerce-payments': 1000,
+						'poocommerce-payments': 1000,
 					},
 				},
 			} )
@@ -205,7 +205,7 @@ describe( 'pluginInstallerMachine', () => {
 
 		const service = createActor( machineUnderTest, {
 			input: {
-				selectedPlugins: [ 'woocommerce-payments', 'jetpack' ],
+				selectedPlugins: [ 'poocommerce-payments', 'jetpack' ],
 				pluginsAvailable: [],
 			},
 		} ).start();
@@ -219,7 +219,7 @@ describe( 'pluginInstallerMachine', () => {
 			context: {
 				installedPlugins: [
 					{
-						plugin: 'woocommerce-payments',
+						plugin: 'poocommerce-payments',
 						installTime: 1000,
 					},
 				],
@@ -246,7 +246,7 @@ describe( 'pluginInstallerMachine', () => {
 			.mockResolvedValueOnce( {
 				data: {
 					install_time: {
-						'woocommerce-payments': 1000,
+						'poocommerce-payments': 1000,
 					},
 				},
 			} )
@@ -282,9 +282,9 @@ describe( 'pluginInstallerMachine', () => {
 		const service = createActor( machineUnderTest, {
 			input: {
 				selectedPlugins: [
-					'woocommerce-payments',
+					'poocommerce-payments',
 					'jetpack',
-					'woocommerce-services',
+					'poocommerce-services',
 				],
 				pluginsAvailable: [],
 			},
@@ -300,7 +300,7 @@ describe( 'pluginInstallerMachine', () => {
 			context: {
 				installedPlugins: [
 					{
-						plugin: 'woocommerce-payments',
+						plugin: 'poocommerce-payments',
 						installTime: 1000,
 					},
 				],
@@ -311,13 +311,13 @@ describe( 'pluginInstallerMachine', () => {
 		expect(
 			mockInstallPluginAsync.mock.calls[ 0 ][ 0 ].input
 				.pluginsInstallationQueue
-		).toEqual( [ 'jetpack', 'woocommerce-services' ] );
+		).toEqual( [ 'jetpack', 'poocommerce-services' ] );
 
 		expect( mockInstallPluginAsync ).toHaveBeenCalledTimes( 1 );
 		expect(
 			mockInstallPluginAsync.mock.calls[ 0 ][ 0 ].input
 				.pluginsInstallationQueue
-		).toEqual( [ 'jetpack', 'woocommerce-services' ] );
+		).toEqual( [ 'jetpack', 'poocommerce-services' ] );
 		expect(
 			mockConfig.actions.updateParentWithPluginProgress
 		).toHaveBeenCalledTimes( 1 );
@@ -328,7 +328,7 @@ describe( 'pluginInstallerMachine', () => {
 			context: {
 				installedPlugins: [
 					{
-						plugin: 'woocommerce-payments',
+						plugin: 'poocommerce-payments',
 						installTime: 1000,
 					},
 				],

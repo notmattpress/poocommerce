@@ -13,7 +13,7 @@ final class Downloadable_Attachment_Guids {
         $this->reading = true;
         try {
             $path = get_post_meta( $attachment_id, '_wp_attached_file', true );
-            return 0 === stripos( (string) $path, 'woocommerce_uploads/' ) ? '' : $guid;
+            return 0 === stripos( (string) $path, 'poocommerce_uploads/' ) ? '' : $guid;
         } finally {
             $this->reading = false;
         }

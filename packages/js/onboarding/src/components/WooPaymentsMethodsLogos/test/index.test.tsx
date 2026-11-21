@@ -31,7 +31,7 @@ describe( 'WooPaymentsMethodsLogos', () => {
 			await waitFor( () =>
 				expect(
 					document.querySelectorAll(
-						'.woocommerce-woopayments-payment-methods-logos-popover img'
+						'.poocommerce-woopayments-payment-methods-logos-popover img'
 					)
 				).toHaveLength( hiddenCount )
 			);

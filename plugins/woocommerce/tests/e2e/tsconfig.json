@@ -6,9 +6,9 @@
 		"moduleResolution": "node",
 		"baseUrl": ".",
 		"paths": {
-			"@woocommerce/e2e-utils": [ "./utils/blocks" ],
-			"@woocommerce/stores/woocommerce": [
-				"../../client/blocks/assets/js/base/stores/woocommerce/index"
+			"@poocommerce/e2e-utils": [ "./utils/blocks" ],
+			"@poocommerce/stores/poocommerce": [
+				"../../client/blocks/assets/js/base/stores/poocommerce/index"
 			]
 		},
 		"esModuleInterop": true,

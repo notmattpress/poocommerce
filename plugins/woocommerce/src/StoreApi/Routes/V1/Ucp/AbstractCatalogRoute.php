@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractRoute;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp\UcpProductSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractRoute;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp\UcpProductSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Shared behaviour of the UCP catalog routes.
@@ -83,7 +83,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 	protected function get_request_args(): array {
 		return array(
 			'context' => array(
-				'description' => __( 'Provisional buyer signals for relevance and localization.', 'woocommerce' ),
+				'description' => __( 'Provisional buyer signals for relevance and localization.', 'poocommerce' ),
 				'type'        => 'object',
 			),
 		);
@@ -114,7 +114,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 	 * @return string
 	 */
 	protected function store_currency(): string {
-		return (string) get_woocommerce_currency();
+		return (string) get_poocommerce_currency();
 	}
 
 	/**
@@ -210,7 +210,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 	 * filter gets the ID, so a callback that reloads the product sees its saved setting.
 	 *
 	 * Does not call set_catalog_visibility(): an extension can remove `visible` from
-	 * woocommerce_product_visibility_options, and that setter would throw on the temporary value.
+	 * poocommerce_product_visibility_options, and that setter would throw on the temporary value.
 	 *
 	 * @param \WC_Product $product Product, not a variation.
 	 * @return bool
@@ -226,7 +226,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 		}
 		// Same core rules as a Shop and search results product, then the public visibility filter.
 		$visible = $product->is_viewable();
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! $product->is_in_stock() ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) && ! $product->is_in_stock() ) {
 			$visible = false;
 		}
 		/**
@@ -236,7 +236,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 		 * @param bool $visible    Whether the product is considered visible.
 		 * @param int  $product_id Product ID.
 		 */
-		return (bool) apply_filters( 'woocommerce_product_is_visible', $visible, $product->get_id() );
+		return (bool) apply_filters( 'poocommerce_product_is_visible', $visible, $product->get_id() );
 	}
 
 	/**
@@ -272,7 +272,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 				'code'         => 'variants_truncated',
 				'content'      => sprintf(
 					/* translators: 1: number of variants returned, 2: total published variants, 3: product title. */
-					__( 'Showing %1$d of %2$d variants for "%3$s". Request this product directly, or name a variant by id, to reach the others.', 'woocommerce' ),
+					__( 'Showing %1$d of %2$d variants for "%3$s". Request this product directly, or name a variant by id, to reach the others.', 'poocommerce' ),
 					$truncation['returned'],
 					$truncation['total'],
 					$truncation['title']
@@ -306,7 +306,7 @@ abstract class AbstractCatalogRoute extends AbstractRoute {
 			'code'         => 'currency_not_supported',
 			'content'      => sprintf(
 				/* translators: 1: requested currency code, 2: store currency code. */
-				__( 'This store only transacts in %2$s and does not convert currencies. Prices are returned in %2$s; the requested currency %1$s was ignored.', 'woocommerce' ),
+				__( 'This store only transacts in %2$s and does not convert currencies. Prices are returned in %2$s; the requested currency %1$s was ignored.', 'poocommerce' ),
 				$context['currency'],
 				$store_currency
 			),

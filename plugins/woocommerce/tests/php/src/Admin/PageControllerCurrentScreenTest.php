@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 use WC_Unit_Test_Case;
 
 /**
@@ -45,17 +45,17 @@ class PageControllerCurrentScreenTest extends WC_Unit_Test_Case {
 			$filter_args = array( $screen_id, $current_screen );
 			return $screen_id;
 		};
-		add_filter( 'woocommerce_navigation_current_screen_id', $filter, 10, 2 );
+		add_filter( 'poocommerce_navigation_current_screen_id', $filter, 10, 2 );
 
 		$screen_id = PageController::get_instance()->get_current_screen_id();
 
-		remove_filter( 'woocommerce_navigation_current_screen_id', $filter );
+		remove_filter( 'poocommerce_navigation_current_screen_id', $filter );
 
 		$this->assertFalse( $screen_id, 'get_current_screen_id() should return false when no screen is set.' );
 		$this->assertSame(
 			array( false, null ),
 			$filter_args,
-			'The false fallback should pass through the woocommerce_navigation_current_screen_id filter with a null screen.'
+			'The false fallback should pass through the poocommerce_navigation_current_screen_id filter with a null screen.'
 		);
 	}
 }

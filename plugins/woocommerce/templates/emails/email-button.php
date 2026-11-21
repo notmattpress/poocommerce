@@ -2,10 +2,10 @@
 /**
  * Email call-to-action button.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-button.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-button.php.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 11.0.0
  *
  * @var string $url   Button destination URL.
@@ -15,7 +15,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Fall back to the default when the option is set but empty (get_option's default only covers a missing option).
-$wc_button_bg   = get_option( 'woocommerce_email_base_color', '#7f54b3' );
+$wc_button_bg   = get_option( 'poocommerce_email_base_color', '#7f54b3' );
 $wc_button_bg   = $wc_button_bg ? $wc_button_bg : '#7f54b3';
 $wc_button_text = wc_hex_is_light( $wc_button_bg ) ? '#000000' : '#ffffff';
 ?>

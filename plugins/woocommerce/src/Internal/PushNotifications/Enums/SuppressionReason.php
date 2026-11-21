@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Enums;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Enums;
 
 /**
  * Reasons a notification was not sent to a token.

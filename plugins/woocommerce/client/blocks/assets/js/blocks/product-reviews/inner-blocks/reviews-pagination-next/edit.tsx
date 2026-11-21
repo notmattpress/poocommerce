@@ -31,8 +31,8 @@ export default function Edit( {
 			<PlainText
 				__experimentalVersion={ 2 }
 				tagName="span"
-				aria-label={ __( 'Newer reviews page link', 'woocommerce' ) }
-				placeholder={ __( 'Newer Reviews', 'woocommerce' ) }
+				aria-label={ __( 'Newer reviews page link', 'poocommerce' ) }
+				placeholder={ __( 'Newer Reviews', 'poocommerce' ) }
 				value={ label }
 				onChange={ ( newLabel ) =>
 					setAttributes( { label: newLabel } )
@@ -40,7 +40,7 @@ export default function Edit( {
 			/>
 			{ displayArrow && (
 				<span
-					className={ `wp-block-woocommerce-product-reviews-pagination-next-arrow is-arrow-${ paginationArrow }` }
+					className={ `wp-block-poocommerce-product-reviews-pagination-next-arrow is-arrow-${ paginationArrow }` }
 				>
 					{ displayArrow }
 				</span>

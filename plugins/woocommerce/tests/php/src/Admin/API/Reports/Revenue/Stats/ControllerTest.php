@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Revenue\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Revenue\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Revenue\Stats\Controller;
+use Automattic\PooCommerce\Admin\API\Reports\Revenue\Stats\Controller;
 use WC_Unit_Test_Case;
 
 /**
@@ -48,7 +48,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_export_columns_filter_can_add_column(): void {
 		add_filter(
-			'woocommerce_report_revenue_stats_export_columns',
+			'poocommerce_report_revenue_stats_export_columns',
 			function ( $columns ) {
 				$columns['currency'] = 'Currency';
 				return $columns;
@@ -65,7 +65,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_export_columns_filter_can_remove_column(): void {
 		add_filter(
-			'woocommerce_report_revenue_stats_export_columns',
+			'poocommerce_report_revenue_stats_export_columns',
 			function ( $columns ) {
 				unset( $columns['coupons'] );
 				return $columns;
@@ -108,7 +108,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_prepare_item_for_export_filter_can_add_column(): void {
 		add_filter(
-			'woocommerce_report_revenue_stats_prepare_export_item',
+			'poocommerce_report_revenue_stats_prepare_export_item',
 			function ( $export_item ) {
 				$export_item['currency'] = 'USD';
 				return $export_item;
@@ -143,7 +143,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 		$received_item = null;
 
 		add_filter(
-			'woocommerce_report_revenue_stats_prepare_export_item',
+			'poocommerce_report_revenue_stats_prepare_export_item',
 			function ( $export_item, $item ) use ( &$received_item ) {
 				$received_item = $item;
 				return $export_item;

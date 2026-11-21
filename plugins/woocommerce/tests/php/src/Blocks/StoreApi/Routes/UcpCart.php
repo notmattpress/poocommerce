@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Ucp\AbstractCartRoute;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Ucp\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 
 /**
  * Tests for the /wc/ucp/v1/carts endpoints.
@@ -88,7 +88,7 @@ class UcpCart extends UcpCartTestCase {
 
 		self::$limited_stock_id = $limited[0]->get_id();
 
-		$fixtures             = new \Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData();
+		$fixtures             = new \Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData();
 		$attribute_ids_before = array_map( 'intval', wc_get_attribute_taxonomy_ids() );
 		$size                 = $fixtures->get_product_attribute( 'size', array( 'small', 'large' ) );
 		// The helper matches "size" as a label before a slug, so check the ID it returns, not the slug.
@@ -202,7 +202,7 @@ class UcpCart extends UcpCartTestCase {
 		if ( WC()->session ) {
 			// WC_Session_Handler::save_data() is a no-op without a session cookie, and no
 			// cookie is ever sent in this suite. A real cart request sets one through
-			// woocommerce_set_cart_cookies, so flip the same flag before saving.
+			// poocommerce_set_cart_cookies, so flip the same flag before saving.
 			if ( WC()->session instanceof \WC_Session_Handler ) {
 				$has_cookie = new \ReflectionProperty( WC()->session, '_has_cookie' );
 				$has_cookie->setAccessible( true );
@@ -222,7 +222,7 @@ class UcpCart extends UcpCartTestCase {
 		WC()->customer = null;
 		WC()->cart     = null;
 		// Per-process "already done" markers a real request would not carry over.
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['woocommerce_after_calculate_totals'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['poocommerce_after_calculate_totals'] );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class UcpCart extends UcpCartTestCase {
 	public function test_cart_routes_never_bind_to_the_session_cookie(): void {
 		unset( $_SERVER['HTTP_CART_TOKEN'] );
 
-		$routes = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$route  = $routes->get( 'ucp-carts', 'ucp' );
 
 		$bind = new \ReflectionMethod( $route, 'load_cart_session' );
@@ -275,7 +275,7 @@ class UcpCart extends UcpCartTestCase {
 
 		$this->assertSame(
 			SessionHandler::class,
-			apply_filters( 'woocommerce_session_handler', \WC_Session_Handler::class )
+			apply_filters( 'poocommerce_session_handler', \WC_Session_Handler::class )
 		);
 	}
 
@@ -341,12 +341,12 @@ class UcpCart extends UcpCartTestCase {
 		$cap = static function () {
 			return 1;
 		};
-		add_filter( 'woocommerce_store_api_product_quantity_maximum', $cap );
+		add_filter( 'poocommerce_store_api_product_quantity_maximum', $cap );
 
 		$response = $this->request( 'PUT', '/carts/' . $created['id'], array( 'line_items' => array( $this->line_item( 0, 2 ) ) ) );
 		$data     = $response->get_data();
 
-		remove_filter( 'woocommerce_store_api_product_quantity_maximum', $cap );
+		remove_filter( 'poocommerce_store_api_product_quantity_maximum', $cap );
 
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertSame( 'error', $data['ucp']['status'] );
@@ -386,13 +386,13 @@ class UcpCart extends UcpCartTestCase {
 		$method = new \ReflectionMethod( $route, 'error_to_response' );
 		$method->setAccessible( true );
 
-		$refused = $method->invoke( $route, new \WP_Error( 'woocommerce_rest_product_out_of_stock', 'Gone.', array( 'status' => 409 ) ) );
+		$refused = $method->invoke( $route, new \WP_Error( 'poocommerce_rest_product_out_of_stock', 'Gone.', array( 'status' => 409 ) ) );
 		$this->assertSame( 409, $refused->get_status() );
 		$this->assertSame( 'out_of_stock', $refused->get_data()['messages'][0]['code'] );
 		$this->assertSame( 'recoverable', $refused->get_data()['messages'][0]['severity'] );
 		$this->assertSame( 'Gone.', $refused->get_data()['messages'][0]['content'] );
 
-		$unknown = $method->invoke( $route, new \WP_Error( 'woocommerce_rest_cart_error', 'Session failed.', array( 'status' => 500 ) ) );
+		$unknown = $method->invoke( $route, new \WP_Error( 'poocommerce_rest_cart_error', 'Session failed.', array( 'status' => 500 ) ) );
 		$this->assertSame( 500, $unknown->get_status() );
 		$this->assertSame( 'TRANSPORT_ERROR', $unknown->get_data()['messages'][0]['code'] );
 		$this->assertSame( 'unrecoverable', $unknown->get_data()['messages'][0]['severity'] );
@@ -410,7 +410,7 @@ class UcpCart extends UcpCartTestCase {
 		$this->assertSame( array( 'dev.ucp.shopping.cart', 'dev.ucp.shopping.discount' ), array_keys( $data['ucp']['capabilities'] ) );
 
 		$this->assertNotEmpty( $data['id'] );
-		$this->assertSame( get_woocommerce_currency(), $data['currency'] );
+		$this->assertSame( get_poocommerce_currency(), $data['currency'] );
 
 		$this->assertCount( 1, $data['line_items'] );
 		$line_item = $data['line_items'][0];
@@ -859,7 +859,7 @@ class UcpCart extends UcpCartTestCase {
 		WC()->initialize_session();
 		WC()->initialize_cart();
 		WC()->cart->add_to_cart( self::$product_ids[0], 1 );
-		$GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] = 1; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulates an extension that already loaded the cart.
+		$GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] = 1; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulates an extension that already loaded the cart.
 
 		$this->assertInstanceOf( \WC_Session_Handler::class, WC()->session );
 
@@ -966,12 +966,12 @@ class UcpCart extends UcpCartTestCase {
 		$explode = function () {
 			throw new \RuntimeException( 'hook failure' );
 		};
-		add_action( 'woocommerce_store_api_validate_add_to_cart', $explode );
+		add_action( 'poocommerce_store_api_validate_add_to_cart', $explode );
 
 		try {
 			$response = $this->request( 'PUT', '/carts/' . $created['id'], array( 'line_items' => array( $this->line_item( 1, 1 ) ) ) );
 		} finally {
-			remove_action( 'woocommerce_store_api_validate_add_to_cart', $explode );
+			remove_action( 'poocommerce_store_api_validate_add_to_cart', $explode );
 		}
 
 		$this->assertSame( 500, $response->get_status() );
@@ -999,7 +999,7 @@ class UcpCart extends UcpCartTestCase {
 
 		$stored = maybe_serialize( array( 'cart' => array( 'keep-me' => array( 'quantity' => 3 ) ) ) );
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_sessions',
+			$wpdb->prefix . 'poocommerce_sessions',
 			array(
 				'session_key'    => (string) $user_id,
 				'session_value'  => $stored,
@@ -1020,7 +1020,7 @@ class UcpCart extends UcpCartTestCase {
 
 		$this->assertSame(
 			$stored,
-			$wpdb->get_var( $wpdb->prepare( "SELECT session_value FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s", (string) $user_id ) ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->get_var( $wpdb->prepare( "SELECT session_value FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s", (string) $user_id ) ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		);
 	}
 
@@ -1080,7 +1080,7 @@ class UcpCart extends UcpCartTestCase {
 	/**
 	 * Cancelling a cart must not break a storefront session cloned from it.
 	 *
-	 * The marker lives in the WooCommerce session, which the buyer's browser can
+	 * The marker lives in the PooCommerce session, which the buyer's browser can
 	 * reach through `continue_url`, so only the UCP routes may act on it.
 	 */
 	public function test_cancelling_a_cart_leaves_the_storefront_session_usable(): void {
@@ -1136,8 +1136,8 @@ class UcpCart extends UcpCartTestCase {
 	 * quantity equals the line subtotal and tax is only in the itemised totals.
 	 */
 	public function test_item_price_is_pre_tax_under_inclusive_cart_display(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
 		$rate_id = \WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate'       => '10.0000',
@@ -1150,8 +1150,8 @@ class UcpCart extends UcpCartTestCase {
 			$data = $this->create_cart( array( $this->line_item( 0, 2 ) ) );
 		} finally {
 			\WC_Tax::_delete_tax_rate( $rate_id );
-			update_option( 'woocommerce_calc_taxes', 'no' );
-			update_option( 'woocommerce_tax_display_cart', 'excl' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_tax_display_cart', 'excl' );
 		}
 
 		// 19.99 at 10%: the price stays 19.99, the tax line carries the 10%.
@@ -1179,7 +1179,7 @@ class UcpCart extends UcpCartTestCase {
 
 	/**
 	 * Errors the Store API cart validation reports, such as an extension refusing the
-	 * cart through `woocommerce_store_api_cart_errors`, reach the agent as recoverable
+	 * cart through `poocommerce_store_api_cart_errors`, reach the agent as recoverable
 	 * messages instead of surfacing at checkout.
 	 */
 	public function test_reading_a_cart_reports_store_api_cart_errors(): void {
@@ -1187,14 +1187,14 @@ class UcpCart extends UcpCartTestCase {
 		$this->assertArrayNotHasKey( 'messages', $created );
 
 		$refuse = function ( \WP_Error $errors ) {
-			$errors->add( 'woocommerce_rest_product_partially_out_of_stock', 'Only 1 of "UCP Cart Mug" left.' );
+			$errors->add( 'poocommerce_rest_product_partially_out_of_stock', 'Only 1 of "UCP Cart Mug" left.' );
 		};
-		add_action( 'woocommerce_store_api_cart_errors', $refuse );
+		add_action( 'poocommerce_store_api_cart_errors', $refuse );
 
 		try {
 			$data = $this->request( 'GET', '/carts/' . $created['id'] )->get_data();
 		} finally {
-			remove_action( 'woocommerce_store_api_cart_errors', $refuse );
+			remove_action( 'poocommerce_store_api_cart_errors', $refuse );
 		}
 
 		$this->assertSame( 'success', $data['ucp']['status'] );
@@ -1294,7 +1294,7 @@ class UcpCart extends UcpCartTestCase {
 	 */
 	public function test_discount_codes_are_rejected_when_coupons_are_disabled(): void {
 		\WC_Helper_Coupon::create_coupon( 'save5', array( 'coupon_amount' => '5' ) );
-		update_option( 'woocommerce_enable_coupons', 'no' );
+		update_option( 'poocommerce_enable_coupons', 'no' );
 
 		$data = $this->request(
 			'POST',

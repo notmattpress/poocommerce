@@ -1,4 +1,4 @@
-/*global jQuery, Backbone, _, woocommerce_admin_api_keys, wcSetClipboard, wcClearClipboard */
+/*global jQuery, Backbone, _, poocommerce_admin_api_keys, wcSetClipboard, wcClearClipboard */
 (function( $ ) {
 
 	var APIView = Backbone.View.extend({
@@ -54,7 +54,7 @@
 					evt.preventDefault();
 					if ( ! document.queryCommandSupported( 'copy' ) ) {
 						$( css_class ).parent().find( 'input' ).trigger( 'focus' ).trigger( 'select' );
-						$( '#copy-error' ).text( woocommerce_admin_api_keys.clipboard_failed );
+						$( '#copy-error' ).text( poocommerce_admin_api_keys.clipboard_failed );
 					} else {
 						$( '#copy-error' ).text( '' );
 						wcClearClipboard();
@@ -73,7 +73,7 @@
 				} )
 				.on( 'aftercopyerror', css_class, function() {
 					$( css_class ).parent().find( 'input' ).trigger( 'focus' ).trigger( 'select' );
-					$( '#copy-error' ).text( woocommerce_admin_api_keys.clipboard_failed );
+					$( '#copy-error' ).text( poocommerce_admin_api_keys.clipboard_failed );
 				} );
 		},
 
@@ -106,10 +106,10 @@
 			Backbone.ajax({
 				method:   'POST',
 				dataType: 'json',
-				url:      woocommerce_admin_api_keys.ajax_url,
+				url:      poocommerce_admin_api_keys.ajax_url,
 				data:     {
-					action:      'woocommerce_update_api_key',
-					security:    woocommerce_admin_api_keys.update_api_nonce,
+					action:      'poocommerce_update_api_key',
+					security:    poocommerce_admin_api_keys.update_api_nonce,
 					key_id:      $( '#key_id', self.el ).val(),
 					description: $( '#key_description', self.el ).val(),
 					user:        $( '#key_user', self.el ).val(),

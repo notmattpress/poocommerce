@@ -20,7 +20,7 @@ describe( 'ApiClient', () => {
 		jest.useFakeTimers();
 		Object.defineProperty( navigator, 'sendBeacon', { value: sendBeacon, configurable: true } );
 		window.wcAnalytics = {
-			trackEndpoint: 'https://shop.example/wp-json/woocommerce-analytics/v1/track',
+			trackEndpoint: 'https://shop.example/wp-json/poocommerce-analytics/v1/track',
 			eventQueue: [],
 			commonProps: {},
 			features: { proxy: true },

@@ -83,14 +83,14 @@ function SettingsForm( { config }: { config: SettingsEntityConfig } ) {
 			await save();
 			setNotice( {
 				status: 'success',
-				message: __( 'Settings saved.', 'woocommerce' ),
+				message: __( 'Settings saved.', 'poocommerce' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
 				status: 'error',
 				message: getErrorMessage(
 					error,
-					__( 'Unable to save settings.', 'woocommerce' )
+					__( 'Unable to save settings.', 'poocommerce' )
 				),
 			} );
 		}
@@ -115,7 +115,7 @@ function SettingsForm( { config }: { config: SettingsEntityConfig } ) {
 					}
 				} }
 			>
-				{ __( 'Discard changes', 'woocommerce' ) }
+				{ __( 'Discard changes', 'poocommerce' ) }
 			</Button>
 			<Button
 				variant="solid"
@@ -124,7 +124,7 @@ function SettingsForm( { config }: { config: SettingsEntityConfig } ) {
 				disabled={ isSaving || ! hasEdits || ! isValid }
 				onClick={ () => void saveSettings() }
 			>
-				{ __( 'Save changes', 'woocommerce' ) }
+				{ __( 'Save changes', 'poocommerce' ) }
 			</Button>
 		</Stack>
 	);
@@ -135,7 +135,7 @@ function SettingsForm( { config }: { config: SettingsEntityConfig } ) {
 				<Breadcrumbs
 					items={ [
 						{
-							label: __( 'Payments', 'woocommerce' ),
+							label: __( 'Payments', 'poocommerce' ),
 							to: paymentsUrl,
 						},
 						{ label },
@@ -150,14 +150,14 @@ function SettingsForm( { config }: { config: SettingsEntityConfig } ) {
 			<Stack
 				direction="column"
 				gap="lg"
-				className="woocommerce-settings__content"
+				className="poocommerce-settings__content"
 			>
 				{ hasLoadError && (
 					<Notice.Root intent="error">
 						<Notice.Description>
 							{ getErrorMessage(
 								loadError,
-								__( 'Unable to load settings.', 'woocommerce' )
+								__( 'Unable to load settings.', 'poocommerce' )
 							) }
 						</Notice.Description>
 					</Notice.Root>

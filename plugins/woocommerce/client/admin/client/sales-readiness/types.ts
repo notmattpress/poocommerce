@@ -123,7 +123,7 @@ export interface ReadinessView {
 }
 
 /**
- * What WooCommerce > Settings > AI tools > AI shopping shows, built by
+ * What PooCommerce > Settings > AI tools > AI shopping shows, built by
  * AgenticCommerceSettingsPage in PHP and handed to the page on its root.
  */
 export interface ShoppingStep {

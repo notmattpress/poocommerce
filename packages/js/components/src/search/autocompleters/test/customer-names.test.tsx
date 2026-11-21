@@ -54,7 +54,7 @@ describe( 'deprecated customers autocompleter', () => {
 	it( 'keeps its own name and class so existing consumers are unaffected', () => {
 		expect( customers.name ).toBe( 'customers' );
 		expect( customers.className ).toBe(
-			'woocommerce-search__customers-result'
+			'poocommerce-search__customers-result'
 		);
 	} );
 } );

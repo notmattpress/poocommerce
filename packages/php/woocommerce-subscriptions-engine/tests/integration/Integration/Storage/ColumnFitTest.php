@@ -2,21 +2,21 @@
 /**
  * Integration tests for ColumnFit.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Storage;
 
 use EngineIntegrationTestCase;
 use RuntimeException;
 use WP_Error;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ColumnFit;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ColumnFit;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\ColumnFit
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\ColumnFit
  */
 class ColumnFitTest extends EngineIntegrationTestCase {
 

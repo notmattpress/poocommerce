@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G04A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+			"path": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 			"before": {
 				"file": "fixtures/G04A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+						"file": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 						"lines": [
 							5,
 							5
@@ -22,7 +22,7 @@
 						"anchor": "    public function get_entry_count();"
 					},
 					{
-						"file": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+						"file": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 						"lines": [
 							13,
 							13
@@ -34,7 +34,7 @@
 		},
 		{
 			"id": "G04B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+			"path": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 			"before": {
 				"file": "fixtures/G04B/before.php"
 			},
@@ -45,7 +45,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+						"file": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 						"lines": [
 							4,
 							4
@@ -57,7 +57,7 @@
 		},
 		{
 			"id": "G04C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+			"path": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 			"before": {
 				"file": "fixtures/G04C/before.php"
 			},
@@ -70,7 +70,7 @@
 		},
 		{
 			"id": "G04D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-public-php-api-bc.php",
+			"path": "plugins/poocommerce/includes/class-wc-public-php-api-bc.php",
 			"before": {
 				"file": "fixtures/G04D/before.php"
 			},

@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { createInterpolateElement } from '@wordpress/element';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
-import type { CartShippingPackageShippingRate } from '@woocommerce/type-defs/cart';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
+import type { CartShippingPackageShippingRate } from '@poocommerce/type-defs/cart';
 
 export const RatePrice = ( {
 	minRate,
@@ -28,7 +28,7 @@ export const RatePrice = ( {
 		: parseInt( maxRate.price, 10 );
 	const priceElement =
 		minRatePrice === 0 && maxRatePrice === 0 ? (
-			<em>{ __( 'free', 'woocommerce' ) }</em>
+			<em>{ __( 'free', 'poocommerce' ) }</em>
 		) : (
 			<FormattedMonetaryAmount
 				currency={ getCurrencyFromPriceResponse( minRate ) }
@@ -43,7 +43,7 @@ export const RatePrice = ( {
 				: createInterpolateElement(
 						minRatePrice === 0 && maxRatePrice === 0
 							? '<price />'
-							: __( 'from <price />', 'woocommerce' ),
+							: __( 'from <price />', 'poocommerce' ),
 						{
 							price: priceElement,
 						}

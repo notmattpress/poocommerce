@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Ucp;
+namespace Automattic\PooCommerce\Tests\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Tests for the `/.well-known/ucp` discovery profile.
@@ -33,7 +33,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 		$this->sut  = new UcpDiscovery();
 		$this->file = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/.well-known/ucp';
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $this->file );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $this->file );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 	}
 
@@ -43,7 +43,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	public function tearDown(): void {
 		global $wp_rewrite;
 		unset( $wp_rewrite->extra_rules_top[ self::RULE ] );
-		delete_option( 'woocommerce_queue_flush_rewrite_rules' );
+		delete_option( 'poocommerce_queue_flush_rewrite_rules' );
 		if ( is_file( $this->file ) ) {
 			wp_delete_file( $this->file );
 		}
@@ -79,7 +79,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_rewrite_rule_registration( string $enabled, string $structure, bool $expected ): void {
 		global $wp_rewrite;
-		update_option( 'woocommerce_feature_ucp_enabled', $enabled );
+		update_option( 'poocommerce_feature_ucp_enabled', $enabled );
 		$this->set_permalink_structure( $structure );
 
 		$this->sut->register_feature_hooks();
@@ -93,17 +93,17 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 * @testdox Toggling the UCP feature queues a rewrite rules flush.
 	 */
 	public function test_feature_toggle_queues_flush(): void {
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 
 		$this->sut->maybe_flush_rewrite_rules( 'some_other_feature' );
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
 		$this->sut->maybe_flush_rewrite_rules( Utils::FEATURE_ID );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**
-	 * @testdox serve_status reads the permalink setting and the static file: no file is fine with permalinks WordPress routes, and with Plain or index.php permalinks before UCP is on when the file can be written; a file must be WooCommerce's and current.
+	 * @testdox serve_status reads the permalink setting and the static file: no file is fine with permalinks WordPress routes, and with Plain or index.php permalinks before UCP is on when the file can be written; a file must be PooCommerce's and current.
 	 * @testWith ["/%postname%/", null, "ok"]
 	 *           ["/%postname%/", "current", "ok"]
 	 *           ["/%postname%/", "foreign", "file_in_the_way"]
@@ -125,7 +125,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_serve_status( string $structure, ?string $file, string $expected ): void {
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/.well-known/ucp';
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 		$this->set_permalink_structure( $structure );
 		if ( null !== $file ) {
 			$ours    = $this->sut->get_profile();
@@ -157,11 +157,11 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox serve_status counts a file it can't read as in the way, even when it holds WooCommerce's current profile.
+	 * @testdox serve_status counts a file it can't read as in the way, even when it holds PooCommerce's current profile.
 	 */
 	public function test_serve_status_unreadable_file(): void {
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/.well-known/ucp';
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 		$this->set_permalink_structure( '' );
 
 		wp_mkdir_p( dirname( $path ) );
@@ -183,18 +183,18 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	 * @testdox Plain and index.php permalinks are not ok once UCP is on without a file, or when the folder can't be written.
 	 */
 	public function test_serve_status_no_file_when_the_address_cannot_be_served(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->set_permalink_structure( '' );
 		$this->assertSame( 'no_file', UcpDiscovery::serve_status() );
 
 		$this->set_permalink_structure( '/index.php/%postname%/' );
 		$this->assertSame( 'no_file', UcpDiscovery::serve_status(), 'A structure starting with index.php does not route /.well-known/ucp' );
 
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$locked = get_temp_dir() . uniqid( 'wc-ucp-locked-' );
 		mkdir( $locked ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_mkdir
 		chmod( $locked, 0555 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
 		try {
 			if ( is_writable( $locked ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
 				$this->markTestSkipped( 'The test runs as a user who can write any directory (root).' );
@@ -213,7 +213,7 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The static file is written under plain permalinks, removed under pretty ones, and removed when UCP is turned off or WooCommerce is deactivated.
+	 * @testdox The static file is written under plain permalinks, removed under pretty ones, and removed when UCP is turned off or PooCommerce is deactivated.
 	 */
 	public function test_sync_file(): void {
 		$this->set_permalink_structure( '' );
@@ -234,19 +234,19 @@ class UcpDiscoveryTest extends \WC_Unit_Test_Case {
 		$this->sut->maybe_flush_rewrite_rules( Utils::FEATURE_ID, false );
 		$this->assertFileDoesNotExist( $this->file );
 
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->sut->register_feature_hooks();
 		$this->sut->maybe_sync_file();
-		do_action( 'deactivate_' . plugin_basename( WC_PLUGIN_FILE ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'deactivate_' . plugin_basename( WC_PLUGIN_FILE ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$this->assertFileDoesNotExist( $this->file );
 	}
 
 	/**
-	 * @testdox A stale file WooCommerce wrote is rewritten and removed; a file it did not write is never touched.
+	 * @testdox A stale file PooCommerce wrote is rewritten and removed; a file it did not write is never touched.
 	 * @testWith [true]
 	 *           [false]
 	 *
-	 * @param bool $owned Whether the existing file carries the WooCommerce marker.
+	 * @param bool $owned Whether the existing file carries the PooCommerce marker.
 	 */
 	public function test_sync_file_only_touches_owned_file( bool $owned ): void {
 		$stale = (string) wp_json_encode( array( 'links' => array( array( 'rel' => $owned ? UcpDiscovery::LINK_REL : 'other' ) ) ) );

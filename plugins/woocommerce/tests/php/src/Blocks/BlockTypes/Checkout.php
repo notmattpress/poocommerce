@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CheckoutMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CheckoutMock;
 
 /**
  * Tests for the Checkout block type
@@ -51,7 +51,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->integration_registry = new IntegrationRegistry();
 		$this->mock_logger          = $this->getMockBuilder( \WC_Logger_Interface::class )->getMock();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			array( $this, 'override_wc_logger' )
 		);
 	}
@@ -80,8 +80,8 @@ class Checkout extends \WC_Unit_Test_Case {
 		);
 
 		// Sets the page as the checkout page so the code to update the setting correctly processes it.
-		$page_id         = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$page_id         = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -94,7 +94,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Changed pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with the default value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -107,7 +107,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title with an empty value.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":""} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -120,7 +120,7 @@ class Checkout extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'Pickup', $pickup_location_settings['title'] );
 
 		// Updates the pickup title back to "Changed pickup" to test AssetDataRegistry.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"> <!-- wp:woocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-woocommerce-checkout-shipping-method-block"></div> <!-- /wp:woocommerce/checkout-shipping-method-block --></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"> <!-- wp:poocommerce/checkout-shipping-method-block {"localPickupText":"Changed pickup"} --> <div class="wp-block-poocommerce-checkout-shipping-method-block"></div> <!-- /wp:poocommerce/checkout-shipping-method-block --></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -137,7 +137,7 @@ class Checkout extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Checkout is told whether woocommerce_checkout_show_terms hides the terms.
+	 * @testdox Checkout is told whether poocommerce_checkout_show_terms hides the terms.
 	 */
 	public function test_enqueue_data_exposes_checkout_show_terms(): void {
 		$checkout = new CheckoutMock( $this->asset_api, $this->registry, $this->integration_registry, 'checkout-mock' );
@@ -145,8 +145,8 @@ class Checkout extends \WC_Unit_Test_Case {
 		$checkout->mock_enqueue_data();
 		$this->assertTrue( $this->registry->get()['checkoutShowTerms'], 'Terms are shown by default' );
 
-		add_filter( 'woocommerce_checkout_show_terms', '__return_false' );
-		\WP_Block_Type_Registry::get_instance()->unregister( 'woocommerce/checkout-mock' );
+		add_filter( 'poocommerce_checkout_show_terms', '__return_false' );
+		\WP_Block_Type_Registry::get_instance()->unregister( 'poocommerce/checkout-mock' );
 		$registry = new AssetDataRegistryMock( $this->asset_api );
 		$checkout = new CheckoutMock( $this->asset_api, $registry, $this->integration_registry, 'checkout-mock' );
 		$checkout->mock_enqueue_data();
@@ -154,7 +154,7 @@ class Checkout extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The editor does not run woocommerce_checkout_show_terms, because callbacks may expect a loaded cart.
+	 * @testdox The editor does not run poocommerce_checkout_show_terms, because callbacks may expect a loaded cart.
 	 */
 	public function test_enqueue_data_skips_checkout_show_terms_in_admin(): void {
 		set_current_screen( 'page' );
@@ -162,7 +162,7 @@ class Checkout extends \WC_Unit_Test_Case {
 			// Mirrors a callback written for the frontend, where the cart is loaded.
 			return WC()->cart->get_total() > 0;
 		};
-		add_filter( 'woocommerce_checkout_show_terms', $filter );
+		add_filter( 'poocommerce_checkout_show_terms', $filter );
 		$cart      = WC()->cart;
 		WC()->cart = null;
 
@@ -171,7 +171,7 @@ class Checkout extends \WC_Unit_Test_Case {
 			$checkout->mock_enqueue_data();
 		} finally {
 			WC()->cart = $cart;
-			remove_filter( 'woocommerce_checkout_show_terms', $filter );
+			remove_filter( 'poocommerce_checkout_show_terms', $filter );
 		}
 
 		$this->assertArrayNotHasKey( 'checkoutShowTerms', $this->registry->get(), 'The editor should not run the filter' );
@@ -186,8 +186,8 @@ class Checkout extends \WC_Unit_Test_Case {
 		$fields = parse_blocks( $method->invoke( null ) )[0]['innerBlocks'][0];
 		$attrs  = array_column( $fields['innerBlocks'], 'attrs', 'blockName' );
 
-		$this->assertArrayNotHasKey( 'woocommerce/checkout-terms-block', $attrs, 'No Terms and Conditions block' );
-		$this->assertTrue( $attrs['woocommerce/checkout-actions-block']['showTerms'] ?? null, 'Actions block shows terms' );
+		$this->assertArrayNotHasKey( 'poocommerce/checkout-terms-block', $attrs, 'No Terms and Conditions block' );
+		$this->assertTrue( $attrs['poocommerce/checkout-actions-block']['showTerms'] ?? null, 'Actions block shows terms' );
 	}
 
 	/**

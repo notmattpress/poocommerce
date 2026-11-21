@@ -81,7 +81,7 @@ jest.mock( '@wordpress/components', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	const attributeTerms = [
 		{ id: 11, name: 'Small', slug: 'small' },
 		{ id: 12, name: 'Medium', slug: 'medium' },
@@ -99,7 +99,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => {
 	};
 
 	return {
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useCollection: jest.fn( () => ( {
 			results: attributeTerms,
 			isLoading: false,
@@ -113,7 +113,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	const attributes = [
 		{
 			attribute_id: '1',
@@ -124,7 +124,7 @@ jest.mock( '@woocommerce/settings', () => {
 	];
 
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSetting: jest.fn( ( key, defaultValue ) =>
 			key === 'attributes' ? attributes : defaultValue
 		),
@@ -168,7 +168,7 @@ describe( 'Attribute Filter editor ownership', () => {
 		).toBeInTheDocument();
 		expect( screen.getByTestId( 'locked-filter-child' ) ).toHaveAttribute(
 			'data-block-name',
-			'woocommerce/attribute-filter'
+			'poocommerce/attribute-filter'
 		);
 		expect( screen.getByTestId( 'locked-filter-child' ) ).toHaveAttribute(
 			'data-lock-remove',
@@ -181,7 +181,7 @@ describe( 'Attribute Filter editor ownership', () => {
 		expect( innerBlocksProps.template ).toEqual( [
 			[ 'core/heading', { content: 'Filter by attribute', level: 3 } ],
 			[
-				'woocommerce/attribute-filter',
+				'poocommerce/attribute-filter',
 				{ heading: '', lock: { remove: true } },
 			],
 		] );

@@ -5,7 +5,7 @@ Some endpoints of the Store API are extensible via a class called `ExtendSchema`
 For more information about extending the Store API, you may also be interested in:
 
 -   [How to add your data to Store API using `ExtendSchema`](./extend-store-api-add-data.md)
--   [How to add a new endpoint](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/internal-developers/rest-api/extend-rest-api-new-endpoint.md)
+-   [How to add a new endpoint](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/internal-developers/rest-api/extend-rest-api-new-endpoint.md)
 
 Below is a list of available endpoints that you can extend using `ExtendSchema`, as well as some example use-cases.
 
@@ -22,7 +22,7 @@ This endpoint is useful for adding additional data about individual products. Th
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => ProductSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -58,7 +58,7 @@ This endpoint is useful for adding additional data to the cart page, for example
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CartSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -94,7 +94,7 @@ This endpoint is useful for adding additional data about individual cart items. 
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CartItemSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -133,7 +133,7 @@ This endpoint is useful for adding additional data to the checkout page, such as
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CheckoutSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',

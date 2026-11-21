@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Shortcode_Checkout.
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**
@@ -93,7 +93,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 			return isset( $gateways[ $gateway_id ] ) ? array( $gateway_id => $gateways[ $gateway_id ] ) + $gateways : $gateways;
 		};
 
-		add_filter( 'woocommerce_available_payment_gateways', $gateway_order_filter );
+		add_filter( 'poocommerce_available_payment_gateways', $gateway_order_filter );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		WC_Shortcode_Checkout::output( array() );
 		$output = (string) ob_get_clean();
 
-		$this->assertStringNotContainsString( 'woocommerce-thankyou-order-details', $output );
+		$this->assertStringNotContainsString( 'poocommerce-thankyou-order-details', $output );
 		$this->assertStringNotContainsString( (string) $order->get_order_number(), $output );
 	}
 
@@ -237,7 +237,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$output = (string) ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'#<div class="woocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(woocommerce-error|is-error)[^"]*"[^>]*>.*Sorry, this order is invalid and cannot be paid for\..*</div>#s',
+			'#<div class="poocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(poocommerce-error|is-error)[^"]*"[^>]*>.*Sorry, this order is invalid and cannot be paid for\..*</div>#s',
 			$output,
 			'The pay page error should be wrapped in the notices wrapper.'
 		);
@@ -261,7 +261,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$output = (string) ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'#<div class="woocommerce-notices-wrapper">\s*<div class="[^"]*(woocommerce-info|is-info)[^"]*"[^>]*>.*Please log in to your account to view this order\..*</div>#s',
+			'#<div class="poocommerce-notices-wrapper">\s*<div class="[^"]*(poocommerce-info|is-info)[^"]*"[^>]*>.*Please log in to your account to view this order\..*</div>#s',
 			$output,
 			'The order received login prompt should be wrapped in the notices wrapper.'
 		);
@@ -329,7 +329,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 	public function test_order_pay_prefers_merchant_assigned_gateway_over_the_default_payment_method_callback(): void {
 		$this->enable_gateways( array( WC_Gateway_BACS::ID, WC_Gateway_Cheque::ID ) );
 		$order = $this->create_pending_order( 'admin', WC_Gateway_Cheque::ID );
-		add_filter( 'woocommerce_default_payment_method', '__return_empty_string' );
+		add_filter( 'poocommerce_default_payment_method', '__return_empty_string' );
 
 		$output = $this->render_pay_page( $order );
 
@@ -343,7 +343,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 	public function test_order_pay_leaves_nothing_selected_when_the_default_payment_method_callback_returns_nothing(): void {
 		$this->enable_gateways( array( WC_Gateway_BACS::ID, WC_Gateway_Cheque::ID ) );
 		$order = $this->create_pending_order( 'checkout', WC_Gateway_Cheque::ID );
-		add_filter( 'woocommerce_default_payment_method', '__return_empty_string' );
+		add_filter( 'poocommerce_default_payment_method', '__return_empty_string' );
 
 		$output = $this->render_pay_page( $order );
 
@@ -392,7 +392,7 @@ class WC_Shortcode_Checkout_Test extends WC_Unit_Test_Case {
 		$order = $this->create_pending_order( 'checkout', WC_Gateway_Cheque::ID );
 		$this->put_gateway_first( WC_Gateway_Cheque::ID );
 		add_filter(
-			'woocommerce_default_payment_method',
+			'poocommerce_default_payment_method',
 			function () {
 				return WC_Gateway_BACS::ID;
 			}

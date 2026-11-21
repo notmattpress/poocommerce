@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -25,12 +25,12 @@ const test = baseTest.extend( {
 
 		// Activating the custom place order button test plugin (mapped in .wp-env.json).
 		await wpCLI(
-			'wp plugin activate woocommerce-blocks-test-plugins/custom-place-order-button-test.php'
+			'wp plugin activate poocommerce-blocks-test-plugins/custom-place-order-button-test.php'
 		);
 
 		// The custom plugin comes with a custom gateway - enabling it through CLI to simplify our lives.
 		await wpCLI(
-			`wp option set woocommerce_test-custom-button_settings --format=json '{"enabled":"yes"}'`
+			`wp option set poocommerce_test-custom-button_settings --format=json '{"enabled":"yes"}'`
 		);
 
 		// COD is enabled globally in site setup; guard defensively in case it is
@@ -46,10 +46,10 @@ const test = baseTest.extend( {
 
 		// Cleanup: undo the plugin activation and the option.
 		await wpCLI(
-			'wp plugin deactivate woocommerce-blocks-test-plugins/custom-place-order-button-test.php'
+			'wp plugin deactivate poocommerce-blocks-test-plugins/custom-place-order-button-test.php'
 		);
 		await wpCLI(
-			`wp option delete woocommerce_test-custom-button_settings`
+			`wp option delete poocommerce_test-custom-button_settings`
 		);
 
 		await setGatewayEnabled( restApi, 'cod', codWasEnabled );
@@ -99,7 +99,7 @@ test.describe( 'Shortcode Checkout Custom Place Order Button', () => {
 
 			// Ensuring validation errors are shown.
 			await expect(
-				page.locator( '.woocommerce-invalid' ).first()
+				page.locator( '.poocommerce-invalid' ).first()
 			).toBeVisible();
 
 			// Ensuring we're still on checkout (order not submitted).

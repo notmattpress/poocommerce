@@ -2,18 +2,18 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Logger;
 
 /**
  * Backfills sync meta onto pre-existing `woo_email` posts so the divergence
  * detector introduced by RSM-138 can classify legacy installs safely.
  *
- * Runs once per site as part of WooCommerce's standard db-updates pipeline
- * (see {@see \WC_Install::$db_updates}). The `woocommerce_db_version` fence
+ * Runs once per site as part of PooCommerce's standard db-updates pipeline
+ * (see {@see \WC_Install::$db_updates}). The `poocommerce_db_version` fence
  * guarantees the migration fires exactly once; Action Scheduler handles the
  * async dispatch. A single synchronous pass is sufficient — the registered
  * post set is bounded (core + opted-in third parties), not a user-generated
@@ -43,12 +43,12 @@ use Automattic\WooCommerce\Internal\EmailEditor\Logger;
  * Finalization is a two-step handshake:
  *  1. Flip {@see WCEmailTemplateDivergenceDetector::BACKFILL_COMPLETE_OPTION}
  *     to `yes` — the detector refuses to run until this flips.
- *  2. Fire `do_action( 'woocommerce_email_template_sync_backfill_complete' )`
+ *  2. Fire `do_action( 'poocommerce_email_template_sync_backfill_complete' )`
  *     so the first real detector sweep can run immediately, closing the
- *     ordering gap with `woocommerce_updated` (which fires before async
+ *     ordering gap with `poocommerce_updated` (which fires before async
  *     db-update callbacks finish).
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  * @since 10.8.0
  */
 class WCEmailTemplateSyncBackfill {
@@ -70,7 +70,7 @@ class WCEmailTemplateSyncBackfill {
 	 *
 	 * @var string
 	 */
-	public const BACKFILL_COMPLETE_ACTION = 'woocommerce_email_template_sync_backfill_complete';
+	public const BACKFILL_COMPLETE_ACTION = 'poocommerce_email_template_sync_backfill_complete';
 
 	/**
 	 * Re-entrancy flag set while `wp_update_post()` writes Case B content.
@@ -98,7 +98,7 @@ class WCEmailTemplateSyncBackfill {
 	 * `(bool) false` tells the queue manager this callback is complete and
 	 * should not be re-scheduled.
 	 *
-	 * The `woocommerce_db_version` fence around `$db_updates` provides the
+	 * The `poocommerce_db_version` fence around `$db_updates` provides the
 	 * once-per-site guarantee, so there is no internal idempotency gate here;
 	 * retry-safety comes from the `NOT EXISTS` filter on the stored source
 	 * hash in {@see self::fetch_eligible_posts()}.
@@ -275,7 +275,7 @@ class WCEmailTemplateSyncBackfill {
 			// failure path returns `WP_Error` (the `0` return is reserved for the
 			// `$wp_error = false` path). The outer `\Throwable` catch in `run()`
 			// can't see a returned `WP_Error`, so we handle it here. This
-			// migration is one-shot (the `woocommerce_db_version` fence flips on
+			// migration is one-shot (the `poocommerce_db_version` fence flips on
 			// completion), so an unstamped post would be orphaned — the detector
 			// skips posts without a source hash with a recurring warning. Instead,
 			// fall back to Case C semantics: stamp with the canonical hash but

@@ -220,7 +220,7 @@ describe( 'ReviewDrawer', () => {
 		const getItem = ( title: string ) =>
 			screen
 				.getByText( title )
-				.closest( '.woocommerce-review-drawer__item' );
+				.closest( '.poocommerce-review-drawer__item' );
 
 		expect(
 			getItem( 'You removed Paragraph; core still has it.' )

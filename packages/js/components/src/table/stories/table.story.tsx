@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Card } from '@wordpress/components';
-import { Table } from '@woocommerce/components';
+import { Table } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 /**

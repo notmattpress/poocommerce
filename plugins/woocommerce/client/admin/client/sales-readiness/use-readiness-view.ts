@@ -71,7 +71,7 @@ export function useReadinessView(
 			setError(
 				__(
 					'Your check results didn’t load. Reload the page to try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -124,7 +124,7 @@ export function useReadinessView(
 			setError(
 				__(
 					'The check didn’t start. Try again in a few minutes.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {

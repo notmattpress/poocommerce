@@ -1,6 +1,6 @@
-# WooCommerce theme CLI
+# PooCommerce theme CLI
 
-`@woocommerce/theme-cli` provides shared development tooling for WooCommerce themes in `themes/<slug>/`. Themes are versioned independently of WooCommerce Core. Each theme is its own private pnpm workspace package, with its own version, commands, changelog, and release lifecycle. Shared development tooling lives in the private `@woocommerce/theme-cli` workspace package, with shared Composer dependencies in `tools/theme-cli/`.
+`@poocommerce/theme-cli` provides shared development tooling for PooCommerce themes in `themes/<slug>/`. Themes are versioned independently of PooCommerce Core. Each theme is its own private pnpm workspace package, with its own version, commands, changelog, and release lifecycle. Shared development tooling lives in the private `@poocommerce/theme-cli` workspace package, with shared Composer dependencies in `tools/theme-cli/`.
 
 ## Setup
 
@@ -20,14 +20,14 @@ Run these commands from the repository root:
 
 ```bash
 # Lint and validate one theme.
-pnpm --filter=@woocommerce/theme-cli validate purple
+pnpm --filter=@poocommerce/theme-cli validate purple
 
 # Fix formatting and supported lint issues, then validate.
-pnpm --filter=@woocommerce/theme-cli validate purple --fix
+pnpm --filter=@poocommerce/theme-cli validate purple --fix
 
 # Lint and validate every theme under themes/.
-pnpm --filter=@woocommerce/theme-cli validate --all
-pnpm --filter=@woocommerce/theme-cli validate --all --fix
+pnpm --filter=@poocommerce/theme-cli validate --all
+pnpm --filter=@poocommerce/theme-cli validate --all --fix
 ```
 
 
@@ -36,18 +36,18 @@ pnpm --filter=@woocommerce/theme-cli validate --all --fix
 The shared CLI starts an environment for the selected theme. For example, once a theme is added:
 
 ```bash
-pnpm --filter=@woocommerce/theme-cli wp-env start <slug>
-pnpm --filter=@woocommerce/theme-cli wp-env stop <slug>
+pnpm --filter=@poocommerce/theme-cli wp-env start <slug>
+pnpm --filter=@poocommerce/theme-cli wp-env stop <slug>
 ```
 
-`@woocommerce/theme-cli` provides the wp-env command, dependency, and shared configuration in `tools/theme-cli/.wp-env.json`. The slug selects the theme to mount. The CLI runs wp-env from its own package, generating an ignored configuration in `tools/theme-cli/.wp-env/<slug>/.wp-env.json` to keep each theme's environment separate. Local overrides belong in `tools/theme-cli/.wp-env/<slug>/.wp-env.override.json`; relative paths are resolved from `tools/theme-cli/`. Start uses Playground by default; pass `--runtime=docker` to use Docker. Theme packages can expose shortcuts to these shared commands.
+`@poocommerce/theme-cli` provides the wp-env command, dependency, and shared configuration in `tools/theme-cli/.wp-env.json`. The slug selects the theme to mount. The CLI runs wp-env from its own package, generating an ignored configuration in `tools/theme-cli/.wp-env/<slug>/.wp-env.json` to keep each theme's environment separate. Local overrides belong in `tools/theme-cli/.wp-env/<slug>/.wp-env.override.json`; relative paths are resolved from `tools/theme-cli/`. Start uses Playground by default; pass `--runtime=docker` to use Docker. Theme packages can expose shortcuts to these shared commands.
 
 ## Build a theme ZIP
 
 Validate the theme first, then build its ZIP from the repository root. Replace `<slug>` with the theme directory name:
 
 ```bash
-pnpm --filter=@woocommerce/theme-cli build <slug>
+pnpm --filter=@poocommerce/theme-cli build <slug>
 ```
 
 The command creates the artifacts directory and moves the ZIP to `themes/<slug>/artifacts/<slug>.zip`. Builds include current working files, including uncommitted changes.

@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\CouponCodeLookupInvalidator;
+use Automattic\PooCommerce\Internal\Caches\CouponCodeLookupInvalidator;
 use WC_Helper_Coupon;
 use WC_Unit_Test_Case;
 
@@ -334,7 +334,7 @@ class CouponCodeLookupInvalidatorTest extends WC_Unit_Test_Case {
 		};
 
 		add_filter(
-			'woocommerce_coupon_data_store',
+			'poocommerce_coupon_data_store',
 			function () use ( $store ) {
 				return $store;
 			}

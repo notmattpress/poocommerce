@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Sanitization Helper
+ * PooCommerce Admin Sanitization Helper
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 declare(strict_types=1);
@@ -46,8 +46,8 @@ class WC_Helper_Sanitization {
 
 				// Check if URL belongs to allowed domains.
 				if ( preg_match(
-					'/^https?:\/\/(([\w-]+\.)*woocommerce\.com|' .
-					'([\w-]+\.)*woocommerce\.test|' .
+					'/^https?:\/\/(([\w-]+\.)*poocommerce\.com|' .
+					'([\w-]+\.)*poocommerce\.test|' .
 					'([\w-]+\.)*WordPress\.com|' .
 					'([\w-]+\.)*wp\.com)/ix',
 					$url

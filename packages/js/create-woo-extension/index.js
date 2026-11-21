@@ -5,7 +5,7 @@ const defaultDependencies = [
 	'@wordpress/element',
 	'@wordpress/hooks',
 	'@wordpress/i18n',
-	'@woocommerce/components',
+	'@poocommerce/components',
 ];
 /**
  * `npmDevDependencies` cannot carry a version: create-block resolves each entry
@@ -14,13 +14,13 @@ const defaultDependencies = [
  * which is spread over the generated `devDependencies`.
  */
 const defaultDevDependencies = {
-	'@woocommerce/dependency-extraction-webpack-plugin': 'latest',
+	'@poocommerce/dependency-extraction-webpack-plugin': 'latest',
 	/* v4 is the first Flat Config release; the scaffolded eslint.config.mjs requires it. */
-	'@woocommerce/eslint-plugin': '^4.0.0',
+	'@poocommerce/eslint-plugin': '^4.0.0',
 	'@wordpress/prettier-config': 'latest',
 	'@wordpress/scripts': 'latest',
 	/*
-	 * Match the `react` and `react-dom` peer range of `@woocommerce/components`
+	 * Match the `react` and `react-dom` peer range of `@poocommerce/components`
 	 * (packages/js/components/package.json) instead of npm selecting React 19.
 	 * Update these when that range changes.
 	 */
@@ -28,13 +28,13 @@ const defaultDevDependencies = {
 	'react-dom': '18.3.x',
 	/*
 	 * Without this, `@wordpress/prettier-config`'s `prettier: >=3` peer hoists plain
-	 * prettier over wp-prettier. Pinned to match `@woocommerce/eslint-plugin`.
+	 * prettier over wp-prettier. Pinned to match `@poocommerce/eslint-plugin`.
 	 */
 	prettier: 'npm:wp-prettier@3.9.6',
 };
 
 /*
- * Stopgap: `i18n-calypso@7.4.1` (via `@woocommerce/components`) ships a Yarn-only
+ * Stopgap: `i18n-calypso@7.4.1` (via `@poocommerce/components`) ships a Yarn-only
  * `patch:` spec that breaks `npm install`. Pin to 8.1.0 (latest, without the
  * spec) until the upstream range stops resolving to 7.4.1.
  */
@@ -87,10 +87,10 @@ module.exports = {
 			),
 			npmDependencies: [
 				...defaultDependencies,
-				'@woocommerce/onboarding',
+				'@poocommerce/onboarding',
 				// The add-task template imports these directly; declare them to satisfy
 				// import/no-extraneous-dependencies without relying on transitive dependencies.
-				'@woocommerce/data',
+				'@poocommerce/data',
 				'@wordpress/data',
 				'@wordpress/plugins',
 			],
@@ -109,7 +109,7 @@ module.exports = {
 			),
 			npmDependencies: [
 				...defaultDependencies,
-				'@woocommerce/currency',
+				'@poocommerce/currency',
 				'@wordpress/icons',
 				'moment',
 			],

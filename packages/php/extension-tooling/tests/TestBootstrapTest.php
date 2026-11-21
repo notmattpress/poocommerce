@@ -2,19 +2,19 @@
 /**
  * PHPUnit bootstrap helper tests.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\ExtensionTools\Testing\Test_Bootstrap;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\ExtensionTools\Testing\Test_Bootstrap;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the shared parts of an extension's WooCommerce PHPUnit bootstrap.
+ * Tests the shared parts of an extension's PooCommerce PHPUnit bootstrap.
  */
 class TestBootstrapTest extends TestCase {
 
@@ -32,7 +32,7 @@ class TestBootstrapTest extends TestCase {
 	}
 
 	/**
-	 * The legacy test helpers and WooCommerce must see the same testing container.
+	 * The legacy test helpers and PooCommerce must see the same testing container.
 	 *
 	 * @runInSeparateProcess
 	 * @preserveGlobalState disabled
@@ -90,7 +90,7 @@ class TestBootstrapTest extends TestCase {
 	 */
 	public function test_leaves_an_unrecognized_container_alone() {
 		require __DIR__ . '/fixtures/class-testbootstraptestingcontainer.php';
-		class_alias( TestBootstrapTestingContainer::class, 'Automattic\WooCommerce\Container' );
+		class_alias( TestBootstrapTestingContainer::class, 'Automattic\PooCommerce\Container' );
 
 		$container               = new TestBootstrapTestingContainer( new stdClass() );
 		$GLOBALS['wc_container'] = $container;

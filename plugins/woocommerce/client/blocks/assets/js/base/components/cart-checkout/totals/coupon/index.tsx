@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import Button from '@woocommerce/base-components/button';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
+import Button from '@poocommerce/base-components/button';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
 import {
 	TextInput,
 	ValidationInputError,
 	Panel,
 	Spinner,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import { useDispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
+import { validationStore } from '@poocommerce/block-data';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
 import type { MouseEvent, MouseEventHandler } from 'react';
 
 /**
@@ -103,11 +103,11 @@ export const TotalsCoupon = ( {
 			initialOpen={ isCouponFormVisible }
 			hasBorder={ false }
 			headingLevel={ 2 }
-			title={ __( 'Add coupons', 'woocommerce' ) }
+			title={ __( 'Add coupons', 'poocommerce' ) }
 			state={ [ isCouponFormVisible, setIsCouponFormVisible ] }
 		>
 			<LoadingMask
-				screenReaderLabel={ __( 'Applying coupon…', 'woocommerce' ) }
+				screenReaderLabel={ __( 'Applying coupon…', 'poocommerce' ) }
 				isLoading={ isLoading }
 				showSpinner={ false }
 			>
@@ -122,7 +122,7 @@ export const TotalsCoupon = ( {
 								'wc-block-components-totals-coupon__input',
 								{ 'has-error': hasError }
 							) }
-							label={ __( 'Enter code', 'woocommerce' ) }
+							label={ __( 'Enter code', 'poocommerce' ) }
 							value={ couponValue }
 							ariaDescribedBy={ hasError ? errorId : undefined }
 							aria-invalid={ hasError }
@@ -149,7 +149,7 @@ export const TotalsCoupon = ( {
 							type="submit"
 						>
 							{ isLoading && <Spinner /> }
-							{ __( 'Apply', 'woocommerce' ) }
+							{ __( 'Apply', 'poocommerce' ) }
 						</Button>
 					</form>
 					{ hasError && (

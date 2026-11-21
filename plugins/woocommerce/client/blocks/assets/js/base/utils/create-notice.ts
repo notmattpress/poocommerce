@@ -12,13 +12,13 @@ import { CurriedSelectorsOf } from '@wordpress/data/build-types/types';
 /**
  * Internal dependencies
  */
-import type { PaymentStoreDescriptor } from '@woocommerce/block-data/payment';
-import type { StoreNoticesStoreDescriptor } from '@woocommerce/block-data/store-notices';
+import type { PaymentStoreDescriptor } from '@poocommerce/block-data/payment';
+import type { StoreNoticesStoreDescriptor } from '@poocommerce/block-data/store-notices';
 import { noticeContexts } from '../context/event-emit/utils';
 
 export const DEFAULT_ERROR_MESSAGE = __(
 	'Something went wrong. Please contact us to get assistance.',
-	'woocommerce'
+	'poocommerce'
 );
 
 /**

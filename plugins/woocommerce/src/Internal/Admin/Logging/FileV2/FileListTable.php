@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Internal\Admin\Logging\FileV2;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\PageController;
+use Automattic\PooCommerce\Internal\Admin\Logging\PageController;
 
 use WP_List_Table;
 
@@ -16,7 +16,7 @@ class FileListTable extends WP_List_Table {
 	 *
 	 * @const string
 	 */
-	public const PER_PAGE_USER_OPTION_KEY = 'woocommerce_logging_file_list_per_page';
+	public const PER_PAGE_USER_OPTION_KEY = 'poocommerce_logging_file_list_per_page';
 
 	/**
 	 * Instance of FileController.
@@ -57,7 +57,7 @@ class FileListTable extends WP_List_Table {
 	 * @return void
 	 */
 	public function no_items(): void {
-		esc_html_e( 'No log files found.', 'woocommerce' );
+		esc_html_e( 'No log files found.', 'poocommerce' );
 	}
 
 	/**
@@ -67,8 +67,8 @@ class FileListTable extends WP_List_Table {
 	 */
 	protected function get_bulk_actions(): array {
 		return array(
-			'export' => esc_html__( 'Download', 'woocommerce' ),
-			'delete' => esc_html__( 'Delete permanently', 'woocommerce' ),
+			'export' => esc_html__( 'Download', 'poocommerce' ),
+			'delete' => esc_html__( 'Delete permanently', 'poocommerce' ),
 		);
 	}
 
@@ -104,9 +104,9 @@ class FileListTable extends WP_List_Table {
 		?>
 		<div class="alignleft actions">
 			<?php if ( 'top' === $which ) : ?>
-				<label for="filter-by-source" class="screen-reader-text"><?php esc_html_e( 'Filter by log source', 'woocommerce' ); ?></label>
+				<label for="filter-by-source" class="screen-reader-text"><?php esc_html_e( 'Filter by log source', 'poocommerce' ); ?></label>
 				<select name="source" id="filter-by-source">
-					<option<?php selected( $current_source, '' ); ?> value=""><?php esc_html_e( 'All sources', 'woocommerce' ); ?></option>
+					<option<?php selected( $current_source, '' ); ?> value=""><?php esc_html_e( 'All sources', 'poocommerce' ); ?></option>
 					<?php foreach ( $all_sources as $source ) : ?>
 						<option<?php selected( $current_source, $source ); ?> value="<?php echo esc_attr( $source ); ?>">
 							<?php echo esc_html( $source ); ?>
@@ -115,7 +115,7 @@ class FileListTable extends WP_List_Table {
 				</select>
 				<?php
 				submit_button(
-					__( 'Filter', 'woocommerce' ),
+					__( 'Filter', 'poocommerce' ),
 					'',
 					'filter_action',
 					false,
@@ -195,10 +195,10 @@ class FileListTable extends WP_List_Table {
 	public function get_columns(): array {
 		$columns = array(
 			'cb'       => '<input type="checkbox" />',
-			'source'   => esc_html__( 'Source', 'woocommerce' ),
-			'created'  => esc_html__( 'Date created', 'woocommerce' ),
-			'modified' => esc_html__( 'Date modified', 'woocommerce' ),
-			'size'     => esc_html__( 'File size', 'woocommerce' ),
+			'source'   => esc_html__( 'Source', 'poocommerce' ),
+			'created'  => esc_html__( 'Date created', 'poocommerce' ),
+			'modified' => esc_html__( 'Date modified', 'poocommerce' ),
+			'size'     => esc_html__( 'File size', 'poocommerce' ),
 		);
 
 		return $columns;
@@ -241,7 +241,7 @@ class FileListTable extends WP_List_Table {
 				<?php
 				printf(
 					// translators: 1. a date, 2. a slug-style name for a file.
-					esc_html__( 'Select the %1$s log file for %2$s', 'woocommerce' ),
+					esc_html__( 'Select the %1$s log file for %2$s', 'poocommerce' ),
 					esc_html( gmdate( get_option( 'date_format' ), $item->get_created_timestamp() ) ),
 					esc_html( $item->get_source() )
 				);

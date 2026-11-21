@@ -3,10 +3,10 @@
  */
 import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
 import domReady from '@wordpress/dom-ready';
-import { getSetting, STORE_PAGES } from '@woocommerce/settings';
+import { getSetting, STORE_PAGES } from '@poocommerce/settings';
 import { select, subscribe } from '@wordpress/data';
 // Use the store name to avoid adding wp-editor as a dependency on widget screens.
-import { CORE_EDITOR_STORE } from '@woocommerce/utils';
+import { CORE_EDITOR_STORE } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ const getBlockTypesToUnregister = ( postId?: number ): string[] => {
 	if ( blockEditorContext === 'widgets' ) {
 		return registeredBlockTypes.filter(
 			( blockType ) =>
-				blockType.startsWith( 'woocommerce/' ) &&
+				blockType.startsWith( 'poocommerce/' ) &&
 				! WIDGET_EDITOR_ALLOWED_BLOCK_TYPES.includes( blockType )
 		);
 	}

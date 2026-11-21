@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * MiniCartCartButtonBlock class.
@@ -21,7 +21,7 @@ class MiniCartCartButtonBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		$default_cart_text  = __( 'Cart', 'woocommerce' );
+		$default_cart_text  = __( 'Cart', 'poocommerce' );
 		$cart_text          = $attributes['cartButtonLabel'] ? $attributes['cartButtonLabel'] : $default_cart_text;
 		$cart_page_id       = wc_get_page_id( 'cart' );
 		$cart_page_url      = get_permalink( $cart_page_id );

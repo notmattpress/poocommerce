@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport;
 
 /**
  * Checks where import and export scratch files would be written.

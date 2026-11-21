@@ -2,7 +2,7 @@
 /**
  * File for the WC_Tests_API_Functions class.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 /**
@@ -170,7 +170,7 @@ class WC_Tests_API_Functions extends WC_Unit_Test_Case {
 	 * @since 2.6.0
 	 */
 	public function test_wc_rest_urlencode_rfc3986() {
-		$this->assertEquals( 'https%3A%2F%2Fwoocommerce.com%2F', wc_rest_urlencode_rfc3986( 'https://woocommerce.com/' ) );
+		$this->assertEquals( 'https%3A%2F%2Fpoocommerce.com%2F', wc_rest_urlencode_rfc3986( 'https://poocommerce.com/' ) );
 	}
 
 	/**

@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { Icon, trendingUp } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -40,24 +40,24 @@ export const DiscoverTools = () => {
 
 		if ( data.length === 0 ) {
 			return (
-				<CardBody className="woocommerce-marketing-discover-tools-card-body-empty-content">
+				<CardBody className="poocommerce-marketing-discover-tools-card-body-empty-content">
 					<Icon icon={ trendingUp } size={ 32 } />
 					<div>
 						{ __(
 							'Continue to reach the right audiences and promote your products in ways that matter to them with our range of marketing solutions.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 					<Button
 						variant="tertiary"
-						href="https://woocommerce.com/product-category/woocommerce-extensions/marketing-extensions/"
+						href="https://poocommerce.com/product-category/poocommerce-extensions/marketing-extensions/"
 						onClick={ () => {
 							recordEvent( 'marketing_explore_more_extensions' );
 						} }
 					>
 						{ __(
 							'Explore more marketing extensions',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Button>
 				</CardBody>
@@ -75,7 +75,7 @@ export const DiscoverTools = () => {
 
 	return (
 		<CollapsibleCard
-			header={ __( 'Discover more marketing tools', 'woocommerce' ) }
+			header={ __( 'Discover more marketing tools', 'poocommerce' ) }
 		>
 			{ renderCardContent() }
 		</CollapsibleCard>

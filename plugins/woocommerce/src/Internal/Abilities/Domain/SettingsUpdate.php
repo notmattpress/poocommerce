@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,14 +24,14 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 	 * Page settings that must not share a page, matching the advanced settings tab's save checks and page picker exclusions.
 	 */
 	private const DISTINCT_PAGES = array(
-		array( 'woocommerce_terms_page_id', 'woocommerce_checkout_page_id' ),
-		array( 'woocommerce_cart_page_id', 'woocommerce_checkout_page_id' ),
-		array( 'woocommerce_cart_page_id', 'woocommerce_myaccount_page_id' ),
-		array( 'woocommerce_checkout_page_id', 'woocommerce_myaccount_page_id' ),
-		array( 'woocommerce_refund_returns_page_id', 'woocommerce_cart_page_id' ),
-		array( 'woocommerce_refund_returns_page_id', 'woocommerce_checkout_page_id' ),
-		array( 'woocommerce_refund_returns_page_id', 'woocommerce_shop_page_id' ),
-		array( 'woocommerce_refund_returns_page_id', 'woocommerce_myaccount_page_id' ),
+		array( 'poocommerce_terms_page_id', 'poocommerce_checkout_page_id' ),
+		array( 'poocommerce_cart_page_id', 'poocommerce_checkout_page_id' ),
+		array( 'poocommerce_cart_page_id', 'poocommerce_myaccount_page_id' ),
+		array( 'poocommerce_checkout_page_id', 'poocommerce_myaccount_page_id' ),
+		array( 'poocommerce_refund_returns_page_id', 'poocommerce_cart_page_id' ),
+		array( 'poocommerce_refund_returns_page_id', 'poocommerce_checkout_page_id' ),
+		array( 'poocommerce_refund_returns_page_id', 'poocommerce_shop_page_id' ),
+		array( 'poocommerce_refund_returns_page_id', 'poocommerce_myaccount_page_id' ),
 	);
 
 	/**
@@ -41,7 +41,7 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/settings-update';
+		return 'poocommerce/settings-update';
 	}
 
 	/**
@@ -52,9 +52,9 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update settings', 'woocommerce' ),
-			'description'         => __( 'Change approved settings in one group, such as the currency, store address or checkout pages. Changes apply to the whole store and every customer at once, so confirm them with the merchant before you send them. Read current values with woocommerce/settings-query first. Unapproved fields and passwords cannot be changed. If any setting is refused, nothing is saved. Each result returns the previous value, so a change can be undone.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Update settings', 'poocommerce' ),
+			'description'         => __( 'Change approved settings in one group, such as the currency, store address or checkout pages. Changes apply to the whole store and every customer at once, so confirm them with the merchant before you send them. Read current values with poocommerce/settings-query first. Unapproved fields and passwords cannot be changed. If any setting is refused, nothing is saved. Each result returns the previous value, so a change can be undone.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -106,7 +106,7 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 			return self::invalid_value_error(
 				array_values( array_unique( array_diff_assoc( $ids, array_unique( $ids ) ) ) ),
 				/* translators: %s: comma-separated setting IDs. */
-				__( 'These settings are named more than once: %s. Send each setting once. Nothing was saved.', 'woocommerce' )
+				__( 'These settings are named more than once: %s. Send each setting once. Nothing was saved.', 'poocommerce' )
 			);
 		}
 		$malformed = array();
@@ -119,7 +119,7 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 			return self::invalid_value_error(
 				$malformed,
 				/* translators: %s: comma-separated setting IDs. */
-				__( 'These settings need exactly one of value or values: %s. Nothing was saved.', 'woocommerce' )
+				__( 'These settings need exactly one of value or values: %s. Nothing was saved.', 'poocommerce' )
 			);
 		}
 
@@ -131,9 +131,9 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 		}
 		if ( $denied ) {
 			return new \WP_Error(
-				'woocommerce_ability_settings_not_writable',
+				'poocommerce_ability_settings_not_writable',
 				/* translators: %s: comma-separated setting IDs. */
-				sprintf( __( 'These settings cannot be changed: %s. Nothing was saved.', 'woocommerce' ), implode( ', ', $denied ) ),
+				sprintf( __( 'These settings cannot be changed: %s. Nothing was saved.', 'poocommerce' ), implode( ', ', $denied ) ),
 				array(
 					'status' => 403,
 					'ids'    => $denied,
@@ -154,15 +154,15 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 			$single   = array_keys( $expected, 'value', true );
 			if ( $in_list ) {
 				/* translators: %s: comma-separated setting IDs. */
-				$messages[] = sprintf( __( 'Send these settings as a list in values: %s.', 'woocommerce' ), implode( ', ', $in_list ) );
+				$messages[] = sprintf( __( 'Send these settings as a list in values: %s.', 'poocommerce' ), implode( ', ', $in_list ) );
 			}
 			if ( $single ) {
 				/* translators: %s: comma-separated setting IDs. */
-				$messages[] = sprintf( __( 'Send these settings in value, not values: %s.', 'woocommerce' ), implode( ', ', $single ) );
+				$messages[] = sprintf( __( 'Send these settings in value, not values: %s.', 'poocommerce' ), implode( ', ', $single ) );
 			}
-			$messages[] = __( 'Nothing was saved.', 'woocommerce' );
+			$messages[] = __( 'Nothing was saved.', 'poocommerce' );
 			return new \WP_Error(
-				'woocommerce_ability_settings_invalid_value',
+				'poocommerce_ability_settings_invalid_value',
 				implode( ' ', $messages ),
 				array(
 					'status'   => 400,
@@ -195,9 +195,9 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 		$conflicts = self::get_page_conflicts( $changes );
 		if ( $conflicts ) {
 			return new \WP_Error(
-				'woocommerce_ability_settings_page_conflict',
+				'poocommerce_ability_settings_page_conflict',
 				/* translators: %s: comma-separated setting IDs. */
-				sprintf( __( 'These settings would share a page: %s. Cart, checkout and My account each need their own page, terms cannot use the checkout page, and the refund and returns policy cannot use the cart, checkout, shop or My account page. Nothing was saved.', 'woocommerce' ), implode( ', ', $conflicts ) ),
+				sprintf( __( 'These settings would share a page: %s. Cart, checkout and My account each need their own page, terms cannot use the checkout page, and the refund and returns policy cannot use the cart, checkout, shop or My account page. Nothing was saved.', 'poocommerce' ), implode( ', ', $conflicts ) ),
 				array(
 					'status' => 400,
 					'ids'    => $conflicts,
@@ -217,7 +217,7 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 			$results[] = $result;
 		}
 
-		$hide_out_of_stock = get_option( 'woocommerce_hide_out_of_stock_items' );
+		$hide_out_of_stock = get_option( 'poocommerce_hide_out_of_stock_items' );
 		$autoload          = self::get_declared_autoload( $input['group'] );
 		foreach ( $changes as $index => $change ) {
 			list( $setting, $value ) = $change;
@@ -229,9 +229,9 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 			$results[ $index ]['value'] = true === rest_validate_value_from_schema( $saved, $value_schema ) ? $saved : $value;
 		}
 		// Endpoint slugs and the shop page feed rewrite rules, so like the admin save, queue a flush after every save.
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 		// Term counts leave out hidden out-of-stock products, so the products settings save recounts them.
-		if ( get_option( 'woocommerce_hide_out_of_stock_items' ) !== $hide_out_of_stock ) {
+		if ( get_option( 'poocommerce_hide_out_of_stock_items' ) !== $hide_out_of_stock ) {
 			wc_recount_all_terms( false );
 		}
 		// Cart sessions keep calculated shipping rates until this version changes, which the shipping and tax admin saves bump.
@@ -265,7 +265,7 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 	 */
 	private static function validate_value( \WC_REST_Setting_Options_Controller $controller, array $setting, $value ) {
 		$type    = $setting['type'];
-		$invalid = new \WP_Error( 'woocommerce_ability_settings_invalid_value', __( 'An invalid setting value was passed.', 'woocommerce' ) );
+		$invalid = new \WP_Error( 'poocommerce_ability_settings_invalid_value', __( 'An invalid setting value was passed.', 'poocommerce' ) );
 
 		// Stored options are strings: the admin save compares select values strictly and checkbox values as yes/no.
 		if ( is_bool( $value ) ) {
@@ -487,9 +487,9 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 	 */
 	private static function invalid_value_error( array $ids, ?string $format = null ): \WP_Error {
 		/* translators: %s: comma-separated setting IDs. */
-		$format ??= __( 'These settings have invalid values: %s. Nothing was saved.', 'woocommerce' );
+		$format ??= __( 'These settings have invalid values: %s. Nothing was saved.', 'poocommerce' );
 		return new \WP_Error(
-			'woocommerce_ability_settings_invalid_value',
+			'poocommerce_ability_settings_invalid_value',
 			sprintf( $format, implode( ', ', $ids ) ),
 			array(
 				'status' => 400,
@@ -525,11 +525,11 @@ class SettingsUpdate extends AbstractDomainAbility implements AbilityDefinition 
 								'minLength' => 1,
 							),
 							'value'  => array(
-								'description' => __( 'A single value, or a retention period with number and unit.', 'woocommerce' ),
+								'description' => __( 'A single value, or a retention period with number and unit.', 'poocommerce' ),
 								'anyOf'       => array_values( array_filter( $branches, static fn( array $branch ): bool => ! $is_list( $branch ) ) ),
 							),
 							'values' => array(
-								'description' => __( 'A list, for multiselect and country list settings. Lists from woocommerce/settings-query or previous go here.', 'woocommerce' ),
+								'description' => __( 'A list, for multiselect and country list settings. Lists from poocommerce/settings-query or previous go here.', 'poocommerce' ),
 							) + current( array_filter( $branches, $is_list ) ),
 						),
 						'required'             => array( 'id' ),

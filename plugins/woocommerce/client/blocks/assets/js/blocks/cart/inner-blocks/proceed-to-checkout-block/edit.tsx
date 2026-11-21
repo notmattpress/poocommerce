@@ -4,11 +4,11 @@
 import { useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import EditableButton from '@woocommerce/editor-components/editable-button';
+import EditableButton from '@poocommerce/editor-components/editable-button';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import PageSelector from '@woocommerce/editor-components/page-selector';
-import { CART_PAGE_ID } from '@woocommerce/block-settings';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import PageSelector from '@poocommerce/editor-components/page-selector';
+import { CART_PAGE_ID } from '@poocommerce/block-settings';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import clsx from 'clsx';
 
 /**
@@ -58,11 +58,11 @@ export const Edit = ( {
 						labels={ {
 							title: __(
 								'Proceed to Checkout button',
-								'woocommerce'
+								'poocommerce'
 							),
 							default: __(
-								'WooCommerce Checkout Page',
-								'woocommerce'
+								'PooCommerce Checkout Page',
+								'poocommerce'
 							),
 						} }
 					/>

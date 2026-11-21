@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\LlmsTxt;
+namespace Automattic\PooCommerce\Internal\LlmsTxt;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
 
 /**
  * Provides store guidance when no other provider serves llms.txt.
@@ -125,7 +125,7 @@ final class LlmsTxt implements RegisterHooksInterface {
 		if ( ! headers_sent() ) {
 			header( 'Content-Type: text/plain; charset=utf-8' );
 			header( 'Cache-Control: no-cache, must-revalidate' );
-			header( 'X-WooCommerce-LLMs-Txt: 1' );
+			header( 'X-PooCommerce-LLMs-Txt: 1' );
 			if ( ! get_option( 'blog_public' ) ) {
 				header( 'X-Robots-Tag: noindex, nofollow', false );
 			}
@@ -137,7 +137,7 @@ final class LlmsTxt implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Check whether WooCommerce may serve this request as a fallback.
+	 * Check whether PooCommerce may serve this request as a fallback.
 	 */
 	private function should_render(): bool {
 		return $this->is_llms_request()
@@ -188,17 +188,17 @@ final class LlmsTxt implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Whether WooCommerce may provide guidance and a fallback response.
+	 * Whether PooCommerce may provide guidance and a fallback response.
 	 */
 	private function is_enabled(): bool {
 		/**
-		 * Controls WooCommerce's llms.txt guidance and fallback response.
+		 * Controls PooCommerce's llms.txt guidance and fallback response.
 		 *
 		 * @since 11.4.0
 		 *
 		 * @param bool $enabled Whether the feature is enabled.
 		 */
-		return (bool) apply_filters( 'woocommerce_enable_llms_txt', true );
+		return (bool) apply_filters( 'poocommerce_enable_llms_txt', true );
 	}
 
 	/**
@@ -252,14 +252,14 @@ final class LlmsTxt implements RegisterHooksInterface {
 		}
 
 		/**
-		 * Filters the Markdown guidance in WooCommerce's llms.txt.
+		 * Filters the Markdown guidance in PooCommerce's llms.txt.
 		 *
 		 * @since 11.4.0
 		 *
 		 * @param string $section The Markdown guidance.
 		 * @param array  $profile The UCP profile, or an empty array when unavailable.
 		 */
-		$section = apply_filters( 'woocommerce_llms_txt_agentic_section', $guidance['section'], $guidance['profile'] );
+		$section = apply_filters( 'poocommerce_llms_txt_agentic_section', $guidance['section'], $guidance['profile'] );
 		return is_string( $section ) ? $section : '';
 	}
 
@@ -290,8 +290,8 @@ final class LlmsTxt implements RegisterHooksInterface {
 
 		$routes      = rest_get_server()->get_routes();
 		$policies    = array(
-			'terms'   => (int) get_option( 'woocommerce_terms_page_id' ),
-			'returns' => (int) get_option( 'woocommerce_refund_returns_page_id' ),
+			'terms'   => (int) get_option( 'poocommerce_terms_page_id' ),
+			'returns' => (int) get_option( 'poocommerce_refund_returns_page_id' ),
 			'privacy' => (int) get_option( 'wp_page_for_privacy_policy' ),
 		);
 		$policy_urls = array();
@@ -314,7 +314,7 @@ final class LlmsTxt implements RegisterHooksInterface {
 			$store_api_capabilities[] = 'use the cart';
 		}
 		if ( $store_api_capabilities && isset( $routes['/wc/store/v1'] ) ) {
-			$lines[] = '- [WooCommerce Store API](' . esc_url_raw( rest_url( 'wc/store/v1' ) ) . '): ' . ucfirst( implode( ' and ', $store_api_capabilities ) ) . '. See the [Store API documentation](https://developer.woocommerce.com/docs/apis/store-api/).';
+			$lines[] = '- [PooCommerce Store API](' . esc_url_raw( rest_url( 'wc/store/v1' ) ) . '): ' . ucfirst( implode( ' and ', $store_api_capabilities ) ) . '. See the [Store API documentation](https://developer.poocommerce.com/docs/apis/store-api/).';
 		}
 		if ( $profile ) {
 			$version       = $this->plain_text( $profile['ucp']['version'] ?? '' );

@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductReviewAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductReviewAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-review-update';
+		return 'poocommerce/product-review-update';
 	}
 
 	/**
@@ -38,9 +38,9 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update product review', 'woocommerce' ),
-			'description'         => __( 'Moderate a product review, or a reply to one: approve it, hold it for moderation (shown as Pending in wp-admin), mark it as spam or move it to the trash. Moderate for spam, abuse or off-topic content, never to hide negative reviews. Requesting the status a review already has changes nothing and returns changed false. Reviewer identity is withheld.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Update product review', 'poocommerce' ),
+			'description'         => __( 'Moderate a product review, or a reply to one: approve it, hold it for moderation (shown as Pending in wp-admin), mark it as spam or move it to the trash. Moderate for spam, abuse or off-topic content, never to hide negative reviews. Requesting the status a review already has changes nothing and returns changed false. Reviewer identity is withheld.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -102,11 +102,11 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 
 		if ( ! array_key_exists( $previous, self::get_review_statuses() ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_status_locked',
+				'poocommerce_ability_product_review_status_locked',
 				'post-trashed' === $previous
-					? __( 'The product of this review is in the trash. Restore the product to moderate its reviews.', 'woocommerce' )
+					? __( 'The product of this review is in the trash. Restore the product to moderate its reviews.', 'poocommerce' )
 					/* translators: %s: stored comment status. */
-					: sprintf( __( 'The review has the status "%s", which this ability cannot change.', 'woocommerce' ), $previous ),
+					: sprintf( __( 'The review has the status "%s", which this ability cannot change.', 'poocommerce' ), $previous ),
 				array( 'status' => 409 )
 			);
 		}
@@ -122,10 +122,10 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 		$saved = get_comment( (int) $review->comment_ID );
 		if ( ! $saved instanceof \WP_Comment ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_status_failed',
+				'poocommerce_ability_product_review_status_failed',
 				$changed
-					? __( 'The review status was changed, but the review could not be read back.', 'woocommerce' )
-					: __( 'The review could not be read back.', 'woocommerce' ),
+					? __( 'The review status was changed, but the review could not be read back.', 'poocommerce' )
+					: __( 'The review could not be read back.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -170,13 +170,13 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 			 * @param bool        $supports_trash Whether reviews can be trashed.
 			 * @param \WP_Comment $review         Review, or reply to a review, to trash.
 			 */
-			$trashable = (bool) apply_filters( 'woocommerce_rest_product_review_trashable', ( EMPTY_TRASH_DAYS > 0 ), $review );
+			$trashable = (bool) apply_filters( 'poocommerce_rest_product_review_trashable', ( EMPTY_TRASH_DAYS > 0 ), $review );
 
 			// wp_trash_comment() deletes permanently when trash is off, whatever the filter says.
 			if ( ! $trashable || EMPTY_TRASH_DAYS <= 0 ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_review_trash_not_supported',
-					__( 'This site deletes trashed comments immediately, so the review cannot be moved to the trash.', 'woocommerce' ),
+					'poocommerce_ability_product_review_trash_not_supported',
+					__( 'This site deletes trashed comments immediately, so the review cannot be moved to the trash.', 'poocommerce' ),
 					array( 'status' => 501 )
 				);
 			}
@@ -219,8 +219,8 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_product_review_status_failed',
-			is_wp_error( $ok ) ? $ok->get_error_message() : __( 'Failed to update the review status.', 'woocommerce' ),
+			'poocommerce_ability_product_review_status_failed',
+			is_wp_error( $ok ) ? $ok->get_error_message() : __( 'Failed to update the review status.', 'poocommerce' ),
 			$data
 		);
 	}
@@ -249,12 +249,12 @@ class ProductReviewUpdate extends AbstractDomainAbility implements AbilityDefini
 			'properties'           => array(
 				'id'     => array(
 					'type'        => 'integer',
-					'description' => __( 'Review ID from the woocommerce/product-reviews-query ability, or the ID of a reply to a review.', 'woocommerce' ),
+					'description' => __( 'Review ID from the poocommerce/product-reviews-query ability, or the ID of a reply to a review.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'status' => array(
 					'type'        => 'string',
-					'description' => __( 'New moderation status. "hold" puts the review back in the moderation queue.', 'woocommerce' ),
+					'description' => __( 'New moderation status. "hold" puts the review back in the moderation queue.', 'poocommerce' ),
 					'enum'        => array_keys( self::get_review_statuses() ),
 				),
 			),

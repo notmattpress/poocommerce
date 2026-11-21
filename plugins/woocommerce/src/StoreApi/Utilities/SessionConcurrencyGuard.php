@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 use WC_Session;
 

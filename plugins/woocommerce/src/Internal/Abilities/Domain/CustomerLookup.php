@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,8 +29,8 @@ final class CustomerLookup extends CustomersDataStore {
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_customer_analytics_disabled',
-			__( 'Customer data comes from WooCommerce Analytics, which is turned off on this store. Ask the store owner to turn it on under WooCommerce > Settings > Advanced > Features.', 'woocommerce' ),
+			'poocommerce_ability_customer_analytics_disabled',
+			__( 'Customer data comes from PooCommerce Analytics, which is turned off on this store. Ask the store owner to turn it on under PooCommerce > Settings > Advanced > Features.', 'poocommerce' ),
 			array( 'status' => 503 )
 		);
 	}

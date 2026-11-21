@@ -18,20 +18,20 @@ Here are some examples of the ways you can use `pnpm` commands:
 # Lint and build all plugins, packages, and tools.
 pnpm lint && pnpm build
 
-# Build WooCommerce Core and all of its dependencies
-pnpm --filter='@woocommerce/plugin-woocommerce' build
+# Build PooCommerce Core and all of its dependencies
+pnpm --filter='@poocommerce/plugin-poocommerce' build
 
-# Lint the @woocommerce/components package
-pnpm --filter='@woocommerce/components' lint
+# Lint the @poocommerce/components package
+pnpm --filter='@poocommerce/components' lint
 
-# Test all of the @woocommerce scoped packages
-pnpm --filter='@woocommerce/*' test
+# Test all of the @poocommerce scoped packages
+pnpm --filter='@poocommerce/*' test
 
 # Build all of the JavaScript packages
 pnpm --filter='./packages/js/*' build
 
-# Build everything except WooCommerce Core
-pnpm --filter='!@woocommerce/plugin-woocommerce' build
+# Build everything except PooCommerce Core
+pnpm --filter='!@poocommerce/plugin-poocommerce' build
 
 # Build everything that has changed since the last commit
 pnpm --filter='[HEAD^1]' build
@@ -42,11 +42,11 @@ pnpm --filter='[HEAD^1]' build
 Here are some examples of the commands you will make use of.
 
 ```bash
-# Add a changelog entry for WooCommerce Core
-pnpm --filter='@woocommerce/plugin-woocommerce' changelog add
+# Add a changelog entry for PooCommerce Core
+pnpm --filter='@poocommerce/plugin-poocommerce' changelog add
 
-# Create the woocommerce.zip file
-pnpm --filter='@woocommerce/plugin-woocommerce' build:zip
+# Create the poocommerce.zip file
+pnpm --filter='@poocommerce/plugin-poocommerce' build:zip
 ```
 
 ## Plugin Development Environments
@@ -55,7 +55,7 @@ The plugins in our repository make use of [the `@wordpress/env` package](https:/
 
 ```bash
 # Make sure you are in the working directory of the plugin you are interested in setting up the environment for
-cd plugins/woocommerce
+cd plugins/poocommerce
 # Start will create the environment if necessary or start an existing one
 pnpm -- wp-env start
 # Stop will, well, stop the environment

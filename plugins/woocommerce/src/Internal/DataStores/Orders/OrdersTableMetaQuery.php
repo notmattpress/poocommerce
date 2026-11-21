@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -197,7 +197,7 @@ class OrdersTableMetaQuery {
 
 		if ( ! $clause ) {
 			// translators: %s is a meta_query key.
-			throw new \Exception( sprintf( __( 'Invalid meta_query clause key: %s.', 'woocommerce' ), $key ) );
+			throw new \Exception( sprintf( __( 'Invalid meta_query clause key: %s.', 'poocommerce' ), $key ) );
 		}
 
 		return "CAST({$clause['alias']}.meta_value AS {$clause['cast']})";

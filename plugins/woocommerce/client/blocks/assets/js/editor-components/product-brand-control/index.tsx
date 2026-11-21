@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { withSearchedBrands } from '@woocommerce/block-hocs';
-import ProductTaxonomyControl from '@woocommerce/editor-components/product-taxonomy-control';
+import { withSearchedBrands } from '@poocommerce/block-hocs';
+import ProductTaxonomyControl from '@poocommerce/editor-components/product-taxonomy-control';
 import type {
 	ProductBrandResponseItem,
 	WithInjectedSearchedBrands,
-} from '@woocommerce/types';
-import { convertProductBrandResponseItemToSearchItem } from '@woocommerce/utils';
+} from '@poocommerce/types';
+import { convertProductBrandResponseItemToSearchItem } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -55,13 +55,13 @@ const ProductBrandControl = ( {
 	showReviewCount,
 }: ProductBrandControlProps & WithInjectedSearchedBrands ) => {
 	const messages = {
-		clear: __( 'Clear all product brands', 'woocommerce' ),
-		list: __( 'Product Brands', 'woocommerce' ),
+		clear: __( 'Clear all product brands', 'poocommerce' ),
+		list: __( 'Product Brands', 'poocommerce' ),
 		noItems: __(
 			"Your store doesn't have any product brands.",
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product brands', 'woocommerce' ),
+		search: __( 'Search for product brands', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of selected brands. */
@@ -69,37 +69,37 @@ const ProductBrandControl = ( {
 					'%d brand selected',
 					'%d brands selected',
 					n,
-					'woocommerce'
+					'poocommerce'
 				),
 				n
 			),
-		updated: __( 'Brand search results updated.', 'woocommerce' ),
+		updated: __( 'Brand search results updated.', 'poocommerce' ),
 	};
 	const list = brands.map( convertProductBrandResponseItemToSearchItem );
 
 	return (
 		<ProductTaxonomyControl< ProductBrandResponseItem >
-			className="woocommerce-product-brands"
+			className="poocommerce-product-brands"
 			countType={ showReviewCount ? 'review' : 'product' }
 			error={ error }
 			isCompact={ isCompact }
 			isHierarchical
 			isLoading={ isLoading }
 			isSingle={ isSingle }
-			itemClassName="woocommerce-product-brands__item"
+			itemClassName="poocommerce-product-brands__item"
 			list={ list }
 			messages={ messages }
 			onChange={ onChange }
 			operator={
 				onOperatorChange
 					? {
-							className: 'woocommerce-product-brands__operator',
+							className: 'poocommerce-product-brands__operator',
 							labels: {
-								all: __( 'All selected brands', 'woocommerce' ),
-								any: __( 'Any selected brands', 'woocommerce' ),
+								all: __( 'All selected brands', 'poocommerce' ),
+								any: __( 'Any selected brands', 'poocommerce' ),
 								help: __(
 									'Pick at least two brands to use this setting.',
-									'woocommerce'
+									'poocommerce'
 								),
 							},
 							onChange: onOperatorChange,

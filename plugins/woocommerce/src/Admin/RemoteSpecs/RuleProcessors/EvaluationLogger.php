@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 /**
  * Class EvaluationLogger
  *
- * @package Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors
+ * @package Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors
  */
 class EvaluationLogger {
 	/**
@@ -82,7 +82,7 @@ class EvaluationLogger {
 		 *
 		 * @param bool $should_log Whether the rule evaluator should log the results.
 		 */
-		if ( ! apply_filters( 'woocommerce_admin_remote_specs_evaluator_should_log', $should_log ) ) {
+		if ( ! apply_filters( 'poocommerce_admin_remote_specs_evaluator_should_log', $should_log ) ) {
 			return;
 		}
 

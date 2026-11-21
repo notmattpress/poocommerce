@@ -1,18 +1,18 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 use WP_Error;
@@ -232,7 +232,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -252,7 +252,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_extension_version', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_extension_version', $e->getErrorCode() );
 		}
 	}
 
@@ -285,7 +285,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -371,7 +371,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -395,7 +395,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -5553,7 +5553,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -5585,7 +5585,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -5626,7 +5626,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
 		}
 	}
 
@@ -5826,7 +5826,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -5858,7 +5858,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -5899,7 +5899,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
 		}
 	}
 
@@ -5964,7 +5964,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_blocked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_blocked', $e->getErrorCode() );
 		}
 	}
 
@@ -6164,7 +6164,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -6195,7 +6195,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -6457,7 +6457,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -6488,7 +6488,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -6542,7 +6542,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 		try {
 			$this->sut->onboarding_step_save( WooPaymentsService::ONBOARDING_STEP_TEST_ACCOUNT, $location, array() );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_action_not_supported', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_action_not_supported', $e->getErrorCode() );
 		}
 	}
 
@@ -6796,7 +6796,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -6827,7 +6827,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -7120,7 +7120,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -7177,7 +7177,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 
 		// Assert.
@@ -7208,7 +7208,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
 		}
 	}
 
@@ -7346,7 +7346,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 						unset( $params );
 						if ( '/wc/v3/payments/onboarding/test_drive_account/init' === $endpoint ) {
 							return new WP_Error(
-								'woocommerce_settings_payments_rest_error',
+								'poocommerce_settings_payments_rest_error',
 								"REST request POST failed with: (bad_request) The statement descriptor matches a common term or website URL, and can't be used.",
 								$error_data
 							);
@@ -7363,7 +7363,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_test_account_non_recoverable_error',
+				'poocommerce_woopayments_onboarding_test_account_non_recoverable_error',
 				$e->getErrorCode(),
 				'A dedicated error code should signal the non-recoverable failure to the client.'
 			);
@@ -7481,7 +7481,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 						unset( $params );
 						if ( '/wc/v3/payments/onboarding/test_drive_account/init' === $endpoint ) {
 							return new WP_Error(
-								'woocommerce_settings_payments_rest_error',
+								'poocommerce_settings_payments_rest_error',
 								'REST request POST failed with: (bad_request) Some custom platform failure.',
 								array(
 									'code'    => 'bad_request',
@@ -7501,7 +7501,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_woopayments_onboarding_test_account_non_recoverable_errors',
+			'poocommerce_woopayments_onboarding_test_account_non_recoverable_errors',
 			function ( array $identifiers ) {
 				$identifiers[] = 'custom_blocker_error';
 
@@ -7514,7 +7514,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_test_account_non_recoverable_error',
+				'poocommerce_woopayments_onboarding_test_account_non_recoverable_error',
 				$e->getErrorCode(),
 				'The filter-added error identifier should be treated as non-recoverable.'
 			);
@@ -7590,7 +7590,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				$e->getErrorCode(),
 				'A malformed response should keep the existing failure behavior.'
 			);
@@ -8219,7 +8219,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_test_account_non_recoverable_error',
+				'poocommerce_woopayments_onboarding_test_account_non_recoverable_error',
 				$e->getErrorCode(),
 				'A dedicated error code should signal the non-recoverable failure to the client.'
 			);
@@ -8329,7 +8329,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_test_account_non_recoverable_error',
+				'poocommerce_woopayments_onboarding_test_account_non_recoverable_error',
 				$e->getErrorCode(),
 				'A dedicated error code should signal the non-recoverable failure to the client.'
 			);
@@ -8830,7 +8830,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 						unset( $params );
 						if ( '/wc/v3/payments/onboarding/test_drive_account/init' === $endpoint ) {
 							return new WP_Error(
-								'woocommerce_settings_payments_rest_error',
+								'poocommerce_settings_payments_rest_error',
 								"REST request POST failed with: (bad_request) The statement descriptor matches a common term or website URL, and can't be used.",
 								array(
 									'code'    => 'bad_request',
@@ -8853,7 +8853,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->sut->onboarding_test_account_init( $location );
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_test_account_non_recoverable_error', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_test_account_non_recoverable_error', $e->getErrorCode() );
 		}
 
 		$writes_after_first_skip = count( $updated_stored_profiles );
@@ -8863,7 +8863,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->sut->onboarding_test_account_init( $location );
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_test_account_non_recoverable_error', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_test_account_non_recoverable_error', $e->getErrorCode() );
 		}
 
 		$this->assertCount( $writes_after_first_skip, $updated_stored_profiles, 'A repeated skip should not re-write the already skipped step statuses.' );
@@ -8944,7 +8944,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 			$this->fail( 'Expected ApiException was not thrown.' );
 		} catch ( ApiException $e ) {
 			$this->assertSame(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				$e->getErrorCode(),
 				'Without the completion persisted, the client should see the regular failure (and retry) instead of being advanced.'
 			);
@@ -9244,7 +9244,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 							// HTTP 400 / bad_request (disable_test_drive_account in the WooPayments client),
 							// so that is what rest_endpoint_post_request returns to Core here.
 							return new WP_Error(
-								'woocommerce_settings_payments_rest_error',
+								'poocommerce_settings_payments_rest_error',
 								'REST request POST /wc/v3/payments/onboarding/test_drive_account/disable failed with: (bad_request) Failed to disable the test-drive account.',
 								array(
 									'code'    => 'bad_request',
@@ -9267,7 +9267,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
 			$this->assertSame( \WP_Http::FAILED_DEPENDENCY, $e->getCode() );
 		}
 
@@ -9349,7 +9349,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 					'rest_endpoint_post_request' => function ( string $endpoint ) {
 						if ( '/wc/v3/payments/onboarding/test_drive_account/disable' === $endpoint ) {
 							return new WP_Error(
-								'woocommerce_settings_payments_rest_error',
+								'poocommerce_settings_payments_rest_error',
 								'Internal WooPayments bad request.',
 								array(
 									'code'    => 'wcpay_bad_request',
@@ -9372,7 +9372,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
 			$this->assertSame( \WP_Http::FAILED_DEPENDENCY, $e->getCode() );
 		}
 
@@ -9412,7 +9412,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 			$this->assertSame( \WP_Http::CONFLICT, $e->getCode() );
 		}
 
@@ -9436,7 +9436,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 				++$endpoint_calls;
 
 				return new WP_Error(
-					'woocommerce_settings_payments_rest_error',
+					'poocommerce_settings_payments_rest_error',
 					'Internal WooPayments bad request.',
 					array(
 						'code'    => 'wcpay_bad_request',
@@ -9468,7 +9468,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_client_api_error', $e->getErrorCode() );
 			$this->assertSame( \WP_Http::FAILED_DEPENDENCY, $e->getCode() );
 		}
 
@@ -9864,7 +9864,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -9906,7 +9906,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -9934,7 +9934,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
 		}
 	}
 
@@ -10026,7 +10026,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 		try {
 			$this->sut->get_onboarding_kyc_session( 'US' );
 		} catch ( ApiException $exception ) {
-			$this->assertSame( 'woocommerce_woopayments_onboarding_client_api_error', $exception->getErrorCode() );
+			$this->assertSame( 'poocommerce_woopayments_onboarding_client_api_error', $exception->getErrorCode() );
 			$this->assertSame( 'Failed to get the KYC session data.', $exception->getMessage() );
 		}
 	}
@@ -10244,7 +10244,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			self::assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			self::assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -10286,7 +10286,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			self::assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			self::assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -10314,7 +10314,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_step_requirements_not_met', $e->getErrorCode() );
 		}
 	}
 
@@ -10404,7 +10404,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( esc_html__( 'Failed to finish the KYC session.', 'woocommerce' ) );
+		$this->expectExceptionMessage( esc_html__( 'Failed to finish the KYC session.', 'poocommerce' ) );
 
 		// Act.
 		$this->sut->finish_onboarding_kyc_session( 'US' );
@@ -10571,7 +10571,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -10697,7 +10697,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			self::assertEquals( 'woocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
+			self::assertEquals( 'poocommerce_woopayments_onboarding_extension_not_active', $e->getErrorCode() );
 		}
 	}
 
@@ -10739,7 +10739,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 			$this->fail( 'Expected ApiException not thrown.' );
 		} catch ( ApiException $e ) {
-			$this->assertEquals( 'woocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
+			$this->assertEquals( 'poocommerce_woopayments_onboarding_locked', $e->getErrorCode() );
 		}
 	}
 
@@ -10825,7 +10825,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( esc_html__( 'Failed to reset onboarding.', 'woocommerce' ) );
+		$this->expectExceptionMessage( esc_html__( 'Failed to reset onboarding.', 'poocommerce' ) );
 
 		// Act.
 		$this->sut->reset_onboarding( $location );
@@ -10868,7 +10868,7 @@ class WooPaymentsServiceTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( esc_html__( 'Failed to reset onboarding.', 'woocommerce' ) );
+		$this->expectExceptionMessage( esc_html__( 'Failed to reset onboarding.', 'poocommerce' ) );
 
 		// Act.
 		$this->sut->reset_onboarding( $location );

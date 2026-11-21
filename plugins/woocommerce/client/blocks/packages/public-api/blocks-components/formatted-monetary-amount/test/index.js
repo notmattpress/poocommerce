@@ -14,8 +14,8 @@ import FormattedMonetaryAmount from '../index';
 const symbolSelector =
 	'.wc-block-components-formatted-money-amount__currency-symbol';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	SITE_CURRENCY: {
 		code: 'EUR',
 		symbol: 'TEST',
@@ -169,7 +169,7 @@ describe( 'FormattedMonetaryAmount', () => {
 	} );
 
 	describe( 'onValueChange', () => {
-		/** @type {import('@woocommerce/types').Currency} */
+		/** @type {import('@poocommerce/types').Currency} */
 		const eurCurrency = {
 			code: 'EUR',
 			symbol: '€',
@@ -266,7 +266,7 @@ describe( 'FormattedMonetaryAmount', () => {
 	} );
 
 	describe( 'markup', () => {
-		/** @type {import('@woocommerce/types').Currency} */
+		/** @type {import('@poocommerce/types').Currency} */
 		const eurCurrency = {
 			code: 'EUR',
 			symbol: '€',
@@ -278,7 +278,7 @@ describe( 'FormattedMonetaryAmount', () => {
 		};
 
 		const lbpSymbol = 'ل.ل';
-		/** @type {import('@woocommerce/types').Currency} */
+		/** @type {import('@poocommerce/types').Currency} */
 		const lbpCurrency = {
 			code: 'LBP',
 			symbol: lbpSymbol,

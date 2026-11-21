@@ -5,12 +5,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\DataStores\StockNotifications;
+namespace Automattic\PooCommerce\Internal\DataStores\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EmailNormalizer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -199,19 +199,19 @@ CREATE TABLE $meta_table_name (
 		$notification->apply_changes();
 
 		/**
-		 * Action: woocommerce_new_stock_notification
+		 * Action: poocommerce_new_stock_notification
 		 *
 		 * Fires after a stock notification is created, from any code path.
 		 * With double opt-in the new notification is `pending` until the shopper verifies it, so
 		 * integrations that only want confirmed sign-ups can wait for
-		 * `woocommerce_stock_notification_status_changed` to `active` instead.
+		 * `poocommerce_stock_notification_status_changed` to `active` instead.
 		 *
 		 * @since 11.3.0
 		 *
 		 * @param int          $notification_id The notification ID.
 		 * @param Notification $notification    The notification.
 		 */
-		do_action( 'woocommerce_new_stock_notification', $notification_id, $notification );
+		do_action( 'poocommerce_new_stock_notification', $notification_id, $notification );
 
 		return $notification_id;
 	}
@@ -321,7 +321,7 @@ CREATE TABLE $meta_table_name (
 		$status_to = $notification->get_status( 'edit' );
 
 		/**
-		 * Action: woocommerce_update_stock_notification
+		 * Action: poocommerce_update_stock_notification
 		 *
 		 * Fires after a stock notification is updated, from any code path, whether or not anything changed.
 		 * Also fires inside the back-in-stock send batch, so defer remote calls to Action Scheduler.
@@ -331,11 +331,11 @@ CREATE TABLE $meta_table_name (
 		 * @param int          $notification_id The notification ID.
 		 * @param Notification $notification    The notification.
 		 */
-		do_action( 'woocommerce_update_stock_notification', $notification->get_id(), $notification );
+		do_action( 'poocommerce_update_stock_notification', $notification->get_id(), $notification );
 
 		if ( array_key_exists( 'status', $changes ) && $status_from !== $status_to ) {
 			/**
-			 * Action: woocommerce_stock_notification_status_changed
+			 * Action: poocommerce_stock_notification_status_changed
 			 *
 			 * Fires after a stock notification's status is persisted with a different value, from any code path.
 			 *
@@ -346,7 +346,7 @@ CREATE TABLE $meta_table_name (
 			 * @param string       $status_to       The new status.
 			 * @param Notification $notification    The notification.
 			 */
-			do_action( 'woocommerce_stock_notification_status_changed', $notification->get_id(), $status_from, $status_to, $notification );
+			do_action( 'poocommerce_stock_notification_status_changed', $notification->get_id(), $status_from, $status_to, $notification );
 		}
 
 		return $result;
@@ -369,7 +369,7 @@ CREATE TABLE $meta_table_name (
 			$this->data_store_meta->delete_by_notification_id( $notification_id );
 
 			/**
-			 * Action: woocommerce_delete_stock_notification
+			 * Action: poocommerce_delete_stock_notification
 			 *
 			 * Fires after a stock notification is deleted, from any code path.
 			 *
@@ -378,7 +378,7 @@ CREATE TABLE $meta_table_name (
 			 * @param int          $notification_id The deleted notification ID.
 			 * @param Notification $notification    The notification, as it was before deletion.
 			 */
-			do_action( 'woocommerce_delete_stock_notification', $notification_id, $notification );
+			do_action( 'poocommerce_delete_stock_notification', $notification_id, $notification );
 		}
 	}
 

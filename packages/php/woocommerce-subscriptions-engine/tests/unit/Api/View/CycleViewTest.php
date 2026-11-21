@@ -2,19 +2,19 @@
 /**
  * Unit tests for the CycleView DTO.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\CycleView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\CycleView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\View\CycleView
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\View\CycleView
  */
 class CycleViewTest extends TestCase {
 

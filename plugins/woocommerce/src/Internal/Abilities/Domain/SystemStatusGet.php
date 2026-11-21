@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/system-status-get';
+		return 'poocommerce/system-status-get';
 	}
 
 	/**
@@ -40,12 +40,12 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Get system status', 'woocommerce' ),
+			'label'               => __( 'Get system status', 'poocommerce' ),
 			'description'         => __(
-				'Get the WooCommerce and database versions, order storage, environment checks, installed plugins, enabled WooCommerce features, the theme, the store pages, security checks and post counts. WordPress, PHP and database server versions come from core/get-environment-info.',
-				'woocommerce'
+				'Get the PooCommerce and database versions, order storage, environment checks, installed plugins, enabled PooCommerce features, the theme, the store pages, security checks and post counts. WordPress, PHP and database server versions come from core/get-environment-info.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'default'              => array(),
@@ -83,8 +83,8 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 
 		return array(
 			'system_status' => array(
-				'woocommerce_version'    => (string) WC()->version,
-				'woocommerce_db_version' => (string) get_option( 'woocommerce_db_version', '' ),
+				'poocommerce_version'    => (string) WC()->version,
+				'poocommerce_db_version' => (string) get_option( 'poocommerce_db_version', '' ),
 				'order_storage'          => OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'posts',
 				'environment'            => self::get_environment(),
 				'active_plugins'         => self::format_plugins( $controller->get_active_plugins() ),
@@ -214,7 +214,7 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 			'name'                    => (string) $theme->get( 'Name' ),
 			'version'                 => (string) $theme->get( 'Version' ),
 			'is_block_theme'          => $theme->is_block_theme(),
-			'has_woocommerce_support' => current_theme_supports( 'woocommerce' ),
+			'has_poocommerce_support' => current_theme_supports( 'poocommerce' ),
 			'has_outdated_templates'  => $controller->get_template_overrides()['has_outdated_templates'],
 		);
 
@@ -296,7 +296,7 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 			'properties'           => array(
 				'plugin'  => array(
 					'type'        => 'string',
-					'description' => __( 'Plugin file, relative to the plugins directory.', 'woocommerce' ),
+					'description' => __( 'Plugin file, relative to the plugins directory.', 'poocommerce' ),
 				),
 				'name'    => $string,
 				'version' => $string,
@@ -308,8 +308,8 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 		return array(
 			'type'                 => 'object',
 			'properties'           => array(
-				'woocommerce_version'    => $string,
-				'woocommerce_db_version' => $string,
+				'poocommerce_version'    => $string,
+				'poocommerce_db_version' => $string,
 				'order_storage'          => array(
 					'type' => 'string',
 					'enum' => array( 'hpos', 'posts' ),
@@ -319,17 +319,17 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 					'properties'           => array(
 						'wp_cron'                => array(
 							'type'        => 'boolean',
-							'description' => __( 'Whether WP-Cron runs on page loads; false when DISABLE_WP_CRON is set.', 'woocommerce' ),
+							'description' => __( 'Whether WP-Cron runs on page loads; false when DISABLE_WP_CRON is set.', 'poocommerce' ),
 						),
 						'wp_debug_mode'          => array( 'type' => 'boolean' ),
 						'external_object_cache'  => array( 'type' => 'boolean' ),
 						'memory_limit'           => array(
 							'type'        => 'integer',
-							'description' => __( 'PHP memory limit in bytes, which WordPress raises to WP_MEMORY_LIMIT; -1 for no limit.', 'woocommerce' ),
+							'description' => __( 'PHP memory limit in bytes, which WordPress raises to WP_MEMORY_LIMIT; -1 for no limit.', 'poocommerce' ),
 						),
 						'max_upload_size'        => array(
 							'type'        => 'integer',
-							'description' => __( 'Bytes.', 'woocommerce' ),
+							'description' => __( 'Bytes.', 'poocommerce' ),
 						),
 						'log_directory_writable' => array( 'type' => 'boolean' ),
 					),
@@ -368,25 +368,25 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 						'name'                    => $string,
 						'version'                 => $string,
 						'is_block_theme'          => array( 'type' => 'boolean' ),
-						'has_woocommerce_support' => array( 'type' => 'boolean' ),
+						'has_poocommerce_support' => array( 'type' => 'boolean' ),
 						'has_outdated_templates'  => array(
 							'type'        => 'boolean',
-							'description' => __( 'Whether the theme overrides a WooCommerce template with an older version of it.', 'woocommerce' ),
+							'description' => __( 'Whether the theme overrides a PooCommerce template with an older version of it.', 'poocommerce' ),
 						),
 						'parent_name'             => array(
 							'type'        => 'string',
-							'description' => __( 'Only for a child theme.', 'woocommerce' ),
+							'description' => __( 'Only for a child theme.', 'poocommerce' ),
 						),
 						'parent_version'          => array(
 							'type'        => 'string',
-							'description' => __( 'Only for a child theme.', 'woocommerce' ),
+							'description' => __( 'Only for a child theme.', 'poocommerce' ),
 						),
 					),
 					'additionalProperties' => false,
 				),
 				'pages'                  => array(
 					'type'        => 'array',
-					'description' => __( 'The WooCommerce pages: whether each is assigned in settings, exists, is published, and has the content it needs. Where both shortcode_required and block_required are true, the page needs exactly one of the shortcode or block; both present is a problem.', 'woocommerce' ),
+					'description' => __( 'The PooCommerce pages: whether each is assigned in settings, exists, is published, and has the content it needs. Where both shortcode_required and block_required are true, the page needs exactly one of the shortcode or block; both present is a problem.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
@@ -407,18 +407,18 @@ class SystemStatusGet extends AbstractDomainAbility implements AbilityDefinition
 					'properties'           => array(
 						'secure_connection' => array(
 							'type'        => 'boolean',
-							'description' => __( 'Whether the shop page URL uses HTTPS.', 'woocommerce' ),
+							'description' => __( 'Whether the shop page URL uses HTTPS.', 'poocommerce' ),
 						),
 						'hide_errors'       => array(
 							'type'        => 'boolean',
-							'description' => __( 'Whether the configuration hides PHP errors from visitors: WP_DEBUG_DISPLAY when WP_DEBUG is on, otherwise display_errors in the PHP configuration. An ini_set() override at runtime is not seen.', 'woocommerce' ),
+							'description' => __( 'Whether the configuration hides PHP errors from visitors: WP_DEBUG_DISPLAY when WP_DEBUG is on, otherwise display_errors in the PHP configuration. An ini_set() override at runtime is not seen.', 'poocommerce' ),
 						),
 					),
 					'additionalProperties' => false,
 				),
 				'post_type_counts'       => array(
 					'type'                 => 'object',
-					'description'          => __( 'Number of posts of each post type, in every status.', 'woocommerce' ),
+					'description'          => __( 'Number of posts of each post type, in every status.', 'poocommerce' ),
 					'additionalProperties' => array( 'type' => 'integer' ),
 				),
 			),

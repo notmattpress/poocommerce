@@ -2,18 +2,18 @@
 /**
  * Unknown-key filtering shared by the public facades.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Drop unknown argument keys with a `_doing_it_wrong()` notice. Values are checked by
- * {@see \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator}.
+ * {@see \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator}.
  *
  * @internal Engine implementation detail shared by the `Api\` facades, not part of the public API.
  */

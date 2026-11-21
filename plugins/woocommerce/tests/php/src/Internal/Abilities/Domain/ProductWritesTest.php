@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductUpdate;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductUpdate;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -50,7 +50,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$gallery_image  = $this->create_image( 'back.jpg' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'               => 'Hoodie',
 				'regular_price'      => '60',
@@ -105,7 +105,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$image    = $this->create_image( 'gadget.jpg' );
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'                 => $product->get_id(),
 				'categories'         => array( $category ),
@@ -132,7 +132,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$product->save();
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'categories' => array(),
@@ -159,7 +159,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'             => $product->get_id(),
 				'dimensions'     => array(
@@ -183,7 +183,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		update_option( 'timezone_string', 'Europe/Berlin' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'            => 'Sale tee',
 				'regular_price'   => '20',
@@ -204,7 +204,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$image          = $this->create_image( 'shirt.jpg' );
 
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'              => 'Shirt',
 				'type'              => 'variable',
@@ -253,7 +253,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_global_unique_id_round_trips(): void {
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'             => 'Mug',
 				'global_unique_id' => '4006381333931',
@@ -263,7 +263,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( '4006381333931', $this->query_product( $created['id'] )['global_unique_id'] );
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'               => $created['id'],
 				'global_unique_id' => '978-3-16-148410-X',
@@ -273,7 +273,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( '978-3-16-148410-X', $updated['global_unique_id'] );
 
 		$variable = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'             => 'Cap',
 				'type'             => 'variable',
@@ -311,7 +311,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$taken->save();
 		$product = WC_Helper_Product::create_simple_product();
 
-		$duplicate = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$duplicate = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'               => $product->get_id(),
 				'global_unique_id' => '4006381333931',
@@ -322,7 +322,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'product_invalid_global_unique_id', $duplicate->get_error_code() );
 		$this->assertSame( '', wc_get_product( $product->get_id() )->get_global_unique_id() );
 
-		$letters = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$letters = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'               => $product->get_id(),
 				'global_unique_id' => 'ABC123',
@@ -331,7 +331,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 
 		$this->assertWPError( $letters );
 
-		$misplaced_x = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$misplaced_x = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'               => $product->get_id(),
 				'global_unique_id' => '08044X2957',
@@ -344,7 +344,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$product->set_global_unique_id( '5901234123457' );
 		$product->save();
 		foreach ( array( "\n", "5901234123464\n" ) as $newline ) {
-			$result = wp_get_ability( 'woocommerce/product-update' )->execute(
+			$result = wp_get_ability( 'poocommerce/product-update' )->execute(
 				array(
 					'id'               => $product->get_id(),
 					'global_unique_id' => $newline,
@@ -361,7 +361,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 				'option' => $option,
 			),
 		);
-		$repeating = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$repeating = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'             => 'Cap',
 				'type'             => 'variable',
@@ -386,9 +386,9 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $repeating );
-		$this->assertSame( 'woocommerce_product_variation_global_unique_id_duplicate', $repeating->get_error_code() );
+		$this->assertSame( 'poocommerce_product_variation_global_unique_id_duplicate', $repeating->get_error_code() );
 
-		$mixed_case = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$mixed_case = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'       => 'Book',
 				'type'       => 'variable',
@@ -412,7 +412,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $mixed_case, 'An ISBN-10 check digit X is the same in either case.' );
-		$this->assertSame( 'woocommerce_product_variation_global_unique_id_duplicate', $mixed_case->get_error_code() );
+		$this->assertSame( 'poocommerce_product_variation_global_unique_id_duplicate', $mixed_case->get_error_code() );
 	}
 
 	/**
@@ -443,7 +443,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		}
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'type'       => 'variable',
@@ -485,7 +485,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$product = 'grouped' === $source ? WC_Helper_Product::create_grouped_product() : WC_Helper_Product::create_external_product();
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $product->get_id(),
 				'type'       => 'variable',
@@ -532,7 +532,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $product->get_id(),
 				'type' => 'variable',
@@ -560,7 +560,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$variations = $variable->get_children();
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'            => $variable->get_id(),
 				'type'          => 'simple',
@@ -608,7 +608,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 			);
 		}
 		$created  = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'       => 'Shirt',
 				'type'       => 'variable',
@@ -624,7 +624,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$variable = wc_get_product( $created['product']['id'] );
 
 		$this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $variable->get_id(),
 				'type' => $type,
@@ -648,7 +648,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$prices  = array_map( static fn( int $id ) => (float) wc_get_product( $id )->get_price(), $grouped->get_children() );
 
 		$this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'         => $grouped->get_id(),
 				'type'       => 'variable',
@@ -672,7 +672,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 			)
 		);
 		$this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'   => $grouped->get_id(),
 				'type' => 'grouped',
@@ -720,7 +720,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$deny     = static fn( $caps, $cap ) => 'delete_post' === $cap ? array( 'do_not_allow' ) : $caps;
 
 		add_filter( 'map_meta_cap', $deny, 10, 2 );
-		$refused = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$refused = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $variable->get_id(),
 				'type' => 'simple',
@@ -751,17 +751,17 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 			throw new \Exception( 'Save failed.' );
 		};
 
-		add_action( 'woocommerce_product_type_changed', $fail, 20 );
-		$failed = wp_get_ability( 'woocommerce/product-update' )->execute(
+		add_action( 'poocommerce_product_type_changed', $fail, 20 );
+		$failed = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $variable->get_id(),
 				'type' => 'simple',
 			)
 		);
-		remove_action( 'woocommerce_product_type_changed', $fail, 20 );
+		remove_action( 'poocommerce_product_type_changed', $fail, 20 );
 
 		$this->assertWPError( $failed );
-		$this->assertSame( 'woocommerce_product_update_failed', $failed->get_error_code() );
+		$this->assertSame( 'poocommerce_product_update_failed', $failed->get_error_code() );
 		$this->assertSame( 'variable', wc_get_product( $variable->get_id() )->get_type() );
 		foreach ( $variations as $variation_id ) {
 			$this->assertInstanceOf( \WC_Product_Variation::class, wc_get_product( $variation_id ) );
@@ -776,7 +776,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$variations = $variable->get_children();
 		add_filter( 'pre_delete_post', '__return_false' );
 
-		$failed = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$failed = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'   => $variable->get_id(),
 				'type' => 'simple',
@@ -784,7 +784,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $failed );
-		$this->assertSame( 'woocommerce_product_update_failed', $failed->get_error_code() );
+		$this->assertSame( 'poocommerce_product_update_failed', $failed->get_error_code() );
 		$this->assertSame( 'variable', wc_get_product( $variable->get_id() )->get_type() );
 		$this->assertSame( $variations, wc_get_product( $variable->get_id() )->get_children() );
 	}
@@ -795,7 +795,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	public function test_update_refuses_type_changes_that_cannot_work(): void {
 		$variable = WC_Helper_Product::create_variation_product();
 		$simple   = WC_Helper_Product::create_simple_product();
-		$ability  = wp_get_ability( 'woocommerce/product-update' );
+		$ability  = wp_get_ability( 'poocommerce/product-update' );
 
 		$from_variation = $ability->execute(
 			array(
@@ -818,9 +818,9 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_product_type_unsupported', $from_variation->get_error_code() );
-		$this->assertSame( 'woocommerce_product_type_unsupported', $with_items->get_error_code() );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $price->get_error_code() );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $from_variation->get_error_code() );
+		$this->assertSame( 'poocommerce_product_type_unsupported', $with_items->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $price->get_error_code() );
 		$this->assertSame( 'simple', wc_get_product( $simple->get_id() )->get_type() );
 		$this->assertNotEmpty( wc_get_product( $variable->get_id() )->get_children() );
 	}
@@ -830,7 +830,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_variable_product_stock_fields(): void {
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'           => 'Shirt',
 				'type'           => 'variable',
@@ -860,7 +860,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( 5, $created['stock_quantity'] );
 
 		$updated = $this->execute(
-			'woocommerce/product-update',
+			'poocommerce/product-update',
 			array(
 				'id'             => $created['id'],
 				'stock_quantity' => 0,
@@ -873,14 +873,14 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertSame( 0, $variation->get_stock_quantity(), 'A variation without its own stock uses the stock of the product.' );
 		$this->assertFalse( $variation->is_in_stock() );
 
-		$status = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$status = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'           => $created['id'],
 				'stock_status' => 'instock',
 			)
 		);
 		$this->assertWPError( $status );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $status->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $status->get_error_code() );
 	}
 
 	/**
@@ -888,7 +888,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_external_product_fields(): void {
 		$created = $this->execute(
-			'woocommerce/product-create',
+			'poocommerce/product-create',
 			array(
 				'name'              => 'Affiliate tee',
 				'type'              => 'external',
@@ -902,7 +902,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		$this->assertArrayNotHasKey( 'date_on_sale_to', $created['product'], 'A sale without an end date should omit it.' );
 		$this->assertSame( ProductTaxStatus::NONE, $created['product']['tax_status'] );
 
-		$rejected = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$rejected = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name'              => 'Affiliate tee',
 				'type'              => 'external',
@@ -911,7 +911,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $rejected );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $rejected->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $rejected->get_error_code() );
 	}
 
 	/**
@@ -924,7 +924,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 * @param string $value Field value.
 	 */
 	public function test_external_product_rejects_shipping_fields( string $field, string $value ): void {
-		$result = wp_get_ability( 'woocommerce/product-create' )->execute(
+		$result = wp_get_ability( 'poocommerce/product-create' )->execute(
 			array(
 				'name' => 'Affiliate tee',
 				'type' => 'external',
@@ -933,7 +933,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_product_field_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_product_field_unsupported', $result->get_error_code() );
 	}
 
 	/**
@@ -952,20 +952,20 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 
 		$cases = array(
-			'woocommerce_ability_product_term_not_found' => array( 'tags' => array( 999999 ) ),
-			'woocommerce_ability_product_image_invalid'  => array( 'images' => array( $document ) ),
-			'woocommerce_ability_product_shipping_class_not_found' => array( 'shipping_class' => 'missing' ),
-			'woocommerce_ability_product_date_invalid'   => array( 'date_on_sale_from' => '2030-02-30' ),
+			'poocommerce_ability_product_term_not_found' => array( 'tags' => array( 999999 ) ),
+			'poocommerce_ability_product_image_invalid'  => array( 'images' => array( $document ) ),
+			'poocommerce_ability_product_shipping_class_not_found' => array( 'shipping_class' => 'missing' ),
+			'poocommerce_ability_product_date_invalid'   => array( 'date_on_sale_from' => '2030-02-30' ),
 		);
 
 		foreach ( $cases as $error_code => $input ) {
-			$result = wp_get_ability( 'woocommerce/product-update' )->execute( array( 'id' => $product->get_id() ) + $input );
+			$result = wp_get_ability( 'poocommerce/product-update' )->execute( array( 'id' => $product->get_id() ) + $input );
 
 			$this->assertWPError( $result );
 			$this->assertSame( $error_code, $result->get_error_code() );
 		}
 
-		$unknown_class = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$unknown_class = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'             => $product->get_id(),
 				'shipping_class' => 'missing',
@@ -973,7 +973,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( '"missing"', $unknown_class->get_error_message() );
 
-		$out_of_range_time = wp_get_ability( 'woocommerce/product-update' )->execute(
+		$out_of_range_time = wp_get_ability( 'poocommerce/product-update' )->execute(
 			array(
 				'id'              => $product->get_id(),
 				'date_on_sale_to' => '2030-01-31T24:00:00',
@@ -1011,7 +1011,7 @@ class ProductWritesTest extends WC_Unit_Test_Case {
 	 * @return array
 	 */
 	private function query_product( int $product_id ): array {
-		return $this->execute( 'woocommerce/products-query', array( 'id' => $product_id ) )['products'][0];
+		return $this->execute( 'poocommerce/products-query', array( 'id' => $product_id ) )['products'][0];
 	}
 
 	/**

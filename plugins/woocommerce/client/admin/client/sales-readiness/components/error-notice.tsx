@@ -18,7 +18,7 @@ export const ErrorNotice = ( { message, reload }: ErrorNoticeProps ) => (
 			reload
 				? [
 						{
-							label: __( 'Reload page', 'woocommerce' ),
+							label: __( 'Reload page', 'poocommerce' ),
 							onClick: () => window.location.reload(),
 						},
 					]

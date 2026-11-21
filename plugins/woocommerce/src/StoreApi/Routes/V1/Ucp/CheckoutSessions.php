@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * UCP `POST /checkout-sessions` route.
@@ -47,27 +47,27 @@ class CheckoutSessions extends AbstractCheckoutRoute {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'cart_id'          => array(
-						'description' => __( 'Cart to promote to a checkout. The checkout keeps its id.', 'woocommerce' ),
+						'description' => __( 'Cart to promote to a checkout. The checkout keeps its id.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 					'line_items'       => array(
-						'description' => __( 'Items to check out, required when no cart_id is given.', 'woocommerce' ),
+						'description' => __( 'Items to check out, required when no cart_id is given.', 'poocommerce' ),
 						'type'        => 'array',
 					),
 					'buyer'            => array(
-						'description' => __( 'Buyer contact details.', 'woocommerce' ),
+						'description' => __( 'Buyer contact details.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'billing_address'  => array(
-						'description' => __( 'Billing postal address.', 'woocommerce' ),
+						'description' => __( 'Billing postal address.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'shipping_address' => array(
-						'description' => __( 'Shipping postal address.', 'woocommerce' ),
+						'description' => __( 'Shipping postal address.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'discounts'        => array(
-						'description' => __( 'Discount codes to apply, replacing any applied before.', 'woocommerce' ),
+						'description' => __( 'Discount codes to apply, replacing any applied before.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 				),
@@ -127,7 +127,7 @@ class CheckoutSessions extends AbstractCheckoutRoute {
 			$line_items = Utils::json_param( $request, 'line_items' );
 
 			if ( ! is_array( $line_items ) || empty( $line_items ) ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items is required when no cart_id is given.', 'woocommerce' ), 'recoverable', 400, '$.line_items' );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items is required when no cart_id is given.', 'poocommerce' ), 'recoverable', 400, '$.line_items' );
 			}
 
 			$error = $this->update_line_items( $request );
@@ -139,7 +139,7 @@ class CheckoutSessions extends AbstractCheckoutRoute {
 			$checkout_id = $this->current_cart_id();
 
 			if ( '' === $checkout_id ) {
-				return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The checkout session could not be created.', 'woocommerce' ), 'recoverable', 500 );
+				return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The checkout session could not be created.', 'poocommerce' ), 'recoverable', 500 );
 			}
 		}
 
@@ -175,7 +175,7 @@ class CheckoutSessions extends AbstractCheckoutRoute {
 			$data['messages'][] = array(
 				'type'         => 'warning',
 				'code'         => 'FIELDS_IGNORED',
-				'content'      => __( 'This cart already is a checkout session, so it was returned unchanged and the other fields were ignored. Update the checkout session to change it.', 'woocommerce' ),
+				'content'      => __( 'This cart already is a checkout session, so it was returned unchanged and the other fields were ignored. Update the checkout session to change it.', 'poocommerce' ),
 				'path'         => '$',
 				'content_type' => 'plain',
 			);

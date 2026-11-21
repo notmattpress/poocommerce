@@ -5,8 +5,8 @@ import { useEffect, useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { SITE_CURRENCY } from '@woocommerce/settings';
-import type { ProductResponseItem } from '@woocommerce/types';
+import { SITE_CURRENCY } from '@poocommerce/settings';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Placeholder product IDs use large negative numbers to avoid
@@ -32,7 +32,7 @@ const getPlaceholderPriceMinorUnits = () =>
  * can render previews without fetching from the Store API.
  */
 const createPlaceholderResponseItem = ( id: number ): ProductResponseItem => {
-	const placeholderName = __( 'Product name', 'woocommerce' );
+	const placeholderName = __( 'Product name', 'poocommerce' );
 	const priceInMinorUnits = getPlaceholderPriceMinorUnits();
 
 	return {
@@ -83,13 +83,13 @@ const createPlaceholderResponseItem = ( id: number ): ProductResponseItem => {
 		regular_price: PLACEHOLDER_PRICE,
 		sale_price: '',
 		add_to_cart: {
-			text: __( 'Add to cart', 'woocommerce' ),
-			description: __( 'Add to cart', 'woocommerce' ),
+			text: __( 'Add to cart', 'poocommerce' ),
+			description: __( 'Add to cart', 'poocommerce' ),
 			url: '',
 			minimum: 1,
 			maximum: 99,
 			multiple_of: 1,
-			single_text: __( 'Add to cart', 'woocommerce' ),
+			single_text: __( 'Add to cart', 'poocommerce' ),
 		},
 		grouped_products: [],
 	};
@@ -103,7 +103,7 @@ const createPlaceholderResponseItem = ( id: number ): ProductResponseItem => {
  *
  * Two entity stores are populated:
  * - ('postType', 'product') for core post-title block (uses useEntityProp)
- * - ('root', 'product') for WooCommerce child blocks (uses useProduct hook)
+ * - ('root', 'product') for PooCommerce child blocks (uses useProduct hook)
  */
 export const usePlaceholderProducts = ( {
 	isPreviewWithNoProducts,
@@ -131,7 +131,7 @@ export const usePlaceholderProducts = ( {
 			return;
 		}
 
-		const placeholderName = __( 'Product name', 'woocommerce' );
+		const placeholderName = __( 'Product name', 'poocommerce' );
 		const storeActions = dispatch( coreStore );
 
 		// WP REST API format — used by core post-title block via useEntityProp.
@@ -147,7 +147,7 @@ export const usePlaceholderProducts = ( {
 
 		const priceInMinorUnits = getPlaceholderPriceMinorUnits();
 
-		// WC REST API format — used by WooCommerce child blocks via useProduct hook.
+		// WC REST API format — used by PooCommerce child blocks via useProduct hook.
 		// Includes both REST API fields (price, regular_price) and Store API fields
 		// (prices object) to support both experimental and non-experimental code paths.
 		const wcEntities = placeholderIds.map( ( id ) => ( {

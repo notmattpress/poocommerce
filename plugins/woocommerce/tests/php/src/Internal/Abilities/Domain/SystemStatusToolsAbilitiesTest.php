@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SystemStatusToolRun;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SystemStatusToolsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SystemStatusToolRun;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SystemStatusToolsQuery;
 
 /**
  * Tests for the system-status-tools-query and system-status-tool-run abilities.
@@ -118,7 +118,7 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 	public function test_run_fires_tool_executed_action(): void {
 		$executed = array();
 		add_action(
-			'woocommerce_system_status_tool_executed',
+			'poocommerce_system_status_tool_executed',
 			static function ( $tool ) use ( &$executed ): void {
 				$executed[] = $tool;
 			}
@@ -145,7 +145,7 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 		$executed = array();
 		add_action(
-			'woocommerce_system_status_tool_executed',
+			'poocommerce_system_status_tool_executed',
 			static function ( $tool ) use ( &$executed ): void {
 				$executed[] = $tool;
 			}
@@ -154,7 +154,7 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 		$result = $this->run->execute( array( 'id' => 'repair_coupons_lookup_table' ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_system_status_tool_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_system_status_tool_failed', $result->get_error_code() );
 		$this->assertSame( 'Coupons lookup table does not exist.', $result->get_error_message() );
 		$this->assertFalse( $executed[0]['success'] );
 	}
@@ -202,7 +202,7 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_tool_removed_by_filter_is_not_found(): void {
 		add_filter(
-			'woocommerce_debug_tools',
+			'poocommerce_debug_tools',
 			static function ( array $tools ): array {
 				unset( $tools['recount_terms'] );
 				return $tools;
@@ -212,11 +212,11 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 		$result = $this->run->execute( array( 'id' => 'recount_terms' ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_system_status_tool_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_system_status_tool_not_found', $result->get_error_code() );
 	}
 
 	/**
-	 * @testdox Should refuse to list or run tools for a user who cannot manage WooCommerce.
+	 * @testdox Should refuse to list or run tools for a user who cannot manage PooCommerce.
 	 */
 	public function test_customer_cannot_list_or_run_tools(): void {
 		wp_set_current_user( $this->factory->user->create( array( 'role' => 'customer' ) ) );
@@ -235,7 +235,7 @@ class SystemStatusToolsAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	private function add_extension_tool( callable $callback ): void {
 		add_filter(
-			'woocommerce_debug_tools',
+			'poocommerce_debug_tools',
 			static function ( array $tools ) use ( $callback ): array {
 				$tools['extension_tool'] = array(
 					'name'     => 'Extension tool',

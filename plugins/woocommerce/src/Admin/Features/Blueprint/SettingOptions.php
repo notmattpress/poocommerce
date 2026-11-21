@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
 /**
- * Handles getting options from WooCommerce settings pages.
+ * Handles getting options from PooCommerce settings pages.
  *
  * Class SettingOptions
  */

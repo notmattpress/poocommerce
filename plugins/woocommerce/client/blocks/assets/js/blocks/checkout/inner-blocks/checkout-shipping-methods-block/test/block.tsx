@@ -3,10 +3,10 @@
  */
 import { act, render, within } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 import { store as noticesStore } from '@wordpress/notices';
-import { noticeContexts } from '@woocommerce/base-context';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { noticeContexts } from '@poocommerce/base-context';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

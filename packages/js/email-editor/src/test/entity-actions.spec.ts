@@ -23,14 +23,14 @@ const getTrashEmailPostActionMock = getTrashEmailPostAction as jest.Mock;
 describe( 'initEntityActions', () => {
 	beforeEach( () => {
 		jest.clearAllMocks();
-		removeAllFilters( 'woocommerce_email_editor_entity_actions' );
+		removeAllFilters( 'poocommerce_email_editor_entity_actions' );
 	} );
 
 	it( 'adds the trash email post action to the entity actions filter', () => {
 		initEntityActions();
 
 		const actions = applyFilters(
-			'woocommerce_email_editor_entity_actions',
+			'poocommerce_email_editor_entity_actions',
 			{ 'other-action': { label: 'Other' } }
 		) as Record< string, { label: string; RenderModal?: unknown } >;
 
@@ -46,7 +46,7 @@ describe( 'initEntityActions', () => {
 
 		expect( getTrashEmailPostActionMock ).not.toHaveBeenCalled();
 
-		applyFilters( 'woocommerce_email_editor_entity_actions', {} );
+		applyFilters( 'poocommerce_email_editor_entity_actions', {} );
 
 		expect( getTrashEmailPostActionMock ).toHaveBeenCalledTimes( 1 );
 	} );

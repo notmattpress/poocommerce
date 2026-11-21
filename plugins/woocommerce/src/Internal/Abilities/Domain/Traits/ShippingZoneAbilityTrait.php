@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,8 +59,8 @@ trait ShippingZoneAbilityTrait {
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_shipping_disabled',
-			__( 'Shipping is turned off, so checkout would offer no shipping method. Turn it on under WooCommerce > Settings > General > Shipping location(s) first.', 'woocommerce' ),
+			'poocommerce_ability_shipping_disabled',
+			__( 'Shipping is turned off, so checkout would offer no shipping method. Turn it on under PooCommerce > Settings > General > Shipping location(s) first.', 'poocommerce' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -107,7 +107,7 @@ trait ShippingZoneAbilityTrait {
 
 		if ( self::is_core_method( $method ) ) {
 			$class = get_class( $method );
-			// A fresh instance, since a woocommerce_shipping_zone_shipping_methods callback can change the zone's one.
+			// A fresh instance, since a poocommerce_shipping_zone_shipping_methods callback can change the zone's one.
 			$core = new $class( $method->get_instance_id() );
 			$core->init_instance_settings();
 			$settings = array();
@@ -132,7 +132,7 @@ trait ShippingZoneAbilityTrait {
 	private static function get_saved_method_response( int $instance_id ) {
 		$method = \WC_Shipping_Zones::get_shipping_method( $instance_id );
 		if ( ! $method instanceof \WC_Shipping_Method ) {
-			return new \WP_Error( 'woocommerce_ability_shipping_method_not_found', __( 'The shipping method was saved but could not be read back.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_shipping_method_not_found', __( 'The shipping method was saved but could not be read back.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		return array( 'method' => self::format_method( $method ) );
@@ -168,8 +168,8 @@ trait ShippingZoneAbilityTrait {
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 
 		if ( is_wp_error( $result ) ) {
-			$code = 'woocommerce_rest_shipping_method_invalid_setting' === $result->get_error_code() ? 'woocommerce_ability_shipping_method_setting_invalid' : 'woocommerce_ability_shipping_method_update_failed';
-			return new \WP_Error( $code, $result->get_error_message(), array( 'status' => 'woocommerce_ability_shipping_method_setting_invalid' === $code ? 400 : 500 ) );
+			$code = 'poocommerce_rest_shipping_method_invalid_setting' === $result->get_error_code() ? 'poocommerce_ability_shipping_method_setting_invalid' : 'poocommerce_ability_shipping_method_update_failed';
+			return new \WP_Error( $code, $result->get_error_message(), array( 'status' => 'poocommerce_ability_shipping_method_setting_invalid' === $code ? 400 : 500 ) );
 		}
 
 		return null;
@@ -187,9 +187,9 @@ trait ShippingZoneAbilityTrait {
 		$unknown  = array_diff( array_keys( $settings ), $writable );
 		if ( ! empty( $unknown ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_shipping_method_setting_unknown',
+				'poocommerce_ability_shipping_method_setting_unknown',
 				/* translators: 1: setting names, 2: shipping method ID, 3: setting names the method accepts. */
-				sprintf( __( 'The %2$s method has no setting %1$s. It accepts: %3$s.', 'woocommerce' ), implode( ', ', $unknown ), $method->id, implode( ', ', $writable ) ),
+				sprintf( __( 'The %2$s method has no setting %1$s. It accepts: %3$s.', 'poocommerce' ), implode( ', ', $unknown ), $method->id, implode( ', ', $writable ) ),
 				array( 'status' => 400 )
 			);
 		}
@@ -198,7 +198,7 @@ trait ShippingZoneAbilityTrait {
 		if ( isset( $settings['min_amount'] ) ) {
 			$min_amount = wc_format_decimal( $settings['min_amount'] );
 			if ( ! is_numeric( $min_amount ) || (float) $min_amount < 0 ) {
-				return new \WP_Error( 'woocommerce_ability_shipping_method_setting_invalid', __( 'The minimum order amount must be a number of 0 or more.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'poocommerce_ability_shipping_method_setting_invalid', __( 'The minimum order amount must be a number of 0 or more.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -225,9 +225,9 @@ trait ShippingZoneAbilityTrait {
 		$zone = \WC_Shipping_Zones::get_zone( $zone_id );
 		if ( ! $zone instanceof \WC_Shipping_Zone || ( 0 !== $zone->get_id() && '' === $zone->get_zone_name() ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_shipping_zone_not_found',
+				'poocommerce_ability_shipping_zone_not_found',
 				/* translators: %d: shipping zone ID. */
-				sprintf( __( 'There is no shipping zone with ID %d.', 'woocommerce' ), $zone_id ),
+				sprintf( __( 'There is no shipping zone with ID %d.', 'poocommerce' ), $zone_id ),
 				array( 'status' => 404 )
 			);
 		}
@@ -243,9 +243,9 @@ trait ShippingZoneAbilityTrait {
 	 */
 	private static function get_unsupported_method_error( string $method_id ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_shipping_method_unsupported',
+			'poocommerce_ability_shipping_method_unsupported',
 			/* translators: %s: shipping method ID. */
-			sprintf( __( 'The %s method is not supported. Only the flat rate, free shipping and local pickup methods can be added or changed here.', 'woocommerce' ), $method_id ),
+			sprintf( __( 'The %s method is not supported. Only the flat rate, free shipping and local pickup methods can be added or changed here.', 'poocommerce' ), $method_id ),
 			array( 'status' => 400 )
 		);
 	}
@@ -259,20 +259,20 @@ trait ShippingZoneAbilityTrait {
 		return array(
 			'enabled'  => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether customers can choose the method at checkout.', 'woocommerce' ),
+				'description' => __( 'Whether customers can choose the method at checkout.', 'poocommerce' ),
 			),
 			'order'    => array(
 				'type'        => 'integer',
-				'description' => __( 'Position of the method in its zone. Lower comes first.', 'woocommerce' ),
+				'description' => __( 'Position of the method in its zone. Lower comes first.', 'poocommerce' ),
 				'minimum'     => 0,
 			),
 			'settings' => array(
 				'type'                 => 'object',
-				'description'          => __( 'Settings to change. Flat rate and local pickup take title, tax_status and cost. Free shipping takes title, requires, min_amount and ignore_discounts.', 'woocommerce' ),
+				'description'          => __( 'Settings to change. Flat rate and local pickup take title, tax_status and cost. Free shipping takes title, requires, min_amount and ignore_discounts.', 'poocommerce' ),
 				'properties'           => array(
 					'title'            => array(
 						'type'        => 'string',
-						'description' => __( 'Name customers see at checkout.', 'woocommerce' ),
+						'description' => __( 'Name customers see at checkout.', 'poocommerce' ),
 					),
 					'tax_status'       => array(
 						'type' => 'string',
@@ -280,20 +280,20 @@ trait ShippingZoneAbilityTrait {
 					),
 					'cost'             => array(
 						'type'        => 'string',
-						'description' => __( 'Cost before tax, such as "5" or a formula like "10 + [qty] * 2". [qty] is the number of items, [cost] the order cost, and [fee percent="10" min_fee="2"] a percentage fee.', 'woocommerce' ),
+						'description' => __( 'Cost before tax, such as "5" or a formula like "10 + [qty] * 2". [qty] is the number of items, [cost] the order cost, and [fee percent="10" min_fee="2"] a percentage fee.', 'poocommerce' ),
 					),
 					'requires'         => array(
 						'type'        => 'string',
-						'description' => __( 'What earns free shipping: nothing, a free shipping coupon, the minimum amount, either one, or both. Sending min_amount alone on a method with no requirement sets this to min_amount.', 'woocommerce' ),
+						'description' => __( 'What earns free shipping: nothing, a free shipping coupon, the minimum amount, either one, or both. Sending min_amount alone on a method with no requirement sets this to min_amount.', 'poocommerce' ),
 						'enum'        => array( '', 'coupon', 'min_amount', 'either', 'both' ),
 					),
 					'min_amount'       => array(
 						'type'        => 'string',
-						'description' => __( 'Order amount that earns free shipping, as a decimal string without a currency symbol.', 'woocommerce' ),
+						'description' => __( 'Order amount that earns free shipping, as a decimal string without a currency symbol.', 'poocommerce' ),
 					),
 					'ignore_discounts' => array(
 						'type'        => 'boolean',
-						'description' => __( 'Whether the minimum applies to the order amount before coupon discounts.', 'woocommerce' ),
+						'description' => __( 'Whether the minimum applies to the order amount before coupon discounts.', 'poocommerce' ),
 					),
 				),
 				'additionalProperties' => false,
@@ -320,7 +320,7 @@ trait ShippingZoneAbilityTrait {
 						'properties'           => array(
 							'code' => array(
 								'type'        => 'string',
-								'description' => __( 'Country code, COUNTRY:STATE, postcode pattern or continent code, by type.', 'woocommerce' ),
+								'description' => __( 'Country code, COUNTRY:STATE, postcode pattern or continent code, by type.', 'poocommerce' ),
 							),
 							'type' => array(
 								'type' => 'string',
@@ -355,7 +355,7 @@ trait ShippingZoneAbilityTrait {
 				'order'       => array( 'type' => 'integer' ),
 				'settings'    => array(
 					'type'                 => 'object',
-					'description'          => __( 'Settings such as cost or min_amount, as stored. Only for the flat rate, free shipping and local pickup methods.', 'woocommerce' ),
+					'description'          => __( 'Settings such as cost or min_amount, as stored. Only for the flat rate, free shipping and local pickup methods.', 'poocommerce' ),
 					'additionalProperties' => array( 'type' => 'string' ),
 				),
 			),

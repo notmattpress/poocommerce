@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G29A-v3",
-			"path": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+			"path": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 			"before": {
 				"file": "fixtures/G29A/before.js"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+						"file": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 						"lines": [
 							2,
 							2
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G29B-v3",
-			"path": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+			"path": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 			"before": {
 				"file": "fixtures/G29B/before.js"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+						"file": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 						"lines": [
 							2,
 							2
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G29C-v3",
-			"path": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+			"path": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 			"before": {
 				"file": "fixtures/G29C/before.js"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G29D-v4",
-			"path": "plugins/woocommerce/client/legacy/js/frontend/checkout.js",
+			"path": "plugins/poocommerce/client/legacy/js/frontend/checkout.js",
 			"before": {
 				"code": "/* Classic cart notification. */\nfunction notifyAddedToCart( fragments, cartHash, button ) { jQuery( document.body ).trigger( 'added_to_cart', [ fragments, cartHash, button ] ); }\n"
 			},

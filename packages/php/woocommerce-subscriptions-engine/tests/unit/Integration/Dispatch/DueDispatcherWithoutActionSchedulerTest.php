@@ -2,21 +2,21 @@
 /**
  * Unit tests for the DueDispatcher schedule check without Action Scheduler.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Dispatch;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Integration\Dispatch;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
 
 /**
  * The unit suite loads neither WordPress nor Action Scheduler, the state a deactivation
- * hook runs in while WooCommerce is inactive.
+ * hook runs in while PooCommerce is inactive.
  *
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
  */
 class DueDispatcherWithoutActionSchedulerTest extends TestCase {
 

@@ -8,14 +8,14 @@ import {
 	paymentStore,
 	cartStore,
 	validationStore,
-} from '@woocommerce/block-data';
-import { previewCart } from '@woocommerce/resource-previews';
+} from '@poocommerce/block-data';
+import { previewCart } from '@poocommerce/resource-previews';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies

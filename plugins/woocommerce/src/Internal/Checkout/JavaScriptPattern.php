@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Checkout;
+namespace Automattic\PooCommerce\Internal\Checkout;
 
 /**
  * Finds constructs in a JSON Schema `pattern` that JavaScript rejects.

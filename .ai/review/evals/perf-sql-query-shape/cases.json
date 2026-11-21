@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G25A-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-25.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-25.php",
 			"before": {
 				"file": "fixtures/G25A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-25.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-25.php",
 						"lines": [
 							6,
 							7
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G25B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-25.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-25.php",
 			"before": {
 				"file": "fixtures/G25B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-25.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-25.php",
 						"lines": [
 							3,
 							3
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G25D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-25.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-25.php",
 			"before": {
 				"file": "fixtures/G25D/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G25C-v8",
-			"path": "plugins/woocommerce/includes/class-wc-eval-25.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-25.php",
 			"before": {
 				"code": "<?php\nfunction wc_listing_ids( $ids ) {\n    return array_map( 'absint', $ids );\n}\n\n/* Product stock report returns a map keyed by ID. Map iteration order is not specified. */\nfunction wc_listing_totals( $ids ) {\n    global $wpdb;\n    $out = array();\n    foreach ( wc_listing_ids( $ids ) as $id ) {\n        $row = $wpdb->get_row( $wpdb->prepare( \"SELECT product_id, stock_quantity FROM {$wpdb->prefix}wc_product_meta_lookup WHERE product_id = %d\", $id ), ARRAY_A );\n        if ( $row ) { $out[$row['product_id']] = $row['stock_quantity']; }\n    }\n    return $out;\n}\n"
 			},
@@ -75,7 +75,7 @@
 		},
 		{
 			"id": "G25E-v1",
-			"path": "plugins/woocommerce/includes/class-wc-eval-25.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-25.php",
 			"before": {
 				"file": "fixtures/G25E/before.php"
 			},

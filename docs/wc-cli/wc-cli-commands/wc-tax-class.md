@@ -3,7 +3,7 @@ title: wc tax_class
 sidebar_label: wc tax_class
 ---
 
-Manage WooCommerce tax class resources.
+Manage PooCommerce tax class resources.
 
 ## wc tax_class list
 

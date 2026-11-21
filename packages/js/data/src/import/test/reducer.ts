@@ -42,7 +42,7 @@ describe( 'import reducer', () => {
 			jest.useFakeTimers().setSystemTime(
 				new Date( '2026-03-05T12:00:00' )
 			);
-			setLocaleData( { 'MM/DD/YYYY': [ translation ] }, 'woocommerce' );
+			setLocaleData( { 'MM/DD/YYYY': [ translation ] }, 'poocommerce' );
 			// @ts-expect-error reducer action should not be empty but it is
 			const state = reducer( undefined, {} );
 			resetLocaleData();

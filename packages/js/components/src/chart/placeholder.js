@@ -15,7 +15,7 @@ class ChartPlaceholder extends Component {
 		return (
 			<div
 				aria-hidden="true"
-				className="woocommerce-chart-placeholder"
+				className="poocommerce-chart-placeholder"
 				style={ { height } }
 			>
 				<Spinner />

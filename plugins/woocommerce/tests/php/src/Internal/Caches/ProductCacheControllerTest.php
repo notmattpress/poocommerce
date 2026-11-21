@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Internal\Caches\ProductCacheController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCacheController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Helper_Product;
 
 /**
@@ -48,7 +48,7 @@ class ProductCacheControllerTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 		$this->product_cache       = wc_get_container()->get( ProductCache::class );
 		$this->sut                 = wc_get_container()->get( ProductCacheController::class );
-		$this->feature_option_name = 'woocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled';
+		$this->feature_option_name = 'poocommerce_feature_' . ProductCacheController::FEATURE_NAME . '_enabled';
 	}
 
 	/**
@@ -72,8 +72,8 @@ class ProductCacheControllerTest extends \WC_Unit_Test_Case {
 		remove_action( 'updated_post_meta', array( $controller, 'invalidate_product_cache_by_meta' ), 10 );
 		remove_action( 'added_post_meta', array( $controller, 'invalidate_product_cache_by_meta' ), 10 );
 		remove_action( 'deleted_post_meta', array( $controller, 'invalidate_product_cache_by_meta' ), 10 );
-		remove_action( 'woocommerce_updated_product_stock', array( $controller, 'invalidate_product_cache' ), 10 );
-		remove_action( 'woocommerce_updated_product_sales', array( $controller, 'invalidate_product_cache' ), 10 );
+		remove_action( 'poocommerce_updated_product_stock', array( $controller, 'invalidate_product_cache' ), 10 );
+		remove_action( 'poocommerce_updated_product_sales', array( $controller, 'invalidate_product_cache' ), 10 );
 	}
 
 	/**
@@ -170,13 +170,13 @@ class ProductCacheControllerTest extends \WC_Unit_Test_Case {
 
 			// Verify stock/sales hooks are registered.
 			$this->assertNotFalse(
-				has_action( 'woocommerce_updated_product_stock', array( $controller, 'invalidate_product_cache' ) ),
-				'woocommerce_updated_product_stock hook should be registered'
+				has_action( 'poocommerce_updated_product_stock', array( $controller, 'invalidate_product_cache' ) ),
+				'poocommerce_updated_product_stock hook should be registered'
 			);
 
 			$this->assertNotFalse(
-				has_action( 'woocommerce_updated_product_sales', array( $controller, 'invalidate_product_cache' ) ),
-				'woocommerce_updated_product_sales hook should be registered'
+				has_action( 'poocommerce_updated_product_sales', array( $controller, 'invalidate_product_cache' ) ),
+				'poocommerce_updated_product_sales hook should be registered'
 			);
 		} finally {
 			$this->unhook_controller( $controller );

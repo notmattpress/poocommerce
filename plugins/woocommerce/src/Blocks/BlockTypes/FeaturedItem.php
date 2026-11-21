@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * FeaturedItem class.
@@ -67,7 +67,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 			$result[] = $block['blockName'];
 		}
 
-		if ( 'woocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
+		if ( 'poocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
 			return $result;
 		}
 
@@ -124,7 +124,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 	 */
 	public function update_context( $context, $parsed_block, $parent_block ) {
 		// Check if this is a featured item block and extract all inner block names.
-		if ( ( 'woocommerce/featured-product' === $parsed_block['blockName'] || 'woocommerce/featured-category' === $parsed_block['blockName'] )
+		if ( ( 'poocommerce/featured-product' === $parsed_block['blockName'] || 'poocommerce/featured-category' === $parsed_block['blockName'] )
 			&& isset( $parsed_block['attrs'] ) ) {
 
 			$item = $this->get_item( $parsed_block['attrs'] );
@@ -192,7 +192,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 	 * However, it remains a concrete method returning 0 to preserve legacy
 	 * compatibility with existing child classes that may not implement it.
 	 * See:
-	 * https://github.com/woocommerce/woocommerce/pull/66466#discussion_r3559124282
+	 * https://github.com/poocommerce/poocommerce/pull/66466#discussion_r3559124282
 	 *
 	 * @param \WP_Term|\WC_Product $item Item object.
 	 * @return int

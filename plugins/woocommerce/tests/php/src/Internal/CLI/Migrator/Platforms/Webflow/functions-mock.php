@@ -7,12 +7,12 @@
  * to this namespaced function before falling back to the global one, so production
  * code stays untouched and no sleep dependency has to be injected.
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Webflow
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Webflow;
 
 if ( ! function_exists( __NAMESPACE__ . '\\sleep' ) ) {
 	/**

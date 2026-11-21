@@ -2,7 +2,7 @@
 /* Currency options are autoloaded and immutable for the request. Amount is finite; decimals is a nonnegative integer. */
 final class WC_Checkout_Total_Label {
     private function settings() {
-        return array( get_option( 'woocommerce_currency' ), get_option( 'woocommerce_price_num_decimals' ), get_option( 'woocommerce_currency_pos' ) );
+        return array( get_option( 'poocommerce_currency' ), get_option( 'poocommerce_price_num_decimals' ), get_option( 'poocommerce_currency_pos' ) );
     }
     public function format( $amount ) {
         $settings = $this->settings();

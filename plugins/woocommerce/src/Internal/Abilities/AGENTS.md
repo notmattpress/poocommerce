@@ -1,4 +1,4 @@
-# WooCommerce abilities
+# PooCommerce abilities
 
 The Core abilities live in `Domain/`. `AbilitiesLoader` registers them with `Ability` or a subclass of `ActionableAbility`. Two PHPStan rules keep it that way.
 
@@ -19,7 +19,7 @@ Keep:
 
 - Sanitizers on free text, such as `wp_kses_post()` on a note or `wc_clean()` on a SKU.
 - Calls that normalize a valid value, such as `sanitize_title()` on a slug or `wc_format_decimal()` on a price.
-- A cast that a WooCommerce function needs, such as `(int)` for `add_order_note()`.
+- A cast that a PooCommerce function needs, such as `(int)` for `add_order_note()`.
 
 ## Omit unavailable output fields
 

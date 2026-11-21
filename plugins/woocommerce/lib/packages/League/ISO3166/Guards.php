@@ -9,16 +9,16 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\League\ISO3166;
+namespace Automattic\PooCommerce\Vendor\League\ISO3166;
 
-use Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException;
+use Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException;
 
 final class Guards
 {
     /**
      * Assert that input is not an empty string.
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input is an empty string
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input is an empty string
      */
     public static function guardAgainstInvalidName(string $name): void
     {
@@ -30,7 +30,7 @@ final class Guards
     /**
      * Assert that input looks like an alpha2 key.
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha2 key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha2 key
      */
     public static function guardAgainstInvalidAlpha2(string $alpha2): void
     {
@@ -42,7 +42,7 @@ final class Guards
     /**
      * Assert that input looks like an alpha3 key.
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha3 key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like an alpha3 key
      */
     public static function guardAgainstInvalidAlpha3(string $alpha3): void
     {
@@ -54,7 +54,7 @@ final class Guards
     /**
      * Assert that input looks like a numeric key.
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like a numeric key
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if input does not look like a numeric key
      */
     public static function guardAgainstInvalidNumeric(string $numeric): void
     {

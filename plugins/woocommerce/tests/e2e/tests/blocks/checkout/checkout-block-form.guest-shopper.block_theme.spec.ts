@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, guestFile } from '@woocommerce/e2e-utils';
+import { expect, test as base, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

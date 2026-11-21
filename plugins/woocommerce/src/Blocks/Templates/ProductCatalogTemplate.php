@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration -- Preserve scalar coercion for compatibility with extension-provided data.
 
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * ProductCatalogTemplate class.
@@ -83,7 +83,7 @@ class ProductCatalogTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Product Catalog', 'Template name', 'woocommerce' );
+		return _x( 'Product Catalog', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class ProductCatalogTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays your products.', 'woocommerce' );
+		return __( 'Displays your products.', 'poocommerce' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class ProductCatalogTemplate extends AbstractTemplate {
 	 *
 	 * @deprecated 11.3.0
 	 *
-	 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/6278
+	 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/6278
 	 *
 	 * @param bool $is_support Whether the active theme supports block templates.
 	 * @return void

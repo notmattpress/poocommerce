@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\NewOrderNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\PendingNotificationStore;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use Throwable;
 use WC_Logger_Interface;
 use WC_Order;
@@ -29,13 +29,13 @@ class NewOrderNotificationTrigger {
 	 */
 	const NOTIFIABLE_STATUSES = array(
 		/**
-		 * Source: WooCommerce plugin.
+		 * Source: PooCommerce plugin.
 		 */
 		'processing',
 		'on-hold',
 		'completed',
 		/**
-		 * Source: WooCommerce Pre-Orders plugin.
+		 * Source: PooCommerce Pre-Orders plugin.
 		 */
 		'pre-order',
 		/**
@@ -43,7 +43,7 @@ class NewOrderNotificationTrigger {
 		 */
 		'pre-ordered',
 		/**
-		 *  Source: WooCommerce Deposits plugin.
+		 *  Source: PooCommerce Deposits plugin.
 		 */
 		'partial-payment',
 	);
@@ -63,8 +63,8 @@ class NewOrderNotificationTrigger {
 	 * @since 10.7.0
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_new_order', array( $this, 'on_new_order' ), 10, 2 );
-		add_action( 'woocommerce_order_status_changed', array( $this, 'on_order_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_new_order', array( $this, 'on_new_order' ), 10, 2 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'on_order_status_changed' ), 10, 4 );
 	}
 
 	/**
@@ -77,11 +77,11 @@ class NewOrderNotificationTrigger {
 	 * @return void
 	 */
 	public function register_while_disabled(): void {
-		add_action( 'woocommerce_order_status_changed', array( $this, 'on_order_status_changed_while_disabled' ), 10, 4 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'on_order_status_changed_while_disabled' ), 10, 4 );
 	}
 
 	/**
-	 * Handles the woocommerce_new_order hook.
+	 * Handles the poocommerce_new_order hook.
 	 *
 	 * @param int      $order_id The order ID.
 	 * @param WC_Order $order    The order object.
@@ -101,7 +101,7 @@ class NewOrderNotificationTrigger {
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	/**
-	 * Handles the woocommerce_order_status_changed hook.
+	 * Handles the poocommerce_order_status_changed hook.
 	 *
 	 * @param int      $order_id        The order ID.
 	 * @param string   $previous_status The previous order status.
@@ -142,7 +142,7 @@ class NewOrderNotificationTrigger {
 
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed
 	/**
-	 * Handles the woocommerce_order_status_changed hook while push notifications
+	 * Handles the poocommerce_order_status_changed hook while push notifications
 	 * are switched off: marks the order without queuing a notification, on sites
 	 * that have used push notifications.
 	 *
@@ -252,7 +252,7 @@ class NewOrderNotificationTrigger {
 		 *
 		 * @since 2.7.0
 		 */
-		$statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment_complete', OrderStatus::PAYMENT_COMPLETE_STATUSES, $order );
+		$statuses = apply_filters( 'poocommerce_valid_order_statuses_for_payment_complete', OrderStatus::PAYMENT_COMPLETE_STATUSES, $order );
 		$statuses = is_array( $statuses ) ? array_filter( $statuses, 'is_string' ) : OrderStatus::PAYMENT_COMPLETE_STATUSES;
 
 		$statuses   = array_map( array( OrderUtil::class, 'remove_status_prefix' ), $statuses );

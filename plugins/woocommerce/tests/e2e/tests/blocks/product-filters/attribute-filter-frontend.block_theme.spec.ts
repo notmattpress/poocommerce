@@ -6,7 +6,7 @@ import {
 	test as base,
 	expect,
 	getProductAttributeIds,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const GRAY_PRODUCT_TITLES = [ 'T-Shirt', 'T-Shirt with Logo' ];
 const COLOR_ATTRIBUTES_WITH_COUNTS = [
@@ -26,7 +26,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
+test.describe( 'poocommerce/product-filter-attribute - Frontend', () => {
 	test.describe( 'With default display style', () => {
 		test.beforeEach( async ( { templateCompiler, page } ) => {
 			const { colorAttributeId } = await getProductAttributeIds();
@@ -64,7 +64,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 				includeHidden: true,
 			} );
 			const productTitles = page.locator(
-				'.wp-block-woocommerce-product-template .wp-block-post-title'
+				'.wp-block-poocommerce-product-template .wp-block-post-title'
 			);
 			const expectFilterParams = async (
 				expectedValue: string | null
@@ -124,7 +124,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			dropdown: true,
 			attributes: {
 				attributeId: colorAttributeId,
-				displayStyle: 'woocommerce/dropdown',
+				displayStyle: 'poocommerce/dropdown',
 				showCounts: true,
 				sortOrder: 'name-asc',
 			},
@@ -134,7 +134,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			name: 'Color: Choose options',
 		} );
 		const productTitles = page.locator(
-			'.wp-block-woocommerce-product-template .wp-block-post-title'
+			'.wp-block-poocommerce-product-template .wp-block-post-title'
 		);
 		await trigger.focus();
 		await page.keyboard.press( 'Enter' );
@@ -201,7 +201,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			dropdown: true,
 			attributes: {
 				attributeId: colorAttributeId,
-				displayStyle: 'woocommerce/dropdown',
+				displayStyle: 'poocommerce/dropdown',
 			},
 		} );
 		await page.setViewportSize( { width: 390, height: 844 } );
@@ -228,7 +228,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 				)
 		);
 		await expect(
-			page.locator( '.wp-block-woocommerce-product-filters' )
+			page.locator( '.wp-block-poocommerce-product-filters' )
 		).toHaveClass( /\bis-overlay-opened\b/ );
 		await expect( overlay ).toBeVisible();
 		await expect( trigger ).toBeFocused();
@@ -247,13 +247,13 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			taxonomy: true,
 			attributes: {
 				attributeId: colorAttributeId,
-				displayStyle: 'woocommerce/dropdown',
+				displayStyle: 'poocommerce/dropdown',
 				hideEmpty: true,
 			},
 		} );
 		await page.goto( '/shop' );
 		const color = page.locator(
-			'.wp-block-woocommerce-product-filter-attribute'
+			'.wp-block-poocommerce-product-filter-attribute'
 		);
 		const trigger = color.getByRole( 'button' );
 		await trigger.click();
@@ -265,7 +265,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			.check();
 		await page.keyboard.press( 'Escape' );
 		const category = page.locator(
-			'.wp-block-woocommerce-product-filter-taxonomy'
+			'.wp-block-poocommerce-product-filter-taxonomy'
 		);
 		await category.getByRole( 'button' ).click();
 		await category
@@ -273,7 +273,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			.check();
 		await expect(
 			page.locator(
-				'.wp-block-woocommerce-product-template .wp-block-post-title'
+				'.wp-block-poocommerce-product-template .wp-block-post-title'
 			)
 		).toHaveText( [ 'Hoodie', 'Hoodie with Logo' ] );
 		await expect( trigger ).toHaveText( 'Color: Blue, Yellow' );
@@ -316,7 +316,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 		const { colorAttributeId } = await getProductAttributeIds();
 		const attributes = {
 			attributeId: colorAttributeId,
-			displayStyle: 'woocommerce/dropdown',
+			displayStyle: 'poocommerce/dropdown',
 		};
 		await templateCompiler.compile( { dropdown: true, attributes } );
 		await page.goto( '/shop' );
@@ -356,7 +356,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			dropdown: true,
 			attributes: {
 				attributeId: colorAttributeId,
-				displayStyle: 'woocommerce/dropdown',
+				displayStyle: 'poocommerce/dropdown',
 			},
 			dropdownAttributes: {
 				style: {
@@ -408,7 +408,7 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 		const listStyle = await page.addStyleTag( {
 			path: `${
 				process.env.WC_SHARED_PLUGIN_BUILD_PATH || '.'
-			}/assets/client/blocks/woocommerce/product-filter-checkbox-list-style.css`,
+			}/assets/client/blocks/poocommerce/product-filter-checkbox-list-style.css`,
 		} );
 		const blue = panel.getByRole( 'checkbox', {
 			name: 'Blue',

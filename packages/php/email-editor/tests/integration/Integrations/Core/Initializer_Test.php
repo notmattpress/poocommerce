@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Tests\Integration\Integrations\Core;
+namespace Automattic\PooCommerce\EmailEditor\Tests\Integration\Integrations\Core;
 
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer;
 
 /**
  * Integration test for Initializer class
@@ -33,9 +33,9 @@ class Initializer_Test extends \Email_Editor_Integration_Test_Case {
 	 * Clean up after each test.
 	 */
 	public function tearDown(): void {
-		remove_filter( 'woocommerce_email_editor_theme_json', array( $this->initializer, 'adjust_theme_json' ) );
+		remove_filter( 'poocommerce_email_editor_theme_json', array( $this->initializer, 'adjust_theme_json' ) );
 		remove_filter( 'safe_style_css', array( $this->initializer, 'allow_styles' ) );
-		remove_action( 'woocommerce_email_editor_render_start', array( $this->initializer, 'reset_renderers' ) );
+		remove_action( 'poocommerce_email_editor_render_start', array( $this->initializer, 'reset_renderers' ) );
 		parent::tearDown();
 	}
 
@@ -45,9 +45,9 @@ class Initializer_Test extends \Email_Editor_Integration_Test_Case {
 	public function testInitializeRegistersHooks(): void {
 		$this->initializer->initialize();
 
-		$this->assertNotFalse( has_filter( 'woocommerce_email_editor_theme_json', array( $this->initializer, 'adjust_theme_json' ) ) );
+		$this->assertNotFalse( has_filter( 'poocommerce_email_editor_theme_json', array( $this->initializer, 'adjust_theme_json' ) ) );
 		$this->assertNotFalse( has_filter( 'safe_style_css', array( $this->initializer, 'allow_styles' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_email_editor_render_start', array( $this->initializer, 'reset_renderers' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_email_editor_render_start', array( $this->initializer, 'reset_renderers' ) ) );
 	}
 
 	/**
@@ -61,14 +61,14 @@ class Initializer_Test extends \Email_Editor_Integration_Test_Case {
 
 		try {
 			// Simulate multiple renders.
-			do_action( 'woocommerce_email_editor_render_start' );
-			do_action( 'woocommerce_email_editor_render_start' );
+			do_action( 'poocommerce_email_editor_render_start' );
+			do_action( 'poocommerce_email_editor_render_start' );
 
 			$this->assertSame( 2, $spy->reset_renderers_call_count );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_theme_json', array( $spy, 'adjust_theme_json' ) );
+			remove_filter( 'poocommerce_email_editor_theme_json', array( $spy, 'adjust_theme_json' ) );
 			remove_filter( 'safe_style_css', array( $spy, 'allow_styles' ) );
-			remove_action( 'woocommerce_email_editor_render_start', array( $spy, 'reset_renderers' ) );
+			remove_action( 'poocommerce_email_editor_render_start', array( $spy, 'reset_renderers' ) );
 		}
 	}
 }

@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import Label from '@woocommerce/base-components/filter-element-label';
-import { AttributeObject } from '@woocommerce/types';
+import Label from '@poocommerce/base-components/filter-element-label';
+import { AttributeObject } from '@poocommerce/types';
 
 export const previewOptions = [
 	{

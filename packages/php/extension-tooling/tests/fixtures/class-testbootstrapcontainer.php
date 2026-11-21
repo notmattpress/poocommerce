@@ -2,11 +2,11 @@
 /**
  * Outer container fixture.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**
- * Model WooCommerce's private container property.
+ * Model PooCommerce's private container property.
  */
 class TestBootstrapContainer {
 

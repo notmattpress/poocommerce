@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductDownloads;
+namespace Automattic\PooCommerce\Tests\Internal\ProductDownloads;
 
 use WC_Unit_Test_Case;
 use WP_Query;
@@ -12,14 +12,14 @@ use WP_REST_Request;
  */
 class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 	/**
-	 * Attachment stored in the woocommerce_uploads directory.
+	 * Attachment stored in the poocommerce_uploads directory.
 	 *
 	 * @var int
 	 */
 	private int $downloadable_file_id;
 
 	/**
-	 * Attachment stored in the regular uploads directory, in a folder whose name contains "woocommerce_uploads".
+	 * Attachment stored in the regular uploads directory, in a folder whose name contains "poocommerce_uploads".
 	 *
 	 * @var int
 	 */
@@ -32,13 +32,13 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->downloadable_file_id = self::factory()->attachment->create_object(
 			array(
-				'file'           => 'woocommerce_uploads/2026/10/ebook-abc123.pdf',
+				'file'           => 'poocommerce_uploads/2026/10/ebook-abc123.pdf',
 				'post_mime_type' => 'application/pdf',
 			)
 		);
 		$this->image_id             = self::factory()->attachment->create_object(
 			array(
-				'file'           => '2026/10/my_woocommerce_uploads/photo.jpg',
+				'file'           => '2026/10/my_poocommerce_uploads/photo.jpg',
 				'post_mime_type' => 'image/jpeg',
 				'comment_status' => 'open',
 			)
@@ -108,7 +108,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 	public function test_oembed_is_not_found_for_downloadable_files(): void {
 		$downloadable_image_id = self::factory()->attachment->create_object(
 			array(
-				'file'           => 'woocommerce_uploads/2026/10/artwork-abc123.jpg',
+				'file'           => 'poocommerce_uploads/2026/10/artwork-abc123.jpg',
 				'post_mime_type' => 'image/jpeg',
 			)
 		);
@@ -136,7 +136,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 
 		$this->assertTrue( is_404(), 'Visitors should get a 404 instead of the attachment page or file redirect.' );
 		$this->assertFalse( have_posts(), 'The attachment should not be available to templates.' );
-		$this->assertStringNotContainsString( 'woocommerce_uploads', (string) redirect_canonical( $url, false ), 'The request should not redirect to the file.' );
+		$this->assertStringNotContainsString( 'poocommerce_uploads', (string) redirect_canonical( $url, false ), 'The request should not redirect to the file.' );
 	}
 
 	/**
@@ -157,7 +157,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 
 		$this->assertTrue( is_feed(), 'The request should still be a feed.' );
 		$this->assertFalse( have_posts(), 'The feed should have no attachment to render.' );
-		$this->assertStringNotContainsString( 'woocommerce_uploads', (string) redirect_canonical( $feed_url, false ), 'The feed should not redirect to the file.' );
+		$this->assertStringNotContainsString( 'poocommerce_uploads', (string) redirect_canonical( $feed_url, false ), 'The feed should not redirect to the file.' );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 		$this->set_permalink_structure( '/%postname%/' );
 		self::factory()->attachment->create_object(
 			array(
-				'file'           => 'woocommerce_uploads/2026/10/guide-abc123.pdf',
+				'file'           => 'poocommerce_uploads/2026/10/guide-abc123.pdf',
 				'post_mime_type' => 'application/pdf',
 				'post_title'     => 'guide-abc123',
 			)
@@ -184,7 +184,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 
 		$this->assertFalse( have_posts(), 'The feed should have no attachment to render.' );
 		$this->assertStringNotContainsString( 'guide-abc123', get_wp_title_rss(), 'The feed title should not reveal the file name.' );
-		$this->assertStringNotContainsString( 'woocommerce_uploads', (string) redirect_canonical( $feed_url, false ), 'The feed should not redirect to the file.' );
+		$this->assertStringNotContainsString( 'poocommerce_uploads', (string) redirect_canonical( $feed_url, false ), 'The feed should not redirect to the file.' );
 	}
 
 	/**
@@ -193,7 +193,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 	public function test_attached_file_requested_by_id_is_not_found_for_visitors(): void {
 		$attachment_id = self::factory()->attachment->create_object(
 			array(
-				'file'           => 'woocommerce_uploads/2026/10/manual-abc123.pdf',
+				'file'           => 'poocommerce_uploads/2026/10/manual-abc123.pdf',
 				'post_mime_type' => 'application/pdf',
 				'post_parent'    => self::factory()->post->create(),
 			)
@@ -219,7 +219,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 		$this->set_permalink_structure( '/%postname%/' );
 		$attachment_id = self::factory()->attachment->create_object(
 			array(
-				'file'           => 'woocommerce_uploads/2026/10/manual-abc123.pdf',
+				'file'           => 'poocommerce_uploads/2026/10/manual-abc123.pdf',
 				'post_mime_type' => 'application/pdf',
 				'post_title'     => 'manual-abc123',
 				'post_parent'    => self::factory()->post->create(),
@@ -277,7 +277,7 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Attachment pages stay available for regular attachments and for users who can manage WooCommerce.
+	 * @testdox Attachment pages stay available for regular attachments and for users who can manage PooCommerce.
 	 */
 	public function test_attachment_page_is_unchanged_when_not_hidden(): void {
 		wp_set_current_user( 0 );
@@ -286,6 +286,6 @@ class DownloadableFileAttachmentsTest extends WC_Unit_Test_Case {
 
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
 		$this->go_to( add_query_arg( 'attachment_id', $this->downloadable_file_id, home_url( '/' ) ) );
-		$this->assertTrue( is_attachment(), 'Users who can manage WooCommerce should still reach downloadable product file attachments.' );
+		$this->assertTrue( is_attachment(), 'Users who can manage PooCommerce should still reach downloadable product file attachments.' );
 	}
 }

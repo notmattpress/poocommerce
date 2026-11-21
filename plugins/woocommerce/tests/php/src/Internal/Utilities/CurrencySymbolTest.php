@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Enums\CurrencyPosition;
-use Automattic\WooCommerce\Internal\Utilities\CurrencySymbol;
+use Automattic\PooCommerce\Enums\CurrencyPosition;
+use Automattic\PooCommerce\Internal\Utilities\CurrencySymbol;
 use WC_Unit_Test_Case;
 
 /**
@@ -22,7 +22,7 @@ class CurrencySymbolTest extends WC_Unit_Test_Case {
 	 * @param string $expected The expected decoded symbol.
 	 */
 	public function test_symbol_is_decoded( string $currency, string $expected ): void {
-		update_option( 'woocommerce_currency', $currency );
+		update_option( 'poocommerce_currency', $currency );
 
 		$this->assertSame( $expected, CurrencySymbol::get_symbol(), "The {$currency} symbol should be decoded to plain text" );
 	}
@@ -38,7 +38,7 @@ class CurrencySymbolTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filtered_symbol_is_decoded( string $filtered, string $expected ): void {
 		add_filter(
-			'woocommerce_currency_symbol',
+			'poocommerce_currency_symbol',
 			function () use ( $filtered ) {
 				return $filtered;
 			}
@@ -57,7 +57,7 @@ class CurrencySymbolTest extends WC_Unit_Test_Case {
 	 * @param string $position The stored currency position.
 	 */
 	public function test_matches_option_when_price_format_is_not_filtered( string $position ): void {
-		update_option( 'woocommerce_currency_pos', $position );
+		update_option( 'poocommerce_currency_pos', $position );
 
 		$this->assertSame( $position, CurrencySymbol::get_position(), "The '{$position}' option should be returned unchanged" );
 	}
@@ -70,9 +70,9 @@ class CurrencySymbolTest extends WC_Unit_Test_Case {
 	 * @param string $expected The expected symbol position.
 	 */
 	public function test_derives_position_from_filtered_price_format( string $format, string $expected ): void {
-		update_option( 'woocommerce_currency_pos', CurrencyPosition::LEFT );
+		update_option( 'poocommerce_currency_pos', CurrencyPosition::LEFT );
 		add_filter(
-			'woocommerce_price_format',
+			'poocommerce_price_format',
 			function () use ( $format ) {
 				return $format;
 			}
@@ -105,9 +105,9 @@ class CurrencySymbolTest extends WC_Unit_Test_Case {
 	 * @testdox Should fall back to the currency position option when the price format has no symbol placeholder.
 	 */
 	public function test_falls_back_to_option_without_symbol_placeholder(): void {
-		update_option( 'woocommerce_currency_pos', CurrencyPosition::RIGHT );
+		update_option( 'poocommerce_currency_pos', CurrencyPosition::RIGHT );
 		add_filter(
-			'woocommerce_price_format',
+			'poocommerce_price_format',
 			function () {
 				return '%2$s';
 			}

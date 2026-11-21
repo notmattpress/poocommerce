@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { renderHook } from '@testing-library/react';
-import { queueRecordEvent, recordEvent } from '@woocommerce/tracks';
+import { queueRecordEvent, recordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line import/no-unresolved -- Provided by WordPress in the wp-admin runtime.
 import { store as commandsStore } from '@wordpress/commands';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -15,7 +15,7 @@ import { addQueryArgs } from '@wordpress/url';
  */
 import { registerCommandWithTracking } from '../register-command-with-tracking';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	queueRecordEvent: jest.fn(),
 	recordEvent: jest.fn(),
 } ) );
@@ -50,7 +50,7 @@ describe( 'registerCommandWithTracking', () => {
 		const secondArgument = { sentinel: 'second' };
 
 		registerCommandWithTracking( {
-			name: 'woocommerce/test-command',
+			name: 'poocommerce/test-command',
 			label: 'Test command',
 			icon: 'test-icon',
 			callback,
@@ -111,27 +111,27 @@ describe( 'Command Palette', () => {
 			} ) )
 		).toEqual( [
 			{
-				name: 'woocommerce/add-new-product',
+				name: 'poocommerce/add-new-product',
 				label: 'Add new product',
 				icon: plus,
 			},
 			{
-				name: 'woocommerce/add-new-order',
+				name: 'poocommerce/add-new-order',
 				label: 'Add new order',
 				icon: plus,
 			},
 			{
-				name: 'woocommerce/view-products',
+				name: 'poocommerce/view-products',
 				label: 'Products',
 				icon: box,
 			},
 			{
-				name: 'woocommerce/view-orders',
+				name: 'poocommerce/view-orders',
 				label: 'Orders',
 				icon: box,
 			},
 		] );
-		expect( registeredLoader.name ).toBe( 'woocommerce/product' );
+		expect( registeredLoader.name ).toBe( 'poocommerce/product' );
 
 		const destinations = [
 			[ 'post-new.php', { post_type: 'product' } ],
@@ -149,7 +149,7 @@ describe( 'Command Palette', () => {
 		expect( addQueryArgs.mock.calls ).toEqual( destinations );
 		expect( queueRecordEvent.mock.calls ).toEqual(
 			registeredCommands.map( ( command ) => [
-				'woocommerce_command_palette_submit',
+				'poocommerce_command_palette_submit',
 				{ name: command.name, origin: undefined },
 			] )
 		);
@@ -227,13 +227,13 @@ describe( 'Command Palette', () => {
 		);
 		expect( close ).toHaveBeenCalledTimes( 1 );
 		expect( queueRecordEvent ).toHaveBeenLastCalledWith(
-			'woocommerce_command_palette_submit',
-			{ name: 'woocommerce/product' }
+			'poocommerce_command_palette_submit',
+			{ name: 'poocommerce/product' }
 		);
 
 		jest.advanceTimersByTime( 300 );
 		expect( recordEvent ).toHaveBeenCalledWith(
-			'woocommerce_command_palette_search',
+			'poocommerce_command_palette_search',
 			{ value: 'bread' }
 		);
 

@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Ucp\AbstractCheckoutRoute;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Ucp\AbstractCheckoutRoute;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Tests for the /wc/ucp/v1/checkout-sessions endpoints.
@@ -25,7 +25,7 @@ class UcpCheckout extends ControllerTestCase {
 	/**
 	 * Option behind the `ucp` feature.
 	 */
-	private const FEATURE_OPTION = 'woocommerce_feature_ucp_enabled';
+	private const FEATURE_OPTION = 'poocommerce_feature_ucp_enabled';
 
 	/**
 	 * The WC() singletons the harness set up, restored after each test.
@@ -98,7 +98,7 @@ class UcpCheckout extends ControllerTestCase {
 		WC()->session  = $this->wc_globals_backup['session'];
 		WC()->customer = $this->wc_globals_backup['customer'];
 		WC()->cart     = $this->wc_globals_backup['cart'];
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['woocommerce_after_calculate_totals'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['poocommerce_after_calculate_totals'] );
 
 		parent::tearDown();
 	}
@@ -150,13 +150,13 @@ class UcpCheckout extends ControllerTestCase {
 			// A real request ends with its cart; left hooked, this one would go on saving itself into later sessions.
 			$cart_session = new \ReflectionProperty( \WC_Cart::class, 'session' );
 			$cart_session->setAccessible( true );
-			remove_action( 'woocommerce_after_calculate_totals', array( $cart_session->getValue( WC()->cart ), 'set_session' ), 1000 );
+			remove_action( 'poocommerce_after_calculate_totals', array( $cart_session->getValue( WC()->cart ), 'set_session' ), 1000 );
 		}
 
 		WC()->session  = null;
 		WC()->customer = null;
 		WC()->cart     = null;
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['woocommerce_after_calculate_totals'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'], $GLOBALS['wp_actions']['poocommerce_after_calculate_totals'] );
 	}
 
 	/**
@@ -344,9 +344,9 @@ class UcpCheckout extends ControllerTestCase {
 		$pay = static function () use ( $order_id, $order_status ) {
 			wc_get_order( $order_id )->update_status( $order_status );
 		};
-		add_action( 'woocommerce_add_to_cart', $pay );
+		add_action( 'poocommerce_add_to_cart', $pay );
 		$updated = $this->request( 'PUT', $path, array( 'line_items' => array( $this->line_item( 1, 1 ) ) ) )->get_data();
-		remove_action( 'woocommerce_add_to_cart', $pay );
+		remove_action( 'poocommerce_add_to_cart', $pay );
 		$this->assertSame( $expected, $updated['status'] );
 		$this->assertSame( (string) self::$product_ids[0], $updated['line_items'][0]['item']['id'], 'A paid checkout lists what was paid for, not the late change.' );
 
@@ -369,12 +369,12 @@ class UcpCheckout extends ControllerTestCase {
 				throw new \Exception( 'Save failed.' );
 			}
 		};
-		add_action( 'woocommerce_before_order_object_save', $fail );
+		add_action( 'poocommerce_before_order_object_save', $fail );
 		$statuses = array(
 			$this->request( 'POST', $path . '/complete' )->get_status(),
 			$this->request( 'POST', $path . '/cancel' )->get_status(),
 		);
-		remove_action( 'woocommerce_before_order_object_save', $fail );
+		remove_action( 'poocommerce_before_order_object_save', $fail );
 
 		$this->assertSame( array( 500, 500 ), $statuses );
 		$this->assertTrue( wc_get_order( $order_id )->has_status( OrderStatus::PENDING ) );
@@ -403,22 +403,22 @@ class UcpCheckout extends ControllerTestCase {
 		$first   = $this->request( 'POST', $path . '/complete' )->get_data();
 		$order   = wc_get_order( (int) WC()->session->get( 'store_api_draft_order' ) );
 		$order->update_status( OrderStatus::FAILED );
-		$processed = did_action( 'woocommerce_store_api_checkout_order_processed' );
+		$processed = did_action( 'poocommerce_store_api_checkout_order_processed' );
 		$saves     = 0;
 		$count     = static function ( $saved ) use ( &$saves, $order ) {
 			$saves += (int) ( $saved->get_id() === $order->get_id() );
 		};
 
-		add_action( 'woocommerce_before_order_object_save', $count );
+		add_action( 'poocommerce_before_order_object_save', $count );
 		$second = $this->request( 'POST', $path . '/complete' )->get_data();
 		$this->request( 'PUT', $path, array() );
-		remove_action( 'woocommerce_before_order_object_save', $count );
+		remove_action( 'poocommerce_before_order_object_save', $count );
 
 		$this->assertSame( 0, $saves, 'Neither a repeated complete nor an update that changes nothing saves the order.' );
 		$this->assertSame( $first['continue_url'], $second['continue_url'] );
 		$this->assertContains( 'ALREADY_HANDED_OFF', array_column( $second['messages'], 'code' ) );
 		$this->assertTrue( wc_get_order( $order->get_id() )->has_status( OrderStatus::FAILED ), 'A failed order the buyer may be retrying is not reset.' );
-		$this->assertSame( $processed, did_action( 'woocommerce_store_api_checkout_order_processed' ) );
+		$this->assertSame( $processed, did_action( 'poocommerce_store_api_checkout_order_processed' ) );
 	}
 
 	/**
@@ -437,9 +437,9 @@ class UcpCheckout extends ControllerTestCase {
 
 			return $ids;
 		};
-		add_filter( 'woocommerce_cart_crosssell_ids', $pay );
+		add_filter( 'poocommerce_cart_crosssell_ids', $pay );
 		$response = $this->request( 'POST', $path . '/complete' );
-		remove_filter( 'woocommerce_cart_crosssell_ids', $pay );
+		remove_filter( 'poocommerce_cart_crosssell_ids', $pay );
 
 		$this->assertSame( 409, $response->get_status() );
 		$this->assertSame( $order_id, (int) WC()->session->get( 'ucp_checkout' )['order_id'] );
@@ -670,11 +670,11 @@ class UcpCheckout extends ControllerTestCase {
 	 * @testdox A store that requires an account to check out serves no checkout route and declares no checkout capability.
 	 */
 	public function test_checkout_is_unavailable_when_an_account_is_required(): void {
-		add_filter( 'woocommerce_checkout_registration_required', '__return_true' );
+		add_filter( 'poocommerce_checkout_registration_required', '__return_true' );
 		$this->initialize_store_api_server();
 		$response     = $this->request( 'POST', '/checkout-sessions', array( 'line_items' => array( $this->line_item( 0, 1 ) ) ) );
 		$capabilities = array_keys( Utils::capability_declarations() );
-		remove_filter( 'woocommerce_checkout_registration_required', '__return_true' );
+		remove_filter( 'poocommerce_checkout_registration_required', '__return_true' );
 
 		$this->assertSame( 'rest_no_route', $response->get_data()['code'] );
 		$this->assertNotContains( Utils::CAPABILITY_CHECKOUT, $capabilities );
@@ -782,11 +782,11 @@ class UcpCheckout extends ControllerTestCase {
 		$refuse = static function ( $order, $errors ) {
 			$errors->add( 'refused', 'Refused by an extension.' );
 		};
-		add_action( 'woocommerce_checkout_validate_order_before_payment', $refuse, 10, 2 );
+		add_action( 'poocommerce_checkout_validate_order_before_payment', $refuse, 10, 2 );
 
 		$created  = $this->create_ready_checkout();
 		$response = $this->request( 'POST', '/checkout-sessions/' . $created['id'] . '/complete' )->get_data();
-		remove_action( 'woocommerce_checkout_validate_order_before_payment', $refuse, 10 );
+		remove_action( 'poocommerce_checkout_validate_order_before_payment', $refuse, 10 );
 
 		$this->assertSame( 'VALIDATION_ERROR', $response['messages'][0]['code'] );
 		$this->assertSame( 'Refused by an extension.', $response['messages'][0]['content'] );
@@ -805,13 +805,13 @@ class UcpCheckout extends ControllerTestCase {
 			$seen[] = 'processed:' . $order->get_status();
 			$order->payment_complete();
 		};
-		add_action( 'woocommerce_store_api_checkout_update_order_meta', $meta );
-		add_action( 'woocommerce_store_api_checkout_order_processed', $pay );
+		add_action( 'poocommerce_store_api_checkout_update_order_meta', $meta );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $pay );
 
 		$created = $this->create_ready_checkout();
 		$data    = $this->request( 'POST', '/checkout-sessions/' . $created['id'] . '/complete' )->get_data();
-		remove_action( 'woocommerce_store_api_checkout_update_order_meta', $meta );
-		remove_action( 'woocommerce_store_api_checkout_order_processed', $pay );
+		remove_action( 'poocommerce_store_api_checkout_update_order_meta', $meta );
+		remove_action( 'poocommerce_store_api_checkout_order_processed', $pay );
 
 		$this->assertSame( array( 'meta:checkout-draft', 'processed:pending' ), $seen );
 		$this->assertSame( 'completed', $data['status'] );
@@ -825,10 +825,10 @@ class UcpCheckout extends ControllerTestCase {
 		$change = static function () {
 			WC()->cart->set_quantity( (string) array_key_first( WC()->cart->get_cart() ), 2 );
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $change );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $change );
 		$created = $this->create_ready_checkout();
 		$this->request( 'POST', '/checkout-sessions/' . $created['id'] . '/complete' );
-		remove_action( 'woocommerce_store_api_checkout_order_processed', $change );
+		remove_action( 'poocommerce_store_api_checkout_order_processed', $change );
 		$order_id = (int) WC()->session->get( 'ucp_checkout' )['order_id'];
 
 		$this->assertArrayNotHasKey( 'continue_url', $this->request( 'PUT', '/checkout-sessions/' . $created['id'], array() )->get_data() );
@@ -905,10 +905,10 @@ class UcpCheckout extends ControllerTestCase {
 		$rival->add_product( $product, 1 );
 		$rival->save();
 		$hold_rival = static function () use ( $rival, &$hold_rival ) {
-			remove_action( 'woocommerce_order_before_calculate_totals', $hold_rival );
+			remove_action( 'poocommerce_order_before_calculate_totals', $hold_rival );
 			wc_reserve_stock_for_order( $rival );
 		};
-		add_action( 'woocommerce_order_before_calculate_totals', $hold_rival );
+		add_action( 'poocommerce_order_before_calculate_totals', $hold_rival );
 		$response = $this->request( 'POST', '/checkout-sessions/' . $created['id'] . '/complete' );
 
 		$this->assertSame( 200, $response->get_status() );
@@ -1037,10 +1037,10 @@ class UcpCheckout extends ControllerTestCase {
 
 		// A rival checkout holds the last use after this one passed validation.
 		$hold_rival = static function () use ( $coupon, &$hold_rival ) {
-			remove_action( 'woocommerce_checkout_validate_order_before_payment', $hold_rival );
+			remove_action( 'poocommerce_checkout_validate_order_before_payment', $hold_rival );
 			$coupon->get_data_store()->check_and_hold_coupon( $coupon );
 		};
-		add_action( 'woocommerce_checkout_validate_order_before_payment', $hold_rival );
+		add_action( 'poocommerce_checkout_validate_order_before_payment', $hold_rival );
 		$response = $this->request( 'POST', $path . '/complete' );
 
 		$this->assertSame( 'error', $response->get_data()['ucp']['status'] );
@@ -1106,7 +1106,7 @@ class UcpCheckout extends ControllerTestCase {
 		$applied = $this->request( 'PUT', $path, array( 'discounts' => array( 'codes' => array( 'save1' ) ) ) )->get_data();
 		$this->assertSame( array( 'save1' ), array_column( $applied['discounts']['applied'], 'code' ) );
 
-		update_option( 'woocommerce_enable_coupons', 'no' );
+		update_option( 'poocommerce_enable_coupons', 'no' );
 		$this->simulate_new_request();
 		$refused = $this->request( 'POST', $path . '/complete' )->get_data();
 
@@ -1141,9 +1141,9 @@ class UcpCheckout extends ControllerTestCase {
 		$throw = static function () {
 			throw new \RuntimeException( 'Broken filter.' );
 		};
-		add_filter( 'woocommerce_order_hold_stock_minutes', $throw );
+		add_filter( 'poocommerce_order_hold_stock_minutes', $throw );
 		$response = $this->request( 'POST', $path . '/complete' );
-		remove_filter( 'woocommerce_order_hold_stock_minutes', $throw );
+		remove_filter( 'poocommerce_order_hold_stock_minutes', $throw );
 
 		$this->assertSame( 500, $response->get_status() );
 		$this->assertSame( 0, (int) $coupon->get_data_store()->get_tentative_usage_count( $coupon->get_id() ) );
@@ -1167,9 +1167,9 @@ class UcpCheckout extends ControllerTestCase {
 		$throw = static function () {
 			throw new \RuntimeException( 'Broken listener.' );
 		};
-		add_action( 'woocommerce_order_save_attribution_data', $throw, 1 );
+		add_action( 'poocommerce_order_save_attribution_data', $throw, 1 );
 		$response = $this->request( 'POST', $path . '/complete' );
-		remove_action( 'woocommerce_order_save_attribution_data', $throw, 1 );
+		remove_action( 'poocommerce_order_save_attribution_data', $throw, 1 );
 
 		$this->assertSame( 500, $response->get_status() );
 		$this->assertSame( 0, (int) $coupon->get_data_store()->get_tentative_usage_count( $coupon->get_id() ) );
@@ -1195,9 +1195,9 @@ class UcpCheckout extends ControllerTestCase {
 			$order_id = $order->get_id();
 			throw new \RuntimeException( 'Refused.' );
 		};
-		add_action( 'woocommerce_store_api_checkout_order_processed', $throw );
+		add_action( 'poocommerce_store_api_checkout_order_processed', $throw );
 		$response = $this->request( 'POST', $path . '/complete' );
-		remove_action( 'woocommerce_store_api_checkout_order_processed', $throw );
+		remove_action( 'poocommerce_store_api_checkout_order_processed', $throw );
 
 		$this->assertSame( 500, $response->get_status() );
 		$this->assertTrue( wc_get_order( $order_id )->has_status( OrderStatus::CANCELLED ) );
@@ -1233,7 +1233,7 @@ class UcpCheckout extends ControllerTestCase {
 		$this->request( 'PUT', $path, array( 'discounts' => array( 'codes' => array( 'save1' ) ) ) );
 
 		wc_update_product_stock( $product, 1 );
-		update_option( 'woocommerce_enable_coupons', 'no' );
+		update_option( 'poocommerce_enable_coupons', 'no' );
 		$this->simulate_new_request();
 		$codes = array_column( $this->request( 'GET', $path )->get_data()['messages'], 'code' );
 
@@ -1278,7 +1278,7 @@ class UcpCheckout extends ControllerTestCase {
 			$order->update_meta_data( '_wc_order_attribution_source_type', 'referral' );
 			$order->save_meta_data();
 		};
-		add_action( 'woocommerce_store_api_checkout_update_order_meta', $callback );
+		add_action( 'poocommerce_store_api_checkout_update_order_meta', $callback );
 
 		try {
 			$response = $this->request( 'POST', '/checkout-sessions/' . $created['id'] . '/complete', array(), array( 'UCP-Agent' => 'profile="https://chatgpt.com/"' ) );
@@ -1288,7 +1288,7 @@ class UcpCheckout extends ControllerTestCase {
 			$this->assertSame( 'referral', $order->get_meta( '_wc_order_attribution_source_type' ) );
 			$this->assertSame( '', $order->get_meta( '_wc_order_attribution_utm_source' ) );
 		} finally {
-			remove_action( 'woocommerce_store_api_checkout_update_order_meta', $callback );
+			remove_action( 'poocommerce_store_api_checkout_update_order_meta', $callback );
 		}
 	}
 }

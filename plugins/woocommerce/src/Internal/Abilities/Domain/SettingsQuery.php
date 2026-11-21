@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class SettingsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/settings-query';
+		return 'poocommerce/settings-query';
 	}
 
 	/**
@@ -33,9 +33,9 @@ class SettingsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query settings', 'woocommerce' ),
-			'description'         => __( 'Read approved settings in a group. Use include for specific setting IDs. Country fields return codes without choices. Unapproved fields and passwords are omitted.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query settings', 'poocommerce' ),
+			'description'         => __( 'Read approved settings in a group. Use include for specific setting IDs. Country fields return codes without choices. Unapproved fields and passwords are omitted.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -137,7 +137,7 @@ class SettingsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_group_fields( string $group ) {
 		if ( ! in_array( $group, array_column( SettingsGroupsQuery::get_groups(), 'id' ), true ) ) {
-			return new \WP_Error( 'woocommerce_ability_settings_group_not_found', __( 'Settings group not found.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'poocommerce_ability_settings_group_not_found', __( 'Settings group not found.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 		/**
 		 * Filters registered fields for a settings group.
@@ -145,7 +145,7 @@ class SettingsQuery extends AbstractDomainAbility implements AbilityDefinition {
 		 * @since 3.0.0
 		 * @param array $settings Registered settings.
 		 */
-		$settings = apply_filters( 'woocommerce_settings-' . $group, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$settings = apply_filters( 'poocommerce_settings-' . $group, array() ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		$fields   = array();
 		foreach ( is_array( $settings ) ? $settings : array() as $setting ) {
 			if ( ! is_array( $setting ) || ! is_string( $setting['id'] ?? null ) || ! is_string( $setting['type'] ?? null ) ) {

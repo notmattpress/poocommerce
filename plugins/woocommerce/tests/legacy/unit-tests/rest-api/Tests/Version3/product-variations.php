@@ -2,7 +2,7 @@
 /**
  * Tests for Variations API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
@@ -43,7 +43,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variations() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$response   = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() . '/variations' ) );
 		$variations = $response->get_data();
 		$this->assertEquals( 200, $response->get_status() );
@@ -59,7 +59,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variations_with_orderby() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$request = new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() . '/variations' );
 		$request->set_query_params( array( 'orderby' => 'menu_order' ) );
 		$response   = $this->server->dispatch( $request );
@@ -78,7 +78,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variations_without_permission() {
 		wp_set_current_user( 0 );
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() . '/variations' ) );
 		$this->assertEquals( 401, $response->get_status() );
 	}
@@ -90,7 +90,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variation() {
 		wp_set_current_user( $this->user );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 
@@ -109,7 +109,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variation_without_permission() {
 		wp_set_current_user( 0 );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 		$response     = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() . '/variations/' . $variation_id ) );
@@ -123,7 +123,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_variation() {
 		wp_set_current_user( $this->user );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 
@@ -144,7 +144,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_variation_without_permission() {
 		wp_set_current_user( 0 );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 
@@ -161,7 +161,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_delete_variation_with_invalid_id() {
 		wp_set_current_user( 0 );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$request = new WP_REST_Request( 'DELETE', '/wc/v3/products/' . $product->get_id() . '/variations/0' );
 		$request->set_param( 'force', true );
 		$response = $this->server->dispatch( $request );
@@ -175,7 +175,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_variation() {
 		wp_set_current_user( $this->user );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 
@@ -229,7 +229,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_variation_without_permission() {
 		wp_set_current_user( 0 );
-		$product      = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product      = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children     = $product->get_children();
 		$variation_id = $children[0];
 
@@ -250,7 +250,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_variation_with_invalid_id() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/' . $product->get_id() . '/variations/0' );
 		$request->set_body_params(
 			array(
@@ -268,7 +268,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_variation() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 
 		$response   = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() . '/variations' ) );
 		$variations = $response->get_data();
@@ -310,7 +310,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_variation_without_permission() {
 		wp_set_current_user( 0 );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 
 		$request = new WP_REST_Request( 'POST', '/wc/v3/products/' . $product->get_id() . '/variations' );
 		$request->set_body_params(
@@ -337,7 +337,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_variations_batch() {
 		wp_set_current_user( $this->user );
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children = $product->get_children();
 		$request  = new WP_REST_Request( 'POST', '/wc/v3/products/' . $product->get_id() . '/variations/batch' );
 		$request->set_body_params(
@@ -395,7 +395,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_variation_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/products/' . $product->get_id() . '/variations' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();
@@ -454,7 +454,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_update_variation_manage_stock() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$product->set_manage_stock( false );
 		$product->save();
 
@@ -514,8 +514,8 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_generate_new_variations() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
-		$color_attribute_data = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$color_attribute_data = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
 		$color_attribute      = new WC_Product_Attribute();
 		$color_attribute->set_id( $color_attribute_data['attribute_id'] );
 		$color_attribute->set_name( $color_attribute_data['attribute_taxonomy'] );
@@ -550,13 +550,13 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_generate_new_variations_with_default_values() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$children  = $product->get_children();
 		$existing_variations = array_map( 'wc_get_product', $product->get_children() );
 		foreach ( $existing_variations as $existing_variation ) {
 			$existing_variation->delete( true );
 		}
-		$color_attribute_data = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
+		$color_attribute_data = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
 		$color_attribute      = new WC_Product_Attribute();
 		$color_attribute->set_id( $color_attribute_data['attribute_id'] );
 		$color_attribute->set_name( $color_attribute_data['attribute_taxonomy'] );
@@ -598,8 +598,8 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_generate_new_variations_with_delete_set_to_true() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
-		$color_attribute_data = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$color_attribute_data = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
 		$color_attribute      = new WC_Product_Attribute();
 		$color_attribute->set_id( $color_attribute_data['attribute_id'] );
 		$color_attribute->set_name( $color_attribute_data['attribute_taxonomy'] );
@@ -636,7 +636,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_delete_unmatched_variations_when_removing_term() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$color_attribute = new WC_Product_Attribute();
 		$color_attribute->set_name( 'color' );
 		$color_attribute->set_visible( true );
@@ -686,7 +686,7 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	public function test_delete_unmatched_variations_when_removing_attribute() {
 		wp_set_current_user( $this->user );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$color_attribute = new WC_Product_Attribute();
 		$color_attribute->set_name( 'color' );
 		$color_attribute->set_visible( true );
@@ -734,8 +734,8 @@ class Product_Variations_API extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_get_variations_with_attributes_filter() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
-		$color_attribute_data = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$color_attribute_data = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_attribute( 'color', array( 'red', 'blue', 'yellow' ) );
 		$color_attribute      = new WC_Product_Attribute();
 		$color_attribute->set_id( $color_attribute_data['attribute_id'] );
 		$color_attribute->set_name( $color_attribute_data['attribute_taxonomy'] );

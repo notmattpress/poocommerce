@@ -5,11 +5,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
-use Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
+use Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard;
 
 /**
  * Tests for checkout state after order-lock contention.
@@ -51,7 +51,7 @@ class CheckoutSessionLockTests extends \WC_Unit_Test_Case {
 				$assert_unchanged->invoke( $sut );
 				$this->fail( 'Checkout should reject a session changed by another request.' );
 			} catch ( RouteException $error ) {
-				$this->assertSame( 'woocommerce_rest_checkout_session_changed', $error->getErrorCode() );
+				$this->assertSame( 'poocommerce_rest_checkout_session_changed', $error->getErrorCode() );
 				$this->assertSame( 409, $error->getCode() );
 			}
 		} finally {

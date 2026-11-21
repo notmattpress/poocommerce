@@ -2,7 +2,7 @@
 /**
  * General Settings V4 controller unit tests.
  *
- * @package WooCommerce\RestApi\UnitTests
+ * @package PooCommerce\RestApi\UnitTests
  * @since   4.0.0
  */
 
@@ -11,7 +11,7 @@ declare(strict_types=1);
 /**
  * General Settings V4 controller unit tests.
  *
- * @package WooCommerce\RestApi\UnitTests
+ * @package PooCommerce\RestApi\UnitTests
  * @since   4.0.0
  */
 class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
@@ -49,10 +49,10 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			return $features;
 		};
 
-		add_filter( 'woocommerce_admin_features', $feature_filter );
+		add_filter( 'poocommerce_admin_features', $feature_filter );
 
 		// This is to reset the country after the test.
-		$this->prev_default_country = get_option( 'woocommerce_default_country' );
+		$this->prev_default_country = get_option( 'poocommerce_default_country' );
 	}
 
 	/**
@@ -60,12 +60,12 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 	 */
 	public function tearDown(): void {
 		if ( isset( $this->prev_default_country ) ) {
-			update_option( 'woocommerce_default_country', $this->prev_default_country );
+			update_option( 'poocommerce_default_country', $this->prev_default_country );
 		}
 		delete_option( 'general_options' );
-		delete_option( 'woocommerce_currency' );
-		delete_option( 'woocommerce_price_num_decimals' );
-		delete_option( 'woocommerce_share_key_display' );
+		delete_option( 'poocommerce_currency' );
+		delete_option( 'poocommerce_price_num_decimals' );
+		delete_option( 'poocommerce_share_key_display' );
 		parent::tearDown();
 	}
 
@@ -94,8 +94,8 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$this->assertIsArray( $data['groups'] );
 
 		// Verify that values contains actual setting values.
-		$this->assertArrayHasKey( 'woocommerce_default_country', $data['values'] );
-		$this->assertIsString( $data['values']['woocommerce_default_country'] );
+		$this->assertArrayHasKey( 'poocommerce_default_country', $data['values'] );
+		$this->assertIsString( $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_default_country' => 'US:CA',
+						'poocommerce_default_country' => 'US:CA',
 					),
 				)
 			)
@@ -118,10 +118,10 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$data     = $response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( 'US:CA', get_option( 'woocommerce_default_country' ) );
+		$this->assertEquals( 'US:CA', get_option( 'poocommerce_default_country' ) );
 		$this->assertArrayHasKey( 'values', $data );
 		$this->assertArrayHasKey( 'groups', $data );
-		$this->assertEquals( 'US:CA', $data['values']['woocommerce_default_country'] );
+		$this->assertEquals( 'US:CA', $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$request->set_body(
 			wp_json_encode(
 				array(
-					'woocommerce_default_country' => 'US:NY',
+					'poocommerce_default_country' => 'US:NY',
 				)
 			)
 		);
@@ -154,10 +154,10 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$data     = $response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( 'US:NY', get_option( 'woocommerce_default_country' ) );
+		$this->assertEquals( 'US:NY', get_option( 'poocommerce_default_country' ) );
 		$this->assertArrayHasKey( 'values', $data );
 		$this->assertArrayHasKey( 'groups', $data );
-		$this->assertEquals( 'US:NY', $data['values']['woocommerce_default_country'] );
+		$this->assertEquals( 'US:NY', $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
@@ -171,7 +171,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_default_country' => 'US:CA',
+						'poocommerce_default_country' => 'US:CA',
 					),
 				)
 			)
@@ -183,12 +183,12 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 	}
 
 	/**
-	 * Test that woocommerce_share_key_display setting cannot be updated via REST API.
+	 * Test that poocommerce_share_key_display setting cannot be updated via REST API.
 	 */
 	public function test_update_share_key_display_not_allowed() {
 		// Set an initial value.
 		$initial_value = 'initial_value';
-		update_option( 'woocommerce_share_key_display', $initial_value );
+		update_option( 'poocommerce_share_key_display', $initial_value );
 
 		wp_set_current_user( self::$user_id );
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/general' );
@@ -197,8 +197,8 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_share_key_display' => 'new_value',
-						'woocommerce_default_country'   => 'US:CA', // Another setting to verify normal updates still work.
+						'poocommerce_share_key_display' => 'new_value',
+						'poocommerce_default_country'   => 'US:CA', // Another setting to verify normal updates still work.
 					),
 				)
 			)
@@ -209,17 +209,17 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		// Verify the response is successful.
 		$this->assertEquals( 200, $response->get_status() );
 
-		// Verify woocommerce_share_key_display was not changed.
-		$this->assertEquals( $initial_value, get_option( 'woocommerce_share_key_display' ) );
+		// Verify poocommerce_share_key_display was not changed.
+		$this->assertEquals( $initial_value, get_option( 'poocommerce_share_key_display' ) );
 
 		// Verify other settings were updated successfully.
-		$this->assertEquals( 'US:CA', get_option( 'woocommerce_default_country' ) );
-		$this->assertEquals( 'US:CA', $data['values']['woocommerce_default_country'] );
+		$this->assertEquals( 'US:CA', get_option( 'poocommerce_default_country' ) );
+		$this->assertEquals( 'US:CA', $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
 	 * Test updating country with state code (e.g., DE:DE-BY).
-	 * State codes in WooCommerce include the country prefix (e.g., "DE-BY" for Bavaria).
+	 * State codes in PooCommerce include the country prefix (e.g., "DE-BY" for Bavaria).
 	 */
 	public function test_update_country_with_state() {
 		wp_set_current_user( self::$user_id );
@@ -229,7 +229,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_default_country' => 'DE:DE-BY', // Bavaria, Germany.
+						'poocommerce_default_country' => 'DE:DE-BY', // Bavaria, Germany.
 					),
 				)
 			)
@@ -238,9 +238,9 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$data     = $response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( 'DE:DE-BY', get_option( 'woocommerce_default_country' ) );
+		$this->assertEquals( 'DE:DE-BY', get_option( 'poocommerce_default_country' ) );
 		$this->assertArrayHasKey( 'values', $data );
-		$this->assertEquals( 'DE:DE-BY', $data['values']['woocommerce_default_country'] );
+		$this->assertEquals( 'DE:DE-BY', $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_default_country' => 'DE:INVALID', // Invalid state code.
+						'poocommerce_default_country' => 'DE:INVALID', // Invalid state code.
 					),
 				)
 			)
@@ -277,7 +277,7 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_default_country' => 'DE', // Germany without state.
+						'poocommerce_default_country' => 'DE', // Germany without state.
 					),
 				)
 			)
@@ -286,9 +286,9 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$data     = $response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( 'DE', get_option( 'woocommerce_default_country' ) );
+		$this->assertEquals( 'DE', get_option( 'poocommerce_default_country' ) );
 		$this->assertArrayHasKey( 'values', $data );
-		$this->assertEquals( 'DE', $data['values']['woocommerce_default_country'] );
+		$this->assertEquals( 'DE', $data['values']['poocommerce_default_country'] );
 	}
 
 	/**
@@ -301,9 +301,9 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		update_option( 'general_options', $initial_title_value );
 
 		// Set initial values for other updatable options.
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_price_num_decimals', 2 );
-		update_option( 'woocommerce_share_key_display', 'no' ); // Initial value, should not be updated.
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_price_num_decimals', 2 );
+		update_option( 'poocommerce_share_key_display', 'no' ); // Initial value, should not be updated.
 
 		wp_set_current_user( self::$user_id );
 		$request = new WP_REST_Request( 'PUT', '/wc/v4/settings/general' );
@@ -312,10 +312,10 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_currency'           => 'EUR', // Should be updated.
-						'woocommerce_price_num_decimals' => 3, // Should be updated.
+						'poocommerce_currency'           => 'EUR', // Should be updated.
+						'poocommerce_price_num_decimals' => 3, // Should be updated.
 						'general_options'                => 'updated_title_value', // Should NOT be updated.
-						'woocommerce_share_key_display'  => 'yes', // Should NOT be updated (ignored by API).
+						'poocommerce_share_key_display'  => 'yes', // Should NOT be updated (ignored by API).
 					),
 				)
 			)
@@ -326,14 +326,14 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 		$this->assertEquals( 200, $response->get_status() );
 
 		// Assert that actual updatable settings were updated.
-		$this->assertEquals( 'EUR', get_option( 'woocommerce_currency' ) );
-		$this->assertEquals( 3, get_option( 'woocommerce_price_num_decimals' ) );
+		$this->assertEquals( 'EUR', get_option( 'poocommerce_currency' ) );
+		$this->assertEquals( 3, get_option( 'poocommerce_price_num_decimals' ) );
 
 		// Assert that 'title' and 'sectionend' typed settings (like 'general_options') are NOT updated.
 		$this->assertEquals( $initial_title_value, get_option( 'general_options' ) );
 
-		// Assert that woocommerce_share_key_display was ignored and remains its initial value.
-		$this->assertEquals( 'no', get_option( 'woocommerce_share_key_display' ) );
+		// Assert that poocommerce_share_key_display was ignored and remains its initial value.
+		$this->assertEquals( 'no', get_option( 'poocommerce_share_key_display' ) );
 
 		// Verify the response only contains updatable settings, and the ignored/non-updatable are not among them.
 		$response_setting_ids = array();
@@ -347,9 +347,9 @@ class WC_REST_General_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case
 			}
 		}
 
-		$this->assertContains( 'woocommerce_currency', $response_setting_ids );
-		$this->assertContains( 'woocommerce_price_num_decimals', $response_setting_ids );
+		$this->assertContains( 'poocommerce_currency', $response_setting_ids );
+		$this->assertContains( 'poocommerce_price_num_decimals', $response_setting_ids );
 		$this->assertNotContains( 'general_options', $response_setting_ids ); // Should not be in response as updatable.
-		$this->assertNotContains( 'woocommerce_share_key_display', $response_setting_ids ); // Should not be in response as updatable.
+		$this->assertNotContains( 'poocommerce_share_key_display', $response_setting_ids ); // Should not be in response as updatable.
 	}
 }

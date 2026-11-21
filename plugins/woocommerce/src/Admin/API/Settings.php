@@ -2,12 +2,12 @@
 /**
  * REST API Settings Controller (compatibility stub).
  *
- * @package WooCommerce\Admin\API
+ * @package PooCommerce\Admin\API
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 

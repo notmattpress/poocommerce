@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
 /**
  * Persists UCP `Idempotency-Key` records.
@@ -20,7 +20,7 @@ class IdempotencyStore {
 	/**
 	 * Action Scheduler hook purging expired records.
 	 */
-	const CLEANUP_HOOK = 'woocommerce_cleanup_ucp_idempotency_keys';
+	const CLEANUP_HOOK = 'poocommerce_cleanup_ucp_idempotency_keys';
 
 	/**
 	 * How long a claim may sit unanswered before another request may take it over.
@@ -222,7 +222,7 @@ class IdempotencyStore {
 		 *
 		 * @param int $seconds Retention window. Default one day.
 		 */
-		$retention = (int) apply_filters( 'woocommerce_ucp_idempotency_retention_seconds', DAY_IN_SECONDS );
+		$retention = (int) apply_filters( 'poocommerce_ucp_idempotency_retention_seconds', DAY_IN_SECONDS );
 
 		return $retention > 0 ? $retention : DAY_IN_SECONDS;
 	}

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G27A-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-27.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-27.php",
 			"before": {
 				"file": "fixtures/G27A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-27.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-27.php",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G27B-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-27.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-27.php",
 			"before": {
 				"file": "fixtures/G27B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-27.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-27.php",
 						"lines": [
 							4,
 							5
@@ -49,12 +49,12 @@
 		},
 		{
 			"id": "G27C-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-27.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-27.php",
 			"before": {
-				"code": "<?php\n/* Authenticated asset-inventory admin screen. The shipped asset directories contain release files; renderer accepts CSS and JS paths. */\nfunction wc_asset_inventory_screen() { $files = glob( WC_ABSPATH . 'assets/css/*.css' ) ?: array(); render_inventory_table( $files ); } add_action( 'load-woocommerce_page_asset-inventory', 'wc_asset_inventory_screen' );\n"
+				"code": "<?php\n/* Authenticated asset-inventory admin screen. The shipped asset directories contain release files; renderer accepts CSS and JS paths. */\nfunction wc_asset_inventory_screen() { $files = glob( WC_ABSPATH . 'assets/css/*.css' ) ?: array(); render_inventory_table( $files ); } add_action( 'load-poocommerce_page_asset-inventory', 'wc_asset_inventory_screen' );\n"
 			},
 			"after": {
-				"code": "<?php\n/* Authenticated asset-inventory admin screen. The shipped asset directories contain release files; renderer accepts CSS and JS paths. */\nfunction wc_asset_inventory_screen() { $files = glob( WC_ABSPATH . 'assets/css/*.css' ) ?: array(); $files = array_merge( $files, glob( WC_ABSPATH . 'assets/js/*.js' ) ?: array() ); render_inventory_table( $files ); } add_action( 'load-woocommerce_page_asset-inventory', 'wc_asset_inventory_screen' );\n"
+				"code": "<?php\n/* Authenticated asset-inventory admin screen. The shipped asset directories contain release files; renderer accepts CSS and JS paths. */\nfunction wc_asset_inventory_screen() { $files = glob( WC_ABSPATH . 'assets/css/*.css' ) ?: array(); $files = array_merge( $files, glob( WC_ABSPATH . 'assets/js/*.js' ) ?: array() ); render_inventory_table( $files ); } add_action( 'load-poocommerce_page_asset-inventory', 'wc_asset_inventory_screen' );\n"
 			},
 			"expect": {
 				"outcome": "quiet"
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G27D-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-27.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-27.php",
 			"before": {
 				"code": "<?php\nfinal class WC_Eval_Mailer_Service {\n    private $emails = null;\n    public function get_emails() {\n        if ( null === $this->emails ) { $this->emails = WC()->mailer()->get_emails(); }\n        return $this->emails;\n    }\n}\nadd_action( 'init', static function() { $GLOBALS['wc_eval_mailer'] = new WC_Eval_Mailer_Service(); } );\n"
 			},

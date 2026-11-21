@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductGalleryLargeImage;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductGalleryLargeImage;
 use WC_Unit_Test_Case;
 
 /**

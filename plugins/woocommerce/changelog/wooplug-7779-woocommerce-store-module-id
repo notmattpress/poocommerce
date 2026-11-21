@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Load the `woocommerce` Interactivity API store from the `@woocommerce/stores/woocommerce` script module, which replaces `@woocommerce/stores/woocommerce/cart`.
+Load the `poocommerce` Interactivity API store from the `@poocommerce/stores/poocommerce` script module, which replaces `@poocommerce/stores/poocommerce/cart`.

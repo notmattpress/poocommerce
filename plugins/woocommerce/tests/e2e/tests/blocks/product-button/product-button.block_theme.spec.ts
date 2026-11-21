@@ -6,7 +6,7 @@ import {
 	test,
 	enableTestPlugin,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -74,7 +74,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		await expect( productElement ).toBeVisible();
 	} );
 
-	test( 'the filter `woocommerce_product_add_to_cart_text` should be applied', async ( {
+	test( 'the filter `poocommerce_product_add_to_cart_text` should be applied', async ( {
 		context,
 		frontendUtils,
 	} ) => {

@@ -1,5 +1,5 @@
 /**
- * Build shared Playwright settings for a WooCommerce extension's browser suite.
+ * Build shared Playwright settings for a PooCommerce extension's browser suite.
  *
  * @param {Object}            options              Reporter paths and environment.
  * @param {string}            options.htmlReport   HTML report directory.

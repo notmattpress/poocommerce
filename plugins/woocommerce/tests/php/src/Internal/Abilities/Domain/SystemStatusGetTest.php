@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests for the system-status-get ability.
@@ -99,7 +99,7 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 	 * @return mixed|\WP_Error
 	 */
 	private function get_status() {
-		$ability = wp_get_ability( 'woocommerce/system-status-get' );
+		$ability = wp_get_ability( 'poocommerce/system-status-get' );
 		$this->assertNotNull( $ability, 'The ability should be registered.' );
 
 		return $ability->execute( array() );
@@ -113,10 +113,10 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotWPError( $result );
 		$this->assertSame(
-			array( 'woocommerce_version', 'woocommerce_db_version', 'order_storage', 'environment', 'active_plugins', 'inactive_plugins', 'mu_plugins', 'dropins', 'enabled_features', 'theme', 'pages', 'security', 'post_type_counts' ),
+			array( 'poocommerce_version', 'poocommerce_db_version', 'order_storage', 'environment', 'active_plugins', 'inactive_plugins', 'mu_plugins', 'dropins', 'enabled_features', 'theme', 'pages', 'security', 'post_type_counts' ),
 			array_keys( $result['system_status'] )
 		);
-		$this->assertSame( WC()->version, $result['system_status']['woocommerce_version'] );
+		$this->assertSame( WC()->version, $result['system_status']['poocommerce_version'] );
 		$this->assertIsObject( $result['system_status']['post_type_counts'], 'Post type counts should encode as a JSON object.' );
 	}
 
@@ -172,10 +172,10 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 			array(
 				'post_type'    => 'page',
 				'post_status'  => 'publish',
-				'post_content' => '<!-- wp:woocommerce/checkout /-->',
+				'post_content' => '<!-- wp:poocommerce/checkout /-->',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $page_id );
+		update_option( 'poocommerce_checkout_page_id', $page_id );
 
 		$result = $this->get_status();
 		$pages  = array_column( $result['system_status']['pages'], null, 'name' );
@@ -207,8 +207,8 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_reports_outdated_template_override(): void {
 		$theme_dir = get_temp_dir() . 'wc-system-status-' . wp_generate_password( 8, false );
-		wp_mkdir_p( $theme_dir . '/woocommerce/cart' );
-		file_put_contents( $theme_dir . '/woocommerce/cart/cart.php', "<?php\n/**\n * @version 1.0.0\n */\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		wp_mkdir_p( $theme_dir . '/poocommerce/cart' );
+		file_put_contents( $theme_dir . '/poocommerce/cart/cart.php', "<?php\n/**\n * @version 1.0.0\n */\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		$use_theme_dir = static fn() => $theme_dir;
 		add_filter( 'stylesheet_directory', $use_theme_dir );
 		wp_set_template_globals();
@@ -218,9 +218,9 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 		} finally {
 			remove_filter( 'stylesheet_directory', $use_theme_dir );
 			wp_set_template_globals();
-			unlink( $theme_dir . '/woocommerce/cart/cart.php' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
-			rmdir( $theme_dir . '/woocommerce/cart' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
-			rmdir( $theme_dir . '/woocommerce' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+			unlink( $theme_dir . '/poocommerce/cart/cart.php' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+			rmdir( $theme_dir . '/poocommerce/cart' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+			rmdir( $theme_dir . '/poocommerce' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
 			rmdir( $theme_dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
 		}
 
@@ -228,7 +228,7 @@ class SystemStatusGetTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should report outdated templates when a plugin points WooCommerce to an older template through wc_get_template.
+	 * @testdox Should report outdated templates when a plugin points PooCommerce to an older template through wc_get_template.
 	 */
 	public function test_reports_outdated_template_from_filter(): void {
 		$dir = get_temp_dir() . 'wc-system-status-' . wp_generate_password( 8, false );

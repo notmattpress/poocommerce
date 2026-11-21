@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Node;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Token;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser\Token;
 
 /**
  * Represents a "<selector>:<name>(<arguments>)" node.

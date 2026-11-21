@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
 use WC_Helper_Order;
 use WC_Order;
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Caches\OrderCountCacheService;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Caches\OrderCountCacheService;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Class OrderCountCacheTest.
@@ -142,7 +142,7 @@ class OrderCountCacheServiceTest extends \WC_Unit_Test_Case {
 	public function test_background_actions_scheduled() {
 		$order_count_cache_service = wc_get_container()->get( OrderCountCacheService::class );
 		$order_count_cache_service->schedule_background_actions();
-		$this->assertTrue( as_has_scheduled_action( 'woocommerce_refresh_order_count_cache' ) );
+		$this->assertTrue( as_has_scheduled_action( 'poocommerce_refresh_order_count_cache' ) );
 	}
 
 	/**

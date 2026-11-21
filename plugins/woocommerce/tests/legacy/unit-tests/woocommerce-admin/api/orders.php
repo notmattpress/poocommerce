@@ -2,11 +2,11 @@
 /**
  * Orders REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Controller as ReportsController;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Controller as ReportsController;
 
 /**
  * WC Tests API Orders
@@ -38,7 +38,7 @@ class WC_Admin_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_status() {
 		// Add a status to the actionable list.
-		update_option( 'woocommerce_actionable_order_statuses', array( 'test-status' ) );
+		update_option( 'poocommerce_actionable_order_statuses', array( 'test-status' ) );
 
 		// Ideally this would be a test using an endpoint, but the option value is used
 		// at `rest_api_init` time to create the collection param schema. It's too late

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<ruleset name="WooCommerce extension changelog formatter">
+<ruleset name="PooCommerce extension changelog formatter">
 	<file>src</file>
 	<file>tests</file>
 	<config name="testVersion" value="7.4-"/>
-	<rule ref="WooCommerce-Core"/>
+	<rule ref="PooCommerce-Core"/>
 	<rule ref="PHPCompatibility"/>
 
 	<!-- The formatter throws CLI diagnostics outside WordPress. -->
@@ -16,7 +16,7 @@
 		<exclude-pattern>*/tests/ChangelogFormatterTest.php</exclude-pattern>
 	</rule>
 
-	<!-- The fixture follows WooCommerce's legacy test framework path. -->
+	<!-- The fixture follows PooCommerce's legacy test framework path. -->
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>*/tests/fixtures/wc-test-framework/includes/wp-http-testcase.php</exclude-pattern>
 	</rule>

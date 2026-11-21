@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Class WC_Payment_Token_Data_Store_Test file.
  *
- * @package WooCommerce\Tests\DataStores
+ * @package PooCommerce\Tests\DataStores
  */
 
 /**
@@ -45,7 +45,7 @@ class WC_Payment_Token_Data_Store_Test extends WC_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( WC_Data_Exception::class, $exception, 'Creating an invalid token should throw a WC_Data_Exception' );
-		$this->assertSame( 'woocommerce_invalid_payment_token_fields', $exception->getErrorCode() );
+		$this->assertSame( 'poocommerce_invalid_payment_token_fields', $exception->getErrorCode() );
 		$this->assertSame( 'Invalid or missing payment token fields.', $exception->getMessage() );
 		$this->assertSame( 0, $exception->getCode() );
 		$this->assertSame(
@@ -76,7 +76,7 @@ class WC_Payment_Token_Data_Store_Test extends WC_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( WC_Data_Exception::class, $exception, 'Updating a token with invalid changes should throw a WC_Data_Exception' );
-		$this->assertSame( 'woocommerce_invalid_payment_token_fields', $exception->getErrorCode() );
+		$this->assertSame( 'poocommerce_invalid_payment_token_fields', $exception->getErrorCode() );
 		$this->assertSame( 'Invalid or missing payment token fields.', $exception->getMessage() );
 		$this->assertSame( 0, $exception->getCode() );
 		$this->assertSame(

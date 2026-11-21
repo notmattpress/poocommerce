@@ -12,11 +12,11 @@ class WC_REST_Order_Notes_Controller_Tests extends WC_REST_Unit_Test_Case {
 	public function test_get_items_pagination(): void {
 		$order = WC_Helper_Order::create_order();
 		$order->add_order_note( 'First internal note' );
-		add_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+		add_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		try {
 			$order->add_order_note( 'Customer note', 1 );
 		} finally {
-			remove_filter( 'woocommerce_email_log_add_order_note', '__return_false' );
+			remove_filter( 'poocommerce_email_log_add_order_note', '__return_false' );
 		}
 		$order->add_order_note( 'Last internal note' );
 

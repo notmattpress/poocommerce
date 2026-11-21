@@ -2,7 +2,7 @@
  * External dependencies
  */
 import PropTypes from 'prop-types';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ const RecommendedExtensionsItem = ( {
 		} );
 	};
 
-	const classNameBase = 'woocommerce-marketing-recommended-extensions-item';
+	const classNameBase = 'poocommerce-marketing-recommended-extensions-item';
 	const connectURL = getInAppPurchaseUrl( url );
 
 	// Temporary fix to account for different styles between marketing & coupons

@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,9 +54,9 @@ trait ProductTermAbilityTrait {
 	 */
 	private static function get_unknown_taxonomy_error( string $taxonomy ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_product_term_taxonomy_unknown',
+			'poocommerce_ability_product_term_taxonomy_unknown',
 			/* translators: %s: taxonomy name. */
-			sprintf( __( 'The taxonomy "%s" does not exist. Use product-attributes-query to list the global attributes.', 'woocommerce' ), $taxonomy ),
+			sprintf( __( 'The taxonomy "%s" does not exist. Use product-attributes-query to list the global attributes.', 'poocommerce' ), $taxonomy ),
 			array( 'status' => 404 )
 		);
 	}
@@ -89,7 +89,7 @@ trait ProductTermAbilityTrait {
 				'minLength' => 1,
 			),
 			'parent'      => array(
-				'description' => __( 'Parent term ID, for categories and brands only. Zero makes a top-level term.', 'woocommerce' ),
+				'description' => __( 'Parent term ID, for categories and brands only. Zero makes a top-level term.', 'poocommerce' ),
 				'type'        => 'integer',
 				'minimum'     => 0,
 			),
@@ -112,32 +112,32 @@ trait ProductTermAbilityTrait {
 	 */
 	private static function check_term_write( string $taxonomy, ?string $name, ?string $slug, int $parent_id, int $term_id = 0 ): ?\WP_Error {
 		if ( '' === $name ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_name_empty', __( 'The term name is empty.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_name_empty', __( 'The term name is empty.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 		// WordPress treats a "0" slug as missing and generates one from the name instead.
 		if ( '' === $slug || '0' === $slug ) {
-			return new \WP_Error( 'woocommerce_ability_product_term_slug_empty', __( 'The term needs a slug with letters or numbers, other than "0". Send one, or leave slug out to make one from the name.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_product_term_slug_empty', __( 'The term needs a slug with letters or numbers, other than "0". Send one, or leave slug out to make one from the name.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		if ( $parent_id > 0 ) {
 			if ( ! is_taxonomy_hierarchical( $taxonomy ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_term_parent_unsupported',
+					'poocommerce_ability_product_term_parent_unsupported',
 					/* translators: %s: taxonomy name. */
-					sprintf( __( 'Terms of "%s" have no parent. Leave parent out.', 'woocommerce' ), $taxonomy ),
+					sprintf( __( 'Terms of "%s" have no parent. Leave parent out.', 'poocommerce' ), $taxonomy ),
 					array( 'status' => 400 )
 				);
 			}
 			if ( ! get_term( $parent_id, $taxonomy ) instanceof \WP_Term ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_term_parent_not_found',
+					'poocommerce_ability_product_term_parent_not_found',
 					/* translators: 1: term ID, 2: taxonomy name. */
-					sprintf( __( 'There is no term %1$d in "%2$s" to use as the parent.', 'woocommerce' ), $parent_id, $taxonomy ),
+					sprintf( __( 'There is no term %1$d in "%2$s" to use as the parent.', 'poocommerce' ), $parent_id, $taxonomy ),
 					array( 'status' => 400 )
 				);
 			}
 			if ( $term_id > 0 && ( $parent_id === $term_id || in_array( $term_id, get_ancestors( $parent_id, $taxonomy, 'taxonomy' ), true ) ) ) {
-				return new \WP_Error( 'woocommerce_ability_product_term_parent_loop', __( 'A term cannot be its own parent or the parent of one of its ancestors.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'poocommerce_ability_product_term_parent_loop', __( 'A term cannot be its own parent or the parent of one of its ancestors.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -145,9 +145,9 @@ trait ProductTermAbilityTrait {
 			$existing = get_term_by( 'slug', $slug, $taxonomy );
 			if ( $existing instanceof \WP_Term && $existing->term_id !== $term_id ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_term_slug_exists',
+					'poocommerce_ability_product_term_slug_exists',
 					/* translators: %s: term slug. */
-					sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'woocommerce' ), $slug ),
+					sprintf( __( 'Slug "%s" is already in use. Change it, please.', 'poocommerce' ), $slug ),
 					array(
 						'status' => 400,
 						'id'     => $existing->term_id,
@@ -173,9 +173,9 @@ trait ProductTermAbilityTrait {
 		foreach ( is_array( $matches ) ? $matches : array() as $match ) {
 			if ( $match->term_id !== $term_id && 0 === strcasecmp( wp_specialchars_decode( $match->name, ENT_QUOTES ), $name ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_term_name_exists',
+					'poocommerce_ability_product_term_name_exists',
 					/* translators: %s: term name. */
-					sprintf( __( 'A term named "%s" already exists here.', 'woocommerce' ), $name ),
+					sprintf( __( 'A term named "%s" already exists here.', 'poocommerce' ), $name ),
 					array(
 						'status' => 400,
 						'id'     => $match->term_id,
@@ -213,7 +213,7 @@ trait ProductTermAbilityTrait {
 	}
 
 	/**
-	 * Format a term with the fields of the WooCommerce term reads.
+	 * Format a term with the fields of the PooCommerce term reads.
 	 *
 	 * @param \WP_Term $term Term to format.
 	 * @return array|\WP_Error A WP_Error when an extension field value does not match its schema.
@@ -280,7 +280,7 @@ trait ProductTermAbilityTrait {
 				'description' => array( 'type' => 'string' ),
 				'count'       => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of published, catalog-visible products. hide_empty uses stored counts and also retains parents with non-empty children, so a returned term can have count zero.', 'woocommerce' ),
+					'description' => __( 'Number of published, catalog-visible products. hide_empty uses stored counts and also retains parents with non-empty children, so a returned term can have count zero.', 'poocommerce' ),
 				),
 				'parent'      => array( 'type' => 'integer' ),
 				'display'     => array( 'type' => 'string' ),

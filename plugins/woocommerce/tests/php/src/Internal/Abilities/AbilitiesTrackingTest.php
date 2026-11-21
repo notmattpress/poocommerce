@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesTracking;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesTracking;
 use WC_Unit_Test_Case;
 use WP_Error;
 use WP_REST_Request;
@@ -14,15 +14,15 @@ use WP_REST_Request;
  */
 class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 
-	private const ABILITY_ID = 'woocommerce/tracking-test';
+	private const ABILITY_ID = 'poocommerce/tracking-test';
 
-	private const INNER_ABILITY_ID = 'woocommerce/tracking-test-inner';
+	private const INNER_ABILITY_ID = 'poocommerce/tracking-test-inner';
 
 	private const UNTRACKED_ABILITY_ID = 'tracking-test/other';
 
-	private const LONG_ABILITY_ID = 'woocommerce/tracking-test-with-a-long-name-that-goes-past-sixty-four-characters';
+	private const LONG_ABILITY_ID = 'poocommerce/tracking-test-with-a-long-name-that-goes-past-sixty-four-characters';
 
-	private const NO_SCHEMA_ABILITY_ID = 'woocommerce/tracking-test-no-schema';
+	private const NO_SCHEMA_ABILITY_ID = 'poocommerce/tracking-test-no-schema';
 
 	/**
 	 * The MCP Adapter's discovery abilities. The tests register stand-ins when the Adapter isn't loaded.
@@ -119,7 +119,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		wp_set_current_user( self::$administrator_id );
 		$this->register_test_abilities();
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$this->sut = $this->create_sut();
 		$this->sut->handle_init();
@@ -167,7 +167,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		$this->assertCount( 1, $this->sut->recorded, 'One event should be recorded per call' );
 		$event = $this->sut->recorded[0];
 		$this->assertSame( 'wcadmin_ability_called', $event['_en'] );
-		$this->assertSame( 'woocommerce__tracking-test', $event['ability_name'] );
+		$this->assertSame( 'poocommerce__tracking-test', $event['ability_name'] );
 		$this->assertSame( 'success', $event['outcome'] );
 		$this->assertSame( 'none', $event['error_code'] );
 		$this->assertSame( 'mcp', $event['channel'] );
@@ -209,7 +209,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		$response = rest_do_request( new WP_REST_Request( 'GET', '/wp-abilities/v1/abilities/' . TestExtensionAbilityDefinition::ABILITY_ID . '/run' ) );
 		$this->sut->handle_shutdown();
 
-		$this->assertNotWPError( $result, 'The extension remains usable outside the WooCommerce loader' );
+		$this->assertNotWPError( $result, 'The extension remains usable outside the PooCommerce loader' );
 		$this->assertSame( 403, $response->get_status() );
 		$this->assertCount( 0, $this->sut->recorded, 'Public discovery and a matching category do not make an ability loader-owned' );
 	}
@@ -246,7 +246,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		wp_get_ability( 'mcp-adapter/get-ability-info' )->execute( array( 'ability_name' => TestExtensionAbilityDefinition::ABILITY_ID ) );
 		$this->sut->handle_shutdown();
 
-		$this->assertCount( 0, $this->sut->recorded, 'Only the ability instance registered by the loader belongs to WooCommerce tracking' );
+		$this->assertCount( 0, $this->sut->recorded, 'Only the ability instance registered by the loader belongs to PooCommerce tracking' );
 	}
 
 	/**
@@ -299,7 +299,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	public function test_does_not_send_ability_input(): void {
 		$_SERVER['REQUEST_SCHEME'] = 'https';
 		$_SERVER['HTTP_HOST']      = 'example.com';
-		$_SERVER['REQUEST_URI']    = '/wp-json/wp-abilities/v1/abilities/woocommerce/tracking-test/run?input[search]=customer@example.com';
+		$_SERVER['REQUEST_URI']    = '/wp-json/wp-abilities/v1/abilities/poocommerce/tracking-test/run?input[search]=customer@example.com';
 		$_SERVER['HTTP_REFERER']   = 'https://example.com/?search=customer@example.com';
 		$this->start_mcp_tool_call();
 
@@ -512,13 +512,13 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should record MCP Adapter discovery of WooCommerce abilities as a separate event.
-	 * @testWith ["mcp-adapter/get-ability-info", "woocommerce/tracking-test", true, "info", "woocommerce__tracking-test"]
+	 * @testdox Should record MCP Adapter discovery of PooCommerce abilities as a separate event.
+	 * @testWith ["mcp-adapter/get-ability-info", "poocommerce/tracking-test", true, "info", "poocommerce__tracking-test"]
 	 *           ["mcp-adapter/get-ability-info", "test-extension/test-extension-ability", true, "info", "test-extension__test-extension-ability"]
 	 *           ["mcp-adapter/discover-abilities", "", true, "list", "none"]
 	 *           ["mcp-adapter/get-ability-info", "tracking-test/other", true, "", ""]
-	 *           ["mcp-adapter/get-ability-info", "woocommerce/not-registered", true, "", ""]
-	 *           ["mcp-adapter/get-ability-info", "woocommerce/tracking-test", false, "", ""]
+	 *           ["mcp-adapter/get-ability-info", "poocommerce/not-registered", true, "", ""]
+	 *           ["mcp-adapter/get-ability-info", "poocommerce/tracking-test", false, "", ""]
 	 *
 	 * @param string $adapter_ability   Adapter ability the agent calls.
 	 * @param string $looked_up         Ability it asks about, or '' for none.
@@ -730,7 +730,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should record nested WooCommerce ability calls once each.
+	 * @testdox Should record nested PooCommerce ability calls once each.
 	 */
 	public function test_records_nested_calls_once_each(): void {
 		$this->execute_result = fn() => wp_get_ability( self::INNER_ABILITY_ID )->execute();
@@ -744,8 +744,8 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		$this->assertCount( 2, $this->sut->recorded );
 		$this->assertSame(
 			array(
-				'woocommerce__tracking-test'       => 'success',
-				'woocommerce__tracking-test-inner' => 'success',
+				'poocommerce__tracking-test'       => 'success',
+				'poocommerce__tracking-test-inner' => 'success',
 			),
 			$outcomes
 		);
@@ -852,8 +852,8 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 
 		$events = array_column( $this->sut->recorded, null, 'ability_name' );
 		$this->assertCount( 2, $this->sut->recorded );
-		$this->assertSame( 'success', $events['woocommerce__tracking-test']['outcome'] );
-		$this->assertSame( 'unknown', $events['woocommerce__tracking-test-inner']['error_code'] );
+		$this->assertSame( 'success', $events['poocommerce__tracking-test']['outcome'] );
+		$this->assertSame( 'unknown', $events['poocommerce__tracking-test-inner']['error_code'] );
 	}
 
 	/**
@@ -912,13 +912,13 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		wp_get_ability( self::LONG_ABILITY_ID )->execute();
 		$this->sut->handle_shutdown();
 
-		$this->assertSame( 'woocommerce__tracking-test-with-a-long-name-that-goes-past-sixty-four-characters', $this->sut->recorded[0]['ability_name'] );
+		$this->assertSame( 'poocommerce__tracking-test-with-a-long-name-that-goes-past-sixty-four-characters', $this->sut->recorded[0]['ability_name'] );
 	}
 
 	/**
-	 * @testdox Should not record abilities outside the woocommerce namespace that the loader did not register.
+	 * @testdox Should not record abilities outside the poocommerce namespace that the loader did not register.
 	 */
-	public function test_ignores_abilities_outside_woocommerce_namespace(): void {
+	public function test_ignores_abilities_outside_poocommerce_namespace(): void {
 		$this->start_mcp_tool_call();
 
 		wp_get_ability( self::UNTRACKED_ABILITY_ID )->execute();
@@ -944,7 +944,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		if ( is_multisite() ) {
 			$this->markTestSkipped( 'On multisite, hooks are always attached and consent is checked per call.' );
 		}
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$sut = new AbilitiesTracking();
 
 		$sut->handle_init();
@@ -1013,7 +1013,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	 */
 	public function test_does_not_record_call_that_disables_tracking(): void {
 		$this->execute_result = static function () {
-			update_option( 'woocommerce_allow_tracking', 'no' );
+			update_option( 'poocommerce_allow_tracking', 'no' );
 			return array( 'ok' => true );
 		};
 		$this->start_mcp_tool_call();
@@ -1028,7 +1028,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	 * @testdox Should not treat a posted onboarding opt-in as consent.
 	 */
 	public function test_ignores_posted_onboarding_opt_in(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$_POST['wc_tracker_checkbox'] = 'yes';
 		$this->start_mcp_tool_call();
 
@@ -1051,9 +1051,9 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		}
 		$opted_in_site = self::factory()->blog->create();
 		switch_to_blog( $opted_in_site );
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		restore_current_blog();
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		remove_all_actions( 'mcp_adapter_pre_tool_call' );
 		$sut = $this->create_sut();
 		$sut->handle_init();
@@ -1117,8 +1117,8 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should not let a failing Tracks or consent filter break the ability call.
-	 * @testWith ["woocommerce_tracks_event_properties"]
-	 *           ["woocommerce_apply_tracking"]
+	 * @testWith ["poocommerce_tracks_event_properties"]
+	 *           ["poocommerce_apply_tracking"]
 	 *
 	 * @param string $hook Filter that throws.
 	 */
@@ -1258,9 +1258,9 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Register the extension fixture through WooCommerce or directly with WordPress.
+	 * Register the extension fixture through PooCommerce or directly with WordPress.
 	 *
-	 * @param bool $through_loader Whether to use the WooCommerce loader.
+	 * @param bool $through_loader Whether to use the PooCommerce loader.
 	 */
 	private function register_extension_ability( bool $through_loader = true ): void {
 		$definitions = static function ( $classes ) {
@@ -1272,14 +1272,14 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		};
 
 		if ( $through_loader ) {
-			add_filter( 'woocommerce_ability_definition_classes', $definitions );
+			add_filter( 'poocommerce_ability_definition_classes', $definitions );
 		}
 		add_action( 'wp_abilities_api_init', $register );
 		try {
 			do_action( 'wp_abilities_api_init' );
 		} finally {
 			remove_action( 'wp_abilities_api_init', $register );
-			remove_filter( 'woocommerce_ability_definition_classes', $definitions );
+			remove_filter( 'poocommerce_ability_definition_classes', $definitions );
 		}
 	}
 
@@ -1348,12 +1348,12 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 		// Create the registry first; its creation fires wp_abilities_api_init, which would run the callback below twice.
 		wp_get_abilities();
 
-		if ( ! wp_has_ability_category( 'woocommerce' ) ) {
+		if ( ! wp_has_ability_category( 'poocommerce' ) ) {
 			$register_category = static function (): void {
 				wp_register_ability_category(
-					'woocommerce',
+					'poocommerce',
 					array(
-						'label'       => 'WooCommerce',
+						'label'       => 'PooCommerce',
 						'description' => 'Store management abilities.',
 					)
 				);
@@ -1379,7 +1379,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 				$args = array(
 					'label'               => 'Tracking test',
 					'description'         => 'Ability used by the tracking tests.',
-					'category'            => 'woocommerce',
+					'category'            => 'poocommerce',
 					'execute_callback'    => $callback,
 					'permission_callback' => fn() => $this->permission,
 					'meta'                => array( 'show_in_rest' => true ),
@@ -1402,7 +1402,7 @@ class AbilitiesTrackingTest extends WC_Unit_Test_Case {
 					array(
 						'label'               => 'Adapter discovery',
 						'description'         => 'Stand-in for an MCP Adapter discovery ability.',
-						'category'            => 'woocommerce',
+						'category'            => 'poocommerce',
 						'input_schema'        => array(
 							'type'    => 'object',
 							'default' => array(),

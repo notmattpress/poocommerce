@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The base class of the WooCommerce abilities.
+ * The base class of the PooCommerce abilities.
  *
  * WordPress 7.2 converts valid ability input to the schema types with
  * WP_Ability::coerce_input() before the callbacks run. This class backports
@@ -27,7 +27,7 @@ class Ability extends \WP_Ability {
 	 *
 	 * Invalid input stays unchanged, so validate_input() refuses it as before.
 	 *
-	 * Remove this override, coerce_input() and get_input_error() when WooCommerce
+	 * Remove this override, coerce_input() and get_input_error() when PooCommerce
 	 * requires WordPress 7.2, because WP_Ability::execute() converts the input there.
 	 *
 	 * @since 11.4.0
@@ -100,7 +100,7 @@ class Ability extends \WP_Ability {
 				'ability_invalid_input',
 				sprintf(
 					/* translators: %1$s: ability name, %2$s: error message. */
-					__( 'Ability "%1$s" has invalid input. Reason: %2$s', 'woocommerce' ),
+					__( 'Ability "%1$s" has invalid input. Reason: %2$s', 'poocommerce' ),
 					$this->name,
 					$error->get_error_message()
 				)

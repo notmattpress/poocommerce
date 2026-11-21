@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * UCP `GET /carts/{id}` and `PUT /carts/{id}` route.
@@ -56,11 +56,11 @@ class CartsById extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'line_items' => array(
-						'description' => __( 'The complete desired contents of the cart.', 'woocommerce' ),
+						'description' => __( 'The complete desired contents of the cart.', 'poocommerce' ),
 						'type'        => 'array',
 					),
 					'discounts'  => array(
-						'description' => __( 'Discount codes to apply, replacing any applied before.', 'woocommerce' ),
+						'description' => __( 'Discount codes to apply, replacing any applied before.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 				),

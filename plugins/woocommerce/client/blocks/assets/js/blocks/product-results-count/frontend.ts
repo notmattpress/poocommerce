@@ -3,7 +3,7 @@
  */
 import { getElement, getServerContext, store } from '@wordpress/interactivity';
 
-const BLOCK_NAME = 'woocommerce/product-results-count';
+const BLOCK_NAME = 'poocommerce/product-results-count';
 
 /**
  * How long to wait before speaking, so the count follows the router's

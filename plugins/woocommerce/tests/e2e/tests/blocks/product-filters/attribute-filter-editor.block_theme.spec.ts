@@ -6,7 +6,7 @@ import {
 	expect,
 	BLOCK_THEME_SLUG,
 	getProductAttributeIds,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 import { ProductFiltersPage } from './product-filters.page';
 
 const blockData = {
-	name: 'woocommerce/product-filter-attribute',
+	name: 'poocommerce/product-filter-attribute',
 	selectors: {
 		frontend: {},
 		editor: {
@@ -93,16 +93,16 @@ test.describe( `${ blockData.name }`, () => {
 			},
 			innerBlocks: [
 				{
-					name: 'woocommerce/product-filters',
+					name: 'poocommerce/product-filters',
 					attributes: { overlayMode: 'off' },
 					innerBlocks: [
 						{
-							name: 'woocommerce/product-filter-attribute',
+							name: 'poocommerce/product-filter-attribute',
 							attributes: {
 								attributeId: colorAttributeId,
-								displayStyle: 'woocommerce/dropdown',
+								displayStyle: 'poocommerce/dropdown',
 							},
-							innerBlocks: [ { name: 'woocommerce/dropdown' } ],
+							innerBlocks: [ { name: 'poocommerce/dropdown' } ],
 						},
 					],
 				},

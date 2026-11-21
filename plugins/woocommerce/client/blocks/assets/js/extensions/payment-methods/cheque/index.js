@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
-import { getPaymentMethodData } from '@woocommerce/settings';
+import { getPaymentMethodData } from '@poocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import { RawHTML } from '@wordpress/element';
 
 /**
@@ -15,7 +15,7 @@ import { PAYMENT_METHOD_NAME } from './constants';
 import { canMakePaymentForShippingMethods } from '../utils/shipping-method-restrictions';
 
 const settings = getPaymentMethodData( 'cheque', {} );
-const defaultLabel = __( 'Check payment', 'woocommerce' );
+const defaultLabel = __( 'Check payment', 'poocommerce' );
 const label = decodeEntities( settings?.title || '' ) || defaultLabel;
 
 /**

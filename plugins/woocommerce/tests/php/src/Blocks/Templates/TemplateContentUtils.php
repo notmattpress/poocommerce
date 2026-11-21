@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Templates;
+namespace Automattic\PooCommerce\Tests\Blocks\Templates;
 
 /**
  * Helpers for comparing template HTML in tests.

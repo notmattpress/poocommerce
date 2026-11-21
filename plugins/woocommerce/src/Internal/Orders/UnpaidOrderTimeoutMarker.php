@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Order;
 
 /**
@@ -70,7 +70,7 @@ class UnpaidOrderTimeoutMarker implements RegisterHooksInterface {
 	 * Register hooks and filters.
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_order_status_cancelled', array( $this, 'clear_marker_on_other_cancellations' ), 10, 2 );
+		add_action( 'poocommerce_order_status_cancelled', array( $this, 'clear_marker_on_other_cancellations' ), 10, 2 );
 	}
 
 	/**

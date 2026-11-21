@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests;
+namespace Automattic\PooCommerce\Tests;
 
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 
 /**
  * Sits between the test class and WC_Unit_Test_Case, so its set_up() runs when the trait calls
@@ -16,7 +16,7 @@ use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 abstract class LoggerSpyTraitTestBase extends \WC_Unit_Test_Case {
 
 	/**
-	 * Whether woocommerce_logging_class had any callback when the base set-up started.
+	 * Whether poocommerce_logging_class had any callback when the base set-up started.
 	 *
 	 * @var bool
 	 */
@@ -26,7 +26,7 @@ abstract class LoggerSpyTraitTestBase extends \WC_Unit_Test_Case {
 	 * Record whether the logging class is filtered, then run the base set-up.
 	 */
 	public function set_up() {
-		$this->logging_class_filtered_before_base_set_up = has_filter( 'woocommerce_logging_class' );
+		$this->logging_class_filtered_before_base_set_up = has_filter( 'poocommerce_logging_class' );
 		parent::set_up();
 	}
 }

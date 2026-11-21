@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsImporterRestController;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsImporterRestController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -55,8 +55,8 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		self::$original_fulfillments_flag = get_option( 'woocommerce_feature_fulfillments_enabled' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		self::$original_fulfillments_flag = get_option( 'poocommerce_feature_fulfillments_enabled' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		$sut = wc_get_container()->get( FulfillmentsController::class );
 		$sut->register();
 		$sut->initialize_fulfillments();
@@ -82,9 +82,9 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 			wp_delete_user( self::$admin_id );
 		}
 		if ( false === self::$original_fulfillments_flag ) {
-			delete_option( 'woocommerce_feature_fulfillments_enabled' );
+			delete_option( 'poocommerce_feature_fulfillments_enabled' );
 		} else {
-			update_option( 'woocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
+			update_option( 'poocommerce_feature_fulfillments_enabled', self::$original_fulfillments_flag );
 		}
 		parent::tearDownAfterClass();
 	}
@@ -344,10 +344,10 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox register() exposes the prepare route on the REST server through the WooCommerce namespace filter.
+	 * @testdox register() exposes the prepare route on the REST server through the PooCommerce namespace filter.
 	 */
 	public function test_register_exposes_prepare_route(): void {
-		$this->assertSame( 10, has_filter( 'woocommerce_rest_api_get_rest_namespaces', array( $this->sut, 'handle_woocommerce_rest_api_get_rest_namespaces' ) ) );
+		$this->assertSame( 10, has_filter( 'poocommerce_rest_api_get_rest_namespaces', array( $this->sut, 'handle_poocommerce_rest_api_get_rest_namespaces' ) ) );
 		$this->assertArrayHasKey( '/wc/v3/fulfillments/import/prepare', rest_get_server()->get_routes( 'wc/v3' ) );
 	}
 
@@ -404,7 +404,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->prepare_with_staged_file( $file );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_too_many_rows', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_too_many_rows', $response->get_error_code() );
 		$this->assertSame( 413, $response->get_error_data()['status'] );
 		$this->assertFileDoesNotExist( $file, 'The staged file must be cleaned up when the row cap rejects it' );
 		$this->assertNull( ImportSession::active_for_user( get_current_user_id() ) );
@@ -420,7 +420,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->prepare_with_staged_file( $file, $attachment_id );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_too_many_rows', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_too_many_rows', $response->get_error_code() );
 		$this->assertSame( 413, $response->get_error_data()['status'] );
 		$this->assertStringContainsString( number_format_i18n( FulfillmentsCsvImporter::MAX_IMPORT_ROWS ), $response->get_error_message(), 'The message names the cap, never the capped total' );
 		$this->assertFileDoesNotExist( $file );
@@ -482,7 +482,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->prepare_with_staged_file( $file, $attachment_id );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
 		$this->assertSame( 'The CSV file has no data rows.', $response->get_error_message() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 		$this->assertFileDoesNotExist( $file );
@@ -500,7 +500,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->prepare_with_staged_file( $file, $attachment_id );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
 		$this->assertSame( 'CSV file is empty.', $response->get_error_message() );
 		$this->assertFileDoesNotExist( $file );
 		$this->assertNull( get_post( $attachment_id ) );
@@ -578,7 +578,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_session_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_session_failed', $response->get_error_code() );
 		$this->assertSame( 500, $response->get_error_data()['status'] );
 		$this->assertFileDoesNotExist( $file, 'A staged file with no cleanup owner must not be left behind' );
 		$this->assertNull( get_post( $attachment_id ) );
@@ -631,7 +631,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->invoke( 'handle_prepare', $request, $sut );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 		$this->assertFileDoesNotExist( $staged, 'A misplaced upload is still removed' );
 		$this->assertNull( get_post( $attachment_id ) );
@@ -681,10 +681,10 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 	/**
 	 * @testdox PHP upload errors are mapped to the matching error code before the helper runs.
 	 *
-	 * @testWith [1, "woocommerce_fulfillments_import_file_too_large", 413]
-	 *           [2, "woocommerce_fulfillments_import_file_too_large", 413]
-	 *           [4, "woocommerce_fulfillments_import_no_file", 400]
-	 *           [3, "woocommerce_fulfillments_import_upload_failed", 400]
+	 * @testWith [1, "poocommerce_fulfillments_import_file_too_large", 413]
+	 *           [2, "poocommerce_fulfillments_import_file_too_large", 413]
+	 *           [4, "poocommerce_fulfillments_import_no_file", 400]
+	 *           [3, "poocommerce_fulfillments_import_upload_failed", 400]
 	 *
 	 * @param int    $error  PHP upload error code.
 	 * @param string $code   Expected error code.
@@ -724,7 +724,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->invoke( 'handle_prepare', $request, $sut );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_csv_parse_error', $response->get_error_code() );
 		$this->assertSame( 'CSV file is empty.', $response->get_error_message() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 	}
@@ -745,7 +745,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->invoke( 'handle_prepare', $request, $sut );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
 		$this->assertSame( 500, $response->get_error_data()['status'] );
 		$this->assertStringNotContainsString( 'wp_import_handle_upload', $response->get_error_message() );
 		$this->assertArrayNotHasKey( 'fulfillment_import_file', $_FILES ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Asserting the superglobal was restored, not reading input.
@@ -846,7 +846,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertGreaterThan( 0, $helper->stored_id, 'The helper created an attachment' );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 		$this->assertFileDoesNotExist( $helper->stored_file, 'The stored file is removed' );
 		$this->assertNull( get_post( $helper->stored_id ), 'The attachment is removed' );
@@ -870,7 +870,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->invoke( 'handle_prepare', $request, $sut );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_upload_failed', $response->get_error_code() );
 		$this->assertSame( 'The file could not be uploaded.', $response->get_error_message() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 		$this->assertStringNotContainsString( '/var/www', $response->get_error_message() );
@@ -884,12 +884,12 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = $this->invoke( 'handle_prepare', $this->make_prepare_request() );
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_no_file', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_no_file', $response->get_error_code() );
 		$this->assertSame( 400, $response->get_error_data()['status'] );
 	}
 
 	/**
-	 * @testdox The permission check returns 403 for a user without manage_woocommerce.
+	 * @testdox The permission check returns 403 for a user without manage_poocommerce.
 	 */
 	public function test_permission_check_returns_403_for_subscriber(): void {
 		$subscriber = wp_insert_user(
@@ -930,7 +930,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_do_request( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_fulfillments_import_no_file', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_fulfillments_import_no_file', $response->get_data()['code'] );
 	}
 
 	/**
@@ -976,7 +976,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		$response = rest_do_request( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_fulfillments_import_no_file', $response->get_data()['code'], 'A valid delimiter must pass validation and fail only on the missing file' );
+		$this->assertSame( 'poocommerce_fulfillments_import_no_file', $response->get_data()['code'], 'A valid delimiter must pass validation and fail only on the missing file' );
 	}
 
 	/**
@@ -998,7 +998,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
 		$this->assertSame( 413, $response->get_error_data()['status'] );
 		$this->assertStringContainsString( 'no upload space', $response->get_error_message() );
 	}
@@ -1022,7 +1022,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
 		$this->assertSame( 413, $response->get_error_data()['status'] );
 		$this->assertSame( 'This site has no upload space left for the file.', $response->get_error_message() );
 	}
@@ -1056,7 +1056,7 @@ class FulfillmentsImporterRestControllerTest extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertInstanceOf( \WP_Error::class, $response );
-		$this->assertSame( 'woocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
+		$this->assertSame( 'poocommerce_fulfillments_import_file_too_large', $response->get_error_code() );
 		$this->assertSame( 413, $response->get_error_data()['status'] );
 		$this->assertNull( ImportSession::active_for_user( get_current_user_id() ) );
 		$this->assertArrayNotHasKey( 'fulfillment_import_file', $_FILES ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Asserting the superglobal was never written, not reading input.

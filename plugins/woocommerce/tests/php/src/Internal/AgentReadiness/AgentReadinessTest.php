@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessRule;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreResponses;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessRule;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreResponses;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -40,7 +40,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 		$output_checks = new StoreOutputChecks();
 		$output_checks->init( new ComingSoonHelper() );
 		$this->sut = new AgentReadiness();
-		$this->sut->init( $store_conditions, $output_checks, new RemoteRules(), wc_get_container()->get( \Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales() );
+		$this->sut->init( $store_conditions, $output_checks, new RemoteRules(), wc_get_container()->get( \Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales() );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 		$output_checks->init( new ComingSoonHelper() );
 		$store_conditions = new StoreConditions();
 		$store_conditions->init( new ComingSoonHelper() );
-		$this->sut->init( $store_conditions, $output_checks, new RemoteRules(), wc_get_container()->get( \Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales() );
+		$this->sut->init( $store_conditions, $output_checks, new RemoteRules(), wc_get_container()->get( \Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales() );
 		add_filter( 'pre_http_request', static fn() => new \WP_Error( 'http_request_failed', 'Timed out' ) );
 
 		$checks = array_column( $this->sut->get_report()['store_checks'], null, 'id' );
@@ -128,7 +128,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	public function test_rules_filter(): void {
 		WC_Helper_Product::create_simple_product();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) {
 				unset( $rules['missing_brand'] );
 				$rules['missing_gtin']['google']['effect']   = 'not_listable';
@@ -229,7 +229,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 		$product->update_meta_data( '_wc_gla_brand', 'Acme' );
 		$product->save();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) {
 				$rules['missing_brand'] = array_intersect_key( $rules['missing_brand'], array( 'google' => true ) );
 				return $rules;
@@ -262,7 +262,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	 * @testdox Each check carries the share of the last 90 days' sales on its failing products, from Analytics, once there are enough orders to rank by.
 	 */
 	public function test_report_sales_share(): void {
-		update_option( 'woocommerce_analytics_enabled', 'yes' );
+		update_option( 'poocommerce_analytics_enabled', 'yes' );
 		if ( ! taxonomy_exists( 'product_brand' ) ) {
 			register_taxonomy( 'product_brand', 'product' );
 		}
@@ -276,10 +276,10 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 			$order->set_status( 'completed' );
 			$order->calculate_totals();
 			$order->save();
-			\Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
-			\Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
 		};
-		for ( $i = 1; $i < \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
+		for ( $i = 1; $i < \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
 			$place_order();
 		}
 
@@ -301,7 +301,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	 * @testdox A check a variable product fails through some variations counts only their sales; a check on the whole product counts all of it.
 	 */
 	public function test_report_sales_share_of_failing_variations(): void {
-		update_option( 'woocommerce_analytics_enabled', 'yes' );
+		update_option( 'poocommerce_analytics_enabled', 'yes' );
 		$variable = WC_Helper_Product::create_variation_product();
 		$children = array_map( 'wc_get_product', $variable->get_children() );
 		$image_id = self::factory()->attachment->create_object( 'mug.jpg', 0, array( 'post_mime_type' => 'image/jpeg' ) );
@@ -309,15 +309,15 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 			$child->set_image_id( $image_id );
 			$child->save();
 		}
-		for ( $i = 0; $i < \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
+		for ( $i = 0; $i < \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales::MIN_ORDERS; $i++ ) {
 			$order = wc_create_order();
 			$order->add_product( $children[0], 1 );
 			$order->add_product( $children[1], 1 );
 			$order->set_status( 'completed' );
 			$order->calculate_totals();
 			$order->save();
-			\Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
-			\Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::sync_order( $order->get_id() );
+			\Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_order_products( $order->get_id() );
 		}
 		$first  = (float) $children[0]->get_price();
 		$second = (float) $children[1]->get_price();
@@ -448,7 +448,7 @@ class AgentReadinessTest extends WC_Unit_Test_Case {
 	public function test_rules_are_built_once(): void {
 		$calls = 0;
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) use ( &$calls ) {
 				++$calls;
 				return $rules;

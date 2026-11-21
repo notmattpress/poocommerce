@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\Ucp;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Ucp\AbstractCatalogRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Ucp\AbstractCatalogRoute;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

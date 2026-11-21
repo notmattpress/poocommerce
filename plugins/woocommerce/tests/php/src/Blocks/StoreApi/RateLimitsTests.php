@@ -3,11 +3,11 @@
  * Rate Limits Tests
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Authentication;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Utilities\RateLimits;
+use Automattic\PooCommerce\StoreApi\Authentication;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Utilities\RateLimits;
 use ReflectionClass;
 use ReflectionException;
 use Spy_REST_Server;
@@ -62,7 +62,7 @@ class RateLimitsTests extends \WC_Unit_Test_Case {
 		$this->init_rest_api( '/wc/store/cart' );
 
 		add_filter(
-			'woocommerce_store_api_rate_limit_options',
+			'poocommerce_store_api_rate_limit_options',
 			function () {
 				return array( 'enabled' => true );
 			}
@@ -121,7 +121,7 @@ class RateLimitsTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_ucp_requests_are_rate_limited( string $route ) {
 		add_filter(
-			'woocommerce_store_api_rate_limit_options',
+			'poocommerce_store_api_rate_limit_options',
 			function () {
 				return array(
 					'enabled' => true,
@@ -169,7 +169,7 @@ class RateLimitsTests extends \WC_Unit_Test_Case {
 	 * @param bool   $expected Whether the checkout rate limit should apply.
 	 */
 	public function test_ucp_complete_opts_in_to_checkout_rate_limit( string $route, bool $expected ) {
-		update_option( 'woocommerce_feature_rate_limit_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_rate_limit_checkout_enabled', 'yes' );
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		$this->init_rest_api( $route );
@@ -253,7 +253,7 @@ class RateLimitsTests extends \WC_Unit_Test_Case {
 		$_SERVER['HTTP_USER_AGENT']      = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
 
 		add_filter(
-			'woocommerce_store_api_rate_limit_id',
+			'poocommerce_store_api_rate_limit_id',
 			function () {
 				return wc_get_user_agent() . $_SERVER['HTTP_ACCEPT_LANGUAGE']; // @codingStandardsIgnoreLine
 			}

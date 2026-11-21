@@ -2,17 +2,17 @@
 /**
  * Argument checks shared by the public facades. WordPress-free Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Core\Support
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Core\Support
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Core\Support;
 
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Contract;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Contract;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -29,7 +29,7 @@ const toggleBlockProductTour = async (
 	const url = './wp-json/wc-admin/options';
 	const params = { _locale: 'user' };
 	const toggleValue = enable ? 'no' : 'yes';
-	const data = { woocommerce_block_product_tour_shown: toggleValue };
+	const data = { poocommerce_block_product_tour_shown: toggleValue };
 
 	await request.post( url, {
 		data,
@@ -42,26 +42,26 @@ const toggleVariableProductTour = async ( page: Page, enable: boolean ) => {
 	await page.waitForLoadState( 'domcontentloaded' );
 
 	// Get the current user data
-	const { id: userId, woocommerce_meta } = await page.evaluate( () => {
+	const { id: userId, poocommerce_meta } = await page.evaluate( () => {
 		return window.wp.data.select( 'core' ).getCurrentUser();
 	} );
 
 	const toggleValue = enable ? 'no' : 'yes';
-	const updatedWooCommerceMeta = {
-		...woocommerce_meta,
+	const updatedPooCommerceMeta = {
+		...poocommerce_meta,
 		variable_product_tour_shown: toggleValue,
 	};
 
 	// Push the updated user data
 	await page.evaluate(
 		// eslint-disable-next-line @typescript-eslint/no-shadow
-		async ( { userId, updatedWooCommerceMeta } ) => {
+		async ( { userId, updatedPooCommerceMeta } ) => {
 			await window.wp.data.dispatch( 'core' ).saveUser( {
 				id: userId,
-				woocommerce_meta: updatedWooCommerceMeta,
+				poocommerce_meta: updatedPooCommerceMeta,
 			} );
 		},
-		{ userId, updatedWooCommerceMeta }
+		{ userId, updatedPooCommerceMeta }
 	);
 
 	await page.reload();

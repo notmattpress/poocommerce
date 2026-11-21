@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,7 +28,7 @@ class ProductRatingTest extends WC_Unit_Test_Case {
 		$interactivity_state     = $this->snapshot_interactivity_state();
 
 		try {
-			update_option( 'woocommerce_enable_reviews', $global_reviews_setting );
+			update_option( 'poocommerce_enable_reviews', $global_reviews_setting );
 
 			$fixtures = new FixtureData();
 			$product  = $fixtures->get_simple_product(
@@ -53,9 +53,9 @@ class ProductRatingTest extends WC_Unit_Test_Case {
 			$this->assertGreaterThan( 0, $product->get_review_count(), 'The review fixture must have a real approved review before rendering.' );
 
 			$markup = do_blocks(
-				'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
-				'<!-- wp:woocommerce/product-rating /-->' .
-				'<!-- /wp:woocommerce/single-product -->'
+				'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
+				'<!-- wp:poocommerce/product-rating /-->' .
+				'<!-- /wp:poocommerce/single-product -->'
 			);
 
 			if ( $expected_visible ) {
@@ -182,14 +182,14 @@ class ProductRatingTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Single Product block review links follow the current page and ignore $GLOBALS['product'].
 	 *
-	 * @testWith ["woocommerce/product-rating", false, false]
-	 *           ["woocommerce/product-rating", true, false]
-	 *           ["woocommerce/product-rating", false, true]
-	 *           ["woocommerce/product-rating", true, true]
-	 *           ["woocommerce/product-rating-counter", false, false]
-	 *           ["woocommerce/product-rating-counter", true, false]
-	 *           ["woocommerce/product-rating-counter", false, true]
-	 *           ["woocommerce/product-rating-counter", true, true]
+	 * @testWith ["poocommerce/product-rating", false, false]
+	 *           ["poocommerce/product-rating", true, false]
+	 *           ["poocommerce/product-rating", false, true]
+	 *           ["poocommerce/product-rating", true, true]
+	 *           ["poocommerce/product-rating-counter", false, false]
+	 *           ["poocommerce/product-rating-counter", true, false]
+	 *           ["poocommerce/product-rating-counter", false, true]
+	 *           ["poocommerce/product-rating-counter", true, true]
 	 *
 	 * @param string $inner_block_name       Inner rating block to render.
 	 * @param bool   $global_product_matches Whether to set $GLOBALS['product'] to the block product.
@@ -217,9 +217,9 @@ class ProductRatingTest extends WC_Unit_Test_Case {
 			}
 
 			$markup = do_blocks(
-				'<!-- wp:woocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
+				'<!-- wp:poocommerce/single-product {"productId":' . $product->get_id() . '} -->' .
 				'<!-- wp:' . $inner_block_name . ' /-->' .
-				'<!-- /wp:woocommerce/single-product -->'
+				'<!-- /wp:poocommerce/single-product -->'
 			);
 
 			$context = ( $on_product_page ? 'on the product page' : 'off the product page' ) . ' ' . ( $global_product_matches ? 'when the global product matches' : 'when the global product is not set' );

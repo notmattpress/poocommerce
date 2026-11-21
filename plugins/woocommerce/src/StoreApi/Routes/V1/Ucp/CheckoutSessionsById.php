@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
 /**
  * UCP `GET /checkout-sessions/{id}` and `PUT /checkout-sessions/{id}` route.
@@ -52,23 +52,23 @@ class CheckoutSessionsById extends AbstractCheckoutRoute {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'line_items'       => array(
-						'description' => __( 'The complete desired contents of the checkout.', 'woocommerce' ),
+						'description' => __( 'The complete desired contents of the checkout.', 'poocommerce' ),
 						'type'        => 'array',
 					),
 					'buyer'            => array(
-						'description' => __( 'Buyer contact details.', 'woocommerce' ),
+						'description' => __( 'Buyer contact details.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'billing_address'  => array(
-						'description' => __( 'Billing postal address.', 'woocommerce' ),
+						'description' => __( 'Billing postal address.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'shipping_address' => array(
-						'description' => __( 'Shipping postal address.', 'woocommerce' ),
+						'description' => __( 'Shipping postal address.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 					'discounts'        => array(
-						'description' => __( 'Discount codes to apply, replacing any applied before.', 'woocommerce' ),
+						'description' => __( 'Discount codes to apply, replacing any applied before.', 'poocommerce' ),
 						'type'        => 'object',
 					),
 				),
@@ -122,7 +122,7 @@ class CheckoutSessionsById extends AbstractCheckoutRoute {
 		$context = null === $error ? $this->apply_discount_codes( $codes ) : array();
 
 		if ( ( $state['fingerprint'] ?? '' ) !== $this->hand_off_fingerprint() ) {
-			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session changed after payment was handed off.', 'woocommerce' ) );
+			$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session changed after payment was handed off.', 'poocommerce' ) );
 		}
 
 		// Read again, so an order paid while this request ran is reported as it now stands.

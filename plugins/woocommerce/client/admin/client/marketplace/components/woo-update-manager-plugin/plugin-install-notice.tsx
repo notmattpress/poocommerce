@@ -38,18 +38,18 @@ export default function PluginInstallNotice( props: { selectedTab: string } ) {
 		const isManualInstall = !! wccomSettings?.wooUpdateManagerManualInstall;
 
 		return (
-			<section className="woocommerce-marketplace__woo-update-manager-plugin__notices">
+			<section className="poocommerce-marketplace__woo-update-manager-plugin__notices">
 				<Notice status="error" isDismissible={ false }>
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							isManualInstall
 								? __(
-										'Please download the <b>WooCommerce.com Update Manager</b> and upload it on the Add Plugins screen to continue receiving the updates and streamlined support included in your WooCommerce.com subscriptions.<br/>WooCommerce.com can’t reach local sites, so it can’t install it for you.',
-										'woocommerce'
+										'Please download the <b>PooCommerce.com Update Manager</b> and upload it on the Add Plugins screen to continue receiving the updates and streamlined support included in your PooCommerce.com subscriptions.<br/>PooCommerce.com can’t reach local sites, so it can’t install it for you.',
+										'poocommerce'
 									)
 								: __(
-										'Please install the <b>WooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your WooCommerce.com subscriptions.<br/>Alternatively, you can download and install it manually.',
-										'woocommerce'
+										'Please install the <b>PooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your PooCommerce.com subscriptions.<br/>Alternatively, you can download and install it manually.',
+										'poocommerce'
 									)
 						) }
 					></span>
@@ -61,14 +61,14 @@ export default function PluginInstallNotice( props: { selectedTab: string } ) {
 								}
 								variant="secondary"
 							>
-								{ __( 'Install', 'woocommerce' ) }
+								{ __( 'Install', 'poocommerce' ) }
 							</Button>
 						) }
 						<Button
 							href={ WOO_CONNECT_PLUGIN_DOWNLOAD_URL }
 							variant={ isManualInstall ? 'secondary' : 'link' }
 						>
-							{ __( 'Download', 'woocommerce' ) }
+							{ __( 'Download', 'poocommerce' ) }
 						</Button>
 						{ isManualInstall &&
 							wccomSettings?.wooUpdateManagerUploadUrl && (
@@ -78,7 +78,7 @@ export default function PluginInstallNotice( props: { selectedTab: string } ) {
 									}
 									variant="link"
 								>
-									{ __( 'Upload plugin', 'woocommerce' ) }
+									{ __( 'Upload plugin', 'poocommerce' ) }
 								</Button>
 							) }
 					</div>
@@ -90,13 +90,13 @@ export default function PluginInstallNotice( props: { selectedTab: string } ) {
 		! wccomSettings?.wooUpdateManagerActive
 	) {
 		return (
-			<section className="woocommerce-marketplace__woo-update-manager-plugin__notices">
+			<section className="poocommerce-marketplace__woo-update-manager-plugin__notices">
 				<Notice status="error" isDismissible={ false }>
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							__(
-								'Activate the <b>WooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your WooCommerce.com subscriptions.',
-								'woocommerce'
+								'Activate the <b>PooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your PooCommerce.com subscriptions.',
+								'poocommerce'
 							)
 						) }
 					></span>
@@ -105,7 +105,7 @@ export default function PluginInstallNotice( props: { selectedTab: string } ) {
 							href={ WP_ADMIN_PLUGIN_LIST_URL }
 							variant="secondary"
 						>
-							{ __( 'Activate', 'woocommerce' ) }
+							{ __( 'Activate', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Notice>

@@ -3,13 +3,13 @@
  * API\Reports\Coupons\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Coupons\Stats;
 
 defined( 'ABSPATH' ) || exit;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
 
 /**
  * API\Reports\Coupons\Stats\DataStore.

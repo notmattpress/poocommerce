@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\OrderMilestoneEasterEgg;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\OrderMilestoneEasterEgg;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Unit tests for OrderMilestoneEasterEgg.
@@ -101,16 +101,16 @@ class OrderMilestoneEasterEggTest extends \WC_Unit_Test_Case {
 			has_action( 'wp_ajax_wc_egg_opt_out', array( $this->sut, 'handle_ajax_opt_out' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_new_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_update_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_delete_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 		$this->assertNotFalse(
-			has_action( 'woocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) )
+			has_action( 'poocommerce_trash_order', array( $this->sut, 'clear_milestone_cache' ) )
 		);
 	}
 
@@ -416,7 +416,7 @@ class OrderMilestoneEasterEggTest extends \WC_Unit_Test_Case {
 	 * @testdox handle_admin_enqueue_scripts skips enqueue when not on the order edit page.
 	 */
 	public function test_enqueue_skipped_when_not_order_edit_page(): void {
-		$_GET['page'] = 'woocommerce';
+		$_GET['page'] = 'poocommerce';
 
 		$this->sut->handle_admin_enqueue_scripts();
 

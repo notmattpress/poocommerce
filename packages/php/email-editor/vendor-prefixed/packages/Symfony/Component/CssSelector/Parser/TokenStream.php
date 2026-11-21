@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Parser;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\InternalErrorException;
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\InternalErrorException;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\Exception\SyntaxErrorException;
 
 /**
  * CSS selector token stream.

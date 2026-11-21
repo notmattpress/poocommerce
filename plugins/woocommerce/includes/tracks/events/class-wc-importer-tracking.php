@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Import Tracking
+ * PooCommerce Import Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce Imports.
+ * This class adds actions to track usage of PooCommerce Imports.
  */
 class WC_Importer_Tracking {
 	/**
@@ -90,6 +90,6 @@ class WC_Importer_Tracking {
 	private function has_valid_nonce(): bool {
 		$nonce = isset( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
 
-		return (bool) wp_verify_nonce( $nonce, 'woocommerce-csv-importer' );
+		return (bool) wp_verify_nonce( $nonce, 'poocommerce-csv-importer' );
 	}
 }

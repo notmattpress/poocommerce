@@ -2,15 +2,15 @@
 /**
  * Changelog formatter tests.
  *
- * @package WooCommerce\ExtensionChangelogger
+ * @package PooCommerce\ExtensionChangelogger
  */
 
 declare( strict_types = 1 );
 
 use Automattic\Jetpack\Changelog\Changelog;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\ExtensionTools\Changelogger\Changelog_Entry;
-use Automattic\WooCommerce\ExtensionTools\Changelogger\Changelog_Formatter;
+use Automattic\PooCommerce\ExtensionTools\Changelogger\Changelog_Entry;
+use Automattic\PooCommerce\ExtensionTools\Changelogger\Changelog_Formatter;
 
 /**
  * Tests the Jetpack Changelogger formatter that reads and writes changelog.txt.
@@ -149,7 +149,7 @@ class ChangelogFormatterTest extends TestCase {
 			'bullet with no type'    => array( "*** Title ***\n\n= 1.0.0 - 2021-10-25 =\n* Initial release.\n" ),
 			'retired type New'       => array( "*** Title ***\n\n= 1.1.0 - 2022-01-10 =\n* New - Settings link to plugin action links.\n" ),
 			'retired type Feature'   => array( "*** Title ***\n\n= 1.1.0 - 2022-01-10 =\n* Feature - Introduced a filter.\n" ),
-			'retired type Important' => array( "*** Title ***\n\n= 1.1.1 - 2022-02-16 =\n* Important - Declared support for WooCommerce 6.2.\n" ),
+			'retired type Important' => array( "*** Title ***\n\n= 1.1.1 - 2022-02-16 =\n* Important - Declared support for PooCommerce 6.2.\n" ),
 			'retired type Update'    => array( "*** Title ***\n\n= 1.1.1 - 2022-02-16 =\n* Update - Updated the settings screen copy.\n" ),
 			'colon in the type'      => array( "*** Title ***\n\n= 1.1.1 - 2022-02-16 =\n* Feature: Added support for a third-party plugin.\n" ),
 			'en dash in the type'    => array( "*** Title ***\n\n= 1.1.1 - 2022-02-16 =\n* Fix – Fixed the changelog for the 1.1.0 release.\n" ),
@@ -511,7 +511,7 @@ class ChangelogFormatterTest extends TestCase {
 	}
 
 	/**
-	 * Malformed headings: broken WordPress.org ones, and the older WooCommerce.com shape
+	 * Malformed headings: broken WordPress.org ones, and the older PooCommerce.com shape
 	 * the changelogs used before.
 	 *
 	 * @return array
@@ -527,10 +527,10 @@ class ChangelogFormatterTest extends TestCase {
 			'impossible date'                   => array( '= 1.1.0 - 2026-02-30 =' ),
 			'placeholder version'               => array( "= {$this->placeholder_version()} - 2026-09-01 =" ),
 			'placeholder version, unreleased'   => array( "= {$this->placeholder_version()} - unreleased =" ),
-			'dotted WooCommerce.com heading'    => array( '2026.09.01 - version 1.1.0' ),
-			'uppercase WooCommerce.com heading' => array( '2016.08.03 - Version 2.0.2' ),
-			'dashed WooCommerce.com heading'    => array( '2026-09-01 - version 1.1.0' ),
-			'spaced WooCommerce.com heading'    => array( '2026.09.01  - version 1.1.0' ),
+			'dotted PooCommerce.com heading'    => array( '2026.09.01 - version 1.1.0' ),
+			'uppercase PooCommerce.com heading' => array( '2016.08.03 - Version 2.0.2' ),
+			'dashed PooCommerce.com heading'    => array( '2026-09-01 - version 1.1.0' ),
+			'spaced PooCommerce.com heading'    => array( '2026.09.01  - version 1.1.0' ),
 		);
 	}
 }

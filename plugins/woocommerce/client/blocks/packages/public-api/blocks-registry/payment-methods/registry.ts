@@ -9,7 +9,7 @@ import type {
 	PaymentMethodConfigInstance,
 	PaymentMethods,
 	ExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { dispatch } from '@wordpress/data';
 import {
 	ActionCreatorsOf,
@@ -46,7 +46,7 @@ export const registerPaymentMethod = (
 		paymentMethodConfig = options( PaymentMethodConfig );
 		deprecated( 'Passing a callback to registerPaymentMethod()', {
 			alternative: 'a config options object',
-			link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3404',
+			link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3404',
 		} );
 	} else {
 		paymentMethodConfig = new PaymentMethodConfig( options );
@@ -71,7 +71,7 @@ export const registerExpressPaymentMethod = (
 		paymentMethodConfig = options( ExpressPaymentMethodConfig );
 		deprecated( 'Passing a callback to registerExpressPaymentMethod()', {
 			alternative: 'a config options object',
-			link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3404',
+			link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3404',
 		} );
 	} else {
 		paymentMethodConfig = new ExpressPaymentMethodConfig( options );

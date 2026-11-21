@@ -2,8 +2,8 @@
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Tests for WC_REST_Report_Sales_Controller (v3), focused on the per-period
@@ -25,7 +25,7 @@ class WC_REST_Report_Sales_Controller_Tests extends WC_REST_Unit_Test_Case {
 		parent::setUpBeforeClass();
 		include_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
 		include_once WC()->plugin_path() . '/includes/admin/reports/class-wc-report-sales-by-date.php';
-		self::$hpos_prev_state = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		self::$hpos_prev_state = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 		OrderHelper::toggle_cot_feature_and_usage( false );
 	}
 

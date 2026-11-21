@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\AgentReadiness\JsonLd;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreResponses;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\AgentReadiness\JsonLd;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreResponses;
 use WC_Helper_Product;
 use WC_Structured_Data;
 use WC_Unit_Test_Case;
@@ -299,7 +299,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 		$names = new \ReflectionMethod( StoreOutputChecks::class, 'names_products' );
 		$names->setAccessible( true );
 		add_filter(
-			'pre_option_woocommerce_permalinks',
+			'pre_option_poocommerce_permalinks',
 			static fn() => array( 'product_base' => 'shop' )
 		);
 		$shop = '<urlset><url><loc>' . home_url( '/shop/' ) . '</loc></url></urlset>';
@@ -373,7 +373,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * The JSON-LD WooCommerce prints on a product's page.
+	 * The JSON-LD PooCommerce prints on a product's page.
 	 *
 	 * @param \WC_Product $product Product.
 	 */
@@ -394,7 +394,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The JSON-LD WooCommerce prints for a simple and a variable product passes all three product checks.
+	 * @testdox The JSON-LD PooCommerce prints for a simple and a variable product passes all three product checks.
 	 *
 	 * @testWith ["simple"]
 	 *           ["variable"]
@@ -415,7 +415,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The shipping and buy action checks match the JSON-LD WooCommerce prints for each product state.
+	 * @testdox The shipping and buy action checks match the JSON-LD PooCommerce prints for each product state.
 	 *
 	 * Shipping details, then the buy action. A virtual product still gets a buy action. An out-of-stock
 	 * product still gets shipping details. A variable product page gets neither.
@@ -428,7 +428,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	 * @param string                $state    Product state.
 	 * @param array<int, bool|null> $expected Shipping check, then the buy action check.
 	 */
-	public function test_core_jsonld_matches_what_woocommerce_prints( string $state, array $expected ): void {
+	public function test_core_jsonld_matches_what_poocommerce_prints( string $state, array $expected ): void {
 		$zone = new \WC_Shipping_Zone();
 		$zone->add_location( 'US', 'country' );
 		$zone->save();
@@ -450,7 +450,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			$expected,
 			array( $results['product_shipping_schema'], $results['product_buy_action_schema'] ),
-			'These checks disagree with the JSON-LD WooCommerce printed: their copy of the print conditions has drifted from WC_Structured_Data'
+			'These checks disagree with the JSON-LD PooCommerce printed: their copy of the print conditions has drifted from WC_Structured_Data'
 		);
 		$zone->delete();
 	}
@@ -696,8 +696,8 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox The reviews check reads the sampled products that have ratings, the best seller first, and names the one whose page leaves its rating out.
 	 */
 	public function test_reviews_check_reads_the_rated_products_of_the_sample(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$best = WC_Helper_Product::create_simple_product();
 		$best->set_date_created( time() - DAY_IN_SECONDS );
 		$best->save();
@@ -740,11 +740,11 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce's own output passes the shipping and buy action checks. Products it gives no link or shipping details are skipped, not failed.
+	 * @testdox PooCommerce's own output passes the shipping and buy action checks. Products it gives no link or shipping details are skipped, not failed.
 	 */
-	public function test_shipping_and_buy_action_follow_woocommerce_output(): void {
-		update_option( 'woocommerce_allowed_countries', 'all' );
-		update_option( 'woocommerce_ship_to_countries', '' );
+	public function test_shipping_and_buy_action_follow_poocommerce_output(): void {
+		update_option( 'poocommerce_allowed_countries', 'all' );
+		update_option( 'poocommerce_ship_to_countries', '' );
 		$zone = new \WC_Shipping_Zone();
 		$zone->set_zone_name( 'United States' );
 		$zone->add_location( 'US', 'country' );
@@ -788,15 +788,15 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 
 		$product->set_stock_status( 'outofstock' );
 		$product->save();
-		$this->assertNull( $result()[1], 'WooCommerce gives an out of stock product no link' );
+		$this->assertNull( $result()[1], 'PooCommerce gives an out of stock product no link' );
 
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 		$this->assertNull( $result()[0], 'Shipping off: there are no shipping details to give' );
 		$zone->delete();
 	}
 
 	/**
-	 * @testdox The shipping check skips a variable product, which WooCommerce gives shipping details only for a selected variation.
+	 * @testdox The shipping check skips a variable product, which PooCommerce gives shipping details only for a selected variation.
 	 */
 	public function test_shipping_check_skips_variable_products(): void {
 		$variable = wc_get_product( WC_Helper_Product::create_variation_product()->get_id() );
@@ -845,7 +845,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox WooCommerce's own product JSON-LD is no conflict, nor is none at all. One from another source, or a second one beside it, is, and the first failure says so.
+	 * @testdox PooCommerce's own product JSON-LD is no conflict, nor is none at all. One from another source, or a second one beside it, is, and the first failure says so.
 	 */
 	public function test_product_jsonld_conflict(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -914,7 +914,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 			'name'  => $product->get_name(),
 		);
 
-		$this->assertTrue( $this->served_identifiers( $product, array( self::core_product_jsonld( $product ) ) )['gtin'], 'WooCommerce prints the GTIN' );
+		$this->assertTrue( $this->served_identifiers( $product, array( self::core_product_jsonld( $product ) ) )['gtin'], 'PooCommerce prints the GTIN' );
 
 		$result = $this->served_identifiers( $product, array( $plugin ) );
 		$this->assertFalse( $result['gtin'], 'A plugin replaced the JSON-LD without the GTIN' );
@@ -1005,7 +1005,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 		$product->save();
 		$this->assertTrue( $this->served_identifiers( $product, array( $plugin + array( 'gtin' => '4006381333931' ) ) )['gtin'], 'A plugin provides the GTIN the product lacks' );
 		$this->assertNull( $this->served_identifiers( $product, array( $plugin ) )['gtin'], 'Neither has one: missing_gtin reports it' );
-		$this->assertNull( $this->served_identifiers( $product, array( $plugin + array( 'gtin' => '123' ) ) )['gtin'], 'An invalid GTIN from elsewhere isn\'t a conflict when WooCommerce has none to print' );
+		$this->assertNull( $this->served_identifiers( $product, array( $plugin + array( 'gtin' => '123' ) ) )['gtin'], 'An invalid GTIN from elsewhere isn\'t a conflict when PooCommerce has none to print' );
 
 		$product->set_global_unique_id( '4006381333932' );
 		$product->save();
@@ -1017,7 +1017,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The brand check passes when the page gives a brand from any source, and fails only when the product has a WooCommerce brand the page doesn't give.
+	 * @testdox The brand check passes when the page gives a brand from any source, and fails only when the product has a PooCommerce brand the page doesn't give.
 	 */
 	public function test_served_brand(): void {
 		$product = WC_Helper_Product::create_simple_product();
@@ -1034,11 +1034,11 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 		$attribute->set_options( array( 'Acme' ) );
 		$product->set_attributes( array( $attribute ) );
 		$product->save();
-		$this->assertNull( $this->served_identifiers( $product, array( $plugin ) )['brand'], 'WooCommerce doesn\'t print a brand attribute, so it isn\'t a conflict' );
+		$this->assertNull( $this->served_identifiers( $product, array( $plugin ) )['brand'], 'PooCommerce doesn\'t print a brand attribute, so it isn\'t a conflict' );
 
 		wp_set_object_terms( $product->get_id(), 'Acme', 'product_brand' );
 		$result = $this->served_identifiers( $product, array( $plugin ) );
-		$this->assertFalse( $result['brand'], 'The WooCommerce brand is missing from the page' );
+		$this->assertFalse( $result['brand'], 'The PooCommerce brand is missing from the page' );
 		$this->assertTrue( $result['brand_conflict'] );
 		$this->assertSame( (string) $product->get_permalink(), $result['brand_seen_at'] );
 		$upsell = array(
@@ -1047,7 +1047,7 @@ class StoreOutputChecksTest extends WC_Unit_Test_Case {
 			'brand' => 'Other',
 		);
 		$this->assertFalse( $this->served_identifiers( $product, array( $plugin, $upsell ) )['brand'], 'Another product\'s brand on the page doesn\'t count' );
-		$this->assertTrue( $this->served_identifiers( $product, array( self::core_product_jsonld( wc_get_product( $product->get_id() ) ) ) )['brand'], 'WooCommerce prints its brand' );
+		$this->assertTrue( $this->served_identifiers( $product, array( self::core_product_jsonld( wc_get_product( $product->get_id() ) ) ) )['brand'], 'PooCommerce prints its brand' );
 		$this->assertTrue(
 			$this->served_identifiers(
 				$product,

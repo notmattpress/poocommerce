@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests for the tax-rate-create, tax-rate-update and tax-rate-delete abilities.
@@ -52,8 +52,8 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$wp_actions['init']        = max( 1, (int) ( $wp_actions['init'] ?? 0 ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		parent::setUp();
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 
 		wc_get_container()->get( AbilitiesLoader::class )->init();
 		self::reset_registries();
@@ -116,7 +116,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 * @return array The created rate.
 	 */
 	private function create_rate( array $input ): array {
-		$result = $this->run_ability( 'woocommerce/tax-rate-create', $input );
+		$result = $this->run_ability( 'poocommerce/tax-rate-create', $input );
 		$this->assertNotWPError( $result );
 
 		return $result['rate'];
@@ -159,7 +159,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			'The create should return the stored rate.'
 		);
 
-		$query = $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) );
+		$query = $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) );
 		$this->assertSame( array( $rate ), $query['rates'], 'tax-rates-query should return the rate as the create did.' );
 	}
 
@@ -184,7 +184,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 
 		$this->assertSame( '6', \WC_Tax::_get_tax_rate( $second['id'] )['tax_rate_order'], 'The new rate should come after the existing rates of its class.' );
 
-		$query = $this->run_ability( 'woocommerce/tax-rates-query' );
+		$query = $this->run_ability( 'poocommerce/tax-rates-query' );
 		$this->assertSame( array( $first_id, $second['id'] ), array_column( $query['rates'], 'id' ) );
 	}
 
@@ -203,7 +203,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'   => $rate['id'],
 				'rate' => '16',
@@ -221,7 +221,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$rate = $this->create_rate( array( 'rate' => '19' ) );
 
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'       => $rate['id'],
 				'priority' => 0,
@@ -236,11 +236,11 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 * @testdox Should refuse a negative rate.
 	 */
 	public function test_create_refuses_negative_rate(): void {
-		$result = $this->run_ability( 'woocommerce/tax-rate-create', array( 'rate' => '-5' ) );
+		$result = $this->run_ability( 'poocommerce/tax-rate-create', array( 'rate' => '-5' ) );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
-		$this->assertSame( 0, $this->run_ability( 'woocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
+		$this->assertSame( 0, $this->run_ability( 'poocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
 	}
 
 	/**
@@ -250,7 +250,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$this->assertSame( '0.5000', $this->create_rate( array( 'rate' => '.5' ) )['rate'] );
 
 		foreach ( array( '5.', '.' ) as $rate ) {
-			$result = $this->run_ability( 'woocommerce/tax-rate-create', array( 'rate' => $rate ) );
+			$result = $this->run_ability( 'poocommerce/tax-rate-create', array( 'rate' => $rate ) );
 
 			$this->assertWPError( $result, "Rate {$rate} should be refused." );
 			$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -285,13 +285,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		foreach ( array( array( 'postcodes' => array( '-' ) ), array( 'postcodes' => array( '*' ) ), array( 'cities' => array( 'Berlin;Paris' ) ) ) as $locations ) {
-			$result = $this->run_ability( 'woocommerce/tax-rate-update', array( 'id' => $rate['id'] ) + $locations );
+			$result = $this->run_ability( 'poocommerce/tax-rate-update', array( 'id' => $rate['id'] ) + $locations );
 
 			$this->assertWPError( $result );
 			$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
 		}
 
-		$stored = $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0];
+		$stored = $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0];
 		$this->assertSame( array( '10115' ), $stored['postcodes'] );
 		$this->assertSame( array( 'BERLIN' ), $stored['cities'] );
 	}
@@ -315,15 +315,15 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			'cities[0]'    => array( 'cities' => array( '<b></b>' ) ),
 		);
 		foreach ( $cases as $position => $locations ) {
-			$result = $this->run_ability( 'woocommerce/tax-rate-update', array( 'id' => $rate['id'] ) + $locations );
+			$result = $this->run_ability( 'poocommerce/tax-rate-update', array( 'id' => $rate['id'] ) + $locations );
 
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_tax_rate_location_empty', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_tax_rate_location_empty', $result->get_error_code() );
 			$this->assertSame( 400, $result->get_error_data()['status'] );
 			$this->assertStringStartsWith( $position . ' ', $result->get_error_message(), 'The error should name the refused entry.' );
 		}
 
-		$stored = $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0];
+		$stored = $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0];
 		$this->assertSame( array( '10115' ), $stored['postcodes'] );
 		$this->assertSame( array( 'BERLIN' ), $stored['cities'] );
 	}
@@ -333,7 +333,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_create_refuses_a_location_that_cleans_to_nothing(): void {
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-create',
+			'poocommerce/tax-rate-create',
 			array(
 				'rate'   => '19',
 				'cities' => array( '<b></b>' ),
@@ -341,9 +341,9 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_location_empty', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_location_empty', $result->get_error_code() );
 		$this->assertStringStartsWith( 'cities[0] ', $result->get_error_message() );
-		$this->assertSame( 0, $this->run_ability( 'woocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
+		$this->assertSame( 0, $this->run_ability( 'poocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
 	}
 
 	/**
@@ -384,7 +384,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'        => $rate['id'],
 				'postcodes' => array(),
@@ -412,7 +412,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		set_transient( 'shipping-transient-version', 'before-update' );
 
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'     => $rate['id'],
 				'cities' => array( 'Potsdam', 'Hamburg' ),
@@ -431,13 +431,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$rate    = $this->create_rate( array( 'rate' => '19' ) );
 		$updated = 0;
 		add_action(
-			'woocommerce_tax_rate_updated',
+			'poocommerce_tax_rate_updated',
 			static function () use ( &$updated ) {
 				++$updated;
 			}
 		);
 
-		$result = $this->run_ability( 'woocommerce/tax-rate-update', array( 'id' => $rate['id'] ) );
+		$result = $this->run_ability( 'poocommerce/tax-rate-update', array( 'id' => $rate['id'] ) );
 
 		$this->assertSame( array( 'rate' => $rate ), $result );
 		$this->assertSame( 0, $updated, 'No write should happen.' );
@@ -448,7 +448,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_unknown_class_is_refused(): void {
 		$create = $this->run_ability(
-			'woocommerce/tax-rate-create',
+			'poocommerce/tax-rate-create',
 			array(
 				'rate'  => '19',
 				'class' => 'no-such-class',
@@ -456,13 +456,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $create );
-		$this->assertSame( 'woocommerce_ability_tax_rate_class_not_found', $create->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_class_not_found', $create->get_error_code() );
 		$this->assertSame( 400, $create->get_error_data()['status'] );
-		$this->assertSame( 0, $this->run_ability( 'woocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
+		$this->assertSame( 0, $this->run_ability( 'poocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
 
 		$rate   = $this->create_rate( array( 'rate' => '19' ) );
 		$update = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'    => $rate['id'],
 				'rate'  => '7',
@@ -471,8 +471,8 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $update );
-		$this->assertSame( 'woocommerce_ability_tax_rate_class_not_found', $update->get_error_code() );
-		$this->assertSame( '19.0000', $this->run_ability( 'woocommerce/tax-rates-query' )['rates'][0]['rate'], 'The rate should not change.' );
+		$this->assertSame( 'poocommerce_ability_tax_rate_class_not_found', $update->get_error_code() );
+		$this->assertSame( '19.0000', $this->run_ability( 'poocommerce/tax-rates-query' )['rates'][0]['rate'], 'The rate should not change.' );
 	}
 
 	/**
@@ -482,7 +482,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$rate = $this->create_rate( array( 'rate' => '19' ) );
 
 		$reduced = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'    => $rate['id'],
 				'class' => 'reduced-rate',
@@ -492,7 +492,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'reduced-rate', $reduced['rate']['class'] );
 
 		$standard = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'    => $rate['id'],
 				'class' => 'standard',
@@ -513,7 +513,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_create_refuses_an_unknown_country( string $country ): void {
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-create',
+			'poocommerce/tax-rate-create',
 			array(
 				'rate'    => '20',
 				'country' => $country,
@@ -521,9 +521,9 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_country_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_country_invalid', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
-		$this->assertSame( 0, $this->run_ability( 'woocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
+		$this->assertSame( 0, $this->run_ability( 'poocommerce/tax-rates-query' )['total'], 'No rate should be created.' );
 	}
 
 	/**
@@ -531,7 +531,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_create_checks_the_state_against_the_country(): void {
 		$refused = $this->run_ability(
-			'woocommerce/tax-rate-create',
+			'poocommerce/tax-rate-create',
 			array(
 				'rate'    => '7.25',
 				'country' => 'US',
@@ -539,7 +539,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $refused );
-		$this->assertSame( 'woocommerce_ability_tax_rate_state_invalid', $refused->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_state_invalid', $refused->get_error_code() );
 		$this->assertStringStartsWith( '"California" is not a state of US.', $refused->get_error_message(), 'The error should quote the state as it was sent.' );
 		$this->assertStringContainsString( 'CA', $refused->get_error_message(), 'The error should list the valid codes.' );
 
@@ -578,15 +578,15 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$result = $this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'      => $rate['id'],
 				'country' => 'DE',
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_state_invalid', $result->get_error_code() );
-		$this->assertSame( 'US', $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0]['country'], 'The rate should not change.' );
+		$this->assertSame( 'poocommerce_ability_tax_rate_state_invalid', $result->get_error_code() );
+		$this->assertSame( 'US', $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $rate['id'] ) ) )['rates'][0]['country'], 'The rate should not change.' );
 
 		$stored_id = \WC_Tax::_insert_tax_rate(
 			array(
@@ -597,7 +597,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		);
 		$this->assertNotWPError(
 			$this->run_ability(
-				'woocommerce/tax-rate-update',
+				'poocommerce/tax-rate-update',
 				array(
 					'id'   => $stored_id,
 					'rate' => '7',
@@ -609,8 +609,8 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Should report the rate as saved without its locations when $ability fails to write them.
 	 *
-	 * @testWith ["woocommerce/tax-rate-create"]
-	 *           ["woocommerce/tax-rate-update"]
+	 * @testWith ["poocommerce/tax-rate-create"]
+	 *           ["poocommerce/tax-rate-update"]
 	 *
 	 * @param string $ability Ability name.
 	 */
@@ -618,7 +618,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 
 		$input = array( 'postcodes' => array( '10117' ) );
-		if ( 'woocommerce/tax-rate-update' === $ability ) {
+		if ( 'poocommerce/tax-rate-update' === $ability ) {
 			$input['id'] = $this->create_rate(
 				array(
 					'rate'      => '19',
@@ -628,7 +628,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		} else {
 			$input['rate'] = '19';
 		}
-		$locations_insert = "INSERT INTO {$wpdb->prefix}woocommerce_tax_rate_locations ";
+		$locations_insert = "INSERT INTO {$wpdb->prefix}poocommerce_tax_rate_locations ";
 		add_filter(
 			'query',
 			static function ( $query ) use ( $locations_insert ) {
@@ -644,17 +644,17 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_locations_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_locations_failed', $result->get_error_code() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 		$rate_id = $result->get_error_data()['rate_id'];
-		$this->assertSame( array(), $this->run_ability( 'woocommerce/tax-rates-query', array( 'include' => array( $rate_id ) ) )['rates'][0]['postcodes'], 'The error should name the rate that lost its postcodes.' );
+		$this->assertSame( array(), $this->run_ability( 'poocommerce/tax-rates-query', array( 'include' => array( $rate_id ) ) )['rates'][0]['postcodes'], 'The error should name the rate that lost its postcodes.' );
 	}
 
 	/**
 	 * @testdox Should report an unknown rate ID as not found on $ability.
 	 *
-	 * @testWith ["woocommerce/tax-rate-update"]
-	 *           ["woocommerce/tax-rate-delete"]
+	 * @testWith ["poocommerce/tax-rate-update"]
+	 *           ["poocommerce/tax-rate-delete"]
 	 *
 	 * @param string $ability Ability name.
 	 */
@@ -662,7 +662,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$result = $this->run_ability( $ability, array( 'id' => PHP_INT_MAX ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -681,13 +681,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$result = $this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
+		$result = $this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
 
 		$this->assertSame( array( 'rate' => $rate ), $result );
-		$this->assertSame( 0, $this->run_ability( 'woocommerce/tax-rates-query' )['total'], 'The rate should be gone.' );
+		$this->assertSame( 0, $this->run_ability( 'poocommerce/tax-rates-query' )['total'], 'The rate should be gone.' );
 		$this->assertSame(
 			'0',
-			$wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id = %d", $rate['id'] ) ),
+			$wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id = %d", $rate['id'] ) ),
 			'The locations of the rate should be gone.'
 		);
 	}
@@ -701,12 +701,12 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$this->assertNotSame( 'before-create', get_transient( 'shipping-transient-version' ), 'A create should refresh saved shipping rates.' );
 
 		set_transient( 'shipping-transient-version', 'before-noop' );
-		$this->run_ability( 'woocommerce/tax-rate-update', array( 'id' => $rate['id'] ) );
+		$this->run_ability( 'poocommerce/tax-rate-update', array( 'id' => $rate['id'] ) );
 		$this->assertSame( 'before-noop', get_transient( 'shipping-transient-version' ), 'An update that changes nothing should keep saved shipping rates.' );
 
 		set_transient( 'shipping-transient-version', 'before-update' );
 		$this->run_ability(
-			'woocommerce/tax-rate-update',
+			'poocommerce/tax-rate-update',
 			array(
 				'id'        => $rate['id'],
 				'postcodes' => array( '10115' ),
@@ -715,7 +715,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$this->assertNotSame( 'before-update', get_transient( 'shipping-transient-version' ), 'An update of only the postcodes should refresh saved shipping rates.' );
 
 		set_transient( 'shipping-transient-version', 'before-delete' );
-		$this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
+		$this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
 		$this->assertNotSame( 'before-delete', get_transient( 'shipping-transient-version' ), 'A delete should refresh saved shipping rates.' );
 	}
 
@@ -726,7 +726,7 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 
 		$rate         = $this->create_rate( array( 'rate' => '19' ) );
-		$rates_delete = "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates WHERE ";
+		$rates_delete = "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates WHERE ";
 		add_filter(
 			'query',
 			static function ( $query ) use ( $rates_delete ) {
@@ -734,10 +734,10 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 			}
 		);
 
-		$result = $this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
+		$result = $this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_delete_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_delete_failed', $result->get_error_code() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 	}
 
@@ -748,10 +748,10 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		global $wpdb;
 
 		$rate        = $this->create_rate( array( 'rate' => '19' ) );
-		$rates_table = "{$wpdb->prefix}woocommerce_tax_rates";
+		$rates_table = "{$wpdb->prefix}poocommerce_tax_rates";
 		$hook_ran    = false;
 		add_action(
-			'woocommerce_tax_rate_deleted',
+			'poocommerce_tax_rate_deleted',
 			static function () use ( &$hook_ran ) {
 				$hook_ran = true;
 			}
@@ -769,13 +769,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 
 		$suppressed = $wpdb->suppress_errors( true );
 		try {
-			$result = $this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
+			$result = $this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
 		} finally {
 			$wpdb->suppress_errors( $suppressed );
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_tax_rate_delete_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_tax_rate_delete_failed', $result->get_error_code() );
 		$this->assertNotSame( 'before-delete', get_transient( 'shipping-transient-version' ), 'Saved shipping rates should be refreshed even when the check fails.' );
 	}
 
@@ -787,13 +787,13 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 
 		$rate = $this->create_rate( array( 'rate' => '19' ) );
 		add_action(
-			'woocommerce_tax_rate_deleted',
+			'poocommerce_tax_rate_deleted',
 			static function () use ( $wpdb ) {
 				$wpdb->get_var( 'SELECT 1' );
 			}
 		);
 
-		$result = $this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
+		$result = $this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) );
 
 		$this->assertSame( array( 'rate' => $rate ), $result );
 	}
@@ -807,14 +807,14 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		$rate = $this->create_rate( array( 'rate' => '19' ) );
 		$this->assertNotWPError(
 			$this->run_ability(
-				'woocommerce/tax-rate-update',
+				'poocommerce/tax-rate-update',
 				array(
 					'id'   => $rate['id'],
 					'rate' => '7',
 				)
 			)
 		);
-		$this->assertNotWPError( $this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) ) );
+		$this->assertNotWPError( $this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate['id'] ) ) );
 	}
 
 	/**
@@ -830,15 +830,15 @@ class TaxRateAbilitiesTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
 		$results = array(
-			$this->run_ability( 'woocommerce/tax-rate-create', array( 'rate' => '7' ) ),
+			$this->run_ability( 'poocommerce/tax-rate-create', array( 'rate' => '7' ) ),
 			$this->run_ability(
-				'woocommerce/tax-rate-update',
+				'poocommerce/tax-rate-update',
 				array(
 					'id'   => $rate_id,
 					'rate' => '7',
 				)
 			),
-			$this->run_ability( 'woocommerce/tax-rate-delete', array( 'id' => $rate_id ) ),
+			$this->run_ability( 'poocommerce/tax-rate-delete', array( 'id' => $rate_id ) ),
 		);
 
 		foreach ( $results as $result ) {

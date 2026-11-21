@@ -7,16 +7,16 @@ import { useState, useEffect, useMemo } from '@wordpress/element';
 import {
 	CheckboxControl,
 	ValidationInputError,
-} from '@woocommerce/blocks-components';
-import { useCheckoutSubmit } from '@woocommerce/base-context/hooks';
+} from '@poocommerce/blocks-components';
+import { useCheckoutSubmit } from '@poocommerce/base-context/hooks';
 import { withInstanceId } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import {
 	sanitizeHTML,
 	DEFAULT_ALLOWED_TAGS,
 	DEFAULT_ALLOWED_ATTR,
-} from '@woocommerce/sanitize';
+} from '@poocommerce/sanitize';
 
 /**
  * Internal dependencies
@@ -95,7 +95,7 @@ const FrontendBlock = ( {
 				[ validationErrorId ]: {
 					message: __(
 						'Please read and accept the terms and conditions.',
-						'woocommerce'
+						'poocommerce'
 					),
 					hidden: true,
 				},

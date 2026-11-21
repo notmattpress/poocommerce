@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { BillingAddress, ShippingAddress } from '@woocommerce/settings';
-import { objectHasProp } from '@woocommerce/types';
+import type { BillingAddress, ShippingAddress } from '@poocommerce/settings';
+import { objectHasProp } from '@poocommerce/types';
 
 export const isShippingAddress = (
 	address: unknown

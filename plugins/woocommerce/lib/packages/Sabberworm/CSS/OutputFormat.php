@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS;
 
 /**
  * Extending this class is deprecated in version 8.8.0; it will be made `final` in version 9.0.0.

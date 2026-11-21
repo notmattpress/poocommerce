@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { settingsStore } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { settingsStore } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 

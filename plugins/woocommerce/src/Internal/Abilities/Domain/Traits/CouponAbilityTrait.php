@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared coupon helpers for WooCommerce domain ability definitions.
+ * Shared coupon helpers for PooCommerce domain ability definitions.
  */
 trait CouponAbilityTrait {
 
@@ -117,7 +117,7 @@ trait CouponAbilityTrait {
 			'code'                 => array(
 				'type'        => 'string',
 				'minLength'   => 1,
-				'description' => __( 'Coupon code. Must be unique.', 'woocommerce' ),
+				'description' => __( 'Coupon code. Must be unique.', 'poocommerce' ),
 			),
 			'status'               => array(
 				'type' => 'string',
@@ -129,23 +129,23 @@ trait CouponAbilityTrait {
 			),
 			'amount'               => array(
 				'type'        => 'string',
-				'description' => __( 'Discount amount as a decimal string, without a currency symbol.', 'woocommerce' ),
+				'description' => __( 'Discount amount as a decimal string, without a currency symbol.', 'poocommerce' ),
 				'pattern'     => '^[0-9]+(\.[0-9]+)?$',
 			),
 			'description'          => array( 'type' => 'string' ),
 			'date_expires'         => array(
 				'type'        => 'string',
-				'description' => __( 'Expiry date in the store timezone (Y-m-d or ISO 8601). A date without a time expires at 00:00 on that day; use the day after the last valid day. An empty string removes the expiry date.', 'woocommerce' ),
+				'description' => __( 'Expiry date in the store timezone (Y-m-d or ISO 8601). A date without a time expires at 00:00 on that day; use the day after the last valid day. An empty string removes the expiry date.', 'poocommerce' ),
 			),
 			'usage_limit'          => array(
 				'type'        => 'integer',
 				'minimum'     => 0,
-				'description' => __( 'How many times the coupon can be used in total. 0 means unlimited.', 'woocommerce' ),
+				'description' => __( 'How many times the coupon can be used in total. 0 means unlimited.', 'poocommerce' ),
 			),
 			'usage_limit_per_user' => array(
 				'type'        => 'integer',
 				'minimum'     => 0,
-				'description' => __( 'How many times each customer can use the coupon. 0 means unlimited.', 'woocommerce' ),
+				'description' => __( 'How many times each customer can use the coupon. 0 means unlimited.', 'poocommerce' ),
 			),
 			'individual_use'       => array( 'type' => 'boolean' ),
 			'free_shipping'        => array( 'type' => 'boolean' ),
@@ -159,7 +159,7 @@ trait CouponAbilityTrait {
 			),
 			'email_restrictions'   => array(
 				'type'        => 'array',
-				'description' => __( 'Allowed billing emails supplied by the user. Replaces existing restrictions; an empty array clears them. Omit to keep them.', 'woocommerce' ),
+				'description' => __( 'Allowed billing emails supplied by the user. Replaces existing restrictions; an empty array clears them. Omit to keep them.', 'poocommerce' ),
 				'items'       => array( 'type' => 'string' ),
 			),
 		);
@@ -176,16 +176,16 @@ trait CouponAbilityTrait {
 
 		if ( $coupon_id < 1 ) {
 			return new \WP_Error(
-				'woocommerce_ability_coupon_id_required',
-				__( 'Coupon ID is required.', 'woocommerce' ),
+				'poocommerce_ability_coupon_id_required',
+				__( 'Coupon ID is required.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		if ( 'shop_coupon' !== get_post_type( $coupon_id ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_coupon_not_found',
-				__( 'Coupon not found.', 'woocommerce' ),
+				'poocommerce_ability_coupon_not_found',
+				__( 'Coupon not found.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -224,12 +224,12 @@ trait CouponAbilityTrait {
 	 */
 	protected static function set_coupon_props_from_input( \WC_Coupon $coupon, array $input ) {
 		if ( 'future' === ( $input['status'] ?? null ) && ( ! $coupon->get_date_created() || $coupon->get_date_created()->getTimestamp() <= time() ) ) {
-			return new \WP_Error( 'woocommerce_ability_coupon_invalid_schedule', __( 'Scheduling requires an existing future publication date.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_coupon_invalid_schedule', __( 'Scheduling requires an existing future publication date.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 		if ( isset( $input['date_expires'] ) && '' !== $input['date_expires'] ) {
 			$date = date_parse( $input['date_expires'] );
 			if ( $date['error_count'] || $date['warning_count'] || ! $date['year'] || ! $date['month'] || ! $date['day'] ) {
-				return new \WP_Error( 'woocommerce_ability_coupon_invalid_expiry', __( 'Expiry must be a valid date or datetime.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'poocommerce_ability_coupon_invalid_expiry', __( 'Expiry must be a valid date or datetime.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 			$input['date_expires'] = ( new \DateTimeImmutable( $input['date_expires'], wp_timezone() ) )->getTimestamp();
 		}
@@ -239,16 +239,16 @@ trait CouponAbilityTrait {
 
 			if ( '' === $code ) {
 				return new \WP_Error(
-					'woocommerce_ability_coupon_code_required',
-					__( 'Coupon code is required.', 'woocommerce' ),
+					'poocommerce_ability_coupon_code_required',
+					__( 'Coupon code is required.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
 
 			if ( self::is_coupon_code_taken( $code, $coupon->get_id() ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_coupon_code_exists',
-					__( 'A coupon with this code already exists.', 'woocommerce' ),
+					'poocommerce_ability_coupon_code_exists',
+					__( 'A coupon with this code already exists.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -260,7 +260,7 @@ trait CouponAbilityTrait {
 			$input['email_restrictions'] = array_map( 'trim', $input['email_restrictions'] );
 			foreach ( $input['email_restrictions'] as $email ) {
 				if ( ! is_email( $email ) ) {
-					return new \WP_Error( 'woocommerce_ability_coupon_email_invalid', __( 'Email restrictions must be valid email addresses.', 'woocommerce' ), array( 'status' => 400 ) );
+					return new \WP_Error( 'poocommerce_ability_coupon_email_invalid', __( 'Email restrictions must be valid email addresses.', 'poocommerce' ), array( 'status' => 400 ) );
 				}
 			}
 		}
@@ -293,7 +293,7 @@ trait CouponAbilityTrait {
 			}
 		} catch ( \WC_Data_Exception $exception ) {
 			return new \WP_Error(
-				'woocommerce_ability_coupon_invalid_data',
+				'poocommerce_ability_coupon_invalid_data',
 				$exception->getMessage(),
 				array( 'status' => 400 )
 			);

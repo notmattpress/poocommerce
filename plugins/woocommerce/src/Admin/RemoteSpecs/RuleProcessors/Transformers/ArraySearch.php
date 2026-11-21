@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers\TransformerInterface;
 use InvalidArgumentException;
 use stdClass;
 
 /**
  * Searches a given a given value in the array.
  *
- * @package Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
+ * @package Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\Transformers
  */
 class ArraySearch implements TransformerInterface {
 	/**

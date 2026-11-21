@@ -4,11 +4,11 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { dispatch, select } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 import {
 	checkoutEventsEmitter,
 	CHECKOUT_EVENTS,
-} from '@woocommerce/blocks-checkout-events';
+} from '@poocommerce/blocks-checkout-events';
 
 /**
  * Internal dependencies

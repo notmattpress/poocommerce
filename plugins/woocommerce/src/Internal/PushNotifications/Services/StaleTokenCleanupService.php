@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Services;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Services;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\CleanupOutcome;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\CleanupOutcome;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
 use Throwable;
 
 /**
@@ -73,7 +73,7 @@ class StaleTokenCleanupService {
 	/**
 	 * Option set while push notifications are off, as a Unix timestamp.
 	 */
-	const PAUSED_AT_OPTION = 'woocommerce_push_notification_cleanup_paused_at';
+	const PAUSED_AT_OPTION = 'poocommerce_push_notification_cleanup_paused_at';
 
 	/**
 	 * Option holding when push notifications came back on, as a Unix timestamp.
@@ -81,7 +81,7 @@ class StaleTokenCleanupService {
 	 * Apps cannot re-register while push notifications are off, so silence from
 	 * before this moment does not count towards a token's age.
 	 */
-	const RESUMED_AT_OPTION = 'woocommerce_push_notification_cleanup_resumed_at';
+	const RESUMED_AT_OPTION = 'poocommerce_push_notification_cleanup_resumed_at';
 
 	/**
 	 * Step name for the run's log line.
@@ -182,7 +182,7 @@ class StaleTokenCleanupService {
 	}
 
 	/**
-	 * Handles WooCommerce being deactivated.
+	 * Handles PooCommerce being deactivated.
 	 *
 	 * @since 11.4.0
 	 *
@@ -454,7 +454,7 @@ class StaleTokenCleanupService {
 			 *
 			 * @param bool $enabled Whether stale push tokens are deleted. Default true.
 			 */
-			$enabled = apply_filters( 'woocommerce_push_notification_stale_token_cleanup_enabled', true );
+			$enabled = apply_filters( 'poocommerce_push_notification_stale_token_cleanup_enabled', true );
 
 			return ( is_bool( $enabled ) || is_string( $enabled ) || is_int( $enabled ) ) && wc_string_to_bool( $enabled );
 		} catch ( Throwable $e ) {

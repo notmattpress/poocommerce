@@ -1,9 +1,9 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController;
 use WC_Order;
 
 /**
@@ -40,7 +40,7 @@ class FulfillmentsHelper {
 	 * @return void
 	 */
 	public static function enable_fulfillments(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		wc_get_container()->get( FulfillmentsController::class )->initialize_fulfillments();
 	}
 

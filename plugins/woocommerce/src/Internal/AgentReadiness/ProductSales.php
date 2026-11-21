@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Internal\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -169,7 +169,7 @@ class ProductSales {
 	 * out (`parent` 0): a multivendor sub-order is not a separate order Analytics imports.
 	 * WCPay test-mode orders are left out the same way OrdersScheduler skips them (meta
 	 * `_wcpay_mode=test`). They are counted in a second query and subtracted, because the posts
-	 * order store doesn't support `meta_query`. A custom `woocommerce_analytics_is_test_order`
+	 * order store doesn't support `meta_query`. A custom `poocommerce_analytics_is_test_order`
 	 * callback is not applied.
 	 *
 	 * @param \DateTimeImmutable $since    Start of the period.
@@ -217,9 +217,9 @@ class ProductSales {
 	 */
 	private static function excluded_statuses(): array {
 		$default  = Settings::get_default_excluded_order_statuses();
-		$excluded = Settings::get_valid_order_statuses_or_default( get_option( 'woocommerce_excluded_report_order_statuses', $default ), $default );
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's Analytics hook, documented in Admin\API\Reports\DataStore.
-		$filtered = apply_filters( 'woocommerce_analytics_excluded_order_statuses', array_merge( array( 'auto-draft', 'trash' ), $excluded ) );
+		$excluded = Settings::get_valid_order_statuses_or_default( get_option( 'poocommerce_excluded_report_order_statuses', $default ), $default );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's Analytics hook, documented in Admin\API\Reports\DataStore.
+		$filtered = apply_filters( 'poocommerce_analytics_excluded_order_statuses', array_merge( array( 'auto-draft', 'trash' ), $excluded ) );
 		$statuses = array();
 		foreach ( is_array( $filtered ) ? $filtered : $excluded as $status ) {
 			if ( is_string( $status ) && '' !== $status ) {

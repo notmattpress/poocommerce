@@ -2,16 +2,16 @@
 /**
  * FulfillmentsImporterRestController class file.
  *
- * @package Automattic\WooCommerce\Admin\Features\Fulfillments\Importer
+ * @package Automattic\PooCommerce\Admin\Features\Fulfillments\Importer
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Importer;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 use WP_Error;
 use WP_Http;
 use WP_REST_Request;
@@ -57,7 +57,7 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	}
 
 	/**
-	 * Get the WooCommerce REST API namespace key for this controller.
+	 * Get the PooCommerce REST API namespace key for this controller.
 	 *
 	 * @since 11.4.0
 	 *
@@ -85,19 +85,19 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 						'delimiter'       => array(
 							'type'              => 'string',
 							'default'           => ',',
-							'description'       => __( 'Single ASCII character used as the CSV delimiter, or "tab". Defaults to comma.', 'woocommerce' ),
+							'description'       => __( 'Single ASCII character used as the CSV delimiter, or "tab". Defaults to comma.', 'poocommerce' ),
 							'validate_callback' => fn( $value ) => $this->validate_delimiter( $value ),
 							'sanitize_callback' => array( FulfillmentsCsvImporter::class, 'normalize_delimiter' ),
 						),
 						'notify_customer' => array(
 							'type'        => 'boolean',
 							'default'     => false,
-							'description' => __( 'Initial value for the import run: whether customers are notified about imported fulfillments. Stored on the session.', 'woocommerce' ),
+							'description' => __( 'Initial value for the import run: whether customers are notified about imported fulfillments. Stored on the session.', 'poocommerce' ),
 						),
 						'update_existing' => array(
 							'type'        => 'boolean',
 							'default'     => true,
-							'description' => __( 'Initial value for the import run: whether a fulfillment with the same tracking number is updated instead of skipped. Stored on the session.', 'woocommerce' ),
+							'description' => __( 'Initial value for the import run: whether a fulfillment with the same tracking number is updated instead of skipped. Stored on the session.', 'poocommerce' ),
 						),
 					),
 				),
@@ -113,34 +113,34 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_prepare(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Prepare fulfillments import response.', 'woocommerce' );
+		$schema['title']      = __( 'Prepare fulfillments import response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'token'            => array(
 				'type'        => 'string',
-				'description' => __( 'Import session token to pass to the next step of the import.', 'woocommerce' ),
+				'description' => __( 'Import session token to pass to the next step of the import.', 'poocommerce' ),
 			),
 			'headers'          => array(
 				'type'        => 'array',
 				'items'       => array( 'type' => 'string' ),
-				'description' => __( 'Header row of the staged CSV.', 'woocommerce' ),
+				'description' => __( 'Header row of the staged CSV.', 'poocommerce' ),
 			),
 			'sample'           => array(
 				'type'        => 'array',
 				'items'       => array( 'type' => 'string' ),
-				'description' => __( 'First non-blank data row, for the mapping preview. Cells are trimmed and padded to the header length.', 'woocommerce' ),
+				'description' => __( 'First non-blank data row, for the mapping preview. Cells are trimmed and padded to the header length.', 'poocommerce' ),
 			),
 			'total'            => array(
 				'type'        => 'integer',
-				'description' => __( 'Number of non-blank data rows after the header.', 'woocommerce' ),
+				'description' => __( 'Number of non-blank data rows after the header.', 'poocommerce' ),
 			),
 			'detected_mapping' => array(
 				'type'                 => 'object',
 				'additionalProperties' => array( 'type' => 'string' ),
-				'description'          => __( 'Auto-detected column mapping, keyed by CSV column index.', 'woocommerce' ),
+				'description'          => __( 'Auto-detected column mapping, keyed by CSV column index.', 'poocommerce' ),
 			),
 			'delimiter'        => array(
 				'type'        => 'string',
-				'description' => __( 'Effective CSV delimiter.', 'woocommerce' ),
+				'description' => __( 'Effective CSV delimiter.', 'poocommerce' ),
 			),
 		);
 		return $schema;
@@ -156,7 +156,7 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	 * @return bool|WP_Error True when allowed; WP_Error otherwise.
 	 */
 	protected function check_permission_for_fulfillments_import( WP_REST_Request $request ) {
-		return $this->check_permission( $request, 'manage_woocommerce' );
+		return $this->check_permission( $request, 'manage_poocommerce' );
 	}
 
 	/**
@@ -174,8 +174,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	protected function validate_delimiter( $value ) {
 		if ( ! is_string( $value ) ) {
 			return new WP_Error(
-				'woocommerce_fulfillments_import_invalid_delimiter',
-				__( 'The delimiter must be a string.', 'woocommerce' ),
+				'poocommerce_fulfillments_import_invalid_delimiter',
+				__( 'The delimiter must be a string.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
@@ -184,8 +184,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		}
 		if ( strlen( $value ) > 1 || FulfillmentsCsvImporter::normalize_delimiter( $value ) !== $value ) {
 			return new WP_Error(
-				'woocommerce_fulfillments_import_invalid_delimiter',
-				__( 'The delimiter must be a single ASCII character or "tab".', 'woocommerce' ),
+				'poocommerce_fulfillments_import_invalid_delimiter',
+				__( 'The delimiter must be a single ASCII character or "tab".', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
@@ -224,7 +224,7 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		if ( isset( $parsed['error'] ) ) {
 			$this->discard_failed_upload( $file_path, $attachment_id );
 			return new WP_Error(
-				'woocommerce_fulfillments_csv_parse_error',
+				'poocommerce_fulfillments_csv_parse_error',
 				(string) $parsed['error']['message'],
 				array(
 					'status' => WP_Http::BAD_REQUEST,
@@ -237,18 +237,18 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		if ( 0 === $total ) {
 			$this->discard_failed_upload( $file_path, $attachment_id );
 			return new WP_Error(
-				'woocommerce_fulfillments_csv_parse_error',
-				__( 'The CSV file has no data rows.', 'woocommerce' ),
+				'poocommerce_fulfillments_csv_parse_error',
+				__( 'The CSV file has no data rows.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
 		if ( $total > FulfillmentsCsvImporter::MAX_IMPORT_ROWS ) {
 			$this->discard_failed_upload( $file_path, $attachment_id );
 			return new WP_Error(
-				'woocommerce_fulfillments_import_too_many_rows',
+				'poocommerce_fulfillments_import_too_many_rows',
 				sprintf(
 					/* translators: %s: maximum supported rows. */
-					__( 'The importer supports up to %s rows per file. Please split the file and import it in parts.', 'woocommerce' ),
+					__( 'The importer supports up to %s rows per file. Please split the file and import it in parts.', 'poocommerce' ),
 					number_format_i18n( FulfillmentsCsvImporter::MAX_IMPORT_ROWS )
 				),
 				array( 'status' => WP_Http::REQUEST_ENTITY_TOO_LARGE )
@@ -279,8 +279,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		if ( ! $session->persisted() ) {
 			$this->discard_failed_upload( $file_path, $attachment_id );
 			return new WP_Error(
-				'woocommerce_fulfillments_import_session_failed',
-				__( 'The import session could not be saved. Please try again.', 'woocommerce' ),
+				'poocommerce_fulfillments_import_session_failed',
+				__( 'The import session could not be saved. Please try again.', 'poocommerce' ),
 				array( 'status' => WP_Http::INTERNAL_SERVER_ERROR )
 			);
 		}
@@ -334,14 +334,14 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		}
 
 		/** This filter is documented in wp-admin/includes/import.php. */
-		$upload_limit = (int) apply_filters( 'import_upload_size_limit', wp_max_upload_size() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$upload_limit = (int) apply_filters( 'import_upload_size_limit', wp_max_upload_size() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		// On multisite the limit is the site's remaining upload space, so 0 means no space left
 		// and no file could be stored, whatever PHP reported for it.
 		if ( $upload_limit <= 0 ) {
 			return new WP_Error(
-				'woocommerce_fulfillments_import_file_too_large',
-				__( 'This site has no upload space left for the file.', 'woocommerce' ),
+				'poocommerce_fulfillments_import_file_too_large',
+				__( 'This site has no upload space left for the file.', 'poocommerce' ),
 				array( 'status' => WP_Http::REQUEST_ENTITY_TOO_LARGE )
 			);
 		}
@@ -366,8 +366,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 		$file_size = (int) ( $file['size'] ?? 0 );
 		if ( 0 === $file_size ) {
 			return new WP_Error(
-				'woocommerce_fulfillments_csv_parse_error',
-				__( 'CSV file is empty.', 'woocommerce' ),
+				'poocommerce_fulfillments_csv_parse_error',
+				__( 'CSV file is empty.', 'poocommerce' ),
 				array(
 					'status' => WP_Http::BAD_REQUEST,
 					'reason' => 'empty_csv',
@@ -466,8 +466,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 					array( 'source' => 'fulfillments-importer' )
 				);
 				return new WP_Error(
-					'woocommerce_fulfillments_import_upload_failed',
-					__( 'The upload could not be processed. Please try again.', 'woocommerce' ),
+					'poocommerce_fulfillments_import_upload_failed',
+					__( 'The upload could not be processed. Please try again.', 'poocommerce' ),
 					array( 'status' => WP_Http::INTERNAL_SERVER_ERROR )
 				);
 			}
@@ -487,8 +487,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	 */
 	private function no_file_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_fulfillments_import_no_file',
-			__( 'No CSV file was uploaded.', 'woocommerce' ),
+			'poocommerce_fulfillments_import_no_file',
+			__( 'No CSV file was uploaded.', 'poocommerce' ),
 			array( 'status' => WP_Http::BAD_REQUEST )
 		);
 	}
@@ -502,8 +502,8 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	 */
 	private function upload_failed_error(): WP_Error {
 		return new WP_Error(
-			'woocommerce_fulfillments_import_upload_failed',
-			__( 'The file could not be uploaded.', 'woocommerce' ),
+			'poocommerce_fulfillments_import_upload_failed',
+			__( 'The file could not be uploaded.', 'poocommerce' ),
 			array( 'status' => WP_Http::BAD_REQUEST )
 		);
 	}
@@ -516,10 +516,10 @@ class FulfillmentsImporterRestController extends RestApiControllerBase {
 	 */
 	private function file_too_large_error( int $upload_limit ): WP_Error {
 		return new WP_Error(
-			'woocommerce_fulfillments_import_file_too_large',
+			'poocommerce_fulfillments_import_file_too_large',
 			sprintf(
 				/* translators: %s: human-readable maximum upload size, e.g. "8 MB". */
-				__( 'The uploaded file is larger than the allowed maximum of %s.', 'woocommerce' ),
+				__( 'The uploaded file is larger than the allowed maximum of %s.', 'poocommerce' ),
 				size_format( $upload_limit )
 			),
 			array( 'status' => WP_Http::REQUEST_ENTITY_TOO_LARGE )

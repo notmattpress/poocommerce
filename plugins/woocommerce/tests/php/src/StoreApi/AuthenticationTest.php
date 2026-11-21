@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\StoreApi;
+namespace Automattic\PooCommerce\Tests\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Authentication;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Authentication;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use WC_Unit_Test_Case;
 
 /**

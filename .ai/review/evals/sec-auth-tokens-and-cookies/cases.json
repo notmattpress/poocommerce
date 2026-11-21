@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G40A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-download-auth.php",
+			"path": "plugins/poocommerce/includes/class-wc-download-auth.php",
 			"before": {
 				"file": "fixtures/G40A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-download-auth.php",
+						"file": "plugins/poocommerce/includes/class-wc-download-auth.php",
 						"lines": [
 							7,
 							7
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G40B-v4",
-			"path": "plugins/woocommerce/includes/class-wc-download-auth.php",
+			"path": "plugins/poocommerce/includes/class-wc-download-auth.php",
 			"before": {
 				"file": "fixtures/G40B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-download-auth.php",
+						"file": "plugins/poocommerce/includes/class-wc-download-auth.php",
 						"lines": [
 							8,
 							9
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G40C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-download-auth.php",
+			"path": "plugins/poocommerce/includes/class-wc-download-auth.php",
 			"before": {
 				"file": "fixtures/G40C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G40D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-download-auth.php",
+			"path": "plugins/poocommerce/includes/class-wc-download-auth.php",
 			"before": {
 				"file": "fixtures/G40D/before.php"
 			},

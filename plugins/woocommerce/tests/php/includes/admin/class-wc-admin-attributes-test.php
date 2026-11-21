@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Admin_Attributes.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
@@ -50,7 +50,7 @@ class WC_Admin_Attributes_Test extends WC_Unit_Test_Case {
 		$attribute_id        = $this->create_test_attribute( 'test_attr_default' );
 		$expected_delete_url = wp_nonce_url(
 			add_query_arg( 'delete', $attribute_id, 'edit.php?post_type=product&amp;page=product_attributes' ),
-			'woocommerce-delete-attribute_' . $attribute_id
+			'poocommerce-delete-attribute_' . $attribute_id
 		);
 
 		$output         = $this->render_add_attribute_page();
@@ -75,7 +75,7 @@ class WC_Admin_Attributes_Test extends WC_Unit_Test_Case {
 		$captured_taxonomy = null;
 
 		add_filter(
-			'woocommerce_attribute_taxonomy_row_actions',
+			'poocommerce_attribute_taxonomy_row_actions',
 			function ( array $actions, object $tax, string $taxonomy ) use ( $attribute_id, &$captured_actions, &$captured_tax, &$captured_taxonomy ): array {
 				if ( $attribute_id !== (int) $tax->attribute_id ) {
 					return $actions;

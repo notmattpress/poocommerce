@@ -10,9 +10,9 @@ import {
 } from '@wordpress/element';
 import type { ReactNode } from 'react';
 import { __ } from '@wordpress/i18n';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Documentation URL we link to when application passwords are unavailable.
@@ -364,7 +364,7 @@ export const useQRLoginToken = ( {
 				throw new Error(
 					__(
 						'Failed to generate QR login code. Please try again.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			}
@@ -417,30 +417,30 @@ export const useQRLoginToken = ( {
 			if ( isRateLimited ) {
 				nextErrorMessage = __(
 					"You've requested QR login codes too quickly. Please wait a moment and try again.",
-					'woocommerce'
+					'poocommerce'
 				);
 			} else {
 				switch ( nextErrorCode ) {
-					case 'woocommerce_rest_cannot_view':
-						// The endpoint requires the `manage_woocommerce`
+					case 'poocommerce_rest_cannot_view':
+						// The endpoint requires the `manage_poocommerce`
 						// capability; surface a clear, actionable message
 						// rather than the generic REST wording.
 						nextErrorMessage = __(
 							'You do not have permission to generate a QR login code. Ask a site administrator for help.',
-							'woocommerce'
+							'poocommerce'
 						);
 						break;
 					case 'ssl_required':
 						nextErrorMessage = __(
 							'QR login requires an HTTPS connection.',
-							'woocommerce'
+							'poocommerce'
 						);
 						break;
 					case 'application_passwords_unavailable':
 						nextErrorMessage = createInterpolateElement(
 							__(
 								'Application passwords are disabled on this site, so QR login is unavailable. Find more about application passwords <link>here</link>.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								link: (
@@ -458,7 +458,7 @@ export const useQRLoginToken = ( {
 							err.message ||
 							__(
 								'Failed to generate QR login code. Please try again.',
-								'woocommerce'
+								'poocommerce'
 							);
 				}
 			}
@@ -550,7 +550,7 @@ export const useQRLoginToken = ( {
 					err.message ||
 						__(
 							'Failed to confirm sign-in. Please try generating a new code.',
-							'woocommerce'
+							'poocommerce'
 						)
 				);
 				setErrorCode( err.code ?? null );
@@ -592,7 +592,7 @@ export const useQRLoginToken = ( {
 				err.message ||
 					__(
 						'Failed to revoke access. Please try again or remove the application password manually under Users → Profile.',
-						'woocommerce'
+						'poocommerce'
 					)
 			);
 		}

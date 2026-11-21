@@ -2,7 +2,7 @@
 /**
  * Replaceable inner container fixture.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**

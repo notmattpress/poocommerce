@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Reads meta tags, links and text from a page the store served, for store checks
- * that look for them whoever printed them: WordPress, WooCommerce, an SEO plugin or the theme.
+ * that look for them whoever printed them: WordPress, PooCommerce, an SEO plugin or the theme.
  *
  * @since 11.4.0
  */

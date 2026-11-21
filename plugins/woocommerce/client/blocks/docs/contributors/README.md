@@ -1,6 +1,6 @@
 # Contributing
 
-If you're a developer or contributor eager to get started with WooCommerce Block Development, this documentation folder is your perfect starting point.
+If you're a developer or contributor eager to get started with PooCommerce Block Development, this documentation folder is your perfect starting point.
 
 ## Navigating this section
 
@@ -40,9 +40,9 @@ Last but not least, to get an insight into how CSS is built, refer to the [CSS B
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/README.md)
 
 <!-- /FEEDBACK -->
 

@@ -5,4 +5,4 @@ function wc_register_checkout_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'wc_register_checkout_assets' );
 
-add_action( 'wp_enqueue_scripts', static function() { wp_enqueue_script( 'gateway-ui', plugins_url( 'gateway-ui.js', __FILE__ ), array( 'jquery', 'woocommerce-tokenization-form' ), '1.0', false ); }, 20 );
+add_action( 'wp_enqueue_scripts', static function() { wp_enqueue_script( 'gateway-ui', plugins_url( 'gateway-ui.js', __FILE__ ), array( 'jquery', 'poocommerce-tokenization-form' ), '1.0', false ); }, 20 );

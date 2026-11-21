@@ -4,13 +4,13 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { dispatch, useDispatch, useSelect } from '@wordpress/data';
 import { useCallback } from '@wordpress/element';
-import { cartStore, checkoutStore } from '@woocommerce/block-data';
+import { cartStore, checkoutStore } from '@poocommerce/block-data';
 import { decodeEntities } from '@wordpress/html-entities';
 import type {
 	StoreCartCoupon,
 	CouponApiErrorResponse,
-} from '@woocommerce/types';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
+} from '@poocommerce/types';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ import { useStoreCart } from './use-store-cart';
  * the shopper. The failure is feedback for the coupon form only, so it is never
  * written to the validation store, which would block checkout.
  *
- * See also: https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
+ * See also: https://github.com/poocommerce/poocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
  */
 export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 	const { cartCoupons, cartIsLoading } = useStoreCart();
@@ -70,7 +70,7 @@ export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 								/* translators: %s coupon code. */
 								__(
 									'Coupon code "%s" has been applied to your cart.',
-									'woocommerce'
+									'poocommerce'
 								),
 								couponCode
 							),
@@ -109,7 +109,7 @@ export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 								/* translators: %s coupon code. */
 								__(
 									'Coupon code "%s" has been removed from your cart.',
-									'woocommerce'
+									'poocommerce'
 								),
 								decodeEntities( couponCode )
 							),

@@ -13,10 +13,10 @@ export const field: Field< ChequeSettings > = {
 	id: 'instructions',
 	type: 'text',
 	Edit: 'textarea',
-	label: __( 'Instructions', 'woocommerce' ),
+	label: __( 'Instructions', 'poocommerce' ),
 	description: __(
 		'Instructions that will be added to the thank you page and emails.',
-		'woocommerce'
+		'poocommerce'
 	),
 	getValue: ( { item } ) => {
 		const setting = item.settings.instructions;

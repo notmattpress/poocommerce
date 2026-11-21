@@ -8,7 +8,7 @@ WebPreview component to display an iframe of another page.
 ```jsx
 <WebPreview
     title="My Web Preview"
-    src="https://themes.woocommerce.com/?name=galleria"
+    src="https://themes.poocommerce.com/?name=galleria"
 />
 ```
 

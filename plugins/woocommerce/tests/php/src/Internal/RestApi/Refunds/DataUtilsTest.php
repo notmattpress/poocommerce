@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Refunds;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Refunds;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\RestApi\Refunds\DataUtils;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\DataUtils;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Cache_Helper;
 use WC_Helper_Product;
 use WC_Order;
@@ -43,8 +43,8 @@ class DataUtilsTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		// Clean up tax rates.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rate_locations" );
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rate_locations" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates" );
 		wp_cache_flush();
 		WC_Cache_Helper::invalidate_cache_group( 'taxes' );
 		parent::tearDown();
@@ -3529,8 +3529,8 @@ class DataUtilsTest extends WC_Unit_Test_Case {
 	 */
 	private function create_order_with_zero_tax_shipping( int $tax_rate_id ): WC_Order {
 		// Enable tax calculations.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		// Create an order.
 		$order = wc_create_order();
@@ -3579,8 +3579,8 @@ class DataUtilsTest extends WC_Unit_Test_Case {
 	 */
 	private function create_order_with_taxes( array $tax_rate_ids, float $product_price = 100.00 ): WC_Order {
 		// Enable tax calculations.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		// Create a product.
 		$product = WC_Helper_Product::create_simple_product();

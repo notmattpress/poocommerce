@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\PaymentUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\PaymentUtils;
 use WC_Unit_Test_Case;
 
 /**
@@ -11,7 +11,7 @@ use WC_Unit_Test_Case;
  */
 class PaymentUtilsTest extends WC_Unit_Test_Case {
 
-	const FILTER = 'woocommerce_default_payment_method';
+	const FILTER = 'poocommerce_default_payment_method';
 
 	/**
 	 * Gateway instances before the test; they cache their settings, which the rollback doesn't reset.
@@ -28,7 +28,7 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 
 		$this->payment_gateways_before_test = WC()->payment_gateways()->payment_gateways;
 
-		foreach ( array( 'woocommerce_bacs_settings', 'woocommerce_cod_settings' ) as $option_name ) {
+		foreach ( array( 'poocommerce_bacs_settings', 'poocommerce_cod_settings' ) as $option_name ) {
 			$settings            = (array) get_option( $option_name, array() );
 			$settings['enabled'] = 'yes';
 			update_option( $option_name, $settings );
@@ -45,8 +45,8 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 		try {
 			parent::tearDown();
 		} finally {
-			wp_cache_delete( 'woocommerce_bacs_settings', 'options' );
-			wp_cache_delete( 'woocommerce_cod_settings', 'options' );
+			wp_cache_delete( 'poocommerce_bacs_settings', 'options' );
+			wp_cache_delete( 'poocommerce_cod_settings', 'options' );
 			WC()->payment_gateways()->payment_gateways = $this->payment_gateways_before_test;
 			WC()->session->set( 'chosen_payment_method', null );
 		}
@@ -81,7 +81,7 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 	 * @testdox Should keep an unavailable session choice without a callback, as before.
 	 */
 	public function test_default_payment_method_keeps_an_unavailable_session_choice_without_a_callback(): void {
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
 
 		$this->assertSame( 'cod', PaymentUtils::get_default_payment_method() );
 	}
@@ -150,7 +150,7 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_default_payment_method_returns_nothing_when_the_callback_picks_an_unavailable_gateway(): void {
 		WC()->session->set( 'chosen_payment_method', null );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
 		add_filter(
 			self::FILTER,
 			function () {
@@ -165,7 +165,7 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 	 * @testdox Should pass an unchanged answer through even when that gateway is not available, as without a callback.
 	 */
 	public function test_default_payment_method_passes_an_unchanged_answer_through(): void {
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
 		add_filter(
 			self::FILTER,
 			function ( $payment_method ) {
@@ -249,7 +249,7 @@ class PaymentUtilsTest extends WC_Unit_Test_Case {
 	 * @testdox Should fall back to the default when the session choice is enabled but not available for this cart.
 	 */
 	public function test_checkout_payment_method_ignores_an_unavailable_session_choice(): void {
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'hide_cod' ) );
 		add_filter( self::FILTER, '__return_empty_string' );
 
 		$this->assertSame( '', PaymentUtils::get_checkout_payment_method() );

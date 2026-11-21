@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CustomerUpdate;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CustomerUpdate;
 
 /**
  * Tests the customer-update ability.
@@ -123,7 +123,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertWPError( $result );
 		$this->assertEqualsCanonicalizing(
-			array( 'woocommerce_ability_customer_billing_state_invalid', 'woocommerce_ability_customer_billing_email_invalid', 'woocommerce_ability_customer_shipping_country_invalid' ),
+			array( 'poocommerce_ability_customer_billing_state_invalid', 'poocommerce_ability_customer_billing_email_invalid', 'poocommerce_ability_customer_shipping_country_invalid' ),
 			$result->get_error_codes()
 		);
 		$this->assertSame( '', ( new \WC_Customer( $user_id ) )->get_first_name() );
@@ -167,7 +167,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertEqualsCanonicalizing( array( 'woocommerce_ability_customer_billing_state_invalid', 'woocommerce_ability_customer_billing_postcode_invalid' ), $result->get_error_codes() );
+		$this->assertEqualsCanonicalizing( array( 'poocommerce_ability_customer_billing_state_invalid', 'poocommerce_ability_customer_billing_postcode_invalid' ), $result->get_error_codes() );
 		$messages = implode( ' ', $result->get_error_messages() );
 		$this->assertStringNotContainsString( 'NY', $messages );
 		$this->assertStringNotContainsString( '94110', $messages );
@@ -195,7 +195,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 				'first_name' => 'Ana',
 			)
 		);
-		$this->assertSame( 'woocommerce_ability_customer_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_not_found', $result->get_error_code() );
 	}
 
 	/**
@@ -214,7 +214,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 				'first_name' => 'Ana',
 			)
 		);
-		$this->assertSame( 'woocommerce_ability_customer_guest', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_guest', $result->get_error_code() );
 
 		$result = $this->execute(
 			array(
@@ -222,10 +222,10 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 				'first_name' => 'Ana',
 			)
 		);
-		$this->assertSame( 'woocommerce_ability_customer_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_not_found', $result->get_error_code() );
 
 		$result = $this->execute( array( 'id' => $this->registered_customer()[0] ) );
-		$this->assertSame( 'woocommerce_ability_customer_no_fields', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_no_fields', $result->get_error_code() );
 	}
 
 	/**
@@ -234,7 +234,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 	public function test_permissions(): void {
 		list( $id )    = $this->registered_customer();
 		$admin_user_id = get_current_user_id();
-		add_filter( 'woocommerce_analytics_customer_roles', static fn() => array( 'customer', 'administrator' ) );
+		add_filter( 'poocommerce_analytics_customer_roles', static fn() => array( 'customer', 'administrator' ) );
 		CustomersDataStore::update_registered_customer( $admin_user_id );
 		$admin = (int) CustomersDataStore::get_customer_id_by_user_id( $admin_user_id );
 
@@ -251,7 +251,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_honours_the_profile_address_lock(): void {
 		list( $id, $user_id ) = $this->registered_customer();
-		add_filter( 'woocommerce_current_user_can_edit_customer_meta_fields', '__return_false' );
+		add_filter( 'poocommerce_current_user_can_edit_customer_meta_fields', '__return_false' );
 
 		$this->assertFalse( CustomerUpdate::can_edit_customer( array( 'id' => $id ) ) );
 		$result = $this->execute(
@@ -290,7 +290,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_customer_forbidden', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_forbidden', $result->get_error_code() );
 		$this->assertSame( '', ( new \WC_Customer( self::$user_id ) )->get_first_name() );
 	}
 
@@ -299,7 +299,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refuses_without_analytics(): void {
 		list( $id ) = $this->registered_customer();
-		update_option( 'woocommerce_analytics_enabled', 'no' );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
 
 		$result = $this->execute(
 			array(
@@ -308,14 +308,14 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_ability_customer_analytics_disabled', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_analytics_disabled', $result->get_error_code() );
 	}
 
 	/**
 	 * Run a test with the core resources and the given extension callbacks registered, and restore
 	 * the registry after it.
 	 *
-	 * @param callable $register Registers fields or syncs inside woocommerce_extensible_abilities_init.
+	 * @param callable $register Registers fields or syncs inside poocommerce_extensible_abilities_init.
 	 * @param callable $test     Receives a CustomerUpdate built while they are registered.
 	 */
 	private function with_extensions( callable $register, callable $test ): void {
@@ -327,11 +327,11 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 			$property->setValue( null, array() );
 		}
 		try {
-			update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
-			add_action( 'woocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
-			do_action( 'woocommerce_extensible_abilities_resources_init' );
-			add_action( 'woocommerce_extensible_abilities_init', $register );
-			do_action( 'woocommerce_extensible_abilities_init' );
+			update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
+			add_action( 'poocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
+			do_action( 'poocommerce_extensible_abilities_resources_init' );
+			add_action( 'poocommerce_extensible_abilities_init', $register );
+			do_action( 'poocommerce_extensible_abilities_init' );
 			$test( new CustomerUpdate( CustomerUpdate::ABILITY_NAME, CustomerUpdate::get_registration_args() ) );
 		} finally {
 			foreach ( $saved as $name => $value ) {
@@ -382,7 +382,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refuses_unchanged_customer(): void {
 		list( $id ) = $this->registered_customer();
-		$saves      = did_action( 'woocommerce_update_customer' );
+		$saves      = did_action( 'poocommerce_update_customer' );
 
 		$result = $this->execute(
 			array(
@@ -391,9 +391,9 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_customer_unchanged', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_unchanged', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
-		$this->assertSame( $saves, did_action( 'woocommerce_update_customer' ), 'An unchanged customer is not saved.' );
+		$this->assertSame( $saves, did_action( 'poocommerce_update_customer' ), 'An unchanged customer is not saved.' );
 
 		$this->execute(
 			array(
@@ -401,7 +401,7 @@ class CustomerUpdateTest extends \WC_Unit_Test_Case {
 				'billing' => array( 'city' => 'New city' ),
 			)
 		);
-		$this->assertSame( $saves + 1, did_action( 'woocommerce_update_customer' ) );
+		$this->assertSame( $saves + 1, did_action( 'poocommerce_update_customer' ) );
 	}
 
 	/**

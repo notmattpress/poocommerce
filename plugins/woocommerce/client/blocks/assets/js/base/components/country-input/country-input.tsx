@@ -3,8 +3,8 @@
  */
 import { useMemo } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isObject, isString, objectHasProp } from '@woocommerce/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isObject, isString, objectHasProp } from '@poocommerce/types';
 import clsx from 'clsx';
 
 /**

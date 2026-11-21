@@ -6,7 +6,7 @@ import {
 	test as base,
 	enableTestPlugin,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ test.describe( 'Shopper → Extensibility', () => {
 		} ) => {
 			// With no additional args.
 			let response = await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update' } ).then( ( response ) => response );"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update' } ).then( ( response ) => response );"
 			);
 			let resolvedResponse = await Promise.resolve( response );
 			expect( resolvedResponse ).not.toBeUndefined();
@@ -47,7 +47,7 @@ test.describe( 'Shopper → Extensibility', () => {
 
 			// With overwriteDirtyCustomerData true.
 			response = await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } ).then( ( response ) => response );"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } ).then( ( response ) => response );"
 			);
 			resolvedResponse = await Promise.resolve( response );
 			expect( resolvedResponse ).not.toBeUndefined();
@@ -55,7 +55,7 @@ test.describe( 'Shopper → Extensibility', () => {
 
 			// With overwriteDirtyCustomerData false.
 			response = await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: false } ).then( ( response ) => response );"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: false } ).then( ( response ) => response );"
 			);
 			resolvedResponse = await Promise.resolve( response );
 			expect( resolvedResponse ).not.toBeUndefined();
@@ -69,7 +69,7 @@ test.describe( 'Shopper → Extensibility', () => {
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
 			).toHaveValue( 'GB' );
 			response = await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update' } ).then( ( response ) => response );"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update' } ).then( ( response ) => response );"
 			);
 			resolvedResponse = await Promise.resolve( response );
 			expect( resolvedResponse ).not.toBeUndefined();
@@ -116,18 +116,18 @@ test.describe( 'Shopper → Extensibility', () => {
 
 			// Without the arg, the unpushed postcode is kept.
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update' } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update' } )"
 			);
 			await expect( postcode ).toHaveValue( 'ABCDEF' );
 
 			// With overwriteDirtyCustomerData, the address from the server replaces it.
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
 			);
 			await expect( postcode ).toHaveValue( '90210' );
 
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
@@ -146,7 +146,7 @@ test.describe( 'Shopper → Extensibility', () => {
 				);
 			} );
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', data: { 'test-name-change': true } } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', data: { 'test-name-change': true } } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'First name' )

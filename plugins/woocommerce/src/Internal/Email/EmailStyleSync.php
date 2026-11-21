@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Helper class for syncing email styles with theme styles.
@@ -15,7 +15,7 @@ class EmailStyleSync implements RegisterHooksInterface {
 	/**
 	 * Option name for auto-sync setting.
 	 */
-	const AUTO_SYNC_OPTION = 'woocommerce_email_auto_sync_with_theme';
+	const AUTO_SYNC_OPTION = 'poocommerce_email_auto_sync_with_theme';
 
 	/**
 	 * Flag to prevent recursive syncing.
@@ -112,23 +112,23 @@ class EmailStyleSync implements RegisterHooksInterface {
 		}
 
 		if ( ! empty( $colors['base'] ) ) {
-			update_option( 'woocommerce_email_base_color', $colors['base'] );
+			update_option( 'poocommerce_email_base_color', $colors['base'] );
 		}
 
 		if ( ! empty( $colors['bg'] ) ) {
-			update_option( 'woocommerce_email_background_color', $colors['bg'] );
+			update_option( 'poocommerce_email_background_color', $colors['bg'] );
 		}
 
 		if ( ! empty( $colors['body_bg'] ) ) {
-			update_option( 'woocommerce_email_body_background_color', $colors['body_bg'] );
+			update_option( 'poocommerce_email_body_background_color', $colors['body_bg'] );
 		}
 
 		if ( ! empty( $colors['body_text'] ) ) {
-			update_option( 'woocommerce_email_text_color', $colors['body_text'] );
+			update_option( 'poocommerce_email_text_color', $colors['body_text'] );
 		}
 
 		if ( ! empty( $colors['footer_text'] ) ) {
-			update_option( 'woocommerce_email_footer_text_color', $colors['footer_text'] );
+			update_option( 'poocommerce_email_footer_text_color', $colors['footer_text'] );
 		}
 	}
 }

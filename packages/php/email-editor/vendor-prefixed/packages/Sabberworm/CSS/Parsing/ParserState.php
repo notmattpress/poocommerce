@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings;
 
 /**
  * @internal since 8.7.0
@@ -118,7 +118,7 @@ class ParserState
     }
 
     /**
-     * @return \Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\Anchor
+     * @return \Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\Anchor
      */
     public function anchor()
     {

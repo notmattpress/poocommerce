@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * DownloadsWrapper class.
@@ -25,9 +25,9 @@ class DownloadsWrapper extends AbstractOrderConfirmationBlock {
 	protected function store_has_downloadable_products() {
 		global $wpdb;
 
-		if ( get_option( 'woocommerce_product_lookup_table_is_generating' ) ) {
+		if ( get_option( 'poocommerce_product_lookup_table_is_generating' ) ) {
 			// The underlying SQL is slower than querying `wc_product_meta_lookup`, so caching is used for performance.
-			$has_downloadable_products = wp_cache_get( 'woocommerce_has_downloadable_products', 'woocommerce' );
+			$has_downloadable_products = wp_cache_get( 'poocommerce_has_downloadable_products', 'poocommerce' );
 			if ( false === $has_downloadable_products ) {
 				$has_downloadable_products = (bool) $wpdb->get_var(
 					"SELECT posts.ID
@@ -41,7 +41,7 @@ class DownloadsWrapper extends AbstractOrderConfirmationBlock {
 						LIMIT 1"
 				);
 				$has_downloadable_products = $has_downloadable_products ? 'yes' : 'no';
-				wp_cache_set( 'woocommerce_has_downloadable_products', $has_downloadable_products, 'woocommerce', HOUR_IN_SECONDS );
+				wp_cache_set( 'poocommerce_has_downloadable_products', $has_downloadable_products, 'poocommerce', HOUR_IN_SECONDS );
 			}
 			$has_downloadable_products = 'yes' === $has_downloadable_products;
 		} else {

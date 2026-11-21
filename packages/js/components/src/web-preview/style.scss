@@ -1,4 +1,4 @@
-.woocommerce-web-preview {
+.poocommerce-web-preview {
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -6,12 +6,12 @@
 	background: $studio-gray-0;
 
 	&.is-loading {
-		.woocommerce-web-preview__iframe-wrapper {
+		.poocommerce-web-preview__iframe-wrapper {
 			display: none;
 		}
 	}
 
-	.woocommerce-web-preview__iframe-wrapper {
+	.poocommerce-web-preview__iframe-wrapper {
 		width: 100%;
 	}
 

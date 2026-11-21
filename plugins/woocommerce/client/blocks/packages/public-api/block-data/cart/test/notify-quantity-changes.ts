@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { dispatch, select } from '@wordpress/data';
-import { previewCart } from '@woocommerce/resource-previews';
-import { Cart } from '@woocommerce/types';
-import { camelCaseKeys } from '@woocommerce/base-utils';
+import { previewCart } from '@poocommerce/resource-previews';
+import { Cart } from '@poocommerce/types';
+import { camelCaseKeys } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

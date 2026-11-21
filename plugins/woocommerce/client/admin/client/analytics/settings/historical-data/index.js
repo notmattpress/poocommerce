@@ -8,10 +8,10 @@ import {
 	notesStore,
 	QUERY_DEFAULTS,
 	SECOND,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { withSpokenMessages } from '@wordpress/components';
-import { getShortDateFormat } from '@woocommerce/date';
+import { getShortDateFormat } from '@poocommerce/date';
 
 /**
  * Internal dependencies

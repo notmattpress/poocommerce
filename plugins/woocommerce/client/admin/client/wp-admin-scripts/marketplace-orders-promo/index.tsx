@@ -1,5 +1,5 @@
 /**
- * Inserts a contextual Marketplace promo card on the WooCommerce Orders list.
+ * Inserts a contextual Marketplace promo card on the PooCommerce Orders list.
  *
  * The Orders list is a classic (non-SPA) admin page. The orders list table is wrapped in a
  * form, so the card is inserted as a full-width banner immediately before that form — above the
@@ -45,7 +45,7 @@ const anchor =
 
 if ( data && data.promotion && anchor && anchor.parentNode ) {
 	const root = document.createElement( 'div' );
-	root.className = 'woocommerce-marketplace-orders-promo';
+	root.className = 'poocommerce-marketplace-orders-promo';
 	anchor.parentNode.insertBefore( root, anchor );
 
 	const promoId = data.id;

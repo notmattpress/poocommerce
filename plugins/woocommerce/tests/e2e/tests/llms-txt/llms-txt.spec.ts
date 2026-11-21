@@ -16,7 +16,7 @@ test.describe( 'llms.txt', () => {
 		expect( response.headers()[ 'content-type' ] ).toContain(
 			'text/plain'
 		);
-		expect( await response.text() ).toContain( 'WooCommerce Store API' );
+		expect( await response.text() ).toContain( 'PooCommerce Store API' );
 
 		const head = await request.head( '/llms.txt' );
 		expect( head.status() ).toBe( 200 );
@@ -62,7 +62,7 @@ test.describe( 'llms.txt', () => {
 		const { stdout } = await wpCLI( [
 			'wp',
 			'eval',
-			"echo wp_json_encode( array( get_option( 'woocommerce_coming_soon', null ), get_option( 'woocommerce_store_pages_only', null ) ) );",
+			"echo wp_json_encode( array( get_option( 'poocommerce_coming_soon', null ), get_option( 'poocommerce_store_pages_only', null ) ) );",
 		] );
 		const original = Buffer.from( stdout.trim() ).toString( 'base64' );
 		try {
@@ -70,25 +70,25 @@ test.describe( 'llms.txt', () => {
 				'wp',
 				'option',
 				'update',
-				'woocommerce_coming_soon',
+				'poocommerce_coming_soon',
 				'yes',
 			] );
 			await wpCLI( [
 				'wp',
 				'option',
 				'update',
-				'woocommerce_store_pages_only',
+				'poocommerce_store_pages_only',
 				'no',
 			] );
 			const response = await request.get( '/llms.txt' );
 			const body = await response.text();
-			expect( body ).toContain( 'woocommerce-coming-soon' );
+			expect( body ).toContain( 'poocommerce-coming-soon' );
 			expect( body ).not.toContain( '## Agentic capabilities' );
 		} finally {
 			await wpCLI( [
 				'wp',
 				'eval',
-				`$options = json_decode( base64_decode( '${ original }' ), true ); foreach ( array( 'woocommerce_coming_soon', 'woocommerce_store_pages_only' ) as $i => $name ) { null === $options[$i] ? delete_option( $name ) : update_option( $name, $options[$i] ); }`,
+				`$options = json_decode( base64_decode( '${ original }' ), true ); foreach ( array( 'poocommerce_coming_soon', 'poocommerce_store_pages_only' ) as $i => $name ) { null === $options[$i] ? delete_option( $name ) : update_option( $name, $options[$i] ); }`,
 			] );
 		}
 	} );

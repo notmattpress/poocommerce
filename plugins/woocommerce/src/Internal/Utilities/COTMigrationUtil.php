@@ -3,10 +3,10 @@
  * Utility functions meant for helping in migration from posts tables to custom order tables.
  */
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\{ DataSynchronizer, OrdersTableDataStore };
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\{ DataSynchronizer, OrdersTableDataStore };
 use WC_Order;
 use WP_Post;
 

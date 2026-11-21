@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Mocks;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Mocks;
 
 use WC_Shipping_Method;
 

@@ -4,7 +4,7 @@
 
 - #58472 (9.9.1): restored a removed webhook comment-filter callback.
 - #49797 (9.1.4): reverted a change that fired `product_add_publish` too often.
-- Earlier review findings: `woocommerce_analytics_new_customer` stopped firing after a read-only lookup swap; geo/locale filters fired once per locale; settings filters now fired on the frontend; `save_items()` stopped calling the overridable `delete_items()`, breaking custom data stores; reset bypassed default-status filters.
+- Earlier review findings: `poocommerce_analytics_new_customer` stopped firing after a read-only lookup swap; geo/locale filters fired once per locale; settings filters now fired on the frontend; `save_items()` stopped calling the overridable `delete_items()`, breaking custom data stores; reset bypassed default-status filters.
 - Earlier review findings: `clean_post_cache`; `set_object_terms`.
 
 **What broke:** Refactors moved or gated code so a hook or overridable method stopped running, ran many times, or ran in a new context. Analytics, webhooks, and custom data stores depend on these.

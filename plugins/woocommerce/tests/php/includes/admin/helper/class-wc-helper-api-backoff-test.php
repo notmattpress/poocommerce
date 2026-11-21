@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Helper_API_Backoff class
  *
- * @package WooCommerce\Tests\Admin\Helper
+ * @package PooCommerce\Tests\Admin\Helper
  */
 
 declare(strict_types=1);

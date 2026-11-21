@@ -40,8 +40,8 @@ const getCacheConfig = ( name, configPaths = [] ) =>
 					config: [
 						__filename,
 						path.resolve( __dirname, '../../../../pnpm-lock.yaml' ),
-						require.resolve( '@woocommerce/dependency-extraction-webpack-plugin' ),
-						require.resolve( '@woocommerce/internal-build/style-build' ),
+						require.resolve( '@poocommerce/dependency-extraction-webpack-plugin' ),
+						require.resolve( '@poocommerce/internal-build/style-build' ),
 						...configPaths.map( ( configPath ) =>
 							path.resolve( __dirname, configPath )
 						),
@@ -90,7 +90,7 @@ const MainConfig = {
 	...getMainConfig( { alias: getAlias() } ),
 };
 
-// Unified Blocks config enabled at runtime by a WooCommerce feature flag.
+// Unified Blocks config enabled at runtime by a PooCommerce feature flag.
 const UnifiedMainConfig = {
 	...sharedConfig,
 	cache: getCacheConfig( 'unified-main', [] ),
@@ -131,7 +131,7 @@ const StylingConfig = {
 	...getStylingConfig( { alias: getAlias() } ),
 };
 
-// Unified editor styles enabled at runtime by a WooCommerce feature flag.
+// Unified editor styles enabled at runtime by a PooCommerce feature flag.
 const UnifiedStylingConfig = {
 	...sharedConfig,
 	cache: getCacheConfig( 'unified-styling', [] ),

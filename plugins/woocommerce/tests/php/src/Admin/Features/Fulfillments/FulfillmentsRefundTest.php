@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Order;
 
 /**
@@ -64,7 +64,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		// Add specific test products.
 		for ( $i = 0; $i < $product_count; $i++ ) {
-			$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+			$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 			$product->set_regular_price( 10 );
 			$product->save();
 
@@ -189,7 +189,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},
@@ -568,7 +568,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},
@@ -635,7 +635,7 @@ class FulfillmentsRefundTest extends \WC_Unit_Test_Case {
 		$item_id     = array_key_first( $items );
 		$hook_called = 0;
 		add_action(
-			'woocommerce_refund_created',
+			'poocommerce_refund_created',
 			function () use ( &$hook_called ) {
 				$hook_called++;
 			},

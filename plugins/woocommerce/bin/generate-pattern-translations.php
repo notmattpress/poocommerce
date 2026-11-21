@@ -2,10 +2,10 @@
 /**
  * Generates pattern metadata strings for translation scanners.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
-use Automattic\WooCommerce\Tools\Generate_Pattern_Translations;
+use Automattic\PooCommerce\Tools\Generate_Pattern_Translations;
 
 require_once __DIR__ . '/composer/wp/vendor/autoload.php';
 require_once __DIR__ . '/class-generate-pattern-translations.php';

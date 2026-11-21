@@ -6,7 +6,7 @@ import { cloneElement, Component } from '@wordpress/element';
 import NoticeOutline from 'gridicons/dist/notice-outline';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { H, Section } from '@woocommerce/components';
+import { H, Section } from '@poocommerce/components';
 import { Button } from '@wordpress/components';
 
 /**
@@ -36,7 +36,7 @@ class ActivityCard extends Component {
 			title,
 			unread,
 		} = this.props;
-		const cardClassName = clsx( 'woocommerce-activity-card', className );
+		const cardClassName = clsx( 'poocommerce-activity-card', className );
 		const actionsList = Array.isArray( actions ) ? actions : [ actions ];
 		const dateString = isDateString( date )
 			? moment.utc( date ).fromNow()
@@ -45,40 +45,40 @@ class ActivityCard extends Component {
 		return (
 			<section className={ cardClassName }>
 				{ unread && (
-					<span className="woocommerce-activity-card__unread" />
+					<span className="poocommerce-activity-card__unread" />
 				) }
 				{ icon && (
 					<span
-						className="woocommerce-activity-card__icon"
+						className="poocommerce-activity-card__icon"
 						aria-hidden
 					>
 						{ icon }
 					</span>
 				) }
 				{ title && (
-					<header className="woocommerce-activity-card__header">
-						<H className="woocommerce-activity-card__title">
+					<header className="poocommerce-activity-card__header">
+						<H className="poocommerce-activity-card__title">
 							{ title }
 						</H>
 						{ subtitle && (
-							<div className="woocommerce-activity-card__subtitle">
+							<div className="poocommerce-activity-card__subtitle">
 								{ subtitle }
 							</div>
 						) }
 						{ dateString && (
-							<span className="woocommerce-activity-card__date">
+							<span className="poocommerce-activity-card__date">
 								{ dateString }
 							</span>
 						) }
 					</header>
 				) }
 				{ children && (
-					<Section className="woocommerce-activity-card__body">
+					<Section className="poocommerce-activity-card__body">
 						{ children }
 					</Section>
 				) }
 				{ actions && (
-					<footer className="woocommerce-activity-card__actions">
+					<footer className="poocommerce-activity-card__actions">
 						{ actionsList.map( ( item, i ) =>
 							cloneElement( item, { key: i } )
 						) }
@@ -93,7 +93,7 @@ class ActivityCard extends Component {
 		if ( onClick ) {
 			return (
 				<Button
-					className="woocommerce-activity-card__button"
+					className="poocommerce-activity-card__button"
 					onClick={ onClick }
 				>
 					{ this.getCard() }

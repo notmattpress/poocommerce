@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Controller;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Controller;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Unit_Test_Case;
 
 /**
@@ -84,7 +84,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_payment_method_export_column_falls_back_to_the_stored_id_without_a_title(): void {
 		add_filter(
-			'woocommerce_gateway_method_title',
+			'poocommerce_gateway_method_title',
 			function ( $title, $gateway ) {
 				return 'bacs' === $gateway->id ? '' : $title;
 			},

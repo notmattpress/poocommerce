@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores;
 
-use Automattic\WooCommerce\Internal\DataStores\PostDataSlashing;
+use Automattic\PooCommerce\Internal\DataStores\PostDataSlashing;
 use WC_Unit_Test_Case;
 
 /**

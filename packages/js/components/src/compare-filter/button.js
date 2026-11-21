@@ -30,7 +30,7 @@ const CompareButton = ( {
 		<Tooltip text={ helpText }>
 			<span className={ className }>
 				<Button
-					className="woocommerce-compare-button"
+					className="poocommerce-compare-button"
 					disabled={ true }
 					isSecondary
 				>
@@ -40,7 +40,7 @@ const CompareButton = ( {
 		</Tooltip>
 	) : (
 		<Button
-			className={ clsx( 'woocommerce-compare-button', className ) }
+			className={ clsx( 'poocommerce-compare-button', className ) }
 			onClick={ onClick }
 			disabled={ disabled }
 			isSecondary

@@ -3,7 +3,7 @@
  */
 import { act, render, screen } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

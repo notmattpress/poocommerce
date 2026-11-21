@@ -1,4 +1,4 @@
-.woocommerce-activity-panel .woocommerce-activity-card {
+.poocommerce-activity-panel .poocommerce-activity-card {
 	position: relative;
 	padding: $fallback-gutter;
 	padding: $gutter;
@@ -7,7 +7,7 @@
 	color: $gray-text;
 	@include font-size( 13 );
 
-	&:not(.woocommerce-empty-activity-card) {
+	&:not(.poocommerce-empty-activity-card) {
 		display: grid;
 		grid-template-columns: 50px 1fr;
 		grid-template-areas:
@@ -28,7 +28,7 @@
 	}
 }
 
-.woocommerce-activity-card__unread {
+.poocommerce-activity-card__unread {
 	position: absolute;
 	top: calc(#{$fallback-gutter} - 6px);
 	top: calc(#{$gutter} - 6px);
@@ -40,29 +40,29 @@
 	background: $core-orange;
 }
 
-.woocommerce-activity-card__icon {
+.poocommerce-activity-card__icon {
 	grid-area: icon;
 	fill: $gray-200;
 }
 
-.woocommerce-activity-card__header {
+.poocommerce-activity-card__header {
 	margin-bottom: $gap;
 	display: flex;
 	flex-direction: column;
 
-	.woocommerce-activity-card__title {
+	.poocommerce-activity-card__title {
 		margin: 0;
 		@include font-size( 14 );
 		order: 2;
 
-		.woocommerce-empty-activity-card & {
+		.poocommerce-empty-activity-card & {
 			color: $gray-900;
 			font-style: normal;
 			line-height: 24px;
 			font-weight: normal;
 		}
 
-		.woocommerce-activity-card__button & {
+		.poocommerce-activity-card__button & {
 			margin-bottom: $gap-smaller;
 		}
 
@@ -71,16 +71,16 @@
 		}
 	}
 
-	.woocommerce-activity-card__date {
+	.poocommerce-activity-card__date {
 		color: $gray-700;
 		@include font-size( 12 );
 		margin-bottom: $gap-small;
 		order: 1;
 	}
 
-	.woocommerce-activity-card__subtitle {
+	.poocommerce-activity-card__subtitle {
 		order: 3;
-		.woocommerce-activity-card__button & {
+		.poocommerce-activity-card__button & {
 			margin-bottom: $gap-smallest;
 		}
 	}
@@ -93,24 +93,24 @@
 			"subtitle date" /
 			1fr auto;
 
-		.woocommerce-activity-card__title {
+		.poocommerce-activity-card__title {
 			grid-area: title;
 		}
 
-		.woocommerce-activity-card__date {
+		.poocommerce-activity-card__date {
 			display: block;
 			grid-area: date;
 			justify-self: end;
 			margin-bottom: 0;
 		}
 
-		.woocommerce-activity-card__subtitle {
+		.poocommerce-activity-card__subtitle {
 			grid-area: subtitle;
 		}
 	}
 }
 
-.woocommerce-activity-card__body {
+.poocommerce-activity-card__body {
 	grid-area: body;
 
 	& > p:first-child {
@@ -120,7 +120,7 @@
 	& > p:last-child {
 		margin-bottom: 0;
 	}
-	.woocommerce-empty-activity-card & {
+	.poocommerce-empty-activity-card & {
 		color: $gray-700;
 		font-style: normal;
 		font-weight: normal;
@@ -129,7 +129,7 @@
 	}
 }
 
-.woocommerce-activity-card__actions {
+.poocommerce-activity-card__actions {
 	grid-area: actions;
 	margin-top: $gap;
 
@@ -150,22 +150,22 @@
 	}
 }
 
-.woocommerce-activity-card.is-loading {
+.poocommerce-activity-card.is-loading {
 	.is-placeholder {
 		@include placeholder();
 		display: inline-block;
 		height: 16px;
 	}
 
-	.woocommerce-activity-card__title {
+	.poocommerce-activity-card__title {
 		width: 80%;
 	}
 
-	.woocommerce-activity-card__subtitle {
+	.poocommerce-activity-card__subtitle {
 		margin-top: $gap-smallest;
 	}
 
-	.woocommerce-activity-card__date {
+	.poocommerce-activity-card__date {
 		width: 100%;
 		margin-bottom: $gap;
 
@@ -180,7 +180,7 @@
 		}
 	}
 
-	.woocommerce-activity-card__icon {
+	.poocommerce-activity-card__icon {
 		margin-right: $fallback-gutter;
 		margin-right: $gutter;
 
@@ -190,7 +190,7 @@
 		}
 	}
 
-	.woocommerce-activity-card__body .is-placeholder {
+	.poocommerce-activity-card__body .is-placeholder {
 		width: 100%;
 		margin-bottom: $gap-smallest;
 
@@ -200,7 +200,7 @@
 		}
 	}
 
-	.woocommerce-activity-card__actions {
+	.poocommerce-activity-card__actions {
 		.is-placeholder {
 			width: 91px;
 			height: 24px;
@@ -209,22 +209,22 @@
 }
 
 // Needs the double-class for specificity
-.woocommerce-activity-panel .woocommerce-activity-card.woocommerce-order-activity-card {
+.poocommerce-activity-panel .poocommerce-activity-card.poocommerce-order-activity-card {
 	grid-template-columns: 1fr;
 	grid-template-areas:
 		"header"
 		"body"
 		"actions";
 
-	.woocommerce-activity-card__icon {
+	.poocommerce-activity-card__icon {
 		display: none;
 	}
 
-	.woocommerce-flag {
+	.poocommerce-flag {
 		display: inline-block;
 	}
 
-	.woocommerce-activity-card__subtitle {
+	.poocommerce-activity-card__subtitle {
 		span + span::before {
 			content: " \2022\ ";
 		}
@@ -232,7 +232,7 @@
 }
 
 // Needs the double-class for specificity
-.woocommerce-activity-panel .woocommerce-activity-card.woocommerce-inbox-activity-card {
+.poocommerce-activity-panel .poocommerce-activity-card.poocommerce-inbox-activity-card {
 	grid-template-columns: 72px 1fr;
 	height: 100%;
 	opacity: 1;
@@ -247,7 +247,7 @@
 		grid-template-columns: 64px 1fr;
 	}
 
-	.woocommerce-activity-card__header {
+	.poocommerce-activity-card__header {
 		margin-bottom: $gap-small;
 	}
 
@@ -261,8 +261,8 @@
 	}
 }
 
-.woocommerce-stock-activity-card__image-overlay__product,
-.woocommerce-review-activity-card__image-overlay__product {
+.poocommerce-stock-activity-card__image-overlay__product,
+.poocommerce-review-activity-card__image-overlay__product {
 	position: relative;
 	display: inline-block;
 
@@ -279,13 +279,13 @@
 			opacity: 0.1;
 		}
 
-		.woocommerce-product-image {
+		.poocommerce-product-image {
 			display: block;
 		}
 	}
 }
 
-.woocommerce-stock-activity-card {
+.poocommerce-stock-activity-card {
 	@media screen and ( prefers-reduced-motion: no-preference ) {
 		transition: opacity 0.3s;
 	}
@@ -294,7 +294,7 @@
 		opacity: 0.7;
 	}
 
-	.woocommerce-stock-activity-card__stock-quantity {
+	.poocommerce-stock-activity-card__stock-quantity {
 		background: $gray-100;
 		color: $gray-700;
 		padding: 3px $gap-smaller;
@@ -305,7 +305,7 @@
 		}
 	}
 
-	.woocommerce-stock-activity-card__edit-quantity {
+	.poocommerce-stock-activity-card__edit-quantity {
 		display: inline-flex;
 		width: 50px;
 		margin-right: 10px;
@@ -326,13 +326,13 @@
 		}
 	}
 
-	.woocommerce-activity-card__subtitle {
+	.poocommerce-activity-card__subtitle {
 		color: $gray-700;
 		@include font-size( 12 );
 	}
 }
 
-.woocommerce-empty-activity-card {
+.poocommerce-empty-activity-card {
 	background: $gray-100;
 	margin: 20px;
 	border-bottom: unset;

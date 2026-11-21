@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import type { CartVariationItem, Currency } from '@woocommerce/types';
+import type { CartVariationItem, Currency } from '@poocommerce/types';
 
-export type WooCommerceConfig = {
+export type PooCommerceConfig = {
 	messages?: {
 		addedToCartText?: string;
 	};

@@ -6,11 +6,11 @@ import { useEffect, useState } from '@wordpress/element';
 import {
 	dangerouslyGetExperimentAssignment,
 	loadExperimentAssignment,
-} from '@woocommerce/explat';
-import type { TaskListType } from '@woocommerce/data';
+} from '@poocommerce/explat';
+import type { TaskListType } from '@poocommerce/data';
 
 export const MARKETPLACE_TASK_EXPERIMENT_NAME =
-	'woocommerce_marketplace_task_202611';
+	'poocommerce_marketplace_task_202611';
 
 const CONTROL = 'control';
 const COPY_PAYMENTS_SHIPPING_MARKETING = 'copy_payments_shipping_marketing';
@@ -92,9 +92,9 @@ export const applyMarketplaceTaskVariation = (
 		variation === COPY_PAYMENTS_SHIPPING_MARKETING
 			? __(
 					'Add payments, shipping and marketing extensions',
-					'woocommerce'
+					'poocommerce'
 				)
-			: __( 'Browse free and paid extensions', 'woocommerce' );
+			: __( 'Browse free and paid extensions', 'poocommerce' );
 
 	return {
 		...taskList,

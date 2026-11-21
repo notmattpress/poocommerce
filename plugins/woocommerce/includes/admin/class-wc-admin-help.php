@@ -2,7 +2,7 @@
 /**
  * Add some content to the help tab
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
@@ -38,46 +38,46 @@ class WC_Admin_Help {
 
 		$screen->add_help_tab(
 			array(
-				'id'      => 'woocommerce_support_tab',
-				'title'   => __( 'Help &amp; Support', 'woocommerce' ),
+				'id'      => 'poocommerce_support_tab',
+				'title'   => __( 'Help &amp; Support', 'poocommerce' ),
 				'content' =>
-					'<h2>' . __( 'Help &amp; Support', 'woocommerce' ) . '</h2>' .
+					'<h2>' . __( 'Help &amp; Support', 'poocommerce' ) . '</h2>' .
 					'<p>' . sprintf(
 						/* translators: %s: Documentation URL */
-						__( 'Should you need help understanding, using, or extending WooCommerce, <a href="%s">please read our documentation</a>. You will find all kinds of resources including snippets, tutorials and much more.', 'woocommerce' ),
-						'https://woocommerce.com/documentation/plugins/woocommerce/?utm_source=helptab&utm_medium=product&utm_content=docs&utm_campaign=woocommerceplugin'
+						__( 'Should you need help understanding, using, or extending PooCommerce, <a href="%s">please read our documentation</a>. You will find all kinds of resources including snippets, tutorials and much more.', 'poocommerce' ),
+						'https://poocommerce.com/documentation/plugins/poocommerce/?utm_source=helptab&utm_medium=product&utm_content=docs&utm_campaign=poocommerceplugin'
 					) . '</p>' .
 					'<p>' . sprintf(
 						/* translators: %s: Forum URL */
-						__( 'For further assistance with WooCommerce core, use the <a href="%1$s">community forum</a>. For help with premium extensions sold on WooCommerce.com, <a href="%2$s">open a support request at WooCommerce.com</a>.', 'woocommerce' ),
-						'https://wordpress.org/support/plugin/woocommerce',
-						'https://woocommerce.com/my-account/create-a-ticket/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=woocommerceplugin'
+						__( 'For further assistance with PooCommerce core, use the <a href="%1$s">community forum</a>. For help with premium extensions sold on PooCommerce.com, <a href="%2$s">open a support request at PooCommerce.com</a>.', 'poocommerce' ),
+						'https://wordpress.org/support/plugin/poocommerce',
+						'https://poocommerce.com/my-account/create-a-ticket/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=poocommerceplugin'
 					) . '</p>' .
-					'<p>' . __( 'Before asking for help, we recommend checking the system status page to identify any problems with your configuration.', 'woocommerce' ) . '</p>' .
-					'<p><a href="' . admin_url( 'admin.php?page=wc-status' ) . '" class="button button-primary">' . __( 'System status', 'woocommerce' ) . '</a> <a href="https://wordpress.org/support/plugin/woocommerce" class="button">' . __( 'Community forum', 'woocommerce' ) . '</a> <a href="https://woocommerce.com/my-account/create-a-ticket/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=woocommerceplugin" class="button">' . __( 'WooCommerce.com support', 'woocommerce' ) . '</a></p>',
+					'<p>' . __( 'Before asking for help, we recommend checking the system status page to identify any problems with your configuration.', 'poocommerce' ) . '</p>' .
+					'<p><a href="' . admin_url( 'admin.php?page=wc-status' ) . '" class="button button-primary">' . __( 'System status', 'poocommerce' ) . '</a> <a href="https://wordpress.org/support/plugin/poocommerce" class="button">' . __( 'Community forum', 'poocommerce' ) . '</a> <a href="https://poocommerce.com/my-account/create-a-ticket/?utm_source=helptab&utm_medium=product&utm_content=tickets&utm_campaign=poocommerceplugin" class="button">' . __( 'PooCommerce.com support', 'poocommerce' ) . '</a></p>',
 			)
 		);
 
 		$screen->add_help_tab(
 			array(
-				'id'      => 'woocommerce_bugs_tab',
-				'title'   => __( 'Found a bug?', 'woocommerce' ),
+				'id'      => 'poocommerce_bugs_tab',
+				'title'   => __( 'Found a bug?', 'poocommerce' ),
 				'content' =>
-					'<h2>' . __( 'Found a bug?', 'woocommerce' ) . '</h2>' .
+					'<h2>' . __( 'Found a bug?', 'poocommerce' ) . '</h2>' .
 					/* translators: 1: GitHub issues URL 2: GitHub contribution guide URL 3: System status report URL */
-					'<p>' . sprintf( __( 'If you find a bug within WooCommerce core you can create a ticket via <a href="%1$s">GitHub issues</a>. Ensure you read the <a href="%2$s">contribution guide</a> prior to submitting your report. To help us solve your issue, please be as descriptive as possible and include your <a href="%3$s">system status report</a>.', 'woocommerce' ), 'https://github.com/woocommerce/woocommerce/issues?state=open', 'https://github.com/woocommerce/woocommerce/blob/trunk/.github/CONTRIBUTING.md', admin_url( 'admin.php?page=wc-status' ) ) . '</p>' .
-					'<p><a href="https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=&template=1-bug-report.yml" class="button button-primary">' . __( 'Report a bug', 'woocommerce' ) . '</a> <a href="' . admin_url( 'admin.php?page=wc-status' ) . '" class="button">' . __( 'System status', 'woocommerce' ) . '</a></p>',
+					'<p>' . sprintf( __( 'If you find a bug within PooCommerce core you can create a ticket via <a href="%1$s">GitHub issues</a>. Ensure you read the <a href="%2$s">contribution guide</a> prior to submitting your report. To help us solve your issue, please be as descriptive as possible and include your <a href="%3$s">system status report</a>.', 'poocommerce' ), 'https://github.com/poocommerce/poocommerce/issues?state=open', 'https://github.com/poocommerce/poocommerce/blob/trunk/.github/CONTRIBUTING.md', admin_url( 'admin.php?page=wc-status' ) ) . '</p>' .
+					'<p><a href="https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=&template=1-bug-report.yml" class="button button-primary">' . __( 'Report a bug', 'poocommerce' ) . '</a> <a href="' . admin_url( 'admin.php?page=wc-status' ) . '" class="button">' . __( 'System status', 'poocommerce' ) . '</a></p>',
 
 			)
 		);
 
 		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', 'woocommerce' ) . '</strong></p>' .
-			'<p><a href="https://woocommerce.com/?utm_source=helptab&utm_medium=product&utm_content=about&utm_campaign=woocommerceplugin" target="_blank">' . __( 'About WooCommerce', 'woocommerce' ) . '</a></p>' .
-			'<p><a href="https://wordpress.org/plugins/woocommerce/" target="_blank">' . __( 'WordPress.org project', 'woocommerce' ) . '</a></p>' .
-			'<p><a href="https://github.com/woocommerce/woocommerce/" target="_blank">' . __( 'GitHub project', 'woocommerce' ) . '</a></p>' .
-			'<p><a href="https://woocommerce.com/product-category/themes/?utm_source=helptab&utm_medium=product&utm_content=wcthemes&utm_campaign=woocommerceplugin" target="_blank">' . __( 'Official themes', 'woocommerce' ) . '</a></p>' .
-			'<p><a href="https://woocommerce.com/product-category/woocommerce-extensions/?utm_source=helptab&utm_medium=product&utm_content=wcextensions&utm_campaign=woocommerceplugin" target="_blank">' . __( 'Official extensions', 'woocommerce' ) . '</a></p>'
+			'<p><strong>' . __( 'For more information:', 'poocommerce' ) . '</strong></p>' .
+			'<p><a href="https://poocommerce.com/?utm_source=helptab&utm_medium=product&utm_content=about&utm_campaign=poocommerceplugin" target="_blank">' . __( 'About PooCommerce', 'poocommerce' ) . '</a></p>' .
+			'<p><a href="https://wordpress.org/plugins/poocommerce/" target="_blank">' . __( 'WordPress.org project', 'poocommerce' ) . '</a></p>' .
+			'<p><a href="https://github.com/poocommerce/poocommerce/" target="_blank">' . __( 'GitHub project', 'poocommerce' ) . '</a></p>' .
+			'<p><a href="https://poocommerce.com/product-category/themes/?utm_source=helptab&utm_medium=product&utm_content=wcthemes&utm_campaign=poocommerceplugin" target="_blank">' . __( 'Official themes', 'poocommerce' ) . '</a></p>' .
+			'<p><a href="https://poocommerce.com/product-category/poocommerce-extensions/?utm_source=helptab&utm_medium=product&utm_content=wcextensions&utm_campaign=poocommerceplugin" target="_blank">' . __( 'Official extensions', 'poocommerce' ) . '</a></p>'
 		);
 	}
 }

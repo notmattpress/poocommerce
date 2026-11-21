@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Internal\Features\BlockEditorUnifiedAssets;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Internal\Features\BlockEditorUnifiedAssets;
 
 /**
  * Registers side-effect-free blocks deferring class instantiation to render time.
@@ -159,28 +159,28 @@ final class BlockTypesLazyController {
 	 */
 	private function get_cart_inner_blocks(): array {
 		$list = array(
-			'cart-accepted-payment-methods-block'  => \Automattic\WooCommerce\Blocks\BlockTypes\CartAcceptedPaymentMethodsBlock::class,
-			'cart-cross-sells-block'               => \Automattic\WooCommerce\Blocks\BlockTypes\CartCrossSellsBlock::class,
-			'cart-cross-sells-products-block'      => \Automattic\WooCommerce\Blocks\BlockTypes\CartCrossSellsProductsBlock::class,
-			'cart-express-payment-block'           => \Automattic\WooCommerce\Blocks\BlockTypes\CartExpressPaymentBlock::class,
-			'cart-items-block'                     => \Automattic\WooCommerce\Blocks\BlockTypes\CartItemsBlock::class,
-			'cart-line-items-block'                => \Automattic\WooCommerce\Blocks\BlockTypes\CartLineItemsBlock::class,
-			'cart-order-summary-block'             => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryBlock::class,
-			'cart-order-summary-coupon-form-block' => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryCouponFormBlock::class,
-			'cart-order-summary-discount-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryDiscountBlock::class,
-			'cart-order-summary-fee-block'         => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryFeeBlock::class,
-			'cart-order-summary-heading-block'     => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryHeadingBlock::class,
-			'cart-order-summary-shipping-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryShippingBlock::class,
-			'cart-order-summary-subtotal-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummarySubtotalBlock::class,
-			'cart-order-summary-taxes-block'       => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryTaxesBlock::class,
-			'cart-order-summary-totals-block'      => \Automattic\WooCommerce\Blocks\BlockTypes\CartOrderSummaryTotalsBlock::class,
-			'cart-totals-block'                    => \Automattic\WooCommerce\Blocks\BlockTypes\CartTotalsBlock::class,
-			'empty-cart-block'                     => \Automattic\WooCommerce\Blocks\BlockTypes\EmptyCartBlock::class,
-			'filled-cart-block'                    => \Automattic\WooCommerce\Blocks\BlockTypes\FilledCartBlock::class,
+			'cart-accepted-payment-methods-block'  => \Automattic\PooCommerce\Blocks\BlockTypes\CartAcceptedPaymentMethodsBlock::class,
+			'cart-cross-sells-block'               => \Automattic\PooCommerce\Blocks\BlockTypes\CartCrossSellsBlock::class,
+			'cart-cross-sells-products-block'      => \Automattic\PooCommerce\Blocks\BlockTypes\CartCrossSellsProductsBlock::class,
+			'cart-express-payment-block'           => \Automattic\PooCommerce\Blocks\BlockTypes\CartExpressPaymentBlock::class,
+			'cart-items-block'                     => \Automattic\PooCommerce\Blocks\BlockTypes\CartItemsBlock::class,
+			'cart-line-items-block'                => \Automattic\PooCommerce\Blocks\BlockTypes\CartLineItemsBlock::class,
+			'cart-order-summary-block'             => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryBlock::class,
+			'cart-order-summary-coupon-form-block' => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryCouponFormBlock::class,
+			'cart-order-summary-discount-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryDiscountBlock::class,
+			'cart-order-summary-fee-block'         => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryFeeBlock::class,
+			'cart-order-summary-heading-block'     => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryHeadingBlock::class,
+			'cart-order-summary-shipping-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryShippingBlock::class,
+			'cart-order-summary-subtotal-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummarySubtotalBlock::class,
+			'cart-order-summary-taxes-block'       => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryTaxesBlock::class,
+			'cart-order-summary-totals-block'      => \Automattic\PooCommerce\Blocks\BlockTypes\CartOrderSummaryTotalsBlock::class,
+			'cart-totals-block'                    => \Automattic\PooCommerce\Blocks\BlockTypes\CartTotalsBlock::class,
+			'empty-cart-block'                     => \Automattic\PooCommerce\Blocks\BlockTypes\EmptyCartBlock::class,
+			'filled-cart-block'                    => \Automattic\PooCommerce\Blocks\BlockTypes\FilledCartBlock::class,
 		);
 		if ( ! is_admin() ) {
 			// These blocks override enqueue_data() with editor-visible data, hence load eagerly in admin.
-			$list['proceed-to-checkout-block'] = \Automattic\WooCommerce\Blocks\BlockTypes\ProceedToCheckoutBlock::class;
+			$list['proceed-to-checkout-block'] = \Automattic\PooCommerce\Blocks\BlockTypes\ProceedToCheckoutBlock::class;
 		}
 
 		return $list;
@@ -194,28 +194,28 @@ final class BlockTypesLazyController {
 	private function get_checkout_inner_blocks(): array {
 		// CheckoutExpressPaymentBlock: excluded — overrides initialize() with save_post hook for express payment attribute sync.
 		return array(
-			'checkout-actions-block'                   => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutActionsBlock::class,
-			'checkout-additional-information-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutAdditionalInformationBlock::class,
-			'checkout-billing-address-block'           => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutBillingAddressBlock::class,
-			'checkout-contact-information-block'       => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutContactInformationBlock::class,
-			'checkout-fields-block'                    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutFieldsBlock::class,
-			'checkout-order-note-block'                => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderNoteBlock::class,
-			'checkout-order-summary-block'             => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryBlock::class,
-			'checkout-order-summary-cart-items-block'  => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryCartItemsBlock::class,
-			'checkout-order-summary-coupon-form-block' => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryCouponFormBlock::class,
-			'checkout-order-summary-discount-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryDiscountBlock::class,
-			'checkout-order-summary-fee-block'         => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryFeeBlock::class,
-			'checkout-order-summary-shipping-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryShippingBlock::class,
-			'checkout-order-summary-subtotal-block'    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummarySubtotalBlock::class,
-			'checkout-order-summary-taxes-block'       => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryTaxesBlock::class,
-			'checkout-order-summary-totals-block'      => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryTotalsBlock::class,
-			'checkout-payment-block'                   => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutPaymentBlock::class,
-			'checkout-pickup-options-block'            => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutPickupOptionsBlock::class,
-			'checkout-shipping-address-block'          => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutShippingAddressBlock::class,
-			'checkout-shipping-method-block'           => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutShippingMethodBlock::class,
-			'checkout-shipping-methods-block'          => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutShippingMethodsBlock::class,
-			'checkout-terms-block'                     => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutTermsBlock::class,
-			'checkout-totals-block'                    => \Automattic\WooCommerce\Blocks\BlockTypes\CheckoutTotalsBlock::class,
+			'checkout-actions-block'                   => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutActionsBlock::class,
+			'checkout-additional-information-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutAdditionalInformationBlock::class,
+			'checkout-billing-address-block'           => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutBillingAddressBlock::class,
+			'checkout-contact-information-block'       => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutContactInformationBlock::class,
+			'checkout-fields-block'                    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutFieldsBlock::class,
+			'checkout-order-note-block'                => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderNoteBlock::class,
+			'checkout-order-summary-block'             => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryBlock::class,
+			'checkout-order-summary-cart-items-block'  => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryCartItemsBlock::class,
+			'checkout-order-summary-coupon-form-block' => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryCouponFormBlock::class,
+			'checkout-order-summary-discount-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryDiscountBlock::class,
+			'checkout-order-summary-fee-block'         => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryFeeBlock::class,
+			'checkout-order-summary-shipping-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryShippingBlock::class,
+			'checkout-order-summary-subtotal-block'    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummarySubtotalBlock::class,
+			'checkout-order-summary-taxes-block'       => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryTaxesBlock::class,
+			'checkout-order-summary-totals-block'      => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutOrderSummaryTotalsBlock::class,
+			'checkout-payment-block'                   => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutPaymentBlock::class,
+			'checkout-pickup-options-block'            => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutPickupOptionsBlock::class,
+			'checkout-shipping-address-block'          => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutShippingAddressBlock::class,
+			'checkout-shipping-method-block'           => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutShippingMethodBlock::class,
+			'checkout-shipping-methods-block'          => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutShippingMethodsBlock::class,
+			'checkout-terms-block'                     => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutTermsBlock::class,
+			'checkout-totals-block'                    => \Automattic\PooCommerce\Blocks\BlockTypes\CheckoutTotalsBlock::class,
 		);
 	}
 
@@ -226,20 +226,20 @@ final class BlockTypesLazyController {
 	 */
 	private function get_mini_cart_inner_blocks(): array {
 		$list = array(
-			'empty-mini-cart-contents-block'      => \Automattic\WooCommerce\Blocks\BlockTypes\EmptyMiniCartContentsBlock::class,
-			'filled-mini-cart-contents-block'     => \Automattic\WooCommerce\Blocks\BlockTypes\FilledMiniCartContentsBlock::class,
-			'mini-cart-cart-button-block'         => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartCartButtonBlock::class,
-			'mini-cart-checkout-button-block'     => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartCheckoutButtonBlock::class,
-			'mini-cart-items-block'               => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartItemsBlock::class,
-			'mini-cart-products-table-block'      => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartProductsTableBlock::class,
-			'mini-cart-shopping-button-block'     => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartShoppingButtonBlock::class,
-			'mini-cart-title-block'               => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartTitleBlock::class,
-			'mini-cart-title-items-counter-block' => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartTitleItemsCounterBlock::class,
-			'mini-cart-title-label-block'         => \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartTitleLabelBlock::class,
+			'empty-mini-cart-contents-block'      => \Automattic\PooCommerce\Blocks\BlockTypes\EmptyMiniCartContentsBlock::class,
+			'filled-mini-cart-contents-block'     => \Automattic\PooCommerce\Blocks\BlockTypes\FilledMiniCartContentsBlock::class,
+			'mini-cart-cart-button-block'         => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartCartButtonBlock::class,
+			'mini-cart-checkout-button-block'     => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartCheckoutButtonBlock::class,
+			'mini-cart-items-block'               => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartItemsBlock::class,
+			'mini-cart-products-table-block'      => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartProductsTableBlock::class,
+			'mini-cart-shopping-button-block'     => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartShoppingButtonBlock::class,
+			'mini-cart-title-block'               => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartTitleBlock::class,
+			'mini-cart-title-items-counter-block' => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartTitleItemsCounterBlock::class,
+			'mini-cart-title-label-block'         => \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartTitleLabelBlock::class,
 		);
 		if ( ! is_admin() ) {
 			// These blocks override enqueue_data() with editor-visible data, hence load eagerly in admin.
-			$list['mini-cart-footer-block'] = \Automattic\WooCommerce\Blocks\BlockTypes\MiniCartFooterBlock::class;
+			$list['mini-cart-footer-block'] = \Automattic\PooCommerce\Blocks\BlockTypes\MiniCartFooterBlock::class;
 		}
 
 		return $list;
@@ -253,22 +253,22 @@ final class BlockTypesLazyController {
 	private function get_order_confirmation_blocks(): array {
 		// CreateAccount: excluded — overrides initialize() with hooked_block_types (Block Hooks API).
 		$list = array(
-			'order-confirmation-status'                 => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Status::class,
-			'order-confirmation-summary'                => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Summary::class,
-			'order-confirmation-totals'                 => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Totals::class,
-			'order-confirmation-totals-wrapper'         => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\TotalsWrapper::class,
-			'order-confirmation-downloads'              => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\Downloads::class,
-			'order-confirmation-billing-wrapper'        => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingWrapper::class,
-			'order-confirmation-shipping-wrapper'       => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingWrapper::class,
-			'order-confirmation-additional-information' => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalInformation::class,
-			'order-confirmation-additional-fields'      => \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFields::class,
+			'order-confirmation-status'                 => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Status::class,
+			'order-confirmation-summary'                => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Summary::class,
+			'order-confirmation-totals'                 => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Totals::class,
+			'order-confirmation-totals-wrapper'         => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\TotalsWrapper::class,
+			'order-confirmation-downloads'              => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\Downloads::class,
+			'order-confirmation-billing-wrapper'        => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingWrapper::class,
+			'order-confirmation-shipping-wrapper'       => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingWrapper::class,
+			'order-confirmation-additional-information' => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalInformation::class,
+			'order-confirmation-additional-fields'      => \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFields::class,
 		);
 		if ( ! is_admin() ) {
 			// These blocks override enqueue_data() with editor-visible data, hence load eagerly in admin.
-			$list['order-confirmation-billing-address']           = \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingAddress::class;
-			$list['order-confirmation-shipping-address']          = \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingAddress::class;
-			$list['order-confirmation-downloads-wrapper']         = \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper::class;
-			$list['order-confirmation-additional-fields-wrapper'] = \Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFieldsWrapper::class;
+			$list['order-confirmation-billing-address']           = \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\BillingAddress::class;
+			$list['order-confirmation-shipping-address']          = \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\ShippingAddress::class;
+			$list['order-confirmation-downloads-wrapper']         = \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper::class;
+			$list['order-confirmation-additional-fields-wrapper'] = \Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\AdditionalFieldsWrapper::class;
 		}
 
 		return $list;
@@ -281,19 +281,19 @@ final class BlockTypesLazyController {
 	 */
 	private function get_add_to_cart_with_options_blocks(): array {
 		$list = array(
-			'add-to-cart-with-options-quantity-selector'  => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\QuantitySelector::class,
-			'add-to-cart-with-options-variation-description' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationDescription::class,
-			'add-to-cart-with-options-variation-selector' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelector::class,
-			'add-to-cart-with-options-variation-selector-attribute-name' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttributeName::class,
-			'add-to-cart-with-options-grouped-product-selector' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductSelector::class,
-			'add-to-cart-with-options-grouped-product-item' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItem::class,
-			'add-to-cart-with-options-grouped-product-item-selector' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItemSelector::class,
-			'add-to-cart-with-options-grouped-product-item-label' => \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItemLabel::class,
+			'add-to-cart-with-options-quantity-selector'  => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\QuantitySelector::class,
+			'add-to-cart-with-options-variation-description' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationDescription::class,
+			'add-to-cart-with-options-variation-selector' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelector::class,
+			'add-to-cart-with-options-variation-selector-attribute-name' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttributeName::class,
+			'add-to-cart-with-options-grouped-product-selector' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductSelector::class,
+			'add-to-cart-with-options-grouped-product-item' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItem::class,
+			'add-to-cart-with-options-grouped-product-item-selector' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItemSelector::class,
+			'add-to-cart-with-options-grouped-product-item-label' => \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\GroupedProductItemLabel::class,
 		);
 		if ( ! is_admin() ) {
 			// These blocks override enqueue_data() with editor-visible data, hence load eagerly in admin.
-			$list['add-to-cart-with-options']                              = \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\AddToCartWithOptions::class;
-			$list['add-to-cart-with-options-variation-selector-attribute'] = \Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::class;
+			$list['add-to-cart-with-options']                              = \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\AddToCartWithOptions::class;
+			$list['add-to-cart-with-options-variation-selector-attribute'] = \Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\VariationSelectorAttribute::class;
 		}
 
 		return $list;
@@ -307,27 +307,27 @@ final class BlockTypesLazyController {
 	private function get_product_display_element_blocks(): array {
 		// ProductGalleryLargeImage: excluded — overrides initialize() with block_type_metadata_settings filter.
 		$list = array(
-			'product-price'                             => \Automattic\WooCommerce\Blocks\BlockTypes\ProductPrice::class,
-			'product-title'                             => \Automattic\WooCommerce\Blocks\BlockTypes\ProductTitle::class,
-			'product-sku'                               => \Automattic\WooCommerce\Blocks\BlockTypes\ProductSKU::class,
-			'product-sale-badge'                        => \Automattic\WooCommerce\Blocks\BlockTypes\ProductSaleBadge::class,
-			'product-summary'                           => \Automattic\WooCommerce\Blocks\BlockTypes\ProductSummary::class,
-			'product-average-rating'                    => \Automattic\WooCommerce\Blocks\BlockTypes\ProductAverageRating::class,
-			'product-rating'                            => \Automattic\WooCommerce\Blocks\BlockTypes\ProductRating::class,
-			'product-rating-counter'                    => \Automattic\WooCommerce\Blocks\BlockTypes\ProductRatingCounter::class,
-			'product-rating-stars'                      => \Automattic\WooCommerce\Blocks\BlockTypes\ProductRatingStars::class,
-			'product-description'                       => \Automattic\WooCommerce\Blocks\BlockTypes\ProductDescription::class,
-			'product-specifications'                    => \Automattic\WooCommerce\Blocks\BlockTypes\ProductSpecifications::class,
-			'product-gallery'                           => \Automattic\WooCommerce\Blocks\BlockTypes\ProductGallery::class,
-			'product-gallery-thumbnails'                => \Automattic\WooCommerce\Blocks\BlockTypes\ProductGalleryThumbnails::class,
-			'product-gallery-large-image-next-previous' => \Automattic\WooCommerce\Blocks\BlockTypes\NextPreviousButtons::class,
+			'product-price'                             => \Automattic\PooCommerce\Blocks\BlockTypes\ProductPrice::class,
+			'product-title'                             => \Automattic\PooCommerce\Blocks\BlockTypes\ProductTitle::class,
+			'product-sku'                               => \Automattic\PooCommerce\Blocks\BlockTypes\ProductSKU::class,
+			'product-sale-badge'                        => \Automattic\PooCommerce\Blocks\BlockTypes\ProductSaleBadge::class,
+			'product-summary'                           => \Automattic\PooCommerce\Blocks\BlockTypes\ProductSummary::class,
+			'product-average-rating'                    => \Automattic\PooCommerce\Blocks\BlockTypes\ProductAverageRating::class,
+			'product-rating'                            => \Automattic\PooCommerce\Blocks\BlockTypes\ProductRating::class,
+			'product-rating-counter'                    => \Automattic\PooCommerce\Blocks\BlockTypes\ProductRatingCounter::class,
+			'product-rating-stars'                      => \Automattic\PooCommerce\Blocks\BlockTypes\ProductRatingStars::class,
+			'product-description'                       => \Automattic\PooCommerce\Blocks\BlockTypes\ProductDescription::class,
+			'product-specifications'                    => \Automattic\PooCommerce\Blocks\BlockTypes\ProductSpecifications::class,
+			'product-gallery'                           => \Automattic\PooCommerce\Blocks\BlockTypes\ProductGallery::class,
+			'product-gallery-thumbnails'                => \Automattic\PooCommerce\Blocks\BlockTypes\ProductGalleryThumbnails::class,
+			'product-gallery-large-image-next-previous' => \Automattic\PooCommerce\Blocks\BlockTypes\NextPreviousButtons::class,
 		);
 		if ( ! is_admin() ) {
 			// These blocks have no individual editor scripts or override enqueue_data(), hence load eagerly in admin.
-			$list['product-meta']            = \Automattic\WooCommerce\Blocks\BlockTypes\ProductMeta::class;
-			$list['product-image-gallery']   = \Automattic\WooCommerce\Blocks\BlockTypes\ProductImageGallery::class;
-			$list['product-image']           = \Automattic\WooCommerce\Blocks\BlockTypes\ProductImage::class;
-			$list['product-stock-indicator'] = \Automattic\WooCommerce\Blocks\BlockTypes\ProductStockIndicator::class;
+			$list['product-meta']            = \Automattic\PooCommerce\Blocks\BlockTypes\ProductMeta::class;
+			$list['product-image-gallery']   = \Automattic\PooCommerce\Blocks\BlockTypes\ProductImageGallery::class;
+			$list['product-image']           = \Automattic\PooCommerce\Blocks\BlockTypes\ProductImage::class;
+			$list['product-stock-indicator'] = \Automattic\PooCommerce\Blocks\BlockTypes\ProductStockIndicator::class;
 		}
 
 		return $list;

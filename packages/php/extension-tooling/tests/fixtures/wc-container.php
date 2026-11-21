@@ -1,12 +1,12 @@
 <?php
 /**
- * Install the WooCommerce container fixtures.
+ * Install the PooCommerce container fixtures.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**
- * Return the active WooCommerce container.
+ * Return the active PooCommerce container.
  *
  * @return object
  */
@@ -17,5 +17,5 @@ function wc_get_container() {
 require __DIR__ . '/class-testbootstrapcontainer.php';
 require __DIR__ . '/class-testbootstraptestingcontainer.php';
 
-class_alias( TestBootstrapContainer::class, 'Automattic\WooCommerce\Container' );
-class_alias( TestBootstrapTestingContainer::class, 'Automattic\WooCommerce\Testing\Tools\TestingContainer' );
+class_alias( TestBootstrapContainer::class, 'Automattic\PooCommerce\Container' );
+class_alias( TestBootstrapTestingContainer::class, 'Automattic\PooCommerce\Testing\Tools\TestingContainer' );

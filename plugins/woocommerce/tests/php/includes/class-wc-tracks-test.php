@@ -88,7 +88,7 @@ class WC_Tracks_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( '', $properties['role'] );
 		$this->assertEquals( false, $properties['can_install_plugins'] );
 		$this->assertEquals( false, $properties['can_activate_plugins'] );
-		$this->assertEquals( false, $properties['can_manage_woocommerce'] );
+		$this->assertEquals( false, $properties['can_manage_poocommerce'] );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class WC_Tracks_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'administrator', $properties['role'] );
 		$this->assertEquals( true, $properties['can_install_plugins'] );
 		$this->assertEquals( true, $properties['can_activate_plugins'] );
-		$this->assertEquals( true, $properties['can_manage_woocommerce'] );
+		$this->assertEquals( true, $properties['can_manage_poocommerce'] );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class WC_Tracks_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'shop_manager', $properties['role'] );
 		$this->assertEquals( false, $properties['can_install_plugins'] );
 		$this->assertEquals( false, $properties['can_activate_plugins'] );
-		$this->assertEquals( true, $properties['can_manage_woocommerce'] );
+		$this->assertEquals( true, $properties['can_manage_poocommerce'] );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class WC_Tracks_Test extends \WC_Unit_Test_Case {
 		$this->assertEquals( 'administrator', $properties['role'] );
 		$this->assertEquals( true, $properties['can_install_plugins'] );
 		$this->assertEquals( true, $properties['can_activate_plugins'] );
-		$this->assertEquals( true, $properties['can_manage_woocommerce'] );
+		$this->assertEquals( true, $properties['can_manage_poocommerce'] );
 	}
 
 	/**

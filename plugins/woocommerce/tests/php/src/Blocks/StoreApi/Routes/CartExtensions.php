@@ -3,12 +3,12 @@
  * Cart extensions route tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Enums\OrderItemType;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\OrderItemType;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Cart Controller Tests.
@@ -34,12 +34,12 @@ class CartExtensions extends ControllerTestCase {
 
 		wc()->cart->add_to_cart( $this->product->get_id(), 1 );
 
-		woocommerce_store_api_register_update_callback(
+		poocommerce_store_api_register_update_callback(
 			array(
 				'namespace' => 'valid-test-plugin',
 				'callback'  => function () {
 					add_action(
-						'woocommerce_cart_calculate_fees',
+						'poocommerce_cart_calculate_fees',
 						function() {
 							wc()->cart->add_fee( 'Surcharge', 10, true, 'standard' );
 						}
@@ -90,7 +90,7 @@ class CartExtensions extends ControllerTestCase {
 	/**
 	 * A rejected cart update must not sync the cart to a pending order.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/68007
+	 * @see https://github.com/poocommerce/poocommerce/issues/68007
 	 */
 	public function test_rejected_cart_update_does_not_remove_shipping_from_pending_order() {
 		$order = $this->create_pending_order_with_shipping();
@@ -113,7 +113,7 @@ class CartExtensions extends ControllerTestCase {
 	 * A successful no-op cart update must not sync uncalculated shipping to a pending order.
 	 *
 	 * @dataProvider needs_shipping_filter_provider
-	 * @see https://github.com/woocommerce/woocommerce/issues/68007
+	 * @see https://github.com/poocommerce/poocommerce/issues/68007
 	 *
 	 * @param bool $filter_needs_shipping Whether to filter the cart to not need shipping.
 	 */
@@ -129,7 +129,7 @@ class CartExtensions extends ControllerTestCase {
 		};
 
 		if ( $filter_needs_shipping ) {
-			add_filter( 'woocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
+			add_filter( 'poocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
 		}
 
 		try {
@@ -151,7 +151,7 @@ class CartExtensions extends ControllerTestCase {
 			$this->assertFalse( wc()->cart->has_calculated_shipping() );
 			$this->assertSame( array(), wc()->shipping()->get_packages() );
 		} finally {
-			remove_filter( 'woocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
+			remove_filter( 'poocommerce_cart_needs_shipping', $needs_shipping_filter, 999 );
 		}
 
 		$reloaded_order = wc_get_order( $order->get_id() );

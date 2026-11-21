@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { COUNTRY_LOCALE } from '@woocommerce/block-settings';
+import { COUNTRY_LOCALE } from '@poocommerce/block-settings';
 import {
 	CountryAddressFields,
 	Field,
 	FieldLocaleOverrides,
 	FormFields,
 	KeyedFormFields,
-} from '@woocommerce/settings';
-import { isNumber, isString } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { isNumber, isString } from '@poocommerce/types';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
@@ -17,7 +17,7 @@ import { __, sprintf } from '@wordpress/i18n';
  *
  * Ignores "class", "type", "placeholder", and "autocomplete" props from core.
  *
- * @param {Object} localeField Locale fields from WooCommerce.
+ * @param {Object} localeField Locale fields from PooCommerce.
  * @return {Object} Supported locale fields.
  */
 const getSupportedCoreLocaleProps = (
@@ -40,7 +40,7 @@ const getSupportedCoreLocaleProps = (
 	if ( localeField.label !== undefined && ! localeField.optionalLabel ) {
 		fields.optionalLabel = sprintf(
 			/* translators: %s Field label. */
-			__( '%s (optional)', 'woocommerce' ),
+			__( '%s (optional)', 'poocommerce' ),
 			localeField.label
 		);
 	}
@@ -66,7 +66,7 @@ const getSupportedCoreLocaleProps = (
 };
 
 /**
- * COUNTRY_LOCALE is locale data from WooCommerce countries class. This doesn't match the shape of the new field data blocks uses,
+ * COUNTRY_LOCALE is locale data from PooCommerce countries class. This doesn't match the shape of the new field data blocks uses,
  * but we can import part of it to set which fields are required.
  *
  * This supports new properties such as optionalLabel which are not used by core (yet).

@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Triggers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Triggers;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\StockNotification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Triggers\StockNotificationRecoveryHandler;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\StockNotification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Triggers\StockNotificationRecoveryHandler;
 use WC_Helper_Product;
 use WC_Product;
 use WC_Product_Simple;
@@ -34,8 +34,8 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->original_no_stock_amount = get_option( 'woocommerce_notify_no_stock_amount' );
-		update_option( 'woocommerce_notify_no_stock_amount', 0 );
+		$this->original_no_stock_amount = get_option( 'poocommerce_notify_no_stock_amount' );
+		update_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 		$this->sut = new StockNotificationRecoveryHandler();
 		$this->sut->register();
@@ -46,9 +46,9 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( false === $this->original_no_stock_amount ) {
-			delete_option( 'woocommerce_notify_no_stock_amount' );
+			delete_option( 'poocommerce_notify_no_stock_amount' );
 		} else {
-			update_option( 'woocommerce_notify_no_stock_amount', $this->original_no_stock_amount );
+			update_option( 'poocommerce_notify_no_stock_amount', $this->original_no_stock_amount );
 		}
 
 		parent::tearDown();
@@ -127,7 +127,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Clears low_stock meta when stock recovers above threshold.
 	 */
 	public function test_clears_low_stock_meta_when_stock_recovers_above_threshold(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
 
 		$product = $this->create_product( 5 );
 		$this->seed_meta( $product, StockNotification::EVENT_LOW_STOCK );
@@ -141,7 +141,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Preserves low_stock meta when stock is at threshold (recovery is strict >).
 	 */
 	public function test_preserves_low_stock_meta_when_stock_at_threshold(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
 
 		$product = $this->create_product( 2 );
 		$this->seed_meta( $product, StockNotification::EVENT_LOW_STOCK );
@@ -155,7 +155,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Honours the per-product low-stock threshold override.
 	 */
 	public function test_respects_per_product_low_stock_override(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
 
 		$product = $this->create_product( 5 );
 		$product->set_low_stock_amount( 10 );
@@ -171,7 +171,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Clears out_of_stock meta when stock is above the no-stock-amount option.
 	 */
 	public function test_clears_out_of_stock_meta_when_stock_above_no_stock_amount(): void {
-		update_option( 'woocommerce_notify_no_stock_amount', 0 );
+		update_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 		$product = $this->create_product( 1 );
 		$this->seed_meta( $product, StockNotification::EVENT_OUT_OF_STOCK );
@@ -185,7 +185,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Preserves out_of_stock meta when stock equals the no-stock-amount option.
 	 */
 	public function test_preserves_out_of_stock_meta_at_no_stock_amount(): void {
-		update_option( 'woocommerce_notify_no_stock_amount', 0 );
+		update_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 		$product = $this->create_product( 0 );
 		$this->seed_meta( $product, StockNotification::EVENT_OUT_OF_STOCK );
@@ -223,8 +223,8 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Clears each meta independently based on its own threshold.
 	 */
 	public function test_independent_meta_clearing(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 5 );
-		update_option( 'woocommerce_notify_no_stock_amount', 0 );
+		update_option( 'poocommerce_notify_low_stock_amount', 5 );
+		update_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 		$product = $this->create_product( 2 );
 		$this->seed_meta( $product, StockNotification::EVENT_LOW_STOCK );
@@ -242,8 +242,8 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	 * @testdox Clears all metas when stock jumps above all thresholds in one step.
 	 */
 	public function test_clears_all_metas_when_stock_jumps_above_all_thresholds(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
-		update_option( 'woocommerce_notify_no_stock_amount', 0 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 		$product = $this->create_product( 10 );
 		$this->seed_meta( $product, StockNotification::EVENT_LOW_STOCK );
@@ -302,10 +302,10 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Recovery fires through the woocommerce_product_set_stock action.
+	 * @testdox Recovery fires through the poocommerce_product_set_stock action.
 	 */
 	public function test_handler_fires_via_action(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
 
 		$product = $this->create_product( 0 );
 		$this->seed_meta( $product, StockNotification::EVENT_LOW_STOCK );
@@ -318,10 +318,10 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Recovery fires through the woocommerce_variation_set_stock action when a variation's stock changes.
+	 * @testdox Recovery fires through the poocommerce_variation_set_stock action when a variation's stock changes.
 	 */
 	public function test_handler_fires_for_variation_via_action(): void {
-		update_option( 'woocommerce_notify_low_stock_amount', 2 );
+		update_option( 'poocommerce_notify_low_stock_amount', 2 );
 
 		$variable_product = WC_Helper_Product::create_variation_product();
 		$variation_ids    = $variable_product->get_children();
@@ -336,7 +336,7 @@ class StockNotificationRecoveryHandlerTest extends WC_Unit_Test_Case {
 
 		$this->seed_meta( $variation, StockNotification::EVENT_LOW_STOCK );
 
-		// `wc_update_product_stock` routes to `woocommerce_variation_set_stock`
+		// `wc_update_product_stock` routes to `poocommerce_variation_set_stock`
 		// for variations (see `wc-stock-functions.php:68-76`).
 		wc_update_product_stock( $variation->get_id(), 10, 'set' );
 

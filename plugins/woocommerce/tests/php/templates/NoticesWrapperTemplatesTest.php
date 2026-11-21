@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Templates;
+namespace Automattic\PooCommerce\Tests\Templates;
 
 use WC_Unit_Test_Case;
 
@@ -22,7 +22,7 @@ class NoticesWrapperTemplatesTest extends WC_Unit_Test_Case {
 
 		$html = wc_get_template_html( $template, $args );
 
-		$wrapper_start = strpos( $html, '<div class="woocommerce-notices-wrapper">' );
+		$wrapper_start = strpos( $html, '<div class="poocommerce-notices-wrapper">' );
 		$notice_start  = strpos( $html, 'Template notice.' );
 		$wrapper_end   = false === $wrapper_start ? false : strpos( $html, '</div>', $wrapper_start );
 

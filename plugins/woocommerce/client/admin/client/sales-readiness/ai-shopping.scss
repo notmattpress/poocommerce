@@ -1,7 +1,7 @@
-// WooCommerce > Settings > AI tools > AI shopping: an admin-ui Page in the settings form, in place
-// of the WooCommerce header and the settings tabs, edge to edge as on Sales readiness.
-body.woocommerce_page_wc-settings:has(.wc-ai-shopping) {
-	.woocommerce-layout__header {
+// PooCommerce > Settings > AI tools > AI shopping: an admin-ui Page in the settings form, in place
+// of the PooCommerce header and the settings tabs, edge to edge as on Sales readiness.
+body.poocommerce_page_wc-settings:has(.wc-ai-shopping) {
+	.poocommerce-layout__header {
 		display: none;
 	}
 
@@ -13,7 +13,7 @@ body.woocommerce_page_wc-settings:has(.wc-ai-shopping) {
 		padding-inline-start: 0;
 	}
 
-	.wrap.woocommerce {
+	.wrap.poocommerce {
 		margin: 0;
 	}
 

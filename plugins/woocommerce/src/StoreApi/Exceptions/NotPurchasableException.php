@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Exceptions;
+namespace Automattic\PooCommerce\StoreApi\Exceptions;
 
 /**
  * NotPurchasableException class.

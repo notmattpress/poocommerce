@@ -1,30 +1,30 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Charset;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\CSSNamespace;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Import;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\AtRuleSet;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\CSSString;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\URL;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Charset;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\CSSNamespace;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Import;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\AtRuleSet;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\CSSString;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\URL;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
 
 /**
  * This is the most generic container available. It can contain `DeclarationBlock`s (rule sets with a selector),

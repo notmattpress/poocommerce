@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce coupons query ability.
+ * Registers the PooCommerce coupons query ability.
  */
 class CouponsQuery extends AbstractDomainAbility implements AbilityDefinition {
 
@@ -27,7 +27,7 @@ class CouponsQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/coupons-query';
+		return 'poocommerce/coupons-query';
 	}
 
 	/**
@@ -41,12 +41,12 @@ class CouponsQuery extends AbstractDomainAbility implements AbilityDefinition {
 		$output_schema                        = self::get_collection_output_schema( 'coupons', self::get_coupon_output_schema() );
 		$output_schema['properties']['total'] = array( 'type' => 'integer' );
 		return array(
-			'label'               => __( 'Query coupons', 'woocommerce' ),
+			'label'               => __( 'Query coupons', 'poocommerce' ),
 			'description'         => __(
 				'Find coupons by ID, exact code, or search term.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => $output_schema,
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -96,7 +96,7 @@ class CouponsQuery extends AbstractDomainAbility implements AbilityDefinition {
 		if ( isset( $input['code'] ) ) {
 			$args['title'] = wc_format_coupon_code( $input['code'] );
 			if ( '' === $args['title'] ) {
-				return new \WP_Error( 'woocommerce_ability_coupon_code_required', __( 'Coupon code is required.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'poocommerce_ability_coupon_code_required', __( 'Coupon code is required.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 		}
 		if ( isset( $input['discount_type'] ) ) {
@@ -170,7 +170,7 @@ class CouponsQuery extends AbstractDomainAbility implements AbilityDefinition {
 				),
 				'code'          => array(
 					'type'        => 'string',
-					'description' => __( 'Exact coupon code. Matches coupons in any supported status.', 'woocommerce' ),
+					'description' => __( 'Exact coupon code. Matches coupons in any supported status.', 'poocommerce' ),
 				),
 				'search'        => array( 'type' => 'string' ),
 				'status'        => array(

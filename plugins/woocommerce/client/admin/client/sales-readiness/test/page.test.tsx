@@ -11,7 +11,7 @@ import SalesReadiness from '../index';
 import SalesReadinessOverview from '../overview';
 
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 describe( 'SalesReadiness', () => {
 	it( 'shows no spinner while the page loads its view', () => {

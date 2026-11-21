@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\PaymentGatewayAbilityTrait;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils as PaymentsSettingsUtils;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\PaymentGatewayAbilityTrait;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils as PaymentsSettingsUtils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/payment-gateway-update';
+		return 'poocommerce/payment-gateway-update';
 	}
 
 	/**
@@ -42,12 +42,12 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update payment gateway', 'woocommerce' ),
+			'label'               => __( 'Update payment gateway', 'poocommerce' ),
 			'description'         => __(
 				'Turn a payment gateway on or off, change its checkout title, or move it in the checkout order. Cannot change other gateway settings or credentials.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'payment_gateway', self::get_payment_gateway_item_schema() ),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -80,7 +80,7 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 		$id       = $input['id'];
 
 		if ( ! isset( $gateways[ $id ] ) ) {
-			return self::payment_gateway_not_found( 'woocommerce_ability_payment_gateway_not_found' );
+			return self::payment_gateway_not_found( 'poocommerce_ability_payment_gateway_not_found' );
 		}
 
 		$gateway   = $gateways[ $id ];
@@ -147,16 +147,16 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 		}
 
 		$settings_url = $provider->get_settings_url( $gateway );
-		$message      = __( 'This payment gateway needs setup before it can be turned on. The merchant has to finish the setup in the payment settings.', 'woocommerce' );
+		$message      = __( 'This payment gateway needs setup before it can be turned on. The merchant has to finish the setup in the payment settings.', 'poocommerce' );
 		$data         = array( 'status' => 400 );
 
 		if ( $settings_url ) {
 			/* translators: %s: payment gateway settings URL. */
-			$message              = sprintf( __( 'This payment gateway needs setup before it can be turned on. The merchant has to finish the setup at %s.', 'woocommerce' ), $settings_url );
+			$message              = sprintf( __( 'This payment gateway needs setup before it can be turned on. The merchant has to finish the setup at %s.', 'poocommerce' ), $settings_url );
 			$data['settings_url'] = $settings_url;
 		}
 
-		return new \WP_Error( 'woocommerce_ability_payment_gateway_needs_setup', $message, $data );
+		return new \WP_Error( 'poocommerce_ability_payment_gateway_needs_setup', $message, $data );
 	}
 
 	/**
@@ -171,8 +171,8 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 
 		if ( ! is_array( $field ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_payment_gateway_title_unsupported',
-				__( 'This payment gateway has no title setting.', 'woocommerce' ),
+				'poocommerce_ability_payment_gateway_title_unsupported',
+				__( 'This payment gateway has no title setting.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -182,7 +182,7 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 			$value = (string) $gateway->get_field_value( 'title', $field, array( $gateway->get_field_key( 'title' ) => wp_slash( $title ) ) );
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
-				'woocommerce_ability_payment_gateway_title_invalid',
+				'poocommerce_ability_payment_gateway_title_invalid',
 				$e->getMessage(),
 				array( 'status' => 400 )
 			);
@@ -191,8 +191,8 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 		// minLength runs before sanitizing. Stripping the raw title also drops script and style contents, which kses keeps as text.
 		if ( '' === trim( wp_strip_all_tags( $title ) ) || '' === trim( wp_strip_all_tags( $value ) ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_payment_gateway_title_invalid',
-				__( 'The title is empty once markup and whitespace are removed. Send a title with visible text.', 'woocommerce' ),
+				'poocommerce_ability_payment_gateway_title_invalid',
+				__( 'The title is empty once markup and whitespace are removed. Send a title with visible text.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -294,21 +294,21 @@ class PaymentGatewayUpdate extends AbstractDomainAbility implements AbilityDefin
 			'properties'           => array(
 				'id'      => array(
 					'type'        => 'string',
-					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'woocommerce' ),
+					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'poocommerce' ),
 					'minLength'   => 1,
 				),
 				'enabled' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether customers can pay with this gateway at checkout.', 'woocommerce' ),
+					'description' => __( 'Whether customers can pay with this gateway at checkout.', 'poocommerce' ),
 				),
 				'title'   => array(
 					'type'        => 'string',
-					'description' => __( 'Title shown to customers at checkout.', 'woocommerce' ),
+					'description' => __( 'Title shown to customers at checkout.', 'poocommerce' ),
 					'minLength'   => 1,
 				),
 				'order'   => array(
 					'type'        => 'integer',
-					'description' => __( 'New position in the checkout order, starting at 0. Offline methods stay grouped, so the response gives the saved position.', 'woocommerce' ),
+					'description' => __( 'New position in the checkout order, starting at 0. Offline methods stay grouped, so the response gives the saved position.', 'poocommerce' ),
 					'minimum'     => 0,
 				),
 			),

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Ucp;
+namespace Automattic\PooCommerce\Internal\Ucp;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Serves the UCP discovery profile at `/.well-known/ucp`.
@@ -25,14 +25,14 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	public const RULE = '^\.well-known/ucp/?$';
 
 	/**
-	 * Rel of the profile link identifying WooCommerce; also marks the static file as one WooCommerce wrote.
+	 * Rel of the profile link identifying PooCommerce; also marks the static file as one PooCommerce wrote.
 	 */
-	public const LINK_REL = 'woocommerce';
+	public const LINK_REL = 'poocommerce';
 
 	/**
-	 * Href of the WooCommerce profile link.
+	 * Href of the PooCommerce profile link.
 	 */
-	private const LINK_HREF = 'https://developer.woocommerce.com/docs/';
+	private const LINK_HREF = 'https://developer.poocommerce.com/docs/';
 
 	/**
 	 * Register hooks.
@@ -43,11 +43,11 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Why `/.well-known/ucp` does or doesn't serve WooCommerce's current profile, from the
+	 * Why `/.well-known/ucp` does or doesn't serve PooCommerce's current profile, from the
 	 * permalink setting and the static file, read on every call so nothing is stored.
 	 *
 	 * Plain permalinks, and structures that start with index.php, don't route that address.
-	 * Before UCP is on, a folder WooCommerce can write still counts as ok: turning UCP on writes the file.
+	 * Before UCP is on, a folder PooCommerce can write still counts as ok: turning UCP on writes the file.
 	 *
 	 * @return string One of `ok`, `no_file`, `file_in_the_way`, `not_readable`, `file_unusable`, `file_outdated`.
 	 */
@@ -106,36 +106,36 @@ final class UcpDiscovery implements RegisterHooksInterface {
 			case 'not_readable':
 				return $wordpress_com
 					/* translators: %s: discovery file path. */
-					? sprintf( __( 'WooCommerce can’t read the file at %s. Delete it, or contact WordPress.com support to make it readable.', 'woocommerce' ), $path )
+					? sprintf( __( 'PooCommerce can’t read the file at %s. Delete it, or contact WordPress.com support to make it readable.', 'poocommerce' ), $path )
 					/* translators: %s: discovery file path. */
-					: sprintf( __( 'WooCommerce can’t read the file at %s. Delete it, or ask your hosting provider to make it readable.', 'woocommerce' ), $path );
+					: sprintf( __( 'PooCommerce can’t read the file at %s. Delete it, or ask your hosting provider to make it readable.', 'poocommerce' ), $path );
 			case 'file_unusable':
 				return $wordpress_com
 					/* translators: 1: discovery file path, 2: folder path. */
-					? sprintf( __( 'The file at %1$s is incomplete or damaged. Delete it, and check that your server has free disk space. If you can’t delete it, contact WordPress.com support to make %2$s writable.', 'woocommerce' ), $path, $dir )
+					? sprintf( __( 'The file at %1$s is incomplete or damaged. Delete it, and check that your server has free disk space. If you can’t delete it, contact WordPress.com support to make %2$s writable.', 'poocommerce' ), $path, $dir )
 					/* translators: 1: discovery file path, 2: folder path. */
-					: sprintf( __( 'The file at %1$s is incomplete or damaged. Delete it, and check that your server has free disk space. If you can’t delete it, ask your hosting provider to make %2$s writable.', 'woocommerce' ), $path, $dir );
+					: sprintf( __( 'The file at %1$s is incomplete or damaged. Delete it, and check that your server has free disk space. If you can’t delete it, ask your hosting provider to make %2$s writable.', 'poocommerce' ), $path, $dir );
 			case 'file_in_the_way':
 				return $wordpress_com
 					/* translators: 1: discovery file path, 2: folder path. */
-					? sprintf( __( 'A file at %1$s that WooCommerce didn’t create is loading instead. Remove it, or contact WordPress.com support to make %2$s writable.', 'woocommerce' ), $path, $dir )
+					? sprintf( __( 'A file at %1$s that PooCommerce didn’t create is loading instead. Remove it, or contact WordPress.com support to make %2$s writable.', 'poocommerce' ), $path, $dir )
 					/* translators: 1: discovery file path, 2: folder path. */
-					: sprintf( __( 'A file at %1$s that WooCommerce didn’t create is loading instead. Remove it, or ask your hosting provider to make %2$s writable.', 'woocommerce' ), $path, $dir );
+					: sprintf( __( 'A file at %1$s that PooCommerce didn’t create is loading instead. Remove it, or ask your hosting provider to make %2$s writable.', 'poocommerce' ), $path, $dir );
 			case 'file_outdated':
 				return $wordpress_com
 					/* translators: 1: discovery file path, 2: folder path. */
-					? sprintf( __( 'The file at %1$s has old store details. Delete it, or contact WordPress.com support to make %2$s writable so WooCommerce can replace it.', 'woocommerce' ), $path, $dir )
+					? sprintf( __( 'The file at %1$s has old store details. Delete it, or contact WordPress.com support to make %2$s writable so PooCommerce can replace it.', 'poocommerce' ), $path, $dir )
 					/* translators: 1: discovery file path, 2: folder path. */
-					: sprintf( __( 'The file at %1$s has old store details. Delete it, or ask your hosting provider to make %2$s writable so WooCommerce can replace it.', 'woocommerce' ), $path, $dir );
+					: sprintf( __( 'The file at %1$s has old store details. Delete it, or ask your hosting provider to make %2$s writable so PooCommerce can replace it.', 'poocommerce' ), $path, $dir );
 			case 'no_file':
 				if ( is_multisite() ) {
-					return __( 'Choose any structure except Plain. Structures that start with index.php don’t work either.', 'woocommerce' );
+					return __( 'Choose any structure except Plain. Structures that start with index.php don’t work either.', 'poocommerce' );
 				}
 				return $wordpress_com
 					/* translators: %s: folder path. */
-					? sprintf( __( 'Choose any structure except Plain. Structures that start with index.php don’t work either. If you need to keep your current structure, contact WordPress.com support to make %s writable, so WooCommerce can add your connection file.', 'woocommerce' ), $dir )
+					? sprintf( __( 'Choose any structure except Plain. Structures that start with index.php don’t work either. If you need to keep your current structure, contact WordPress.com support to make %s writable, so PooCommerce can add your connection file.', 'poocommerce' ), $dir )
 					/* translators: %s: folder path. */
-					: sprintf( __( 'Choose any structure except Plain. Structures that start with index.php don’t work either. If you need to keep your current structure, ask your hosting provider to make %s writable, so WooCommerce can add your connection file.', 'woocommerce' ), $dir );
+					: sprintf( __( 'Choose any structure except Plain. Structures that start with index.php don’t work either. If you need to keep your current structure, ask your hosting provider to make %s writable, so PooCommerce can add your connection file.', 'poocommerce' ), $dir );
 			default:
 				return '';
 		}
@@ -187,7 +187,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 			return;
 		}
 
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 
 		if ( ! $is_enabled ) {
 			$this->delete_file();
@@ -195,8 +195,8 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Remove the static discovery file, which the web server would otherwise keep serving without WooCommerce.
-	 * Files WooCommerce did not write are left alone.
+	 * Remove the static discovery file, which the web server would otherwise keep serving without PooCommerce.
+	 * Files PooCommerce did not write are left alone.
 	 */
 	public function delete_file(): void {
 		$path = $this->get_file_path();
@@ -214,12 +214,12 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	 */
 	public function maybe_sync_file(): void {
 		// admin_init also fires for anonymous admin-ajax.php/admin-post.php requests and on every heartbeat.
-		if ( wp_doing_ajax() || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( wp_doing_ajax() || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
 		if ( self::rewrite_serves_discovery() ) {
-			// A file that cannot be deleted keeps overriding the profile WooCommerce serves, as the web server answers first.
+			// A file that cannot be deleted keeps overriding the profile PooCommerce serves, as the web server answers first.
 			$this->delete_file();
 			return;
 		}
@@ -229,7 +229,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 			return;
 		}
 
-		// A file WooCommerce did not write is left in place, so it is served instead of the WooCommerce profile.
+		// A file PooCommerce did not write is left in place, so it is served instead of the PooCommerce profile.
 		$path = $this->get_file_path();
 		if ( is_file( $path ) && ! $this->is_owned( $path ) ) {
 			return;
@@ -261,7 +261,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Whether the static file was written by WooCommerce. Unreadable or non-JSON files count as not owned.
+	 * Whether the static file was written by PooCommerce. Unreadable or non-JSON files count as not owned.
 	 *
 	 * @param string $path Absolute file path.
 	 * @return bool
@@ -287,7 +287,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Whether WooCommerce can create the static file, including the `.well-known` folder.
+	 * Whether PooCommerce can create the static file, including the `.well-known` folder.
 	 * One file under ABSPATH can't hold a profile per site, so multisite never can.
 	 *
 	 * @param string $path Absolute file path.
@@ -324,7 +324,7 @@ final class UcpDiscovery implements RegisterHooksInterface {
 		 *
 		 * @param string $path Absolute file path.
 		 */
-		return (string) apply_filters( 'woocommerce_ucp_discovery_file_path', ABSPATH . '.well-known/ucp' );
+		return (string) apply_filters( 'poocommerce_ucp_discovery_file_path', ABSPATH . '.well-known/ucp' );
 	}
 
 	/**

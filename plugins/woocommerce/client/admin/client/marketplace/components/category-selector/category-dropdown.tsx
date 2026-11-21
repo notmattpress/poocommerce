@@ -4,9 +4,9 @@
 import { Dropdown } from '@wordpress/components';
 import { chevronDown, chevronUp, Icon } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
 import clsx from 'clsx';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -40,17 +40,17 @@ function DropdownContent( props: {
 	}
 
 	return (
-		<ul className="woocommerce-marketplace__category-dropdown-list">
+		<ul className="poocommerce-marketplace__category-dropdown-list">
 			{ props.categories.map( ( category ) => (
 				<li
-					className="woocommerce-marketplace__category-dropdown-item"
+					className="poocommerce-marketplace__category-dropdown-item"
 					key={ category.slug }
 				>
 					<button
 						className={ clsx(
-							'woocommerce-marketplace__category-dropdown-item-button',
+							'poocommerce-marketplace__category-dropdown-item-button',
 							{
-								'woocommerce-marketplace__category-dropdown-item-button--selected':
+								'poocommerce-marketplace__category-dropdown-item-button--selected':
 									category.slug === props.selected?.slug,
 							}
 						) }
@@ -98,7 +98,7 @@ export default function CategoryDropdown(
 					className={ props.buttonClassName }
 					aria-label={ __(
 						'Toggle category dropdown',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
 					{ props.label }

@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce translations used by core function tests.
+ * PooCommerce translations used by core function tests.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 declare( strict_types = 1 );

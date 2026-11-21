@@ -2,7 +2,7 @@
 /**
  * Class WC_Legacy_Settings_Example file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
 /**

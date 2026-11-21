@@ -2,7 +2,7 @@
 /**
  * Mockable legacy proxy fixture.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**

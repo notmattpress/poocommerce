@@ -2,19 +2,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
-use Automattic\WooCommerce\Internal\PushNotifications\Traits\ConvertsExceptionsToWpError;
-use Automattic\WooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\AuthorizesPushNotificationRequests;
+use Automattic\PooCommerce\Internal\PushNotifications\Traits\ConvertsExceptionsToWpError;
+use Automattic\PooCommerce\Internal\PushNotifications\Validators\PushTokenValidator;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use WC_Data_Exception;
 use WP_REST_Server;
@@ -48,7 +48,7 @@ class PushTokenRestController extends RestApiControllerBase {
 	protected string $rest_base = 'push-tokens';
 
 	/**
-	 * Class identifier used by `woocommerce_rest_api_get_rest_namespaces`.
+	 * Class identifier used by `poocommerce_rest_api_get_rest_namespaces`.
 	 *
 	 * Intentionally distinct from the URL `$route_namespace` — the filter keys
 	 * one class per value here, so sharing the value with sibling controllers
@@ -89,7 +89,7 @@ class PushTokenRestController extends RestApiControllerBase {
 					'permission_callback' => array( $this, 'authorize_as_from_wpcom' ),
 					'args'                => array(
 						'page'        => array(
-							'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+							'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 							'type'              => 'integer',
 							'default'           => 1,
 							'minimum'           => 1,
@@ -97,7 +97,7 @@ class PushTokenRestController extends RestApiControllerBase {
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'per_page'    => array(
-							'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+							'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 							'type'              => 'integer',
 							'default'           => 10,
 							'minimum'           => 1,
@@ -106,14 +106,14 @@ class PushTokenRestController extends RestApiControllerBase {
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'user_id'     => array(
-							'description'       => __( 'Limit results to tokens belonging to this user.', 'woocommerce' ),
+							'description'       => __( 'Limit results to tokens belonging to this user.', 'poocommerce' ),
 							'type'              => 'integer',
 							'minimum'           => 1,
 							'sanitize_callback' => 'absint',
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'device_uuid' => array(
-							'description'       => __( 'Limit results to tokens registered by this device.', 'woocommerce' ),
+							'description'       => __( 'Limit results to tokens registered by this device.', 'poocommerce' ),
 							'type'              => 'string',
 							'maxLength'         => PushTokenValidator::DEVICE_UUID_MAXIMUM_LENGTH,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -127,7 +127,7 @@ class PushTokenRestController extends RestApiControllerBase {
 						'title'      => 'push_tokens',
 						'properties' => array(
 							'tokens' => array(
-								'description' => __( 'The push tokens registered on this store.', 'woocommerce' ),
+								'description' => __( 'The push tokens registered on this store.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view' ),
 								'readonly'    => true,
@@ -346,7 +346,7 @@ class PushTokenRestController extends RestApiControllerBase {
 
 			if ( ! $deleted ) {
 				throw new WC_Data_Exception(
-					'woocommerce_push_token_not_deleted',
+					'poocommerce_push_token_not_deleted',
 					'The push token could not be deleted.',
 					WP_Http::INTERNAL_SERVER_ERROR
 				);
@@ -406,83 +406,83 @@ class PushTokenRestController extends RestApiControllerBase {
 				'title'      => PushToken::POST_TYPE,
 				'properties' => array(
 					'id'                    => array(
-						'description' => __( 'Unique identifier for the token.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the token.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'user_id'               => array(
-						'description' => __( 'The user the token belongs to.', 'woocommerce' ),
+						'description' => __( 'The user the token belongs to.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'user_login'            => array(
-						'description' => __( 'The username of the account the token belongs to. Null when the user no longer exists.', 'woocommerce' ),
+						'description' => __( 'The username of the account the token belongs to. Null when the user no longer exists.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'user_email'            => array(
-						'description' => __( 'The email address of the account the token belongs to. Null when the user no longer exists.', 'woocommerce' ),
+						'description' => __( 'The email address of the account the token belongs to. Null when the user no longer exists.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'token'                 => array(
-						'description' => __( 'The push token issued by Apple or Google.', 'woocommerce' ),
+						'description' => __( 'The push token issued by Apple or Google.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'platform'              => array(
-						'description' => __( 'The platform the token was issued for.', 'woocommerce' ),
+						'description' => __( 'The platform the token was issued for.', 'poocommerce' ),
 						'type'        => 'string',
 						'enum'        => PushToken::PLATFORMS,
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'origin'                => array(
-						'description' => __( 'The app the token was registered from.', 'woocommerce' ),
+						'description' => __( 'The app the token was registered from.', 'poocommerce' ),
 						'type'        => 'string',
 						'enum'        => PushToken::ORIGINS,
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'device_uuid'           => array(
-						'description' => __( 'An identifier the app generates for its own install, so a re-registration matches the existing record after the OS issues a new token. Null for browser tokens.', 'woocommerce' ),
+						'description' => __( 'An identifier the app generates for its own install, so a re-registration matches the existing record after the OS issues a new token. Null for browser tokens.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'device_locale'         => array(
-						'description' => __( 'The locale the device is set to.', 'woocommerce' ),
+						'description' => __( 'The locale the device is set to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'metadata'              => array(
-						'description' => __( 'Values the app supplies to describe itself and the device, such as the app and OS version.', 'woocommerce' ),
+						'description' => __( 'Values the app supplies to describe itself and the device, such as the app and OS version.', 'poocommerce' ),
 						'type'        => 'object',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'created_at_gmt'        => array(
-						'description' => __( 'The date the token was registered, as GMT. Null when the date is unknown.', 'woocommerce' ),
+						'description' => __( 'The date the token was registered, as GMT. Null when the date is unknown.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'format'      => 'date-time',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'last_confirmed_at_gmt' => array(
-						'description' => __( 'The date the app last registered this token, as GMT. The app re-sends the token periodically, not only when the token value changes, so this shows how recently the app read the token from the device. Null when the date is unknown.', 'woocommerce' ),
+						'description' => __( 'The date the app last registered this token, as GMT. The app re-sends the token periodically, not only when the token value changes, so this shows how recently the app read the token from the device. Null when the date is unknown.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'format'      => 'date-time',
 						'context'     => array( 'view' ),
 						'readonly'    => true,
 					),
 					'last_sent_at_gmt'      => array(
-						'description' => __( 'The date a notification for this token was last sent to WordPress.com, as GMT. This records that WordPress.com accepted the payload, not that the device received it. Null when no send has been recorded, which also covers a send whose record failed.', 'woocommerce' ),
+						'description' => __( 'The date a notification for this token was last sent to WordPress.com, as GMT. This records that WordPress.com accepted the payload, not that the device received it. Null when no send has been recorded, which also covers a send whose record failed.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'format'      => 'date-time',
 						'context'     => array( 'view' ),
@@ -504,7 +504,7 @@ class PushTokenRestController extends RestApiControllerBase {
 	private function get_args( ?string $context = null ): array {
 		$args = array(
 			'id'            => array(
-				'description'       => __( 'Push Token ID', 'woocommerce' ),
+				'description'       => __( 'Push Token ID', 'poocommerce' ),
 				'type'              => 'integer',
 				'required'          => true,
 				'context'           => array( 'delete' ),
@@ -513,7 +513,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'origin'        => array(
-				'description'       => __( 'Origin', 'woocommerce' ),
+				'description'       => __( 'Origin', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -521,7 +521,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'device_uuid'   => array(
-				'description'       => __( 'Device UUID', 'woocommerce' ),
+				'description'       => __( 'Device UUID', 'poocommerce' ),
 				'default'           => '',
 				'type'              => 'string',
 				'context'           => array( 'create' ),
@@ -529,7 +529,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'device_locale' => array(
-				'description'       => __( 'Device Locale', 'woocommerce' ),
+				'description'       => __( 'Device Locale', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -537,7 +537,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'platform'      => array(
-				'description'       => __( 'Platform', 'woocommerce' ),
+				'description'       => __( 'Platform', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -545,7 +545,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'token'         => array(
-				'description'       => __( 'Push Token', 'woocommerce' ),
+				'description'       => __( 'Push Token', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -553,7 +553,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'sanitize_callback' => 'wp_unslash',
 			),
 			'metadata'      => array(
-				'description'       => __( 'Metadata', 'woocommerce' ),
+				'description'       => __( 'Metadata', 'poocommerce' ),
 				'type'              => 'object',
 				'context'           => array( 'create' ),
 				'validate_callback' => array( $this, 'validate_argument' ),

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -283,7 +283,7 @@ class ProductsQueryTest extends WC_Unit_Test_Case {
 			}
 			return $args;
 		};
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', $callback );
+		add_filter( 'poocommerce_product_data_store_cpt_get_products_query', $callback );
 		try {
 			foreach ( array(
 				1 => 5,
@@ -302,7 +302,7 @@ class ProductsQueryTest extends WC_Unit_Test_Case {
 				$this->assertSame( 10, $result['per_page'] );
 			}
 		} finally {
-			remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', $callback );
+			remove_filter( 'poocommerce_product_data_store_cpt_get_products_query', $callback );
 		}
 	}
 
@@ -317,9 +317,9 @@ class ProductsQueryTest extends WC_Unit_Test_Case {
 			$args['post__not_in'] = array( $excluded->get_id() );
 			return $args;
 		};
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', $callback );
+		add_filter( 'poocommerce_product_data_store_cpt_get_products_query', $callback );
 		$result = ProductsQuery::execute( array() );
-		remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', $callback );
+		remove_filter( 'poocommerce_product_data_store_cpt_get_products_query', $callback );
 
 		$this->assertSame( 1, $result['total'] );
 		$this->assertSame( $kept->get_id(), $result['products'][0]['id'] );

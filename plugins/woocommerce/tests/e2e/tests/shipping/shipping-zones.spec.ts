@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { faker } from '@faker-js/faker';
-import { ApiClient, WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { ApiClient, WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -15,10 +15,10 @@ function rand() {
 	return faker.string.alphanumeric( 5 );
 }
 
-const SAVE_CHANGES_ACTION = 'woocommerce_shipping_zone_methods_save_changes';
-const SAVE_SETTINGS_ACTION = 'woocommerce_shipping_zone_methods_save_settings';
-const ADD_METHOD_ACTION = 'woocommerce_shipping_zone_add_method';
-const REMOVE_METHOD_ACTION = 'woocommerce_shipping_zone_remove_method';
+const SAVE_CHANGES_ACTION = 'poocommerce_shipping_zone_methods_save_changes';
+const SAVE_SETTINGS_ACTION = 'poocommerce_shipping_zone_methods_save_settings';
+const ADD_METHOD_ACTION = 'poocommerce_shipping_zone_add_method';
+const REMOVE_METHOD_ACTION = 'poocommerce_shipping_zone_remove_method';
 const REMOVE_FAILED_MESSAGE =
 	'Shipping method could not be removed. Please retry.';
 
@@ -211,7 +211,7 @@ test( 'saves an unsaved shipping zone when adding a method', async ( {
 		const addMethodResponsePromise = page.waitForResponse( ( response ) => {
 			return response
 				.url()
-				.includes( 'action=woocommerce_shipping_zone_add_method' );
+				.includes( 'action=poocommerce_shipping_zone_add_method' );
 		} );
 		await page.getByRole( 'button', { name: 'Continue' } ).click();
 		const addMethodResponse = await addMethodResponsePromise;
@@ -295,13 +295,13 @@ test( 'saves an unsaved shipping zone when adding a non-modal method', async ( {
 		const addMethodResponsePromise = page.waitForResponse( ( response ) =>
 			response
 				.url()
-				.includes( 'action=woocommerce_shipping_zone_add_method' )
+				.includes( 'action=poocommerce_shipping_zone_add_method' )
 		);
 		const saveChangesResponsePromise = page.waitForResponse( ( response ) =>
 			response
 				.url()
 				.includes(
-					'action=woocommerce_shipping_zone_methods_save_changes'
+					'action=poocommerce_shipping_zone_methods_save_changes'
 				)
 		);
 		await page.getByRole( 'button', { name: 'Continue' } ).click();
@@ -368,12 +368,12 @@ test( 'persists pending zone edits when adding a non-modal method to an existing
 	await page.getByText( 'E2E Non-Modal Method' ).click();
 
 	const addMethodResponsePromise = page.waitForResponse( ( response ) =>
-		response.url().includes( 'action=woocommerce_shipping_zone_add_method' )
+		response.url().includes( 'action=poocommerce_shipping_zone_add_method' )
 	);
 	const saveChangesResponsePromise = page.waitForResponse( ( response ) =>
 		response
 			.url()
-			.includes( 'action=woocommerce_shipping_zone_methods_save_changes' )
+			.includes( 'action=poocommerce_shipping_zone_methods_save_changes' )
 	);
 	await page.getByRole( 'button', { name: 'Continue' } ).click();
 	await addMethodResponsePromise;
@@ -590,7 +590,7 @@ test( 'keeps an unsaved method toggle pending when the settings of an added meth
 	const removeMethodResponse = page.waitForResponse( ( response ) =>
 		response
 			.url()
-			.includes( 'action=woocommerce_shipping_zone_remove_method' )
+			.includes( 'action=poocommerce_shipping_zone_remove_method' )
 	);
 	await page.keyboard.press( 'Escape' );
 	await removeMethodResponse;

@@ -56,7 +56,7 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 	 */
 	private function method_with( array $settings ): void {
 		update_option(
-			'woocommerce_free_shipping_' . $this->instance_id . '_settings',
+			'poocommerce_free_shipping_' . $this->instance_id . '_settings',
 			array_merge(
 				array(
 					'title'            => 'Free shipping',
@@ -111,9 +111,9 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 	 * @param string $display            Whether the cart shows prices including tax.
 	 */
 	private function taxes_at_ten_percent( string $prices_include_tax, string $display ): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', $prices_include_tax );
-		update_option( 'woocommerce_tax_display_cart', $display );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', $prices_include_tax );
+		update_option( 'poocommerce_tax_display_cart', $display );
 
 		WC_Tax::_insert_tax_rate(
 			array(
@@ -135,7 +135,7 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 	 */
 	private function fee_of( float $amount ): void {
 		add_action(
-			'woocommerce_cart_calculate_fees',
+			'poocommerce_cart_calculate_fees',
 			static function ( $cart ) use ( $amount ) {
 				$cart->add_fee( 'Handling', $amount );
 			}
@@ -157,7 +157,7 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * The threshold reads get_displayed_subtotal(), which is built from the line items, so a fee
-	 * added through woocommerce_cart_calculate_fees sits outside it.
+	 * added through poocommerce_cart_calculate_fees sits outside it.
 	 *
 	 * @testdox A cart fee does not count towards the minimum.
 	 */
@@ -418,7 +418,7 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * `woocommerce_shipping_free_shipping_is_available` is a public extension point. Pin that it
+	 * `poocommerce_shipping_free_shipping_is_available` is a public extension point. Pin that it
 	 * is honoured rather than pinning an outcome an extension is meant to be able to change.
 	 *
 	 * @testdox An extension can override availability through the filter.
@@ -431,7 +431,7 @@ class WC_Shipping_Free_Shipping_Test extends WC_Unit_Test_Case {
 
 		$seen = array();
 		add_filter(
-			'woocommerce_shipping_free_shipping_is_available',
+			'poocommerce_shipping_free_shipping_is_available',
 			function ( $is_available, $package, $method ) use ( &$seen ) {
 				$seen = array( $is_available, $package, $method );
 				return false;

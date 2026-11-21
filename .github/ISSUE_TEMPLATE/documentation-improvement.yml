@@ -27,7 +27,7 @@ body:
     attributes:
       label: Link to the Page/Section (if applicable)
       description: Provide a link to the specific page or section that you're referring to, or indicate if this is a request for new documentation.
-      placeholder: "https://github.com/woocommerce/woocommerce/..."
+      placeholder: "https://github.com/poocommerce/poocommerce/..."
 
   - type: textarea
     id: potential_content
@@ -46,4 +46,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        cc @woocommerce/developer-advocacy
+        cc @poocommerce/developer-advocacy

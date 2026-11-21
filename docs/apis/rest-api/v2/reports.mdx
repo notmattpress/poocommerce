@@ -28,7 +28,7 @@ curl https://example.com/wp-json/wc/v2/reports \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("reports")
+PooCommerce.get("reports")
   .then((response) => {
     console.log(response.data);
   })
@@ -41,7 +41,7 @@ WooCommerce.get("reports")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('reports')); ?>
+<?php print_r($poocommerce->get('reports')); ?>
 ```
 
   </TabItem>
@@ -55,7 +55,7 @@ print(wcapi.get("reports").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("reports").parsed_response
+poocommerce.get("reports").parsed_response
 ```
 
   </TabItem>
@@ -120,7 +120,7 @@ curl https://example.com/wp-json/wc/v2/reports/sales?date_min=2016-05-03&date_ma
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("reports/sales", {
+PooCommerce.get("reports/sales", {
   date_min: "2016-05-03",
   date_max: "2016-05-04"
 })
@@ -142,7 +142,7 @@ $query = [
     'date_max' => '2016-05-04'
 ];
 
-print_r($woocommerce->get('reports/sales', $query));
+print_r($poocommerce->get('reports/sales', $query));
 ?>
 ```
 
@@ -162,7 +162,7 @@ query = {
   date_max: "2016-05-04"
 }
 
-woocommerce.get("reports/sales", query).parsed_response
+poocommerce.get("reports/sales", query).parsed_response
 ```
 
   </TabItem>
@@ -258,7 +258,7 @@ curl https://example.com/wp-json/wc/v2/reports/top_sellers?period=last_month \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("reports/top_sellers", {
+PooCommerce.get("reports/top_sellers", {
   period: "last_month"
 })
   .then((response) => {
@@ -278,7 +278,7 @@ $query = [
     'period' => 'last_month'
 ];
 
-print_r($woocommerce->get('reports/top_sellers', $query));
+print_r($poocommerce->get('reports/top_sellers', $query));
 ?>
 ```
 
@@ -297,7 +297,7 @@ query = {
   period: "last_month"
 }
 
-woocommerce.get("reports/top_sellers", query).parsed_response
+poocommerce.get("reports/top_sellers", query).parsed_response
 ```
 
   </TabItem>

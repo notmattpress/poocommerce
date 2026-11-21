@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 import { createActor, toPromise, waitFor } from 'xstate5';
 
 /**
@@ -13,10 +13,10 @@ import {
 	coreProfilerStateMachineDefinition,
 } from '../index';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	getQuery: jest.fn( () => ( {} ) ),
 	updateQueryString: jest.fn(),
 } ) );
@@ -28,7 +28,7 @@ jest.mock( '~/utils/admin-settings', () => ( {
 	),
 } ) );
 
-// Simulates REST for WooCommerce stores: actions and resolvers listed here reject, all others resolve.
+// Simulates REST for PooCommerce stores: actions and resolvers listed here reject, all others resolve.
 const mockJetpackAuthResult = {
 	success: true,
 	url: 'https://jetpack.test/authorize',
@@ -80,7 +80,7 @@ jest.mock( '@wordpress/data', () => {
 } );
 
 const FALLBACK_URL =
-	'http://example.test/wp-admin/admin-post.php?action=woocommerce_skip_onboarding_setup';
+	'http://example.test/wp-admin/admin-post.php?action=poocommerce_skip_onboarding_setup';
 const HOME_PATH = 'admin.php?page=wc-admin';
 
 const startProfiler = () => {
@@ -134,7 +134,7 @@ describe( 'Core Profiler skip flow when REST requests fail', () => {
 	// Each simulated request rejects with "<request> failed", so this pins which failure was logged.
 	const expectLoggedFailure = ( request: string ) =>
 		expect( consoleError ).toHaveBeenCalledWith(
-			'WooCommerce Core Profiler:',
+			'PooCommerce Core Profiler:',
 			expect.objectContaining( { message: `${ request } failed` } )
 		);
 
@@ -173,7 +173,7 @@ describe( 'Core Profiler skip flow when REST requests fail', () => {
 		expect( actor.getSnapshot().status ).toBe( 'active' );
 		expect( mockStoreCalls ).not.toContain( 'coreProfilerCompleted' );
 		expect( consoleError ).toHaveBeenCalledWith(
-			'WooCommerce Core Profiler:',
+			'PooCommerce Core Profiler:',
 			expect.objectContaining( {
 				cause: expect.objectContaining( { code: 'rest_no_route' } ),
 			} )

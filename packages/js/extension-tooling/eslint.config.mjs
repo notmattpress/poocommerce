@@ -1,10 +1,10 @@
 /**
  * Internal dependencies
  */
-import woocommerce from '@woocommerce/eslint-config';
+import poocommerce from '@poocommerce/eslint-config';
 
 export default [
-	...woocommerce,
+	...poocommerce,
 	{
 		files: [ 'bin/**/*.js', 'src/**/*.js', 'test/**/*.js' ],
 		// Extension webpack configs, CLI and Node tests use CommonJS.

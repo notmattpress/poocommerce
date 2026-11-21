@@ -13,6 +13,6 @@
 
 **Pattern to catch:** New `register_rest_route` / `wp_ajax_*` / ability without a real `permission_callback` or capability. `__return_true` on mutating routes. Route or path matching that can be bypassed, or is so strict it blocks others.
 
-**How to confirm:** Read the permission callback. Check the capability matches the object (`edit_shop_orders` vs `manage_woocommerce`). Check state-changing AJAX verifies a nonce.
+**How to confirm:** Read the permission callback. Check the capability matches the object (`edit_shop_orders` vs `manage_poocommerce`). Check state-changing AJAX verifies a nonce.
 
 **Don't flag when:** Public read-only Store API routes by design (products; cart for the session owner).

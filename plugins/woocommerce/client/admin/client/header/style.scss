@@ -22,19 +22,19 @@
 // third-party .screen-meta-toggle siblings remain visible. Visually-hidden
 // (not display:none) keeps the elements in the layout tree so wp-admin's
 // jQuery delegated click handlers still fire when we proxy .click().
-.woocommerce-admin-page {
+.poocommerce-admin-page {
 	#screen-options-link-wrap,
 	#contextual-help-link-wrap {
 		@include visually-hidden;
 	}
 }
 
-.woocommerce-layout__header {
-	--woocommerce-admin-header-height: #{$header-height};
+.poocommerce-layout__header {
+	--poocommerce-admin-header-height: #{$header-height};
 
 	// Background matches the wp-admin body grey so the bar reads as
 	// infrastructure rather than content. Needs to be explicit (not inherited)
-	// so the header is consistent across WooCommerce Admin pages. Bottom border
+	// so the header is consistent across PooCommerce Admin pages. Bottom border
 	// anchors the bar visually against the page below. Settings-page tweaks
 	// (drop the border so the bar reads as one strip with the tab nav)
 	// live in the legacy admin.scss alongside the rest of that page's overrides.
@@ -45,7 +45,7 @@
 	position: relative;
 	z-index: 1001; /* on top of #wp-content-editor-tools */
 
-	.woocommerce-layout__header-wrapper {
+	.poocommerce-layout__header-wrapper {
 		display: flex;
 		align-items: center;
 		min-height: $header-height;
@@ -55,13 +55,13 @@
 		flex-flow: row wrap;
 	}
 
-	.woocommerce-layout__header-breadcrumbs-wrapper {
+	.poocommerce-layout__header-breadcrumbs-wrapper {
 		display: flex;
 		justify-content: space-between;
 		flex-direction: row;
 	}
 
-	.woocommerce-layout__header-heading {
+	.poocommerce-layout__header-heading {
 		display: flex;
 		align-items: center;
 		// $gap-large (24px from @wordpress/base-styles) — matches the
@@ -101,14 +101,14 @@
 		// duplicates so all three pages render the same.
 		color: $gray-900;
 
-		&.woocommerce-layout__header-left-align {
+		&.poocommerce-layout__header-left-align {
 			flex: 1 auto;
 		}
 	}
 
 	// Spacer that takes up the title's flex space when no h1 renders
 	// (embedded post-type screens), so right-side items stay pinned right.
-	.woocommerce-layout__header-spacer {
+	.poocommerce-layout__header-spacer {
 		flex: 1 auto;
 	}
 
@@ -116,7 +116,7 @@
 	// activity-panel-tab pattern so bell / list / megaphone / gear / ? all
 	// look identical regardless of which subsystem renders them, including
 	// the blue ::before underline on the active tab.
-	.woocommerce-layout__header-meta-icon {
+	.poocommerce-layout__header-meta-icon {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -195,18 +195,18 @@
 	// taller by any naturally-sized child (Finish setup widget, plugin fills, etc.).
 	// Inner activity-panel and meta-icon items also collapse so they fit cleanly.
 	&.is-chrome-only {
-		--woocommerce-admin-header-height: #{$adminbar-height};
+		--poocommerce-admin-header-height: #{$adminbar-height};
 
-		.woocommerce-layout__header-wrapper {
+		.poocommerce-layout__header-wrapper {
 			height: $adminbar-height;
 			min-height: $adminbar-height;
 			max-height: $adminbar-height;
 			overflow: hidden;
 		}
 
-		.woocommerce-layout__activity-panel-tabs,
-		.woocommerce-layout__activity-panel-tab,
-		.woocommerce-layout__header-meta-icon {
+		.poocommerce-layout__activity-panel-tabs,
+		.poocommerce-layout__activity-panel-tab,
+		.poocommerce-layout__header-meta-icon {
 			height: $adminbar-height;
 			min-height: $adminbar-height;
 			max-height: $adminbar-height;
@@ -226,33 +226,33 @@
 // Firefox 121+). Older browsers fall through to the JS-driven class
 // path above and still work — they just get the small flash.
 body:has(.wrap > h1.wp-heading-inline) {
-	.woocommerce-layout__header {
-		--woocommerce-admin-header-height: #{$adminbar-height};
+	.poocommerce-layout__header {
+		--poocommerce-admin-header-height: #{$adminbar-height};
 
 		#wpbody {
 			margin-top: $adminbar-height;
 		}
 	}
 
-	.woocommerce-layout__header-heading {
+	.poocommerce-layout__header-heading {
 		display: none;
 	}
-	.woocommerce-layout__header-wrapper {
+	.poocommerce-layout__header-wrapper {
 		height: $adminbar-height;
 		min-height: $adminbar-height;
 		max-height: $adminbar-height;
 		overflow: hidden;
 	}
-	.woocommerce-layout__activity-panel-tabs,
-	.woocommerce-layout__activity-panel-tab,
-	.woocommerce-layout__header-meta-icon {
+	.poocommerce-layout__activity-panel-tabs,
+	.poocommerce-layout__activity-panel-tab,
+	.poocommerce-layout__header-meta-icon {
 		height: $adminbar-height;
 		min-height: $adminbar-height;
 		max-height: $adminbar-height;
 	}
 }
 
-.woocommerce-admin-page {
+.poocommerce-admin-page {
 	#contextual-help-link-wrap,
 	#screen-options-link-wrap {
 		margin-top: -1px;

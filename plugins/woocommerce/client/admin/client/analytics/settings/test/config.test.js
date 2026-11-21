@@ -16,8 +16,8 @@ const loadConfig = ( preloadedDefaults ) => {
 describe( 'Analytics settings config - order status defaults', () => {
 	it( 'uses the preloaded (filtered) defaults for the order status settings', async () => {
 		const config = await loadConfig( {
-			woocommerce_excluded_report_order_statuses: [ 'pending', 'failed' ],
-			woocommerce_actionable_order_statuses: [
+			poocommerce_excluded_report_order_statuses: [ 'pending', 'failed' ],
+			poocommerce_actionable_order_statuses: [
 				'processing',
 				'on-hold',
 				'my-status',
@@ -25,11 +25,11 @@ describe( 'Analytics settings config - order status defaults', () => {
 		} );
 
 		expect(
-			config.config.woocommerce_excluded_report_order_statuses
+			config.config.poocommerce_excluded_report_order_statuses
 				.defaultValue
 		).toEqual( [ 'pending', 'failed' ] );
 		expect(
-			config.config.woocommerce_actionable_order_statuses.defaultValue
+			config.config.poocommerce_actionable_order_statuses.defaultValue
 		).toEqual( [ 'processing', 'on-hold', 'my-status' ] );
 		expect( config.DEFAULT_ACTIONABLE_STATUSES ).toEqual( [
 			'processing',
@@ -42,11 +42,11 @@ describe( 'Analytics settings config - order status defaults', () => {
 		const config = await loadConfig( {} );
 
 		expect(
-			config.config.woocommerce_excluded_report_order_statuses
+			config.config.poocommerce_excluded_report_order_statuses
 				.defaultValue
 		).toEqual( [ 'pending', 'cancelled', 'failed' ] );
 		expect(
-			config.config.woocommerce_actionable_order_statuses.defaultValue
+			config.config.poocommerce_actionable_order_statuses.defaultValue
 		).toEqual( [ 'processing', 'on-hold' ] );
 	} );
 
@@ -54,17 +54,17 @@ describe( 'Analytics settings config - order status defaults', () => {
 		const config = await loadConfig( null );
 
 		expect(
-			config.config.woocommerce_actionable_order_statuses.defaultValue
+			config.config.poocommerce_actionable_order_statuses.defaultValue
 		).toEqual( [ 'processing', 'on-hold' ] );
 	} );
 
 	it( 'ignores a malformed preloaded default', async () => {
 		const config = await loadConfig( {
-			woocommerce_actionable_order_statuses: 'processing',
+			poocommerce_actionable_order_statuses: 'processing',
 		} );
 
 		expect(
-			config.config.woocommerce_actionable_order_statuses.defaultValue
+			config.config.poocommerce_actionable_order_statuses.defaultValue
 		).toEqual( [ 'processing', 'on-hold' ] );
 	} );
 } );

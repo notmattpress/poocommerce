@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Flag, H, Section } from '@woocommerce/components';
+import { Flag, H, Section } from '@poocommerce/components';
 
 export const Examples = () => (
 	<div>

@@ -3,7 +3,7 @@ title: wc product_attribute_term
 sidebar_label: wc product_attribute_term
 ---
 
-Manage WooCommerce product attribute term resources.
+Manage PooCommerce product attribute term resources.
 
 ## wc product_attribute_term list `<attribute_id>`
 

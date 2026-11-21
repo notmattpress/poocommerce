@@ -1,7 +1,7 @@
 <?php
 function calculate_package_rates( $rates, $package, $methods ) {
-    $rates = apply_filters( 'woocommerce_package_rates', $rates, $package );
-    if ( 'yes' === get_option( 'woocommerce_shipping_hide_rates_when_free', 'no' ) ) {
+    $rates = apply_filters( 'poocommerce_package_rates', $rates, $package );
+    if ( 'yes' === get_option( 'poocommerce_shipping_hide_rates_when_free', 'no' ) ) {
         $free = array();
         $pickup = array();
         foreach ( $rates as $rate ) {
@@ -15,7 +15,7 @@ function calculate_package_rates( $rates, $package, $methods ) {
     }
     return $rates;
 }
-add_filter( 'woocommerce_package_rates', static function ( $rates, $package ) {
+add_filter( 'poocommerce_package_rates', static function ( $rates, $package ) {
     $rates['flat_rate:99'] = new WC_Shipping_Rate( 'flat_rate:99', 'Express', '12.50', array(), 'flat_rate', 99 );
     return $rates;
 }, 10, 2 );

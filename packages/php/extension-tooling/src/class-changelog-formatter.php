@@ -2,10 +2,10 @@
 /**
  * Changelog_Formatter class
  *
- * @package WooCommerce\ExtensionChangelogger
+ * @package PooCommerce\ExtensionChangelogger
  */
 
-namespace Automattic\WooCommerce\ExtensionTools\Changelogger;
+namespace Automattic\PooCommerce\ExtensionTools\Changelogger;
 
 use Automattic\Jetpack\Changelog\Changelog;
 use Automattic\Jetpack\Changelog\ChangelogEntry;
@@ -28,7 +28,7 @@ use InvalidArgumentException;
  *     * Tweak - Something that was adjusted.
  *
  * Version headings use the `= X.Y.Z - YYYY-MM-DD =` shape WordPress.org uses, which
- * WooCommerce.com reads too.
+ * PooCommerce.com reads too.
  *
  * The entry type lives inline on each bullet rather than under a subheading, so it is
  * carried on the change entry's subheading and re-emitted verbatim. Nothing is mapped
@@ -78,7 +78,7 @@ class Changelog_Formatter extends Parser implements FormatterPlugin {
 	/**
 	 * Matches a version heading, e.g. `= 1.5.1 - 2026-09-17 =`.
 	 *
-	 * Month and day are zero-padded only, the shape WordPress.org and the WooCommerce.com
+	 * Month and day are zero-padded only, the shape WordPress.org and the PooCommerce.com
 	 * changelog parser read. The two-part versions of the earliest releases are accepted.
 	 * The version must be numeric: a placeholder version is otherwise parsed as a real
 	 * release and written back on the next run.
@@ -146,7 +146,7 @@ class Changelog_Formatter extends Parser implements FormatterPlugin {
 			// A near-miss heading is never a change: absorbed into the entry above it, its
 			// own changes would merge into that release and the section would be gone on the
 			// next write. Fail instead. That is any line starting with a single `=`, and any
-			// heading in the older WooCommerce.com shape (`YYYY.MM.DD - version X.Y.Z`).
+			// heading in the older PooCommerce.com shape (`YYYY.MM.DD - version X.Y.Z`).
 			// A title starting with `==` is not a heading.
 			if ( ! $is_bullet && self::looks_like_heading( $line ) ) {
 				throw new InvalidArgumentException( "Line looks like a version heading but is not one: $line" );

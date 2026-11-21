@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Sale_Badge;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Sale_Badge;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -59,11 +59,11 @@ class ProductSaleBadgeTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Uses the badge text from the woocommerce_sale_badge_text filter, escaped.
+	 * @testdox Uses the badge text from the poocommerce_sale_badge_text filter, escaped.
 	 */
 	public function test_badge_text_comes_from_filter_and_is_escaped(): void {
 		add_filter(
-			'woocommerce_sale_badge_text',
+			'poocommerce_sale_badge_text',
 			function () {
 				return '<b>Deal</b>';
 			}
@@ -104,7 +104,7 @@ class ProductSaleBadgeTest extends WC_Unit_Test_Case {
 	 */
 	private function render( int $product_id, array $attrs = array() ): string {
 		$parsed_block = array(
-			'blockName' => 'woocommerce/product-sale-badge',
+			'blockName' => 'poocommerce/product-sale-badge',
 			'attrs'     => $attrs,
 			'context'   => array( 'postId' => $product_id ),
 		);

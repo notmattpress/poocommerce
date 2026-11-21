@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 
 /**
  * Integration test for Personalizer class which validate the functionality
@@ -189,7 +189,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function ( $context, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- The $args parameter is not used in this test.
 					return 'https://example.com';
@@ -197,7 +197,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 			)
 		);
 
-		$html_content = '<a href="http://[woocommerce/store-url]">Click here</a>';
+		$html_content = '<a href="http://[poocommerce/store-url]">Click here</a>';
 		$this->assertSame( '<a href="https://example.com">Click here</a>', $this->personalizer->personalize_content( $html_content ) );
 	}
 
@@ -209,7 +209,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function ( $context, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- The $args parameter is not used in this test.
 					return 'https://example.com';
@@ -217,7 +217,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 			)
 		);
 
-		$html_content = '<a href="http://%5Bwoocommerce/store-url%5D">Click here</a>';
+		$html_content = '<a href="http://%5Bpoocommerce/store-url%5D">Click here</a>';
 		$this->assertSame( '<a href="https://example.com">Click here</a>', $this->personalizer->personalize_content( $html_content ) );
 	}
 
@@ -225,8 +225,8 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test personalizing content with a non-existent tag in href attribute.
 	 */
 	public function testPersonalizeContentWithNonExistentHrefTag(): void {
-		$html_content = '<a href="http://[woocommerce/non-existent-tag]">Click here</a>';
-		$this->assertSame( '<a href="http://[woocommerce/non-existent-tag]">Click here</a>', $this->personalizer->personalize_content( $html_content ) );
+		$html_content = '<a href="http://[poocommerce/non-existent-tag]">Click here</a>';
+		$this->assertSame( '<a href="http://[poocommerce/non-existent-tag]">Click here</a>', $this->personalizer->personalize_content( $html_content ) );
 	}
 
 	/**
@@ -285,7 +285,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function () {
 					return 'https://example.com';
@@ -295,7 +295,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store domain',
-				'woocommerce/store-domain',
+				'poocommerce/store-domain',
 				'Store',
 				function () {
 					return 'example.com';
@@ -305,18 +305,18 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 
 		$this->assertSame(
 			'<a href="https://example.com?utm_source=email">Click here</a>',
-			$this->personalizer->personalize_content( '<a href="http://[woocommerce/store-url]?utm_source=email">Click here</a>' ),
+			$this->personalizer->personalize_content( '<a href="http://[poocommerce/store-url]?utm_source=email">Click here</a>' ),
 			'An appended suffix should be kept while the forced prefix is discarded'
 		);
 		$this->assertSame(
 			'<a href="https://example.com">Click here</a>',
-			$this->personalizer->personalize_content( '<a href="HTTP://[woocommerce/store-url]">Click here</a>' ),
+			$this->personalizer->personalize_content( '<a href="HTTP://[poocommerce/store-url]">Click here</a>' ),
 			'The forced prefix should be discarded case-insensitively'
 		);
 		// esc_url() prepends the scheme when the value lacks one.
 		$this->assertSame(
 			'<a href="http://example.com">Click here</a>',
-			$this->personalizer->personalize_content( '<a href="http://[woocommerce/store-domain]">Click here</a>' ),
+			$this->personalizer->personalize_content( '<a href="http://[poocommerce/store-domain]">Click here</a>' ),
 			'A schemeless value should still produce a usable link'
 		);
 	}
@@ -610,7 +610,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function ( $context, $args ) use ( &$captured ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- The $args parameter is not used in this test.
 					$captured[] = $context[ Personalizer::RENDERING_CONTEXT_KEY ];
@@ -619,7 +619,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 			)
 		);
 
-		$html_content = '<a data-link-href="[woocommerce/store-url]" href="#">First</a><a href="http://[woocommerce/store-url]">Second</a>';
+		$html_content = '<a data-link-href="[poocommerce/store-url]" href="#">First</a><a href="http://[poocommerce/store-url]">Second</a>';
 		$this->personalizer->personalize_content( $html_content );
 		$this->assertSame( array( Personalizer::RENDERING_CONTEXT_HREF, Personalizer::RENDERING_CONTEXT_HREF ), $captured );
 	}
@@ -740,7 +740,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function () {
 					return 'https://example.com';
@@ -749,14 +749,14 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		);
 
 		$this->assertSame(
-			'Type [woocommerce/store-url] or visit [the store](https://example.com).',
-			$this->personalizer->personalize_content( 'Type [woocommerce/store-url] or visit [the store](http://%5Bwoocommerce/store-url%5D).', Personalizer::RENDERING_CONTEXT_TEXT )
+			'Type [poocommerce/store-url] or visit [the store](https://example.com).',
+			$this->personalizer->personalize_content( 'Type [poocommerce/store-url] or visit [the store](http://%5Bpoocommerce/store-url%5D).', Personalizer::RENDERING_CONTEXT_TEXT )
 		);
 
 		// A target with parentheses, as in Wikipedia-style URLs, is still personalized.
 		$this->assertSame(
 			'See [the article](https://example.org/a_(b)?ref=https://example.com).',
-			$this->personalizer->personalize_content( 'See [the article](https://example.org/a_(b)?ref=[woocommerce/store-url]).', Personalizer::RENDERING_CONTEXT_TEXT )
+			$this->personalizer->personalize_content( 'See [the article](https://example.org/a_(b)?ref=[poocommerce/store-url]).', Personalizer::RENDERING_CONTEXT_TEXT )
 		);
 
 		// A tag value that looks like a link target is inserted as it is, not personalized again.
@@ -766,12 +766,12 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 				'test/name',
 				'Test',
 				function () {
-					return '[x](http://[woocommerce/store-url])';
+					return '[x](http://[poocommerce/store-url])';
 				}
 			)
 		);
 		$this->assertSame(
-			'Hi [x](http://[woocommerce/store-url])',
+			'Hi [x](http://[poocommerce/store-url])',
 			$this->personalizer->personalize_content( 'Hi <!--[test/name]-->', Personalizer::RENDERING_CONTEXT_TEXT )
 		);
 	}
@@ -1325,7 +1325,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function ( $context, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Parameters unused in this test.
 					return 'https://example.com/store';
@@ -1341,14 +1341,14 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 			}
 		);
 
-		$html_content = '<a data-link-href="[woocommerce/store-url]" href="#" contenteditable="true">Click here</a>';
+		$html_content = '<a data-link-href="[poocommerce/store-url]" href="#" contenteditable="true">Click here</a>';
 		$result       = $this->personalizer->personalize_content( $html_content );
 		$this->assertStringContainsString( 'href="https://intercepted.example.com"', $result );
 		$this->assertStringNotContainsString( 'data-link-href', $result );
 		$this->assertStringNotContainsString( 'contenteditable', $result );
 		$this->assertSame(
 			array(
-				array( 'https://example.com/store', '[woocommerce/store-url]', Personalizer::RENDERING_CONTEXT_HREF ),
+				array( 'https://example.com/store', '[poocommerce/store-url]', Personalizer::RENDERING_CONTEXT_HREF ),
 			),
 			$calls
 		);
@@ -1363,7 +1363,7 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 		$this->tags_registry->register(
 			new Personalization_Tag(
 				'Store URL',
-				'woocommerce/store-url',
+				'poocommerce/store-url',
 				'Store',
 				function ( $context, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Parameters unused in this test.
 					return 'https://example.com/store';
@@ -1379,11 +1379,11 @@ class Personalizer_Test extends \Email_Editor_Integration_Test_Case {
 			}
 		);
 
-		$html_content = '<a href="http://[woocommerce/store-url]">Click here</a>';
+		$html_content = '<a href="http://[poocommerce/store-url]">Click here</a>';
 		$this->assertSame( '<a href="https://intercepted.example.com">Click here</a>', $this->personalizer->personalize_content( $html_content ) );
 		$this->assertSame(
 			array(
-				array( 'https://example.com/store', '[woocommerce/store-url]', Personalizer::RENDERING_CONTEXT_HREF ),
+				array( 'https://example.com/store', '[poocommerce/store-url]', Personalizer::RENDERING_CONTEXT_HREF ),
 			),
 			$calls
 		);

@@ -43,7 +43,7 @@
 	position: relative;
 	transition: box-shadow 0.1s linear;
 
-	&:not(:where(.wp-block-woocommerce-cart *, .wp-block-woocommerce-checkout *)) {
+	&:not(:where(.wp-block-poocommerce-cart *, .wp-block-poocommerce-checkout *)) {
 		@include button-appearance;
 		text-align: center;
 	}
@@ -68,14 +68,14 @@
 	}
 }
 
-:where(.wp-block-woocommerce-cart, .wp-block-woocommerce-checkout) {
+:where(.wp-block-poocommerce-cart, .wp-block-poocommerce-checkout) {
 	.wc-block-components-button:not(.is-link) .wc-block-components-button__text {
 		width: 100%;
 	}
 }
 
-body:not(.woocommerce-block-theme-has-button-styles)
-	.wc-block-components-button:not(.is-link):not(:where(.wp-block-woocommerce-cart *, .wp-block-woocommerce-checkout *)) {
+body:not(.poocommerce-block-theme-has-button-styles)
+	.wc-block-components-button:not(.is-link):not(:where(.wp-block-poocommerce-cart *, .wp-block-poocommerce-checkout *)) {
 	min-height: 3em;
 
 	&:focus {

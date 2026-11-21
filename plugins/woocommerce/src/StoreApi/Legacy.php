@@ -1,11 +1,11 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Payments\PaymentContext;
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\StoreApi\Utilities\NoticeHandler;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentContext;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\StoreApi\Utilities\NoticeHandler;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 /**
  * Legacy class.
  */
@@ -14,12 +14,12 @@ class Legacy {
 	 * Hook into WP lifecycle events.
 	 */
 	public function init() {
-		add_action( 'woocommerce_rest_checkout_process_payment_with_context', array( $this, 'process_legacy_payment' ), 999, 2 );
+		add_action( 'poocommerce_rest_checkout_process_payment_with_context', array( $this, 'process_legacy_payment' ), 999, 2 );
 	}
 
 	/**
 	 * Attempt to process a payment for the checkout API if no payment methods support the
-	 * woocommerce_rest_checkout_process_payment_with_context action.
+	 * poocommerce_rest_checkout_process_payment_with_context action.
 	 *
 	 * @param PaymentContext $context Holds context for the payment.
 	 * @param PaymentResult  $result  Result of the payment.
@@ -50,7 +50,7 @@ class Legacy {
 		$payment_method_object->validate_fields();
 
 		// If errors were thrown, we need to abort.
-		NoticeHandler::convert_notices_to_exceptions( 'woocommerce_rest_payment_error' );
+		NoticeHandler::convert_notices_to_exceptions( 'poocommerce_rest_payment_error' );
 
 		// Process Payment.
 		$gateway_result = $payment_method_object->process_payment( $context->order->get_id() );
@@ -61,9 +61,9 @@ class Legacy {
 		// If the payment failed with a message, throw an exception.
 		if ( isset( $gateway_result['result'] ) && 'failure' === $gateway_result['result'] ) {
 			if ( isset( $gateway_result['message'] ) ) {
-				throw new RouteException( 'woocommerce_rest_payment_error', esc_html( wp_strip_all_tags( $gateway_result['message'] ) ), 400 );
+				throw new RouteException( 'poocommerce_rest_payment_error', esc_html( wp_strip_all_tags( $gateway_result['message'] ) ), 400 );
 			} else {
-				NoticeHandler::convert_notices_to_exceptions( 'woocommerce_rest_payment_error' );
+				NoticeHandler::convert_notices_to_exceptions( 'poocommerce_rest_payment_error' );
 			}
 		}
 

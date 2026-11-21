@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Integration test for Image class
@@ -679,9 +679,9 @@ class Image_Test extends \Email_Editor_Integration_Test_Case {
 			);
 			return $url;
 		};
-		add_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter, 10, 5 );
+		add_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter, 10, 5 );
 		$this->image_renderer->render( $parsed_image['innerHTML'], $parsed_image, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter, 10 );
+		remove_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter, 10 );
 
 		$this->assertSame( 'https://test.com/wp-content/uploads/2023/05/image.jpg', $received['url'] );
 		$this->assertSame( '4/3', $received['aspect_ratio'] );
@@ -702,9 +702,9 @@ class Image_Test extends \Email_Editor_Integration_Test_Case {
 		$filter = function ( $url, $aspect_ratio, $width, $height ) {
 			return $url . '?resize=' . $width . ',' . $height;
 		};
-		add_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter, 10, 4 );
+		add_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter, 10, 4 );
 		$rendered = $this->image_renderer->render( $parsed_image['innerHTML'], $parsed_image, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter, 10 );
+		remove_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter, 10 );
 
 		$this->assertSame( 'https://test.com/wp-content/uploads/2023/05/image.jpg?resize=580,580', $this->get_image_attribute( $rendered, 'src' ) );
 		$this->assertSame( '580', $this->get_image_attribute( $rendered, 'width' ) );
@@ -745,9 +745,9 @@ class Image_Test extends \Email_Editor_Integration_Test_Case {
 			++$calls;
 			return $url . '?cropped';
 		};
-		add_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter );
+		add_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter );
 		$rendered = $this->image_renderer->render( $parsed_image['innerHTML'], $parsed_image, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter );
+		remove_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter );
 
 		$this->assertSame( 0, $calls );
 		$this->assertStringNotContainsString( '?cropped', $rendered );
@@ -783,9 +783,9 @@ class Image_Test extends \Email_Editor_Integration_Test_Case {
 		$filter = function () use ( $result ) {
 			return $result;
 		};
-		add_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter );
+		add_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter );
 		$rendered = $this->image_renderer->render( $parsed_image['innerHTML'], $parsed_image, $this->rendering_context );
-		remove_filter( 'woocommerce_email_editor_image_cropped_image_url', $filter );
+		remove_filter( 'poocommerce_email_editor_image_cropped_image_url', $filter );
 
 		$this->assertSame( 'https://test.com/wp-content/uploads/2023/05/image.jpg', $this->get_image_attribute( $rendered, 'src' ) );
 		$this->assertSame( '467', $this->get_image_attribute( $rendered, 'height' ) );

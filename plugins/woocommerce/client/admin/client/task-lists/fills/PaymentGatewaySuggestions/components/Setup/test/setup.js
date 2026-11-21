@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { pluginsStore } from '@woocommerce/data';
+import { pluginsStore } from '@poocommerce/data';
 import { setLocaleData, resetLocaleData } from '@wordpress/i18n';
 
 /**
@@ -12,8 +12,8 @@ import { setLocaleData, resetLocaleData } from '@wordpress/i18n';
 import { Setup } from '../Setup';
 import { enqueueScript } from '~/utils/enqueue-script';
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		DynamicForm: () => <div />,
@@ -22,7 +22,7 @@ jest.mock( '@woocommerce/components', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings' );
 jest.mock( '~/utils/enqueue-script' );
 jest.mock( '~/lib/notices', () => ( {
 	createNoticesFromResponse: jest.fn(),
@@ -34,12 +34,12 @@ beforeEach( () => {
 	installAndActivatePlugins = jest
 		.spyOn( dispatch( pluginsStore ), 'installAndActivatePlugins' )
 		.mockResolvedValue( {
-			data: { activated: [ 'woocommerce-gateway-stripe' ] },
+			data: { activated: [ 'poocommerce-gateway-stripe' ] },
 		} );
 } );
 
 afterEach( () => {
-	resetLocaleData( {}, 'woocommerce' );
+	resetLocaleData( {}, 'poocommerce' );
 } );
 
 const mockGateway = {
@@ -62,7 +62,7 @@ describe( 'Setup', () => {
 		async ( buttonText ) => {
 			setLocaleData(
 				{ 'Install & enable': [ buttonText ] },
-				'woocommerce'
+				'poocommerce'
 			);
 			render(
 				<Setup
@@ -70,7 +70,7 @@ describe( 'Setup', () => {
 					paymentGateway={ {
 						...mockGateway,
 						title: 'Platby Žluťoučký kôň العربية 日本語 🛒',
-						plugins: [ 'woocommerce-gateway-stripe' ],
+						plugins: [ 'poocommerce-gateway-stripe' ],
 					} }
 				/>
 			);
@@ -83,7 +83,7 @@ describe( 'Setup', () => {
 				expect( installAndActivatePlugins ).toHaveBeenCalledTimes( 1 );
 			} );
 			expect( installAndActivatePlugins ).toHaveBeenCalledWith( [
-				'woocommerce-gateway-stripe',
+				'poocommerce-gateway-stripe',
 			] );
 		}
 	);

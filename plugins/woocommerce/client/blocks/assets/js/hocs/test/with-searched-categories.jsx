@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, act } from '@testing-library/react';
-import * as mockUtils from '@woocommerce/editor-components/utils';
+import * as mockUtils from '@poocommerce/editor-components/utils';
 
 /**
  * Internal dependencies

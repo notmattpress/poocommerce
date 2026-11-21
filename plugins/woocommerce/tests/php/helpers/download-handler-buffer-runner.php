@@ -10,7 +10,7 @@
  * The process stdout is what a client would receive. A JSON report of the errors raised (including
  * @-suppressed ones) and the warnings logged is written to stderr.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

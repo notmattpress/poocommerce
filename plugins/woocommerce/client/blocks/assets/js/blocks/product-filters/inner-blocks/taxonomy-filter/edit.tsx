@@ -11,10 +11,10 @@ import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
-import { usePreviewMode } from '@woocommerce/base-hooks';
-import { objectHasProp } from '@woocommerce/types';
-import type { SelectableItemsContext } from '@woocommerce/types';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
+import { usePreviewMode } from '@poocommerce/base-hooks';
+import { objectHasProp } from '@poocommerce/types';
+import type { SelectableItemsContext } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -273,7 +273,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							'Please select a taxonomy to use this filter!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>
@@ -291,7 +291,7 @@ const Edit = ( props: EditProps ) => {
 							// translators: %s: Taxonomy label.
 							__(
 								'There are no products associated with %s.',
-								'woocommerce'
+								'poocommerce'
 							),
 							getTaxonomyLabel( taxonomy )
 						) }
@@ -307,13 +307,13 @@ const Edit = ( props: EditProps ) => {
 			<InitialDisabled>
 				<BlockContextProvider
 					value={ {
-						'woocommerce/selectableItems': {
+						'poocommerce/selectableItems': {
 							items:
 								termOptions.length === 0 && isPreviewMode
 									? termOptionsPreview
 									: termOptions,
 							selectionMode: 'multiple' as const,
-							storeNamespace: 'woocommerce/product-filters',
+							storeNamespace: 'poocommerce/product-filters',
 							isLoading,
 						} satisfies SelectableItemsContext< FilterItemFields >,
 					} }

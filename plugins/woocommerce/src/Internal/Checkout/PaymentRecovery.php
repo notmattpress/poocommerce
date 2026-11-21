@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Checkout;
+namespace Automattic\PooCommerce\Internal\Checkout;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use Throwable;
 use WC_Order;
 
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  * differently, one with a redirect or JSON and the other with a PaymentResult, but they judge the
  * order and record the failure the same way, so that part lives here.
  *
- * @internal For WooCommerce core use only.
+ * @internal For PooCommerce core use only.
  */
 final class PaymentRecovery {
 
@@ -83,7 +83,7 @@ final class PaymentRecovery {
 	 * @param WC_Order $order The order the gateway already moved past payment.
 	 */
 	public static function record_repeat_submit( WC_Order $order ): void {
-		$order->add_order_note( __( 'The checkout form was submitted again for this order after the payment step. No second order was created; the customer was sent to the order received page.', 'woocommerce' ) );
+		$order->add_order_note( __( 'The checkout form was submitted again for this order after the payment step. No second order was created; the customer was sent to the order received page.', 'poocommerce' ) );
 	}
 
 	/**
@@ -119,11 +119,11 @@ final class PaymentRecovery {
 	 */
 	public static function order_moved_past_payment( WC_Order $order ): bool {
 		/**
-		 * This filter is documented in woocommerce/includes/class-wc-order.php
+		 * This filter is documented in poocommerce/includes/class-wc-order.php
 		 *
 		 * @since 2.7.0
 		 */
-		$payable_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
+		$payable_statuses = apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
 
 		return ! $order->has_status(
 			array_merge(
@@ -171,7 +171,7 @@ final class PaymentRecovery {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %s: the error that was raised after the order moved past the payment step. */
-				__( 'Checkout could not be completed after the order moved past the payment step. The order keeps the status the gateway set. Error: %s', 'woocommerce' ),
+				__( 'Checkout could not be completed after the order moved past the payment step. The order keeps the status the gateway set. Error: %s', 'poocommerce' ),
 				wp_strip_all_tags( $error->getMessage() )
 			)
 		);

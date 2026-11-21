@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * MiniCartCheckoutButtonBlock class.
@@ -21,7 +21,7 @@ class MiniCartCheckoutButtonBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		$default_checkout_text = __( 'Checkout', 'woocommerce' );
+		$default_checkout_text = __( 'Checkout', 'poocommerce' );
 		$checkout_text         = $attributes['checkoutButtonLabel'] ? $attributes['checkoutButtonLabel'] : $default_checkout_text;
 		$checkout_page_id      = wc_get_page_id( 'checkout' );
 		$checkout_page_url     = get_permalink( $checkout_page_id );
@@ -29,8 +29,8 @@ class MiniCartCheckoutButtonBlock extends AbstractInnerBlock {
 			array(
 				'href'                        => esc_url( $checkout_page_url ),
 				'class'                       => 'wc-block-components-button wp-element-button wc-block-mini-cart__footer-checkout',
-				'data-wp-bind--aria-disabled' => 'woocommerce/mini-cart::state.isCartUpdating',
-				'data-wp-on--click'           => 'woocommerce/mini-cart::actions.preventCheckoutWhileUpdating',
+				'data-wp-bind--aria-disabled' => 'poocommerce/mini-cart::state.isCartUpdating',
+				'data-wp-on--click'           => 'poocommerce/mini-cart::actions.preventCheckoutWhileUpdating',
 			)
 		);
 

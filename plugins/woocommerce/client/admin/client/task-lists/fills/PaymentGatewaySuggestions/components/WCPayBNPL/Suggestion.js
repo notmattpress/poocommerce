@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, Card, CardBody, CardHeader } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
@@ -29,39 +29,39 @@ export const Suggestion = ( { paymentGateway } ) => {
 
 	return (
 		<Card
-			className="woocommerce-wcpay-bnpl-suggestion"
+			className="poocommerce-wcpay-bnpl-suggestion"
 			size="medium"
 			key={ id }
 		>
-			<div className="woocommerce-wcpay-bnpl-suggestion__contents-container">
+			<div className="poocommerce-wcpay-bnpl-suggestion__contents-container">
 				<CardHeader as="h2" isBorderless style={ { padding: 0 } }>
 					{ title }
 				</CardHeader>
 				<CardBody
-					className="woocommerce-wcpay-bnpl-suggestion__body"
+					className="poocommerce-wcpay-bnpl-suggestion__body"
 					style={ { padding: 0 } }
 				>
 					<div
-						className="woocommerce-wcpay-bnpl-suggestion__contents"
+						className="poocommerce-wcpay-bnpl-suggestion__contents"
 						style={ ! image ? { maxWidth: '100%' } : {} }
 					>
-						<p className="woocommerce-wcpay-bnpl-suggestion__description">
+						<p className="poocommerce-wcpay-bnpl-suggestion__description">
 							{ content }
 						</p>
 						<Button
-							className="woocommerce-wcpay-bnpl-suggestion__button"
+							className="poocommerce-wcpay-bnpl-suggestion__button"
 							variant="primary"
 							href={ customizedSettingsUrl }
 							onClick={ recordTrack }
 						>
-							{ __( 'Get started', 'woocommerce' ) }
+							{ __( 'Get started', 'poocommerce' ) }
 						</Button>
 					</div>
 				</CardBody>
 			</div>
 			{ image && (
 				<img
-					alt={ __( 'WooPayments BNPL illustration', 'woocommerce' ) }
+					alt={ __( 'WooPayments BNPL illustration', 'poocommerce' ) }
 					src={ image }
 					className="svg-background"
 				/>

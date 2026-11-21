@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -21,7 +21,7 @@ class ProductDescriptionTest extends WC_Unit_Test_Case {
 
 		$block = new \WP_Block(
 			array(
-				'blockName'    => 'woocommerce/product-description',
+				'blockName'    => 'poocommerce/product-description',
 				'attrs'        => array(),
 				'innerBlocks'  => array(),
 				'innerHTML'    => '',

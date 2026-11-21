@@ -16,7 +16,7 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 
 		$bootstrap = \WC_Unit_Tests_Bootstrap::instance();
 		require_once $bootstrap->plugin_dir . '/includes/emails/class-wc-email.php';
@@ -226,18 +226,18 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	 * @testdox Custom reply-to name falling back to a filtered from-name stays on a single line.
 	 */
 	public function test_custom_reply_to_falls_back_to_from_name_without_injecting_header(): void {
-		update_option( 'woocommerce_email_reply_to_enabled', 'yes' );
-		update_option( 'woocommerce_email_reply_to_address', 'reply@example.com' );
-		update_option( 'woocommerce_email_reply_to_name', '' );
+		update_option( 'poocommerce_email_reply_to_enabled', 'yes' );
+		update_option( 'poocommerce_email_reply_to_address', 'reply@example.com' );
+		update_option( 'poocommerce_email_reply_to_name', '' );
 
 		$filter = static fn() => "Shop\r\nBcc: x@evil.test";
-		add_filter( 'woocommerce_email_from_name', $filter );
+		add_filter( 'poocommerce_email_from_name', $filter );
 
 		$email = new WC_Email_Customer_Processing_Order();
 
 		$headers = $email->get_headers();
 
-		remove_filter( 'woocommerce_email_from_name', $filter );
+		remove_filter( 'poocommerce_email_from_name', $filter );
 
 		$reply_to_line = "Reply-to: Shop Bcc: x@evil.test <reply@example.com>\r\n";
 		$this->assertStringContainsString( $reply_to_line, $headers );
@@ -248,17 +248,17 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	 * @testdox A configured reply-to name left empty by the cleanup falls back to the from-name.
 	 */
 	public function test_custom_reply_to_name_that_cleans_to_nothing_falls_back_to_from_name(): void {
-		update_option( 'woocommerce_email_reply_to_enabled', 'yes' );
-		update_option( 'woocommerce_email_reply_to_address', 'reply@example.com' );
-		update_option( 'woocommerce_email_reply_to_name', ',' );
+		update_option( 'poocommerce_email_reply_to_enabled', 'yes' );
+		update_option( 'poocommerce_email_reply_to_address', 'reply@example.com' );
+		update_option( 'poocommerce_email_reply_to_name', ',' );
 
 		$filter = static fn() => 'Shop';
-		add_filter( 'woocommerce_email_from_name', $filter );
+		add_filter( 'poocommerce_email_from_name', $filter );
 
 		$email   = new WC_Email_Customer_Processing_Order();
 		$headers = $email->get_headers();
 
-		remove_filter( 'woocommerce_email_from_name', $filter );
+		remove_filter( 'poocommerce_email_from_name', $filter );
 
 		$this->assertStringContainsString( "Reply-to: Shop <reply@example.com>\r\n", $headers );
 	}
@@ -267,17 +267,17 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	 * @testdox From-name fallback for the reply-to header stays on a single line.
 	 */
 	public function test_from_name_fallback_reply_to_does_not_inject_header(): void {
-		update_option( 'woocommerce_email_reply_to_enabled', 'no' );
-		update_option( 'woocommerce_email_from_address', 'from@address.com' );
+		update_option( 'poocommerce_email_reply_to_enabled', 'no' );
+		update_option( 'poocommerce_email_from_address', 'from@address.com' );
 
 		$filter = static fn() => "Shop\r\nBcc: x@evil.test";
-		add_filter( 'woocommerce_email_from_name', $filter );
+		add_filter( 'poocommerce_email_from_name', $filter );
 
 		$email = new WC_Email_Customer_Processing_Order();
 
 		$headers = $email->get_headers();
 
-		remove_filter( 'woocommerce_email_from_name', $filter );
+		remove_filter( 'poocommerce_email_from_name', $filter );
 
 		$reply_to_line = "Reply-to: Shop Bcc: x@evil.test <from@address.com>\r\n";
 		$this->assertStringContainsString( $reply_to_line, $headers );
@@ -288,16 +288,16 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	 * @testdox A comma in a filtered from-name is removed for the reply-to header.
 	 */
 	public function test_from_name_fallback_reply_to_comma_is_removed(): void {
-		update_option( 'woocommerce_email_reply_to_enabled', 'no' );
-		update_option( 'woocommerce_email_from_address', 'from@address.com' );
+		update_option( 'poocommerce_email_reply_to_enabled', 'no' );
+		update_option( 'poocommerce_email_from_address', 'from@address.com' );
 
 		$filter = static fn() => 'Shop, Inc.';
-		add_filter( 'woocommerce_email_from_name', $filter );
+		add_filter( 'poocommerce_email_from_name', $filter );
 
 		$email   = new WC_Email_Customer_Processing_Order();
 		$headers = $email->get_headers();
 
-		remove_filter( 'woocommerce_email_from_name', $filter );
+		remove_filter( 'poocommerce_email_from_name', $filter );
 
 		$this->assertStringContainsString( "Reply-to: Shop Inc. <from@address.com>\r\n", $headers );
 	}
@@ -306,16 +306,16 @@ class WC_Email_Reply_To_Header_Test extends \WC_Unit_Test_Case {
 	 * @testdox An address in angle brackets inside a filtered from-name does not reach the Reply-to header.
 	 */
 	public function test_from_name_fallback_reply_to_strips_embedded_address(): void {
-		update_option( 'woocommerce_email_reply_to_enabled', 'no' );
-		update_option( 'woocommerce_email_from_address', 'from@address.com' );
+		update_option( 'poocommerce_email_reply_to_enabled', 'no' );
+		update_option( 'poocommerce_email_from_address', 'from@address.com' );
 
 		$filter = static fn() => 'Support <help@attacker.test>';
-		add_filter( 'woocommerce_email_from_name', $filter );
+		add_filter( 'poocommerce_email_from_name', $filter );
 
 		$email   = new WC_Email_Customer_Processing_Order();
 		$headers = $email->get_headers();
 
-		remove_filter( 'woocommerce_email_from_name', $filter );
+		remove_filter( 'poocommerce_email_from_name', $filter );
 
 		$this->assertStringContainsString( 'Reply-to: Support <from@address.com>' . "\r\n", $headers );
 		$this->assertStringNotContainsString( 'help@attacker.test', $headers );

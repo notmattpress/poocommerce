@@ -2,7 +2,7 @@
 /**
  * Tests for the proxy speed module MU-plugin template.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -40,7 +40,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public function set_up(): void {
 		parent::set_up();
-		require_once dirname( __DIR__, 2 ) . '/src/mu-plugin/woocommerce-analytics-proxy-speed-module-template.php';
+		require_once dirname( __DIR__, 2 ) . '/src/mu-plugin/poocommerce-analytics-proxy-speed-module-template.php';
 
 		$this->previous_server = $_SERVER;
 		$this->error_log_file     = tempnam( sys_get_temp_dir(), 'wca-speed-module' );
@@ -66,7 +66,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 		$this->make_proxy_request();
 		$_COOKIE['wp_consent_statistics'] = 'deny';
 
-		( new \WooCommerceAnalyticsProxySpeed() )->init();
+		( new \PooCommerceAnalyticsProxySpeed() )->init();
 
 		$this->assertSame( '', file_get_contents( $this->error_log_file ) );
 	}
@@ -86,7 +86,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 			$_COOKIE['wp_consent_statistics'] = $choice;
 		}
 
-		( new \WooCommerceAnalyticsProxySpeed() )->init();
+		( new \PooCommerceAnalyticsProxySpeed() )->init();
 
 		$this->assertStringContainsString( 'Autoloader path placeholder was not replaced', file_get_contents( $this->error_log_file ) );
 	}
@@ -111,7 +111,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 		add_filter( 'wp_consent_cookie_prefix', fn() => 'custom' );
 		$_COOKIE['custom_statistics'] = 'deny';
 
-		( new \WooCommerceAnalyticsProxySpeed() )->init();
+		( new \PooCommerceAnalyticsProxySpeed() )->init();
 
 		$this->assertSame( '', file_get_contents( $this->error_log_file ) );
 	}
@@ -121,6 +121,6 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	private function make_proxy_request(): void {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
-		$_SERVER['REQUEST_URI']    = '/wp-json/woocommerce-analytics/v1/track';
+		$_SERVER['REQUEST_URI']    = '/wp-json/poocommerce-analytics/v1/track';
 	}
 }

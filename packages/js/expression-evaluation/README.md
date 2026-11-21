@@ -1,4 +1,4 @@
-# @woocommerce/expression-evaluation
+# @poocommerce/expression-evaluation
 
 Evaluation of JavaScript-like expressions in an optional context.
 
@@ -57,7 +57,7 @@ Evaluates an expression in an optional context.
 #### Usage
 
 ```js
-import { evaluate } from '@woocommerce/expression-evaluation';
+import { evaluate } from '@poocommerce/expression-evaluation';
 
 const result = evaluate( '1 + foo', { foo: 2 } );
 

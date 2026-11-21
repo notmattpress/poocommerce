@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Blocks\Package as BlocksPackage;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsController;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Blocks\Package as BlocksPackage;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodRegistry;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsController;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use WC_Unit_Test_Case;
 
 /**
@@ -49,16 +49,16 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 		$GLOBALS['current_tab'] = 'checkout';
 
 		$this->checkout_page_id = $this->factory->post->create(
 			array(
 				'post_type'    => 'page',
-				'post_content' => '<!-- wp:woocommerce/checkout --><!-- /wp:woocommerce/checkout -->',
+				'post_content' => '<!-- wp:poocommerce/checkout --><!-- /wp:poocommerce/checkout -->',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $this->checkout_page_id );
+		update_option( 'poocommerce_checkout_page_id', $this->checkout_page_id );
 
 		$this->sut = wc_get_container()->get( PaymentsController::class );
 	}
@@ -71,7 +71,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 		set_current_screen( 'front' );
 
 		if ( null !== $this->gateways_filter_callback ) {
-			remove_filter( 'woocommerce_payment_gateways', $this->gateways_filter_callback );
+			remove_filter( 'poocommerce_payment_gateways', $this->gateways_filter_callback );
 			$this->gateways_filter_callback = null;
 		}
 		WC()->payment_gateways()->payment_gateways = array();
@@ -98,7 +98,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertContains(
 			'fake-gateway-id',
-			$settings['woocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
+			$settings['poocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
 			'A gateway without a Checkout block integration should be reported as incompatible'
 		);
 	}
@@ -114,7 +114,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertNotContains(
 			'fake-gateway-id',
-			$settings['woocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
+			$settings['poocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
 			'A gateway with a Checkout block integration should not be reported as incompatible'
 		);
 	}
@@ -130,7 +130,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertContains(
 			'fake-gateway-id',
-			$settings['woocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
+			$settings['poocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
 			'The enabled state of a gateway should not influence the compatibility list'
 		);
 	}
@@ -142,7 +142,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 		wp_update_post(
 			array(
 				'ID'           => $this->checkout_page_id,
-				'post_content' => '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				'post_content' => '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			)
 		);
 		$this->register_fake_gateway();
@@ -150,7 +150,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 		$settings = $this->sut->preload_settings();
 
 		$this->assertArrayNotHasKey(
-			'woocommerce_checkout_block_compatibility',
+			'poocommerce_checkout_block_compatibility',
 			$settings,
 			'Stores on the classic checkout should not receive compatibility data'
 		);
@@ -166,7 +166,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 		$settings = $this->sut->preload_settings();
 
 		$this->assertArrayNotHasKey(
-			'woocommerce_checkout_block_compatibility',
+			'poocommerce_checkout_block_compatibility',
 			$settings,
 			'Compatibility data is only needed by the payments settings page'
 		);
@@ -199,7 +199,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertNotContains(
 			'fake-gateway-id',
-			$settings['woocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
+			$settings['poocommerce_checkout_block_compatibility']['incompatible_gateway_ids'],
 			'A gateway whose integration only sets its name in initialize() should not be reported as incompatible'
 		);
 	}
@@ -217,7 +217,7 @@ class PaymentsControllerTest extends WC_Unit_Test_Case {
 
 			return $gateways;
 		};
-		add_filter( 'woocommerce_payment_gateways', $this->gateways_filter_callback );
+		add_filter( 'poocommerce_payment_gateways', $this->gateways_filter_callback );
 
 		WC()->payment_gateways()->init();
 	}

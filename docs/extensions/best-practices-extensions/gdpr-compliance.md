@@ -1,14 +1,14 @@
 ---
-post_title: GDPR compliance guidelines for WooCommerce extensions
+post_title: GDPR compliance guidelines for PooCommerce extensions
 sidebar_label: GDPR compliance
 
 ---
 
-# GDPR compliance guidelines for WooCommerce extensions
+# GDPR compliance guidelines for PooCommerce extensions
 
 ## Introduction
 
-The General Data Protection Regulation (GDPR) is in effect, granting EU residents increased rights over their personal data. Developers must ensure that WooCommerce extensions are compliant with these regulations.
+The General Data Protection Regulation (GDPR) is in effect, granting EU residents increased rights over their personal data. Developers must ensure that PooCommerce extensions are compliant with these regulations.
 
 ## Data sharing and collection
 
@@ -28,7 +28,7 @@ The General Data Protection Regulation (GDPR) is in effect, granting EU resident
 
 ### Accessing personal data
 
-- Specify what personal data your plugin accesses from WooCommerce orders.
+- Specify what personal data your plugin accesses from PooCommerce orders.
 - Justify the necessity for accessing each type of data.
 - Control access to personal data based on user roles and permissions.
 

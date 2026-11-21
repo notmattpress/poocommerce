@@ -2,7 +2,7 @@
 /**
  * Test the TaskList class.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks
+ * @package PooCommerce\Admin\Tests\OnboardingTasks
  */
 
 /**
@@ -10,8 +10,8 @@
  */
 require_once __DIR__ . '/test-task.php';
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * class WC_Admin_Tests_OnboardingTasks_TaskList
@@ -31,7 +31,7 @@ class WC_Admin_Tests_OnboardingTasks_TaskList extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 
 		$this->list = new TaskList(
 			array(
@@ -432,7 +432,7 @@ class WC_Admin_Tests_OnboardingTasks_TaskList extends WC_Unit_Test_Case {
 			)
 		);
 		$list->hide();
-		$this->assertEquals( get_option( 'woocommerce_default_homepage_layout', null ), 'two_columns' );
+		$this->assertEquals( get_option( 'poocommerce_default_homepage_layout', null ), 'two_columns' );
 	}
 
 	/**
@@ -445,6 +445,6 @@ class WC_Admin_Tests_OnboardingTasks_TaskList extends WC_Unit_Test_Case {
 			)
 		);
 		$list->possibly_track_completion();
-		$this->assertEquals( get_option( 'woocommerce_default_homepage_layout', null ), 'two_columns' );
+		$this->assertEquals( get_option( 'poocommerce_default_homepage_layout', null ), 'two_columns' );
 	}
 }

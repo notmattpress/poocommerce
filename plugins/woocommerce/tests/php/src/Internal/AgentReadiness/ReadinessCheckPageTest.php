@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,7 +28,7 @@ class ReadinessCheckPageTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		StoreOutputChecksTest::block_requests();
-		update_option( 'woocommerce_feature_agent_readiness_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agent_readiness_enabled', 'yes' );
 		delete_option( AgentReadiness::REPORT_OPTION );
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
 		$this->sut = wc_get_container()->get( ReadinessCheckPage::class );
@@ -39,7 +39,7 @@ class ReadinessCheckPageTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		as_unschedule_all_actions( ScheduledScan::RUN_NOW_HOOK );
-		delete_option( 'woocommerce_feature_agent_readiness_enabled' );
+		delete_option( 'poocommerce_feature_agent_readiness_enabled' );
 		parent::tearDown();
 	}
 

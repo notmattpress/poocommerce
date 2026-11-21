@@ -4,7 +4,7 @@
 import { apiFetch } from '@wordpress/data-controls';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { controls } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 /**
  * Internal dependencies
  */
@@ -55,12 +55,12 @@ const formatErrorMessage = (
 	rawErrorMessage: string
 ) => {
 	return sprintf(
-		/* translators: %(actionType)s: install or activate (the plugin). %(pluginName)s: a plugin slug (e.g. woocommerce-services) or, in plural, a comma separated list of slugs. %(error)s: a complete sentence describing the reason, or in plural a comma separated list of such sentences. */
+		/* translators: %(actionType)s: install or activate (the plugin). %(pluginName)s: a plugin slug (e.g. poocommerce-services) or, in plural, a comma separated list of slugs. %(error)s: a complete sentence describing the reason, or in plural a comma separated list of such sentences. */
 		_n(
 			'Could not %(actionType)s %(pluginName)s. %(error)s',
 			'Could not %(actionType)s the following plugins: %(pluginName)s. %(error)s',
 			Object.keys( plugins ).length || 1,
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			actionType,
@@ -192,13 +192,13 @@ function* handlePluginAPIError(
 	// (e.g. nonce or session failures) as permission problems.
 	const isPermissionError =
 		isRestApiError( error ) &&
-		error.code === 'woocommerce_rest_cannot_update' &&
+		error.code === 'poocommerce_rest_cannot_update' &&
 		( error as { data?: { status?: number } } ).data?.status === 403;
 
 	if ( isPermissionError ) {
 		rawErrorMessage = __(
 			'You do not have permissions to manage plugins. Please contact your site administrator.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if ( isPluginResponseError( plugins, error ) ) {
 		// Backend error messages are in the form of { plugin-slug: [ error messages ] }.
@@ -373,7 +373,7 @@ export function* installAndActivatePlugins(
 						/* translators: %1$s: plugin name, %2$s: plugin version */
 						__(
 							'%1$s (%2$s) was successfully installed and activated.',
-							'woocommerce'
+							'poocommerce'
 						),
 						plugin.name,
 						plugin.version
@@ -381,13 +381,13 @@ export function* installAndActivatePlugins(
 				} else {
 					response.message = __(
 						'A plugin was successfully installed and activated.',
-						'woocommerce'
+						'poocommerce'
 					);
 				}
 			} else {
 				response.message = __(
 					'Plugins were successfully installed and activated.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 		} else if (
@@ -403,13 +403,13 @@ export function* installAndActivatePlugins(
 			if ( plugin ) {
 				response.message = sprintf(
 					/* translators: %1$s: plugin name */
-					__( '%1$s was successfully activated.', 'woocommerce' ),
+					__( '%1$s was successfully activated.', 'poocommerce' ),
 					plugin.name
 				);
 			} else {
 				response.message = __(
 					'A plugin was successfully activated.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 		}

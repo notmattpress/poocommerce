@@ -2,12 +2,12 @@
 /**
  * HTML to Text Converter unit tests
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
 /**
  * Unit tests for Html2Text class
@@ -116,22 +116,22 @@ class Html2Text_Test extends \Email_Editor_Unit_Test {
 				array( 'mark_bold' => true ),
 			),
 			'tag_link_target'             => array(
-				'<a href="#" data-link-href="[woocommerce/store-url]">Shop</a>',
-				'[Shop]([woocommerce/store-url])',
+				'<a href="#" data-link-href="[poocommerce/store-url]">Shop</a>',
+				'[Shop]([poocommerce/store-url])',
 				array( 'tag_link_targets' => true ),
 			),
 			'tag_link_without_text'       => array(
-				'<a href="#" data-link-href="[woocommerce/store-url]"><img src="logo.png"></a>',
+				'<a href="#" data-link-href="[poocommerce/store-url]"><img src="logo.png"></a>',
 				'',
 				array( 'tag_link_targets' => true ),
 			),
 			'tag_link_with_title_label'   => array(
-				'<a title="Shop" data-link-href="[woocommerce/store-url]"><img src="logo.png"></a>',
-				'[Shop]([woocommerce/store-url])',
+				'<a title="Shop" data-link-href="[poocommerce/store-url]"><img src="logo.png"></a>',
+				'[Shop]([poocommerce/store-url])',
 				array( 'tag_link_targets' => true ),
 			),
 			'tag_link_ignored_by_default' => array(
-				'<a href="#" data-link-href="[woocommerce/store-url]">Shop</a> and <a data-link-href="[other/x]">here</a>',
+				'<a href="#" data-link-href="[poocommerce/store-url]">Shop</a> and <a data-link-href="[other/x]">here</a>',
 				'[Shop](#) and here',
 			),
 			'nested_divs_complex'         => array(

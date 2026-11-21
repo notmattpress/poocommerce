@@ -2,7 +2,7 @@
 /**
  * Move product to the correct location.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   7.7.0
  */
 
@@ -110,7 +110,7 @@ class WC_WCCOM_Site_Installation_Step_Move_Product implements WC_WCCOM_Site_Inst
 				esc_html(
 					sprintf(
 						/* translators: 1: PHP version the extension needs, 2: PHP version the server runs. */
-						__( 'This extension needs PHP %1$s or later, and this server runs PHP %2$s.', 'woocommerce' ),
+						__( 'This extension needs PHP %1$s or later, and this server runs PHP %2$s.', 'poocommerce' ),
 						$headers['RequiresPHP'],
 						PHP_VERSION
 					)
@@ -127,7 +127,7 @@ class WC_WCCOM_Site_Installation_Step_Move_Product implements WC_WCCOM_Site_Inst
 				esc_html(
 					sprintf(
 						/* translators: 1: WordPress version the extension needs, 2: WordPress version the site runs. */
-						__( 'This extension needs WordPress %1$s or later, and this site runs WordPress %2$s.', 'woocommerce' ),
+						__( 'This extension needs WordPress %1$s or later, and this site runs WordPress %2$s.', 'poocommerce' ),
 						$headers['RequiresWP'],
 						wp_get_wp_version()
 					)

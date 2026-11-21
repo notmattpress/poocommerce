@@ -2,12 +2,12 @@
 /**
  * Open Graph description formatting.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
 defined( 'ABSPATH' ) || exit;
 

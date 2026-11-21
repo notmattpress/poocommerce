@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * class WC_REST_Order_V2_Controller_Test.
@@ -84,7 +84,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 	public function test_orders_api_get_all_fields_v2() {
 		$expected_response_fields = $this->get_expected_response_fields();
 
-		$order    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v2/orders/' . $order->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -101,7 +101,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 	 */
 	public function test_orders_get_each_field_one_by_one_v2() {
 		$expected_response_fields = $this->get_expected_response_fields();
-		$order                    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order                    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v2/orders/' . $order->get_id() );
@@ -392,7 +392,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not created, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 
 		// Repeat the last test, except by performing an order update (instead of order creation).
 		$request = new WP_REST_Request( 'PUT', '/wc/v2/orders/' . $order_id );
@@ -400,7 +400,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not updated, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 	}
 
 	/**
@@ -423,7 +423,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_order_item_meta_key', $data['data']['details'][ $line_type ]['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_order_item_meta_key', $data['data']['details'][ $line_type ]['code'] );
 	}
 
 	/**
@@ -503,7 +503,7 @@ class WC_REST_Order_V2_Controller_Test extends WC_REST_Unit_Test_case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status(), 'The request should be rejected.' );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $response->get_data()['code'], 'The error should name the invalid product.' );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $response->get_data()['code'], 'The error should name the invalid product.' );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_items(), 'The order should keep only its original line item.' );
 		$this->assertSame( 10, wc_get_product( $stocked->get_id() )->get_stock_quantity(), 'The stock should not change.' );
 	}

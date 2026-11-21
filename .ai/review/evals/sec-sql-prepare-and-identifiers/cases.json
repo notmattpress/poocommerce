@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G36A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+			"path": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 			"before": {
 				"file": "fixtures/G36A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+						"file": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 						"lines": [
 							7,
 							7
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G36B-v4",
-			"path": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+			"path": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 			"before": {
 				"file": "fixtures/G36B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+						"file": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 						"lines": [
 							7,
 							8
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G36C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+			"path": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 			"before": {
 				"file": "fixtures/G36C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G36D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-catalog-probe.php",
+			"path": "plugins/poocommerce/includes/class-wc-catalog-probe.php",
 			"before": {
 				"file": "fixtures/G36D/before.php"
 			},

@@ -7,10 +7,10 @@ import {
 	useCheckoutAddress,
 	useEditorContext,
 	noticeContexts,
-} from '@woocommerce/base-context';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { ShippingAddress } from '@woocommerce/settings';
+} from '@poocommerce/base-context';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { ShippingAddress } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

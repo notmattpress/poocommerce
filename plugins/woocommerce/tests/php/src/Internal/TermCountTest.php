@@ -2,15 +2,15 @@
 /**
  * TermCount tests.
  *
- * @package WooCommerce\Tests\Internal
+ * @package PooCommerce\Tests\Internal
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 use WC_Helper_Product;
 use WC_Product_External;
 use WC_Product_Factory;
@@ -24,7 +24,7 @@ final class TermCountTest extends WC_Unit_Test_Case {
 	 * @testdox Converting an out-of-stock simple product to an external product refreshes its category count.
 	 */
 	public function test_converting_out_of_stock_simple_product_to_external_recounts_product_category(): void {
-		$original_setting = get_option( 'woocommerce_hide_out_of_stock_items', false );
+		$original_setting = get_option( 'poocommerce_hide_out_of_stock_items', false );
 		$category         = wp_insert_term( 'TermCount category', 'product_cat' );
 		$product          = WC_Helper_Product::create_simple_product(
 			true,
@@ -35,7 +35,7 @@ final class TermCountTest extends WC_Unit_Test_Case {
 		);
 
 		try {
-			update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+			update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 			wc_recount_all_terms( false );
 
 			$this->assertSame( '0', get_term_meta( $category['term_id'], 'product_count_product_cat', true ) );
@@ -60,9 +60,9 @@ final class TermCountTest extends WC_Unit_Test_Case {
 			wp_delete_term( $category['term_id'], 'product_cat' );
 
 			if ( false === $original_setting ) {
-				delete_option( 'woocommerce_hide_out_of_stock_items' );
+				delete_option( 'poocommerce_hide_out_of_stock_items' );
 			} else {
-				update_option( 'woocommerce_hide_out_of_stock_items', $original_setting );
+				update_option( 'poocommerce_hide_out_of_stock_items', $original_setting );
 			}
 		}
 	}
@@ -71,7 +71,7 @@ final class TermCountTest extends WC_Unit_Test_Case {
 	 * @testdox Product visibility changes made through wp_set_object_terms recount product terms once per operation.
 	 */
 	public function test_set_object_terms_recounts_product_terms_once_per_operation(): void {
-		$original_setting = get_option( 'woocommerce_hide_out_of_stock_items', false );
+		$original_setting = get_option( 'poocommerce_hide_out_of_stock_items', false );
 		$category         = wp_insert_term( 'TermCount set terms category', 'product_cat' );
 		$product          = WC_Helper_Product::create_simple_product(
 			true,
@@ -79,7 +79,7 @@ final class TermCountTest extends WC_Unit_Test_Case {
 		);
 
 		try {
-			update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+			update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 			wc_recount_all_terms( false );
 
 			$recount_attempts = $this->count_recount_attempts(
@@ -115,15 +115,15 @@ final class TermCountTest extends WC_Unit_Test_Case {
 			wp_delete_term( $category['term_id'], 'product_cat' );
 
 			if ( false === $original_setting ) {
-				delete_option( 'woocommerce_hide_out_of_stock_items' );
+				delete_option( 'poocommerce_hide_out_of_stock_items' );
 			} else {
-				update_option( 'woocommerce_hide_out_of_stock_items', $original_setting );
+				update_option( 'poocommerce_hide_out_of_stock_items', $original_setting );
 			}
 		}
 	}
 
 	/**
-	 * Counts WooCommerce product term recounts performed by an operation.
+	 * Counts PooCommerce product term recounts performed by an operation.
 	 *
 	 * @param callable(): void $operation Operation to run.
 	 * @return int
@@ -135,12 +135,12 @@ final class TermCountTest extends WC_Unit_Test_Case {
 
 			return $should_recount;
 		};
-		add_filter( 'woocommerce_product_recount_terms', $track_recounts );
+		add_filter( 'poocommerce_product_recount_terms', $track_recounts );
 
 		try {
 			$operation();
 		} finally {
-			remove_filter( 'woocommerce_product_recount_terms', $track_recounts );
+			remove_filter( 'poocommerce_product_recount_terms', $track_recounts );
 		}
 
 		return $recount_attempts;

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { renderHook } from '@testing-library/react';
-import { isSiteEditorPage } from '@woocommerce/utils';
+import { isSiteEditorPage } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -22,8 +22,8 @@ jest.mock( '@wordpress/data', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/utils', () => ( {
-	...jest.requireActual( '@woocommerce/utils' ),
+jest.mock( '@poocommerce/utils', () => ( {
+	...jest.requireActual( '@poocommerce/utils' ),
 	isSiteEditorPage: jest.fn(),
 } ) );
 

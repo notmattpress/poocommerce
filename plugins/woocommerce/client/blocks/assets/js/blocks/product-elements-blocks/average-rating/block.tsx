@@ -2,10 +2,10 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useProductDataContext } from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useProductDataContext } from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import { __ } from '@wordpress/i18n';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 
 type ProductAverageRatingProps = {
 	className?: string;
@@ -29,7 +29,7 @@ export const Block = ( props: ProductAverageRatingProps ): JSX.Element => {
 		<div className={ className } style={ styleProps.style }>
 			{ Number( product.average_rating ) > 0
 				? product.average_rating
-				: __( 'No ratings', 'woocommerce' ) }
+				: __( 'No ratings', 'poocommerce' ) }
 		</div>
 	);
 };

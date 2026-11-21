@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Internal\EmailEditor\EmailApiController;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailApiController;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateChangeSummary;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateDivergenceDetector;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSelectiveApplier;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCEmailTemplateSyncRegistry;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 require_once 'EmailStub.php';
 
@@ -39,7 +39,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		// Create a test email post.
 		$this->email_post = $this->factory()->post->create_and_get(
 			array(
@@ -161,7 +161,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			'bcc'       => 'bcc@example.com',
 		);
 		$controller->save_email_data( $data, $this->email_post );
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertEquals( 'Updated Subject', $option['subject'] );
 		$this->assertEquals( 'Updated Preheader', $option['preheader'] );
 		$this->assertEquals( 'recipient@example.com', $option['recipient'] );
@@ -174,7 +174,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_email_data_returns_null_cc_bcc_when_unsupported(): void {
 		update_option(
-			'woocommerce_' . $this->email_type . '_settings',
+			'poocommerce_' . $this->email_type . '_settings',
 			array(
 				'cc'  => 'cc@example.com',
 				'bcc' => 'bcc@example.com',
@@ -203,7 +203,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			$this->email_post
 		);
 
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertEquals( 'Updated Subject', $option['subject'] );
 		$this->assertArrayNotHasKey( 'cc', $option );
 		$this->assertArrayNotHasKey( 'bcc', $option );
@@ -354,7 +354,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			),
 			$this->email_post
 		);
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertSame( 'no', $option['send_on_unpaid_timeout'] );
 
 		$controller->save_email_data(
@@ -364,7 +364,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			),
 			$this->email_post
 		);
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertSame( 'yes', $option['send_on_unpaid_timeout'] );
 	}
 
@@ -372,7 +372,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox save_email_data() leaves the unpaid timeout toggle untouched for non-boolean values.
 	 */
 	public function test_save_email_data_ignores_non_boolean_send_on_unpaid_timeout(): void {
-		update_option( 'woocommerce_' . $this->email_type . '_settings', array( 'send_on_unpaid_timeout' => 'no' ) );
+		update_option( 'poocommerce_' . $this->email_type . '_settings', array( 'send_on_unpaid_timeout' => 'no' ) );
 		$controller = $this->create_controller_with_email( $this->create_email_with_unpaid_timeout_field() );
 
 		foreach ( array( null, 'yes', 1 ) as $value ) {
@@ -383,7 +383,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 				),
 				$this->email_post
 			);
-			$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+			$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 			$this->assertSame( 'no', $option['send_on_unpaid_timeout'] );
 		}
 	}
@@ -402,7 +402,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			$this->email_post
 		);
 
-		$option = get_option( 'woocommerce_' . $this->email_type . '_settings' );
+		$option = get_option( 'poocommerce_' . $this->email_type . '_settings' );
 		$this->assertArrayNotHasKey( 'send_on_unpaid_timeout', $option );
 	}
 
@@ -476,13 +476,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/default-content' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/default-content' );
 		$request->set_param( 'id', $unassociated_post->ID );
 
 		$result = $this->email_api_controller->get_default_content_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -509,7 +509,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 		$property->setAccessible( true );
 		$property->setValue( $controller, $mock_generator );
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $this->email_post->ID . '/default-content' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $this->email_post->ID . '/default-content' );
 		$request->set_param( 'id', $this->email_post->ID );
 
 		$result = $controller->get_default_content_response( $request );
@@ -547,7 +547,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			WCEmailTemplateDivergenceDetector::STATUS_CORE_UPDATED_CUSTOMIZED
 		);
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
 		$request->set_param( 'id', $post_id );
 
 		$result = $this->email_api_controller->reset_response( $request );
@@ -623,17 +623,17 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- This test invokes the production route-registration action.
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- This test invokes the production route-registration action.
 			do_action( 'rest_api_init', $wp_rest_server );
 			$this->email_api_controller->register_routes();
-			$request  = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
+			$request  = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
 			$response = $wp_rest_server->dispatch( $request );
 		} finally {
 			// tear_down() resets the current user; $wp_rest_server it does not touch.
 			$wp_rest_server = $previous_rest_server;
 		}
 
-		$this->assertSame( 200, $response->get_status(), 'The registered route must authorize a manage_woocommerce user.' );
+		$this->assertSame( 200, $response->get_status(), 'The registered route must authorize a manage_poocommerce user.' );
 
 		$response_data = $response->get_data();
 		$this->assertSame( $expected_canonical, $response_data['content'], 'The route response must contain the canonical render.' );
@@ -665,13 +665,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/reset' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/reset' );
 		$request->set_param( 'id', $unassociated_post->ID );
 
 		$result = $this->email_api_controller->reset_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -699,9 +699,9 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 
 		// Forcibly empty the registry so the email is not sync-enabled.
 		WCEmailTemplateSyncRegistry::reset_cache();
-		add_filter( 'woocommerce_transactional_emails_for_block_editor', '__return_empty_array' );
+		add_filter( 'poocommerce_transactional_emails_for_block_editor', '__return_empty_array' );
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
 		$request->set_param( 'id', $post_id );
 
 		$result = $this->email_api_controller->reset_response( $request );
@@ -769,7 +769,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 
 		add_filter( 'wp_insert_post_empty_content', '__return_true' );
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/reset' );
 		$request->set_param( 'id', $post_id );
 
 		$result = $this->email_api_controller->reset_response( $request );
@@ -777,7 +777,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 		remove_filter( 'wp_insert_post_empty_content', '__return_true' );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_reset_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_reset_failed', $result->get_error_code() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 
 		clean_post_cache( $post_id );
@@ -795,13 +795,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 		$controller = new EmailApiController();
 		// Intentionally skip init() to leave dependencies null.
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/0/reset' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/0/reset' );
 		$request->set_param( 'id', 0 );
 
 		$result = $controller->reset_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_editor_not_initialized', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_editor_not_initialized', $result->get_error_code() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 	}
 
@@ -824,7 +824,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $post_id . '/change-summary' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $post_id . '/change-summary' );
 		$request->set_param( 'id', $post_id );
 
 		$result = $this->email_api_controller->get_change_summary_response( $request );
@@ -868,13 +868,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'GET', '/woocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/change-summary' );
+		$request = new \WP_REST_Request( 'GET', '/poocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/change-summary' );
 		$request->set_param( 'id', $unassociated_post->ID );
 
 		$result = $this->email_api_controller->get_change_summary_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -897,7 +897,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/apply' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/apply' );
 		$request->set_param( 'id', $post_id );
 		$request->set_param( 'choices', array() );
 
@@ -930,13 +930,13 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/apply' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $unassociated_post->ID . '/apply' );
 		$request->set_param( 'id', $unassociated_post->ID );
 
 		$result = $this->email_api_controller->apply_response( $request );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'woocommerce_email_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_email_not_found', $result->get_error_code() );
 		$this->assertSame( 404, $result->get_error_data()['status'] );
 	}
 
@@ -959,7 +959,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			)
 		);
 
-		$apply_request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/apply' );
+		$apply_request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/apply' );
 		$apply_request->set_param( 'id', $post_id );
 		$apply_request->set_param( 'choices', array() );
 
@@ -968,7 +968,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 
 		$revision_id = (string) $apply_result->get_data()['revision_id'];
 
-		$undo_request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/undo' );
+		$undo_request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/undo' );
 		$undo_request->set_param( 'id', $post_id );
 		$undo_request->set_param( 'revision_id', $revision_id );
 
@@ -992,7 +992,7 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 
 		$post_id = $this->create_published_email_post( $email_type );
 
-		$request = new \WP_REST_Request( 'POST', '/woocommerce-email-editor/v1/emails/' . $post_id . '/undo' );
+		$request = new \WP_REST_Request( 'POST', '/poocommerce-email-editor/v1/emails/' . $post_id . '/undo' );
 		$request->set_param( 'id', $post_id );
 		$request->set_param( 'revision_id', 'never-applied' );
 
@@ -1020,9 +1020,9 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			$wp_rest_server = $previous_rest_server;
 		}
 
-		$this->assertArrayHasKey( '/woocommerce-email-editor/v1/emails/(?P<id>\d+)/reset', $routes );
+		$this->assertArrayHasKey( '/poocommerce-email-editor/v1/emails/(?P<id>\d+)/reset', $routes );
 
-		$reset_route_handlers = $routes['/woocommerce-email-editor/v1/emails/(?P<id>\d+)/reset'];
+		$reset_route_handlers = $routes['/poocommerce-email-editor/v1/emails/(?P<id>\d+)/reset'];
 		$methods              = array();
 		foreach ( $reset_route_handlers as $handler ) {
 			foreach ( array_keys( $handler['methods'] ) as $method ) {
@@ -1049,9 +1049,9 @@ class EmailApiControllerTest extends \WC_Unit_Test_Case {
 			$wp_rest_server = $previous_rest_server;
 		}
 
-		$this->assertArrayHasKey( '/woocommerce-email-editor/v1/emails/(?P<id>\d+)/change-summary', $routes );
+		$this->assertArrayHasKey( '/poocommerce-email-editor/v1/emails/(?P<id>\d+)/change-summary', $routes );
 
-		$change_summary_route_handlers = $routes['/woocommerce-email-editor/v1/emails/(?P<id>\d+)/change-summary'];
+		$change_summary_route_handlers = $routes['/poocommerce-email-editor/v1/emails/(?P<id>\d+)/change-summary'];
 		$methods                       = array();
 		foreach ( $change_summary_route_handlers as $handler ) {
 			foreach ( array_keys( $handler['methods'] ) as $method ) {

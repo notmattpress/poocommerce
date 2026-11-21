@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Tests\Internal\OrderReviews;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\OrderReviews\ItemEligibility;
-use Automattic\WooCommerce\Internal\OrderReviews\SubmissionHandler;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\OrderReviews\ItemEligibility;
+use Automattic\PooCommerce\Internal\OrderReviews\SubmissionHandler;
 use WC_Helper_Product;
 use WC_Order;
 use WC_Unit_Test_Case;
@@ -29,7 +29,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->comment_registration = get_option( 'comment_registration' );
-		update_option( 'woocommerce_feature_customer_review_request_enabled', 'yes' );
+		update_option( 'poocommerce_feature_customer_review_request_enabled', 'yes' );
 
 		// The container wires this in production via init(); the test dispatches the
 		// handler directly, so register the moderation-transition hooks here to exercise
@@ -49,7 +49,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		update_option( 'moderation_keys', '' );
 		update_option( 'disallowed_keys', '' );
 		update_option( 'comment_registration', $this->comment_registration );
-		delete_option( 'woocommerce_feature_customer_review_request_enabled' );
+		delete_option( 'poocommerce_feature_customer_review_request_enabled' );
 		parent::tearDown();
 	}
 
@@ -912,7 +912,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A successful submission fires the woocommerce_review_order_submitted action with order + per-row results.
+	 * @testdox A successful submission fires the poocommerce_review_order_submitted action with order + per-row results.
 	 */
 	public function test_fires_review_order_submitted_action(): void {
 		$built      = $this->make_order( 1 );
@@ -927,7 +927,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		);
 
 		add_action(
-			'woocommerce_review_order_submitted',
+			'poocommerce_review_order_submitted',
 			static function ( $order_arg, $results_arg ) use ( &$captured ) {
 				$captured['order']   = $order_arg;
 				$captured['results'] = $results_arg;
@@ -1318,7 +1318,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		$row      = reset( $response['data']['results'] );
 		$comment  = get_comment( $row['comment_id'] );
 
-		$this->assertSame( __( 'Anonymous', 'woocommerce' ), $comment->comment_author );
+		$this->assertSame( __( 'Anonymous', 'poocommerce' ), $comment->comment_author );
 	}
 
 	/**
@@ -1680,7 +1680,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		// drop fully-refunded items. The handler uses the same filter, so
 		// dropping the item here mirrors what the WC default does.
 		add_filter(
-			'woocommerce_review_order_eligible_items',
+			'poocommerce_review_order_eligible_items',
 			static function ( $items, $order_arg ) use ( $item_id ) {
 				unset( $order_arg );
 				$filtered = array();
@@ -1714,7 +1714,7 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'error', $row['status'] );
 		$this->assertSame( 'invalid_row', $row['error'] );
 
-		remove_all_filters( 'woocommerce_review_order_eligible_items' );
+		remove_all_filters( 'poocommerce_review_order_eligible_items' );
 
 		$total = (int) get_comments(
 			array(
@@ -2411,9 +2411,9 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 			),
 		);
 
-		add_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		add_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 		$response = $this->dispatch_once();
-		remove_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		remove_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 
 		$this->assertFalse( $response['success'] );
 		$this->assertSame( 'You must be logged in to post a review.', $response['message'] );
@@ -2443,9 +2443,9 @@ class SubmissionHandlerTest extends WC_Unit_Test_Case {
 			),
 		);
 
-		add_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		add_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 		$response = $this->dispatch_once();
-		remove_filter( 'woocommerce_review_order_verify_known_shoppers', '__return_false' );
+		remove_filter( 'poocommerce_review_order_verify_known_shoppers', '__return_false' );
 
 		$this->assertTrue( $response['success'] );
 		$this->assertSame(

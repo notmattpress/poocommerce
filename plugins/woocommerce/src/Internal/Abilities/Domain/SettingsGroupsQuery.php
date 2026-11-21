@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class SettingsGroupsQuery extends AbstractDomainAbility implements AbilityDefini
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/settings-groups-query';
+		return 'poocommerce/settings-groups-query';
 	}
 
 	/**
@@ -33,9 +33,9 @@ class SettingsGroupsQuery extends AbstractDomainAbility implements AbilityDefini
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query settings groups', 'woocommerce' ),
-			'description'         => __( 'List settings groups, including extension and email groups. Use settings-query to read approved settings in a group.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query settings groups', 'poocommerce' ),
+			'description'         => __( 'List settings groups, including extension and email groups. Use settings-query to read approved settings in a group.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -96,7 +96,7 @@ class SettingsGroupsQuery extends AbstractDomainAbility implements AbilityDefini
 		 * @since 3.0.0
 		 * @param array $groups Registered groups.
 		 */
-		$groups = apply_filters( 'woocommerce_settings_groups', array() );
+		$groups = apply_filters( 'poocommerce_settings_groups', array() );
 		$items  = array();
 		foreach ( is_array( $groups ) ? $groups : array() as $group ) {
 			if ( ! is_array( $group ) || ! is_string( $group['id'] ?? null ) || ! is_string( $group['label'] ?? null ) ) {

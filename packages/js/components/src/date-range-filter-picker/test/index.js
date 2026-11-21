@@ -60,7 +60,7 @@ describe( 'DateRangeFilterPicker', () => {
 			if ( translatedFormat ) {
 				setLocaleData(
 					{ 'MM/DD/YYYY': [ translatedFormat ] },
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 			const onRangeSelect = jest.fn();

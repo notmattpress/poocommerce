@@ -2,7 +2,7 @@
 /**
  * Class WC_Settings_Unit_Test_Case file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
 /**

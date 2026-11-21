@@ -20,7 +20,7 @@ WC_VERSION=${6-latest}
 
 TESTS_LIB_DIR="${WP_TESTS_DIR-/tmp/wordpress-tests-lib}"
 TESTS_WP_DIR="${WP_CORE_DIR-/tmp/wordpress}"
-TESTS_WC_DIR="${WC_CORE_DIR-/tmp/woocommerce}"
+TESTS_WC_DIR="${WC_CORE_DIR-/tmp/poocommerce}"
 
 # These paths must keep pointing to the same directories after changing cwd.
 for directory in TESTS_LIB_DIR TESTS_WP_DIR TESTS_WC_DIR; do
@@ -53,29 +53,29 @@ download() {
 }
 
 if [[ -z "$WC_VERSION" || "$WC_VERSION" == 'latest' ]]; then
-	echo "WooCommerce version not provided. Fetching latest tag from org..."
-	download https://api.wordpress.org/plugins/info/1.0/woocommerce.json "$downloads/woocommerce.json"
+	echo "PooCommerce version not provided. Fetching latest tag from org..."
+	download https://api.wordpress.org/plugins/info/1.0/poocommerce.json "$downloads/poocommerce.json"
 	# shellcheck disable=SC2016 # The PHP process reads its own argument.
 	WC_VERSION=$(php -r '
 		$response = json_decode(file_get_contents($argv[1]), true);
 		$version = $response["version"] ?? null;
 		if (!is_string($version)) { exit(1); }
 		echo $version;
-	' "$downloads/woocommerce.json") || {
-		echo 'Could not read the latest WooCommerce version from WordPress.org.' >&2
+	' "$downloads/poocommerce.json") || {
+		echo 'Could not read the latest PooCommerce version from WordPress.org.' >&2
 		exit 1
 	}
-	echo "WooCommerce version fetched: $WC_VERSION"
+	echo "PooCommerce version fetched: $WC_VERSION"
 fi
 
 # Install exactly the requested ref: a tag (x.y.z, x.y.z-rc.N, nightly) or the trunk branch.
 # Never fall back to another version, so a matrix row always tests what its name says.
 if [[ $WC_VERSION == 'trunk' ]]; then
 	latestTag=trunk
-elif [[ -n $WC_VERSION ]] && git ls-remote --exit-code --refs --tags https://github.com/woocommerce/woocommerce "refs/tags/$WC_VERSION" > /dev/null; then
+elif [[ -n $WC_VERSION ]] && git ls-remote --exit-code --refs --tags https://github.com/poocommerce/poocommerce "refs/tags/$WC_VERSION" > /dev/null; then
 	latestTag=$WC_VERSION
 else
-	echo "Error: WooCommerce version '$WC_VERSION' has no matching tag in woocommerce/woocommerce." >&2
+	echo "Error: PooCommerce version '$WC_VERSION' has no matching tag in poocommerce/poocommerce." >&2
 	exit 1
 fi
 
@@ -199,7 +199,7 @@ install_db() {
 	fi
 }
 
-install_woocommerce() {
+install_poocommerce() {
 
 	if [ -d "$TESTS_WC_DIR" ]; then
 		rm -rf -- "$TESTS_WC_DIR"
@@ -215,13 +215,13 @@ install_woocommerce() {
 		rm -rf wc-tmp-monorepo
 	fi
 
-	git clone --depth=1 --branch="$latestTag" https://github.com/woocommerce/woocommerce wc-tmp-monorepo
-	ln -s "$TESTS_DIR/wc-tmp-monorepo/plugins/woocommerce" "$TESTS_DIR/wc-tmp"
-	cd wc-tmp-monorepo/plugins/woocommerce
+	git clone --depth=1 --branch="$latestTag" https://github.com/poocommerce/poocommerce wc-tmp-monorepo
+	ln -s "$TESTS_DIR/wc-tmp-monorepo/plugins/poocommerce" "$TESTS_DIR/wc-tmp"
+	cd wc-tmp-monorepo/plugins/poocommerce
 
 	composer install --no-dev --no-scripts --optimize-autoloader
 
-	# Load WooCommerce test helpers without installing its development dependencies.
+	# Load PooCommerce test helpers without installing its development dependencies.
 	composer dump-autoload --dev --no-scripts --optimize
 
 	php bin/generate-feature-config.php
@@ -234,9 +234,9 @@ print_versions() {
 	local wp_version wc_version
 	# shellcheck disable=SC2016 # The PHP process reads its own argument and version.
 	wp_version=$(php -r 'require $argv[1]; echo $wp_version;' "$TESTS_WP_DIR/wp-includes/version.php")
-	wc_version=$(awk '/^[[:space:]]*\*[[:space:]]*Version:/{print $NF; exit}' "$TESTS_WC_DIR/woocommerce.php")
+	wc_version=$(awk '/^[[:space:]]*\*[[:space:]]*Version:/{print $NF; exit}' "$TESTS_WC_DIR/poocommerce.php")
 	echo "Installed WordPress: $wp_version (requested: $WP_VERSION)"
-	echo "Installed WooCommerce: $wc_version (requested: $WC_VERSION, ref: $latestTag)"
+	echo "Installed PooCommerce: $wc_version (requested: $WC_VERSION, ref: $latestTag)"
 }
 
 # A failed WordPress extraction can otherwise leave a stale completion marker.
@@ -244,7 +244,7 @@ rm -f -- "$TESTS_LIB_DIR/wp-tests-config.php"
 install_wp
 install_test_suite
 install_db
-install_woocommerce
+install_poocommerce
 print_versions
 # The wp-env runner uses this file to detect a complete setup.
 mv "$downloads/wp-tests-config.php" "$TESTS_LIB_DIR/wp-tests-config.php"

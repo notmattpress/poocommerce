@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\ImportExport\Product;
+namespace Automattic\PooCommerce\Internal\CLI\ImportExport\Product;
 
 use WP_CLI;
 
@@ -27,7 +27,7 @@ final class Runner {
 	 *
 	 * @param ExportCommand $export_command The export command.
 	 */
-	final public function init( ExportCommand $export_command ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules
+	final public function init( ExportCommand $export_command ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules
 		$this->export_command = $export_command;
 	}
 

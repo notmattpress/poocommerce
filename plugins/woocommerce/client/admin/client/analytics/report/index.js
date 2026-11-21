@@ -6,17 +6,17 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
-import { getQuery, getSearchWords } from '@woocommerce/navigation';
+import { getQuery, getSearchWords } from '@poocommerce/navigation';
 import {
 	searchItemsByString,
 	itemsStore,
 	usesServerSideSearch,
-} from '@woocommerce/data';
-import { AnalyticsError } from '@woocommerce/components';
+} from '@poocommerce/data';
+import { AnalyticsError } from '@poocommerce/components';
 import {
 	CurrencyContext,
 	getFilteredCurrencyInstance,
-} from '@woocommerce/currency';
+} from '@poocommerce/currency';
 
 /**
  * Internal dependencies

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * ComingSoonSocialLinksTemplate class.
@@ -36,7 +36,7 @@ class ComingSoonSocialLinksTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Coming soon social links', 'Template name', 'woocommerce' );
+		return _x( 'Coming soon social links', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class ComingSoonSocialLinksTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Reusable template part for displaying social links on the coming soon page.', 'woocommerce' );
+		return __( 'Reusable template part for displaying social links on the coming soon page.', 'poocommerce' );
 	}
 
 	/**

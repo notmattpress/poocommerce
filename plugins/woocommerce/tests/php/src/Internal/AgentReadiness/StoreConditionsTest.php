@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
 use WC_Unit_Test_Case;
 
 /**
@@ -62,7 +62,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_coming_soon_required(): void {
 		self::make_store_ready();
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$this->assertSame( array( 'launched' ), $this->sut->failing_required() );
 	}
@@ -114,7 +114,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_' . $store_page . '_page_id', $page );
+		update_option( 'poocommerce_' . $store_page . '_page_id', $page );
 		update_option( AgenticCommerceSettings::TERMS_PAGE_OPTION, $page );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
@@ -129,7 +129,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_store_conditions_checks(): void {
 		self::make_store_ready();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
 
@@ -188,7 +188,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Plain permalinks pass when WooCommerce can write the discovery file, and fail with both fixes when it can't. On multisite they always fail.
+	 * @testdox Plain permalinks pass when PooCommerce can write the discovery file, and fail with both fixes when it can't. On multisite they always fail.
 	 */
 	public function test_plain_permalinks_depend_on_writing_the_discovery_file(): void {
 		global $wp_rewrite;
@@ -207,7 +207,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 		$locked = get_temp_dir() . uniqid( 'wc-ucp-locked-' );
 		mkdir( $locked ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_mkdir
 		chmod( $locked, 0555 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
 		try {
 			if ( is_writable( $locked ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
 				$this->markTestSkipped( 'The test runs as a user who can write any directory (root).' );
@@ -231,7 +231,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	 * @testWith ["foreign", "A file at "]
 	 *           ["outdated", "The file at "]
 	 *           ["not_json", "The file at "]
-	 *           ["unreadable", "WooCommerce can’t read the file at "]
+	 *           ["unreadable", "PooCommerce can’t read the file at "]
 	 *
 	 * @param string $file   Someone else's file, an old profile, invalid JSON, or a file the web server can't read.
 	 * @param string $prefix How the fix should start.
@@ -239,7 +239,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 	public function test_ucp_file_fix( string $file, string $prefix ): void {
 		self::make_store_ready();
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/.well-known/ucp';
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 
 		$profile                   = ( new UcpDiscovery() )->get_profile();
 		$profile['ucp']['version'] = '1999-01-01';
@@ -300,7 +300,7 @@ class StoreConditionsTest extends WC_Unit_Test_Case {
 		global $wp_rewrite;
 		$wp_rewrite->set_permalink_structure( '/%postname%/' );
 		add_filter( 'pre_option_home', static fn() => 'https://example.org' );
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		$page = wp_insert_post(
 			array(
 				'post_type'   => 'page',

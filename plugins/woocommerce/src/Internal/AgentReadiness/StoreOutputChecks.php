@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Enums\CatalogVisibility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
-use Automattic\WooCommerce\Internal\LlmsTxt\LlmsTxt;
-use Automattic\WooCommerce\Internal\StructuredData\ShippingDestinations;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
+use Automattic\PooCommerce\Enums\CatalogVisibility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\LlmsTxt\LlmsTxt;
+use Automattic\PooCommerce\Internal\StructuredData\ShippingDestinations;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -81,7 +81,7 @@ class StoreOutputChecks {
 			if ( StoreConditions::is_off( $check['id'] ) ) {
 				continue;
 			}
-			// The UCP checkout check waits until this WooCommerce serves UCP checkout; it is reported as pending, not failed.
+			// The UCP checkout check waits until this PooCommerce serves UCP checkout; it is reported as pending, not failed.
 			$pending = 'ucp_checkout' === $check['id'] && ! StoreConditions::serves_ucp_checkout();
 			$failed  = null;
 			try {
@@ -232,10 +232,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->sitemap_lists_products( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'A sitemap lists your products', 'woocommerce' ),
-				'label'   => __( 'No sitemap lists your products', 'woocommerce' ),
-				'why'     => __( 'Crawlers use the sitemap to find new and changed products.', 'woocommerce' ),
-				'fix'     => __( 'Turn on the sitemap in your SEO plugin, or remove the code that turns off the WordPress sitemap, and include products in it.', 'woocommerce' ),
+				'name'    => __( 'A sitemap lists your products', 'poocommerce' ),
+				'label'   => __( 'No sitemap lists your products', 'poocommerce' ),
+				'why'     => __( 'Crawlers use the sitemap to find new and changed products.', 'poocommerce' ),
+				'fix'     => __( 'Turn on the sitemap in your SEO plugin, or remove the code that turns off the WordPress sitemap, and include products in it.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -243,10 +243,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): bool => array() !== $products ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'A recent product page has product structured data', 'woocommerce' ),
-				'label'   => __( 'A recent product page has no product structured data', 'woocommerce' ),
-				'why'     => __( 'Shopping crawlers and search engines read the product\'s JSON-LD to get its name, price and stock without guessing from the page.', 'woocommerce' ),
-				'fix'     => __( 'WooCommerce adds it to the product page. Check whether your theme or an SEO plugin turns WooCommerce\'s structured data off.', 'woocommerce' ),
+				'name'    => __( 'A recent product page has product structured data', 'poocommerce' ),
+				'label'   => __( 'A recent product page has no product structured data', 'poocommerce' ),
+				'why'     => __( 'Shopping crawlers and search engines read the product\'s JSON-LD to get its name, price and stock without guessing from the page.', 'poocommerce' ),
+				'fix'     => __( 'PooCommerce adds it to the product page. Check whether your theme or an SEO plugin turns PooCommerce\'s structured data off.', 'poocommerce' ),
 				'fix_url' => '',
 				'seen_at' => 'product',
 			),
@@ -255,10 +255,10 @@ class StoreOutputChecks {
 				'group'    => 'understand',
 				'test'     => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::has_only_core_product( $products, $responses ) ),
 				'blocks'   => 'discovery',
-				'name'     => __( 'Product structured data comes from WooCommerce, once', 'woocommerce' ),
-				'label'    => __( 'Something replaces or repeats WooCommerce\'s product structured data', 'woocommerce' ),
-				'why'      => __( 'Agents may read values that differ from your product, or two versions of it.', 'woocommerce' ),
-				'fix'      => __( 'Usually an SEO plugin or your theme. Check its schema settings; if you chose this, you can ignore it.', 'woocommerce' ),
+				'name'     => __( 'Product structured data comes from PooCommerce, once', 'poocommerce' ),
+				'label'    => __( 'Something replaces or repeats PooCommerce\'s product structured data', 'poocommerce' ),
+				'why'      => __( 'Agents may read values that differ from your product, or two versions of it.', 'poocommerce' ),
+				'fix'      => __( 'Usually an SEO plugin or your theme. Check its schema settings; if you chose this, you can ignore it.', 'poocommerce' ),
 				'fix_url'  => '',
 				'conflict' => true,
 				'seen_at'  => 'product',
@@ -268,10 +268,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::has_required_fields( $products ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product structured data has a name and image', 'woocommerce' ),
-				'label'   => __( 'Product structured data is missing a name or image', 'woocommerce' ),
-				'why'     => __( 'Without these, agents and search engines can\'t show the product.', 'woocommerce' ),
-				'fix'     => __( 'Give the product a name and an image. If it has them, check the product schema settings in your SEO plugin.', 'woocommerce' ),
+				'name'    => __( 'Product structured data has a name and image', 'poocommerce' ),
+				'label'   => __( 'Product structured data is missing a name or image', 'poocommerce' ),
+				'why'     => __( 'Without these, agents and search engines can\'t show the product.', 'poocommerce' ),
+				'fix'     => __( 'Give the product a name and an image. If it has them, check the product schema settings in your SEO plugin.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -279,10 +279,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::has_priced_offer( $products ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product offer has a price and stock status', 'woocommerce' ),
-				'label'   => __( 'Product offer is missing a price or stock status', 'woocommerce' ),
-				'why'     => __( 'Agents compare price and availability before they suggest a product.', 'woocommerce' ),
-				'fix'     => __( 'Set a price and stock status on the product. If they\'re set, check the product schema settings in your SEO plugin.', 'woocommerce' ),
+				'name'    => __( 'Product offer has a price and stock status', 'poocommerce' ),
+				'label'   => __( 'Product offer is missing a price or stock status', 'poocommerce' ),
+				'why'     => __( 'Agents compare price and availability before they suggest a product.', 'poocommerce' ),
+				'fix'     => __( 'Set a price and stock status on the product. If they\'re set, check the product schema settings in your SEO plugin.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -290,10 +290,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_llms_txt( $responses, '__return_true' ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Store serves an llms.txt file', 'woocommerce' ),
-				'label'   => __( 'No llms.txt file', 'woocommerce' ),
-				'why'     => __( 'llms.txt gives AI agents a short summary of your store and links to its main pages.', 'woocommerce' ),
-				'fix'     => __( 'Turn on llms.txt in your SEO plugin, or add an llms.txt file to your site\'s root folder.', 'woocommerce' ),
+				'name'    => __( 'Store serves an llms.txt file', 'poocommerce' ),
+				'label'   => __( 'No llms.txt file', 'poocommerce' ),
+				'why'     => __( 'llms.txt gives AI agents a short summary of your store and links to its main pages.', 'poocommerce' ),
+				'fix'     => __( 'Turn on llms.txt in your SEO plugin, or add an llms.txt file to your site\'s root folder.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -301,10 +301,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_llms_txt( $responses, static fn( string $llms_txt ): bool => 1 === preg_match( '/\A\s*#[ \t]+\S/', $llms_txt ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'llms.txt starts with the store\'s name as a heading', 'woocommerce' ),
-				'label'   => __( 'llms.txt doesn\'t follow the format', 'woocommerce' ),
-				'why'     => __( 'The format asks for a "# Name" heading first; agents use it to know whose file they read.', 'woocommerce' ),
-				'fix'     => __( 'Start llms.txt with a line such as "# Your store name", in your SEO plugin or the file in your site\'s root folder.', 'woocommerce' ),
+				'name'    => __( 'llms.txt starts with the store\'s name as a heading', 'poocommerce' ),
+				'label'   => __( 'llms.txt doesn\'t follow the format', 'poocommerce' ),
+				'why'     => __( 'The format asks for a "# Name" heading first; agents use it to know whose file they read.', 'poocommerce' ),
+				'fix'     => __( 'Start llms.txt with a line such as "# Your store name", in your SEO plugin or the file in your site\'s root folder.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -312,10 +312,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->llms_txt_links_resolve( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Links in llms.txt open', 'woocommerce' ),
-				'label'   => __( 'llms.txt links to pages that don\'t open', 'woocommerce' ),
-				'why'     => __( 'Agents follow the links in llms.txt to read your store; a broken link wastes the visit.', 'woocommerce' ),
-				'fix'     => __( 'Update or remove the broken links in llms.txt, in your SEO plugin or the file in your site\'s root folder.', 'woocommerce' ),
+				'name'    => __( 'Links in llms.txt open', 'poocommerce' ),
+				'label'   => __( 'llms.txt links to pages that don\'t open', 'poocommerce' ),
+				'why'     => __( 'Agents follow the links in llms.txt to read your store; a broken link wastes the visit.', 'poocommerce' ),
+				'fix'     => __( 'Update or remove the broken links in llms.txt, in your SEO plugin or the file in your site\'s root folder.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -323,10 +323,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_pages( $responses, static fn( string $html ): bool => self::has_open_graph( $html, 'og:title' ) && self::has_open_graph( $html, 'og:image' ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Pages have Open Graph tags', 'woocommerce' ),
-				'label'   => __( 'Pages are missing Open Graph tags', 'woocommerce' ),
-				'why'     => __( 'Agents and social apps use og:title and og:image to show a page as a card with a picture.', 'woocommerce' ),
-				'fix'     => __( 'WooCommerce adds them to product pages. For your home page, turn on Open Graph or social tags in your SEO plugin, or in Jetpack.', 'woocommerce' ),
+				'name'    => __( 'Pages have Open Graph tags', 'poocommerce' ),
+				'label'   => __( 'Pages are missing Open Graph tags', 'poocommerce' ),
+				'why'     => __( 'Agents and social apps use og:title and og:image to show a page as a card with a picture.', 'poocommerce' ),
+				'fix'     => __( 'PooCommerce adds them to product pages. For your home page, turn on Open Graph or social tags in your SEO plugin, or in Jetpack.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -334,10 +334,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => self::on_loaded( array( $responses->home_page(), $responses->product_page(), $responses->shop_page(), $responses->category_page() ), static fn( string $html ): bool => PageMarkup::has_meta( $html, 'name', 'description' ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Home, product, shop and category pages have a meta description', 'woocommerce' ),
-				'label'   => __( 'Some store pages are missing a meta description', 'woocommerce' ),
-				'why'     => __( 'Search and AI answers often quote the meta description to say what a page is about.', 'woocommerce' ),
-				'fix'     => __( 'Add meta descriptions for your home page, shop, categories and products in your SEO plugin.', 'woocommerce' ),
+				'name'    => __( 'Home, product, shop and category pages have a meta description', 'poocommerce' ),
+				'label'   => __( 'Some store pages are missing a meta description', 'poocommerce' ),
+				'why'     => __( 'Search and AI answers often quote the meta description to say what a page is about.', 'poocommerce' ),
+				'fix'     => __( 'Add meta descriptions for your home page, shop, categories and products in your SEO plugin.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -345,10 +345,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_product_page( $responses, static fn( string $html ): bool => '' !== PageMarkup::canonical( $html ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product pages name their canonical URL', 'woocommerce' ),
-				'label'   => __( 'Product pages don\'t name a canonical URL', 'woocommerce' ),
-				'why'     => __( 'A product can be reached by several URLs; the canonical link tells agents which one to show.', 'woocommerce' ),
-				'fix'     => __( 'WordPress adds a canonical link to product pages. If it\'s missing, a plugin or your theme is removing it.', 'woocommerce' ),
+				'name'    => __( 'Product pages name their canonical URL', 'poocommerce' ),
+				'label'   => __( 'Product pages don\'t name a canonical URL', 'poocommerce' ),
+				'why'     => __( 'A product can be reached by several URLs; the canonical link tells agents which one to show.', 'poocommerce' ),
+				'fix'     => __( 'WordPress adds a canonical link to product pages. If it\'s missing, a plugin or your theme is removing it.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -356,10 +356,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_home_page( $responses, static fn( string $html ): bool => array() !== JsonLd::items( $html, ...self::ORGANIZATION_TYPES ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Home page describes the store as an organization', 'woocommerce' ),
-				'label'   => __( 'Home page has no organization structured data', 'woocommerce' ),
-				'why'     => __( 'Organization JSON-LD gives agents your store\'s name, logo and contact details in one place.', 'woocommerce' ),
-				'fix'     => __( 'Fill in your organization or business details in your SEO plugin.', 'woocommerce' ),
+				'name'    => __( 'Home page describes the store as an organization', 'poocommerce' ),
+				'label'   => __( 'Home page has no organization structured data', 'poocommerce' ),
+				'why'     => __( 'Organization JSON-LD gives agents your store\'s name, logo and contact details in one place.', 'poocommerce' ),
+				'fix'     => __( 'Fill in your organization or business details in your SEO plugin.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -367,10 +367,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->snippets_allowed( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Pages let search and AI answers quote them', 'woocommerce' ),
-				'label'   => __( 'Pages ask search and AI answers not to quote them', 'woocommerce' ),
-				'why'     => __( 'A nosnippet or max-snippet robots rule keeps AI answers from quoting your pages, so your products get left out.', 'woocommerce' ),
-				'fix'     => __( 'Remove nosnippet and max-snippet from the robots settings in your SEO plugin, or ask your hosting provider about an X-Robots-Tag header.', 'woocommerce' ),
+				'name'    => __( 'Pages let search and AI answers quote them', 'poocommerce' ),
+				'label'   => __( 'Pages ask search and AI answers not to quote them', 'poocommerce' ),
+				'why'     => __( 'A nosnippet or max-snippet robots rule keeps AI answers from quoting your pages, so your products get left out.', 'poocommerce' ),
+				'fix'     => __( 'Remove nosnippet and max-snippet from the robots settings in your SEO plugin, or ask your hosting provider about an X-Robots-Tag header.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -378,10 +378,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->product_in_raw_html( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product name and price are in the page without JavaScript', 'woocommerce' ),
-				'label'   => __( 'Product name or price only shows with JavaScript', 'woocommerce' ),
-				'why'     => __( 'Most AI crawlers don\'t run JavaScript, so they miss what only appears after it runs.', 'woocommerce' ),
-				'fix'     => __( 'Use a theme or page builder that prints the product name and price in the page, or ask its developer.', 'woocommerce' ),
+				'name'    => __( 'Product name and price are in the page without JavaScript', 'poocommerce' ),
+				'label'   => __( 'Product name or price only shows with JavaScript', 'poocommerce' ),
+				'why'     => __( 'Most AI crawlers don\'t run JavaScript, so they miss what only appears after it runs.', 'poocommerce' ),
+				'fix'     => __( 'Use a theme or page builder that prints the product name and price in the page, or ask its developer.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -389,10 +389,10 @@ class StoreOutputChecks {
 				'group'   => 'access',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_pages( $responses, static fn( string $html, array $headers ): bool => ! self::restricts_indexing( self::robots_rules( $html, $headers ) ) ),
 				'blocks'  => 'listing',
-				'name'    => __( 'Pages let search and AI crawlers index them', 'woocommerce' ),
-				'label'   => __( 'Pages ask search and AI crawlers not to index them', 'woocommerce' ),
-				'why'     => __( 'A noindex, noai or noimageai robots rule keeps your pages and products out of search and AI answers.', 'woocommerce' ),
-				'fix'     => __( 'Remove noindex, noai and noimageai from the robots settings in your SEO plugin, or ask your hosting provider about an X-Robots-Tag header.', 'woocommerce' ),
+				'name'    => __( 'Pages let search and AI crawlers index them', 'poocommerce' ),
+				'label'   => __( 'Pages ask search and AI crawlers not to index them', 'poocommerce' ),
+				'why'     => __( 'A noindex, noai or noimageai robots rule keeps your pages and products out of search and AI answers.', 'poocommerce' ),
+				'fix'     => __( 'Remove noindex, noai and noimageai from the robots settings in your SEO plugin, or ask your hosting provider about an X-Robots-Tag header.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -400,10 +400,10 @@ class StoreOutputChecks {
 				'group'   => 'access',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->pages_public( $responses ),
 				'blocks'  => 'listing',
-				'name'    => __( 'Store pages open without logging in', 'woocommerce' ),
-				'label'   => __( 'Store pages ask visitors to sign in', 'woocommerce' ),
-				'why'     => __( 'Agents don\'t sign in, so they can\'t read your home, shop or product pages.', 'woocommerce' ),
-				'fix'     => __( 'Check the membership, private store or maintenance plugin that asks visitors to sign in.', 'woocommerce' ),
+				'name'    => __( 'Store pages open without logging in', 'poocommerce' ),
+				'label'   => __( 'Store pages ask visitors to sign in', 'poocommerce' ),
+				'why'     => __( 'Agents don\'t sign in, so they can\'t read your home, shop or product pages.', 'poocommerce' ),
+				'fix'     => __( 'Check the membership, private store or maintenance plugin that asks visitors to sign in.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -411,10 +411,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->sitemap_has_lastmod( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Sitemap says when pages changed', 'woocommerce' ),
-				'label'   => __( 'Sitemap has no lastmod dates', 'woocommerce' ),
-				'why'     => __( 'Crawlers use lastmod dates to come back for changed prices and stock first.', 'woocommerce' ),
-				'fix'     => __( 'Turn on lastmod dates in your SEO plugin\'s sitemap settings.', 'woocommerce' ),
+				'name'    => __( 'Sitemap says when pages changed', 'poocommerce' ),
+				'label'   => __( 'Sitemap has no lastmod dates', 'poocommerce' ),
+				'why'     => __( 'Crawlers use lastmod dates to come back for changed prices and stock first.', 'poocommerce' ),
+				'fix'     => __( 'Turn on lastmod dates in your SEO plugin\'s sitemap settings.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -422,10 +422,10 @@ class StoreOutputChecks {
 				'group'   => 'find',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_home_page( $responses, static fn( string $html ): bool => self::has_feed_link( $html ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Home page links to a feed', 'woocommerce' ),
-				'label'   => __( 'Home page doesn\'t link to a feed', 'woocommerce' ),
-				'why'     => __( 'Some agents follow your RSS or Atom feed to see what is new.', 'woocommerce' ),
-				'fix'     => __( 'Check whether your theme or a plugin removes the feed links WordPress adds.', 'woocommerce' ),
+				'name'    => __( 'Home page links to a feed', 'poocommerce' ),
+				'label'   => __( 'Home page doesn\'t link to a feed', 'poocommerce' ),
+				'why'     => __( 'Some agents follow your RSS or Atom feed to see what is new.', 'poocommerce' ),
+				'fix'     => __( 'Check whether your theme or a plugin removes the feed links WordPress adds.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -433,10 +433,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_pages( $responses, static fn( string $html ): bool => PageMarkup::has_meta( $html, 'name', 'viewport' ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Home and product pages set a viewport', 'woocommerce' ),
-				'label'   => __( 'A home or product page has no viewport tag', 'woocommerce' ),
-				'why'     => __( 'Browser agents load your pages at a phone or desktop size; without a viewport tag the layout can break.', 'woocommerce' ),
-				'fix'     => __( 'Use a theme that adds a viewport meta tag, or ask its developer.', 'woocommerce' ),
+				'name'    => __( 'Home and product pages set a viewport', 'poocommerce' ),
+				'label'   => __( 'A home or product page has no viewport tag', 'poocommerce' ),
+				'why'     => __( 'Browser agents load your pages at a phone or desktop size; without a viewport tag the layout can break.', 'poocommerce' ),
+				'fix'     => __( 'Use a theme that adds a viewport meta tag, or ask its developer.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -444,10 +444,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_pages( $responses, static fn( string $html, array $headers ): bool => self::has_lang_and_charset( $html, $headers ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Home and product pages declare their language and encoding', 'woocommerce' ),
-				'label'   => __( 'A home or product page doesn\'t declare its language or encoding', 'woocommerce' ),
-				'why'     => __( 'Agents use the language to answer shoppers in theirs, and the encoding to read names and prices without garbled text.', 'woocommerce' ),
-				'fix'     => __( 'Use a theme that sets the lang attribute and a charset meta tag, or ask its developer.', 'woocommerce' ),
+				'name'    => __( 'Home and product pages declare their language and encoding', 'poocommerce' ),
+				'label'   => __( 'A home or product page doesn\'t declare its language or encoding', 'poocommerce' ),
+				'why'     => __( 'Agents use the language to answer shoppers in theirs, and the encoding to read names and prices without garbled text.', 'poocommerce' ),
+				'fix'     => __( 'Use a theme that sets the lang attribute and a charset meta tag, or ask its developer.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -455,10 +455,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_pages( $responses, static fn( string $html ): bool => self::images_have_alt( $html ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Images have alt text', 'woocommerce' ),
-				'label'   => __( 'Some images have no alt text', 'woocommerce' ),
-				'why'     => __( 'Agents that can\'t see images rely on alt text to know what a picture shows.', 'woocommerce' ),
-				'fix'     => __( 'Add alt text to images in the media library and to product images. Images your theme adds need its developer.', 'woocommerce' ),
+				'name'    => __( 'Images have alt text', 'poocommerce' ),
+				'label'   => __( 'Some images have no alt text', 'poocommerce' ),
+				'why'     => __( 'Agents that can\'t see images rely on alt text to know what a picture shows.', 'poocommerce' ),
+				'fix'     => __( 'Add alt text to images in the media library and to product images. Images your theme adds need its developer.', 'poocommerce' ),
 				'fix_url' => admin_url( 'upload.php' ),
 			),
 			array(
@@ -466,10 +466,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->on_product_page( $responses, static fn( string $html ): bool => 1 === self::count_tags( $html, 'h1' ) ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product pages have one main heading', 'woocommerce' ),
-				'label'   => __( 'Product pages have no main heading, or more than one', 'woocommerce' ),
-				'why'     => __( 'Agents read the H1 heading as the name of the product the page is about.', 'woocommerce' ),
-				'fix'     => __( 'Check the product template of your theme or page builder: the product title should be the only H1.', 'woocommerce' ),
+				'name'    => __( 'Product pages have one main heading', 'poocommerce' ),
+				'label'   => __( 'Product pages have no main heading, or more than one', 'poocommerce' ),
+				'why'     => __( 'Agents read the H1 heading as the name of the product the page is about.', 'poocommerce' ),
+				'fix'     => __( 'Check the product template of your theme or page builder: the product title should be the only H1.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -477,10 +477,10 @@ class StoreOutputChecks {
 				'group'    => 'understand',
 				'test'     => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::schema_matches( $products, $responses->product() ) ),
 				'blocks'   => 'discovery',
-				'name'     => __( 'Product structured data matches the product', 'woocommerce' ),
-				'label'    => __( 'Product structured data shows a different name or price', 'woocommerce' ),
-				'why'      => __( 'Agents quote the structured data, so shoppers may see a name or price your store doesn\'t charge.', 'woocommerce' ),
-				'fix'      => __( 'Usually an SEO plugin or your theme. Check its schema settings, or clear your page cache.', 'woocommerce' ),
+				'name'     => __( 'Product structured data matches the product', 'poocommerce' ),
+				'label'    => __( 'Product structured data shows a different name or price', 'poocommerce' ),
+				'why'      => __( 'Agents quote the structured data, so shoppers may see a name or price your store doesn\'t charge.', 'poocommerce' ),
+				'fix'      => __( 'Usually an SEO plugin or your theme. Check its schema settings, or clear your page cache.', 'poocommerce' ),
 				'fix_url'  => '',
 				'conflict' => true,
 				'seen_at'  => 'product',
@@ -491,10 +491,10 @@ class StoreOutputChecks {
 				'test'     => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::served_gtin_ok( $products, $responses->product() ) ),
 				'applies'  => static fn( \WC_Product $product ): bool => ProductFields::needs_identifiers( $product ) && ProductFields::is_valid_gtin( (string) preg_replace( '/\D/', '', (string) $product->get_global_unique_id() ) ),
 				'blocks'   => 'discovery',
-				'name'     => __( 'Product structured data has a valid GTIN', 'woocommerce' ),
-				'label'    => __( 'Product structured data has no valid GTIN', 'woocommerce' ),
-				'why'      => __( 'Agents match products by GTIN, and the product page gives none or an invalid one.', 'woocommerce' ),
-				'fix'      => __( 'WooCommerce adds the GTIN from the product\'s GTIN field. If it\'s filled in, an SEO plugin or your theme is likely replacing it: check its schema settings.', 'woocommerce' ),
+				'name'     => __( 'Product structured data has a valid GTIN', 'poocommerce' ),
+				'label'    => __( 'Product structured data has no valid GTIN', 'poocommerce' ),
+				'why'      => __( 'Agents match products by GTIN, and the product page gives none or an invalid one.', 'poocommerce' ),
+				'fix'      => __( 'PooCommerce adds the GTIN from the product\'s GTIN field. If it\'s filled in, an SEO plugin or your theme is likely replacing it: check its schema settings.', 'poocommerce' ),
 				'fix_url'  => '',
 				'conflict' => true,
 				'seen_at'  => 'product',
@@ -505,10 +505,10 @@ class StoreOutputChecks {
 				'test'     => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::served_brand_ok( $products, $responses->product() ) ),
 				'applies'  => static fn( \WC_Product $product ): bool => taxonomy_exists( 'product_brand' ) && is_array( get_the_terms( $product->get_id(), 'product_brand' ) ),
 				'blocks'   => 'discovery',
-				'name'     => __( 'Product structured data has a brand', 'woocommerce' ),
-				'label'    => __( 'Product structured data has no brand', 'woocommerce' ),
-				'why'      => __( 'Agents use the brand to match and compare products. Your product has one, but the page gives agents none.', 'woocommerce' ),
-				'fix'      => __( 'WooCommerce adds the product\'s brand. Usually an SEO plugin or your theme replaces it: check its schema settings.', 'woocommerce' ),
+				'name'     => __( 'Product structured data has a brand', 'poocommerce' ),
+				'label'    => __( 'Product structured data has no brand', 'poocommerce' ),
+				'why'      => __( 'Agents use the brand to match and compare products. Your product has one, but the page gives agents none.', 'poocommerce' ),
+				'fix'      => __( 'PooCommerce adds the product\'s brand. Usually an SEO plugin or your theme replaces it: check its schema settings.', 'poocommerce' ),
 				'fix_url'  => '',
 				'conflict' => true,
 				'seen_at'  => 'product',
@@ -518,10 +518,10 @@ class StoreOutputChecks {
 				'group'   => 'understand',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->reviews_marked_up( $responses ),
 				'blocks'  => 'discovery',
-				'name'    => __( 'Product reviews are in structured data', 'woocommerce' ),
-				'label'   => __( 'Product reviews are missing from structured data', 'woocommerce' ),
-				'why'     => __( 'Agents compare ratings between stores; reviews only on the page are easy to miss.', 'woocommerce' ),
-				'fix'     => __( 'WooCommerce adds the rating to product structured data. Check whether your theme or an SEO plugin removes it.', 'woocommerce' ),
+				'name'    => __( 'Product reviews are in structured data', 'poocommerce' ),
+				'label'   => __( 'Product reviews are missing from structured data', 'poocommerce' ),
+				'why'     => __( 'Agents compare ratings between stores; reviews only on the page are easy to miss.', 'poocommerce' ),
+				'fix'     => __( 'PooCommerce adds the rating to product structured data. Check whether your theme or an SEO plugin removes it.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -529,10 +529,10 @@ class StoreOutputChecks {
 				'group'   => 'buy',
 				'test'    => fn( StoreResponses $responses ): ?bool => self::links_policy_pages( $responses->home_page() ),
 				'blocks'  => 'checkout',
-				'name'    => __( 'Home page links to your privacy and returns pages', 'woocommerce' ),
-				'label'   => __( 'Home page doesn\'t link to your privacy or returns page', 'woocommerce' ),
-				'why'     => __( 'Agents look for policy links on the home page before they send a shopper to your checkout.', 'woocommerce' ),
-				'fix'     => __( 'Add your privacy policy and refund and returns pages to the footer or a menu.', 'woocommerce' ),
+				'name'    => __( 'Home page links to your privacy and returns pages', 'poocommerce' ),
+				'label'   => __( 'Home page doesn\'t link to your privacy or returns page', 'poocommerce' ),
+				'why'     => __( 'Agents look for policy links on the home page before they send a shopper to your checkout.', 'poocommerce' ),
+				'fix'     => __( 'Add your privacy policy and refund and returns pages to the footer or a menu.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -540,10 +540,10 @@ class StoreOutputChecks {
 				'group'   => 'buy',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::offer_has( $products, 'hasMerchantReturnPolicy' ) || self::store_has_return_policy( $responses ) ),
 				'blocks'  => 'checkout',
-				'name'    => __( 'Product structured data links your returns policy', 'woocommerce' ),
-				'label'   => __( 'Product structured data has no returns policy', 'woocommerce' ),
-				'why'     => __( 'Agents tell shoppers whether they can return an item before they buy, and read it from the product\'s structured data.', 'woocommerce' ),
-				'fix'     => __( 'Publish your refund and returns page and choose it under Store policies.', 'woocommerce' ),
+				'name'    => __( 'Product structured data links your returns policy', 'poocommerce' ),
+				'label'   => __( 'Product structured data has no returns policy', 'poocommerce' ),
+				'why'     => __( 'Agents tell shoppers whether they can return an item before they buy, and read it from the product\'s structured data.', 'poocommerce' ),
+				'fix'     => __( 'Publish your refund and returns page and choose it under Store policies.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 			array(
@@ -551,10 +551,10 @@ class StoreOutputChecks {
 				'group'   => 'buy',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : ( self::offer_has( $products, 'shippingDetails' ) ? true : ( null === self::ships( $responses ) ? null : false ) ) ),
 				'blocks'  => 'checkout',
-				'name'    => __( 'Product structured data gives shipping details', 'woocommerce' ),
-				'label'   => __( 'Product structured data has no shipping details', 'woocommerce' ),
-				'why'     => __( 'Agents tell shoppers the delivery options and cost before they buy.', 'woocommerce' ),
-				'fix'     => __( 'Add a shipping zone with a delivery method other than local pickup, so WooCommerce can add shipping details to your products. If you already have one, check whether your theme or an SEO plugin replaces WooCommerce\'s structured data.', 'woocommerce' ),
+				'name'    => __( 'Product structured data gives shipping details', 'poocommerce' ),
+				'label'   => __( 'Product structured data has no shipping details', 'poocommerce' ),
+				'why'     => __( 'Agents tell shoppers the delivery options and cost before they buy.', 'poocommerce' ),
+				'fix'     => __( 'Add a shipping zone with a delivery method other than local pickup, so PooCommerce can add shipping details to your products. If you already have one, check whether your theme or an SEO plugin replaces PooCommerce\'s structured data.', 'poocommerce' ),
 				'fix_url' => admin_url( 'admin.php?page=wc-settings&tab=shipping' ),
 			),
 			array(
@@ -562,10 +562,10 @@ class StoreOutputChecks {
 				'group'   => 'buy',
 				'test'    => fn( StoreResponses $responses ): ?bool => $this->with_products( $responses, static fn( array $products ): ?bool => array() === $products ? null : self::has_buy_action( $products, $responses->product() ) ),
 				'blocks'  => 'checkout',
-				'name'    => __( 'Product structured data says how to buy', 'woocommerce' ),
-				'label'   => __( 'Product structured data has no buy action', 'woocommerce' ),
-				'why'     => __( 'A BuyAction tells agents where to send a shopper to buy the product.', 'woocommerce' ),
-				'fix'     => __( 'Check whether another plugin replaces WooCommerce\'s product structured data.', 'woocommerce' ),
+				'name'    => __( 'Product structured data says how to buy', 'poocommerce' ),
+				'label'   => __( 'Product structured data has no buy action', 'poocommerce' ),
+				'why'     => __( 'A BuyAction tells agents where to send a shopper to buy the product.', 'poocommerce' ),
+				'fix'     => __( 'Check whether another plugin replaces PooCommerce\'s product structured data.', 'poocommerce' ),
 				'fix_url' => '',
 			),
 		);
@@ -575,10 +575,10 @@ class StoreOutputChecks {
 				'group'    => 'find',
 				'test'     => fn( StoreResponses $responses ): ?bool => $this->on_product_page( $responses, static fn( string $html ): bool => self::has_open_graph( $html, 'og:title' ) ),
 				'blocks'   => 'discovery',
-				'name'     => __( 'Product pages keep WooCommerce\'s Open Graph tags', 'woocommerce' ),
-				'label'    => __( 'Product pages are missing WooCommerce\'s Open Graph tags', 'woocommerce' ),
-				'why'      => __( 'WooCommerce adds og:title and og:image to product pages, so agents and social apps can show the product as a card.', 'woocommerce' ),
-				'fix'      => __( 'Usually an SEO, social or caching plugin, or your theme, rewrites the page. Check their Open Graph settings.', 'woocommerce' ),
+				'name'     => __( 'Product pages keep PooCommerce\'s Open Graph tags', 'poocommerce' ),
+				'label'    => __( 'Product pages are missing PooCommerce\'s Open Graph tags', 'poocommerce' ),
+				'why'      => __( 'PooCommerce adds og:title and og:image to product pages, so agents and social apps can show the product as a card.', 'poocommerce' ),
+				'fix'      => __( 'Usually an SEO, social or caching plugin, or your theme, rewrites the page. Check their Open Graph settings.', 'poocommerce' ),
 				'fix_url'  => '',
 				'conflict' => true,
 				'seen_at'  => 'product',
@@ -593,10 +593,10 @@ class StoreOutputChecks {
 			'group'    => 'access',
 			'test'     => fn( StoreResponses $responses ): ?bool => ( $responses->get( '/.well-known/ucp' )['status'] ?? 500 ) >= 500 ? null : null !== self::ucp_endpoint( $responses ),
 			'blocks'   => 'ucp',
-			'name'     => __( 'Store serves its UCP profile', 'woocommerce' ),
-			'label'    => __( 'UCP profile isn\'t served', 'woocommerce' ),
-			'why'      => __( 'Agents read /.well-known/ucp to find your catalog. UCP is on, but visitors don\'t get the profile.', 'woocommerce' ),
-			'fix'      => __( 'Save Settings > Permalinks to refresh the rules. If it still fails, ask your hosting provider whether caching or a firewall blocks /.well-known/ucp.', 'woocommerce' ),
+			'name'     => __( 'Store serves its UCP profile', 'poocommerce' ),
+			'label'    => __( 'UCP profile isn\'t served', 'poocommerce' ),
+			'why'      => __( 'Agents read /.well-known/ucp to find your catalog. UCP is on, but visitors don\'t get the profile.', 'poocommerce' ),
+			'fix'      => __( 'Save Settings > Permalinks to refresh the rules. If it still fails, ask your hosting provider whether caching or a firewall blocks /.well-known/ucp.', 'poocommerce' ),
 			'fix_url'  => admin_url( 'options-permalink.php' ),
 			'conflict' => true,
 			'seen_at'  => home_url( '/.well-known/ucp' ),
@@ -607,10 +607,10 @@ class StoreOutputChecks {
 			'test'     => fn( StoreResponses $responses ): ?bool => self::profile_version_matches( $responses ),
 			'blocks'   => 'ucp',
 			/* translators: %s: UCP version, a date such as 2026-04-08. */
-			'name'     => sprintf( __( 'UCP profile declares version %s', 'woocommerce' ), UcpUtils::VERSION ),
-			'label'    => __( 'UCP profile declares a different version', 'woocommerce' ),
-			'why'      => __( 'Agents use the version to know which requests your store accepts. A different version usually means another plugin serves its own UCP profile.', 'woocommerce' ),
-			'fix'      => __( 'Look for another plugin that adds UCP or agentic commerce, and turn off its UCP profile.', 'woocommerce' ),
+			'name'     => sprintf( __( 'UCP profile declares version %s', 'poocommerce' ), UcpUtils::VERSION ),
+			'label'    => __( 'UCP profile declares a different version', 'poocommerce' ),
+			'why'      => __( 'Agents use the version to know which requests your store accepts. A different version usually means another plugin serves its own UCP profile.', 'poocommerce' ),
+			'fix'      => __( 'Look for another plugin that adds UCP or agentic commerce, and turn off its UCP profile.', 'poocommerce' ),
 			'fix_url'  => admin_url( 'plugins.php' ),
 			'conflict' => true,
 			'seen_at'  => home_url( '/.well-known/ucp' ),
@@ -620,10 +620,10 @@ class StoreOutputChecks {
 			'group'   => 'access',
 			'test'    => fn( StoreResponses $responses ): ?bool => self::ucp_endpoint_answers( $responses ),
 			'blocks'  => 'ucp',
-			'name'    => __( 'UCP endpoint answers', 'woocommerce' ),
-			'label'   => __( 'UCP endpoint is blocked or doesn\'t answer', 'woocommerce' ),
-			'why'     => __( 'Agents search your catalog and build carts through this endpoint; when it\'s blocked they can\'t find your products.', 'woocommerce' ),
-			'fix'     => __( 'Ask your hosting provider or security plugin to allow requests to the WordPress REST API under /wp-json/wc/ucp/.', 'woocommerce' ),
+			'name'    => __( 'UCP endpoint answers', 'poocommerce' ),
+			'label'   => __( 'UCP endpoint is blocked or doesn\'t answer', 'poocommerce' ),
+			'why'     => __( 'Agents search your catalog and build carts through this endpoint; when it\'s blocked they can\'t find your products.', 'poocommerce' ),
+			'fix'     => __( 'Ask your hosting provider or security plugin to allow requests to the WordPress REST API under /wp-json/wc/ucp/.', 'poocommerce' ),
 			'fix_url' => '',
 		);
 		$checks[] = array(
@@ -631,10 +631,10 @@ class StoreOutputChecks {
 			'group'   => 'access',
 			'test'    => fn( StoreResponses $responses ): ?bool => self::profile_declares( $responses, 'dev.ucp.shopping.checkout' ),
 			'blocks'  => 'ucp',
-			'name'    => __( 'UCP profile offers checkout', 'woocommerce' ),
-			'label'   => __( 'UCP profile doesn\'t offer checkout', 'woocommerce' ),
-			'why'     => __( 'Agents build a cart and hand the shopper to your checkout through UCP checkout.', 'woocommerce' ),
-			'fix'     => __( 'Look for another plugin that adds UCP or agentic commerce, and turn off its UCP profile.', 'woocommerce' ),
+			'name'    => __( 'UCP profile offers checkout', 'poocommerce' ),
+			'label'   => __( 'UCP profile doesn\'t offer checkout', 'poocommerce' ),
+			'why'     => __( 'Agents build a cart and hand the shopper to your checkout through UCP checkout.', 'poocommerce' ),
+			'fix'     => __( 'Look for another plugin that adds UCP or agentic commerce, and turn off its UCP profile.', 'poocommerce' ),
 			'fix_url' => admin_url( 'plugins.php' ),
 		);
 		return $checks;
@@ -665,11 +665,11 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether WooCommerce adds Open Graph tags to product pages. It needs WordPress's template output buffer.
+	 * Whether PooCommerce adds Open Graph tags to product pages. It needs WordPress's template output buffer.
 	 */
 	private static function core_open_graph_on(): bool {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in StructuredData\OpenGraph.
-		return function_exists( 'wp_start_template_enhancement_output_buffer' ) && (bool) apply_filters( 'woocommerce_enable_open_graph', true );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in StructuredData\OpenGraph.
+		return function_exists( 'wp_start_template_enhancement_output_buffer' ) && (bool) apply_filters( 'poocommerce_enable_open_graph', true );
 	}
 
 	/**
@@ -852,7 +852,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether the page has one Product item and it is WooCommerce's, which it marks with the @id
+	 * Whether the page has one Product item and it is PooCommerce's, which it marks with the @id
 	 * `<permalink>#product`. Values aren't compared: tax, currency and formatting differ without a conflict.
 	 *
 	 * @param array<int, array<string, mixed>> $products  Product items.
@@ -974,9 +974,9 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Where the served llms.txt comes from, from WooCommerce's own fallback (woocommerce #70741).
+	 * Where the served llms.txt comes from, from PooCommerce's own fallback (poocommerce #70741).
 	 * '' without that fallback, for a status it doesn't know, when llms.txt couldn't be loaded, when the
-	 * host returned a page or an empty 200, or in a subdirectory. When served: 'woocommerce' when its
+	 * host returned a page or an empty 200, or in a subdirectory. When served: 'poocommerce' when its
 	 * response header is present, 'file' for a file in the site root, or 'other' otherwise. When missing:
 	 * 'disabled' when the fallback is turned off, else 'not_reached'.
 	 *
@@ -999,25 +999,25 @@ class StoreOutputChecks {
 			if ( 'disabled' === $status['status'] ) {
 				return 'disabled';
 			}
-			// A root file still blocks WooCommerce's fallback, even when /llms.txt is not reached.
+			// A root file still blocks PooCommerce's fallback, even when /llms.txt is not reached.
 			if ( 'physical_file' === $status['status'] ) {
 				return '';
 			}
 			return 'not_reached';
 		}
 		$response = $responses->get( self::host_root( '/llms.txt' ) );
-		if ( '1' === ( $response['headers']['x-woocommerce-llms-txt'] ?? '' ) ) {
-			return 'woocommerce';
+		if ( '1' === ( $response['headers']['x-poocommerce-llms-txt'] ?? '' ) ) {
+			return 'poocommerce';
 		}
 		return 'physical_file' === $status['status'] ? 'file' : 'other';
 	}
 
 	/**
-	 * Whether a served llms.txt holds WooCommerce's guidance, as WooCommerce's own file does.
+	 * Whether a served llms.txt holds PooCommerce's guidance, as PooCommerce's own file does.
 	 * Line endings are normalized so a CRLF copy of the section still matches.
 	 *
 	 * @param string $body    Served llms.txt.
-	 * @param string $section Guidance WooCommerce adds, '' when it adds none.
+	 * @param string $section Guidance PooCommerce adds, '' when it adds none.
 	 */
 	public static function has_llms_txt_guidance( string $body, string $section ): bool {
 		$section = trim( str_replace( "\r\n", "\n", $section ) );
@@ -1026,7 +1026,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * WooCommerce's llms.txt status: disabled, physical_file or unknown, with the guidance it adds.
+	 * PooCommerce's llms.txt status: disabled, physical_file or unknown, with the guidance it adds.
 	 * Null when reading status fails.
 	 *
 	 * @return array{status:string,section:string}|null
@@ -1042,7 +1042,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * WooCommerce's llms.txt status for instance callers and test overrides.
+	 * PooCommerce's llms.txt status for instance callers and test overrides.
 	 *
 	 * @return array{status:string,section:string}|null
 	 */
@@ -1178,7 +1178,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * The UCP version the served profile declares when it is older than WooCommerce's, or '' when it
+	 * The UCP version the served profile declares when it is older than PooCommerce's, or '' when it
 	 * isn't a date like 2026-04-08 or isn't older, so the message never calls a newer version older.
 	 *
 	 * @param StoreResponses $responses Store responses.
@@ -1189,7 +1189,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether the served profile declares the UCP version WooCommerce implements. Null when no
+	 * Whether the served profile declares the UCP version PooCommerce implements. Null when no
 	 * profile is served, which the ucp_profile check reports.
 	 *
 	 * @param StoreResponses $responses Store responses.
@@ -1226,7 +1226,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether the product page names a returns policy for the whole store: WooCommerce adds it to an
+	 * Whether the product page names a returns policy for the whole store: PooCommerce adds it to an
 	 * OnlineStore item there once a refund and returns page is chosen, and SEO plugins may add it to
 	 * their Organization item.
 	 *
@@ -1246,10 +1246,10 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether WooCommerce would print shipping details for the scanned product: a simple product with a
+	 * Whether PooCommerce would print shipping details for the scanned product: a simple product with a
 	 * price that needs shipping (the conditions in WC_Structured_Data::generate_product_data()), on a store
 	 * ShippingDestinations can describe. False when the store has no zone with a delivery method other than
-	 * local pickup, which the merchant can fix. Null when WooCommerce wouldn't print them for another reason:
+	 * local pickup, which the merchant can fix. Null when PooCommerce wouldn't print them for another reason:
 	 * a variable product, shipping off, a zone criteria filter, or zones it can't describe.
 	 *
 	 * @param StoreResponses $responses Store responses.
@@ -1259,7 +1259,7 @@ class StoreOutputChecks {
 		if ( null !== $product && ( '' === $product->get_price() || ! $product->is_type( ProductType::SIMPLE ) || ! $product->needs_shipping() ) ) {
 			return null;
 		}
-		if ( ! wc_shipping_enabled() || has_filter( 'woocommerce_get_zone_criteria' ) ) {
+		if ( ! wc_shipping_enabled() || has_filter( 'poocommerce_get_zone_criteria' ) ) {
 			return null;
 		}
 		if ( ! self::has_delivery_method() ) {
@@ -1396,7 +1396,7 @@ class StoreOutputChecks {
 
 	/**
 	 * Whether a Product item, a variant or one of their offers has a BuyAction potentialAction.
-	 * Null without one when WooCommerce wouldn't print it: it links only a simple product, or a chosen
+	 * Null without one when PooCommerce wouldn't print it: it links only a simple product, or a chosen
 	 * variation, that can be bought now (the conditions of WC_Structured_Data::get_product_checkout_url()).
 	 *
 	 * @param array<int, array<string, mixed>> $products Product items.
@@ -1421,8 +1421,8 @@ class StoreOutputChecks {
 
 	/**
 	 * Whether catalog search, the route agents call, answers with JSON. The endpoint is the one the
-	 * served profile names, or WooCommerce's when the profile isn't served. The body is empty, so
-	 * WooCommerce refuses it with a JSON 400: a query or a filter is required. That 400 means the
+	 * served profile names, or PooCommerce's when the profile isn't served. The body is empty, so
+	 * PooCommerce refuses it with a JSON 400: a query or a filter is required. That 400 means the
 	 * route answered. A firewall or plugin that blocks the route blocks this request too.
 	 *
 	 * @param StoreResponses $responses Store responses.
@@ -1435,7 +1435,7 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Catalog search on the endpoint the served profile names, or WooCommerce's when it isn't served.
+	 * Catalog search on the endpoint the served profile names, or PooCommerce's when it isn't served.
 	 *
 	 * @param StoreResponses $responses Store responses.
 	 */
@@ -1875,8 +1875,8 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether the page gives the product a valid GTIN, from WooCommerce or any other source. When it doesn't, a
-	 * failure only when WooCommerce would have printed one, the product's own valid GTIN; otherwise null, since
+	 * Whether the page gives the product a valid GTIN, from PooCommerce or any other source. When it doesn't, a
+	 * failure only when PooCommerce would have printed one, the product's own valid GTIN; otherwise null, since
 	 * missing_gtin and invalid_gtin report the stored value.
 	 *
 	 * @param array<int, array<string, mixed>> $products Product items.
@@ -1891,7 +1891,7 @@ class StoreOutputChecks {
 				return true;
 			}
 		}
-		// WooCommerce prints the product's own GTIN on its page, never a variation's.
+		// PooCommerce prints the product's own GTIN on its page, never a variation's.
 		$own = (string) preg_replace( '/\D/', '', (string) $product->get_global_unique_id() );
 		return ProductFields::is_valid_gtin( $own ) ? false : null;
 	}
@@ -1919,9 +1919,9 @@ class StoreOutputChecks {
 	}
 
 	/**
-	 * Whether the page gives a brand, from WooCommerce or any other source. When it doesn't, a failure only when
-	 * WooCommerce would have printed one: it prints the product's first WooCommerce brand. A brand kept in an
-	 * attribute or another plugin's taxonomy isn't printed by WooCommerce, so its absence is null, not a conflict.
+	 * Whether the page gives a brand, from PooCommerce or any other source. When it doesn't, a failure only when
+	 * PooCommerce would have printed one: it prints the product's first PooCommerce brand. A brand kept in an
+	 * attribute or another plugin's taxonomy isn't printed by PooCommerce, so its absence is null, not a conflict.
 	 *
 	 * @param array<int, array<string, mixed>> $products Product items.
 	 * @param \WC_Product|null                 $product  The product of the page.
@@ -2071,7 +2071,7 @@ class StoreOutputChecks {
 		foreach ( $rates as $rate ) {
 			$expected[] = $excl * ( 1 + (float) $rate->tax_rate / 100 );
 		}
-		// WooCommerce prints the JSON-LD price rounded with wc_format_decimal(). With 0 decimals, 9.99 is served as 10.
+		// PooCommerce prints the JSON-LD price rounded with wc_format_decimal(). With 0 decimals, 9.99 is served as 10.
 		$decimals = wc_get_price_decimals();
 		$printed  = array();
 		foreach ( $expected as $amount ) {
@@ -2102,7 +2102,7 @@ class StoreOutputChecks {
 		if ( null === $responses->product_page() ) {
 			return null;
 		}
-		// WooCommerce prints a rating only when ratings are on and the product has rated reviews; the rating count is stored per star, the average as a number.
+		// PooCommerce prints a rating only when ratings are on and the product has rated reviews; the rating count is stored per star, the average as a number.
 		if ( ! wc_review_ratings_enabled() ) {
 			return true;
 		}

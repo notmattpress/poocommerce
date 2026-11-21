@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1\Ucp;
 
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 
 /**
  * Cart item schema whose responses carry raw strings and pre-tax prices, for the

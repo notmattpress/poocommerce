@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 import type {
 	OptimisticCartItem,
 	SelectedAttributes,
-} from '@woocommerce/stores/woocommerce';
+} from '@poocommerce/stores/poocommerce';
 
 /**
  * Internal dependencies

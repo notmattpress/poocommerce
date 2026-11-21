@@ -2,12 +2,12 @@
 /**
  * OrderTaxSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,43 +37,43 @@ class OrderTaxSchema extends AbstractLineItemSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'                 => array(
-				'description' => __( 'Item ID.', 'woocommerce' ),
+				'description' => __( 'Item ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'rate_code'          => array(
-				'description' => __( 'Tax rate code.', 'woocommerce' ),
+				'description' => __( 'Tax rate code.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'rate_id'            => array(
-				'description' => __( 'Tax rate ID.', 'woocommerce' ),
+				'description' => __( 'Tax rate ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'label'              => array(
-				'description' => __( 'Tax rate label.', 'woocommerce' ),
+				'description' => __( 'Tax rate label.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'compound'           => array(
-				'description' => __( 'Show if is a compound tax rate.', 'woocommerce' ),
+				'description' => __( 'Show if is a compound tax rate.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'tax_total'          => array(
-				'description' => __( 'Tax total (not including shipping taxes).', 'woocommerce' ),
+				'description' => __( 'Tax total (not including shipping taxes).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'shipping_tax_total' => array(
-				'description' => __( 'Shipping tax total.', 'woocommerce' ),
+				'description' => __( 'Shipping tax total.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,

@@ -5,7 +5,7 @@ Modify a url query parameter via a dropdown selection of configurable options. T
 ## Usage
 
 ```jsx
-import { FilterPicker } from '@woocommerce/components';
+import { FilterPicker } from '@poocommerce/components';
 
 const renderFilterPicker = () => {
 	const config = {
@@ -111,4 +111,4 @@ A `component: 'Search'` filter has the following `settings` format:
 }
 ```
 
-The `type`, `autocompleter`, and `labels.placeholder` settings are deprecated. Use `searchProps.type`, `searchProps.autocompleter`, and `searchProps.placeholder` instead. When a deprecated setting is set, it takes precedence over the matching `searchProps` value, so extensions that change it on core filters keep working. The deprecated settings are scheduled for removal in `@woocommerce/components` 15.0.0.
+The `type`, `autocompleter`, and `labels.placeholder` settings are deprecated. Use `searchProps.type`, `searchProps.autocompleter`, and `searchProps.placeholder` instead. When a deprecated setting is set, it takes precedence over the matching `searchProps` value, so extensions that change it on core filters keep working. The deprecated settings are scheduled for removal in `@poocommerce/components` 15.0.0.

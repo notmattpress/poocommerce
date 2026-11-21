@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Stop product images from losing their stored sizes on stores where a plugin or theme skips WooCommerce image sizes.
+Stop product images from losing their stored sizes on stores where a plugin or theme skips PooCommerce image sizes.

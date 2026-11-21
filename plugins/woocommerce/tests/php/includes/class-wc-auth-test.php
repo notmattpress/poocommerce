@@ -2,7 +2,7 @@
 /**
  * Class WC_Auth_Test file.
  *
- * @package WooCommerce\Tests\WC_Auth.
+ * @package PooCommerce\Tests\WC_Auth.
  */
 
 /**
@@ -124,7 +124,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 		$_GET['wc_auth_nonce'] = wp_create_nonce( 'wc_auth_grant_access' );
 
 		add_action(
-			'woocommerce_before_template_part',
+			'poocommerce_before_template_part',
 			static function ( $template_name, $template_path, $located, $args ) use ( &$return_url, $stop_response ) {
 				unset( $template_name, $template_path, $located );
 				$return_url = $args['return_url'];
@@ -176,7 +176,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 		if ( 'access_granted' === $route ) {
 			$this->assertSame( 'read', $consumer_data['key_permissions'], 'A legitimate approval must still create the requested read-only key.' );
 			$this->assertSame( $data['user_id'], $consumer_data['user_id'], 'The callback must preserve the multilingual application user ID.' );
-			$description = $wpdb->get_var( $wpdb->prepare( "SELECT description FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ) );
+			$description = $wpdb->get_var( $wpdb->prepare( "SELECT description FROM {$wpdb->prefix}poocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ) );
 			$this->assertStringStartsWith( $data['app_name'] . ' - API (', $description, 'The API key must store the multilingual application name without corruption.' );
 		}
 	}
@@ -219,7 +219,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 			$template_args = $args;
 			throw $stop_response;
 		};
-		add_action( 'woocommerce_before_template_part', $capture_template, 10, 4 );
+		add_action( 'poocommerce_before_template_part', $capture_template, 10, 4 );
 		add_filter(
 			'pre_http_request',
 			function ( $response, $args, $url ) use ( $reject_callback, &$consumer_data, &$created_key, &$http_requests, $wpdb ) {
@@ -228,7 +228,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 				$this->assertSame( $reject_callback ? 'https://attacker.example%23@127.0.0.1/collect' : 'https://trusted-app.example/callback', $url, 'Approval must use the callback shown during consent.' );
 				$this->assertTrue( $args['reject_unsafe_urls'], 'Callback delivery must retain WordPress URL safety checks.' );
 				$consumer_data = json_decode( $args['body'], true );
-				$created_key   = $wpdb->get_row( $wpdb->prepare( "SELECT user_id, permissions FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ), ARRAY_A );
+				$created_key   = $wpdb->get_row( $wpdb->prepare( "SELECT user_id, permissions FROM {$wpdb->prefix}poocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ), ARRAY_A );
 
 				// Returning a mock response here would bypass WordPress URL validation.
 				return $reject_callback ? false : array( 'response' => array( 'code' => 200 ) );
@@ -251,10 +251,10 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 			} catch ( Error $error ) {
 				$this->assertSame( $stop_response, $error, 'Only the captured consent template should interrupt authorization.' );
 			}
-			remove_action( 'woocommerce_before_template_part', $capture_template, 10 );
+			remove_action( 'poocommerce_before_template_part', $capture_template, 10 );
 
 			$this->assertSame( $reject_callback ? '127.0.0.1' : 'trusted-app.example', wp_parse_url( $template_args['callback_url'], PHP_URL_HOST ), 'Consent must identify the callback host.' );
-			$this->assertSame( $reject_callback ? __( 'Read/Write', 'woocommerce' ) : __( 'Read', 'woocommerce' ), $template_args['scope'], 'Consent must show the requested permissions.' );
+			$this->assertSame( $reject_callback ? __( 'Read/Write', 'poocommerce' ) : __( 'Read', 'poocommerce' ), $template_args['scope'], 'Consent must show the requested permissions.' );
 			$granted_url = html_entity_decode( esc_url( $template_args['granted_url'] ), ENT_QUOTES, 'UTF-8' );
 			$this->assertNull( wp_parse_url( $granted_url, PHP_URL_FRAGMENT ), 'The application user ID must not inject a fragment into the Approve link.' );
 			parse_str( wp_parse_url( $granted_url, PHP_URL_QUERY ), $query );
@@ -282,7 +282,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 			$this->assertSame( $data['scope'], $consumer_data['key_permissions'], 'The callback must receive only the approved permissions.' );
 			$this->assertSame( (string) get_current_user_id(), $created_key['user_id'], 'The key must belong to the consenting shop manager.' );
 			$this->assertSame( $data['scope'], $created_key['permissions'], 'The persisted key must match the displayed permissions.' );
-			$key_id = $wpdb->get_var( $wpdb->prepare( "SELECT key_id FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ) );
+			$key_id = $wpdb->get_var( $wpdb->prepare( "SELECT key_id FROM {$wpdb->prefix}poocommerce_api_keys WHERE key_id = %d", $consumer_data['key_id'] ) );
 			if ( $reject_callback ) {
 				$this->assertNull( $return_url, 'Rejected callbacks must not produce a success redirect.' );
 				$this->assertNull( $key_id, 'The key created before callback rejection must be deleted.' );
@@ -318,7 +318,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should save long ASCII and multilingual API key descriptions.
-	 * @see https://github.com/woocommerce/woocommerce/issues/30594
+	 * @see https://github.com/poocommerce/poocommerce/issues/30594
 	 * @testWith ["This_app_name_is_very_long_and_meant_to_exceed_the_column_length_of_200_characters_"]
 	 *           ["Žluťoučký kôň العربية 日本語 🛒"]
 	 *
@@ -340,7 +340,7 @@ class WC_Auth_Test extends \WC_Unit_Test_Case {
 
 		// Verify the key was inserted successfully.
 		$this->assertNotEquals( 0, $key_data['key_id'], 'API Key with long description was not written to database.' );
-		$description = $wpdb->get_var( $wpdb->prepare( "SELECT description FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d", $key_data['key_id'] ) );
+		$description = $wpdb->get_var( $wpdb->prepare( "SELECT description FROM {$wpdb->prefix}poocommerce_api_keys WHERE key_id = %d", $key_data['key_id'] ) );
 		$this->assertStringStartsWith( $app_name_fragment, $description, 'The stored description must preserve the original text.' );
 		$this->assertTrue( mb_check_encoding( $description, 'UTF-8' ), 'Trimming must not split a multibyte character.' );
 

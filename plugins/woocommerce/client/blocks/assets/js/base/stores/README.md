@@ -1,24 +1,24 @@
-# WooCommerce Interactivity API stores
+# PooCommerce Interactivity API stores
 
-This folder contains the Interactivity API (iAPI) stores that WooCommerce blocks use on the frontend. All stores here are **locked** (`lock: true`) and private by design — they are not intended for third-party extension, and removing or changing their state is **not** a breaking change. See the "Interactivity API Stores" section in `client/blocks/CLAUDE.md` and the [WordPress Private Stores reference](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores).
+This folder contains the Interactivity API (iAPI) stores that PooCommerce blocks use on the frontend. All stores here are **locked** (`lock: true`) and private by design — they are not intended for third-party extension, and removing or changing their state is **not** a breaking change. See the "Interactivity API Stores" section in `client/blocks/CLAUDE.md` and the [WordPress Private Stores reference](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/api-reference#private-stores).
 
 Stores in this folder:
 
--   [`woocommerce/products`](#woocommerceproducts-store) — server-populated cache of product and variation data in Store API format.
--   [`woocommerce`](#woocommerce-store) — loaded from the `@woocommerce/stores/woocommerce` script module; cart state and actions (with mutation batching for performance). `addCartItem` resolves with a structured per-call outcome (`AddCartItemOutcome`) instead of `void`, and the store's cross-cutting side effects (sync event, legacy event, screen-reader announcement) fire exactly once per batch cycle, not once per request — see below.
+-   [`poocommerce/products`](#poocommerceproducts-store) — server-populated cache of product and variation data in Store API format.
+-   [`poocommerce`](#poocommerce-store) — loaded from the `@poocommerce/stores/poocommerce` script module; cart state and actions (with mutation batching for performance). `addCartItem` resolves with a structured per-call outcome (`AddCartItemOutcome`) instead of `void`, and the store's cross-cutting side effects (sync event, legacy event, screen-reader announcement) fire exactly once per batch cycle, not once per request — see below.
 
 ---
 
-## `woocommerce/products` store
+## `poocommerce/products` store
 
-A locked, server-populated iAPI store that exposes WooCommerce products and variations in Store API format (`ProductResponseItem`) to interactive blocks. PHP loaders populate the raw data during render; JS and PHP derived getters expose the "current" product for the surrounding context so that directives like `data-wp-text="state.productInContext.sku"` resolve correctly on both the server (SSR) and the client.
+A locked, server-populated iAPI store that exposes PooCommerce products and variations in Store API format (`ProductResponseItem`) to interactive blocks. PHP loaders populate the raw data during render; JS and PHP derived getters expose the "current" product for the surrounding context so that directives like `data-wp-text="state.productInContext.sku"` resolve correctly on both the server (SSR) and the client.
 
 **Source files:**
 
--   JS: `plugins/woocommerce/client/blocks/assets/js/base/stores/products.ts`
--   PHP: `plugins/woocommerce/src/Blocks/SharedStores/ProductsStore.php`
--   PHP procedural wrappers: `plugins/woocommerce/includes/wc-interactivity-api-functions.php`
--   Behavioral tests: `plugins/woocommerce/client/blocks/assets/js/base/stores/test/products.test.ts`
+-   JS: `plugins/poocommerce/client/blocks/assets/js/base/stores/products.ts`
+-   PHP: `plugins/poocommerce/src/Blocks/SharedStores/ProductsStore.php`
+-   PHP procedural wrappers: `plugins/poocommerce/includes/wc-interactivity-api-functions.php`
+-   Behavioral tests: `plugins/poocommerce/client/blocks/assets/js/base/stores/test/products.test.ts`
 
 ### When to use it
 
@@ -30,24 +30,24 @@ Use this store when an interactive block needs to read product fields (price, SK
 PHP                                                  Client
 ┌───────────────────────────────────┐               ┌───────────────────────────────────┐
 │ ProductsStore::load_product()     │               │ store<ProductsStore>(             │
-│ ProductsStore::load_variations()  │  populates    │   'woocommerce/products'          │
+│ ProductsStore::load_variations()  │  populates    │   'poocommerce/products'          │
 │ ProductsStore::load_purchasable_  │──────────────▶│ )                                 │
 │   child_products()                │               │                                   │
 └────────────┬──────────────────────┘               │ state.products                    │
              │                                      │ state.productVariations           │
              ▼                                      │                                   │
    wp_interactivity_state(                          │ Derived getters:                  │
-     'woocommerce/products',                        │ • state.mainProductInContext      │
+     'poocommerce/products',                        │ • state.mainProductInContext      │
      [ 'products' => ..., ... ]                     │ • state.productVariationInContext │
    )                                                │ • state.productInContext          │
                                                     └─────────────────┬─────────────────┘
                                                                  │
  Selection (one of):                                             ▼
  • Global: wp_interactivity_state(..., [        Directives bound in markup:
-     'productId' => N, 'variationId' => null   data-wp-interactive="woocommerce/products"
+     'productId' => N, 'variationId' => null   data-wp-interactive="poocommerce/products"
    ])                                          data-wp-text="state.productInContext.sku"
  • Local context: data-wp-context=
-     'woocommerce/products::{"productId":N}'
+     'poocommerce/products::{"productId":N}'
 ```
 
 Two planes:
@@ -75,7 +75,7 @@ Derived getters mirror each other in JS (`products.ts`) and PHP (`ProductsStore:
 All loaders require a consent statement (they are experimental APIs). The literal to pass is:
 
 ```php
-'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce'
+'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce'
 ```
 
 Loaders are idempotent — calling them multiple times for the same ID (or the same variation parent) is cheap.
@@ -89,7 +89,7 @@ From `SingleProduct` block (`src/Blocks/BlockTypes/SingleProduct.php`):
 ```php
 // Load product into the shared products store.
 wc_interactivity_api_load_product(
-    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
     $product->get_id()
 );
 ```
@@ -115,14 +115,14 @@ From `SingleProductTemplate.php`:
 ```php
 $product = wc_get_product( $post->ID );
 if ( $product ) {
-    $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+    $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
     // Load the product data into the products store so derived
     // state closures can resolve it during server-side rendering.
     ProductsStore::load_product( $consent, $product->get_id() );
 
     wp_interactivity_state(
-        'woocommerce/products',
+        'poocommerce/products',
         array(
             'productId'   => $product->get_id(),
             'variationId' => null,
@@ -139,7 +139,7 @@ Use `wp_interactivity_data_wp_context()` to generate the properly encoded attrib
 
 ```php
 wc_interactivity_api_load_product(
-    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce',
+    'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce',
     $product->get_id()
 );
 
@@ -149,13 +149,13 @@ $context = array(
 );
 
 printf(
-    '<div data-wp-interactive="woocommerce/single-product" %s>%s</div>',
-    wp_interactivity_data_wp_context( $context, 'woocommerce/products' ),
+    '<div data-wp-interactive="poocommerce/single-product" %s>%s</div>',
+    wp_interactivity_data_wp_context( $context, 'poocommerce/products' ),
     $content
 );
 ```
 
-The second argument to `wp_interactivity_data_wp_context` (`'woocommerce/products'`) namespaces the context to the `woocommerce/products` store; the JS store's `getContext< ProductContext >( 'woocommerce/products' )` calls read from it.
+The second argument to `wp_interactivity_data_wp_context` (`'poocommerce/products'`) namespaces the context to the `poocommerce/products` store; the JS store's `getContext< ProductContext >( 'poocommerce/products' )` calls read from it.
 
 ### Reading product data in a block
 
@@ -169,7 +169,7 @@ From `ProductSKU.php`:
 
 ```php
 $interactive_attributes = $is_interactive
-    ? 'data-wp-interactive="woocommerce/products" data-wp-text="state.productInContext.sku"'
+    ? 'data-wp-interactive="poocommerce/products" data-wp-text="state.productInContext.sku"'
     : '';
 ```
 
@@ -183,15 +183,15 @@ From `blocks/product-elements-blocks/button/frontend.ts`:
 
 ```ts
 import { store } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -212,7 +212,7 @@ From `base/utils/variations/does-cart-item-match-attributes.ts`:
 
 ```ts
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -229,15 +229,15 @@ For variable products, `findProduct` returns `null` when no variation matches th
 -   **Always load before you bind.** If `wc_interactivity_api_load_product` was never called for the current `productId`, `state.mainProductInContext` resolves to `null` and directive bindings silently render empty.
 -   **Prefer `productInContext`** for "whatever is currently being shown". Use `mainProductInContext` / `productVariationInContext` only when the distinction matters (e.g. rendering a variation-specific description vs. the parent title).
 -   **`data-wp-context` sets local context.** Use it whenever the same block type can appear multiple times on a page for different products.
--   **Local context beats state.** If a block is wrapped in a `data-wp-context="woocommerce/products::{ ... }"` element, its `productId` / `variationId` override any globally-set values for descendants of that element. See `test/products.test.ts` for the exact precedence rules — notably, a context that has `productId` but no `variationId` key does **not** fall back to the global `variationId`.
+-   **Local context beats state.** If a block is wrapped in a `data-wp-context="poocommerce/products::{ ... }"` element, its `productId` / `variationId` override any globally-set values for descendants of that element. See `test/products.test.ts` for the exact precedence rules — notably, a context that has `productId` but no `variationId` key does **not** fall back to the global `variationId`.
 -   **Keep the consent string in sync.** The literal string is defined in `ProductsStore::$consent_statement` (PHP) and `universalLock` (JS). They are intentionally different (loaders vs. store lock); copy-paste from this README or the source files.
 -   **Do not extend this store from third-party code.** It is `lock: true` and private by design; anything here can change or disappear without notice.
 
 ---
 
-## `woocommerce` store
+## `poocommerce` store
 
-The `woocommerce` Interactivity API store (`base/stores/woocommerce/`) is served as the script module `@woocommerce/stores/woocommerce`, and blocks load it from that id. It holds cart state and actions, with mutation batching for performance. This section covers the `addCartItem` outcome contract and the once-per-cycle cross-cutting side effects below — it is not a write-up of the store's full state shape, its other actions, or the rest of the mutation batcher's internals.
+The `poocommerce` Interactivity API store (`base/stores/poocommerce/`) is served as the script module `@poocommerce/stores/poocommerce`, and blocks load it from that id. It holds cart state and actions, with mutation batching for performance. This section covers the `addCartItem` outcome contract and the once-per-cycle cross-cutting side effects below — it is not a write-up of the store's full state shape, its other actions, or the rest of the mutation batcher's internals.
 
 ### The `addCartItem` outcome contract
 
@@ -245,7 +245,7 @@ The `woocommerce` Interactivity API store (`base/stores/woocommerce/`) is served
 
 ```ts
 export type AddCartItemError = {
-	/** Server error code for a per-item rejection (e.g. `woocommerce_rest_product_out_of_stock`),
+	/** Server error code for a per-item rejection (e.g. `poocommerce_rest_product_out_of_stock`),
 	 *  or the batcher's `unknown_error` fallback. Absent on whole-batch/transport failures. */
 	code?: string;
 	/** Human-readable failure description. Always present. */
@@ -257,10 +257,10 @@ export type AddCartItemOutcome =
 	| { success: false; error: AddCartItemError };
 ```
 
-Both types are exported from the `woocommerce` store's module, `@woocommerce/stores/woocommerce`, and reach consumers through a type-only import:
+Both types are exported from the `poocommerce` store's module, `@poocommerce/stores/poocommerce`, and reach consumers through a type-only import:
 
 ```ts
-import type { AddCartItemOutcome } from '@woocommerce/stores/woocommerce';
+import type { AddCartItemOutcome } from '@poocommerce/stores/poocommerce';
 ```
 
 **`addCartItem` stays fire-and-forget.** It never rejects because of a request or server failure — every request path, whether the Store API accepts or rejects it, resolves with an outcome instead of throwing. The action still throws synchronously for its two programmer-error guards (both `quantity` and `quantityToAdd` supplied together, or a keyless call — no `key` — that passes an absolute `quantity` instead of a `quantityToAdd` delta) — those are argument-validation bugs, unrelated to the request outcome below.
@@ -298,9 +298,9 @@ The store emits three cart-wide side effects whenever a mutation succeeds:
 -   the legacy `wc-blocks_added_to_cart` event (payload `{ preserveCartData: true }`), consumed outside this store;
 -   the screen-reader "added to cart" announcement, made only when the store is configured with an `addedToCartText` message.
 
-These fire **exactly once per mutation batch cycle, not once per request**. When the mutation batcher (`woocommerce/cart/mutation-batcher.ts`) coalesces several concurrent mutations — e.g. N concurrent `addCartItem` calls issued in the same tick — into one processing cycle and one `/wc/store/v1/batch` request, each of the three effects fires only once for that cycle, not once per coalesced request. Before this mechanism existed, each of the three effects was wired per request rather than per cycle, so N coalesced mutations produced N sync events (N redundant resync GETs), N legacy events, and N announcements; a single successful mutation still produces exactly one of each, unchanged.
+These fire **exactly once per mutation batch cycle, not once per request**. When the mutation batcher (`poocommerce/cart/mutation-batcher.ts`) coalesces several concurrent mutations — e.g. N concurrent `addCartItem` calls issued in the same tick — into one processing cycle and one `/wc/store/v1/batch` request, each of the three effects fires only once for that cycle, not once per coalesced request. Before this mechanism existed, each of the three effects was wired per request rather than per cycle, so N coalesced mutations produced N sync events (N redundant resync GETs), N legacy events, and N announcements; a single successful mutation still produces exactly one of each, unchanged.
 
-**Mechanism.** Every action that calls `sendCartRequest` attaches a per-request `meta: { quantityChanges, origin }` (type `CartMutationMeta`) describing that one mutation: `quantityChanges` is its contribution to the sync event's payload (`productsPendingAdd` / `cartItemsPendingQuantity` / `cartItemsPendingDelete`), and `origin` is `'add'` (set by `addCartItem` and `batchAddCartItems`, regardless of whether the mutation hit `add-item` or `update-item`) or `'remove'` (set by `removeCartItem`). The batcher carries `meta` through unchanged and, once a cycle settles — synchronously, after the cycle's server state is committed (or rolled back) and before the queue's `isProcessing` state clears — invokes the mutation queue's `onCycleSettled` config callback exactly once, with one `{ success, meta }` entry per request in the cycle. The `onCycleSettled` callback built into the queue passed to `createMutationQueue` inside `sendCartRequest` is the single place in `woocommerce/cart/actions.ts` that emits the three effects; no action emits them itself.
+**Mechanism.** Every action that calls `sendCartRequest` attaches a per-request `meta: { quantityChanges, origin }` (type `CartMutationMeta`) describing that one mutation: `quantityChanges` is its contribution to the sync event's payload (`productsPendingAdd` / `cartItemsPendingQuantity` / `cartItemsPendingDelete`), and `origin` is `'add'` (set by `addCartItem` and `batchAddCartItems`, regardless of whether the mutation hit `add-item` or `update-item`) or `'remove'` (set by `removeCartItem`). The batcher carries `meta` through unchanged and, once a cycle settles — synchronously, after the cycle's server state is committed (or rolled back) and before the queue's `isProcessing` state clears — invokes the mutation queue's `onCycleSettled` config callback exactly once, with one `{ success, meta }` entry per request in the cycle. The `onCycleSettled` callback built into the queue passed to `createMutationQueue` inside `sendCartRequest` is the single place in `poocommerce/cart/actions.ts` that emits the three effects; no action emits them itself.
 
 **Gates.** The callback applies three rules to the cycle's successful entries (`entry.success && entry.meta`):
 
@@ -312,4 +312,4 @@ Per-item error notices and each action's own info-notice update (including its `
 
 **`batchAddCartItems`.** A single `batchAddCartItems` call is just a cycle whose requests all originate from one call, so it goes through the exact same `onCycleSettled` mechanism as `addCartItem`/`removeCartItem`: each item submits its own `meta` (all `origin: 'add'`), and the call still produces one sync event, one legacy event, and one announcement when at least one item succeeds. Its merged sync `quantityChanges` is the union of only the *successful* items' entries — a failed item contributes nothing, since it made no server change.
 
-**Stays internal.** This is purely store-side wiring: no new option, export, or event was added for consumers to orchestrate or suppress these effects. `addCartItem` and `batchAddCartItems` still expose only their existing `showCartUpdatesNotices` option, which does not touch these three effects, and the `woocommerce` store remains private — see the note at the top of this file.
+**Stays internal.** This is purely store-side wiring: no new option, export, or event was added for consumers to orchestrate or suppress these effects. `addCartItem` and `batchAddCartItems` still expose only their existing `showCartUpdatesNotices` option, which does not touch these three effects, and the `poocommerce` store remains private — see the note at the top of this file.

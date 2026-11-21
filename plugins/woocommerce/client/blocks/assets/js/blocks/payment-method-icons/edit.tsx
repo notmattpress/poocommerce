@@ -83,11 +83,11 @@ const Edit = ( {
 					<PanelBody
 						title={ __(
 							'Payment Method Icon Settings',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						<RangeControl
-							label={ __( 'Number of icons', 'woocommerce' ) }
+							label={ __( 'Number of icons', 'poocommerce' ) }
 							value={ numberOfIcons }
 							onChange={ ( value ) =>
 								setAttributes( { numberOfIcons: value || 0 } )
@@ -96,7 +96,7 @@ const Edit = ( {
 							max={ icons.length }
 							help={ __(
 								'Choose how many icons to display. To show all icons, use 0 (zero).',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</PanelBody>
@@ -116,7 +116,7 @@ const Edit = ( {
 
 	return (
 		<div { ...blockProps }>
-			{ __( 'No active payment methods found.', 'woocommerce' ) }
+			{ __( 'No active payment methods found.', 'poocommerce' ) }
 		</div>
 	);
 };

@@ -77,38 +77,38 @@ export default function RemoveButton( {
 				disabled={ isExecuting }
 			>
 				{ isExecuting
-					? __( 'Removing…', 'woocommerce' )
-					: __( 'Remove', 'woocommerce' ) }
+					? __( 'Removing…', 'poocommerce' )
+					: __( 'Remove', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
-				{ __( 'Deletes this fulfillment permanently', 'woocommerce' ) }
+				{ __( 'Deletes this fulfillment permanently', 'poocommerce' ) }
 			</span>
 			{ isOpen && (
 				<Modal
-					title={ __( 'Remove fulfillment', 'woocommerce' ) }
+					title={ __( 'Remove fulfillment', 'poocommerce' ) }
 					onRequestClose={ closeModal }
 					size="medium"
 					isDismissible={ false }
-					className="woocommerce-fulfillment-modal"
+					className="poocommerce-fulfillment-modal"
 				>
-					<p className="woocommerce-fulfillment-modal-text">
+					<p className="poocommerce-fulfillment-modal-text">
 						{ __(
 							'Are you sure you want to remove this fulfillment?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<CustomerNotificationBox type="remove" />
-					<div className="woocommerce-fulfillment-modal-actions">
+					<div className="poocommerce-fulfillment-modal-actions">
 						<Button
 							variant="link"
 							onClick={ closeModal }
 							__next40pxDefaultSize
 							aria-label={ __(
 								'Cancel removal and close dialog',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -121,8 +121,8 @@ export default function RemoveButton( {
 							disabled={ isExecuting }
 						>
 							{ isExecuting
-								? __( 'Removing…', 'woocommerce' )
-								: __( 'Remove fulfillment', 'woocommerce' ) }
+								? __( 'Removing…', 'poocommerce' )
+								: __( 'Remove fulfillment', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

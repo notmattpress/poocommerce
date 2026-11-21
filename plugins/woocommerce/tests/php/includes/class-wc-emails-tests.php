@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 
 /**
  * Class WC_Emails_Tests.
@@ -16,9 +16,9 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_email_header_is_compatible_with_legacy_do_action() {
 		$email_object = new WC_Emails();
 		// 10 is expected priority of the hook.
-		$this->assertEquals( 10, has_action( 'woocommerce_email_header', array( $email_object, 'email_header' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_email_header', array( $email_object, 'email_header' ) ) );
 		ob_start();
-		do_action( 'woocommerce_email_header', 'header' );
+		do_action( 'poocommerce_email_header', 'header' );
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->assertFalse( empty( $content ) );
@@ -31,9 +31,9 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_email_footer_is_compatible_with_legacy_do_action() {
 		$email_object = new WC_Emails();
 		// 10 is expected priority of the hook.
-		$this->assertEquals( 10, has_action( 'woocommerce_email_footer', array( $email_object, 'email_footer' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_email_footer', array( $email_object, 'email_footer' ) ) );
 		ob_start();
-		do_action( 'woocommerce_email_footer' );
+		do_action( 'poocommerce_email_footer' );
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->assertFalse( empty( $content ) );
@@ -63,7 +63,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Pending to cancelled order status changes trigger transactional email notifications.
 	 */
 	public function test_pending_to_cancelled_status_change_triggers_transactional_email_notifications(): void {
-		$hook             = 'woocommerce_order_status_pending_to_cancelled';
+		$hook             = 'poocommerce_order_status_pending_to_cancelled';
 		$captured_actions = array();
 		$email_actions    = function ( $actions ) use ( &$captured_actions, $hook ) {
 			$captured_actions = $actions;
@@ -72,13 +72,13 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 
 		remove_action( $hook, array( 'WC_Emails', 'send_transactional_email' ), 10 );
 		remove_action( $hook, array( 'WC_Emails', 'queue_transactional_email' ), 10 );
-		add_filter( 'woocommerce_email_actions', $email_actions, 999 );
-		add_filter( 'woocommerce_defer_transactional_emails', '__return_false', 999 );
+		add_filter( 'poocommerce_email_actions', $email_actions, 999 );
+		add_filter( 'poocommerce_defer_transactional_emails', '__return_false', 999 );
 
 		WC_Emails::init_transactional_emails();
 
-		remove_filter( 'woocommerce_email_actions', $email_actions, 999 );
-		remove_filter( 'woocommerce_defer_transactional_emails', '__return_false', 999 );
+		remove_filter( 'poocommerce_email_actions', $email_actions, 999 );
+		remove_filter( 'poocommerce_defer_transactional_emails', '__return_false', 999 );
 
 		$this->assertContains( $hook, $captured_actions, 'Pending to cancelled status changes should be part of the default transactional email action list.' );
 		$this->assertSame( 10, has_action( $hook, array( 'WC_Emails', 'send_transactional_email' ) ), 'Pending to cancelled status changes should dispatch transactional emails.' );
@@ -94,7 +94,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 
 		$this->assertSame(
 			10,
-			has_action( 'woocommerce_order_status_pending_to_cancelled_notification', array( $cancelled_email, 'trigger' ) ),
+			has_action( 'poocommerce_order_status_pending_to_cancelled_notification', array( $cancelled_email, 'trigger' ) ),
 			'Cancelled order emails should notify admins when a pending order is cancelled.'
 		);
 	}
@@ -104,12 +104,12 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_meta() {
 		add_filter(
-			'woocommerce_email_order_meta_keys',
+			'poocommerce_email_order_meta_keys',
 			function () {
 				return array( 'dummy_key' );
 			}
 		);
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order->add_meta_data( 'dummy_key', 'dummy_meta_value' );
 		$order->save();
 
@@ -128,14 +128,14 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	public function test_fulfillment_meta() {
 		// Ensure the FulfillmentsController is registered, which is necessary for the translation of meta keys.
 		// Delete the DB tables flag to force recreation in case another test class left stale state.
-		delete_option( 'woocommerce_fulfillments_db_tables_created' );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		delete_option( 'poocommerce_fulfillments_db_tables_created' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 		$container  = wc_get_container();
-		$controller = $container->get( \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
+		$controller = $container->get( \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = FulfillmentsHelper::create_fulfillment(
 			array(
 				'entity_id'   => $order->get_id(),
@@ -144,9 +144,9 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_fulfillment_meta_key_translations',
+			'poocommerce_fulfillment_meta_key_translations',
 			function ( $translations ) {
-				$translations['test_meta_key'] = __( 'Test meta key', 'woocommerce' );
+				$translations['test_meta_key'] = __( 'Test meta key', 'poocommerce' );
 				return $translations;
 			}
 		);
@@ -164,7 +164,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Plain fulfillment details list the fulfilled items when the fulfillment has no tracking information.
 	 */
 	public function test_plain_fulfillment_details_list_items_without_tracking_information(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 
 		$content = $this->render_fulfillment_details( $order, $fulfillment, true );
@@ -180,7 +180,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Plain fulfillment details list the fulfilled items when the fulfillment has tracking information.
 	 */
 	public function test_plain_fulfillment_details_list_items_with_tracking_information(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 
@@ -197,7 +197,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details leave the tracking link out when the fulfillment has no tracking URL.
 	 */
 	public function test_fulfillment_details_leave_out_the_tracking_link_without_a_url(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 		$fulfillment->add_meta_data( '_shipment_provider', 'other', true );
@@ -215,7 +215,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Plain fulfillment details leave the Tracking URL line out when the fulfillment has no tracking URL.
 	 */
 	public function test_plain_fulfillment_details_leave_out_the_tracking_url_line_without_a_url(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 		$fulfillment->add_meta_data( '_shipment_provider', 'other', true );
@@ -232,7 +232,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details render every tracking line the fulfillment has, in order, followed by a blank line.
 	 */
 	public function test_fulfillment_details_render_every_tracking_line_in_order(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 		$fulfillment->add_meta_data( '_shipment_provider', 'other', true );
@@ -259,7 +259,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @param string $tracking_url The stored tracking URL.
 	 */
 	public function test_fulfillment_details_leave_out_a_tracking_link_that_cannot_be_rendered( string $tracking_url ): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 		$fulfillment->add_meta_data( '_tracking_url', $tracking_url, true );
@@ -278,7 +278,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details encode a tracking URL for the format each email is in.
 	 */
 	public function test_fulfillment_details_encode_the_tracking_url_for_each_format(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_url', 'https://example.com/t?id=1&carrier=ups', true );
 
@@ -293,7 +293,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Plain fulfillment details keep a character of the tracking URL that an entity would lose.
 	 */
 	public function test_plain_fulfillment_details_keep_a_url_character_an_entity_would_lose(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_url', "https://example.com/t?a='b", true );
 
@@ -309,7 +309,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details show the missing tracking notice when a tracking value is not a string.
 	 */
 	public function test_fulfillment_details_show_the_notice_for_a_tracking_value_that_is_not_a_string(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', array( 'not a tracking number' ), true );
 
@@ -325,7 +325,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details leave the empty labels out when the fulfillment has only a tracking URL.
 	 */
 	public function test_fulfillment_details_leave_out_empty_labels_with_only_a_tracking_url(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_url', 'https://example.com/track/1Z999AA10123456784', true );
 
@@ -343,7 +343,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details show the missing tracking notice when none of the three lines can be rendered.
 	 */
 	public function test_fulfillment_details_show_the_notice_when_no_line_can_be_rendered(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_shipment_provider', 'ups', true );
 
@@ -351,12 +351,12 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 		$empty_label = function () {
 			return '';
 		};
-		add_filter( 'woocommerce_fulfillment_shipment_provider_label', $empty_label );
+		add_filter( 'poocommerce_fulfillment_shipment_provider_label', $empty_label );
 
 		$html  = $this->render_fulfillment_details( $order, $fulfillment, false );
 		$plain = $this->render_fulfillment_details( $order, $fulfillment, true );
 
-		remove_filter( 'woocommerce_fulfillment_shipment_provider_label', $empty_label );
+		remove_filter( 'poocommerce_fulfillment_shipment_provider_label', $empty_label );
 
 		$this->assertStringContainsString( 'No tracking information available', $html, 'The notice should take over when every line would be empty' );
 		$this->assertStringContainsString( 'No tracking information available', $plain, 'Both templates carry their own copy of that decision' );
@@ -366,7 +366,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Fulfillment details leave the shipment provider out when the fulfillment has none.
 	 */
 	public function test_fulfillment_details_leave_out_the_provider_when_there_is_none(): void {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = $this->create_fulfillment_covering_order( $order );
 		$fulfillment->add_meta_data( '_tracking_number', '1Z999AA10123456784', true );
 
@@ -429,7 +429,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 */
 	private function get_backorder_args() {
 		$product = WC_Helper_Product::create_simple_product();
-		$order   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		return array(
 			'product'  => $product,
@@ -442,10 +442,10 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox get_store_address() shows the store's country, and leaves later addresses in that country without it.
 	 */
 	public function test_get_store_address_forces_the_country_only_for_the_store_address(): void {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_store_address', '123 Main Street' );
-		update_option( 'woocommerce_store_city', 'San Francisco' );
-		update_option( 'woocommerce_store_postcode', '94110' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_store_address', '123 Main Street' );
+		update_option( 'poocommerce_store_city', 'San Francisco' );
+		update_option( 'poocommerce_store_postcode', '94110' );
 
 		$store_address = WC()->mailer()->get_store_address();
 
@@ -469,7 +469,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox backorder() sends a notification when the setting is enabled (default).
 	 */
 	public function test_backorder_sends_when_setting_enabled() {
-		update_option( 'woocommerce_notify_backorder', 'yes' );
+		update_option( 'poocommerce_notify_backorder', 'yes' );
 		$args = $this->get_backorder_args();
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -484,7 +484,7 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	 * @testdox backorder() does not send a notification when the setting is disabled.
 	 */
 	public function test_backorder_does_not_send_when_setting_disabled() {
-		update_option( 'woocommerce_notify_backorder', 'no' );
+		update_option( 'poocommerce_notify_backorder', 'no' );
 		$args = $this->get_backorder_args();
 
 		$mailer = tests_retrieve_phpmailer_instance();
@@ -496,20 +496,20 @@ class WC_Emails_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox backorder() does not send a notification when the woocommerce_should_send_backorder_notification filter returns false.
+	 * @testdox backorder() does not send a notification when the poocommerce_should_send_backorder_notification filter returns false.
 	 */
 	public function test_backorder_does_not_send_when_filter_returns_false() {
-		update_option( 'woocommerce_notify_backorder', 'yes' );
+		update_option( 'poocommerce_notify_backorder', 'yes' );
 		$args = $this->get_backorder_args();
 
-		add_filter( 'woocommerce_should_send_backorder_notification', '__return_false' );
+		add_filter( 'poocommerce_should_send_backorder_notification', '__return_false' );
 
 		$mailer = tests_retrieve_phpmailer_instance();
 		$before = count( $mailer->mock_sent );
 		( new WC_Emails() )->backorder( $args );
 		$after = count( $mailer->mock_sent );
 
-		remove_filter( 'woocommerce_should_send_backorder_notification', '__return_false' );
+		remove_filter( 'poocommerce_should_send_backorder_notification', '__return_false' );
 
 		$this->assertSame( $before, $after, 'Backorder notification must not be sent when the filter returns false.' );
 	}

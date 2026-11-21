@@ -3,23 +3,23 @@
  * Unit tests for the Core argument checks. Running under the WordPress-free unit
  * bootstrap proves they stay in the Core zone.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Support;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\InvalidInputException;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
  */
 class ArgumentValidatorTest extends TestCase {
 
@@ -46,7 +46,7 @@ class ArgumentValidatorTest extends TestCase {
 			'null currency'         => array( 'validate_currency', array( null ), null ),
 			'string'                => array( 'validate_string', array( 'status', 'active' ), 'active' ),
 			'non-empty string'      => array( 'validate_non_empty_string', array( 'extension_slug', 'acme' ), 'acme' ),
-			'extension slug'        => array( 'validate_extension_slug', array( 'extension_slug', 'woocommerce-subscriptions-lite' ), 'woocommerce-subscriptions-lite' ),
+			'extension slug'        => array( 'validate_extension_slug', array( 'extension_slug', 'poocommerce-subscriptions-lite' ), 'poocommerce-subscriptions-lite' ),
 			'extension slug chars'  => array( 'validate_extension_slug', array( 'extension_slug', 'acme_2-x' ), 'acme_2-x' ),
 			'extension slug 64'     => array( 'validate_extension_slug', array( 'extension_slug', str_repeat( 'a', 64 ) ), str_repeat( 'a', 64 ) ),
 			'nullable string'       => array( 'validate_nullable_string', array( 'title', null ), null ),

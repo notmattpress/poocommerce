@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\ImportExport\Product;
+namespace Automattic\PooCommerce\Internal\CLI\ImportExport\Product;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\Product\ProductExporter;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\Product\ProductExporter;
 use InvalidArgumentException;
 use RuntimeException;
 use WC_Admin_Exporters;
@@ -36,7 +36,7 @@ final class ExportCommand {
 	 *
 	 * @param ProductExporter $exporter The product exporter.
 	 */
-	final public function init( ProductExporter $exporter ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules
+	final public function init( ProductExporter $exporter ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules
 		$this->exporter = $exporter;
 	}
 
@@ -54,7 +54,7 @@ final class ExportCommand {
 	 *
 	 * [--types=<list>]
 	 * : Comma-separated product types. Defaults to all. The available types are the registered
-	 * product types plus `variation`, as filtered by `woocommerce_exporter_product_types`.
+	 * product types plus `variation`, as filtered by `poocommerce_exporter_product_types`.
 	 *
 	 * [--category=<list>]
 	 * : Comma-separated product category slugs.
@@ -248,7 +248,7 @@ final class ExportCommand {
 	 * Validate `--types` against the product types the admin exporter supports.
 	 *
 	 * Goes through `WC_Admin_Exporters::get_product_types()` rather than `wc_get_product_types()`
-	 * so the `woocommerce_exporter_product_types` filter decides what is exportable here too, the
+	 * so the `poocommerce_exporter_product_types` filter decides what is exportable here too, the
 	 * same list `WC_Product_CSV_Exporter` seeds itself with.
 	 *
 	 * @param string[] $types Requested product types.

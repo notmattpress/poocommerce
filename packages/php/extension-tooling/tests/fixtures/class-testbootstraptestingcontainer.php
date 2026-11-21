@@ -2,11 +2,11 @@
 /**
  * Testing container fixture.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**
- * Record the inner container passed to the WooCommerce testing wrapper.
+ * Record the inner container passed to the PooCommerce testing wrapper.
  */
 class TestBootstrapTestingContainer {
 

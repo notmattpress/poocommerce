@@ -10,7 +10,7 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { Icon, starEmpty } from '@wordpress/icons';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ const AddToWishlistPreview = () => (
 				<Icon icon={ starEmpty } size={ 24 } />
 			</span>
 			<span className="wc-block-add-to-wishlist-button__label">
-				{ __( 'Add to wishlist', 'woocommerce' ) }
+				{ __( 'Add to wishlist', 'poocommerce' ) }
 			</span>
 		</button>
 	</div>

@@ -22,7 +22,7 @@ The release lead and Product DRI use the [decision matrix](/docs/contribution/re
 Follow the [post-stable troubleshooting procedure](/docs/contribution/releases/troubleshooting#a-critical-bug-surfaced-after-the-release-was-marked-stable-on-wordpressorg):
 
 1. Notify the owning teams and agree on the previous known-good version, using the checks above.
-2. Run [Release: Update stable tag](https://github.com/woocommerce/woocommerce/actions/workflows/release-update-stable-tag.yml) with that version, confirmation checked, and **Revert** (`allow-revert`) enabled.
+2. Run [Release: Update stable tag](https://github.com/poocommerce/poocommerce/actions/workflows/release-update-stable-tag.yml) with that version, confirmation checked, and **Revert** (`allow-revert`) enabled.
 3. Check the run summary and linked WordPress.org `readme.txt`. Merge the generated PRs for `trunk` and affected release branches immediately; mismatched GitHub and SVN stable tags block the next build/upload.
 4. Record the run, merged PRs, target version, and verification time on the GitHub release tracking issue. Investigate failures before rerunning.
 
@@ -40,7 +40,7 @@ Rolling back code does not restore deleted data. The owning team must test any r
 
 Check whether the update finished, fresh requests fail, and checkout and admin work. Record the error, versions, update method, and ongoing impact.
 
-If the update finished and fresh requests work, monitor. A recovery-mode email alone does not establish an outage. If errors persist, escalate to the owning engineers and host. One [report](https://github.com/woocommerce/woocommerce/issues/66031#issuecomment-4916523363) describes recovery after refreshing OPcache; confirm the diagnosis and the host's supported procedure first.
+If the update finished and fresh requests work, monitor. A recovery-mode email alone does not establish an outage. If errors persist, escalate to the owning engineers and host. One [report](https://github.com/poocommerce/poocommerce/issues/66031#issuecomment-4916523363) describes recovery after refreshing OPcache; confirm the diagnosis and the host's supported procedure first.
 
 ## Comms
 

@@ -3,19 +3,19 @@
  */
 import clsx from 'clsx';
 import { useEffect, useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { optionsStore, WEEK } from '@woocommerce/data';
+import { optionsStore, WEEK } from '@poocommerce/data';
 import { Card, CardHeader, DropdownMenu } from '@wordpress/components';
 import { moreVertical } from '@wordpress/icons';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import {
 	ADMIN_INSTALL_TIMESTAMP_OPTION_NAME,
 	ALLOW_TRACKING_OPTION_NAME,
 	CustomerFeedbackModal,
 	CustomerFeedbackSimple,
 	SHOWN_FOR_ACTIONS_OPTION_NAME,
-} from '@woocommerce/customer-effort-score';
+} from '@poocommerce/customer-effort-score';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -156,25 +156,25 @@ export const TaskListCompletedHeader = ( {
 		<>
 			<div
 				className={ clsx(
-					'woocommerce-task-dashboard__container setup-task-list'
+					'poocommerce-task-dashboard__container setup-task-list'
 				) }
 			>
 				<Card
 					size="large"
-					className="woocommerce-task-card woocommerce-homescreen-card completed"
+					className="poocommerce-task-card poocommerce-homescreen-card completed"
 				>
 					<CardHeader size="medium">
-						<div className="woocommerce-task-card__header">
+						<div className="poocommerce-task-card__header">
 							<img
 								src={ HeaderImage }
 								alt="Completed"
-								className="woocommerce-task-card__finished-header-image"
+								className="poocommerce-task-card__finished-header-image"
 							/>
 
 							<Text size="title" as="h2" lineHeight={ 1.4 }>
 								{ __(
 									'You’ve completed store setup',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Text>
 							<Text
@@ -182,20 +182,20 @@ export const TaskListCompletedHeader = ( {
 								as="p"
 								size="13"
 								lineHeight="16px"
-								className="woocommerce-task-card__header-subtitle"
+								className="poocommerce-task-card__header-subtitle"
 							>
 								{ __(
 									'Congratulations! Take a moment to celebrate and look out for the first sale.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Text>
-							<div className="woocommerce-task-card__header-menu">
+							<div className="poocommerce-task-card__header-menu">
 								<DropdownMenu
 									controls={ [
 										{
 											title: __(
 												'Hide this',
-												'woocommerce'
+												'poocommerce'
 											),
 											onClick: () => hideTasks(),
 										},
@@ -203,14 +203,14 @@ export const TaskListCompletedHeader = ( {
 									icon={ moreVertical }
 									label={ __(
 										'Task list options',
-										'woocommerce'
+										'poocommerce'
 									) }
 									popoverProps={ {
 										placement: 'bottom-end',
 									} }
 									toggleProps={ {
 										className:
-											'woocommerce-ellipsis-menu__toggle',
+											'poocommerce-ellipsis-menu__toggle',
 									} }
 								/>
 							</div>
@@ -222,13 +222,13 @@ export const TaskListCompletedHeader = ( {
 							<CustomerFeedbackSimple
 								label={ __(
 									'How was your experience?',
-									'woocommerce'
+									'poocommerce'
 								) }
 								onSelect={ recordScore }
 							/>
 						) }
 					{ hasSubmittedScore && ! hideCustomerEffortScore && (
-						<div className="woocommerce-task-card__header-ces-feedback">
+						<div className="poocommerce-task-card__header-ces-feedback">
 							<Text
 								variant="subtitle.small"
 								as="p"
@@ -238,7 +238,7 @@ export const TaskListCompletedHeader = ( {
 								🙌{ ' ' }
 								{ __(
 									'We appreciate your feedback!',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Text>
 						</div>
@@ -247,14 +247,14 @@ export const TaskListCompletedHeader = ( {
 			</div>
 			{ showCesModal ? (
 				<CustomerFeedbackModal
-					title={ __( 'How was your experience?', 'woocommerce' ) }
+					title={ __( 'How was your experience?', 'poocommerce' ) }
 					firstQuestion={ __(
 						'The store setup is easy to complete.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					secondQuestion={ __(
 						'The store setup process meets my needs.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					defaultScore={ score }
 					recordScoreCallback={ recordModalScore }

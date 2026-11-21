@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\SpecRunner;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\GetRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 /**
  * Helper class for remote inbox notifications.
@@ -17,7 +17,7 @@ class WC_Beta_Tester_Remote_Inbox_Notifications_Helper {
 	 * @return string The transient name.
 	 */
 	public static function get_transient_name() {
-		return 'woocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs';
+		return 'poocommerce_admin_' . RemoteInboxNotificationsDataSourcePoller::ID . '_specs';
 	}
 
 	/**
