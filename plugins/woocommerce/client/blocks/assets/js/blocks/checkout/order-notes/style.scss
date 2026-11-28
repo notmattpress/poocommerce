@@ -9,6 +9,6 @@
 }
 
 // The note grows in and collapses out with its checkbox.
-:where(.wp-block-woocommerce-checkout) .wc-block-checkout__add-note > .wc-block-components-textarea {
+:where(.wp-block-poocommerce-checkout) .wc-block-checkout__add-note > .wc-block-components-textarea {
 	@include motion-collapse;
 }

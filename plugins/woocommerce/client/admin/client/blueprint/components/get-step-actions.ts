@@ -10,7 +10,7 @@ import { BlueprintStep } from './types';
 
 /**
  * Steps whose effects are already described to the user by the list of
- * WooCommerce Settings sections the import will overwrite, so describing them
+ * PooCommerce Settings sections the import will overwrite, so describing them
  * again here would only repeat what the user has been told.
  */
 const SETTINGS_STEPS = [ 'setSiteOptions' ];
@@ -31,7 +31,7 @@ const STEP_ACTIONS: Record< string, ( count: number ) => string > = {
 				'Run %d database query',
 				'Run %d database queries',
 				count,
-				'woocommerce'
+				'poocommerce'
 			),
 			count
 		),
@@ -42,7 +42,7 @@ const STEP_ACTIONS: Record< string, ( count: number ) => string > = {
 				'Install %d plugin',
 				'Install %d plugins',
 				count,
-				'woocommerce'
+				'poocommerce'
 			),
 			count
 		),
@@ -53,14 +53,14 @@ const STEP_ACTIONS: Record< string, ( count: number ) => string > = {
 				'Activate %d plugin',
 				'Activate %d plugins',
 				count,
-				'woocommerce'
+				'poocommerce'
 			),
 			count
 		),
 	installTheme: ( count ) =>
 		sprintf(
 			/* translators: %d: number of themes a Blueprint will install. */
-			_n( 'Install %d theme', 'Install %d themes', count, 'woocommerce' ),
+			_n( 'Install %d theme', 'Install %d themes', count, 'poocommerce' ),
 			count
 		),
 	activateTheme: ( count ) =>
@@ -70,14 +70,14 @@ const STEP_ACTIONS: Record< string, ( count: number ) => string > = {
 				'Activate %d theme',
 				'Activate %d themes',
 				count,
-				'woocommerce'
+				'poocommerce'
 			),
 			count
 		),
 };
 
 /**
- * Describe what a Blueprint will do beyond writing WooCommerce settings.
+ * Describe what a Blueprint will do beyond writing PooCommerce settings.
  *
  * Steps this function does not recognise are still counted and named rather
  * than dropped, so a Blueprint cannot carry an action past the confirmation
@@ -116,7 +116,7 @@ export const getStepActions = ( steps: BlueprintStep[] ): string[] => {
 					'Run %1$d other step (%2$s)',
 					'Run %1$d other steps (%2$s)',
 					total,
-					'woocommerce'
+					'poocommerce'
 				),
 				total,
 				unrecognized.join( ', ' )

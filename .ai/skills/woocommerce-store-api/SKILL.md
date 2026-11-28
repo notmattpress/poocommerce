@@ -1,9 +1,9 @@
 ---
-name: woocommerce-store-api
-description: Add or modify routes in the WooCommerce Store API (`/wc/store/v1/*`). Use when creating new Store API endpoints, modifying existing ones, or designing the schemas blocks and external integrations consume. Covers authentication, REST URL design, schema/response alignment, variation handling, idempotency, and common pitfalls.
+name: poocommerce-store-api
+description: Add or modify routes in the PooCommerce Store API (`/wc/store/v1/*`). Use when creating new Store API endpoints, modifying existing ones, or designing the schemas blocks and external integrations consume. Covers authentication, REST URL design, schema/response alignment, variation handling, idempotency, and common pitfalls.
 ---
 
-# WooCommerce Store API
+# PooCommerce Store API
 
 The Store API is the public REST surface used by Woo blocks (Cart, Checkout, Mini-Cart) and external integrations. It lives under `/wc/store/v1/*` and has its own conventions distinct from the older `/wc/v3/*` admin REST API.
 
@@ -14,7 +14,7 @@ The Store API is the public REST surface used by Woo blocks (Cart, Checkout, Min
 - Designing the schema for a new resource the frontend will consume.
 - Wiring a block (or iAPI store) to a Store API endpoint.
 
-This skill complements `woocommerce-backend-dev` (general PHP conventions) and `woocommerce-performance` (cache priming patterns). Read those first for general conventions; this skill covers Store-API-specific decisions.
+This skill complements `poocommerce-backend-dev` (general PHP conventions) and `poocommerce-performance` (cache priming patterns). Read those first for general conventions; this skill covers Store-API-specific decisions.
 
 ## Topics
 
@@ -22,7 +22,7 @@ This skill complements `woocommerce-backend-dev` (general PHP conventions) and `
 - [rest-conventions.md](rest-conventions.md) — Path/body/query separation, collection vs item vs action routes, status codes, idempotency.
 - [schema-design.md](schema-design.md) — Schema as public contract, field discipline, response-shape alignment.
 - [variation-handling.md](variation-handling.md) — Server-authoritative variation reconciliation.
-- [performance.md](performance.md) — Where to apply cache priming in Store API responses. Cross-links to `woocommerce-performance` for the underlying patterns.
+- [performance.md](performance.md) — Where to apply cache priming in Store API responses. Cross-links to `poocommerce-performance` for the underlying patterns.
 
 ## Key principles
 
@@ -34,9 +34,9 @@ This skill complements `woocommerce-backend-dev` (general PHP conventions) and `
 
 ## Reference files
 
-- [Authentication.php](../../../plugins/woocommerce/src/StoreApi/Authentication.php) — global Store API auth filter; deliberately bypasses WP's cookie-nonce check.
-- [AbstractCartRoute.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php) — nonce enforcement, cart-session loading, `Nonce`/`Cart-Token` response headers.
-- [AbstractRoute.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/AbstractRoute.php) — base class for routes that don't need cart-session/nonce machinery.
-- [AbstractSchema.php](../../../plugins/woocommerce/src/StoreApi/Schemas/V1/AbstractSchema.php) — `prepare_html_response()`, `prepare_money_response()`, response-formatting helpers.
-- [CartItems.php](../../../plugins/woocommerce/src/StoreApi/Routes/V1/CartItems.php) — canonical example of collection-style POST/DELETE routes.
-- [CartController.php](../../../plugins/woocommerce/src/StoreApi/Utilities/CartController.php) — variation reconciliation reference (`parse_variation_data()`).
+- [Authentication.php](../../../plugins/poocommerce/src/StoreApi/Authentication.php) — global Store API auth filter; deliberately bypasses WP's cookie-nonce check.
+- [AbstractCartRoute.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/AbstractCartRoute.php) — nonce enforcement, cart-session loading, `Nonce`/`Cart-Token` response headers.
+- [AbstractRoute.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/AbstractRoute.php) — base class for routes that don't need cart-session/nonce machinery.
+- [AbstractSchema.php](../../../plugins/poocommerce/src/StoreApi/Schemas/V1/AbstractSchema.php) — `prepare_html_response()`, `prepare_money_response()`, response-formatting helpers.
+- [CartItems.php](../../../plugins/poocommerce/src/StoreApi/Routes/V1/CartItems.php) — canonical example of collection-style POST/DELETE routes.
+- [CartController.php](../../../plugins/poocommerce/src/StoreApi/Utilities/CartController.php) — variation reconciliation reference (`parse_variation_data()`).

@@ -9,8 +9,8 @@ module.exports = {
 	ignoreFiles: [
 		'docs/**',
 		'packages/php/**',
-		'plugins/woocommerce-beta-tester/**',
-		'plugins/woocommerce/tests/**',
+		'plugins/poocommerce-beta-tester/**',
+		'plugins/poocommerce/tests/**',
 	],
 	rules: {
 		'no-descending-specificity': null,

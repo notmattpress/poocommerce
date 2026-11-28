@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
 import type Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
 
@@ -132,7 +132,7 @@ export const compileSchema = (
 			console.error(
 				__(
 					'The checkout form skipped validation for a field whose pattern is not a valid JavaScript regular expression. Patterns are compiled in the browser with the `u` flag, so they must be valid ECMA-262. Offending pattern(s):',
-					'woocommerce'
+					'poocommerce'
 				),
 				unseen
 			);

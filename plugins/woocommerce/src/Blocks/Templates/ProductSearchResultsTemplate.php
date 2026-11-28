@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration -- Preserve scalar coercion for compatibility with extension-provided data.
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * ProductSearchResultsTemplate class.
@@ -33,7 +33,7 @@ class ProductSearchResultsTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Product Search Results', 'Template name', 'woocommerce' );
+		return _x( 'Product Search Results', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class ProductSearchResultsTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays search results for your store.', 'woocommerce' );
+		return __( 'Displays search results for your store.', 'poocommerce' );
 	}
 
 	/**

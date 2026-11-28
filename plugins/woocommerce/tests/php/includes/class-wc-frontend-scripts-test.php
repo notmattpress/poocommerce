@@ -4,7 +4,7 @@ declare( strict_types=1 );
 /**
  * Tests for WC_Frontend_Scripts.
  *
- * @package WooCommerce\Tests\FrontendScripts
+ * @package PooCommerce\Tests\FrontendScripts
  */
 
 /**
@@ -95,7 +95,7 @@ class WC_Frontend_Scripts_Test extends WC_Unit_Test_Case {
 	 */
 	private function register_test_gateways( array $gateway_instances ): void {
 		add_filter(
-			'woocommerce_payment_gateways',
+			'poocommerce_payment_gateways',
 			function ( $gateways ) use ( $gateway_instances ) {
 				return array_merge( $gateways, $gateway_instances );
 			}
@@ -208,7 +208,7 @@ class WC_Frontend_Scripts_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that default WooCommerce gateways are not in the list.
+	 * Test that default PooCommerce gateways are not in the list.
 	 *
 	 * Default gateways like BACS, COD, Cheque don't have custom place order buttons.
 	 */

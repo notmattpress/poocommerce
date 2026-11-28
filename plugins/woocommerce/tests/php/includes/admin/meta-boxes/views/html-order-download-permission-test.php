@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for the download permission row rendered inside the order downloads meta box.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class Html_Order_Download_Permission_Test extends WC_Unit_Test_Case {
 
@@ -12,7 +12,7 @@ class Html_Order_Download_Permission_Test extends WC_Unit_Test_Case {
 	 * @testdox Should keep the "View report" link on the legacy downloads report while Analytics is enabled.
 	 */
 	public function test_view_report_links_to_legacy_downloads_report_when_analytics_is_enabled(): void {
-		add_filter( 'pre_option_woocommerce_analytics_enabled', fn() => 'yes' );
+		add_filter( 'pre_option_poocommerce_analytics_enabled', fn() => 'yes' );
 
 		$product  = WC_Helper_Product::create_simple_product();
 		$download = new WC_Customer_Download();

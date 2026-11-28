@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useLayoutEffect, useRef, useState } from '@wordpress/element';
-import { animateCollapse, whenAnimationsEnd } from '@woocommerce/base-utils';
+import { animateCollapse, whenAnimationsEnd } from '@poocommerce/base-utils';
 
 /**
  * Keeps content mounted while it animates out, such as a dropdown that closes.

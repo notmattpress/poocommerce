@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-additional-information-block",
+	"name": "poocommerce/checkout-additional-information-block",
 	"title": "Additional information",
 	"description": "Render additional fields in the 'Additional information' location.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -23,9 +23,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout-fields-block"
+		"poocommerce/checkout-fields-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

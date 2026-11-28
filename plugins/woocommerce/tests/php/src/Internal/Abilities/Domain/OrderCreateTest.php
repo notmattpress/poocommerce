@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderCreate;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderCreate;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -67,8 +67,8 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			)
 		);
 		$variation = wc_get_product( WC_Helper_Product::create_variation_product()->get_children()[0] );
-		$paid      = did_action( 'woocommerce_order_status_pending_to_processing' );
-		$edits     = did_action( 'woocommerce_order_edit_status' );
+		$paid      = did_action( 'poocommerce_order_status_pending_to_processing' );
+		$edits     = did_action( 'poocommerce_order_edit_status' );
 
 		$result = $this->execute(
 			array(
@@ -106,7 +106,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		$lines = array_values( $order->get_items() );
 		$this->assertSame( OrderStatus::PROCESSING, $order->get_status() );
 		$this->assertSame( OrderCreate::CREATED_VIA, $order->get_created_via() );
-		$this->assertSame( get_woocommerce_currency(), $order->get_currency() );
+		$this->assertSame( get_poocommerce_currency(), $order->get_currency() );
 		$this->assertSame( $customer, $order->get_customer_id() );
 		$this->assertSame( 'ana@example.com', $order->get_billing_email() );
 		$this->assertSame( 'Lisbon', $order->get_shipping_city() );
@@ -119,8 +119,8 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		$this->assertEqualsCanonicalizing( array_keys( $order->get_items() ), array_column( $result['order']['line_items'], 'id' ) );
 		$this->assertSame( array_keys( $order->get_shipping_methods() ), array_column( $result['order']['shipping_lines'], 'id' ) );
 		$this->assertSame( 7, wc_get_product( $simple->get_id() )->get_stock_quantity(), 'A paid status should reduce the stock once.' );
-		$this->assertSame( $paid + 1, did_action( 'woocommerce_order_status_pending_to_processing' ), 'The order should move from pending, which sends the order emails.' );
-		$this->assertSame( $edits, did_action( 'woocommerce_order_edit_status' ), 'Creating an order is not a manual status change.' );
+		$this->assertSame( $paid + 1, did_action( 'poocommerce_order_status_pending_to_processing' ), 'The order should move from pending, which sends the order emails.' );
+		$this->assertSame( $edits, did_action( 'poocommerce_order_edit_status' ), 'Creating an order is not a manual status change.' );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 	 */
 	public function test_uses_the_filtered_default_status( bool $enabled ): void {
 		$this->set_feature( $enabled );
-		add_filter( 'woocommerce_default_order_status', static fn() => OrderStatus::ON_HOLD );
+		add_filter( 'poocommerce_default_order_status', static fn() => OrderStatus::ON_HOLD );
 		$product = WC_Helper_Product::create_simple_product(
 			true,
 			array(
@@ -173,7 +173,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 				'stock_quantity' => 10,
 			)
 		);
-		$held    = did_action( 'woocommerce_order_status_pending_to_on-hold' );
+		$held    = did_action( 'poocommerce_order_status_pending_to_on-hold' );
 
 		$result = $this->execute(
 			array(
@@ -187,7 +187,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertSame( OrderStatus::ON_HOLD, wc_get_order( $result['order']['id'] )->get_status() );
-		$this->assertSame( $held + 1, did_action( 'woocommerce_order_status_pending_to_on-hold' ) );
+		$this->assertSame( $held + 1, did_action( 'poocommerce_order_status_pending_to_on-hold' ) );
 		$this->assertSame( 8, wc_get_product( $product->get_id() )->get_stock_quantity() );
 	}
 
@@ -224,12 +224,12 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 
 		$this->assertEqualsCanonicalizing(
 			array(
-				'woocommerce_ability_order_customer_not_found',
-				'woocommerce_ability_order_billing_email_invalid',
-				'woocommerce_ability_order_payment_method_invalid',
-				'woocommerce_ability_order_product_not_found',
-				'woocommerce_ability_order_product_variable',
-				'woocommerce_ability_order_shipping_line_total_invalid',
+				'poocommerce_ability_order_customer_not_found',
+				'poocommerce_ability_order_billing_email_invalid',
+				'poocommerce_ability_order_payment_method_invalid',
+				'poocommerce_ability_order_product_not_found',
+				'poocommerce_ability_order_product_variable',
+				'poocommerce_ability_order_shipping_line_total_invalid',
 			),
 			$error->get_error_codes()
 		);
@@ -268,7 +268,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		$this->set_feature( true );
 		$product = WC_Helper_Product::create_simple_product();
 		add_action(
-			'woocommerce_after_order_object_save',
+			'poocommerce_after_order_object_save',
 			static function ( \WC_Order $order ): void {
 				$order->set_billing_email( 'unsaved@example.com' );
 			}
@@ -294,7 +294,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		$before  = $this->get_order_ids();
 		$product = WC_Helper_Product::create_simple_product();
 		add_action(
-			'woocommerce_before_order_object_save',
+			'poocommerce_before_order_object_save',
 			static function ( \WC_Order $order ): void {
 				if ( $order->get_id() && OrderStatus::PROCESSING === $order->get_status() ) {
 					throw new \Exception( 'Forced status save failure' );
@@ -309,7 +309,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( 'woocommerce_order_status_update_failed', $error->get_error_code() );
+		$this->assertSame( 'poocommerce_order_status_update_failed', $error->get_error_code() );
 		$this->assertEqualsCanonicalizing( $before, $this->get_order_ids() );
 	}
 
@@ -344,7 +344,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			$this->assertSame( $customer, wc_get_order( $result['order']['id'] )->get_customer_id() );
 		} else {
 			$this->assertWPError( $result );
-			$this->assertSame( array( 'woocommerce_ability_order_customer_not_found' ), $result->get_error_codes() );
+			$this->assertSame( array( 'poocommerce_ability_order_customer_not_found' ), $result->get_error_codes() );
 		}
 	}
 
@@ -366,7 +366,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertSame( array( 'woocommerce_ability_order_shipping_line_total_invalid' ), $error->get_error_codes() );
+		$this->assertSame( array( 'poocommerce_ability_order_shipping_line_total_invalid' ), $error->get_error_codes() );
 	}
 
 	/**
@@ -378,7 +378,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		$saves   = 0;
 		add_action(
-			'woocommerce_before_order_object_save',
+			'poocommerce_before_order_object_save',
 			static function () use ( &$saves ): void {
 				if ( ++$saves > 1 ) {
 					throw new \Exception( 'Forced recalculation save failure' );
@@ -390,7 +390,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			array( 'line_items' => array( array( 'product_id' => $product->get_id() ) ) )
 		);
 
-		$this->assertSame( 'woocommerce_ability_save_failed', $error->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_save_failed', $error->get_error_code() );
 		$this->assertEqualsCanonicalizing( $before, $this->get_order_ids() );
 	}
 
@@ -472,7 +472,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 			$this->enable_extensible_abilities();
 			return;
 		}
-		update_option( 'woocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', 'no' );
+		update_option( 'poocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', 'no' );
 	}
 
 	/**
@@ -483,7 +483,7 @@ class OrderCreateTest extends WC_Unit_Test_Case {
 	 */
 	private function enable_gateway( string $id, string $title ): void {
 		update_option(
-			'woocommerce_' . $id . '_settings',
+			'poocommerce_' . $id . '_settings',
 			array(
 				'enabled' => 'yes',
 				'title'   => $title,

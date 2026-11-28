@@ -2,7 +2,7 @@
 /**
  * Stand-in for the WP Consent API plugin. Load it only in a separate process: a function cannot be undefined.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 require_once __DIR__ . '/wp-has-consent-function.php';

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Enums;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Enums;
 
 /**
  * Notification cancellation source enum.

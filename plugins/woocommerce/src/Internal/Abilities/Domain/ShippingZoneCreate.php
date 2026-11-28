@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/shipping-zone-create';
+		return 'poocommerce/shipping-zone-create';
 	}
 
 	/**
@@ -41,26 +41,26 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create shipping zone', 'woocommerce' ),
-			'description'         => __( 'Create a shipping zone for a set of regions. It has no methods yet; add them with shipping-zone-method-create. A customer gets the first zone in order that matches their address.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Create shipping zone', 'poocommerce' ),
+			'description'         => __( 'Create a shipping zone for a set of regions. It has no methods yet; add them with shipping-zone-method-create. A customer gets the first zone in order that matches their address.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'name'      => array(
 						'type'        => 'string',
-						'description' => __( 'Zone name, shown only to the store team.', 'woocommerce' ),
+						'description' => __( 'Zone name, shown only to the store team.', 'poocommerce' ),
 					),
 					'locations' => array(
 						'type'        => 'array',
-						'description' => __( 'Regions the zone covers.', 'woocommerce' ),
+						'description' => __( 'Regions the zone covers.', 'poocommerce' ),
 						'minItems'    => 1,
 						'items'       => array(
 							'type'                 => 'object',
 							'properties'           => array(
 								'code' => array(
 									'type'        => 'string',
-									'description' => __( 'ISO country code such as DE, COUNTRY:STATE such as US:CA, continent code such as EU, or a postcode, a range such as 10000...19999, or a wildcard such as 10*.', 'woocommerce' ),
+									'description' => __( 'ISO country code such as DE, COUNTRY:STATE such as US:CA, continent code such as EU, or a postcode, a range such as 10000...19999, or a wildcard such as 10*.', 'poocommerce' ),
 									'minLength'   => 1,
 									'maxLength'   => 200,
 								),
@@ -75,7 +75,7 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 					),
 					'order'     => array(
 						'type'        => 'integer',
-						'description' => __( 'Position among the zones. Lower is matched first.', 'woocommerce' ),
+						'description' => __( 'Position among the zones. Lower is matched first.', 'poocommerce' ),
 						'minimum'     => 0,
 					),
 				),
@@ -116,7 +116,7 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 
 		$name = sanitize_text_field( $input['name'] );
 		if ( '' === $name ) {
-			return new \WP_Error( 'woocommerce_ability_shipping_zone_name_empty', __( 'The zone name is empty.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_shipping_zone_name_empty', __( 'The zone name is empty.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$locations = array();
@@ -136,9 +136,9 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 
 		if ( ! empty( $invalid ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_shipping_zone_location_invalid',
+				'poocommerce_ability_shipping_zone_location_invalid',
 				/* translators: %s: location codes with their types, such as "UK (country), US:ZZ (state)". */
-				sprintf( __( 'WooCommerce does not know these location codes, or they do not fit their type: %s. Use ISO country codes such as GB, COUNTRY:STATE codes WooCommerce lists for the country, and continent codes such as EU.', 'woocommerce' ), implode( ', ', $invalid ) ),
+				sprintf( __( 'PooCommerce does not know these location codes, or they do not fit their type: %s. Use ISO country codes such as GB, COUNTRY:STATE codes PooCommerce lists for the country, and continent codes such as EU.', 'poocommerce' ), implode( ', ', $invalid ) ),
 				array( 'status' => 400 )
 			);
 		}
@@ -150,19 +150,19 @@ class ShippingZoneCreate extends AbstractDomainAbility implements AbilityDefinit
 		$zone->save();
 
 		if ( ! $zone->get_id() ) {
-			return new \WP_Error( 'woocommerce_ability_shipping_zone_create_failed', __( 'The shipping zone could not be saved.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_shipping_zone_create_failed', __( 'The shipping zone could not be saved.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		return array( 'zone' => self::format_zone_for_response( new \WC_Shipping_Zone( $zone->get_id() ) ) );
 	}
 
 	/**
-	 * Get the code as WooCommerce lists it, matched without case, so a saved zone matches addresses.
-	 * Postcode patterns pass as given. A state must be one WooCommerce lists for its country.
+	 * Get the code as PooCommerce lists it, matched without case, so a saved zone matches addresses.
+	 * Postcode patterns pass as given. A state must be one PooCommerce lists for its country.
 	 *
 	 * @param string $code Location code.
 	 * @param string $type Location type.
-	 * @return string|null Null when WooCommerce does not know the code for the type.
+	 * @return string|null Null when PooCommerce does not know the code for the type.
 	 */
 	private static function get_known_location_code( string $code, string $type ): ?string {
 		$countries = WC()->countries;

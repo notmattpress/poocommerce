@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport\Product;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport\Product;
 
 /**
  * Removes placeholder products the product CSV importer creates for unresolved references
@@ -44,7 +44,7 @@ final class ImportPlaceholders {
 		}
 
 		/** This filter is documented in includes/import/abstract-wc-product-importer.php */
-		$time_limit = (int) apply_filters( 'woocommerce_product_importer_default_time_limit', 20 ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$time_limit = (int) apply_filters( 'poocommerce_product_importer_default_time_limit', 20 ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		$deadline   = time() + $time_limit;
 
 		// Page by ID so a placeholder that cannot be deleted is passed over instead of being read again.
@@ -68,7 +68,7 @@ final class ImportPlaceholders {
 			$post_ids = array_map( 'absint', $post_ids );
 			$cursor   = (int) end( $post_ids );
 
-			// Ascending IDs delete a placeholder parent before its variations, so WooCommerce removes them through the normal lifecycle.
+			// Ascending IDs delete a placeholder parent before its variations, so PooCommerce removes them through the normal lifecycle.
 			foreach ( $post_ids as $post_id ) {
 				$this->delete_claimed_placeholder( $post_id );
 

@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants;
-use Automattic\WooCommerce\Gateways\PayPal\Helper;
-use Automattic\WooCommerce\Gateways\PayPal\Request;
-use Automattic\WooCommerce\Gateways\PayPal\WebhookHandler;
+use Automattic\PooCommerce\Gateways\PayPal\Constants;
+use Automattic\PooCommerce\Gateways\PayPal\Helper;
+use Automattic\PooCommerce\Gateways\PayPal\Request;
+use Automattic\PooCommerce\Gateways\PayPal\WebhookHandler;
 
 /**
  * Tests that PayPal address echoes cannot replace a priced destination.
@@ -148,7 +148,7 @@ class AddressIntegrityTest extends \WC_Unit_Test_Case {
 	 */
 	private function create_attempt( string $send_shipping = 'yes', string $override = 'no' ): \WC_Order {
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'send_shipping'    => $send_shipping,
 				'address_override' => $override,
@@ -215,7 +215,7 @@ class AddressIntegrityTest extends \WC_Unit_Test_Case {
 		$this->assertSame( $callback, isset( $context['order_update_callback_config'] ) );
 		$this->assertSame( '10 Delivery Street', $this->payload['purchase_units'][0]['shipping']['address']['address_line_1'] );
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'send_shipping'    => 'yes' === $send_shipping ? 'no' : 'yes',
 				'address_override' => 'yes' === $override ? 'no' : 'yes',
@@ -483,9 +483,9 @@ class AddressIntegrityTest extends \WC_Unit_Test_Case {
 	 * @param string $tax_based_on Tax location setting.
 	 */
 	public function test_callback_quote_and_duplicate_approval( string $tax_based_on ): void {
-		update_option( 'woocommerce_tax_based_on', $tax_based_on );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_tax_based_on', $tax_based_on );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 		foreach ( array(
 			'CA' => '10',
 			'NY' => '5',
@@ -511,7 +511,7 @@ class AddressIntegrityTest extends \WC_Unit_Test_Case {
 		$zone->save();
 		$method = $zone->add_shipping_method( 'flat_rate' );
 		update_option(
-			'woocommerce_flat_rate_' . $method . '_settings',
+			'poocommerce_flat_rate_' . $method . '_settings',
 			array(
 				'cost'    => '15',
 				'enabled' => 'yes',
@@ -784,7 +784,7 @@ class AddressIntegrityTest extends \WC_Unit_Test_Case {
 		$order->update_meta_data( Constants::PAYPAL_ORDER_META_ADDRESSES_UPDATED, 'yes' );
 		$order->save();
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'send_shipping'    => 'no',
 				'address_override' => 'yes',

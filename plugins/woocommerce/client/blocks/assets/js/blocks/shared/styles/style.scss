@@ -1,4 +1,4 @@
-// Fix related to https://github.com/woocommerce/woocommerce-blocks/issues/7882
+// Fix related to https://github.com/poocommerce/poocommerce-blocks/issues/7882
 // and similar one, where input overlaps with the wrapper border.
 // Related only to single selection dropdown with already chosen option.
 @mixin includeFormTokenFieldFix {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Renderable;
 
 interface AtRule extends Renderable, Commentable
 {

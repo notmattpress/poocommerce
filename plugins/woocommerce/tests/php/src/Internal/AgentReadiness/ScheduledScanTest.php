@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
 use WC_Helper_Product;
 
 /**
@@ -118,11 +118,11 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 	public function test_late_scan_on_a_busy_queue_is_not_stalled(): void {
 		$this->age_finished_actions();
 		as_schedule_single_action( time() - ScheduledScan::STALLED_AFTER - 60, ScheduledScan::RUN_NOW_HOOK, array(), ScheduledScan::GROUP );
-		$other = as_schedule_single_action( time() - 60, 'woocommerce_agent_readiness_test_other' );
+		$other = as_schedule_single_action( time() - 60, 'poocommerce_agent_readiness_test_other' );
 		\ActionScheduler::store()->mark_complete( $other );
 
 		$this->assertFalse( $this->sut->is_stalled() );
-		as_unschedule_all_actions( 'woocommerce_agent_readiness_test_other' );
+		as_unschedule_all_actions( 'poocommerce_agent_readiness_test_other' );
 	}
 
 	/**
@@ -135,7 +135,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 	public function test_late_scan_on_a_queue_running_other_actions_is_not_stalled( string $state ): void {
 		$this->age_finished_actions();
 		as_schedule_single_action( time() - ScheduledScan::STALLED_AFTER - 60, ScheduledScan::RUN_NOW_HOOK, array(), ScheduledScan::GROUP );
-		$other = as_schedule_single_action( time() - 60, 'woocommerce_agent_readiness_test_other' );
+		$other = as_schedule_single_action( time() - 60, 'poocommerce_agent_readiness_test_other' );
 		if ( 'failed' === $state ) {
 			\ActionScheduler::store()->mark_failure( $other );
 		} else {
@@ -143,7 +143,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 		}
 
 		$this->assertFalse( $this->sut->is_stalled() );
-		as_unschedule_all_actions( 'woocommerce_agent_readiness_test_other' );
+		as_unschedule_all_actions( 'poocommerce_agent_readiness_test_other' );
 	}
 
 	/**
@@ -272,7 +272,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 	 */
 	public function test_run_fetches_rules_before_scanning(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return 'https://rules.example/agent-readiness.json';
 			}
@@ -305,7 +305,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 	 */
 	public function test_run_with_failed_fetch_uses_bundled_checks(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return 'https://rules.example/agent-readiness.json';
 			}
@@ -332,7 +332,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 	 */
 	public function test_failed_scan_keeps_daily_run(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function () {
 				throw new \RuntimeException( 'Rules callback failed' );
 			}
@@ -473,7 +473,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 		$crash = static function (): void {
 			throw new \RuntimeException( 'Fatal on this product' );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		$chain = get_option( AgentReadiness::SCAN_OPTION )['id'];
 
 		for ( $i = 0; $i < AgentReadiness::MAX_ATTEMPTS; $i++ ) {
@@ -483,7 +483,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 				unset( $e );
 			}
 		}
-		remove_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+		remove_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		$this->sut->run_batch( $chain );
 
 		$this->assertFalse( get_option( AgentReadiness::SCAN_OPTION ) );
@@ -559,10 +559,10 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 		$skip = function () use ( $kept ): void {
 			$this->hide_product( $kept );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $skip );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $skip );
 		$this->sut->run();
 		$this->sut->run_batch( get_option( AgentReadiness::SCAN_OPTION )['id'] );
-		remove_action( 'woocommerce_agent_readiness_scan_batch', $skip );
+		remove_action( 'poocommerce_agent_readiness_scan_batch', $skip );
 		wp_set_object_terms( $kept, array(), 'product_visibility' );
 		clean_post_cache( $kept );
 		ProductFailures::store( $kept, array() );
@@ -700,7 +700,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 			unset( $product_type, $context );
 			return (int) $id === $product_id ? BrokenAgentReadinessProduct::class : $classname;
 		};
-		add_filter( 'woocommerce_product_class', $fail, 10, 4 );
+		add_filter( 'poocommerce_product_class', $fail, 10, 4 );
 		wc_get_container()->get( ProductCache::class )->remove( $product_id );
 		clean_post_cache( $product_id );
 		$this->sut->run();
@@ -711,7 +711,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 		} catch ( \RuntimeException $e ) {
 			$this->assertStringContainsString( (string) $product_id, $e->getMessage() );
 		} finally {
-			remove_filter( 'woocommerce_product_class', $fail, 10 );
+			remove_filter( 'poocommerce_product_class', $fail, 10 );
 			wc_get_container()->get( ProductCache::class )->remove( $product_id );
 			clean_post_cache( $product_id );
 		}
@@ -738,7 +738,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 			unset( $product_type, $context );
 			return (int) $id === $ids[0] ? BrokenAgentReadinessProduct::class : $classname;
 		};
-		add_filter( 'woocommerce_product_class', $fail, 10, 4 );
+		add_filter( 'poocommerce_product_class', $fail, 10, 4 );
 		wc_get_container()->get( ProductCache::class )->remove( $ids[0] );
 		clean_post_cache( $ids[0] );
 		$this->sut->run();
@@ -749,7 +749,7 @@ class ScheduledScanTest extends ScheduledScanTestCase {
 		try {
 			$this->run_batches();
 		} finally {
-			remove_filter( 'woocommerce_product_class', $fail, 10 );
+			remove_filter( 'poocommerce_product_class', $fail, 10 );
 			wc_get_container()->get( ProductCache::class )->remove( $ids[0] );
 			clean_post_cache( $ids[0] );
 		}

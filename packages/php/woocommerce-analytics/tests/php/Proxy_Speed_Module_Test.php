@@ -2,7 +2,7 @@
 /**
  * Tests for the proxy speed module.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -49,7 +49,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public function tear_down(): void {
 		unset( $_COOKIE['wp_consent_statistics'], $_COOKIE['custom_statistics'], $_COOKIE['tk_ai'] );
-		remove_all_filters( 'jetpack_woocommerce_analytics_event_props' );
+		remove_all_filters( 'jetpack_poocommerce_analytics_event_props' );
 		delete_option( Woocommerce_Analytics::PROXY_SPEED_MODULE_EVENT_PROPS_OPTION );
 		$_SERVER               = $this->previous_server;
 		$GLOBALS['wp_actions'] = $this->previous_wp_actions;
@@ -58,7 +58,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 		remove_all_actions( 'doing_it_wrong_run' );
 		$this->set_enabled( false );
 		remove_all_filters( 'wp_consent_cookie_prefix' );
-		remove_all_filters( 'woocommerce_analytics_experimental_proxy_tracking_enabled' );
+		remove_all_filters( 'poocommerce_analytics_experimental_proxy_tracking_enabled' );
 		delete_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION );
 		delete_option( Woocommerce_Analytics::PROXY_TRACKING_EVER_ENABLED_OPTION );
 		$GLOBALS['wp_rest_server'] = null;
@@ -96,7 +96,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 * @return array
 	 */
 	public static function provide_requests_left_to_the_rest_route(): array {
-		$route = '/wp-json/woocommerce-analytics/v1/track';
+		$route = '/wp-json/poocommerce-analytics/v1/track';
 		return array(
 			'not a POST'                => array( 'GET', $route, 'yes', null ),
 			'proxy tracking never on'   => array( 'POST', $route, null, null ),
@@ -114,7 +114,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public function test_leaves_the_request_to_the_rest_route_without_enable(): void {
 		$this->set_enabled( false );
-		$this->make_request( 'POST', '/wp-json/woocommerce-analytics/v1/track' );
+		$this->make_request( 'POST', '/wp-json/poocommerce-analytics/v1/track' );
 		update_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION, 'yes' );
 
 		list( $served ) = $this->respond();
@@ -126,7 +126,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 * Test that the stored deny is read under a consent cookie prefix filtered by an earlier MU-plugin.
 	 */
 	public function test_leaves_a_deny_under_a_filtered_cookie_prefix_to_the_rest_route(): void {
-		$this->make_request( 'POST', '/wp-json/woocommerce-analytics/v1/track' );
+		$this->make_request( 'POST', '/wp-json/poocommerce-analytics/v1/track' );
 		update_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION, 'yes' );
 		add_filter( 'wp_consent_cookie_prefix', fn() => 'custom' );
 		$_COOKIE['custom_statistics'] = 'deny';
@@ -172,9 +172,9 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public static function provide_requests_the_module_answers(): array {
 		return array(
-			'no stored choice'                     => array( '/wp-json/woocommerce-analytics/v1/track', null ),
-			'stored allow'                         => array( '/wp-json/woocommerce-analytics/v1/track', 'allow' ),
-			'subdirectory install, trailing slash' => array( '/shop/wp-json/woocommerce-analytics/v1/track/', null ),
+			'no stored choice'                     => array( '/wp-json/poocommerce-analytics/v1/track', null ),
+			'stored allow'                         => array( '/wp-json/poocommerce-analytics/v1/track', 'allow' ),
+			'subdirectory install, trailing slash' => array( '/shop/wp-json/poocommerce-analytics/v1/track/', null ),
 		);
 	}
 
@@ -183,7 +183,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public function test_answering_keeps_the_jetpack_autoloader_cache(): void {
 		require_once __DIR__ . '/mocks/class-jetpack-autoloader-shutdown-handler.php';
-		$this->make_request( 'POST', '/wp-json/woocommerce-analytics/v1/track' );
+		$this->make_request( 'POST', '/wp-json/poocommerce-analytics/v1/track' );
 		update_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION, 'yes' );
 		$autoloader_handler = new \Automattic\Jetpack\Autoloader\jp_test\al6_0_4\Shutdown_Handler();
 		$other_handler      = static function () {};
@@ -203,7 +203,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 */
 	public function test_an_error_keeps_the_jetpack_autoloader_handler(): void {
 		require_once __DIR__ . '/mocks/class-jetpack-autoloader-shutdown-handler.php';
-		$this->make_request( 'POST', '/wp-json/woocommerce-analytics/v1/track' );
+		$this->make_request( 'POST', '/wp-json/poocommerce-analytics/v1/track' );
 		update_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION, 'yes' );
 		// A pixel that cannot be converted to a string makes sending throw.
 		$this->set_pixel_batch_queue( array( new \stdClass() ) );
@@ -223,7 +223,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 * Test that answering sends the pixels queued while handling the request.
 	 */
 	public function test_sends_the_queued_pixels_after_answering(): void {
-		$this->make_request( 'POST', '/wp-json/woocommerce-analytics/v1/track' );
+		$this->make_request( 'POST', '/wp-json/poocommerce-analytics/v1/track' );
 		update_option( Woocommerce_Analytics::PROXY_TRACKING_ENABLED_OPTION, 'yes' );
 		// A closed loopback port, so the non-blocking send fails fast without leaving the machine.
 		$this->set_pixel_batch_queue( array( 'http://127.0.0.1:9/t.gif' ) );
@@ -284,7 +284,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 	 * A renamed route must rename the module's path too, or the module silently never serves.
 	 */
 	public function test_the_rest_route_matches_the_module_path(): void {
-		add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+		add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 		Woocommerce_Analytics::sync_proxy_tracking_state();
 		$GLOBALS['wp_rest_server'] = null;
 		Woocommerce_Analytics::register_rest_routes();
@@ -382,7 +382,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 			)
 		);
 		add_filter(
-			'jetpack_woocommerce_analytics_event_props',
+			'jetpack_poocommerce_analytics_event_props',
 			function ( $props, $event_name ) {
 				return array_merge( $props, array( 'mu_event' => $event_name ) );
 			},
@@ -395,7 +395,7 @@ class Proxy_Speed_Module_Test extends BaseTestCase {
 		$method->invoke( null, '{"event_name":"product_view","properties":{"host":"forged"}}' );
 
 		$props = $this->get_queued_pixel_props();
-		$this->assertSame( 'woocommerceanalytics_product_view', $props['mu_event'] ?? null );
+		$this->assertSame( 'poocommerceanalytics_product_view', $props['mu_event'] ?? null );
 		$this->assertSame( 'ecommplan', $props['host'] ?? null );
 	}
 

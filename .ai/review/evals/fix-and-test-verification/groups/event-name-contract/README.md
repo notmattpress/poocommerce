@@ -8,16 +8,16 @@ The control inverts the guard, which rejects every valid string name. That chang
 
 Count warnings about former numeric coercion separately from failures involving supported strings. A real consumer or a documented contract can establish an actionable compatibility problem.
 
-Read [the original change](https://github.com/woocommerce/woocommerce/commit/e8409074363258daff3d66b02feaa75fa6894f72) and [the public event-name contract](https://github.com/woocommerce/woocommerce/blob/25ca8e656937378844d3899f8f1c6d0a9307921d/packages/js/tracks/src/index.ts) for the source behavior.
+Read [the original change](https://github.com/poocommerce/poocommerce/commit/e8409074363258daff3d66b02feaa75fa6894f72) and [the public event-name contract](https://github.com/poocommerce/poocommerce/blob/25ca8e656937378844d3899f8f1c6d0a9307921d/packages/js/tracks/src/index.ts) for the source behavior.
 
 ## Prepare the pair
 
-Run these commands from the WooCommerce repository that contains this group. The source repository must already contain both commits listed in `sources.json`.
+Run these commands from the PooCommerce repository that contains this group. The source repository must already contain both commits listed in `sources.json`.
 
 ```sh
 python3 .ai/review/evals/fix-and-test-verification/groups/event-name-contract/prepare.py \
   --policy-repo "$PWD" \
-  --source-repo /path/to/woocommerce-with-historical-objects \
+  --source-repo /path/to/poocommerce-with-historical-objects \
   --output /path/to/new-event-name-contract-checkout
 ```
 

@@ -2,14 +2,14 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import type { NoticeType } from '@woocommerce/types';
+import type { NoticeType } from '@poocommerce/types';
 import {
 	cloneElement,
 	createRef,
 	useRef,
 	type RefObject,
 } from '@wordpress/element';
-import { whenAnimationsEnd } from '@woocommerce/base-utils';
+import { whenAnimationsEnd } from '@poocommerce/base-utils';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 /**

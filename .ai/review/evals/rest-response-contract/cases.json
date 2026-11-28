@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G16A-v3",
-			"path": "plugins/woocommerce/includes/rest-api/controllers/order-items.php",
+			"path": "plugins/poocommerce/includes/rest-api/controllers/order-items.php",
 			"before": {
 				"file": "fixtures/G16A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/rest-api/controllers/order-items.php",
+						"file": "plugins/poocommerce/includes/rest-api/controllers/order-items.php",
 						"lines": [
 							4,
 							5
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G16B-v3",
-			"path": "plugins/woocommerce/includes/rest-api/controllers/product-search.php",
+			"path": "plugins/poocommerce/includes/rest-api/controllers/product-search.php",
 			"before": {
 				"file": "fixtures/G16B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/rest-api/controllers/product-search.php",
+						"file": "plugins/poocommerce/includes/rest-api/controllers/product-search.php",
 						"lines": [
 							4,
 							4
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G16C-v4",
-			"path": "plugins/woocommerce/includes/rest-api/controllers/product-search.php",
+			"path": "plugins/poocommerce/includes/rest-api/controllers/product-search.php",
 			"before": {
 				"file": "fixtures/G16C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G16D-v3",
-			"path": "plugins/woocommerce/src/StoreApi/Routes/ExperimentalItems.php",
+			"path": "plugins/poocommerce/src/StoreApi/Routes/ExperimentalItems.php",
 			"before": {
 				"file": "fixtures/G16D/before.php"
 			},

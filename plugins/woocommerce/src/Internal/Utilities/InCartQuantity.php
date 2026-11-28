@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
- * Counts a product's quantity in the cart published to the `woocommerce` Interactivity API state.
+ * Counts a product's quantity in the cart published to the `poocommerce` Interactivity API state.
  */
 final class InCartQuantity {
 
@@ -20,10 +20,10 @@ final class InCartQuantity {
 	 * @return int|float The sum of eligible cart-item quantities.
 	 */
 	public static function for_product( int $product_id ) {
-		$woocommerce_state = wp_interactivity_state( 'woocommerce' );
+		$poocommerce_state = wp_interactivity_state( 'poocommerce' );
 		$total             = 0;
 
-		foreach ( $woocommerce_state['cart']['items'] ?? array() as $item ) {
+		foreach ( $poocommerce_state['cart']['items'] ?? array() as $item ) {
 			if ( ( $item['id'] ?? null ) !== $product_id || '' !== ( $item['parent_item_key'] ?? '' ) ) {
 				continue;
 			}

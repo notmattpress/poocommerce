@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ test.describe(
 					productId = response.data.id;
 				} );
 			await restApi.put(
-				`${ WC_API_PATH }/settings/products/woocommerce_cart_redirect_after_add`,
+				`${ WC_API_PATH }/settings/products/poocommerce_cart_redirect_after_add`,
 				{
 					value: 'yes',
 				}
@@ -47,7 +47,7 @@ test.describe(
 				force: true,
 			} );
 			await restApi.put(
-				`${ WC_API_PATH }/settings/products/woocommerce_cart_redirect_after_add`,
+				`${ WC_API_PATH }/settings/products/poocommerce_cart_redirect_after_add`,
 				{
 					value: 'no',
 				}

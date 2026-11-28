@@ -49,9 +49,9 @@ class WC_REST_Webhooks_Controller_Tests extends WC_REST_Unit_Test_Case {
 			'status'       => 'active',
 			'topic'        => 'order.updated',
 			'hooks'        => array(
-				'woocommerce_update_order',
-				'woocommerce_order_refunded',
-				'woocommerce_order_refund_deleted',
+				'poocommerce_update_order',
+				'poocommerce_order_refunded',
+				'poocommerce_order_refund_deleted',
 			),
 			'delivery_url' => $delivery_url,
 		);
@@ -399,7 +399,7 @@ class WC_REST_Webhooks_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		wp_set_current_user( $shop_manager_id );
 		$path = 'webhooks/' . $webhook->get_id();
-		add_filter( 'woocommerce_webhook_delivery_url', static fn( $url ) => add_query_arg( 'source', 'store', $url ) );
+		add_filter( 'poocommerce_webhook_delivery_url', static fn( $url ) => add_query_arg( 'source', 'store', $url ) );
 		$read = $this->do_rest_get_request( $path );
 		$this->assertSame( 200, $read->get_status() );
 		$delivery_url = $read->get_data()['delivery_url'];
@@ -426,7 +426,7 @@ class WC_REST_Webhooks_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		// Code that grants REST access to scheduled tasks lets a request through with no user.
 		wp_set_current_user( 0 );
-		add_filter( 'woocommerce_rest_check_permissions', '__return_true' );
+		add_filter( 'poocommerce_rest_check_permissions', '__return_true' );
 
 		$response = $this->do_rest_request( 'webhooks/' . $webhook->get_id(), 'PUT', array( 'delivery_url' => self::PING_URL_PREFIX . 'scheduled-task' ) );
 		$this->assertSame( 200, $response->get_status() );

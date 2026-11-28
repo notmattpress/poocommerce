@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -120,21 +120,21 @@ trait ProductAttributeAbilityTrait {
 				'id'           => array( 'type' => 'integer' ),
 				'name'         => array(
 					'type'        => 'string',
-					'description' => __( 'Label. Product writes accept it as the name of a global attribute.', 'woocommerce' ),
+					'description' => __( 'Label. Product writes accept it as the name of a global attribute.', 'poocommerce' ),
 				),
 				'slug'         => array(
 					'type'        => 'string',
-					'description' => __( 'Taxonomy of the attribute terms, such as pa_color.', 'woocommerce' ),
+					'description' => __( 'Taxonomy of the attribute terms, such as pa_color.', 'poocommerce' ),
 				),
 				'type'         => array( 'type' => 'string' ),
 				'order_by'     => array(
 					'type'        => 'string',
-					'description' => __( 'Default sort order of the terms.', 'woocommerce' ),
+					'description' => __( 'Default sort order of the terms.', 'poocommerce' ),
 				),
 				'has_archives' => array( 'type' => 'boolean' ),
 				'term_count'   => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of terms. Use product-terms-query with the slug as taxonomy to page through more terms than terms lists.', 'woocommerce' ),
+					'description' => __( 'Number of terms. Use product-terms-query with the slug as taxonomy to page through more terms than terms lists.', 'poocommerce' ),
 				),
 				'terms'        => array(
 					'type'  => 'array',

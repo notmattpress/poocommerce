@@ -19,7 +19,7 @@ import {
 	RequestUtils,
 	ShippingUtils,
 	WPTemplate,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

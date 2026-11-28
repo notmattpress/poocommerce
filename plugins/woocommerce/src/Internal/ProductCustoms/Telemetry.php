@@ -1,14 +1,14 @@
 <?php
 /**
- * Aggregate product customs data for the WooCommerce tracker.
+ * Aggregate product customs data for the PooCommerce tracker.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\ProductCustoms;
+namespace Automattic\PooCommerce\Internal\ProductCustoms;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,18 +37,18 @@ class Telemetry implements RegisterHooksInterface {
 	 * @return void
 	 */
 	public function register() {
-		add_filter( 'woocommerce_tracker_data', array( $this, 'handle_woocommerce_tracker_data' ) );
+		add_filter( 'poocommerce_tracker_data', array( $this, 'handle_poocommerce_tracker_data' ) );
 	}
 
 	/**
-	 * Handle the woocommerce_tracker_data filter by adding aggregate customs counts.
+	 * Handle the poocommerce_tracker_data filter by adding aggregate customs counts.
 	 *
 	 * @internal
 	 *
 	 * @param mixed $data The tracker payload, which third-party filters may have changed.
 	 * @return mixed
 	 */
-	public function handle_woocommerce_tracker_data( $data ) {
+	public function handle_poocommerce_tracker_data( $data ) {
 		if ( ! is_array( $data ) ) {
 			return $data;
 		}

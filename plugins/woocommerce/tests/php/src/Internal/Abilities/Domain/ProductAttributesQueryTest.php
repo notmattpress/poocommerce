@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
-use Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
+use Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
 
 /**
  * Tests global attribute reads through the registered ability.
@@ -51,7 +51,7 @@ class ProductAttributesQueryTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->isolate_extensible_abilities();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->sut = new Ability( ProductAttributesQuery::get_name(), ProductAttributesQuery::get_registration_args() );
 		wp_set_current_user( self::$administrator_id );
 	}
@@ -197,7 +197,7 @@ class ProductAttributesQueryTest extends WC_Unit_Test_Case {
 			$this->assertSame( 'hex-' . $term['slug'], $term['extensions']['test-ext']['color'] );
 		}
 		$this->assertSame( 'string', $ability->get_output_schema()['properties']['attributes']['items']['properties']['terms']['items']['properties']['extensions']['properties']['test-ext']['properties']['color']['type'] );
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->assertArrayNotHasKey( 'extensions', $this->sut->execute( $input )['attributes'][0]['terms'][0] );
 	}
 
@@ -208,7 +208,7 @@ class ProductAttributesQueryTest extends WC_Unit_Test_Case {
 		$denied  = WC_Helper_Product::create_attribute( 'Test Denied', array( 'Red', 'Blue' ) );
 		$allowed = WC_Helper_Product::create_attribute( 'Test Allowed', array( 'Matte' ) );
 		add_filter(
-			'woocommerce_rest_check_permissions',
+			'poocommerce_rest_check_permissions',
 			static function ( $permission, $context, $object_id, $type ) use ( $denied ) {
 				return $denied['attribute_taxonomy'] === $type ? false : $permission;
 			},

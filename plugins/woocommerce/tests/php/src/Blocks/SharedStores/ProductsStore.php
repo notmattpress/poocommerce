@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\SharedStores;
+namespace Automattic\PooCommerce\Tests\Blocks\SharedStores;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\SharedStores\ProductsStore as TestedProductsStore;
 use WC_Helper_Product;
 use WC_Product_Grouped;
 
@@ -19,14 +19,14 @@ class ProductsStore extends \WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	protected $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	protected $consent = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The Interactivity API store namespace under test.
 	 *
 	 * @var string
 	 */
-	protected $store_namespace = 'woocommerce/products';
+	protected $store_namespace = 'poocommerce/products';
 
 	/**
 	 * Captured original Hydration registry entry for restoration in tearDown.
@@ -433,16 +433,16 @@ class ProductsStore extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce store's products and productVariations return the record a loader loaded under each ID.
+	 * @testdox The poocommerce store's products and productVariations return the record a loader loaded under each ID.
 	 */
-	public function test_woocommerce_store_reads_loaded_product_data_by_id(): void {
+	public function test_poocommerce_store_reads_loaded_product_data_by_id(): void {
 		$product      = WC_Helper_Product::create_variation_product();
 		$variation_id = $product->get_children()[0];
 
 		$loaded_product    = TestedProductsStore::load_product( $this->consent, $product->get_id() );
 		$loaded_variations = TestedProductsStore::load_variations( $this->consent, $product->get_id() );
 
-		$state = wp_interactivity_state( 'woocommerce' );
+		$state = wp_interactivity_state( 'poocommerce' );
 
 		$this->assertTrue( isset( $state['products'][ $product->get_id() ] ) );
 		$this->assertSame( $loaded_product['name'], $state['products'][ $product->get_id() ]['name'] ?? null );
@@ -453,9 +453,9 @@ class ProductsStore extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Directives bound to the woocommerce store's product data render the loaded values on the server.
+	 * @testdox Directives bound to the poocommerce store's product data render the loaded values on the server.
 	 */
-	public function test_woocommerce_store_product_data_renders_in_directives(): void {
+	public function test_poocommerce_store_product_data_renders_in_directives(): void {
 		$product      = WC_Helper_Product::create_variation_product();
 		$variation_id = $product->get_children()[0];
 
@@ -464,7 +464,7 @@ class ProductsStore extends \WC_Unit_Test_Case {
 
 		$html = wp_interactivity_process_directives(
 			sprintf(
-				'<div data-wp-interactive="woocommerce"><span id="product" data-wp-text="state.products.%d.name"></span><span id="variation" data-wp-text="state.productVariations.%d.sku"></span><span id="absent" data-wp-text="state.products.999999.name"></span></div>',
+				'<div data-wp-interactive="poocommerce"><span id="product" data-wp-text="state.products.%d.name"></span><span id="variation" data-wp-text="state.productVariations.%d.sku"></span><span id="absent" data-wp-text="state.products.999999.name"></span></div>',
 				$product->get_id(),
 				$variation_id
 			)
@@ -539,7 +539,7 @@ class ProductsStore extends \WC_Unit_Test_Case {
 			$this->original_hydration_registry_entry = $registry[ Hydration::class ] ?? false;
 		}
 
-		$shared_type_class            = 'Automattic\\WooCommerce\\Blocks\\Registry\\SharedType';
+		$shared_type_class            = 'Automattic\\PooCommerce\\Blocks\\Registry\\SharedType';
 		$registry[ Hydration::class ] = new $shared_type_class(
 			function () use ( $fake ) {
 				return $fake;

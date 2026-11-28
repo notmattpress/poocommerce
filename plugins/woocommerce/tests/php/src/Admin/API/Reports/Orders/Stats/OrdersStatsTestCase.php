@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders\Stats;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,7 +28,7 @@ abstract class OrdersStatsTestCase extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		add_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 	}
 
 	/**

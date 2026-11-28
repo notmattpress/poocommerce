@@ -16,8 +16,8 @@ import { TestEnvVars, parseTestEnvConfig } from './test-environment';
  * Projects whose contents define every consumer's effective ESLint rule set.
  */
 const SHARED_ESLINT_PROJECTS = [
-	'@woocommerce/eslint-plugin',
-	'@woocommerce/eslint-config',
+	'@poocommerce/eslint-plugin',
+	'@poocommerce/eslint-config',
 ];
 
 /**

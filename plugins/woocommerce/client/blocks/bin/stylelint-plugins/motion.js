@@ -1,5 +1,5 @@
 /**
- * `woocommerce/motion-safe`: a `transition*` or `animation*` declaration (other than `none`) must be inside
+ * `poocommerce/motion-safe`: a `transition*` or `animation*` declaration (other than `none`) must be inside
  * `@include motion-safe` or `@keyframes`. Transitions that only fade or change color, including `motion-state()` of
  * those properties and `motion-hold()`, and the shared fade animations, can be anywhere, because they do not move
  * anything. The `$state` of `@include motion-transition` follows the same rule, because it runs with reduced motion.
@@ -14,7 +14,7 @@ const {
 	utils: { report, ruleMessages, validateOptions },
 } = stylelint;
 
-const ruleName = 'woocommerce/motion-safe';
+const ruleName = 'poocommerce/motion-safe';
 
 const messages = ruleMessages( ruleName, {
 	rejected: ( prop ) =>

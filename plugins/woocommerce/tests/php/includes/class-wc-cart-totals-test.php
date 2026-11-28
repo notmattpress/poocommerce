@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\TaxBasedOn;
+use Automattic\PooCommerce\Enums\TaxBasedOn;
 
 /**
  * Class WC_Cart_Totals_Tests. Tests for WC_Cart_Total class.
@@ -42,11 +42,11 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Tests whether discount tax is rounded properly in cart.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/23916.
+	 * @link https://github.com/poocommerce/poocommerce/issues/23916.
 	 */
 	public function test_discount_tax_rounding() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		WC()->cart->empty_cart();
 
@@ -84,12 +84,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * Helper method for assertions when prices are rounded at line.
 	 */
 	private function assert_discount_tax_rounding_when_rounding_at_line() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		$this->assertEquals( '1575', wc_format_decimal( WC()->cart->get_discount_total(), 0 ) );
 		$this->assertEquals( '425', wc_format_decimal( WC()->cart->get_discount_tax(), 0 ) );
@@ -100,12 +100,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * Helper method for assertions when prices are rounded at line.
 	 */
 	private function assert_discount_tax_rounding_when_rounding_at_subtotal() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		$this->assertEquals( '1575', wc_format_decimal( WC()->cart->get_discount_total(), 0 ) );
 		$this->assertEquals( '425', wc_format_decimal( WC()->cart->get_discount_tax(), 0 ) );
@@ -115,14 +115,14 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Tests whether subtotal is properly rounded, when prices entered have higher precision than displayed.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/28292.
+	 * @link https://github.com/poocommerce/poocommerce/issues/28292.
 	 */
 	public function test_subtotal_rounding_with_changing_precision() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->empty_cart();
 
@@ -142,7 +142,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 
 		WC()->cart->add_to_cart( $product_301_90909->get_id() );
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		// Notice how subtotal + tax does not equate to total here.
 		// This is feature of round at subtotal property, where since we are not rounding, displayed components of price may not add up to displayed total price.
@@ -154,12 +154,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Test subtotal and total are rounded correctly when values are entered with more precision.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/24184#issue-469311323.
+	 * @link https://github.com/poocommerce/poocommerce/issues/24184#issue-469311323.
 	 */
 	public function test_total_rounding_with_price_entered_has_high_precision() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		WC()->cart->empty_cart();
 
@@ -189,7 +189,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * A fixed_cart $5 coupon on a $20 product yields a $5 discount and $15 total.
 	 */
 	public function test_fixed_cart_coupon_discounts_cart_total() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -217,7 +217,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * A percent 50% coupon on a $20 product yields a $10 discount and $10 total.
 	 */
 	public function test_percent_coupon_discounts_cart_total() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -481,8 +481,8 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * @return array
 	 */
 	private function calculate_cart_coupon_scenario( string $product_price, string $sequential_setting, array $coupon_data, array $application_order, ?array $sort_priorities ): array {
-		update_option( 'woocommerce_calc_discounts_sequentially', $sequential_setting );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_discounts_sequentially', $sequential_setting );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => $product_price ) );
 		$coupons = array();
@@ -495,7 +495,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 			$sort_filter = static function ( $sort, $coupon ) use ( $sort_priorities ) {
 				return $sort_priorities[ $coupon->get_discount_type() ] ?? $sort;
 			};
-			add_filter( 'woocommerce_coupon_sort', $sort_filter, 10, 2 );
+			add_filter( 'poocommerce_coupon_sort', $sort_filter, 10, 2 );
 		}
 
 		WC()->cart->add_to_cart( $product->get_id() );
@@ -505,7 +505,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 		WC()->cart->calculate_totals();
 
 		if ( null !== $sort_filter ) {
-			remove_filter( 'woocommerce_coupon_sort', $sort_filter, 10 );
+			remove_filter( 'poocommerce_coupon_sort', $sort_filter, 10 );
 		}
 
 		$discounts = array();
@@ -523,7 +523,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * A fixed_product $7 coupon on a $20 product yields a $7 discount and $13 total.
 	 */
 	public function test_fixed_product_coupon_discounts_cart_total() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -551,7 +551,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * Removing an applied coupon restores the cart to its undiscounted total.
 	 */
 	public function test_cart_total_restored_after_coupon_removed() {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		WC()->cart->empty_cart();
 
 		$product = WC_Helper_Product::create_simple_product( true, array( 'regular_price' => 20 ) );
@@ -587,11 +587,11 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * @testdox A fixed cart coupon larger than the cart stops at the line price when removing the base tax leaves half a cent.
 	 */
 	public function test_fixed_cart_coupon_stops_at_line_price_with_half_cent_price(): void {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_tax_based_on', TaxBasedOn::SHIPPING );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_tax_based_on', TaxBasedOn::SHIPPING );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => 'US',
@@ -604,9 +604,9 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 				'tax_rate_order'    => '1',
 			)
 		);
-		add_filter( 'woocommerce_customer_taxable_address', fn() => array( 'FR', '', '75001', 'Paris' ) );
+		add_filter( 'poocommerce_customer_taxable_address', fn() => array( 'FR', '', '75001', 'Paris' ) );
 		// The fee keeps the cart total above zero, where it is floored, so line totals show in it.
-		add_action( 'woocommerce_cart_calculate_fees', fn( $cart ) => $cart->add_fee( 'Handling', 10 ) );
+		add_action( 'poocommerce_cart_calculate_fees', fn( $cart ) => $cart->add_fee( 'Handling', 10 ) );
 
 		$product = WC_Helper_Product::create_simple_product(
 			true,
@@ -647,9 +647,9 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * @param string $expected_total Expected cart total.
 	 */
 	public function test_coupon_leaves_negative_priced_line_at_its_price( string $discount_type, string $amount, string $expected_total ): void {
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		// The fee keeps the cart total above zero, where it is floored, so line totals show in it.
-		add_action( 'woocommerce_cart_calculate_fees', fn( $cart ) => $cart->add_fee( 'Handling', 10 ) );
+		add_action( 'poocommerce_cart_calculate_fees', fn( $cart ) => $cart->add_fee( 'Handling', 10 ) );
 
 		$product          = WC_Helper_Product::create_simple_product(
 			true,

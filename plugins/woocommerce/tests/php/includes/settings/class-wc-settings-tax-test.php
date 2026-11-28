@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Tax_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -55,15 +55,15 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'tax_options'                       => array( 'title', 'sectionend' ),
-			'woocommerce_prices_include_tax'    => 'radio',
-			'woocommerce_tax_based_on'          => 'select',
-			'woocommerce_shipping_tax_class'    => 'select',
-			'woocommerce_tax_round_at_subtotal' => 'checkbox',
-			'woocommerce_tax_classes'           => 'textarea',
-			'woocommerce_tax_display_shop'      => 'select',
-			'woocommerce_tax_display_cart'      => 'select',
-			'woocommerce_price_display_suffix'  => 'text',
-			'woocommerce_tax_total_display'     => 'select',
+			'poocommerce_prices_include_tax'    => 'radio',
+			'poocommerce_tax_based_on'          => 'select',
+			'poocommerce_shipping_tax_class'    => 'select',
+			'poocommerce_tax_round_at_subtotal' => 'checkbox',
+			'poocommerce_tax_classes'           => 'textarea',
+			'poocommerce_tax_display_shop'      => 'select',
+			'poocommerce_tax_display_cart'      => 'select',
+			'poocommerce_price_display_suffix'  => 'text',
+			'poocommerce_tax_total_display'     => 'select',
 			''                                  => array( 'conflict_error', 'add_settings_slot' ),
 		);
 
@@ -178,16 +178,16 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_shows_when_prices_include_tax_but_no_base_rate() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
-		// Mock the screen to simulate being on WooCommerce settings page.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		// Mock the screen to simulate being on PooCommerce settings page.
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Ensure no tax rates exist for US.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
 
 		$sut = new WC_Settings_Tax();
 
@@ -208,16 +208,16 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_does_not_show_when_taxes_disabled() {
 		// Set up prices include tax but taxes disabled.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Ensure no tax rates exist for US.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
 
 		$sut = new WC_Settings_Tax();
 
@@ -235,12 +235,12 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_does_not_show_when_base_rate_exists() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Insert a tax rate for US.
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -276,11 +276,11 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_does_not_show_when_prices_not_inclusive() {
 		// Set up prices exclude tax option.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		$sut = new WC_Settings_Tax();
 
@@ -294,12 +294,12 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox 'tax_configuration_validation_notice' does not show notice on non-WooCommerce pages.
+	 * @testDox 'tax_configuration_validation_notice' does not show notice on non-PooCommerce pages.
 	 */
-	public function test_tax_configuration_validation_notice_does_not_show_on_non_woocommerce_pages() {
+	public function test_tax_configuration_validation_notice_does_not_show_on_non_poocommerce_pages() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Mock the screen to simulate being on a different admin page.
 		set_current_screen( 'dashboard' );
@@ -320,19 +320,19 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_respects_filter() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Ensure no tax rates exist for US.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
 
 		// Add filter to disable the notice.
-		add_filter( 'woocommerce_show_tax_configuration_notice', '__return_false' );
+		add_filter( 'poocommerce_show_tax_configuration_notice', '__return_false' );
 
 		$sut = new WC_Settings_Tax();
 
@@ -342,7 +342,7 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 		$output = ob_get_clean();
 
 		// Remove filter.
-		remove_filter( 'woocommerce_show_tax_configuration_notice', '__return_false' );
+		remove_filter( 'poocommerce_show_tax_configuration_notice', '__return_false' );
 
 		// Assert notice is NOT displayed due to filter.
 		$this->assertEmpty( $output );
@@ -353,13 +353,13 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_does_not_show_when_localized_rate_exists() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		// Base location is DE without a specific state.
-		update_option( 'woocommerce_default_country', 'DE' );
+		update_option( 'poocommerce_default_country', 'DE' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Insert a tax rate for DE with a specific state (more localized than base).
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
@@ -395,19 +395,19 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 	 */
 	public function test_tax_configuration_validation_notice_respects_adjust_non_base_location_prices_filter() {
 		// Set up prices include tax option.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		// Mock the screen.
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		// Ensure no tax rates exist for US.
 		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_country = 'US' OR tax_rate_country = ''" );
 
 		// Disable non-base location price adjustments.
-		add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 
 		$sut = new WC_Settings_Tax();
 
@@ -417,7 +417,7 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 		$output = ob_get_clean();
 
 		// Remove filter.
-		remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+		remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 
 		// Assert notice is NOT displayed because price adjustment is disabled.
 		$this->assertEmpty( $output );

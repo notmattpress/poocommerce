@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G31A-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 			"before": {
 				"file": "fixtures/G31A/before.js"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 						"lines": [
 							2,
 							2
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G31B-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 			"before": {
 				"file": "fixtures/G31B/before.js"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 						"lines": [
 							4,
 							4
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G31C-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 			"before": {
 				"file": "fixtures/G31C/before.js"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G31D-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/extensions.js",
 			"before": {
 				"file": "fixtures/G31D/before.js"
 			},

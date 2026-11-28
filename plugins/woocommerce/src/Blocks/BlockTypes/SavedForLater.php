@@ -2,25 +2,25 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListRenderer;
-use Automattic\WooCommerce\Internal\ShopperLists\ShopperListsController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListRenderer;
+use Automattic\PooCommerce\Internal\ShopperLists\ShopperListsController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * Saved for Later block.
  *
  * Renders the shopper's "Saved for Later" list, wired to the `shopper-lists`
- * Store API endpoints via the shared `woocommerce/shopper-lists` iAPI store.
+ * Store API endpoints via the shared `poocommerce/shopper-lists` iAPI store.
  * PHP prefetches the list so the first paint is already populated; JS then
  * takes over for adds, removes, and Move-to-cart.
  *
  * The row markup (image, name, price, remove badge, variation overlay) is
  * shared with other shopper-list blocks via `ShopperListRenderer`. This
  * class composes those fragments and adds the bits that are unique to
- * Saved for Later: auto-injection after `woocommerce/cart` (declared via the
+ * Saved for Later: auto-injection after `poocommerce/cart` (declared via the
  * `blockHooks` field in block.json so the editor treats it as a first-class
  * hooked block; the hook, rendering, and inserter visibility are gated on the
  * `saved-for-later` feature while the block type itself stays registered), the
@@ -59,7 +59,7 @@ final class SavedForLater extends AbstractBlock {
 
 		// Seeds the default heading on the auto-injected block (only fires while
 		// the feature is on and the block is being hooked).
-		add_filter( 'hooked_block_woocommerce/saved-for-later', array( $this, 'set_hooked_block_attributes' ), 10, 4 );
+		add_filter( 'hooked_block_poocommerce/saved-for-later', array( $this, 'set_hooked_block_attributes' ), 10, 4 );
 	}
 
 	/**
@@ -113,14 +113,14 @@ final class SavedForLater extends AbstractBlock {
 		if ( null === $parsed_hooked_block || 'after' !== $relative_position ) {
 			return $parsed_hooked_block;
 		}
-		if ( ! isset( $parsed_anchor_block['blockName'] ) || 'woocommerce/cart' !== $parsed_anchor_block['blockName'] ) {
+		if ( ! isset( $parsed_anchor_block['blockName'] ) || 'poocommerce/cart' !== $parsed_anchor_block['blockName'] ) {
 			return $parsed_hooked_block;
 		}
 
 		// Seed a `core/heading` inner block so freshly-injected instances
 		// ship with the same heading the editor template seeds. We append
 		// unconditionally — extensions are free to hook
-		// `hooked_block_woocommerce/saved-for-later` to add their own
+		// `hooked_block_poocommerce/saved-for-later` to add their own
 		// inner blocks, and gating on `empty( innerBlocks )` would silently
 		// suppress our heading whenever any other extension ran first.
 		//
@@ -134,7 +134,7 @@ final class SavedForLater extends AbstractBlock {
 		// contains `&`, `<`, etc. The matching `null` push onto `innerContent`
 		// is what makes `WP_Block::render()` walk into the heading when
 		// building `$content`.
-		$list_heading = __( 'Saved for later', 'woocommerce' );
+		$list_heading = __( 'Saved for later', 'poocommerce' );
 		$heading_html = '<h2 class="wp-block-heading">' . esc_html( $list_heading ) . '</h2>';
 
 		if ( ! isset( $parsed_hooked_block['innerBlocks'] ) || ! is_array( $parsed_hooked_block['innerBlocks'] ) ) {
@@ -194,7 +194,7 @@ final class SavedForLater extends AbstractBlock {
 
 		wp_enqueue_script_module( $this->get_full_block_name() );
 
-		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 		BlocksSharedState::load_store_config( $consent );
 		BlocksSharedState::load_placeholder_image( $consent );
 		// `Move to cart` calls into the shared cart store, which expects
@@ -213,7 +213,7 @@ final class SavedForLater extends AbstractBlock {
 		// avoids deadlocking mutations that await `isNonceReady` before
 		// any GET has fired).
 		wp_interactivity_state(
-			'woocommerce/shopper-lists',
+			'poocommerce/shopper-lists',
 			array(
 				'restUrl' => get_rest_url(),
 				'nonce'   => wp_create_nonce( 'wc_store_api' ),
@@ -231,7 +231,7 @@ final class SavedForLater extends AbstractBlock {
 		// state, error, action label) are rendered server-side and toggled
 		// with directives, so they don't need to ride here too.
 		wp_interactivity_config(
-			'woocommerce/saved-for-later',
+			'poocommerce/saved-for-later',
 			array(
 				'quantityLabelTemplate' => $this->get_quantity_label_template(),
 				'removeLabelTemplate'   => $this->get_remove_label_template(),
@@ -250,7 +250,7 @@ final class SavedForLater extends AbstractBlock {
 		// alongside the block's own context on the same wrapper.
 		$wrapper_attributes = array(
 			'class'                     => 'wc-block-saved-for-later',
-			'data-wp-interactive'       => 'woocommerce/saved-for-later',
+			'data-wp-interactive'       => 'poocommerce/saved-for-later',
 			'data-wp-context'           => (string) wp_json_encode(
 				array(
 					'hasShownItems' => ! empty( $items ),
@@ -260,7 +260,7 @@ final class SavedForLater extends AbstractBlock {
 					'pendingKeys'   => new \stdClass(),
 				)
 			),
-			'data-wp-context---notices' => 'woocommerce/store-notices::' . (string) wp_json_encode( array( 'notices' => array() ) ),
+			'data-wp-context---notices' => 'poocommerce/store-notices::' . (string) wp_json_encode( array( 'notices' => array() ) ),
 			'data-wp-watch'             => 'callbacks.trackShownItems',
 		);
 
@@ -482,7 +482,7 @@ final class SavedForLater extends AbstractBlock {
 	 */
 	private function render_empty_markup(): string {
 		return ShopperListRenderer::render_empty_state(
-			__( 'Nothing saved yet — items you save from the cart will appear here.', 'woocommerce' ),
+			__( 'Nothing saved yet — items you save from the cart will appear here.', 'poocommerce' ),
 			'wc-block-saved-for-later__empty',
 			true
 		);
@@ -496,7 +496,7 @@ final class SavedForLater extends AbstractBlock {
 	 */
 	private function get_quantity_label_template(): string {
 		/* translators: %d: quantity of saved items. */
-		return __( 'Quantity: %d', 'woocommerce' );
+		return __( 'Quantity: %d', 'poocommerce' );
 	}
 
 	/**
@@ -505,7 +505,7 @@ final class SavedForLater extends AbstractBlock {
 	 */
 	private function get_remove_label_template(): string {
 		/* translators: %s: product name. */
-		return __( 'Remove %s from Saved for later list', 'woocommerce' );
+		return __( 'Remove %s from Saved for later list', 'poocommerce' );
 	}
 
 	/**
@@ -513,7 +513,7 @@ final class SavedForLater extends AbstractBlock {
 	 * iAPI `<template>` and the SSR per-row markup.
 	 */
 	private function get_move_to_cart_label(): string {
-		return __( 'Move to cart', 'woocommerce' );
+		return __( 'Move to cart', 'poocommerce' );
 	}
 
 	/**

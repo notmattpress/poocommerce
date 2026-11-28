@@ -34,11 +34,11 @@ jest.mock( '../../../events', () => ( { recordEvent: jest.fn() } ) );
 const apiFetchMock = apiFetch as unknown as jest.Mock;
 
 const template = {
-	id: 'woocommerce//order-email',
+	id: 'poocommerce//order-email',
 	type: 'wp_template',
 	source: 'custom',
 	origin: 'plugin',
-	plugin: 'woocommerce',
+	plugin: 'poocommerce',
 	has_theme_file: false,
 	title: 'Order &amp; shipping',
 	permissions: { delete: true },
@@ -128,7 +128,7 @@ describe( 'reset email template action', () => {
 
 			await waitFor( () => expect( closeModal ).toHaveBeenCalled() );
 			expect( apiFetchMock ).toHaveBeenNthCalledWith( 1, {
-				path: '/wp/v2/templates/woocommerce//order-email?context=edit&source=plugin',
+				path: '/wp/v2/templates/poocommerce//order-email?context=edit&source=plugin',
 			} );
 			expect( parse ).toHaveBeenCalledWith( '<!-- default -->' );
 			expect( dispatch.saveEditedEntityRecord ).toHaveBeenCalledWith(
@@ -151,7 +151,7 @@ describe( 'reset email template action', () => {
 				{ name: 'core/paragraph' },
 			] );
 			expect( apiFetchMock ).toHaveBeenNthCalledWith( 2, {
-				path: '/wp/v2/templates/woocommerce//order-email',
+				path: '/wp/v2/templates/poocommerce//order-email',
 				method: 'DELETE',
 			} );
 			expect( dispatch.invalidateResolution ).toHaveBeenCalledWith(

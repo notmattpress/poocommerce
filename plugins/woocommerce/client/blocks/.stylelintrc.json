@@ -36,7 +36,7 @@
 				"assets/css/abstracts/_motion.scss"
 			],
 			"rules": {
-				"woocommerce/motion-safe": true,
+				"poocommerce/motion-safe": true,
 				"declaration-property-value-disallowed-list": [
 					{
 						"/^(-(webkit|moz|ms|o)-)?transition/": [

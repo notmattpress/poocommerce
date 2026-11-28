@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\RobotsTxt;
+use Automattic\PooCommerce\Internal\AgentReadiness\RobotsTxt;
 use WC_Unit_Test_Case;
 
 /**

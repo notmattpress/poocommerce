@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\OrderTagsProvider;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\OrderTagsProvider;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsGenerator;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -37,10 +37,10 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	 * @testdox Registers the order review URL tag.
 	 */
 	public function test_registers_order_review_url_tag(): void {
-		$tag = $this->registry->get_by_token( '[woocommerce/order-review-url]' );
+		$tag = $this->registry->get_by_token( '[poocommerce/order-review-url]' );
 
 		$this->assertNotNull( $tag, 'The order review URL tag should be registered.' );
-		$this->assertSame( __( 'Order', 'woocommerce' ), $tag->get_category() );
+		$this->assertSame( __( 'Order', 'poocommerce' ), $tag->get_category() );
 	}
 
 	/**
@@ -56,11 +56,11 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 			unset( $url );
 			return $filter_order->get_id() === $order->get_id() ? $expected : '';
 		};
-		add_filter( 'woocommerce_review_order_url', $filter, 10, 2 );
+		add_filter( 'poocommerce_review_order_url', $filter, 10, 2 );
 
-		$url = $this->registry->get_by_token( '[woocommerce/order-review-url]' )->execute_callback( array( 'order' => $order ) );
+		$url = $this->registry->get_by_token( '[poocommerce/order-review-url]' )->execute_callback( array( 'order' => $order ) );
 
-		remove_filter( 'woocommerce_review_order_url', $filter, 10 );
+		remove_filter( 'poocommerce_review_order_url', $filter, 10 );
 
 		$this->assertSame( $expected, $url );
 	}
@@ -69,7 +69,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	 * @testdox The order review URL tag returns an empty string without order context.
 	 */
 	public function test_order_review_url_tag_without_order_context(): void {
-		$tag = $this->registry->get_by_token( '[woocommerce/order-review-url]' );
+		$tag = $this->registry->get_by_token( '[poocommerce/order-review-url]' );
 
 		$this->assertSame( '', $tag->execute_callback( array() ) );
 	}
@@ -84,7 +84,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 		$personalizer = new Personalizer( $this->registry );
 		$personalizer->set_context( array( 'order' => $order ) );
 
-		$html = $personalizer->personalize_content( '<p><!--[woocommerce/order-date format="&lt;\\m\\a\\r\\k&gt;Y&lt;/\\m\\a\\r\\k&gt;"]--></p>' );
+		$html = $personalizer->personalize_content( '<p><!--[poocommerce/order-date format="&lt;\\m\\a\\r\\k&gt;Y&lt;/\\m\\a\\r\\k&gt;"]--></p>' );
 
 		$this->assertSame( '<p>&lt;mark&gt;2024&lt;/mark&gt;</p>', $html );
 	}
@@ -99,7 +99,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 		$personalizer = new Personalizer( $this->registry );
 		$personalizer->set_context( array( 'order' => $order ) );
 
-		$html = $personalizer->personalize_content( '<p><!--[woocommerce/order-custom-field key="Customer&#039;s note"]--></p>' );
+		$html = $personalizer->personalize_content( '<p><!--[poocommerce/order-custom-field key="Customer&#039;s note"]--></p>' );
 
 		$this->assertSame( '<p>&lt;b&gt;Leave&lt;/b&gt; at the door</p>', $html );
 	}
@@ -108,10 +108,10 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	 * @testdox Registers the fulfillment heading tag.
 	 */
 	public function test_registers_fulfillment_heading_tag(): void {
-		$tag = $this->registry->get_by_token( '[woocommerce/fulfillment-heading]' );
+		$tag = $this->registry->get_by_token( '[poocommerce/fulfillment-heading]' );
 
 		$this->assertNotNull( $tag, 'The fulfillment heading tag should be registered.' );
-		$this->assertSame( __( 'Order', 'woocommerce' ), $tag->get_category() );
+		$this->assertSame( __( 'Order', 'poocommerce' ), $tag->get_category() );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	public function test_fulfillment_heading_tag_uses_plural_heading(): void {
 		$email = $this->create_fulfillment_email( 2 );
 
-		$heading = $this->registry->get_by_token( '[woocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => $email ) );
+		$heading = $this->registry->get_by_token( '[poocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => $email ) );
 
 		$this->assertSame( 'Your items are on the way!', $heading );
 	}
@@ -131,7 +131,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	public function test_fulfillment_heading_tag_uses_singular_heading(): void {
 		$email = $this->create_fulfillment_email( 1 );
 
-		$heading = $this->registry->get_by_token( '[woocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => $email ) );
+		$heading = $this->registry->get_by_token( '[poocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => $email ) );
 
 		$this->assertSame( 'Your item is on the way!', $heading );
 	}
@@ -144,7 +144,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 		require_once $bootstrap->plugin_dir . '/includes/emails/class-wc-email.php';
 		require_once $bootstrap->plugin_dir . '/includes/emails/class-wc-email-customer-completed-order.php';
 
-		$heading = $this->registry->get_by_token( '[woocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => new \WC_Email_Customer_Completed_Order() ) );
+		$heading = $this->registry->get_by_token( '[poocommerce/fulfillment-heading]' )->execute_callback( array( 'wc_email' => new \WC_Email_Customer_Completed_Order() ) );
 
 		$this->assertSame( '', $heading );
 	}
@@ -157,14 +157,14 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 		$filter = function () {
 			return 'Packed & ready';
 		};
-		add_filter( 'woocommerce_email_heading_customer_fulfillment_created', $filter );
+		add_filter( 'poocommerce_email_heading_customer_fulfillment_created', $filter );
 
 		$personalizer = new Personalizer( $this->registry );
 		$personalizer->set_context( array( 'wc_email' => $email ) );
 
-		$html = $personalizer->personalize_content( '<h2><!--[woocommerce/fulfillment-heading]--></h2>' );
+		$html = $personalizer->personalize_content( '<h2><!--[poocommerce/fulfillment-heading]--></h2>' );
 
-		remove_filter( 'woocommerce_email_heading_customer_fulfillment_created', $filter );
+		remove_filter( 'poocommerce_email_heading_customer_fulfillment_created', $filter );
 
 		$this->assertSame( '<h2>Packed &amp; ready</h2>', $html );
 	}
@@ -179,14 +179,14 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 		$filter = function () {
 			return 'Heading taken from the email';
 		};
-		add_filter( 'woocommerce_email_heading_customer_fulfillment_created', $filter );
+		add_filter( 'poocommerce_email_heading_customer_fulfillment_created', $filter );
 
 		$markup       = WCTransactionalEmailPostsGenerator::render_block_template_html( $email );
 		$personalizer = new Personalizer( $this->registry );
 		$personalizer->set_context( array( 'wc_email' => $email ) );
 		$html = $personalizer->personalize_content( $markup );
 
-		remove_filter( 'woocommerce_email_heading_customer_fulfillment_created', $filter );
+		remove_filter( 'poocommerce_email_heading_customer_fulfillment_created', $filter );
 
 		$this->assertStringContainsString( 'Heading taken from the email', $html );
 	}
@@ -195,7 +195,7 @@ class OrderTagsProviderTest extends WC_Unit_Test_Case {
 	 * @testdox The fulfillment heading tag returns an empty string without email context.
 	 */
 	public function test_fulfillment_heading_tag_without_email_context(): void {
-		$tag = $this->registry->get_by_token( '[woocommerce/fulfillment-heading]' );
+		$tag = $this->registry->get_by_token( '[poocommerce/fulfillment-heading]' );
 
 		$this->assertSame( '', $tag->execute_callback( array() ) );
 	}

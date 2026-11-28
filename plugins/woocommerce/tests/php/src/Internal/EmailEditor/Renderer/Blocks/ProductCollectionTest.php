@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Collection;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Collection;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -38,7 +38,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 
 		$names = $this->rendered_names(
 			array(
-				'woocommerceHandPickedProducts' => array( $second->get_id(), $first->get_id(), $third->get_id() ),
+				'poocommerceHandPickedProducts' => array( $second->get_id(), $first->get_id(), $third->get_id() ),
 				'exclude'                       => array( $third->get_id() ),
 			)
 		);
@@ -53,7 +53,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$this->create_product( 'Featured', array( 'featured' => true ) );
 		$this->create_product( 'Plain' );
 
-		$this->assertSame( array( 'Featured' ), $this->rendered_names( array(), 'woocommerce/product-collection/featured' ) );
+		$this->assertSame( array( 'Featured' ), $this->rendered_names( array(), 'poocommerce/product-collection/featured' ) );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		\WC_Product_Variable::sync( $variable->get_id() );
 		delete_transient( 'wc_products_onsale' );
 
-		$names = $this->rendered_names( array(), 'woocommerce/product-collection/on-sale' );
+		$names = $this->rendered_names( array(), 'poocommerce/product-collection/on-sale' );
 		sort( $names );
 
 		$this->assertSame( array( 'Simple on sale', 'Variable on sale' ), $names );
@@ -93,7 +93,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$hidden = $this->create_product( 'Hidden', array( 'catalog_visibility' => 'hidden' ) );
 
 		$this->assertSame( array( 'Visible' ), $this->rendered_names( array() ) );
-		$this->assertSame( array(), $this->rendered_names( array( 'woocommerceHandPickedProducts' => array( $hidden->get_id() ) ) ), 'Hand-picked' );
+		$this->assertSame( array(), $this->rendered_names( array( 'poocommerceHandPickedProducts' => array( $hidden->get_id() ) ) ), 'Hand-picked' );
 	}
 
 	/**
@@ -103,10 +103,10 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$this->create_product( 'In stock' );
 		$this->create_product( 'Sold out', array( 'stock_status' => 'outofstock' ) );
 
-		$this->assertSame( array( 'In stock' ), $this->rendered_names( array( 'woocommerceStockStatus' => array( 'instock' ) ) ), 'Only in stock' );
+		$this->assertSame( array( 'In stock' ), $this->rendered_names( array( 'poocommerceStockStatus' => array( 'instock' ) ) ), 'Only in stock' );
 
 		$all   = array_keys( wc_get_product_stock_status_options() );
-		$names = $this->rendered_names( array( 'woocommerceStockStatus' => $all ) );
+		$names = $this->rendered_names( array( 'poocommerceStockStatus' => $all ) );
 		sort( $names );
 		$this->assertSame( array( 'In stock', 'Sold out' ), $names, 'All statuses' );
 	}
@@ -126,15 +126,15 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		);
 		$query      = array( 'productReference' => $main->get_id() );
 
-		$this->assertSame( array( 'Upsell' ), $this->rendered_names( $query, 'woocommerce/product-collection/upsells' ) );
-		$this->assertSame( array( 'Cross-sell' ), $this->rendered_names( $query, 'woocommerce/product-collection/cross-sells' ) );
+		$this->assertSame( array( 'Upsell' ), $this->rendered_names( $query, 'poocommerce/product-collection/upsells' ) );
+		$this->assertSame( array( 'Cross-sell' ), $this->rendered_names( $query, 'poocommerce/product-collection/cross-sells' ) );
 	}
 
 	/**
 	 * @testdox Shows no products in a related collection without a product reference.
-	 * @testWith ["woocommerce/product-collection/upsells"]
-	 *           ["woocommerce/product-collection/cross-sells"]
-	 *           ["woocommerce/product-collection/related"]
+	 * @testWith ["poocommerce/product-collection/upsells"]
+	 *           ["poocommerce/product-collection/cross-sells"]
+	 *           ["poocommerce/product-collection/related"]
 	 *
 	 * @param string $collection Collection type.
 	 */
@@ -154,9 +154,9 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$in_cart = $this->create_product( 'In cart' );
 		$this->create_product( 'Not in cart' );
 		$user_id = $this->factory->user->create( array( 'user_email' => 'shopper@example.com' ) );
-		update_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id(), array( 'cart' => array( 'key' => array( 'product_id' => $in_cart->get_id() ) ) ) );
+		update_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id(), array( 'cart' => array( 'key' => array( 'product_id' => $in_cart->get_id() ) ) ) );
 
-		$names = $this->rendered_names( array(), 'woocommerce/product-collection/cart-contents', array( 'recipient_email' => 'shopper@example.com' ) );
+		$names = $this->rendered_names( array(), 'poocommerce/product-collection/cart-contents', array( 'recipient_email' => 'shopper@example.com' ) );
 
 		$this->assertSame( array( 'In cart' ), $names );
 	}
@@ -167,8 +167,8 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 	public function test_cart_contents_without_cart(): void {
 		$this->create_product( 'Sample' );
 
-		$this->assertSame( array(), $this->rendered_names( array(), 'woocommerce/product-collection/cart-contents', array( 'recipient_email' => 'guest@example.com' ) ), 'Sent email' );
-		$this->assertSame( array( 'Sample' ), $this->rendered_names( array(), 'woocommerce/product-collection/cart-contents', array( 'is_user_preview' => true ) ), 'Preview' );
+		$this->assertSame( array(), $this->rendered_names( array(), 'poocommerce/product-collection/cart-contents', array( 'recipient_email' => 'guest@example.com' ) ), 'Sent email' );
+		$this->assertSame( array( 'Sample' ), $this->rendered_names( array(), 'poocommerce/product-collection/cart-contents', array( 'is_user_preview' => true ) ), 'Preview' );
 	}
 
 	/**
@@ -183,9 +183,9 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$names = $this->rendered_names(
 			array(
 				'productReference'  => $main->get_id(),
-				'woocommerceOnSale' => true,
+				'poocommerceOnSale' => true,
 			),
-			'woocommerce/product-collection/upsells'
+			'poocommerce/product-collection/upsells'
 		);
 
 		$this->assertSame( array( 'Upsell on sale' ), $names );
@@ -200,7 +200,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 		$user_id = $this->factory->user->create( array( 'user_email' => 'shopper@example.com' ) );
 		update_user_meta(
 			$user_id,
-			'_woocommerce_persistent_cart_' . get_current_blog_id(),
+			'_poocommerce_persistent_cart_' . get_current_blog_id(),
 			array(
 				'cart' => array(
 					'a' => array( 'product_id' => $visible->get_id() ),
@@ -209,7 +209,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$names = $this->rendered_names( array(), 'woocommerce/product-collection/cart-contents', array( 'recipient_email' => 'shopper@example.com' ) );
+		$names = $this->rendered_names( array(), 'poocommerce/product-collection/cart-contents', array( 'recipient_email' => 'shopper@example.com' ) );
 		sort( $names );
 
 		$this->assertSame( array( 'Search-only in cart', 'Visible in cart' ), $names );
@@ -245,7 +245,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 			array( 'Shirt' ),
 			$this->rendered_names(
 				array(
-					'woocommerceAttributes' => array(
+					'poocommerceAttributes' => array(
 						array(
 							'taxonomy' => $attribute['attribute_taxonomy'],
 							'termId'   => $attribute['term_ids'][0],
@@ -268,7 +268,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 
 		$names = $this->rendered_names(
 			array(
-				'woocommerceHandPickedProducts' => $ids,
+				'poocommerceHandPickedProducts' => $ids,
 				'offset'                        => 1,
 			)
 		);
@@ -285,7 +285,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 			$ids[] = $this->create_product( $name )->get_id();
 		}
 
-		$html = $this->render( array( 'woocommerceHandPickedProducts' => $ids ), '', array(), 2 );
+		$html = $this->render( array( 'poocommerceHandPickedProducts' => $ids ), '', array(), 2 );
 
 		$this->assertSame( array( 'One', 'Two', 'Three' ), $this->names_in( $html ) );
 		$this->assertSame( 2, substr_count( $html, '<tr><td style="width: 50%' ), 'Two product rows' );
@@ -320,7 +320,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 			'innerContent' => array(),
 		);
 		$parsed_block = array(
-			'blockName'   => 'woocommerce/product-collection',
+			'blockName'   => 'poocommerce/product-collection',
 			'attrs'       => array(
 				'collection'    => $collection,
 				'query'         => $query,
@@ -328,7 +328,7 @@ class ProductCollectionTest extends WC_Unit_Test_Case {
 			),
 			'innerBlocks' => array(
 				array(
-					'blockName'   => 'woocommerce/product-template',
+					'blockName'   => 'poocommerce/product-template',
 					'attrs'       => array(),
 					'innerBlocks' => array( $title ),
 				),

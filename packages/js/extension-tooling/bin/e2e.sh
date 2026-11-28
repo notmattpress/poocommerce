@@ -70,7 +70,7 @@ prepare() {
 		exit 1
 	fi
 	if [[ "$WC_VERSION" != latest && "$WC_VERSION" != nightly && ! "$WC_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[[:alnum:]]+([.-][[:alnum:]]+)*)?$ ]]; then
-		echo "Invalid WooCommerce version: $WC_VERSION (expected latest, nightly or a release tag)" >&2
+		echo "Invalid PooCommerce version: $WC_VERSION (expected latest, nightly or a release tag)" >&2
 		exit 1
 	fi
 	if [[ -f bin/hooks/e2e-prepare.sh ]]; then

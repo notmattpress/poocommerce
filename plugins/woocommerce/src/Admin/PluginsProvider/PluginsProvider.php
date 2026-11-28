@@ -3,12 +3,12 @@
  * A provider for getting access to plugin queries.
  */
 
-namespace Automattic\WooCommerce\Admin\PluginsProvider;
+namespace Automattic\PooCommerce\Admin\PluginsProvider;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\PluginsProvider\PluginsProviderInterface;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsProvider\PluginsProviderInterface;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * Plugins Provider.
@@ -62,7 +62,7 @@ class PluginsProvider implements PluginsProviderInterface {
 	/**
 	 * Get the path to the plugin file relative to the plugins directory from the plugin slug.
 	 *
-	 * E.g. 'woocommerce' returns 'woocommerce/woocommerce.php'
+	 * E.g. 'poocommerce' returns 'poocommerce/poocommerce.php'
 	 *
 	 * @param string $slug Plugin slug to get path for.
 	 *

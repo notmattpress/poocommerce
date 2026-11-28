@@ -4,8 +4,8 @@
 const chalk = require( 'chalk' );
 
 // Dynamic hook names come out of the generator as the raw PHP expression, e.g.
-// `'woocommerce_' . $product_type . '_add_to_cart'`. Render them in the
-// interpolated style used by WordPress hook docs: `woocommerce_{$product_type}_add_to_cart`.
+// `'poocommerce_' . $product_type . '_add_to_cart'`. Render them in the
+// interpolated style used by WordPress hook docs: `poocommerce_{$product_type}_add_to_cart`.
 // Assumes the generator's spacing (` . ` with surrounding spaces); other
 // concatenation styles pass through unnormalized.
 const normalizeHookName = ( name ) => {
@@ -43,7 +43,7 @@ const groupByHook = ( hooks, hook ) => {
 	}
 
 	// The docs scan is scoped by the ignore list in composer.json; a hook from
-	// anywhere else means a new plugins/woocommerce/src directory leaked in.
+	// anywhere else means a new plugins/poocommerce/src directory leaked in.
 	if (
 		! hook.file.startsWith( 'Blocks/' ) &&
 		! hook.file.startsWith( 'StoreApi/' )

@@ -7,7 +7,7 @@ import { requestPaginatedData, PaginatedDataTotals } from './github';
 import config from '../config';
 
 /**
- * Get all workflows from the WooCommerce repository.
+ * Get all workflows from the PooCommerce repository.
  *
  * @param {string} owner - The owner of the repository.
  * @param {string} name  - The name of the repository.

@@ -10,8 +10,8 @@ import userEvent from '@testing-library/user-event';
  */
 import RatingFilterEdit from '../edit';
 
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	blocksConfig: { productCount: 1 },
 } ) );
 

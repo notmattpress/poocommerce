@@ -3,7 +3,7 @@
  * Class WC_Tests_Customer_Download_Log_Data_Store file.
  *
  * @version  3.5.0
- * @package WooCommerce\Tests\Customer
+ * @package PooCommerce\Tests\Customer
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -101,7 +101,7 @@ class WC_Tests_Customer_Download_Log_Data_Store extends WC_Unit_Test_Case {
 		 * or use the WC_Customer_Download::read(),
 		 * but the thrown exception is ambiguous, so opted for a direct query here.
 		 */
-		$this->assertEquals( 0, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE permission_id = %d", $p_id ) ) );
+		$this->assertEquals( 0, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE permission_id = %d", $p_id ) ) );
 	}
 
 	/**
@@ -173,8 +173,8 @@ class WC_Tests_Customer_Download_Log_Data_Store extends WC_Unit_Test_Case {
 		);
 
 		// Check that the download permission is gone for Customer 1 and still intact for Customer 2.
-		$this->assertEquals( 0, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE permission_id = %d", $dp_ids[0] ) ) );
-		$this->assertEquals( 1, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE permission_id = %d", $dp_ids[1] ) ) );
+		$this->assertEquals( 0, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE permission_id = %d", $dp_ids[0] ) ) );
+		$this->assertEquals( 1, $wpdb->query( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE permission_id = %d", $dp_ids[1] ) ) );
 
 		// Clean up the rest.
 		$data_store->delete_by_permission_id( $dp_ids[1] );

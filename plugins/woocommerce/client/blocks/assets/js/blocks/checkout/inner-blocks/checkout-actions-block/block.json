@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/checkout-actions-block",
+	"name": "poocommerce/checkout-actions-block",
 	"title": "Actions",
 	"description": "Place order button, with optional Terms and Conditions and Return to Cart links.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"color": {
 			"text": true,
@@ -59,11 +59,11 @@
 		"lock": false
 	},
 	"selectors": {
-		"root": ".wp-block-woocommerce-checkout-actions-block",
-		"color": ".wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
-		"typography": ".wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
-		"border": ".wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
-		"spacing": ".wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button"
+		"root": ".wp-block-poocommerce-checkout-actions-block",
+		"color": ".wp-block-poocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
+		"typography": ".wp-block-poocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
+		"border": ".wp-block-poocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button",
+		"spacing": ".wp-block-poocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button"
 	},
 	"attributes": {
 		"lock": {
@@ -110,8 +110,8 @@
 			"label": "Show Price"
 		}
 	],
-	"parent": [ "woocommerce/checkout-fields-block" ],
-	"textdomain": "woocommerce",
+	"parent": [ "poocommerce/checkout-fields-block" ],
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

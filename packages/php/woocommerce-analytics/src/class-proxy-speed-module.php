@@ -1,8 +1,8 @@
 <?php
 /**
- * Proxy speed module for WooCommerce Analytics.
+ * Proxy speed module for PooCommerce Analytics.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;
@@ -21,7 +21,7 @@ class Proxy_Speed_Module {
 	 *
 	 * @var string
 	 */
-	const PROXY_REQUEST_PATH = 'woocommerce-analytics/v1/track';
+	const PROXY_REQUEST_PATH = 'poocommerce-analytics/v1/track';
 
 	/**
 	 * Whether code on this site called enable() in this request.
@@ -97,7 +97,7 @@ class Proxy_Speed_Module {
 			wp_magic_quotes();
 
 			// The plugin that turns proxy tracking on has not loaded yet, but it was on at the last init.
-			add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+			add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 
 			$response = self::handle_events( (string) file_get_contents( 'php://input' ) );
 			WC_Analytics_Tracking::send_batched_pixels();
@@ -105,7 +105,7 @@ class Proxy_Speed_Module {
 			// Only on success: after an error, the handler empties a cache that may have caused it.
 			self::keep_autoloader_cache();
 		} catch ( \Throwable $e ) {
-			error_log( 'WooCommerce Analytics Proxy Speed Module: Uncaught error while handling the request: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'PooCommerce Analytics Proxy Speed Module: Uncaught error while handling the request: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			$response = array(
 				'status' => 500,
 				'data'   => array(
@@ -229,7 +229,7 @@ class Proxy_Speed_Module {
 	 * @return bool
 	 */
 	private static function is_statistics_consent_denied() {
-		$prefix = apply_filters( 'wp_consent_cookie_prefix', 'wp_consent' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
+		$prefix = apply_filters( 'wp_consent_cookie_prefix', 'wp_consent' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Reads a WP Consent API filter.
 		if ( ! is_string( $prefix ) ) {
 			return false;
 		}
@@ -257,7 +257,7 @@ class Proxy_Speed_Module {
 
 		// First, so a client value is replaced but an MU-plugin callback, which runs here, still sets its own live value.
 		add_filter(
-			'jetpack_woocommerce_analytics_event_props',
+			'jetpack_poocommerce_analytics_event_props',
 			static function ( $props ) use ( $recorded ) {
 				return array_merge( $props, $recorded );
 			},

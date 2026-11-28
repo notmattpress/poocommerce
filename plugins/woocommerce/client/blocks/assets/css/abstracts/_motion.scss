@@ -1,4 +1,4 @@
-// Motion helpers for WooCommerce blocks. See docs/contributors/motion.md.
+// Motion helpers for PooCommerce blocks. See docs/contributors/motion.md.
 // Each helper writes the state change (color, opacity: 200ms, subtle) so that it always runs. It adds movement only
 // inside `motion-safe`, so movement stops with reduced motion. The shared keyframes are in `assets/css/style.scss`.
 @use "sass:list";

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductsList;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductsList;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 

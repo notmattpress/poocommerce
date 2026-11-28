@@ -2,12 +2,12 @@
 /**
  * Product helpers.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * Class WC_Helper_Product.
@@ -215,7 +215,7 @@ class WC_Helper_Product {
 				'name'          => 'Dummy External Product',
 				'regular_price' => 10,
 				'sku'           => 'DUMMY EXTERNAL SKU',
-				'product_url'   => 'https://woocommerce.com',
+				'product_url'   => 'https://poocommerce.com',
 				'button_text'   => 'Buy external product',
 			)
 		);
@@ -414,7 +414,7 @@ class WC_Helper_Product {
 	public static function create_attribute( $raw_name = 'size', $terms = array( 'small' ) ) {
 		// Make sure caches are clean.
 		delete_transient( 'wc_attribute_taxonomies' );
-		WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		// These are exported as labels, so convert the label to a name if possible first.
 		$attribute_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
@@ -478,7 +478,7 @@ class WC_Helper_Product {
 		$attribute_id = absint( $attribute_id );
 
 		$wpdb->query(
-			$wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d", $attribute_id )
+			$wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_id = %d", $attribute_id )
 		);
 	}
 

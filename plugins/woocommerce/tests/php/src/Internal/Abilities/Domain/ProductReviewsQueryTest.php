@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewsQuery;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewsQuery;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
 
 /**
  * Tests review queries through the Abilities API.
@@ -192,7 +192,7 @@ class ProductReviewsQueryTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_product_review_invalid_rating_range', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_review_invalid_rating_range', $result->get_error_code() );
 		$this->assertSame( 400, rest_convert_error_to_response( $result )->get_status() );
 		foreach ( array( 'customer', 'subscriber' ) as $role ) {
 			wp_set_current_user( self::factory()->user->create( array( 'role' => $role ) ) );
@@ -357,20 +357,20 @@ class ProductReviewsQueryTest extends \WC_Unit_Test_Case {
 	/**
 	 * @testdox Should expose valid extension fields and propagate extension failures only while the feature is enabled.
 	 * @testWith ["valid", ""]
-	 *           ["invalid", "woocommerce_ability_field_output_invalid"]
-	 *           ["throws", "woocommerce_ability_extension_failed"]
+	 *           ["invalid", "poocommerce_ability_field_output_invalid"]
+	 *           ["throws", "poocommerce_ability_extension_failed"]
 	 * @param string $behavior Extension callback behavior.
 	 * @param string $error_code Expected error for a failing callback.
 	 */
 	public function test_extension_fields( string $behavior, string $error_code ): void {
 		$this->isolate_extensible_abilities();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$product  = \WC_Helper_Product::create_simple_product()->get_id();
 		$ids      = array( $this->review( $product, 1 ), $this->review( $product, 5 ) );
 		$input    = array( 'include' => $ids );
 		$baseline = ProductReviewsQuery::execute( $input );
 		$schema   = ProductReviewsQuery::get_registration_args()['output_schema'];
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
 		$this->assertSame( $baseline, ProductReviewsQuery::execute( $input ) );
 		$this->assertSame( $schema, ProductReviewsQuery::get_registration_args()['output_schema'] );
 		$this->enable_extensible_abilities(
@@ -411,7 +411,7 @@ class ProductReviewsQueryTest extends \WC_Unit_Test_Case {
 			$this->assertArrayNotHasKey( 'reviewer_email', $review );
 		}
 		$this->assertSame( 'integer', $ability->get_output_schema()['properties']['reviews']['items']['properties']['extensions']['properties']['test-ext']['properties']['review_id']['type'] );
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->assertSame( $baseline, ProductReviewsQuery::execute( $input ) );
 		$this->assertSame( $schema, ProductReviewsQuery::get_registration_args()['output_schema'] );
 	}

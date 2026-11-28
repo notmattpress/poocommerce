@@ -1,4 +1,4 @@
-# WooCommerce abilities
+# PooCommerce abilities
 
 The Core abilities live in `Domain/`. `AbilitiesLoader` registers them with `Ability` or a subclass of `ActionableAbility`. Two PHPStan rules keep it that way.
 
@@ -19,7 +19,7 @@ Keep:
 
 - Sanitizers on free text, such as `wp_kses_post()` on a note or `wc_clean()` on a SKU.
 - Calls that normalize a valid value, such as `sanitize_title()` on a slug or `wc_format_decimal()` on a price.
-- A cast that a WooCommerce function needs, such as `(int)` for `add_order_note()`.
+- A cast that a PooCommerce function needs, such as `(int)` for `add_order_note()`.
 
 ## Omit unavailable output fields
 
@@ -33,7 +33,7 @@ Do not use `destructive` for this. An ability with `destructive: false`, such as
 
 ## Use `ExtensibleAbilitiesTestTrait` in tests
 
-A test that needs the `extensible_abilities` feature on uses `Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait`. Do not turn the feature on with `update_option()` alone, fire the init actions by hand, or reach into the registries of `ExtensibleAbilities` with reflection.
+A test that needs the `extensible_abilities` feature on uses `Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait`. Do not turn the feature on with `update_option()` alone, fire the init actions by hand, or reach into the registries of `ExtensibleAbilities` with reflection.
 
 - Call `enable_extensible_abilities()` to turn the feature on with Core's resources registered. Pass a callback to register the fields, validators, syncs or filters of the test.
 - Call `isolate_extensible_abilities()` when the test needs empty registries while the feature is off.

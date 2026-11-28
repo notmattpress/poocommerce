@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G18A-v3",
-			"path": "plugins/woocommerce/src/Internal/Stock/Reservation.php",
+			"path": "plugins/poocommerce/src/Internal/Stock/Reservation.php",
 			"before": {
 				"file": "fixtures/G18A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/src/Internal/Stock/Reservation.php",
+						"file": "plugins/poocommerce/src/Internal/Stock/Reservation.php",
 						"lines": [
 							4,
 							6
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G18B-v3",
-			"path": "plugins/woocommerce/includes/coupon-usage.php",
+			"path": "plugins/poocommerce/includes/coupon-usage.php",
 			"before": {
 				"file": "fixtures/G18B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/coupon-usage.php",
+						"file": "plugins/poocommerce/includes/coupon-usage.php",
 						"lines": [
 							4,
 							6
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G18C-v3",
-			"path": "plugins/woocommerce/src/Internal/Stock/Reservation.php",
+			"path": "plugins/poocommerce/src/Internal/Stock/Reservation.php",
 			"before": {
 				"file": "fixtures/G18C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G18D-v3",
-			"path": "plugins/woocommerce/includes/coupon-usage.php",
+			"path": "plugins/poocommerce/includes/coupon-usage.php",
 			"before": {
 				"file": "fixtures/G18D/before.php"
 			},

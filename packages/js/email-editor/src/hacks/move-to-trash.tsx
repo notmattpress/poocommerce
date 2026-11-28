@@ -16,7 +16,7 @@ const removeDefaultMoveToTrashActionAddCustom = ( postType: string ) => {
 function modifyMoveToTrashAction() {
 	addActionForEmail(
 		'core.registerPostTypeSchema',
-		'woocommerce-email-editor/modify-move-to-trash-action',
+		'poocommerce-email-editor/modify-move-to-trash-action',
 		( postType ) => {
 			removeDefaultMoveToTrashActionAddCustom( postType );
 		}

@@ -6,17 +6,17 @@ import {
 	useCheckoutAddress,
 	useStoreEvents,
 	noticeContexts,
-} from '@woocommerce/base-context';
-import { ContactFormValues, getSetting } from '@woocommerce/settings';
+} from '@poocommerce/base-context';
+import { ContactFormValues, getSetting } from '@poocommerce/settings';
 import {
 	StoreNoticesContainer,
 	CheckboxControl,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
-import { CONTACT_FORM_KEYS } from '@woocommerce/block-settings';
-import { Form } from '@woocommerce/base-components/cart-checkout';
-import { useToggleCollapse } from '@woocommerce/base-hooks';
+import { checkoutStore } from '@poocommerce/block-data';
+import { CONTACT_FORM_KEYS } from '@poocommerce/block-settings';
+import { Form } from '@poocommerce/base-components/cart-checkout';
+import { useToggleCollapse } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ const CreateAccountUI = (): React.ReactElement | null => {
 				>
 					{ __(
 						'You are currently checking out as a guest.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			) }
@@ -79,7 +79,7 @@ const CreateAccountUI = (): React.ReactElement | null => {
 					className="wc-block-checkout__create-account"
 					label={ sprintf(
 						/* translators: Store name */
-						__( 'Create an account with %s', 'woocommerce' ),
+						__( 'Create an account with %s', 'poocommerce' ),
 						getSetting( 'siteTitle', '' )
 					) }
 					checked={ shouldCreateAccount }

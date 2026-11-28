@@ -1,14 +1,14 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"title": "package.json config.woo",
-	"description": "Per-plugin settings of the shared WooCommerce plugin tooling. bin/woo-config.sh validates the object against this schema and applies the defaults shown here.",
+	"description": "Per-plugin settings of the shared PooCommerce plugin tooling. bin/woo-config.sh validates the object against this schema and applies the defaults shown here.",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
 		"slug": {
 			"type": "string",
 			"pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-			"description": "Plugin slug: the name of the ZIP, the release asset and the WooCommerce.com or WordPress.org product. Default: the package.json name."
+			"description": "Plugin slug: the name of the ZIP, the release asset and the PooCommerce.com or WordPress.org product. Default: the package.json name."
 		},
 		"mainFile": {
 			"type": "string",
@@ -253,7 +253,7 @@
 				"scheduledWc": {
 					"type": "string",
 					"default": "",
-					"description": "WooCommerce version for Cron CI (e.g. trunk); empty keeps latest."
+					"description": "PooCommerce version for Cron CI (e.g. trunk); empty keeps latest."
 				},
 				"passEnv": {
 					"type": "array",
@@ -340,7 +340,7 @@
 					"source": {
 						"enum": [ "release", "all-plugins", "wordpress.org" ],
 						"default": "release",
-						"description": "release: <slug>.zip of woocommerce/<slug>'s latest release; all-plugins: product-packages/<slug>/<slug>.zip in woocommerce/all-plugins; wordpress.org: the latest stable WordPress.org ZIP (no token needed)."
+						"description": "release: <slug>.zip of poocommerce/<slug>'s latest release; all-plugins: product-packages/<slug>/<slug>.zip in poocommerce/all-plugins; wordpress.org: the latest stable WordPress.org ZIP (no token needed)."
 					},
 					"suites": {
 						"type": "array",
@@ -386,12 +386,12 @@
 			"additionalProperties": false,
 			"properties": {
 				"target": {
-					"enum": [ "woocommerce.com", "wordpress.org" ],
-					"default": "woocommerce.com"
+					"enum": [ "poocommerce.com", "wordpress.org" ],
+					"default": "poocommerce.com"
 				},
 				"productId": {
 					"type": "integer",
-					"description": "WooCommerce.com product ID (bin/deploy.sh)."
+					"description": "PooCommerce.com product ID (bin/deploy.sh)."
 				},
 				"readmeChangelog": {
 					"type": "boolean",

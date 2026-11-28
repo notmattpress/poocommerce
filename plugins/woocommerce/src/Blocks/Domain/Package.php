@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain;
+namespace Automattic\PooCommerce\Blocks\Domain;
 
-use Automattic\WooCommerce\Blocks\Options;
-use Automattic\WooCommerce\Blocks\Domain\Services\FeatureGating;
+use Automattic\PooCommerce\Blocks\Options;
+use Automattic\PooCommerce\Blocks\Domain\Services\FeatureGating;
 
 
 /**
@@ -59,12 +59,12 @@ class Package {
 	}
 
 	/**
-	 * Returns the version of WooCommerce Blocks.
+	 * Returns the version of PooCommerce Blocks.
 	 *
-	 * Note: since Blocks was merged into WooCommerce Core, the version of
+	 * Note: since Blocks was merged into PooCommerce Core, the version of
 	 * WC Blocks doesn't update anymore. Use
 	 * `Constants::get_constant( 'WC_VERSION' )` when possible to get the
-	 * WooCommerce Core version.
+	 * PooCommerce Core version.
 	 *
 	 * @return string
 	 */
@@ -73,7 +73,7 @@ class Package {
 	}
 
 	/**
-	 * Returns the version of WooCommerce Blocks stored in the database.
+	 * Returns the version of PooCommerce Blocks stored in the database.
 	 *
 	 * @return string
 	 */
@@ -82,7 +82,7 @@ class Package {
 	}
 
 	/**
-	 * Sets the version of WooCommerce Blocks in the database.
+	 * Sets the version of PooCommerce Blocks in the database.
 	 * This is useful during the first installation or after the upgrade process.
 	 */
 	public function set_version_stored_on_db() {

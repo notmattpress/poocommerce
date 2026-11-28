@@ -2,7 +2,7 @@
 
 = 1.5.1 - 2026-09-17 =
 * Fix - Prevented a shipping warning.
-* Tweak - Updated support for WooCommerce.
+* Tweak - Updated support for PooCommerce.
 
 = 1.0.0 - 2021-10-25 =
 * Initial release.

@@ -290,7 +290,7 @@ test( 'passes PHPCS findings to SARB and preserves tool errors', ( context ) => 
 	}
 } );
 
-test( 'uses the exact WordPress archive, test library tag and WooCommerce tag without npm', ( context ) => {
+test( 'uses the exact WordPress archive, test library tag and PooCommerce tag without npm', ( context ) => {
 	const directory = extension( context );
 	const executable = path.join( directory, 'stub' );
 	const wpSource = path.join( directory, 'download/wordpress/wp-includes' );
@@ -323,7 +323,7 @@ case "$(basename "$0")" in
         else
           printf '%s\\n' '{"offers":[{"version":"7.0"}]}'
         fi ;;
-      */woocommerce.json) printf '%s\\n' '{"version": "11.2.0"}' ;;
+      */poocommerce.json) printf '%s\\n' '{"version": "11.2.0"}' ;;
       *) exit 2 ;;
     esac ;;
   svn) mkdir -p "\${!#}" ;;
@@ -332,9 +332,9 @@ case "$(basename "$0")" in
       [[ "\${!#}" == refs/tags/11.2.0 ]]
     else
       [[ "$3" == --branch=11.2.0 ]]
-      target="\${!#}/plugins/woocommerce"
+      target="\${!#}/plugins/poocommerce"
       mkdir -p "$target/bin"
-      printf ' * Version: 11.2.0\\n' > "$target/woocommerce.php"
+      printf ' * Version: 11.2.0\\n' > "$target/poocommerce.php"
       printf '<?php\\n' > "$target/bin/generate-feature-config.php"
     fi ;;
   mysql) cat >/dev/null ;;
@@ -365,7 +365,7 @@ esac
 		RUN_UNIT_TESTS: '1',
 		WP_CORE_DIR: wpDirectory,
 		WP_TESTS_DIR: tests,
-		WC_CORE_DIR: path.join( directory, 'test woocommerce' ),
+		WC_CORE_DIR: path.join( directory, 'test poocommerce' ),
 	};
 	const password = "fixture 'a|b&c\\d";
 	const install = [
@@ -387,7 +387,7 @@ esac
 			env
 		);
 		assert.ok( output.includes( 'Installed WordPress: 7.0' ) );
-		assert.ok( output.includes( 'Installed WooCommerce: 11.2.0' ) );
+		assert.ok( output.includes( 'Installed PooCommerce: 11.2.0' ) );
 		const calls = fs.readFileSync( requests, 'utf8' );
 		assert.ok(
 			calls.includes( 'https://wordpress.org/wordpress-7.0.tar.gz' )
@@ -411,7 +411,7 @@ esac
 	const relativePaths = {
 		WP_CORE_DIR: 'relative sites/test core',
 		WP_TESTS_DIR: 'relative test library',
-		WC_CORE_DIR: 'relative woocommerce',
+		WC_CORE_DIR: 'relative poocommerce',
 	};
 	run( directory, 'bash', [ ...install, '7.0', '11.2.0' ], {
 		...env,
@@ -419,7 +419,7 @@ esac
 	} );
 	assert.ok(
 		fs.existsSync(
-			path.join( directory, relativePaths.WC_CORE_DIR, 'woocommerce.php' )
+			path.join( directory, relativePaths.WC_CORE_DIR, 'poocommerce.php' )
 		)
 	);
 	assert.equal(
@@ -438,7 +438,7 @@ esac
 
 	for ( const [ versions, warning, overrides ] of [
 		[ [ '7.1-RC1', '11.2.0' ], 'Invalid WordPress version' ],
-		[ [ '7.0', '11.2.1' ], 'no matching tag in woocommerce/woocommerce' ],
+		[ [ '7.0', '11.2.1' ], 'no matching tag in poocommerce/poocommerce' ],
 		[
 			[ 'latest', '11.2.0' ],
 			'Could not read the latest WordPress version',

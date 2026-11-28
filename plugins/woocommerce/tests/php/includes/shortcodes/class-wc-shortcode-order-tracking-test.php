@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Shortcode_Order_Tracking.
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**
@@ -24,7 +24,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 	 * Restore the request and global post state touched by this test.
 	 */
 	public function tearDown(): void {
-		unset( $_REQUEST['orderid'], $_REQUEST['order_email'], $_REQUEST['woocommerce-order-tracking-nonce'] );
+		unset( $_REQUEST['orderid'], $_REQUEST['order_email'], $_REQUEST['poocommerce-order-tracking-nonce'] );
 		unset( $GLOBALS['post'] );
 
 		parent::tearDown();
@@ -36,14 +36,14 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 	public function test_prints_validation_error_inside_notices_wrapper(): void {
 		$_REQUEST['orderid']                          = '';
 		$_REQUEST['order_email']                      = 'shopper@example.com';
-		$_REQUEST['woocommerce-order-tracking-nonce'] = wp_create_nonce( 'woocommerce-order_tracking' );
+		$_REQUEST['poocommerce-order-tracking-nonce'] = wp_create_nonce( 'poocommerce-order_tracking' );
 
 		ob_start();
 		WC_Shortcode_Order_Tracking::output( array() );
 		$output = (string) ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'#<div class="woocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(woocommerce-error|is-error)[^"]*"[^>]*>.*Please enter a valid order ID.*</div>.*<form[^>]*track_order#s',
+			'#<div class="poocommerce-notices-wrapper">\s*<(ul|div) class="[^"]*(poocommerce-error|is-error)[^"]*"[^>]*>.*Please enter a valid order ID.*</div>.*<form[^>]*track_order#s',
 			$output,
 			'The validation error should be wrapped and printed before the tracking form.'
 		);
@@ -58,7 +58,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 	private function track( WC_Order $order ): string {
 		$_REQUEST['orderid']                          = (string) $order->get_id();
 		$_REQUEST['order_email']                      = $order->get_billing_email();
-		$_REQUEST['woocommerce-order-tracking-nonce'] = wp_create_nonce( 'woocommerce-order_tracking' );
+		$_REQUEST['poocommerce-order-tracking-nonce'] = wp_create_nonce( 'poocommerce-order_tracking' );
 
 		ob_start();
 		WC_Shortcode_Order_Tracking::output( array() );
@@ -88,7 +88,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 	 * @testdox Tracking a guest order shows its items but no order key, downloads, purchase note, customer note or address.
 	 */
 	public function test_guest_order_hides_key_downloads_purchase_note_and_address(): void {
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted/' );
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted/' );
 		$product = WC_Helper_Product::create_downloadable_product(
 			array(
 				array(
@@ -101,7 +101,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 		$product->save();
 
 		$pending = WC_Helper_Order::create_order( 0, $product );
-		$pending->set_status( \Automattic\WooCommerce\Enums\OrderStatus::PENDING );
+		$pending->set_status( \Automattic\PooCommerce\Enums\OrderStatus::PENDING );
 		$pending->save();
 
 		$output = $this->track( $pending );
@@ -109,7 +109,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( $pending->get_order_key(), $output, 'Pay and cancel links carry the order key.' );
 
 		$completed = WC_Helper_Order::create_order( 0, $product );
-		$completed->set_status( \Automattic\WooCommerce\Enums\OrderStatus::COMPLETED );
+		$completed->set_status( \Automattic\PooCommerce\Enums\OrderStatus::COMPLETED );
 		$completed->set_customer_note( 'Gate code 4321' );
 		$completed->save();
 		$this->assertNotEmpty( $completed->get_downloadable_items(), 'The order should have a download to leak.' );
@@ -130,7 +130,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 		$_GET['key'] = $order->get_order_key();
 
 		ob_start();
-		woocommerce_order_details_table( $order->get_id() );
+		poocommerce_order_details_table( $order->get_id() );
 		$output = (string) ob_get_clean();
 		unset( $_GET['key'] );
 
@@ -145,7 +145,7 @@ class WC_Shortcode_Order_Tracking_Test extends WC_Unit_Test_Case {
 		WC_Shortcode_Order_Tracking::output( array() );
 		$output = (string) ob_get_clean();
 
-		$this->assertStringNotContainsString( 'woocommerce-notices-wrapper', $output );
+		$this->assertStringNotContainsString( 'poocommerce-notices-wrapper', $output );
 		$this->assertStringContainsString( 'track_order', $output );
 	}
 }

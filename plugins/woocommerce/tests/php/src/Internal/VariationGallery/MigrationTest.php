@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Tests\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
-use Automattic\WooCommerce\Internal\VariationGallery\Migration;
+use Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
+use Automattic\PooCommerce\Internal\VariationGallery\Migration;
 use WC_Helper_Product;
 
 /**

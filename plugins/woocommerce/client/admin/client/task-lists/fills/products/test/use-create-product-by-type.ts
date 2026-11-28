@@ -3,7 +3,7 @@
  */
 import { act, renderHook } from '@testing-library/react';
 import { useDispatch } from '@wordpress/data';
-import { navigateTo } from '@woocommerce/navigation';
+import { navigateTo } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ jest.mock( '@wordpress/data', () => ( {
 	useDispatch: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	navigateTo: jest.fn(),
 } ) );
 

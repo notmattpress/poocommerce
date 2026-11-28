@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { getBrands } from '@woocommerce/editor-components/utils';
+import { getBrands } from '@poocommerce/editor-components/utils';
 import type {
 	ProductBrandResponseItem,
 	WithInjectedSearchedBrands,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

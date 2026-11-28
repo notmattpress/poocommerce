@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 use \DateTime;
 use \DateTimeZone;

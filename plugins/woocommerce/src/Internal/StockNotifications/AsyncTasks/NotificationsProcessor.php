@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\NotificationQuery;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\NotificationQuery;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
 use WC_Product;
 
 /**
@@ -98,7 +98,7 @@ class NotificationsProcessor {
 	 */
 	private function get_batch_size(): int {
 		/**
-		 * Filter: woocommerce_customer_stock_notifications_batch_size
+		 * Filter: poocommerce_customer_stock_notifications_batch_size
 		 *
 		 * @since 10.2.0
 		 *
@@ -107,7 +107,7 @@ class NotificationsProcessor {
 		 * @param int $batch_size Default batch size.
 		 * @return int
 		 */
-		return (int) apply_filters( 'woocommerce_customer_stock_notifications_batch_size', self::BATCH_SIZE );
+		return (int) apply_filters( 'poocommerce_customer_stock_notifications_batch_size', self::BATCH_SIZE );
 	}
 
 	/**
@@ -263,7 +263,7 @@ class NotificationsProcessor {
 			if ( $is_sent && $notification_product instanceof \WC_Product ) {
 				try {
 					/**
-					 * Action: woocommerce_customer_stock_notification_sent
+					 * Action: poocommerce_customer_stock_notification_sent
 					 *
 					 * @since 11.4.0
 					 *
@@ -272,10 +272,10 @@ class NotificationsProcessor {
 					 * @param Notification $notification The notification that was sent.
 					 * @param WC_Product   $product      The product the notification is about.
 					 */
-					do_action( 'woocommerce_customer_stock_notification_sent', $notification, $notification_product );
+					do_action( 'poocommerce_customer_stock_notification_sent', $notification, $notification_product );
 				} catch ( \Throwable $e ) {
 					$this->logger->error(
-						sprintf( 'A woocommerce_customer_stock_notification_sent callback failed for notification %d: %s', $notification->get_id(), $e->getMessage() ),
+						sprintf( 'A poocommerce_customer_stock_notification_sent callback failed for notification %d: %s', $notification->get_id(), $e->getMessage() ),
 						array( 'source' => 'wc-customer-stock-notifications' )
 					);
 				}

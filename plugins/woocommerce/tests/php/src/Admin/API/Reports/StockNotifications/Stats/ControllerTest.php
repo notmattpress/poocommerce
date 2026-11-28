@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\StockNotifications\Stats;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\StockNotifications\Stats;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Tests\Admin\API\Reports\StockNotifications\ReportTestTrait;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Tests\Admin\API\Reports\StockNotifications\ReportTestTrait;
 use WC_REST_Unit_Test_Case;
 
 /**

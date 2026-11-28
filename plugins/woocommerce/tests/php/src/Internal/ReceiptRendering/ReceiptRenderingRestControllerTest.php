@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ReceiptRendering;
+namespace Automattic\PooCommerce\Tests\Internal\ReceiptRendering;
 
-use Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
-use Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController;
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
+use Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 use WP_REST_Request;

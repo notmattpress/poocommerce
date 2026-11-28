@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Integration tests for the POST /wc/v3/orders/<order_id>/refunds/preview endpoint.
@@ -321,7 +321,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 422, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_quantity_exceeds_refundable', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_quantity_exceeds_refundable', $response->get_data()['code'] );
 	}
 
 	/**
@@ -351,7 +351,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 422, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_preview_exceeds_max_refundable', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_preview_exceeds_max_refundable', $response->get_data()['code'] );
 	}
 
 	/**
@@ -385,7 +385,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 422, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_order_not_refundable', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_order_not_refundable', $response->get_data()['code'] );
 	}
 
 	/**
@@ -419,7 +419,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 422, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_line_item_already_refunded', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_line_item_already_refunded', $response->get_data()['code'] );
 	}
 
 	/**
@@ -456,7 +456,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_duplicate_line_item', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_duplicate_line_item', $response->get_data()['code'] );
 	}
 
 	/**
@@ -477,7 +477,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_line_item_not_found', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_line_item_not_found', $response->get_data()['code'] );
 	}
 
 	/**
@@ -498,7 +498,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_refund_total', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_refund_total', $response->get_data()['code'] );
 	}
 
 	/**
@@ -540,11 +540,11 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_missing_quantity_or_refund_total', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_quantity_or_refund_total', $response->get_data()['code'] );
 	}
 
 	/**
-	 * @testdox Preview with an unknown order ID returns woocommerce_rest_invalid_order_id.
+	 * @testdox Preview with an unknown order ID returns poocommerce_rest_invalid_order_id.
 	 */
 	public function test_preview_unknown_order_id(): void {
 		$response = $this->do_preview_request(
@@ -558,7 +558,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 404, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_order_id', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_order_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -586,7 +586,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 		);
 
 		$this->assertEquals( 404, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_order_id', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_order_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -890,7 +890,7 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_rest_prepare_order_refund_preview filter receives the response object and can mutate it.
+	 * @testdox The poocommerce_rest_prepare_order_refund_preview filter receives the response object and can mutate it.
 	 */
 	public function test_preview_filter_can_mutate_response(): void {
 		$order   = $this->create_order_with_product( 10.00, 1 );
@@ -898,9 +898,9 @@ class WC_REST_Order_Refunds_Preview_Test extends WC_REST_Unit_Test_Case {
 
 		$received_order = null;
 		add_filter(
-			'woocommerce_rest_prepare_order_refund_preview',
+			'poocommerce_rest_prepare_order_refund_preview',
 			function ( $response, $filter_order ) use ( &$received_order ) {
-				$this->assertInstanceOf( WP_REST_Response::class, $response, 'The filter should receive the response object, per the woocommerce_rest_prepare_* family contract.' );
+				$this->assertInstanceOf( WP_REST_Response::class, $response, 'The filter should receive the response object, per the poocommerce_rest_prepare_* family contract.' );
 				$received_order       = $filter_order;
 				$data                 = $response->get_data();
 				$data['custom_field'] = 'custom_value';

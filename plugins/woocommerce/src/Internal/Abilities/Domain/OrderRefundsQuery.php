@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderRefundAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderRefundAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ class OrderRefundsQuery extends AbstractDomainAbility implements AbilityDefiniti
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/order-refunds-query';
+		return 'poocommerce/order-refunds-query';
 	}
 
 	/**
@@ -42,12 +42,12 @@ class OrderRefundsQuery extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query order refunds', 'woocommerce' ),
+			'label'               => __( 'Query order refunds', 'poocommerce' ),
 			'description'         => __(
-				'List the refunds of an order, newest first. Use the woocommerce/order-refund-create ability to refund an order.',
-				'woocommerce'
+				'List the refunds of an order, newest first. Use the poocommerce/order-refund-create ability to refund an order.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -128,12 +128,12 @@ class OrderRefundsQuery extends AbstractDomainAbility implements AbilityDefiniti
 			'properties'           => array(
 				'id'      => array(
 					'type'        => 'integer',
-					'description' => __( 'Order ID.', 'woocommerce' ),
+					'description' => __( 'Order ID.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'include' => array(
 					'type'        => 'array',
-					'description' => __( 'Limit the result to these refund IDs of the order.', 'woocommerce' ),
+					'description' => __( 'Limit the result to these refund IDs of the order.', 'poocommerce' ),
 					'items'       => array(
 						'type'    => 'integer',
 						'minimum' => 1,
@@ -162,7 +162,7 @@ class OrderRefundsQuery extends AbstractDomainAbility implements AbilityDefiniti
 				),
 				'total'   => array(
 					'type'        => 'integer',
-					'description' => __( 'Number of refunds returned.', 'woocommerce' ),
+					'description' => __( 'Number of refunds returned.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

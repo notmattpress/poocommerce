@@ -1,21 +1,21 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Css_Selector_Normalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Css_Selector_Normalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
 use WP_Style_Engine;
 
 /**
@@ -157,7 +157,7 @@ class Renderer {
 			);
 			$template_styles .= '.email_layout_wrapper { box-sizing: border-box;}';
 			$template_styles .= file_get_contents( __DIR__ . '/' . self::TEMPLATE_STYLES_FILE );
-			$template_styles  = Css_Selector_Normalizer::normalize( wp_strip_all_tags( (string) apply_filters( 'woocommerce_email_renderer_styles', $template_styles, $post ) ) );
+			$template_styles  = Css_Selector_Normalizer::normalize( wp_strip_all_tags( (string) apply_filters( 'poocommerce_email_renderer_styles', $template_styles, $post ) ) );
 
 			// Single CSS inlining pass: combine content and template styles, then inline all at once.
 			$all_styles        = '<style>' . $template_styles . $content_styles . '</style>';

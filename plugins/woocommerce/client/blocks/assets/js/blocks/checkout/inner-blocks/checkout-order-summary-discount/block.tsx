@@ -1,19 +1,19 @@
 /**
  * External dependencies
  */
-import { TotalsDiscount } from '@woocommerce/base-components/cart-checkout';
-import { TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsDiscount } from '@poocommerce/base-components/cart-checkout';
+import { TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useStoreCartCoupons,
 	useStoreCart,
 	useOrderSummaryLoadingState,
 	useOrderSummaryRow,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import {
 	ExperimentalDiscountsMeta,
 	applyCheckoutFilter,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 
 const couponsFilterArg = { context: 'summary' };
 
@@ -24,7 +24,7 @@ const DiscountSlotFill = (): JSX.Element => {
 	const discountsSlotFillProps = {
 		extensions,
 		cart,
-		context: 'woocommerce/checkout',
+		context: 'poocommerce/checkout',
 	};
 
 	return <ExperimentalDiscountsMeta.Slot { ...discountsSlotFillProps } />;

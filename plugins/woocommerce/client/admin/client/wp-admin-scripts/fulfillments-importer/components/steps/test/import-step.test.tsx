@@ -199,7 +199,7 @@ describe( 'ImportStep', () => {
 		).toBeNull();
 		expect(
 			document
-				.querySelector( '.woocommerce-fulfillment-importer-counts' )
+				.querySelector( '.poocommerce-fulfillment-importer-counts' )
 				?.closest( '[aria-busy="true"]' )
 		).toBeNull();
 	} );

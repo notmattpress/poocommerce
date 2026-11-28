@@ -1,6 +1,6 @@
 @import "@wordpress/base-styles/_colors.scss";
 
-.woocommerce-fulfillment-importer-step {
+.poocommerce-fulfillment-importer-step {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
@@ -21,11 +21,11 @@
 
 // The design system track defaults to a fixed width; the wizard uses the
 // full card width. The extra ancestor wins over the emotion-injected style.
-.woocommerce-fulfillment-importer-step .woocommerce-fulfillment-importer-progress {
+.poocommerce-fulfillment-importer-step .poocommerce-fulfillment-importer-progress {
 	width: 100%;
 }
 
-.woocommerce-fulfillment-importer-counts {
+.poocommerce-fulfillment-importer-counts {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 	gap: 12px;

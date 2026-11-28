@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
+import { recordEvent } from '@poocommerce/tracks';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
 import { useDispatch, useRegistry, useSelect } from '@wordpress/data';
 import type { BlockInstance } from '@wordpress/blocks';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
-const TERMS_BLOCK = 'woocommerce/checkout-terms-block';
-const ACTIONS_BLOCK = 'woocommerce/checkout-actions-block';
+const TERMS_BLOCK = 'poocommerce/checkout-terms-block';
+const ACTIONS_BLOCK = 'poocommerce/checkout-actions-block';
 
 /**
  * Finds the Terms and Actions blocks that sit alongside the given block in Checkout Fields.
@@ -88,12 +88,12 @@ export const SwitchToActionsTermsNotice = ( {
 		<UpgradeDowngradeNotice
 			className="wc-block-checkout__terms_notice"
 			isDismissible={ false }
-			actionLabel={ __( 'Switch to the Actions block', 'woocommerce' ) }
+			actionLabel={ __( 'Switch to the Actions block', 'poocommerce' ) }
 			onActionClick={ switchTerms }
 		>
 			{ __(
 				'Show Terms and Conditions next to the Place order button. Your text and checkbox setting move to the Actions block.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</UpgradeDowngradeNotice>
 	);

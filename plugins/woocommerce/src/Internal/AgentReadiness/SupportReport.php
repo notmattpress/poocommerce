@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -140,8 +140,8 @@ class SupportReport {
 			'### AI shopping health ###',
 			'',
 			'Site: ' . home_url(),
-			'WooCommerce version: ' . (string) Constants::get_constant( 'WC_VERSION' ),
-			'Rules version: ' . ( '' !== $rules ? $rules : 'Built into WooCommerce' ),
+			'PooCommerce version: ' . (string) Constants::get_constant( 'WC_VERSION' ),
+			'Rules version: ' . ( '' !== $rules ? $rules : 'Built into PooCommerce' ),
 			'Last checked: ' . ( null === $report ? 'Not checked yet' : (string) ( $report['generated_at'] ?? '' ) ),
 			'Check status: ' . $state,
 		);

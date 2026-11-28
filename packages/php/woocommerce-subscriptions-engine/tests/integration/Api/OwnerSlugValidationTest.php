@@ -2,32 +2,32 @@
 /**
  * Integration tests for the owner slug format check at every facade entry point.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Plans;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ValidationException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\CycleView;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\PlanView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Plans;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ValidationException;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\CycleView;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\PlanView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
 
 /**
  * An `extension_slug` outside `[a-z0-9_-]{1,64}` is refused before any engine table is read or
  * written, at every facade that takes an owner.
  *
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Plans
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Plans
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator
  */
 class OwnerSlugValidationTest extends EngineIntegrationTestCase {
 

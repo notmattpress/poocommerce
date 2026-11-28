@@ -3,7 +3,7 @@
  * Plugin Name: E2E Log Marker
  * Description: Writes a marker to verify the browser test site's PHP debug log.
  *
- * @package WooCommerce\ExtensionTooling
+ * @package PooCommerce\ExtensionTooling
  */
 
 defined( 'ABSPATH' ) || exit;

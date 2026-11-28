@@ -2,25 +2,25 @@
 /**
  * Unit tests for the Cycle entity.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInternalInvariant;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\StatusRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\PlanSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\ValueObject\ItemsSnapshot;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInternalInvariant;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\Cycle
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\Cycle
  */
 class CycleTest extends TestCase {
 

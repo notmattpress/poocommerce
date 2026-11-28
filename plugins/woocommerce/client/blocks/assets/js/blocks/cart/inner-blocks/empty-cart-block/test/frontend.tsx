@@ -3,21 +3,21 @@
  */
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { cartStore } from '@poocommerce/block-data';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
  */
 import EmptyCart from '../frontend';
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn(),
 } ) );
 
 // Keep the entrance attribute in place. jsdom has no animations, so it would be removed at once.
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	whenAnimationsEnd: () => () => undefined,
 } ) );
 
@@ -37,7 +37,7 @@ const mockCart = ( {
 
 // A new element each time, so a rerender renders the block again.
 const emptyCartBlock = () => (
-	<EmptyCart className="wp-block-woocommerce-empty-cart-block">
+	<EmptyCart className="wp-block-poocommerce-empty-cart-block">
 		<p>Empty Cart</p>
 	</EmptyCart>
 );

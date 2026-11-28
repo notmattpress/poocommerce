@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G15A-v3",
-			"path": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+			"path": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 			"before": {
 				"file": "fixtures/G15A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+						"file": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 						"lines": [
 							7,
 							7
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G15B-v3",
-			"path": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+			"path": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 			"before": {
 				"file": "fixtures/G15B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+						"file": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 						"lines": [
 							5,
 							5
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G15C-v3",
-			"path": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+			"path": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 			"before": {
 				"file": "fixtures/G15C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G15D-v3",
-			"path": "plugins/woocommerce/templates/single-product/add-to-cart/simple.php",
+			"path": "plugins/poocommerce/templates/single-product/add-to-cart/simple.php",
 			"before": {
 				"file": "fixtures/G15D/before.php"
 			},

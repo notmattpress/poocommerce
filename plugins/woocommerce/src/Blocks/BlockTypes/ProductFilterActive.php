@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
 
@@ -65,19 +65,19 @@ final class ProductFilterActive extends AbstractBlock {
 
 		$filter_context = array(
 			'items'          => $removable_items,
-			'storeNamespace' => 'woocommerce/product-filters',
+			'storeNamespace' => 'poocommerce/product-filters',
 		);
 
 		$is_empty            = empty( $removable_items );
 		$product_filters_key = $block->context['productFiltersKey'] ?? '';
 		if ( is_string( $product_filters_key ) && '' !== $product_filters_key ) {
-			$state = wp_interactivity_state( 'woocommerce/product-filters' );
+			$state = wp_interactivity_state( 'poocommerce/product-filters' );
 			$state['filterEmptyStates'][ $product_filters_key ][] = $is_empty;
-			wp_interactivity_state( 'woocommerce/product-filters', $state );
+			wp_interactivity_state( 'poocommerce/product-filters', $state );
 		}
 
 		$wrapper_attributes = array(
-			'data-wp-interactive'  => 'woocommerce/product-filters',
+			'data-wp-interactive'  => 'poocommerce/product-filters',
 			'data-wp-key'          => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'      => wp_json_encode(
 				array(
@@ -90,17 +90,17 @@ final class ProductFilterActive extends AbstractBlock {
 		);
 
 		wp_interactivity_state(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'hasActiveFilters' => ! empty( $removable_items ),
 			),
 		);
 
 		wp_interactivity_config(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				/* translators:  {{label}} is the label of the active filter item. */
-				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'woocommerce' ),
+				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'poocommerce' ),
 			)
 		);
 
@@ -110,7 +110,7 @@ final class ProductFilterActive extends AbstractBlock {
 			array_reduce(
 				$block->parsed_block['innerBlocks'],
 				function ( $carry, $parsed_block ) use ( $filter_context ) {
-					$carry .= ( new \WP_Block( $parsed_block, array( 'woocommerce/removableItems' => $filter_context ) ) )->render();
+					$carry .= ( new \WP_Block( $parsed_block, array( 'poocommerce/removableItems' => $filter_context ) ) )->render();
 					return $carry;
 				},
 				''

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G37A-v5",
-			"path": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+			"path": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 			"before": {
 				"file": "fixtures/G37A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+						"file": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 						"lines": [
 							6,
 							6
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G37B-v3",
-			"path": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+			"path": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 			"before": {
 				"file": "fixtures/G37B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+						"file": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 						"lines": [
 							7,
 							7
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G37C-v3",
-			"path": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+			"path": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 			"before": {
 				"file": "fixtures/G37C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G37D-v3",
-			"path": "plugins/woocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
+			"path": "plugins/poocommerce/includes/rest-api/class-wc-rest-eval-settings.php",
 			"before": {
 				"file": "fixtures/G37D/before.php"
 			},

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G11A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-install.php",
+			"path": "plugins/poocommerce/includes/class-wc-install.php",
 			"before": {
 				"file": "fixtures/G11A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-install.php",
+						"file": "plugins/poocommerce/includes/class-wc-install.php",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G11B-v3",
-			"path": "plugins/woocommerce/includes/wc-update-functions.php",
+			"path": "plugins/poocommerce/includes/wc-update-functions.php",
 			"before": {
 				"file": "fixtures/G11B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/wc-update-functions.php",
+						"file": "plugins/poocommerce/includes/wc-update-functions.php",
 						"lines": [
 							6,
 							6
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G11C-v3",
-			"path": "plugins/woocommerce/includes/wc-update-functions.php",
+			"path": "plugins/poocommerce/includes/wc-update-functions.php",
 			"before": {
 				"file": "fixtures/G11C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G11D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-install.php",
+			"path": "plugins/poocommerce/includes/class-wc-install.php",
 			"before": {
 				"file": "fixtures/G11D/before.php"
 			},

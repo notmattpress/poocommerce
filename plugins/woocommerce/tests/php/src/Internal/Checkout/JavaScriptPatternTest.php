@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Checkout;
+namespace Automattic\PooCommerce\Tests\Internal\Checkout;
 
-use Automattic\WooCommerce\Internal\Checkout\JavaScriptPattern;
+use Automattic\PooCommerce\Internal\Checkout\JavaScriptPattern;
 use WC_Unit_Test_Case;
 
 /**

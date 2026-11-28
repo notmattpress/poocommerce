@@ -169,7 +169,7 @@ config=$(jq -ce '
 			privatePlugins: ($c | opt("pullRequests"; {}) | opt("privatePlugins"; false))
 		},
 		release: {
-			target: ($rel | opt("target"; "woocommerce.com")),
+			target: ($rel | opt("target"; "poocommerce.com")),
 			productId: ($rel | opt("productId"; "")),
 			readmeChangelog: ($rel | opt("readmeChangelog"; false)),
 			wpOrgSlug: ($rel | opt("wpOrgSlug"; ""))
@@ -188,7 +188,7 @@ fi
 # Turns config.woo.phpunit.legs into concrete jobs. A leg's `wp` and `wc` are `latest`,
 # `previous` (WordPress only: the newest release of the previous major series, from
 # $PREVIOUS_WP), `minimum` (the main file's "Requires at least" / "WC requires at least") or a
-# version. A requested WordPress or WooCommerce version replaces `latest` and `previous`. A
+# version. A requested WordPress or PooCommerce version replaces `latest` and `previous`. A
 # requested PHP version replaces every leg's PHP when phpunit.phpInput is "replace", except on
 # legs with a `minimum` or fixed WordPress version. Legs with `"defaultOnly": true` run only
 # when no WordPress or PHP version is requested, and legs with `"scheduledOnly": true` only when

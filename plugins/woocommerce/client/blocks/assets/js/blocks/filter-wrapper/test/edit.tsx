@@ -96,18 +96,18 @@ jest.mock( '@wordpress/data', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/editor-components/upgrade-downgrade-notice', () => ( {
+jest.mock( '@poocommerce/editor-components/upgrade-downgrade-notice', () => ( {
 	UpgradeDowngradeNotice: jest.fn( ( { children } ) => (
 		<div>{ children }</div>
 	) ),
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	blocksConfig: { productCount: 1 },
 } ) );
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	const queryState = {};
 	const queryValues: string[] = [];
 	const setQueryState = jest.fn();
@@ -134,7 +134,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => {
 	};
 
 	return {
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useCollectionData: jest.fn( () => ( {
 			data: collectionData,
 			isLoading: false,
@@ -144,14 +144,14 @@ jest.mock( '@woocommerce/base-context/hooks', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	const stockStatusOptions = {
 		instock: 'In stock',
 		outofstock: 'Out of stock',
 	};
 
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSetting: jest.fn( ( key, defaultValue ) => {
 			if ( key === 'stockStatusOptions' ) {
 				return stockStatusOptions;
@@ -208,7 +208,7 @@ describe( 'legacy filter editor ownership', () => {
 		).toBeInTheDocument();
 		expect( screen.getByTestId( 'locked-filter-child' ) ).toHaveAttribute(
 			'data-block-name',
-			`woocommerce/${ row.filterType }`
+			`poocommerce/${ row.filterType }`
 		);
 		expect( screen.getByTestId( 'locked-filter-child' ) ).toHaveAttribute(
 			'data-lock-remove',
@@ -221,7 +221,7 @@ describe( 'legacy filter editor ownership', () => {
 		expect( innerBlocksProps.template ).toEqual( [
 			[ 'core/heading', { content: row.heading, level: 3 } ],
 			[
-				`woocommerce/${ row.filterType }`,
+				`poocommerce/${ row.filterType }`,
 				{ heading: '', lock: { remove: true } },
 			],
 		] );

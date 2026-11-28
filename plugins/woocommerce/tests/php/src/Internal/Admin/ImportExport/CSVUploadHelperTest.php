@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ImportExport;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
 use WC_Unit_Test_Case;
 
 /**
@@ -32,7 +32,7 @@ class CSVUploadHelperTest extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		$import_dir = $this->sut->get_import_dir( false );
 		if ( is_dir( $import_dir ) ) {
-			\Automattic\WooCommerce\Internal\Utilities\FilesystemUtil::get_wp_filesystem_direct()->delete( $import_dir, true );
+			\Automattic\PooCommerce\Internal\Utilities\FilesystemUtil::get_wp_filesystem_direct()->delete( $import_dir, true );
 		}
 
 		parent::tearDown();
@@ -121,7 +121,7 @@ class CSVUploadHelperTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should correct filetype and extension to csv when PHP misidentifies a CSV as text/html.
 	 */
-	public function test_filter_woocommerce_check_filetype_for_csv_corrects_misidentified_html(): void {
+	public function test_filter_poocommerce_check_filetype_for_csv_corrects_misidentified_html(): void {
 		$data  = array(
 			'ext'             => 'txt',
 			'type'            => 'text/plain',
@@ -131,7 +131,7 @@ class CSVUploadHelperTest extends WC_Unit_Test_Case {
 			'csv' => 'text/csv',
 		);
 
-		$filtered = $this->sut->filter_woocommerce_check_filetype_for_csv(
+		$filtered = $this->sut->filter_poocommerce_check_filetype_for_csv(
 			$data,
 			'/tmp/test.csv',
 			'test.csv',
@@ -146,7 +146,7 @@ class CSVUploadHelperTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should not modify filetype data when real mime is not text/html.
 	 */
-	public function test_filter_woocommerce_check_filetype_for_csv_ignores_non_html_mime(): void {
+	public function test_filter_poocommerce_check_filetype_for_csv_ignores_non_html_mime(): void {
 		$data  = array(
 			'ext'             => false,
 			'type'            => false,
@@ -156,7 +156,7 @@ class CSVUploadHelperTest extends WC_Unit_Test_Case {
 			'csv' => 'text/csv',
 		);
 
-		$filtered = $this->sut->filter_woocommerce_check_filetype_for_csv(
+		$filtered = $this->sut->filter_poocommerce_check_filetype_for_csv(
 			$data,
 			'/tmp/test.csv',
 			'test.csv',

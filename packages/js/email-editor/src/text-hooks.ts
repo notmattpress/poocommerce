@@ -35,7 +35,7 @@ export const initTextHooks = (): void => {
 
 	addFilterForEmail(
 		'i18n.gettext',
-		'woocommerce/email-editor/override-text',
+		'poocommerce/email-editor/override-text',
 		( translation, text, domain ) => {
 			if (
 				replaceTextMatrix[ text ] &&

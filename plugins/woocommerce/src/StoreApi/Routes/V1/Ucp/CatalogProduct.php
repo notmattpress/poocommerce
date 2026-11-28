@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * UCP `POST /catalog/product` route.
@@ -63,15 +63,15 @@ class CatalogProduct extends AbstractCatalogRoute {
 			parent::get_request_args(),
 			array(
 				'id'       => array(
-					'description' => __( 'Product or variant identifier.', 'woocommerce' ),
+					'description' => __( 'Product or variant identifier.', 'poocommerce' ),
 					'type'        => array( 'string', 'integer' ),
 				),
 				'selected' => array(
-					'description' => __( 'Option selections used to narrow the returned variants.', 'woocommerce' ),
+					'description' => __( 'Option selections used to narrow the returned variants.', 'poocommerce' ),
 					'type'        => 'array',
 				),
 				'filters'  => array(
-					'description' => __( 'Filter criteria to narrow the returned variants.', 'woocommerce' ),
+					'description' => __( 'Filter criteria to narrow the returned variants.', 'poocommerce' ),
 					'type'        => 'object',
 				),
 			)
@@ -91,7 +91,7 @@ class CatalogProduct extends AbstractCatalogRoute {
 		$id = trim( strval( Utils::json_param( $request, 'id' ) ) );
 
 		if ( '' === $id ) {
-			return $this->ucp_error( 'VALIDATION_ERROR', __( 'id is required.', 'woocommerce' ), 'recoverable', 400 );
+			return $this->ucp_error( 'VALIDATION_ERROR', __( 'id is required.', 'poocommerce' ), 'recoverable', 400 );
 		}
 
 		$selected = (array) ( Utils::json_param( $request, 'selected' ) ?? array() );
@@ -103,7 +103,7 @@ class CatalogProduct extends AbstractCatalogRoute {
 				'request_too_large',
 				sprintf(
 					/* translators: %d: maximum number of selected options accepted per request. */
-					__( 'selected accepts at most %d options per request.', 'woocommerce' ),
+					__( 'selected accepts at most %d options per request.', 'poocommerce' ),
 					self::MAX_SELECTED_OPTIONS
 				),
 				'recoverable',
@@ -129,7 +129,7 @@ class CatalogProduct extends AbstractCatalogRoute {
 						array(
 							'type'         => 'error',
 							'code'         => 'not_found',
-							'content'      => __( 'Product not found.', 'woocommerce' ),
+							'content'      => __( 'Product not found.', 'poocommerce' ),
 							'severity'     => 'unrecoverable',
 							'path'         => '$.id',
 							'content_type' => 'plain',
@@ -152,7 +152,7 @@ class CatalogProduct extends AbstractCatalogRoute {
 						array(
 							'type'         => 'error',
 							'code'         => 'not_found',
-							'content'      => __( 'No variant of this product matches the filters.', 'woocommerce' ),
+							'content'      => __( 'No variant of this product matches the filters.', 'poocommerce' ),
 							'severity'     => 'recoverable',
 							'path'         => '$.filters',
 							'content_type' => 'plain',

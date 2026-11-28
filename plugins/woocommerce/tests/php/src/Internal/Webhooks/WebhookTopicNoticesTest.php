@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Webhooks;
+namespace Automattic\PooCommerce\Tests\Internal\Webhooks;
 
-use Automattic\WooCommerce\Internal\Webhooks\WebhookTopicNotices;
+use Automattic\PooCommerce\Internal\Webhooks\WebhookTopicNotices;
 use WC_Admin_Notices;
 use WC_Data_Store;
 use WC_Unit_Test_Case;
@@ -55,15 +55,15 @@ class WebhookTopicNoticesTest extends WC_Unit_Test_Case {
 	 * @testdox Should disable stored webhooks on refused topics, keep their topic, and list them in a notice.
 	 */
 	public function test_disables_webhooks_on_refused_topics_and_adds_notice(): void {
-		$blocked = $this->create_webhook( 'Mail webhook', 'action.woocommerce_add_to_cart' );
-		$this->set_raw_topic( $blocked->get_id(), 'action.woocommerce_mail_content' );
-		$allowed = $this->create_webhook( 'Cart tracker', 'action.woocommerce_add_to_cart' );
+		$blocked = $this->create_webhook( 'Mail webhook', 'action.poocommerce_add_to_cart' );
+		$this->set_raw_topic( $blocked->get_id(), 'action.poocommerce_mail_content' );
+		$allowed = $this->create_webhook( 'Cart tracker', 'action.poocommerce_add_to_cart' );
 
 		$data_store = WC_Data_Store::load( 'webhook' );
 		$this->assertContains( $blocked->get_id(), $data_store->get_webhooks_ids( 'active' ) );
 		$updated_ids = array();
 		add_action(
-			'woocommerce_webhook_updated',
+			'poocommerce_webhook_updated',
 			function ( $webhook_id ) use ( &$updated_ids, $data_store ) {
 				$updated_ids[] = $webhook_id;
 				$this->assertSame( 'disabled', wc_get_webhook( $webhook_id )->get_status() );
@@ -76,29 +76,29 @@ class WebhookTopicNoticesTest extends WC_Unit_Test_Case {
 
 		$this->assertSame( array( $blocked->get_id() ), $updated_ids, 'Only the webhook that was disabled should send one update notification.' );
 		$this->assertSame( 'disabled', $this->get_raw_column( $blocked->get_id(), 'status' ), 'The webhook on a refused topic should be disabled' );
-		$this->assertSame( 'action.woocommerce_mail_content', $this->get_raw_column( $blocked->get_id(), 'topic' ), 'The stored topic should be kept' );
+		$this->assertSame( 'action.poocommerce_mail_content', $this->get_raw_column( $blocked->get_id(), 'topic' ), 'The stored topic should be kept' );
 		$this->assertSame( 'active', wc_get_webhook( $allowed->get_id() )->get_status(), 'A webhook on an allowed topic should stay active' );
 		$this->assertTrue( WC_Admin_Notices::has_notice( WebhookTopicNotices::BLOCKED_TOPICS_NOTICE ), 'A notice should be added' );
-		$this->assertStringContainsString( 'action.woocommerce_mail_content', (string) get_option( 'woocommerce_admin_notice_' . WebhookTopicNotices::BLOCKED_TOPICS_NOTICE ), 'The notice should name the refused topic' );
+		$this->assertStringContainsString( 'action.poocommerce_mail_content', (string) get_option( 'poocommerce_admin_notice_' . WebhookTopicNotices::BLOCKED_TOPICS_NOTICE ), 'The notice should name the refused topic' );
 	}
 
 	/**
 	 * @testdox Lists already-disabled webhooks without claiming that their status changed.
 	 */
 	public function test_notice_includes_already_disabled_webhook(): void {
-		$webhook = $this->create_webhook( 'Old PayPal webhook', 'action.woocommerce_add_to_cart' );
+		$webhook = $this->create_webhook( 'Old PayPal webhook', 'action.poocommerce_add_to_cart' );
 		$webhook->set_status( 'disabled' );
 		$webhook->save();
-		$this->set_raw_topic( $webhook->get_id(), 'action.woocommerce_paypal_refund_request' );
-		$updates = did_action( 'woocommerce_webhook_updated' );
+		$this->set_raw_topic( $webhook->get_id(), 'action.poocommerce_paypal_refund_request' );
+		$updates = did_action( 'poocommerce_webhook_updated' );
 
 		$this->sut->handle_admin_init();
 
-		$notice = (string) get_option( 'woocommerce_admin_notice_' . WebhookTopicNotices::BLOCKED_TOPICS_NOTICE );
+		$notice = (string) get_option( 'poocommerce_admin_notice_' . WebhookTopicNotices::BLOCKED_TOPICS_NOTICE );
 		$this->assertStringContainsString( 'Some webhooks use topics that are no longer supported.', $notice );
 		$this->assertStringContainsString( 'Old PayPal webhook', $notice );
 		$this->assertSame( 'disabled', $this->get_raw_column( $webhook->get_id(), 'status' ) );
-		$this->assertSame( $updates, did_action( 'woocommerce_webhook_updated' ), 'Already-disabled webhooks should only appear in the notice.' );
+		$this->assertSame( $updates, did_action( 'poocommerce_webhook_updated' ), 'Already-disabled webhooks should only appear in the notice.' );
 	}
 
 	/**
@@ -107,8 +107,8 @@ class WebhookTopicNoticesTest extends WC_Unit_Test_Case {
 	public function test_checks_stored_webhooks_once(): void {
 		$this->sut->handle_admin_init();
 
-		$blocked = $this->create_webhook( 'Mail webhook', 'action.woocommerce_add_to_cart' );
-		$this->set_raw_topic( $blocked->get_id(), 'action.woocommerce_mail_content' );
+		$blocked = $this->create_webhook( 'Mail webhook', 'action.poocommerce_add_to_cart' );
+		$this->set_raw_topic( $blocked->get_id(), 'action.poocommerce_mail_content' );
 		$this->sut->handle_admin_init();
 
 		$this->assertSame( 'active', $this->get_raw_column( $blocked->get_id(), 'status' ), 'A later admin page load should not scan the webhooks again' );

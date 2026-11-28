@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,26 +31,26 @@ defined( 'ABSPATH' ) || exit;
  */
 class ScheduledScan implements RegisterHooksInterface {
 
-	public const RUN_NOW_HOOK = 'woocommerce_agent_readiness_scan';
+	public const RUN_NOW_HOOK = 'poocommerce_agent_readiness_scan';
 
-	public const DAILY_HOOK = 'woocommerce_agent_readiness_daily_scan';
+	public const DAILY_HOOK = 'poocommerce_agent_readiness_daily_scan';
 
 	/**
 	 * Hook that tests the next batch of a scan, with the scan's id.
 	 */
-	public const NEXT_HOOK = 'woocommerce_agent_readiness_scan_next';
+	public const NEXT_HOOK = 'poocommerce_agent_readiness_scan_next';
 
 	/**
 	 * Seconds before a batch that ended early, as on a timeout, is tried again.
 	 */
 	public const RETRY_AFTER = 10 * MINUTE_IN_SECONDS;
 
-	public const GROUP = 'woocommerce-agent-readiness';
+	public const GROUP = 'poocommerce-agent-readiness';
 
 	/**
 	 * Option that holds whether the store is checked every day: 'no' when the merchant turned it off.
 	 */
-	public const DAILY_OPTION = 'woocommerce_agent_readiness_daily_scan';
+	public const DAILY_OPTION = 'poocommerce_agent_readiness_daily_scan';
 
 	/**
 	 * Hours of the night, on the store's clock, between which the daily scan is scheduled.

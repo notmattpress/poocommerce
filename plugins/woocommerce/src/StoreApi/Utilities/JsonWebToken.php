@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 /**
  * JsonWebToken class.

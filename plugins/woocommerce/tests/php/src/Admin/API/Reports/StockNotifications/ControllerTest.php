@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\StockNotifications;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\StockNotifications\Controller;
-use Automattic\WooCommerce\Admin\API\Reports\StockNotifications\DataStore as ReportDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotifications;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\StockNotifications\Controller;
+use Automattic\PooCommerce\Admin\API\Reports\StockNotifications\DataStore as ReportDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotifications;
 use Exception;
 use WC_Data_Store;
 use WC_Helper_Product;

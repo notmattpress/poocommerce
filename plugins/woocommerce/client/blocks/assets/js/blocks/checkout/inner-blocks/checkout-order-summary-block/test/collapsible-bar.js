@@ -12,7 +12,7 @@ import {
 	ExperimentalDiscountsMeta,
 	ExperimentalOrderMeta,
 	SlotFillProvider,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 import { useLayoutEffect, useRef } from '@wordpress/element';
 
 /**
@@ -22,10 +22,10 @@ import { previewCart as mockPreviewCart } from '../../../../../previews/cart';
 import SummaryBlock from '../frontend';
 import { CheckoutOrderSummarySlot } from '../slotfills';
 
-const baseContext = jest.requireMock( '@woocommerce/base-context' );
+const baseContext = jest.requireMock( '@poocommerce/base-context' );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	SITE_CURRENCY: {
 		code: 'USD',
 		symbol: '$',
@@ -37,8 +37,8 @@ jest.mock( '@woocommerce/settings', () => ( {
 	},
 } ) );
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
-	...jest.requireActual( '@woocommerce/base-context/hooks' ),
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
+	...jest.requireActual( '@poocommerce/base-context/hooks' ),
 	useStoreCart: jest.fn().mockReturnValue( {
 		cartItems: [],
 		cartTotals: {
@@ -61,8 +61,8 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	useContainerWidthContext: jest.fn(),
 } ) );
 
@@ -345,7 +345,7 @@ describe( 'Checkout Order Summary placement', () => {
 					<ExperimentalDiscountsMeta.Slot
 						extensions={ {} }
 						cart={ {} }
-						context="woocommerce/checkout"
+						context="poocommerce/checkout"
 					/>
 				</SummaryBlock>
 				<CheckoutOrderSummarySlot />

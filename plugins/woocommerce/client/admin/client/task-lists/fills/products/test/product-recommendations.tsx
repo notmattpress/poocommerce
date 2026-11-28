@@ -3,14 +3,14 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { ProductRecommendations } from '../product-recommendations';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 jest.mock( '~/lib/in-app-purchase', () => ( {
 	getInAppPurchaseUrl: ( url: string ) => `${ url }?utm=1`,
 } ) );
@@ -18,11 +18,11 @@ jest.mock( '~/lib/in-app-purchase', () => ( {
 const items = [
 	{
 		slug: 'products-list-empty-body-bookings',
-		product: 'woocommerce-bookings',
+		product: 'poocommerce-bookings',
 		title: 'Bookings',
 		copy: 'Take bookings.',
 		icon: 'https://example.com/bookings.png',
-		url: 'https://woocommerce.com/products/woocommerce-bookings/',
+		url: 'https://poocommerce.com/products/poocommerce-bookings/',
 		promoted: '',
 	},
 	{
@@ -31,7 +31,7 @@ const items = [
 		title: 'Gift Cards',
 		copy: 'Sell gift cards.',
 		icon: '',
-		url: 'https://woocommerce.com/products/gift-cards/',
+		url: 'https://poocommerce.com/products/gift-cards/',
 		promoted: 'promo',
 	},
 ];
@@ -39,9 +39,9 @@ const items = [
 const bookingsClick = {
 	suggestion_slug: 'products-list-empty-body-bookings',
 	context: 'products-list-empty-body',
-	product: 'woocommerce-bookings',
+	product: 'poocommerce-bookings',
 	promoted: '',
-	target: 'https://woocommerce.com/products/woocommerce-bookings/?utm=1',
+	target: 'https://poocommerce.com/products/poocommerce-bookings/?utm=1',
 };
 
 describe( 'ProductRecommendations', () => {
@@ -61,7 +61,7 @@ describe( 'ProductRecommendations', () => {
 				context: 'products-list-empty-body',
 				product: 'gift-cards',
 				promoted: 'promo',
-				target: 'https://woocommerce.com/products/gift-cards/',
+				target: 'https://poocommerce.com/products/gift-cards/',
 			}
 		);
 	} );
@@ -105,7 +105,7 @@ describe( 'ProductRecommendations', () => {
 
 		await userEvent.click(
 			screen.getByRole( 'link', {
-				name: 'Visit the WooCommerce Marketplace',
+				name: 'Visit the PooCommerce Marketplace',
 			} )
 		);
 		expect( recordEvent ).toHaveBeenLastCalledWith(

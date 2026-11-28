@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
-const BLOCK_NAME = 'woocommerce/legacy-template';
+const BLOCK_NAME = 'poocommerce/legacy-template';
 
 test.describe( `${ BLOCK_NAME } Block `, () => {
 	test( `is visible as default block when wc_blocks_use_blockified_product_grid_block_as_template is false`, async ( {

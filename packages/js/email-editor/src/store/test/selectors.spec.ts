@@ -165,7 +165,7 @@ describe( 'email editor store selectors', () => {
 
 			expect( posts.map( ( post ) => post.id ) ).toEqual( [ 1 ] );
 			expect( applyFilters ).toHaveBeenCalledWith(
-				'woocommerce_email_editor_recent_emails_query',
+				'poocommerce_email_editor_recent_emails_query',
 				{ per_page: 30, status: 'publish,sent' },
 				'woo_email'
 			);

@@ -7,17 +7,17 @@ import {
 	useCheckoutAddress,
 	useEditorContext,
 	noticeContexts,
-} from '@woocommerce/base-context';
+} from '@poocommerce/base-context';
 import {
 	StoreNoticesContainer,
 	CheckboxControl,
-} from '@woocommerce/blocks-components';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import type { BillingAddress } from '@woocommerce/settings';
-import { getSetting } from '@woocommerce/settings';
-import { emptyAddressFields } from '@woocommerce/base-utils';
-import { useToggleCollapse } from '@woocommerce/base-hooks';
-import type { CartResponseBillingAddress } from '@woocommerce/types';
+} from '@poocommerce/blocks-components';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import type { BillingAddress } from '@poocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
+import { emptyAddressFields } from '@poocommerce/base-utils';
+import { useToggleCollapse } from '@poocommerce/base-hooks';
+import type { CartResponseBillingAddress } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -106,7 +106,7 @@ const Block = (): JSX.Element => {
 			<CheckboxControl
 				ref={ billingCollapse.triggerRef }
 				className="wc-block-checkout__use-address-for-billing"
-				label={ __( 'Use same address for billing', 'woocommerce' ) }
+				label={ __( 'Use same address for billing', 'poocommerce' ) }
 				checked={ useShippingAsBilling }
 				onChange={ ( checked: boolean ) => {
 					billingCollapse.onToggle();

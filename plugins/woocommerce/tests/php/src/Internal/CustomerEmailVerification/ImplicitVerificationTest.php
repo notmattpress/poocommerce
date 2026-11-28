@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationEventListener;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationEventListener;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -40,8 +40,8 @@ class ImplicitVerificationTest extends WC_Unit_Test_Case {
 	 * @param string $flow Email delivery flow.
 	 */
 	public function test_emailed_credential_verifies_bound_address( string $flow ): void {
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
-		update_option( 'woocommerce_customer_verify_email_settings', array( 'enabled' => 'no' ) );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_customer_verify_email_settings', array( 'enabled' => 'no' ) );
 		$user_id = self::factory()->user->create(
 			array(
 				'user_email' => 'bound@example.com',
@@ -83,7 +83,7 @@ class ImplicitVerificationTest extends WC_Unit_Test_Case {
 		if ( in_array( $scenario, array( 'recipient-change', 'multiple-recipients' ), true ) ) {
 			$recipient = 'multiple-recipients' === $scenario ? 'binding@example.com,other@example.com' : 'different@example.com';
 			add_filter(
-				'woocommerce_email_recipient_customer_reset_password',
+				'poocommerce_email_recipient_customer_reset_password',
 				static fn () => $recipient
 			);
 		}
@@ -171,14 +171,14 @@ class ImplicitVerificationTest extends WC_Unit_Test_Case {
 		$order->set_customer_id( 0 );
 		$order->set_billing_email( 'reset@example.com' );
 		$order->save();
-		$verification_events = did_action( 'woocommerce_customer_email_verified' );
+		$verification_events = did_action( 'poocommerce_customer_email_verified' );
 
 		reset_password( $user, 'newpassword123' );
 		$updated_user = get_user_by( 'id', $user_id );
 
 		$this->assertTrue( wp_check_password( 'newpassword123', $updated_user->user_pass, $user_id ), 'The ordinary password reset should still succeed.' );
 		$this->assertFalse( $this->sut->is_verified( $user_id ), 'A reset must not verify an email without issuance-bound proof.' );
-		$this->assertSame( $verification_events, did_action( 'woocommerce_customer_email_verified' ), 'Reset must not emit the email-verification event.' );
+		$this->assertSame( $verification_events, did_action( 'poocommerce_customer_email_verified' ), 'Reset must not emit the email-verification event.' );
 		$this->assertSame( 0, wc_get_order( $order->get_id() )->get_customer_id(), 'A reset must not link a matching guest order.' );
 	}
 
@@ -188,12 +188,12 @@ class ImplicitVerificationTest extends WC_Unit_Test_Case {
 	public function test_password_reset_preserves_existing_verification(): void {
 		$user_id = wc_create_new_customer( 'verified@example.com', 'verifieduser', 'pw' );
 		$this->sut->mark_verified( $user_id, 'verified@example.com' );
-		$verification_events = did_action( 'woocommerce_customer_email_verified' );
+		$verification_events = did_action( 'poocommerce_customer_email_verified' );
 
 		reset_password( get_user_by( 'id', $user_id ), 'newpassword123' );
 
 		$this->assertTrue( $this->sut->is_verified( $user_id ), 'An unchanged, already-verified email should remain verified.' );
-		$this->assertSame( $verification_events, did_action( 'woocommerce_customer_email_verified' ), 'Reset must not emit another verification event.' );
+		$this->assertSame( $verification_events, did_action( 'poocommerce_customer_email_verified' ), 'Reset must not emit another verification event.' );
 	}
 
 	/**

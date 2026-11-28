@@ -2,28 +2,28 @@
 /**
  * Integration tests for the public Payments broker.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
 use RuntimeException;
 use WC_Order;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Payments;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Payments;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Payments
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Payments
  */
 class PaymentsTest extends EngineIntegrationTestCase {
 
 	private const GATEWAY = 'cod';
 
-	private const CHARGE_HOOK = 'woocommerce_subscriptions_engine_scheduled_payment_cod';
+	private const CHARGE_HOOK = 'poocommerce_subscriptions_engine_scheduled_payment_cod';
 
-	private const REUSABLE_FILTER = 'woocommerce_subscriptions_engine_requires_reusable_payment_method';
+	private const REUSABLE_FILTER = 'poocommerce_subscriptions_engine_requires_reusable_payment_method';
 
 	/**
 	 * The order argument of each scheduled-payment action call, in order.
@@ -243,7 +243,7 @@ class PaymentsTest extends EngineIntegrationTestCase {
 	 */
 	private function support_feature( string $gateway_id, string $supported ): void {
 		add_filter(
-			'woocommerce_payment_gateway_supports',
+			'poocommerce_payment_gateway_supports',
 			static function ( $supports, $feature, $gateway ) use ( $gateway_id, $supported ) {
 				if ( $supported === $feature && is_object( $gateway ) && isset( $gateway->id ) && $gateway_id === $gateway->id ) {
 					return true;

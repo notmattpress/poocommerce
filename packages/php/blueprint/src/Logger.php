@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class Logger
@@ -11,7 +11,7 @@ class Logger {
 	use UseWPFunctions;
 
 	/**
-	 * WooCommerce logger class instance.
+	 * PooCommerce logger class instance.
 	 *
 	 * @var \WC_Logger_Interface
 	 */

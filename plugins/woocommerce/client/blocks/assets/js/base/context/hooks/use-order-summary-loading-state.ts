@@ -3,11 +3,11 @@
  */
 import { useLayoutEffect, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
-import { useDelayedSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
-import { usePresence } from '@woocommerce/base-hooks';
-import { isKeyboardInput } from '@woocommerce/base-utils';
-import type { StoreCart } from '@woocommerce/types';
+import { checkoutStore } from '@poocommerce/block-data';
+import { useDelayedSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
+import { usePresence } from '@poocommerce/base-hooks';
+import { isKeyboardInput } from '@poocommerce/base-utils';
+import type { StoreCart } from '@poocommerce/types';
 
 /**
  * Internal dependencies

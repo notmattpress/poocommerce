@@ -34,9 +34,9 @@ jQuery( function ( $ ) {
 		let $tab;
 		let $save_button;
 		if (
-			$( '.woocommerce_variation_new_attribute_data' ).is( ':visible' )
+			$( '.poocommerce_variation_new_attribute_data' ).is( ':visible' )
 		) {
-			$tab = $( '.woocommerce_variation_new_attribute_data' );
+			$tab = $( '.poocommerce_variation_new_attribute_data' );
 			$save_button = $( 'button.create-variations' );
 		} else {
 			$tab = $( '.product_attributes' );
@@ -80,7 +80,7 @@ jQuery( function ( $ ) {
 	$( '.save_attributes' ).tipTip( {
 		content: function () {
 			return $( '.save_attributes' ).hasClass( 'disabled' )
-				? woocommerce_admin_meta_boxes.i18n_save_attribute_variation_tip
+				? poocommerce_admin_meta_boxes.i18n_save_attribute_variation_tip
 				: '';
 		},
 		fadeIn: 50,
@@ -92,7 +92,7 @@ jQuery( function ( $ ) {
 	$( '.create-variations' ).tipTip( {
 		content: function () {
 			return $( '.create-variations' ).hasClass( 'disabled' )
-				? woocommerce_admin_meta_boxes.i18n_save_attribute_variation_tip
+				? poocommerce_admin_meta_boxes.i18n_save_attribute_variation_tip
 				: '';
 		},
 		fadeIn: 50,
@@ -222,7 +222,7 @@ jQuery( function ( $ ) {
 
 				$panel_wrap.find( 'div.panel' ).hide();
 				$panel.show( 0, function () {
-					$( this ).trigger( 'woocommerce_tab_shown' );
+					$( this ).trigger( 'poocommerce_tab_shown' );
 				} );
 			};
 

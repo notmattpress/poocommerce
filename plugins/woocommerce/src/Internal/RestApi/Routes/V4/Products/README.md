@@ -1,6 +1,6 @@
-# WooCommerce REST API v4 - Products Endpoint
+# PooCommerce REST API v4 - Products Endpoint
 
-This directory contains the implementation of the WooCommerce REST API v4 Products endpoint (`/wp-json/wc/v4/products`).
+This directory contains the implementation of the PooCommerce REST API v4 Products endpoint (`/wp-json/wc/v4/products`).
 
 ## Overview
 
@@ -11,7 +11,7 @@ The v4 Products endpoint starts as a **copy-paste of the v3 implementation** and
 ## Architecture
 
 - **Namespace**: `wc/v4`
-- **Future Goal**: Migrate to extend WP_REST_Controller directly instead of WooCommerce base classes, and move the API codebase under the src directory with the Automattic\WooCommerce namespace.
+- **Future Goal**: Migrate to extend WP_REST_Controller directly instead of PooCommerce base classes, and move the API codebase under the src directory with the Automattic\PooCommerce namespace.
 
 ## Development Philosophy
 
@@ -26,9 +26,9 @@ As discussed in the team conversation:
 
 ### 2026-05-19 - Support multiple stock status filters
 
-**Summary**: Updated the collection `stock_status` query parameter to accept an array of stock statuses, enabling clients to request products matching any selected stock status. The endpoint now validates each value against WooCommerce stock status options, sanitizes the parameter with `wp_parse_list`, and applies the filter with an `_stock_status IN (...)` meta query. Single stock status values remain supported through list parsing.
+**Summary**: Updated the collection `stock_status` query parameter to accept an array of stock statuses, enabling clients to request products matching any selected stock status. The endpoint now validates each value against PooCommerce stock status options, sanitizes the parameter with `wp_parse_list`, and applies the filter with an `_stock_status IN (...)` meta query. Single stock status values remain supported through list parsing.
 
-**PR**: [65155](https://github.com/woocommerce/woocommerce/pull/65155)
+**PR**: [65155](https://github.com/poocommerce/poocommerce/pull/65155)
 
 **Breaking Changes**: None
 
@@ -36,7 +36,7 @@ As discussed in the team conversation:
 
 **Summary**: Added filters for stock quantity ranges. The endpoint now supports `min_stock_quantity` and `max_stock_quantity`.
 
-**PR**: [#65117](https://github.com/woocommerce/woocommerce/pull/65117)
+**PR**: [#65117](https://github.com/poocommerce/poocommerce/pull/65117)
 
 **Breaking Changes**: None
 
@@ -44,7 +44,7 @@ As discussed in the team conversation:
 
 **Summary**: Added embeddable `variations` links to variable product responses so child variations can be embedded when requesting products with `_embed=1`. The product schema now exposes the `embed` context for fields that are already available in `view` context, while sensitive fields such as downloads, metadata, purchase notes, and cost of goods sold remain excluded from embedded variation responses.
 
-**PR**: [#64566](https://github.com/woocommerce/woocommerce/pull/64566)
+**PR**: [#64566](https://github.com/poocommerce/poocommerce/pull/64566)
 
 **Breaking Changes**: None
 
@@ -52,7 +52,7 @@ As discussed in the team conversation:
 
 **Summary**: The GET `/wc/v4/products/<id>` REST endpoint has been updated so that users who have the `edit_posts` capability (for example Authors) can retrieve published, non-password-protected products. Access remains restricted for users without either the `edit_posts` or `read_private_products` capabilities.
 
-**PR**: [#61718](https://github.com/woocommerce/woocommerce/pull/61718)
+**PR**: [#61718](https://github.com/poocommerce/poocommerce/pull/61718)
 
 **Breaking Changes**: None
 
@@ -73,21 +73,21 @@ As discussed in the team conversation:
 }
 ```
 
-**PR**: [#60715](https://github.com/woocommerce/woocommerce/pull/60715)  
+**PR**: [#60715](https://github.com/poocommerce/poocommerce/pull/60715)  
 
 **Breaking Changes**: None
 
 ### 2025-09-02 - Move Experimental Price Fields from v3 to v4
 
 **Summary**: Moved experimental `min_price` and `max_price` fields from v3/products endpoint to v4/products endpoint. These fields were previously named `__experimental_min_price` and `__experimental_max_price` in v3 and are now available as `min_price` and `max_price` in v4. The fields are particularly useful for grouped products to display price ranges.
-**PR**: [#60703](https://github.com/woocommerce/woocommerce/pull/60703)  
+**PR**: [#60703](https://github.com/poocommerce/poocommerce/pull/60703)  
 
 **Breaking Changes**: None (exact v3 copy)
 
 ### 2025-09-01 - Initial Implementation (Copy-paste from v3)
 
 **Summary**: Created v4/products/ endpoint as direct copy of v3 implementation  
-**PR**: [#60690](https://github.com/woocommerce/woocommerce/pull/60690)  
+**PR**: [#60690](https://github.com/poocommerce/poocommerce/pull/60690)  
 
 **Breaking Changes**: None (exact v3 copy)
 
@@ -100,6 +100,6 @@ When adding new changes, please use this format:
 ### YYYY-MM-DD - Brief Change Description
 
 **Summary**: Detailed description of what was changed  
-**PR**: [#XXXXX](https://github.com/woocommerce/woocommerce/pull/XXXXX)  
+**PR**: [#XXXXX](https://github.com/poocommerce/poocommerce/pull/XXXXX)  
 
 **Breaking Changes**: Description of any breaking changes or "None"

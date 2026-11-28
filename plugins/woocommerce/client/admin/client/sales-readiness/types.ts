@@ -124,7 +124,7 @@ export interface ReadinessView {
 		/** Scheduled Actions, when the check can't start. */
 		link: ViewLink | null;
 	};
-	/** Where Need help? sends merchants: WordPress.com support on WordPress.com, else WooCommerce.com. */
+	/** Where Need help? sends merchants: WordPress.com support on WordPress.com, else PooCommerce.com. */
 	support_url: string;
 	/** While the store is in coming soon mode and the results are from when it was live. */
 	coming_soon: { text: string; link: ViewLink } | null;
@@ -141,7 +141,7 @@ export interface ReadinessView {
 }
 
 /**
- * What WooCommerce > Settings > AI tools > AI shopping shows, built by
+ * What PooCommerce > Settings > AI tools > AI shopping shows, built by
  * AgenticCommerceSettingsPage in PHP and handed to the page on its root.
  */
 export interface ShoppingStep {

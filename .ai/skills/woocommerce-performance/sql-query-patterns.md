@@ -1,6 +1,6 @@
 # SQL Query Patterns: Performance Anti-patterns and Fixes
 
-**When to use:** Writing or reviewing any SQL query in WooCommerce PHP code — joins, aggregates, meta lookups, or range queries. Apply proactively when generating new code, or flag violations when reviewing.
+**When to use:** Writing or reviewing any SQL query in PooCommerce PHP code — joins, aggregates, meta lookups, or range queries. Apply proactively when generating new code, or flag violations when reviewing.
 
 **Before rewriting a query, pin down what it must return.** A faster query that returns different rows is a bug, not an optimization: keep the same eligible rows (post type, status, visibility), the same handling of duplicates and NULLs, and the same result for empty input. HPOS and posts order storage use different tables and indexes, so check both paths.
 
@@ -219,14 +219,14 @@ When the postmeta result set drives a join into a second fan-out table (e.g. `or
 SELECT DISTINCT im.meta_value
 FROM wp_posts AS p
 INNER JOIN wp_postmeta                     AS pm ON p.ID = pm.post_id
-INNER JOIN wp_woocommerce_order_items      AS i  ON p.ID = i.order_id
-INNER JOIN wp_woocommerce_order_itemmeta   AS im ON i.order_item_id = im.order_item_id
+INNER JOIN wp_poocommerce_order_items      AS i  ON p.ID = i.order_id
+INNER JOIN wp_poocommerce_order_itemmeta   AS im ON i.order_item_id = im.order_item_id
 WHERE ...
 
 -- Subquery: postmeta side materializes as semijoin; fans are additive, not multiplicative
 SELECT DISTINCT itemmeta.meta_value
-FROM wp_woocommerce_order_items    AS items
-INNER JOIN wp_woocommerce_order_itemmeta AS itemmeta ON items.order_item_id = itemmeta.order_item_id
+FROM wp_poocommerce_order_items    AS items
+INNER JOIN wp_poocommerce_order_itemmeta AS itemmeta ON items.order_item_id = itemmeta.order_item_id
 WHERE items.order_id IN (
     SELECT posts.ID FROM wp_posts AS posts
     INNER JOIN wp_postmeta AS postmeta ON posts.ID = postmeta.post_id
@@ -243,9 +243,9 @@ WHERE items.order_id IN (
 
 ---
 
-## Pattern G — Prefer WooCommerce lookup tables over posts+postmeta join
+## Pattern G — Prefer PooCommerce lookup tables over posts+postmeta join
 
-WooCommerce maintains two dedicated lookup tables with pre-aggregated product data and narrow, indexed rows. When the required data exists there, drop the `wp_posts + wp_postmeta` join entirely. The lookup tables have no `post_type` or `post_status` columns: when the result must be limited to published products, keep that filter (a `wp_posts` join, or IDs that were already filtered).
+PooCommerce maintains two dedicated lookup tables with pre-aggregated product data and narrow, indexed rows. When the required data exists there, drop the `wp_posts + wp_postmeta` join entirely. The lookup tables have no `post_type` or `post_status` columns: when the result must be limited to published products, keep that filter (a `wp_posts` join, or IDs that were already filtered).
 
 ### `wc_product_meta_lookup` — product scalars
 
@@ -303,14 +303,14 @@ The two tables use different options with opposite semantics — gate each one s
 
 ```php
 // wc_product_meta_lookup: option is truthy while the table is being regenerated.
-if ( get_option( 'woocommerce_product_lookup_table_is_generating' ) ) {
+if ( get_option( 'poocommerce_product_lookup_table_is_generating' ) ) {
     // fall back to wp_postmeta
 } else {
     // use wc_product_meta_lookup
 }
 
 // wc_product_attributes_lookup: must be explicitly enabled by the merchant.
-if ( 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' ) ) {
+if ( 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' ) ) {
     // use wc_product_attributes_lookup
 } else {
     // fall back to wp_term_relationships

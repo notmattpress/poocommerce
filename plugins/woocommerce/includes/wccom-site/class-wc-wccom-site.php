@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce.com Product Installation.
+ * PooCommerce.com Product Installation.
  *
- * @package WooCommerce\WCCom
+ * @package PooCommerce\WCCom
  * @since   3.7.0
  */
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WC_WCCOM_Site Class
  *
- * Main class for WooCommerce.com connected site.
+ * Main class for PooCommerce.com connected site.
  */
 class WC_WCCOM_Site {
 
@@ -28,9 +28,9 @@ class WC_WCCOM_Site {
 	public static function load() {
 		self::includes();
 
-		add_action( 'woocommerce_wccom_install_products', array( 'WC_WCCOM_Site_Installer', 'install' ) );
+		add_action( 'poocommerce_wccom_install_products', array( 'WC_WCCOM_Site_Installer', 'install' ) );
 		add_filter( 'rest_authentication_errors', array( __CLASS__, 'authentication_fallback' ) );
-		add_action( 'woocommerce_rest_api_get_rest_namespaces', array( __CLASS__, 'register_rest_namespace' ) );
+		add_action( 'poocommerce_rest_api_get_rest_namespaces', array( __CLASS__, 'register_rest_namespace' ) );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class WC_WCCOM_Site {
 	}
 
 	/**
-	 * Authenticate a WooCommerce.com request to the wccom-site REST API.
+	 * Authenticate a PooCommerce.com request to the wccom-site REST API.
 	 *
 	 * Called from authentication_fallback() once WordPress has resolved the route. Returns the connected user,
 	 * or false with the reason added to the wccom_auth_error filter.
@@ -138,7 +138,7 @@ class WC_WCCOM_Site {
 	}
 
 	/**
-	 * Authenticate a WooCommerce.com request once WordPress has resolved its REST route.
+	 * Authenticate a PooCommerce.com request once WordPress has resolved its REST route.
 	 *
 	 * Only requests WordPress dispatches to the wccom-site namespace are authenticated, whatever the URL looked like.
 	 *
@@ -210,7 +210,7 @@ class WC_WCCOM_Site {
 	}
 
 	/**
-	 * Verify WooCommerce.com request from a given body and signature request.
+	 * Verify PooCommerce.com request from a given body and signature request.
 	 *
 	 * Only what follows the first "?" of the request URI is treated as its query string.
 	 *
@@ -225,7 +225,7 @@ class WC_WCCOM_Site {
 		$uri_parts   = explode( '?', $_SERVER['REQUEST_URI'] ?? '', 2 );
 		$request_uri = urldecode( $uri_parts[0] );
 		if ( isset( $uri_parts[1] ) ) {
-			// With ALTERNATE_WP_CRON, WordPress redirects a GET to itself plus doing_wp_cron when cron is due, and WooCommerce.com follows it.
+			// With ALTERNATE_WP_CRON, WordPress redirects a GET to itself plus doing_wp_cron when cron is due, and PooCommerce.com follows it.
 			$request_uri .= urldecode( remove_query_arg( array( 'token', 'signature', 'doing_wp_cron' ), '?' . $uri_parts[1] ) );
 		}
 

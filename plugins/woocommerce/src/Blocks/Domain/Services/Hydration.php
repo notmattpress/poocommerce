@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\StoreApi\RoutesController;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
  * Service class that handles hydration of API data for blocks.
@@ -189,7 +189,7 @@ class Hydration {
 		 * @param string           $path             Request path matched for the request..
 		 * @param array            $handler          Route handler used for the request.
 		 */
-		$hydration_result = apply_filters( 'woocommerce_hydration_dispatch_request', null, $request, $path, $handler );
+		$hydration_result = apply_filters( 'poocommerce_hydration_dispatch_request', null, $request, $path, $handler );
 
 		if ( null !== $hydration_result ) {
 			$response = $hydration_result;
@@ -208,7 +208,7 @@ class Hydration {
 		 * @param array                                            $handler  Route handler used for the request.
 		 * @param WP_REST_Request                                  $request  Request used to generate the response.
 		 */
-		$response = apply_filters( 'woocommerce_hydration_request_after_callbacks', $response, $handler, $request );
+		$response = apply_filters( 'poocommerce_hydration_request_after_callbacks', $response, $handler, $request );
 
 		return $response;
 	}
@@ -256,7 +256,7 @@ class Hydration {
 	 * Disable the nonce check temporarily.
 	 */
 	protected function disable_nonce_check() {
-		add_filter( 'woocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
+		add_filter( 'poocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
 	}
 
 	/**
@@ -271,7 +271,7 @@ class Hydration {
 	 * Restore the nonce check.
 	 */
 	protected function restore_nonce_check() {
-		remove_filter( 'woocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
+		remove_filter( 'poocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
 	}
 
 	/**
@@ -279,8 +279,8 @@ class Hydration {
 	 * available to call.
 	 *
 	 * These three functions share a single definition site in `includes/wc-notice-functions.php`, which
-	 * WooCommerce loads only for frontend/REST requests (or via `wc_load_cart()`). On a plain wp-admin load the
-	 * functions may therefore be absent even when a WooCommerce session exists, so this seam must be checked
+	 * PooCommerce loads only for frontend/REST requests (or via `wc_load_cart()`). On a plain wp-admin load the
+	 * functions may therefore be absent even when a PooCommerce session exists, so this seam must be checked
 	 * independently of the session guard. It is `protected` so tests can override it to force the unavailable
 	 * branch deterministically.
 	 *
@@ -297,7 +297,7 @@ class Hydration {
 	protected function cache_store_notices() {
 		$this->cached_store_notices = null;
 
-		if ( ! did_action( 'woocommerce_init' ) || null === WC()->session || ! $this->store_notice_functions_available() ) {
+		if ( ! did_action( 'poocommerce_init' ) || null === WC()->session || ! $this->store_notice_functions_available() ) {
 			return;
 		}
 
@@ -309,7 +309,7 @@ class Hydration {
 	 * Restore notices into current session from cache, only if a snapshot was taken this cycle.
 	 */
 	protected function restore_cached_store_notices() {
-		if ( ! did_action( 'woocommerce_init' ) || null === WC()->session || ! is_array( $this->cached_store_notices ) ) {
+		if ( ! did_action( 'poocommerce_init' ) || null === WC()->session || ! is_array( $this->cached_store_notices ) ) {
 			return;
 		}
 
@@ -331,7 +331,7 @@ class Hydration {
 	protected function cache_cart_context(): void {
 		$this->cached_cart_context = null;
 
-		if ( ! did_action( 'woocommerce_init' ) || ! WC()->cart instanceof \WC_Cart ) {
+		if ( ! did_action( 'poocommerce_init' ) || ! WC()->cart instanceof \WC_Cart ) {
 			return;
 		}
 

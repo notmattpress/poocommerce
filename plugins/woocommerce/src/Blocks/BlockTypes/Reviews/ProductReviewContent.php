@@ -1,8 +1,8 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * ProductReviewContent class.
@@ -53,9 +53,9 @@ class ProductReviewContent extends AbstractBlock {
 		$moderation_note = '';
 		if ( '0' === $comment->comment_approved ) {
 			if ( $commenter['comment_author_email'] ) {
-				$moderation_note = __( 'Your review is awaiting moderation.', 'woocommerce' );
+				$moderation_note = __( 'Your review is awaiting moderation.', 'poocommerce' );
 			} else {
-				$moderation_note = __( 'Your review is awaiting moderation. This is a preview; your review will be visible after it has been approved.', 'woocommerce' );
+				$moderation_note = __( 'Your review is awaiting moderation. This is a preview; your review will be visible after it has been approved.', 'poocommerce' );
 			}
 			$moderation_note = '<p><em class="review-awaiting-moderation">' . esc_html( $moderation_note ) . '</em></p>';
 			if ( ! $show_pending_links ) {

@@ -12,10 +12,10 @@ const wpScriptsConfig = require( '@wordpress/scripts/config/webpack.config' );
 const {
 	module: { rules: wpScriptsModuleRules },
 } = Array.isArray( wpScriptsConfig ) ? wpScriptsConfig[ 1 ] : wpScriptsConfig;
-const DependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin' );
 const {
 	WebpackRTLPlugin,
-} = require( '@woocommerce/internal-build/style-build' );
+} = require( '@poocommerce/internal-build/style-build' );
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ const {
 	editorStyleEntries,
 } = require( './webpack-interactivity-entries' );
 
-// Blocks' webpack writes directly to the WooCommerce plugin's
+// Blocks' webpack writes directly to the PooCommerce plugin's
 // `assets/client/blocks/` so PHP can enqueue files from their final location
 // without an intermediate rsync step.
 const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );
@@ -41,32 +41,32 @@ const entries = {
 	...styleEntries,
 	...editorStyleEntries,
 	// Product elements frontend module. Share by several blocks.
-	'woocommerce/product-elements':
+	'poocommerce/product-elements':
 		'./assets/js/blocks/product-elements-blocks/frontend.ts',
 	// Sale badge frontend module. Built separately so collection badges can
 	// skip loading variation-only label logic.
-	'woocommerce/product-sale-badge':
+	'poocommerce/product-sale-badge':
 		'./assets/js/blocks/product-elements-blocks/sale-badge/frontend.ts',
 	// Add to cart with options quantity selector frontend module used by the
 	// Product Quantity block and the Grouped Product Selector block.
-	'woocommerce/add-to-cart-with-options-quantity-selector':
+	'poocommerce/add-to-cart-with-options-quantity-selector':
 		'./assets/js/blocks/add-to-cart-with-options/quantity-selector/frontend.ts',
 	// Product Collection store part for cart-referencing collections
 	// (cross-sells, upsells). Conditionally enqueued.
-	'woocommerce/product-collection-cart-reference':
+	'poocommerce/product-collection-cart-reference':
 		'./assets/js/blocks/product-collection/cart-reference-frontend.ts',
 	// Back in Stock form frontend module. Enqueued when the form is rendered
 	// after the Add to Cart + Options block of a variable product.
-	'woocommerce/back-in-stock-form':
+	'poocommerce/back-in-stock-form':
 		'./assets/js/blocks/add-to-cart-with-options/back-in-stock-form/frontend.ts',
 	// Other
-	'@woocommerce/stores/woocommerce':
-		'./assets/js/base/stores/woocommerce/index.ts',
-	'@woocommerce/stores/store-notices':
+	'@poocommerce/stores/poocommerce':
+		'./assets/js/base/stores/poocommerce/index.ts',
+	'@poocommerce/stores/store-notices':
 		'./assets/js/base/stores/store-notices.ts',
-	'@woocommerce/stores/woocommerce/products':
+	'@poocommerce/stores/poocommerce/products':
 		'./assets/js/base/stores/products.ts',
-	'@woocommerce/stores/woocommerce/shopper-lists':
+	'@poocommerce/stores/poocommerce/shopper-lists':
 		'./assets/js/base/stores/shopper-lists.ts',
 };
 
@@ -101,7 +101,7 @@ module.exports = {
 			combineAssets: true,
 			combinedOutputFile: './interactivity-blocks-frontend-assets.php',
 			requestToExternalModule( request ) {
-				if ( request.startsWith( '@woocommerce/stores/' ) ) {
+				if ( request.startsWith( '@poocommerce/stores/' ) ) {
 					return `module ${ request }`;
 				}
 			},

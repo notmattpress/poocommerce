@@ -132,7 +132,7 @@ async function copyCuratedIndex(buildDir: string): Promise<void> {
  */
 async function generateCombinedContent(files: Array<{ path: string; relativePath: string; content: string; title: string }>, buildDir: string): Promise<void> {
   const outputPath = path.join(buildDir, 'llms-full.txt');
-  let content = '# WooCommerce Documentation - Complete\n\n';
+  let content = '# PooCommerce Documentation - Complete\n\n';
   content += 'This file contains the complete content of all documentation files combined.\n\n';
   
   for (const file of files) {

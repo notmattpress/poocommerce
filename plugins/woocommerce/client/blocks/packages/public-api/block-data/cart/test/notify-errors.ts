@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { dispatch } from '@wordpress/data';
-import { createNotice } from '@woocommerce/base-utils';
-import { ApiErrorResponse } from '@woocommerce/types';
+import { createNotice } from '@poocommerce/base-utils';
+import { ApiErrorResponse } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -11,8 +11,8 @@ import { ApiErrorResponse } from '@woocommerce/types';
 import { updateCartErrorNotices } from '../notify-errors';
 
 jest.mock( '@wordpress/data' );
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	createNotice: jest.fn(),
 } ) );
 
@@ -37,14 +37,14 @@ describe( 'updateCartErrorNotices', () => {
 	it( 'creates a notice for each error that shares an error code', () => {
 		updateCartErrorNotices( [
 			cartError(
-				'woocommerce_rest_cart_item_error',
+				'poocommerce_rest_cart_item_error',
 				'First error message'
 			),
 			cartError(
-				'woocommerce_rest_cart_item_error',
+				'poocommerce_rest_cart_item_error',
 				'Second error message'
 			),
-			cartError( 'woocommerce_rest_cart_coupon_error', 'Coupon error' ),
+			cartError( 'poocommerce_rest_cart_coupon_error', 'Coupon error' ),
 		] );
 
 		expect( createNotice ).toHaveBeenCalledTimes( 3 );
@@ -52,34 +52,34 @@ describe( 'updateCartErrorNotices', () => {
 			1,
 			'error',
 			'First error message',
-			{ id: 'woocommerce_rest_cart_item_error', context: 'wc/cart' }
+			{ id: 'poocommerce_rest_cart_item_error', context: 'wc/cart' }
 		);
 		expect( createNotice ).toHaveBeenNthCalledWith(
 			2,
 			'error',
 			'Second error message',
-			{ id: 'woocommerce_rest_cart_item_error__2', context: 'wc/cart' }
+			{ id: 'poocommerce_rest_cart_item_error__2', context: 'wc/cart' }
 		);
 		expect( createNotice ).toHaveBeenNthCalledWith(
 			3,
 			'error',
 			'Coupon error',
-			{ id: 'woocommerce_rest_cart_coupon_error', context: 'wc/cart' }
+			{ id: 'poocommerce_rest_cart_coupon_error', context: 'wc/cart' }
 		);
 	} );
 
 	it( 'reuses the notice ID for an exact repeat of an error', () => {
 		updateCartErrorNotices( [
-			cartError( 'woocommerce_rest_cart_item_error', 'Same message' ),
-			cartError( 'woocommerce_rest_cart_item_error', 'Same message' ),
+			cartError( 'poocommerce_rest_cart_item_error', 'Same message' ),
+			cartError( 'poocommerce_rest_cart_item_error', 'Same message' ),
 		] );
 
 		const ids = ( createNotice as jest.Mock ).mock.calls.map(
 			( call ) => call[ 2 ].id
 		);
 		expect( ids ).toEqual( [
-			'woocommerce_rest_cart_item_error',
-			'woocommerce_rest_cart_item_error',
+			'poocommerce_rest_cart_item_error',
+			'poocommerce_rest_cart_item_error',
 		] );
 	} );
 
@@ -88,22 +88,22 @@ describe( 'updateCartErrorNotices', () => {
 			[],
 			[
 				cartError(
-					'woocommerce_rest_cart_item_error',
+					'poocommerce_rest_cart_item_error',
 					'First error message'
 				),
 				cartError(
-					'woocommerce_rest_cart_item_error',
+					'poocommerce_rest_cart_item_error',
 					'Second error message'
 				),
 			]
 		);
 
 		expect( mockedRemoveNotice ).toHaveBeenCalledWith(
-			'woocommerce_rest_cart_item_error',
+			'poocommerce_rest_cart_item_error',
 			'wc/cart'
 		);
 		expect( mockedRemoveNotice ).toHaveBeenCalledWith(
-			'woocommerce_rest_cart_item_error__2',
+			'poocommerce_rest_cart_item_error__2',
 			'wc/cart'
 		);
 	} );

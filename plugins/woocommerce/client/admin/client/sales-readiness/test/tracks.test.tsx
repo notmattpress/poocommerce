@@ -4,7 +4,7 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import apiFetch from '@wordpress/api-fetch';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import { viewedProps } from '../tracks';
 import type { ReadinessView } from '../types';
 
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 const link = ( text: string ) => ( { href: '#' + text, text } );
 
@@ -32,7 +32,7 @@ const checkedView: ReadinessView = {
 		message: '',
 		link: null,
 	},
-	support_url: 'https://woocommerce.com/my-account/create-a-ticket/',
+	support_url: 'https://poocommerce.com/my-account/create-a-ticket/',
 	coming_soon: null,
 	fix_first: {
 		title: 'Fix first',
@@ -448,7 +448,7 @@ describe( 'AI tools overview connection card', () => {
 					connected: false,
 					notice: '',
 					url: 'https://example.com/wp-admin/admin-post.php',
-					action: 'woocommerce_ai_tools_connect',
+					action: 'poocommerce_ai_tools_connect',
 					nonce: 'abc',
 				} }
 			/>

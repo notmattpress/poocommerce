@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G34A-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 			"before": {
 				"file": "fixtures/G34A/before.jsx"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G34B-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 			"before": {
 				"file": "fixtures/G34B/before.jsx"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 						"lines": [
 							3,
 							3
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G34C-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 			"before": {
 				"file": "fixtures/G34C/before.jsx"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G34D-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/payment-list.jsx",
 			"before": {
 				"file": "fixtures/G34D/before.jsx"
 			},

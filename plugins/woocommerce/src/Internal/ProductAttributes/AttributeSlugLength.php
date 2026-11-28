@@ -2,12 +2,12 @@
 /**
  * Product attribute slug length utilities.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductAttributes;
+namespace Automattic\PooCommerce\Internal\ProductAttributes;
 
 /**
  * Utilities for communicating the product attribute slug length limit to users.

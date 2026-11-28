@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Webhooks;
+namespace Automattic\PooCommerce\Tests\Internal\Webhooks;
 
 use WC_Unit_Test_Case;
 use WC_Webhook;
@@ -15,7 +15,7 @@ class WebhookScheduledActionArgsTest extends WC_Unit_Test_Case {
 	 * @testdox Should show queued custom action webhook deliveries without their internal fields.
 	 */
 	public function test_redacts_custom_action_delivery_args(): void {
-		$webhook = $this->create_webhook( 'action.woocommerce_checkout_posted_data' );
+		$webhook = $this->create_webhook( 'action.poocommerce_checkout_posted_data' );
 
 		$html = $this->get_args_column( $webhook->get_id(), array( 'account_password' => 'fixture-value' ) );
 
@@ -70,7 +70,7 @@ class WebhookScheduledActionArgsTest extends WC_Unit_Test_Case {
 	 * @testdox Should show extension resource deliveries that carry an ID as they are.
 	 */
 	public function test_leaves_extension_resource_ids_unchanged(): void {
-		add_filter( 'woocommerce_valid_webhook_resources', fn( $resources ) => array_merge( $resources, array( 'booking' ) ) );
+		add_filter( 'poocommerce_valid_webhook_resources', fn( $resources ) => array_merge( $resources, array( 'booking' ) ) );
 		$webhook = $this->create_webhook( 'booking.created' );
 
 		$this->assertSame( 'raw: 42', $this->get_args_column( $webhook->get_id(), 42 ) );
@@ -85,7 +85,7 @@ class WebhookScheduledActionArgsTest extends WC_Unit_Test_Case {
 	 */
 	private function get_args_column( int $webhook_id, $arg ): string {
 		$row = array(
-			'hook' => 'woocommerce_deliver_webhook_async',
+			'hook' => 'poocommerce_deliver_webhook_async',
 			'args' => array(
 				'webhook_id' => $webhook_id,
 				'arg'        => $arg,

@@ -2,7 +2,7 @@
 /**
  * Rating Filter Widget and related functions.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.6.0
  */
 
@@ -17,15 +17,15 @@ class WC_Widget_Rating_Filter extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_rating_filter';
-		$this->widget_description = __( 'Display a list of star ratings to filter products in your store.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_rating_filter';
-		$this->widget_name        = __( 'Filter Products by Rating', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_rating_filter';
+		$this->widget_description = __( 'Display a list of star ratings to filter products in your store.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_rating_filter';
+		$this->widget_name        = __( 'Filter Products by Rating', 'poocommerce' );
 		$this->settings           = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Average rating', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Average rating', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 		);
 		parent::__construct();
@@ -120,10 +120,10 @@ class WC_Widget_Rating_Filter extends WC_Widget {
 			}
 
 			$class       = in_array( $rating, $rating_filter, true ) ? 'wc-layered-nav-rating chosen' : 'wc-layered-nav-rating';
-			$link        = apply_filters( 'woocommerce_rating_filter_link', $link_ratings ? add_query_arg( 'rating_filter', $link_ratings, $link ) : remove_query_arg( 'rating_filter' ) );
+			$link        = apply_filters( 'poocommerce_rating_filter_link', $link_ratings ? add_query_arg( 'rating_filter', $link_ratings, $link ) : remove_query_arg( 'rating_filter' ) );
 			$rating_html = wc_get_star_rating_html( $rating );
 			$count_html  = wp_kses(
-				apply_filters( 'woocommerce_rating_filter_count', "({$count})", $count, $rating ),
+				apply_filters( 'poocommerce_rating_filter_count', "({$count})", $count, $rating ),
 				array(
 					'em'     => array(),
 					'span'   => array(),

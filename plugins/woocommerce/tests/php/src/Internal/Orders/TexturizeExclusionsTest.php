@@ -1,22 +1,22 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\OrderReviews\Endpoint;
-use Automattic\WooCommerce\Internal\Orders\TexturizeExclusions;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalEndpoint;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormState;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormView;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\OrderReviews\Endpoint;
+use Automattic\PooCommerce\Internal\Orders\TexturizeExclusions;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalController;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalEndpoint;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormState;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormView;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountView;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\NotificationManagementService;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Order;
 use WC_Helper_Product;
 use WC_Order;
@@ -25,7 +25,7 @@ use WC_Unit_Test_Case;
 /**
  * Tests for the TexturizeExclusions class.
  *
- * @covers \Automattic\WooCommerce\Internal\Orders\TexturizeExclusions
+ * @covers \Automattic\PooCommerce\Internal\Orders\TexturizeExclusions
  */
 class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 
@@ -138,10 +138,10 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 	public function test_skips_address_texturize_on_withdrawal_request_with_only_the_endpoint_key(): void {
 		global $wp;
 
-		update_option( 'woocommerce_feature_order_withdrawal_enabled', 'yes' );
+		update_option( 'poocommerce_feature_order_withdrawal_enabled', 'yes' );
 		wc_get_container()->get( OrderWithdrawalController::class )->register_feature_hooks();
 		$page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_myaccount_page_id', $page_id );
+		update_option( 'poocommerce_myaccount_page_id', $page_id );
 		$this->go_to( add_query_arg( OrderWithdrawalEndpoint::ENDPOINT_KEY, '', get_permalink( $page_id ) ) );
 		$this->assertArrayNotHasKey( OrderWithdrawalEndpoint::ENDPOINT_SLUG, $wp->query_vars, 'The request should carry only the endpoint key.' );
 
@@ -162,7 +162,7 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 
 		$other_page_id  = self::factory()->post->create( array( 'post_type' => 'page' ) );
 		$review_page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_review_order_page_id', $review_page_id );
+		update_option( 'poocommerce_review_order_page_id', $review_page_id );
 		$this->go_to( get_permalink( $other_page_id ) );
 		$wp->query_vars[ Endpoint::QUERY_VAR ] = '15';
 
@@ -222,7 +222,7 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Address content is texturized when the WooCommerce session is missing.
+	 * @testdox Address content is texturized when the PooCommerce session is missing.
 	 */
 	public function test_texturizes_address_when_the_session_is_missing(): void {
 		$this->go_to( get_permalink( self::factory()->post->create( array( 'post_type' => 'page' ) ) ) );
@@ -278,9 +278,9 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertStringContainsString( '<address class="woocommerce-breadcrumb woocommerce-review-order__meta">', $form, 'The form meta line should be an address element.' );
-		$this->assertStringContainsString( '<address class="woocommerce-breadcrumb woocommerce-review-order__meta">', $empty, 'The empty-state meta line should be an address element.' );
-		$this->assertStringContainsString( 'woocommerce-review-order__form', $form, 'The form template should render the review form.' );
+		$this->assertStringContainsString( '<address class="poocommerce-breadcrumb poocommerce-review-order__meta">', $form, 'The form meta line should be an address element.' );
+		$this->assertStringContainsString( '<address class="poocommerce-breadcrumb poocommerce-review-order__meta">', $empty, 'The empty-state meta line should be an address element.' );
+		$this->assertStringContainsString( 'poocommerce-review-order__form', $form, 'The form template should render the review form.' );
 		$this->assert_literal_email( wp_kses_post( $form ) . '<p>3x4 -- done</p>' );
 		$this->assert_literal_email( wp_kses_post( $empty ) . '<p>3x4 -- done</p>' );
 	}
@@ -356,12 +356,12 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 			$this->assertStringNotContainsString( '<address', $html, "The {$name} template should not use an address element." );
 		}
 		// Each withdrawal screen has one note without the email, so the email note makes two paragraphs.
-		$note = '<p class="woocommerce-order-withdrawal-content__note">';
+		$note = '<p class="poocommerce-order-withdrawal-content__note">';
 		$this->assertSame( 2, substr_count( $templates['withdrawal confirmation'], $note ), 'The confirmation email note should stay a paragraph.' );
 		$this->assertSame( 2, substr_count( $templates['withdrawal review'], $note ), 'The review email note should stay a paragraph.' );
 		$this->assertStringContainsString( esc_html( $email ), $templates['withdrawal review'], 'The review rows should still show the email.' );
 
-		$meta = '<p class="woocommerce-breadcrumb woocommerce-review-order__meta">';
+		$meta = '<p class="poocommerce-breadcrumb poocommerce-review-order__meta">';
 		$this->assertStringContainsString( $meta, $templates['review order'], 'The form meta line should stay a paragraph.' );
 		$this->assertStringContainsString( $meta, $templates['review order empty'], 'The empty-state meta line should stay a paragraph.' );
 	}
@@ -386,8 +386,8 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 			$view->get_template_args( new OrderWithdrawalFormState( 'review', $data, array() ), 'https://example.test/withdraw/', 'https://example.test/shop/' )
 		);
 
-		$this->assertStringContainsString( '<address class="woocommerce-order-withdrawal-content__note">', $confirmation, 'The note that contains the email should be an address element.' );
-		$this->assertStringContainsString( '<p class="woocommerce-order-withdrawal-content__note">', $confirmation, 'The note without an email should stay a paragraph.' );
+		$this->assertStringContainsString( '<address class="poocommerce-order-withdrawal-content__note">', $confirmation, 'The note that contains the email should be an address element.' );
+		$this->assertStringContainsString( '<p class="poocommerce-order-withdrawal-content__note">', $confirmation, 'The note without an email should stay a paragraph.' );
 		$this->assert_literal_email( wp_kses_post( $confirmation ) . '<p>3x4 -- done</p>' );
 
 		$this->assertStringContainsString( '<address>' . esc_html( $email ) . '</address>', $review, 'The email review row should wrap the address element.' );
@@ -616,7 +616,7 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 		}
 
 		if ( 'order-withdrawal' === $page ) {
-			update_option( 'woocommerce_feature_order_withdrawal_enabled', 'yes' );
+			update_option( 'poocommerce_feature_order_withdrawal_enabled', 'yes' );
 			wc_get_container()->get( OrderWithdrawalController::class )->register_feature_hooks();
 			$this->go_to_account_endpoint( OrderWithdrawalEndpoint::ENDPOINT_KEY );
 			return;
@@ -638,7 +638,7 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 		global $wp;
 
 		$page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_review_order_page_id', $page_id );
+		update_option( 'poocommerce_review_order_page_id', $page_id );
 		$this->go_to( add_query_arg( Endpoint::QUERY_VAR, '15', get_permalink( $page_id ) ) );
 
 		// go_to() only keeps query vars WordPress already lists. The endpoint guard reads this one.
@@ -658,7 +658,7 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 		global $wp;
 
 		$page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_myaccount_page_id', $page_id );
+		update_option( 'poocommerce_myaccount_page_id', $page_id );
 
 		$query_vars = WC()->query->get_query_vars();
 		$slug       = isset( $query_vars[ $key ] ) && is_string( $query_vars[ $key ] ) && '' !== $query_vars[ $key ] ? $query_vars[ $key ] : $key;
@@ -671,14 +671,14 @@ class TexturizeExclusionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Load an order endpoint page, so the WooCommerce conditional tags match.
+	 * Load an order endpoint page, so the PooCommerce conditional tags match.
 	 *
 	 * @param string   $endpoint Order page endpoint.
 	 * @param WC_Order $order    Order to view.
 	 */
 	private function go_to_order_page( string $endpoint, WC_Order $order ): void {
 		$page_id = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'order-received' === $endpoint ? 'woocommerce_checkout_page_id' : 'woocommerce_myaccount_page_id', $page_id );
+		update_option( 'order-received' === $endpoint ? 'poocommerce_checkout_page_id' : 'poocommerce_myaccount_page_id', $page_id );
 
 		$this->go_to( add_query_arg( $endpoint, $order->get_id(), get_permalink( $page_id ) ) );
 	}

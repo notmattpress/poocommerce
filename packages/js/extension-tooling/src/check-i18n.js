@@ -15,8 +15,8 @@ module.exports = function checkI18n( { root, domain } ) {
 			true,
 		],
 		[
-			'WooCommerce domain',
-			"_n( 'Item', 'Items', count( [ 1, 2 ] ), 'woocommerce' );",
+			'PooCommerce domain',
+			"_n( 'Item', 'Items', count( [ 1, 2 ] ), 'poocommerce' );",
 			true,
 		],
 		[ 'comments', "// __( 'Not a function call' );", true ],

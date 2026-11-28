@@ -64,7 +64,7 @@ describe( 'SendPreview', () => {
 	it( 'renders neither the menu item nor the modal when the enabled filter returns false for the email type', () => {
 		( applyFilters as jest.Mock ).mockImplementation(
 			( hook: string, value: unknown, postType: string ) =>
-				hook === 'woocommerce_email_editor_send_preview_enabled'
+				hook === 'poocommerce_email_editor_send_preview_enabled'
 					? postType !== 'woo_email'
 					: value
 		);
@@ -78,7 +78,7 @@ describe( 'SendPreview', () => {
 		( result ) => {
 			( applyFilters as jest.Mock ).mockImplementation(
 				( hook: string, value: unknown ) =>
-					hook === 'woocommerce_email_editor_send_preview_enabled'
+					hook === 'poocommerce_email_editor_send_preview_enabled'
 						? result
 						: value
 			);

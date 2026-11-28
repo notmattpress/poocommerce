@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { CheckoutProvider } from '@woocommerce/base-context';
+import { CheckoutProvider } from '@poocommerce/base-context';
 import {
 	ADDRESS_FORM_KEYS,
 	CONTACT_FORM_KEYS,
-} from '@woocommerce/block-settings';
+} from '@poocommerce/block-settings';
 import type {
 	AddressFormType,
 	AddressFormValues,
 	Field,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import type { ReactElement } from 'react';
 
 /**

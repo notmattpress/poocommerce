@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G22A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-22.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-22.php",
 			"before": {
 				"file": "fixtures/G22A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-22.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-22.php",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G22B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-22.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-22.php",
 			"before": {
 				"file": "fixtures/G22B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-22.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-22.php",
 						"lines": [
 							12,
 							12
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G22C-v4",
-			"path": "plugins/woocommerce/includes/class-wc-eval-22.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-22.php",
 			"before": {
 				"file": "fixtures/G22C-v4/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G22D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-22.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-22.php",
 			"before": {
 				"file": "fixtures/G22D/before.php"
 			},

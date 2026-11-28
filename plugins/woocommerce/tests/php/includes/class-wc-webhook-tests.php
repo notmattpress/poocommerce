@@ -3,12 +3,12 @@
  * Tests for WC_Webhook class.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Admin\Logging\LogHandlerFileV2;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\Emails\CustomerVerifyEmail;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Tests for WC_Webhook class.
@@ -429,7 +429,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$delivered_ids = array();
 		wp_trash_post( $coupon_id );
 		add_filter(
-			'woocommerce_webhook_topic_hooks',
+			'poocommerce_webhook_topic_hooks',
 			function ( $topic_hooks ) {
 				$topic_hooks['coupon.deleted'][] = 'before_delete_post';
 				return $topic_hooks;
@@ -513,9 +513,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 * @param array<mixed> $delivered_ids Receives each delivered resource ID.
 	 */
 	private function record_deliveries( WC_Webhook $webhook, array &$delivered_ids ): void {
-		remove_action( 'woocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
+		remove_action( 'poocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
 		add_action(
-			'woocommerce_webhook_process_delivery',
+			'poocommerce_webhook_process_delivery',
 			function ( $delivering_webhook, $arg ) use ( $webhook, &$delivered_ids ) {
 				if ( $webhook === $delivering_webhook ) {
 					$delivered_ids[] = $arg;
@@ -556,9 +556,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook  = $this->create_active_webhook( 'order.updated' );
 		$webhook->set_user_id( 1 );
 
-		remove_action( 'woocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
+		remove_action( 'poocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10 );
 		add_action(
-			'woocommerce_webhook_process_delivery',
+			'poocommerce_webhook_process_delivery',
 			function ( $delivering_webhook, $arg ) use ( $webhook, &$payloads ) {
 				if ( $webhook === $delivering_webhook ) {
 					$payloads[] = $delivering_webhook->build_payload( $arg );
@@ -600,7 +600,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$order                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -613,7 +613,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource_false() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$product                = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -638,7 +638,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->set_user_id( $admin_user_id_1 );
 		$webhook->save();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$payload = $webhook->build_payload( $order->get_id() );
 		$this->assertArrayNotHasKey( 'code', $payload );
@@ -777,16 +777,16 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$sut->save();
 		$sut->enqueue();
 
-		if ( 'woocommerce_after_checkout_validation' === $hook ) {
+		if ( 'poocommerce_after_checkout_validation' === $hook ) {
 			do_action( $hook, $argument, new WP_Error() );
-		} elseif ( 'woocommerce_checkout_update_order_review' === $hook ) {
+		} elseif ( 'poocommerce_checkout_update_order_review' === $hook ) {
 			do_action( $hook, $argument );
 		} else {
 			$this->assertSame( $argument, apply_filters( $hook, $argument ) );
 		}
 		$body = $this->run_scheduled_webhook_delivery( $sut, 'fixture-password' );
 		$this->assertStringContainsString( '[redacted]', $body );
-		if ( 'woocommerce_process_checkout_field_account_password' !== $hook && 'woocommerce_process_checkout_password_field' !== $hook ) {
+		if ( 'poocommerce_process_checkout_field_account_password' !== $hook && 'poocommerce_process_checkout_password_field' !== $hook ) {
 			$this->assertStringContainsString( 'fixture-city', $body );
 		}
 	}
@@ -795,11 +795,11 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 * @testdox Queue and payload redaction use the topic supplied by the topic filter.
 	 */
 	public function test_redaction_uses_filtered_topic(): void {
-		$sut = $this->create_active_webhook( 'action.woocommerce_add_to_cart' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_add_to_cart' );
 		$sut->save();
-		$hook = 'woocommerce_process_checkout_field_account_password';
+		$hook = 'poocommerce_process_checkout_field_account_password';
 		$id   = $sut->get_id();
-		add_filter( 'woocommerce_webhook_topic', static fn( $topic, $webhook_id ) => $id === $webhook_id ? 'action.' . $hook : $topic, 10, 2 );
+		add_filter( 'poocommerce_webhook_topic', static fn( $topic, $webhook_id ) => $id === $webhook_id ? 'action.' . $hook : $topic, 10, 2 );
 		$sut->enqueue();
 
 		$this->assertSame( 'fixture-password', apply_filters( $hook, 'fixture-password' ), 'The checkout filter should keep the original password.' );
@@ -812,7 +812,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_redacts_additional_fields_for_a_custom_hook(): void {
 		$hook = 'wc_webhook_redaction_fixture';
-		add_filter( 'woocommerce_webhook_redact_additional_fields', static fn( $fields, $source_hook ) => $hook === $source_hook ? array_merge( $fields, array( 'Gateway_Key' ) ) : $fields, 10, 2 );
+		add_filter( 'poocommerce_webhook_redact_additional_fields', static fn( $fields, $source_hook ) => $hook === $source_hook ? array_merge( $fields, array( 'Gateway_Key' ) ) : $fields, 10, 2 );
 
 		$sut = $this->create_active_webhook( 'action.' . $hook );
 		$sut->save();
@@ -834,8 +834,8 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 * @testdox Plugin fields in form data are masked while the format and unrelated values are preserved.
 	 */
 	public function test_redacts_additional_form_fields(): void {
-		add_filter( 'woocommerce_webhook_redact_additional_fields', static fn() => array( 'gateway_key' ) );
-		$sut     = $this->create_active_webhook( 'action.woocommerce_checkout_update_order_review' );
+		add_filter( 'poocommerce_webhook_redact_additional_fields', static fn() => array( 'gateway_key' ) );
+		$sut     = $this->create_active_webhook( 'action.poocommerce_checkout_update_order_review' );
 		$payload = $sut->build_payload( '?currency=USD&&Gateway%5FKey=fixture-private&gateway_key=&flag&note=a%3Db' );
 
 		$this->assertSame( '?currency=USD&&Gateway%5FKey=[redacted]&gateway_key=&flag&note=a%3Db', $payload['arg'] );
@@ -853,11 +853,11 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		);
 
 		return array(
-			'before validation' => array( 'woocommerce_after_checkout_validation', $posted ),
-			'posted data'       => array( 'woocommerce_checkout_posted_data', $posted ),
-			'specific field'    => array( 'woocommerce_process_checkout_field_account_password', 'fixture-password' ),
-			'password type'     => array( 'woocommerce_process_checkout_password_field', 'fixture-password' ),
-			'serialized review' => array( 'woocommerce_checkout_update_order_review', 'billing_city=fixture-city&account%5Fpassword=fixture-password' ),
+			'before validation' => array( 'poocommerce_after_checkout_validation', $posted ),
+			'posted data'       => array( 'poocommerce_checkout_posted_data', $posted ),
+			'specific field'    => array( 'poocommerce_process_checkout_field_account_password', 'fixture-password' ),
+			'password type'     => array( 'poocommerce_process_checkout_password_field', 'fixture-password' ),
+			'serialized review' => array( 'poocommerce_checkout_update_order_review', 'billing_city=fixture-city&account%5Fpassword=fixture-password' ),
 		);
 	}
 
@@ -871,7 +871,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 * @phpstan-param class-string<WC_Email> $email_class
 	 */
 	public function test_email_footer_leaves_out_internal_properties( string $email_class, string $property, string $email_id ): void {
-		$sut = $this->create_active_webhook( 'action.woocommerce_email_footer' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_email_footer' );
 		$sut->save();
 		$sut->enqueue();
 
@@ -879,7 +879,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$email            = new $email_class();
 		$email->$property = 'fixture-email-value';
 		$email->object    = $user;
-		do_action( 'woocommerce_email_footer', $email );
+		do_action( 'poocommerce_email_footer', $email );
 
 		$this->assertSame( 'fixture-email-value', $email->$property, 'The live email must retain its value.' );
 		$body = $this->run_scheduled_webhook_delivery( $sut, 'fixture-email-value' );
@@ -904,7 +904,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 * @testdox An ordinary custom action argument with a key query parameter is preserved.
 	 */
 	public function test_custom_action_keeps_ordinary_url(): void {
-		$sut = $this->create_active_webhook( 'action.woocommerce_form_field_url' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_form_field_url' );
 		$url = 'https://example.com/catalog?key=blue-widget';
 
 		$this->assertSame( $url, $sut->build_payload( $url )['arg'] );
@@ -916,16 +916,16 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_immediate_webhook_preserves_local_argument(): void {
 		global $wc_queued_webhooks;
 
-		$sut = $this->create_active_webhook( 'action.woocommerce_checkout_posted_data' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_checkout_posted_data' );
 		$sut->save();
 		$sut->enqueue();
 
 		$original_arg = array( 'account_password' => 'fixture-password' );
 		$received_arg = null;
 		$body         = '';
-		add_filter( 'woocommerce_webhook_deliver_async', '__return_false' );
+		add_filter( 'poocommerce_webhook_deliver_async', '__return_false' );
 		add_filter(
-			'woocommerce_webhook_http_args',
+			'poocommerce_webhook_http_args',
 			static function ( $args, $arg ) use ( &$received_arg ) {
 				$received_arg = $arg;
 				return $args;
@@ -943,7 +943,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			2
 		);
 
-		apply_filters( 'woocommerce_checkout_posted_data', $original_arg );
+		apply_filters( 'poocommerce_checkout_posted_data', $original_arg );
 		wc_webhook_execute_queue();
 		$wc_queued_webhooks = null;
 
@@ -954,15 +954,15 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A queued delivery of an already stored blocked topic sends no HTTP request.
-	 * @testWith ["woocommerce_login_credentials"]
-	 *           ["woocommerce_paypal_capture_request"]
-	 *           ["woocommerce_paypal_refund_request"]
+	 * @testWith ["poocommerce_login_credentials"]
+	 *           ["poocommerce_paypal_capture_request"]
+	 *           ["poocommerce_paypal_refund_request"]
 	 * @param string $hook The blocked hook.
 	 */
 	public function test_worker_skips_previously_allowed_topic( string $hook ): void {
 		global $wpdb;
 
-		$sut = $this->create_active_webhook( 'action.woocommerce_add_to_cart' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_add_to_cart' );
 		$sut->save();
 		$wpdb->update( $wpdb->prefix . 'wc_webhooks', array( 'topic' => 'action.' . $hook . '.extra' ), array( 'webhook_id' => $sut->get_id() ) );
 		wp_cache_delete( $sut->get_id(), 'webhooks' );
@@ -980,16 +980,16 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A remapped PayPal request filter keeps its arguments local.
-	 * @testWith ["woocommerce_paypal_capture_request"]
-	 *           ["woocommerce_paypal_refund_request"]
+	 * @testWith ["poocommerce_paypal_capture_request"]
+	 *           ["poocommerce_paypal_refund_request"]
 	 * @param string $hook The blocked PayPal hook.
 	 */
 	public function test_blocked_paypal_hook_does_not_queue_delivery( string $hook ): void {
 		global $wc_queued_webhooks;
 
-		$sut = $this->create_active_webhook( 'action.woocommerce_add_to_cart' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_add_to_cart' );
 		$id  = $sut->get_id();
-		add_filter( 'woocommerce_webhook_hooks', static fn( $hooks, $webhook_id ) => $id === $webhook_id ? array( $hook ) : $hooks, 10, 2 );
+		add_filter( 'poocommerce_webhook_hooks', static fn( $hooks, $webhook_id ) => $id === $webhook_id ? array( $hook ) : $hooks, 10, 2 );
 		$sut->enqueue();
 
 		$request = array(
@@ -1034,8 +1034,8 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 		$actions = as_get_scheduled_actions(
 			array(
-				'hook'   => 'woocommerce_deliver_webhook_async',
-				'group'  => 'woocommerce-webhooks',
+				'hook'   => 'poocommerce_deliver_webhook_async',
+				'group'  => 'poocommerce-webhooks',
 				'status' => ActionScheduler_Store::STATUS_PENDING,
 			)
 		);
@@ -1068,15 +1068,15 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_duplicate_webhook_keeps_rendered_checkbox(): void {
 		global $wc_queued_webhooks;
 
-		$sut = $this->create_active_webhook( 'action.woocommerce_form_field_checkbox' );
+		$sut = $this->create_active_webhook( 'action.poocommerce_form_field_checkbox' );
 		$sut->enqueue();
 
 		$args   = array(
 			'type'   => 'checkbox',
 			'return' => true,
 		);
-		$first  = woocommerce_form_field( 'fixture_checkbox', $args );
-		$second = woocommerce_form_field( 'fixture_checkbox', $args );
+		$first  = poocommerce_form_field( 'fixture_checkbox', $args );
+		$second = poocommerce_form_field( 'fixture_checkbox', $args );
 
 		$this->assertStringContainsString( 'type="checkbox"', $first );
 		$this->assertSame( $first, $second );
@@ -1090,7 +1090,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_mail_webhook_captures_only_named_callbacks(): void {
 		global $wc_queued_webhooks;
 
-		$hook = 'woocommerce_mail_callback';
+		$hook = 'poocommerce_mail_callback';
 		$sut  = $this->create_active_webhook( 'action.' . $hook );
 		$sut->enqueue();
 
@@ -1115,10 +1115,10 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_log_webhooks_do_not_forward_delivery_logs(): void {
 		global $wc_queued_webhooks;
 
-		update_option( 'woocommerce_logs_logging_enabled', 'yes' );
-		update_option( 'woocommerce_logs_level_threshold', 'none' );
+		update_option( 'poocommerce_logs_logging_enabled', 'yes' );
+		update_option( 'poocommerce_logs_level_threshold', 'none' );
 		add_filter(
-			'woocommerce_register_log_handlers',
+			'poocommerce_register_log_handlers',
 			static function () {
 				return array(
 					new class() extends LogHandlerFileV2 {
@@ -1140,8 +1140,8 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			}
 		);
 
-		$formatter = $this->create_active_webhook( 'action.woocommerce_format_log_entry' );
-		$messages  = $this->create_active_webhook( 'action.woocommerce_logger_log_message' );
+		$formatter = $this->create_active_webhook( 'action.poocommerce_format_log_entry' );
+		$messages  = $this->create_active_webhook( 'action.poocommerce_logger_log_message' );
 		foreach ( array( $formatter, $messages ) as $sut ) {
 			$sut->save();
 			$sut->enqueue();
@@ -1149,7 +1149,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 		$delivery_logs = 0;
 		add_filter(
-			'woocommerce_format_log_entry',
+			'poocommerce_format_log_entry',
 			static function ( $entry, $details ) use ( &$delivery_logs ) {
 				if ( 'webhooks-delivery' === ( $details['context']['source'] ?? '' ) ) {
 					++$delivery_logs;
@@ -1166,8 +1166,8 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 		$actions = as_get_scheduled_actions(
 			array(
-				'hook'   => 'woocommerce_deliver_webhook_async',
-				'group'  => 'woocommerce-webhooks',
+				'hook'   => 'poocommerce_deliver_webhook_async',
+				'group'  => 'poocommerce-webhooks',
 				'status' => ActionScheduler_Store::STATUS_PENDING,
 			)
 		);
@@ -1194,7 +1194,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			$this->assertCount( 1, $bodies[ $sut->get_id() ] );
 			$this->assertStringContainsString( 'Ordinary log entry for webhook test', $bodies[ $sut->get_id() ][0] );
 		}
-		$ordinary = $this->create_active_webhook( 'action.woocommerce_add_to_cart' );
+		$ordinary = $this->create_active_webhook( 'action.poocommerce_add_to_cart' );
 		$ordinary->save();
 		wc_deliver_webhook_async( $ordinary->get_id(), 123 );
 		$this->assertEmpty( $wc_queued_webhooks, 'Delivery logs from ordinary webhooks must also stay local.' );
@@ -1210,9 +1210,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_webhook_observer_does_not_observe_its_own_worker( bool $remap_topic ): void {
 		global $wc_queued_webhooks;
 
-		$updates  = $this->create_active_webhook( $remap_topic ? 'action.woocommerce_add_to_cart' : 'action.woocommerce_webhook_updated' );
-		$statuses = $this->create_active_webhook( 'action.woocommerce_webhook_statuses' );
-		$source   = $this->create_active_webhook( 'action.woocommerce_add_to_cart' );
+		$updates  = $this->create_active_webhook( $remap_topic ? 'action.poocommerce_add_to_cart' : 'action.poocommerce_webhook_updated' );
+		$statuses = $this->create_active_webhook( 'action.poocommerce_webhook_statuses' );
+		$source   = $this->create_active_webhook( 'action.poocommerce_add_to_cart' );
 		$source->save();
 		// Creation marks the initial ping as pending.
 		$source->set_pending_delivery( false );
@@ -1221,7 +1221,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		}
 		if ( $remap_topic ) {
 			$id = $updates->get_id();
-			add_filter( 'woocommerce_webhook_topic', static fn( $topic, $webhook_id ) => $id === $webhook_id ? 'action.woocommerce_webhook_updated' : $topic, 10, 2 );
+			add_filter( 'poocommerce_webhook_topic', static fn( $topic, $webhook_id ) => $id === $webhook_id ? 'action.poocommerce_webhook_updated' : $topic, 10, 2 );
 		}
 		$updates->enqueue();
 		$statuses->enqueue();
@@ -1261,12 +1261,12 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox The woocommerce_webhook_enable_delivery_log filter toggles delivery logging without affecting failure tracking.
+	 * @testDox The poocommerce_webhook_enable_delivery_log filter toggles delivery logging without affecting failure tracking.
 	 */
 	public function test_delivery_logging_respects_enable_delivery_log_filter() {
 		// Ensure logging is enabled and every level is handled so the delivery log write is observable.
-		update_option( 'woocommerce_logs_logging_enabled', 'yes' );
-		update_option( 'woocommerce_logs_level_threshold', 'none' );
+		update_option( 'poocommerce_logs_logging_enabled', 'yes' );
+		update_option( 'poocommerce_logs_level_threshold', 'none' );
 
 		$logged  = 0;
 		$log_spy = function ( $message, $level, $context ) use ( &$logged ) {
@@ -1275,7 +1275,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			}
 			return $message;
 		};
-		add_filter( 'woocommerce_logger_log_message', $log_spy, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $log_spy, 10, 3 );
 
 		$webhook = new WC_Webhook();
 		$webhook->set_status( 'active' );
@@ -1286,7 +1286,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 
 		$request = array(
 			'method'     => 'POST',
-			'user-agent' => 'WooCommerce',
+			'user-agent' => 'PooCommerce',
 			'headers'    => array(),
 			'body'       => '{}',
 		);
@@ -1313,9 +1313,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			$received_id = $webhook_id;
 			return $enable;
 		};
-		add_filter( 'woocommerce_webhook_enable_delivery_log', $id_spy, 10, 2 );
+		add_filter( 'poocommerce_webhook_enable_delivery_log', $id_spy, 10, 2 );
 		$webhook->log_delivery( 'delivery-default', $request, $success, 0.1 );
-		remove_filter( 'woocommerce_webhook_enable_delivery_log', $id_spy, 10 );
+		remove_filter( 'poocommerce_webhook_enable_delivery_log', $id_spy, 10 );
 
 		$this->assertSame( $webhook->get_id(), $received_id, 'The filter should receive the webhook ID.' );
 		$this->assertGreaterThan( 0, $logged, 'The delivery should be logged by default.' );
@@ -1324,9 +1324,9 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$logged = 0;
 		$webhook->set_failure_count( 0 );
 		$webhook->save();
-		add_filter( 'woocommerce_webhook_enable_delivery_log', '__return_false' );
+		add_filter( 'poocommerce_webhook_enable_delivery_log', '__return_false' );
 		$webhook->log_delivery( 'delivery-disabled', $request, $failure, 0.1 );
-		remove_filter( 'woocommerce_webhook_enable_delivery_log', '__return_false' );
+		remove_filter( 'poocommerce_webhook_enable_delivery_log', '__return_false' );
 
 		$this->assertSame( 0, $logged, 'The delivery log should be suppressed when the filter returns false.' );
 		$this->assertGreaterThan(
@@ -1478,7 +1478,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 			$webhook->stage_delivery_result( 500 );
 			$this->fail( 'stage_delivery_result() did not refuse the class.' );
 		} catch ( WC_Data_Exception $e ) {
-			$this->assertSame( 'woocommerce_data_staging_unsupported', $e->getErrorCode() );
+			$this->assertSame( 'poocommerce_data_staging_unsupported', $e->getErrorCode() );
 			$this->assertStringContainsString( 'stage_delivery_result()', $e->getMessage() );
 		}
 	}
@@ -1553,7 +1553,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$listener = static function ( $webhook_id ) use ( &$statuses ) {
 			$statuses[] = wc_get_webhook( $webhook_id )->get_status();
 		};
-		add_action( 'woocommerce_webhook_disabled_due_delivery_failures', $listener );
+		add_action( 'poocommerce_webhook_disabled_due_delivery_failures', $listener );
 
 		$webhook->stage_delivery_result( 500 );
 		$this->assertSame( 'disabled', $webhook->get_status() );
@@ -1562,7 +1562,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->save();
 		$webhook->save();
 
-		remove_action( 'woocommerce_webhook_disabled_due_delivery_failures', $listener );
+		remove_action( 'poocommerce_webhook_disabled_due_delivery_failures', $listener );
 		$this->assertSame( array( 'disabled' ), $statuses );
 	}
 
@@ -1571,13 +1571,13 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_log_delivery_after_a_staged_disable_fires_the_disabled_action_once() {
 		$webhook = $this->create_failing_webhook();
-		$fired   = did_action( 'woocommerce_webhook_disabled_due_delivery_failures' );
+		$fired   = did_action( 'poocommerce_webhook_disabled_due_delivery_failures' );
 
 		$webhook->stage_delivery_result( 500 );
 		$webhook->log_delivery( 1, $this->delivery_request(), new WP_Error( 'http_request_failed', 'Failed' ), 0.1 );
 		$webhook->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
 	}
 
 	/**
@@ -1585,7 +1585,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_save_skips_the_disabled_action_when_the_webhook_is_active_again() {
 		$webhook = $this->create_failing_webhook();
-		$fired   = did_action( 'woocommerce_webhook_disabled_due_delivery_failures' );
+		$fired   = did_action( 'poocommerce_webhook_disabled_due_delivery_failures' );
 
 		$this->http_responder = fn() => $this->mock_http_response( 200 );
 
@@ -1593,7 +1593,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->set_status( 'active' );
 		$webhook->save();
 
-		$this->assertSame( 0, did_action( 'woocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
+		$this->assertSame( 0, did_action( 'poocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
 	}
 
 	/**
@@ -1621,7 +1621,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	private function delivery_request(): array {
 		return array(
 			'method'     => 'POST',
-			'user-agent' => 'WooCommerce',
+			'user-agent' => 'PooCommerce',
 			'headers'    => array(),
 			'body'       => '',
 		);
@@ -1638,18 +1638,18 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->set_user_id( 1 );
 		$webhook->set_failure_count( 6 );
 		$webhook->save();
-		$fired = did_action( 'woocommerce_webhook_disabled_due_delivery_failures' );
+		$fired = did_action( 'poocommerce_webhook_disabled_due_delivery_failures' );
 
 		$request = array(
 			'method'     => 'POST',
-			'user-agent' => 'WooCommerce',
+			'user-agent' => 'PooCommerce',
 			'headers'    => array(),
 			'body'       => '',
 		);
 		$webhook->log_delivery( 1, $request, new WP_Error( 'http_request_failed', 'Failed' ), 0.1 );
 		$webhook->save();
 
-		$this->assertSame( 1, did_action( 'woocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
+		$this->assertSame( 1, did_action( 'poocommerce_webhook_disabled_due_delivery_failures' ) - $fired );
 		$this->assertSame( 'disabled', wc_get_webhook( $webhook->get_id() )->get_status() );
 	}
 }

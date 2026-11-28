@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G10A-v3",
-			"path": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+			"path": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 			"before": {
 				"file": "fixtures/G10A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+						"file": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 						"lines": [
 							5,
 							5
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G10B-v4",
-			"path": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+			"path": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 			"before": {
 				"file": "fixtures/G10B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+						"file": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 						"lines": [
 							5,
 							7
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G10C-v3",
-			"path": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+			"path": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 			"before": {
 				"file": "fixtures/G10C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G10D-v3",
-			"path": "plugins/woocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
+			"path": "plugins/poocommerce/src/Internal/DataStores/Orders/OrderMetaSynchronizer.php",
 			"before": {
 				"file": "fixtures/G10D/before.php"
 			},

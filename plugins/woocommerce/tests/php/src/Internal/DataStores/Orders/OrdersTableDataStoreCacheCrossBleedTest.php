@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caching\WPCacheEngine;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 
 /**
@@ -270,7 +270,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_debug_logging_on_missing_property(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -311,7 +311,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_corrupt_order_data_cache_entry_is_discarded_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -356,7 +356,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_corrupt_object_order_data_cache_entry_is_discarded_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -397,7 +397,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_corrupt_meta_cache_entry_is_discarded_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -434,7 +434,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_corrupt_meta_element_cache_entry_does_not_fatal_and_self_heals(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -474,7 +474,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_incomplete_meta_row_cache_entry_is_rejected_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -509,7 +509,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_order_data_cache_entry_with_mismatched_id_is_discarded_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -549,7 +549,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_truncated_order_data_cache_entry_is_rejected_and_reread(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -598,7 +598,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_filter_raw_meta_data_tolerates_non_array_input(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -627,7 +627,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_corrupt_legacy_meta_cache_entry_is_invalidated_and_self_heals(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -693,7 +693,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_incomplete_legacy_meta_row_is_invalidated_and_self_heals(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -743,7 +743,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 	public function test_filter_injected_virtual_meta_is_not_treated_as_corrupt(): void {
 		$fake_logger = $this->create_fake_logger();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $fake_logger ) {
 				return $fake_logger;
 			}
@@ -774,7 +774,7 @@ class OrdersTableDataStoreCacheCrossBleedTest extends \HposTestCase {
 			$meta_data[]         = $virtual;
 			return $meta_data;
 		};
-		add_filter( 'woocommerce_data_store_wp_post_read_meta', $read_meta_filter );
+		add_filter( 'poocommerce_data_store_wp_post_read_meta', $read_meta_filter );
 
 		// Make sure the legacy meta cache starts empty so the first read is a cache miss.
 		$cache_key = $order->get_meta_cache_key();

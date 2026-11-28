@@ -1,19 +1,19 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Utils;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Utils;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Integration test for Renderer
@@ -147,12 +147,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$context_filter = function () {
 			return array( 'is_rtl' => false );
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 
 		try {
 			$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'ar' );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 		}
 
 		$this->assertStringContainsString( 'dir="ltr"', $rendered['html'] );
@@ -166,12 +166,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$context_filter = function () {
 			return array( 'is_rtl' => true );
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 
 		try {
 			$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en_US' );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 		}
 
 		$this->assertStringContainsString( 'dir="rtl"', $rendered['html'] );
@@ -187,12 +187,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			++$filter_calls;
 			return array( 'is_rtl' => true );
 		};
-		add_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 
 		try {
 			$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en_US' );
 		} finally {
-			remove_filter( 'woocommerce_email_editor_rendering_email_context', $context_filter );
+			remove_filter( 'poocommerce_email_editor_rendering_email_context', $context_filter );
 		}
 
 		$this->assertSame( 1, $filter_calls );
@@ -206,9 +206,9 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$content_renderer_property = new \ReflectionProperty( Renderer::class, 'content_renderer' );
 		$content_renderer_property->setAccessible( true );
 		$content_renderer = $content_renderer_property->getValue( $this->renderer );
-		$this->assertInstanceOf( \Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer::class, $content_renderer );
+		$this->assertInstanceOf( \Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer::class, $content_renderer );
 
-		$previous_context = new \Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context(
+		$previous_context = new \Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context(
 			$this->createMock( \WP_Theme_JSON::class ),
 			array( 'is_rtl' => true ),
 			'ar_SA'
@@ -240,12 +240,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$styles_callback = function ( $styles ) {
 			return $styles . 'body { color: pink; }';
 		};
-		add_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		add_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 		$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en' );
 		$style    = $this->getStylesValueForTag( $rendered['html'], array( 'tag_name' => 'body' ) );
 		$this->assertIsString( $style );
 		$this->assertStringContainsString( 'color: pink', $style );
-		remove_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		remove_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 	}
 
 	/**
@@ -303,11 +303,11 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$add_styles = static function ( string $styles ): string {
 			return $styles . ':where(.email_layout_wrapper){border-top: 7px solid #010203;}';
 		};
-		add_filter( 'woocommerce_email_renderer_styles', $add_styles );
+		add_filter( 'poocommerce_email_renderer_styles', $add_styles );
 		try {
 			$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en' );
 		} finally {
-			remove_filter( 'woocommerce_email_renderer_styles', $add_styles );
+			remove_filter( 'poocommerce_email_renderer_styles', $add_styles );
 		}
 		$this->assertMatchesRegularExpression( '/class="email_layout_wrapper[^"]*"[^>]*style="[^"]*border-top: 7px solid #010203/', $rendered['html'] );
 	}
@@ -437,7 +437,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test that rendering preserves personalization tags.
 	 */
 	public function testItPreservesPersonalizationTags(): void {
-		$this->email_post->post_content = '<!-- wp:paragraph --><p><!--[woocommerce/customer-username]--><!--[woocommerce/customer-username default="john"]--><!--[woocommerce/customer-username default="a [2026]"]--></p><!-- /wp:paragraph -->';
+		$this->email_post->post_content = '<!-- wp:paragraph --><p><!--[poocommerce/customer-username]--><!--[poocommerce/customer-username default="john"]--><!--[poocommerce/customer-username default="a [2026]"]--></p><!-- /wp:paragraph -->';
 		wp_update_post(
 			array(
 				'ID'           => $this->email_post->ID,
@@ -450,12 +450,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			'Preheader content',
 			'en'
 		);
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username]-->', $rendered['html'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username default="john"]-->', $rendered['html'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username]-->', $rendered['text'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username default="john"]-->', $rendered['text'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username]-->', $rendered['html'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username default="john"]-->', $rendered['html'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username]-->', $rendered['text'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username default="john"]-->', $rendered['text'] );
 		// A "]" inside a quoted attribute value must not end the tag early.
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username default="a [2026]"]-->', $rendered['text'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username default="a [2026]"]-->', $rendered['text'] );
 	}
 
 	/**
@@ -732,7 +732,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 	 */
 	private function render_with_link_tag( string $content ): array {
 		$registry = new Personalization_Tags_Registry(
-			$this->di_container->get( \Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger::class )
+			$this->di_container->get( \Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger::class )
 		);
 		$registry->register(
 			new Personalization_Tag(

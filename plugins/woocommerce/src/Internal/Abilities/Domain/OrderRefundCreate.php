@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderRefundAbilityTrait;
-use Automattic\WooCommerce\Internal\RestApi\Refunds\DataUtils;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderRefundAbilityTrait;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\DataUtils;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -33,28 +33,28 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	/**
 	 * Refund meta with the fingerprint of the call that created the refund.
 	 */
-	private const FINGERPRINT_META_KEY = '_woocommerce_ability_refund_fingerprint';
+	private const FINGERPRINT_META_KEY = '_poocommerce_ability_refund_fingerprint';
 
 	/**
 	 * Refund meta with the fingerprint of the amount and lines the call resolved to, so the same refund sent in another form matches.
 	 */
-	private const RESOLVED_FINGERPRINT_META_KEY = '_woocommerce_ability_refund_resolved_fingerprint';
+	private const RESOLVED_FINGERPRINT_META_KEY = '_poocommerce_ability_refund_resolved_fingerprint';
 
 	/**
 	 * Refund meta set when the call asked the gateway to refund the payment.
 	 */
-	private const PAYMENT_REQUESTED_META_KEY = '_woocommerce_ability_refund_payment_requested';
+	private const PAYMENT_REQUESTED_META_KEY = '_poocommerce_ability_refund_payment_requested';
 
 	/**
 	 * Option that locks the refunds of one order, followed by the order ID.
 	 */
-	private const LOCK_OPTION_PREFIX = 'woocommerce_ability_order_refund_lock_';
+	private const LOCK_OPTION_PREFIX = 'poocommerce_ability_order_refund_lock_';
 
 	/**
-	 * Key of the wc_create_refund() argument that carries a value unique to the call, which woocommerce_create_refund
+	 * Key of the wc_create_refund() argument that carries a value unique to the call, which poocommerce_create_refund
 	 * passes on with the refund, so a refund that a callback makes during the call is not taken for the call's own.
 	 */
-	public const CALL_ARG = 'woocommerce_ability_call';
+	public const CALL_ARG = 'poocommerce_ability_call';
 
 	/**
 	 * Seconds after which a lock is stale, longer than a gateway call takes, so a crashed request cannot block the order.
@@ -92,7 +92,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/order-refund-create';
+		return 'poocommerce/order-refund-create';
 	}
 
 	/**
@@ -104,12 +104,12 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Refund order', 'woocommerce' ),
+			'label'               => __( 'Refund order', 'poocommerce' ),
 			'description'         => __(
-				'Refund an amount or lines of an order. With refund_payment, the payment gateway sends the money back; without it, the refund is only recorded and the money is returned outside WooCommerce.',
-				'woocommerce'
+				'Refund an amount or lines of an order. With refund_payment, the payment gateway sends the money back; without it, the refund is only recorded and the money is returned outside PooCommerce.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::build_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -141,8 +141,8 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	public static function execute( array $input ) {
 		if ( ! isset( $input['amount'] ) && ! isset( $input['line_items'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_missing_amount',
-				__( 'No amount or lines to refund were sent, so no refund was created. Send amount, line_items, or both.', 'woocommerce' ),
+				'poocommerce_ability_order_refund_missing_amount',
+				__( 'No amount or lines to refund were sent, so no refund was created. Send amount, line_items, or both.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -154,8 +154,8 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 		}
 		if ( null === $lock ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_in_progress',
-				__( 'Another refund of this order is in progress. List the refunds of the order with woocommerce/order-refunds-query before you refund it again.', 'woocommerce' ),
+				'poocommerce_ability_order_refund_in_progress',
+				__( 'Another refund of this order is in progress. List the refunds of the order with poocommerce/order-refunds-query before you refund it again.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -198,7 +198,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 			$input['line_items'] ?? array(),
 			isset( $input['amount'] ),
 			isset( $input['amount'] ) ? NumberUtil::round( (float) $input['amount'], $decimals ) : null,
-			'woocommerce-abilities'
+			'poocommerce-abilities'
 		);
 		if ( is_wp_error( $prepared ) ) {
 			return null !== $duplicate ? self::duplicate_error( $duplicate ) : self::refund_error( $prepared );
@@ -227,10 +227,10 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( $allowed_id > 0 && ! $allowed_found && ! self::repeats_older_refund( $order, $allowed_id, $fingerprint, $resolved_fingerprint ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_duplicate_mismatch',
+				'poocommerce_ability_order_refund_duplicate_mismatch',
 				sprintf(
 					/* translators: %d: refund ID. */
-					__( 'Refund %d is not a refund of this order with the same amount and lines, so no refund was created. Send allow_duplicate_of only with the refund ID that a duplicate error returned, and the same input as that call.', 'woocommerce' ),
+					__( 'Refund %d is not a refund of this order with the same amount and lines, so no refund was created. Send allow_duplicate_of only with the refund ID that a duplicate error returned, and the same input as that call.', 'poocommerce' ),
 					$allowed_id
 				),
 				array( 'status' => 400 )
@@ -239,8 +239,8 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( $refund_payment && ! self::gateway_can_refund( $order ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_gateway_unsupported',
-				__( 'The payment gateway of this order cannot refund it automatically. Send refund_payment as false to record a manual refund, and return the money outside WooCommerce.', 'woocommerce' ),
+				'poocommerce_ability_order_refund_gateway_unsupported',
+				__( 'The payment gateway of this order cannot refund it automatically. Send refund_payment as false to record a manual refund, and return the money outside PooCommerce.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -252,7 +252,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 		$lock_error = null;
 
 		/**
-		 * The refund of the order that saved first during the call and has not reached woocommerce_create_refund as
+		 * The refund of the order that saved first during the call and has not reached poocommerce_create_refund as
 		 * another call's, so the call's own until then. $watch_paid sets it, which PHPStan does not follow into $tag.
 		 *
 		 * @var \WC_Order_Refund|null $candidate
@@ -294,9 +294,9 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 			$saved = $saved || ( null !== $tagged && $refund === $tagged );
 		};
 
-		add_action( 'woocommerce_create_refund', $tag, PHP_INT_MIN, 2 );
-		add_action( 'woocommerce_before_order_refund_object_save', $watch_paid, PHP_INT_MIN );
-		add_action( 'woocommerce_after_order_refund_object_save', $watch_save, PHP_INT_MIN );
+		add_action( 'poocommerce_create_refund', $tag, PHP_INT_MIN, 2 );
+		add_action( 'poocommerce_before_order_refund_object_save', $watch_paid, PHP_INT_MIN );
+		add_action( 'poocommerce_after_order_refund_object_save', $watch_save, PHP_INT_MIN );
 		/**
 		 * Whether a callback threw an Error. Set in the catch, which PHPStan takes for dead.
 		 *
@@ -316,7 +316,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 				)
 			);
 		} catch ( \Error $e ) { // @phpstan-ignore catch.neverThrown (Callbacks that wc_create_refund() runs can throw an Error, which its @throws does not list.)
-			// wc_create_refund() catches only exceptions, so delete the half-made refund as it would. It saves the refund before woocommerce_create_refund, so the refund can exist untagged.
+			// wc_create_refund() catches only exceptions, so delete the half-made refund as it would. It saves the refund before poocommerce_create_refund, so the refund can exist untagged.
 			// A paid refund stays as the record of the money, so a retry finds it, and an untagged one was paid by another call.
 			$crashed = true;
 			$result  = new \WP_Error( 'error', $e->getMessage() );
@@ -325,9 +325,9 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 				$made->delete( true );
 			}
 		} finally {
-			remove_action( 'woocommerce_create_refund', $tag, PHP_INT_MIN );
-			remove_action( 'woocommerce_before_order_refund_object_save', $watch_paid, PHP_INT_MIN );
-			remove_action( 'woocommerce_after_order_refund_object_save', $watch_save, PHP_INT_MIN );
+			remove_action( 'poocommerce_create_refund', $tag, PHP_INT_MIN );
+			remove_action( 'poocommerce_before_order_refund_object_save', $watch_paid, PHP_INT_MIN );
+			remove_action( 'poocommerce_after_order_refund_object_save', $watch_save, PHP_INT_MIN );
 		}
 
 		if ( $result instanceof \WC_Order_Refund ) {
@@ -335,14 +335,14 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 			$save_error = $result->get_last_save_error();
 			if ( null !== $save_error ) {
 				/* translators: 1: refund ID, 2: error message. */
-				$message = __( 'Refund %1$d was created, but it could not be saved in full: %2$s Do not refund again. Check the order instead.', 'woocommerce' );
+				$message = __( 'Refund %1$d was created, but it could not be saved in full: %2$s Do not refund again. Check the order instead.', 'poocommerce' );
 				if ( $paid ) {
 					/* translators: 1: refund ID, 2: error message. */
-					$message = __( 'The payment gateway refunded the payment and refund %1$d was created, but it could not be saved in full: %2$s Do not refund again. Check the order instead.', 'woocommerce' );
+					$message = __( 'The payment gateway refunded the payment and refund %1$d was created, but it could not be saved in full: %2$s Do not refund again. Check the order instead.', 'poocommerce' );
 				}
 
 				return new \WP_Error(
-					'woocommerce_ability_order_refund_incomplete',
+					'poocommerce_ability_order_refund_incomplete',
 					sprintf( $message, $result->get_id(), $save_error->getMessage() ),
 					array(
 						'status'           => 500,
@@ -370,9 +370,9 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 
 		if ( $crashed && null === $tagged ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_failed',
+				'poocommerce_ability_order_refund_failed',
 				/* translators: %s: error message. */
-				sprintf( __( 'The refund failed before it was sent to the payment gateway, so no refund was created and no money was returned: %s The same error will likely stop a retry, so ask the merchant to check it before you refund again.', 'woocommerce' ), $result->get_error_message() ),
+				sprintf( __( 'The refund failed before it was sent to the payment gateway, so no refund was created and no money was returned: %s The same error will likely stop a retry, so ask the merchant to check it before you refund again.', 'poocommerce' ), $result->get_error_message() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -406,11 +406,11 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	private static function unconfirmed_refund_error( int $refund_id, $result ): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_failed',
+			'poocommerce_ability_order_refund_failed',
 			sprintf(
 				/* translators: 1: error message, 2: refund ID. */
-				__( 'The refund failed before it was sent to the payment gateway: %1$s Refund %2$d of this order, which the payment gateway refunded, was saved during the call, but the call could not confirm that it made it. Check the refunds of the order with the merchant before you retry.', 'woocommerce' ),
-				is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'woocommerce' ),
+				__( 'The refund failed before it was sent to the payment gateway: %1$s Refund %2$d of this order, which the payment gateway refunded, was saved during the call, but the call could not confirm that it made it. Check the refunds of the order with the merchant before you retry.', 'poocommerce' ),
+				is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'poocommerce' ),
 				$refund_id
 			),
 			array(
@@ -430,15 +430,15 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	private static function kept_refund_error( int $refund_id, $result, bool $paid ): \WP_Error {
 		/* translators: 1: refund ID, 2: error message. */
-		$message = __( 'Refund %1$d is still on the order, though a later step failed and WooCommerce could not delete it: %2$s Do not refund again. Check the order, and the payment with the merchant, instead.', 'woocommerce' );
+		$message = __( 'Refund %1$d is still on the order, though a later step failed and PooCommerce could not delete it: %2$s Do not refund again. Check the order, and the payment with the merchant, instead.', 'poocommerce' );
 		if ( $paid ) {
 			/* translators: 1: refund ID, 2: error message. */
-			$message = __( 'Refund %1$d is still on the order and the payment gateway refunded the payment, though a later step failed and WooCommerce could not delete the refund: %2$s Do not refund again. Check the order instead.', 'woocommerce' );
+			$message = __( 'Refund %1$d is still on the order and the payment gateway refunded the payment, though a later step failed and PooCommerce could not delete the refund: %2$s Do not refund again. Check the order instead.', 'poocommerce' );
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_incomplete',
-			sprintf( $message, $refund_id, is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'woocommerce' ) ),
+			'poocommerce_ability_order_refund_incomplete',
+			sprintf( $message, $refund_id, is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'poocommerce' ) ),
 			array(
 				'status'           => 500,
 				'refund_id'        => $refund_id,
@@ -454,45 +454,45 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 * @param mixed          $result        Result of wc_create_refund().
 	 * @param int            $order_id       Order ID.
 	 * @param \WP_Error|null $lock_error     Error of the lock check that declined the refund, if it did.
-	 * @param bool           $saved          Whether the refund was saved after woocommerce_create_refund, or a callback crashed.
+	 * @param bool           $saved          Whether the refund was saved after poocommerce_create_refund, or a callback crashed.
 	 * @param bool           $paid           Whether the gateway refunded the payment.
 	 * @param bool           $refund_payment Whether the call asked the gateway to refund the payment.
 	 * @return \WP_Error
 	 */
 	private static function create_error( $result, int $order_id, ?\WP_Error $lock_error, bool $saved, bool $paid, bool $refund_payment ): \WP_Error {
-		$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'woocommerce' );
+		$reason = is_wp_error( $result ) ? $result->get_error_message() : __( 'The refund could not be created.', 'poocommerce' );
 
 		if ( null !== $lock_error ) {
 			return $lock_error;
 		}
 
 		if ( ! $saved ) {
-			return new \WP_Error( 'woocommerce_ability_order_refund_declined', $reason, array( 'status' => 400 ) );
+			return new \WP_Error( 'poocommerce_ability_order_refund_declined', $reason, array( 'status' => 400 ) );
 		}
 
 		if ( $refund_payment && ! $paid ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_refund_gateway_failed',
+				'poocommerce_ability_order_refund_gateway_failed',
 				/* translators: %s: error message of the payment gateway. */
-				sprintf( __( 'The payment gateway did not refund the payment, so no refund was created: %s', 'woocommerce' ), $reason ),
+				sprintf( __( 'The payment gateway did not refund the payment, so no refund was created: %s', 'poocommerce' ), $reason ),
 				array( 'status' => 502 )
 			);
 		}
 
 		wc_get_logger()->error(
 			sprintf( 'A refund of order %1$d was deleted after it was saved: %2$s', $order_id, $reason ),
-			array( 'source' => 'woocommerce-refunds' )
+			array( 'source' => 'poocommerce-refunds' )
 		);
 
 		/* translators: %s: error message. */
-		$message = __( 'The refund failed after extensions ran their refund callbacks, so it may not have been recorded, and an extension may already have refunded the payment: %s Do not refund again. Check with the merchant and the payment gateway whether the money was returned, and record the refund manually if it was.', 'woocommerce' );
+		$message = __( 'The refund failed after extensions ran their refund callbacks, so it may not have been recorded, and an extension may already have refunded the payment: %s Do not refund again. Check with the merchant and the payment gateway whether the money was returned, and record the refund manually if it was.', 'poocommerce' );
 		if ( $paid ) {
 			/* translators: %s: error message. */
-			$message = __( 'The payment gateway refunded the payment, but a later step failed and WooCommerce deleted the refund, so the order does not show it: %s Do not refund again. Record the refund manually.', 'woocommerce' );
+			$message = __( 'The payment gateway refunded the payment, but a later step failed and PooCommerce deleted the refund, so the order does not show it: %s Do not refund again. Record the refund manually.', 'poocommerce' );
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_lost',
+			'poocommerce_ability_order_refund_lost',
 			sprintf( $message, $reason ),
 			array(
 				'status'   => 500,
@@ -658,21 +658,21 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 		if ( self::is_unsettled( $refund ) ) {
 			$message = sprintf(
 				/* translators: 1: refund ID, 2: time since the refund, such as "2 mins". */
-				__( 'Refund %1$d recorded the same refund of this order %2$s ago, so no new refund was created. The payment gateway was asked to refund the payment, but its result was not saved, so it may have refunded the payment. Do not refund again. Check the payment with the merchant and the payment gateway.', 'woocommerce' ),
+				__( 'Refund %1$d recorded the same refund of this order %2$s ago, so no new refund was created. The payment gateway was asked to refund the payment, but its result was not saved, so it may have refunded the payment. Do not refund again. Check the payment with the merchant and the payment gateway.', 'poocommerce' ),
 				$refund->get_id(),
 				human_time_diff( $created )
 			);
 		} else {
 			$message = sprintf(
 				/* translators: 1: refund ID, 2: time since the refund, such as "2 mins". */
-				__( 'Refund %1$d already refunded the same amount and lines of this order %2$s ago, so no new refund was created. If you sent this call again after an error or a timeout, the first call went through: tell the merchant about refund %1$d and do not refund again. Only if the merchant then asks for a second, identical refund, send the same input with allow_duplicate_of set to %1$d.', 'woocommerce' ),
+				__( 'Refund %1$d already refunded the same amount and lines of this order %2$s ago, so no new refund was created. If you sent this call again after an error or a timeout, the first call went through: tell the merchant about refund %1$d and do not refund again. Only if the merchant then asks for a second, identical refund, send the same input with allow_duplicate_of set to %1$d.', 'poocommerce' ),
 				$refund->get_id(),
 				human_time_diff( $created )
 			);
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_duplicate',
+			'poocommerce_ability_order_refund_duplicate',
 			$message,
 			array(
 				'status' => 409,
@@ -736,8 +736,8 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	private static function lock_failed_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_lock_failed',
-			__( 'The order could not be locked for the refund because of a database error, so no refund was created. It is safe to try again.', 'woocommerce' ),
+			'poocommerce_ability_order_refund_lock_failed',
+			__( 'The order could not be locked for the refund because of a database error, so no refund was created. It is safe to try again.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}
@@ -749,8 +749,8 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 	 */
 	private static function lock_lost_error(): \WP_Error {
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_lock_lost',
-			__( 'This refund took too long, and another refund of the order may have started, so no refund was created. List the refunds of the order with woocommerce/order-refunds-query before you refund it again.', 'woocommerce' ),
+			'poocommerce_ability_order_refund_lock_lost',
+			__( 'This refund took too long, and another refund of the order may have started, so no refund was created. List the refunds of the order with poocommerce/order-refunds-query before you refund it again.', 'poocommerce' ),
 			array( 'status' => 409 )
 		);
 	}
@@ -797,7 +797,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 		}
 
 		return new \WP_Error(
-			'woocommerce_ability_order_refund_' . ( self::ENGINE_ERROR_CODES[ $code ] ?? 'invalid_request' ),
+			'poocommerce_ability_order_refund_' . ( self::ENGINE_ERROR_CODES[ $code ] ?? 'invalid_request' ),
 			$error->get_error_message(),
 			$data
 		);
@@ -814,24 +814,24 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 			'properties'           => array(
 				'id'                 => array(
 					'type'        => 'integer',
-					'description' => __( 'Order ID.', 'woocommerce' ),
+					'description' => __( 'Order ID.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'amount'             => array(
 					'type'        => 'string',
 					'pattern'     => '^[0-9]+(\.[0-9]+)?$',
-					'description' => __( 'Amount to refund, including tax, such as 12.50. Without line_items, it refunds this amount of the order. With line_items, it defaults to their total and cannot be lower.', 'woocommerce' ),
+					'description' => __( 'Amount to refund, including tax, such as 12.50. Without line_items, it refunds this amount of the order. With line_items, it defaults to their total and cannot be lower.', 'poocommerce' ),
 				),
 				'line_items'         => array(
 					'type'        => 'array',
-					'description' => __( 'Order lines to refund. Send quantity to refund whole units, or refund_total for a tax-inclusive amount of the line.', 'woocommerce' ),
+					'description' => __( 'Order lines to refund. Send quantity to refund whole units, or refund_total for a tax-inclusive amount of the line.', 'poocommerce' ),
 					'minItems'    => 1,
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
 							'line_item_id' => array(
 								'type'        => 'integer',
-								'description' => __( 'ID of the order line, from the woocommerce/orders-query ability with include_line_items and include_lines.', 'woocommerce' ),
+								'description' => __( 'ID of the order line, from the poocommerce/orders-query ability with include_line_items and include_lines.', 'poocommerce' ),
 								'minimum'     => 1,
 							),
 							'quantity'     => array(
@@ -840,7 +840,7 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 							),
 							'refund_total' => array(
 								'type'        => 'number',
-								'description' => __( 'Tax-inclusive amount to refund for the line. Negative only for a discount or credit line.', 'woocommerce' ),
+								'description' => __( 'Tax-inclusive amount to refund for the line. Negative only for a discount or credit line.', 'poocommerce' ),
 							),
 						),
 						'required'             => array( 'line_item_id' ),
@@ -850,17 +850,17 @@ class OrderRefundCreate extends AbstractDomainAbility implements AbilityDefiniti
 				'reason'             => array( 'type' => 'string' ),
 				'refund_payment'     => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether the payment gateway sends the money back.', 'woocommerce' ),
+					'description' => __( 'Whether the payment gateway sends the money back.', 'poocommerce' ),
 					'default'     => false,
 				),
 				'restock_items'      => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether to return the refunded quantities of the product lines to stock.', 'woocommerce' ),
+					'description' => __( 'Whether to return the refunded quantities of the product lines to stock.', 'poocommerce' ),
 					'default'     => false,
 				),
 				'allow_duplicate_of' => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the refund that a duplicate error returned. Send it, with the same input, only when the merchant asked for a second refund after being told about that one. Never send it to retry a failed or timed-out call.', 'woocommerce' ),
+					'description' => __( 'ID of the refund that a duplicate error returned. Send it, with the same input, only when the merchant asked for a second refund after being told about that one. Never send it to retry a failed or timed-out call.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 			),

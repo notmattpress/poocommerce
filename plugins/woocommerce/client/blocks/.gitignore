@@ -50,7 +50,7 @@ Thumbs.db
 # Built files
 /build/
 bin/languages
-woocommerce-gutenberg-products-block.zip
+poocommerce-gutenberg-products-block.zip
 storybook-static/
 /wp-content/
 /.wp-env.override.json

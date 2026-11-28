@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Webhooks;
+namespace Automattic\PooCommerce\Internal\Webhooks;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Shows the stored arguments of webhook deliveries redacted on Status > Scheduled Actions.
@@ -37,7 +37,7 @@ class WebhookScheduledActionArgs implements RegisterHooksInterface {
 	 * @return mixed
 	 */
 	public function handle_action_scheduler_list_table_column_args( $html, $row ) {
-		if ( ! is_array( $row ) || 'woocommerce_deliver_webhook_async' !== ( $row['hook'] ?? '' ) || ! is_array( $row['args'] ?? null ) || ! array_key_exists( 'arg', $row['args'] ) ) {
+		if ( ! is_array( $row ) || 'poocommerce_deliver_webhook_async' !== ( $row['hook'] ?? '' ) || ! is_array( $row['args'] ?? null ) || ! array_key_exists( 'arg', $row['args'] ) ) {
 			return $html;
 		}
 

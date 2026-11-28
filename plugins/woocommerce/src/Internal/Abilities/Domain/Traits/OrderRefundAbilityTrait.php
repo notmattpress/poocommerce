@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -73,42 +73,42 @@ trait OrderRefundAbilityTrait {
 			'properties'           => array(
 				'id'               => array(
 					'type'        => 'integer',
-					'description' => __( 'Refund ID.', 'woocommerce' ),
+					'description' => __( 'Refund ID.', 'poocommerce' ),
 				),
 				'order_id'         => array( 'type' => 'integer' ),
 				'amount'           => array( 'type' => 'string' ),
 				'reason'           => array(
 					'type'        => 'string',
-					'description' => __( 'Reason for the refund. Omitted when none was given.', 'woocommerce' ),
+					'description' => __( 'Reason for the refund. Omitted when none was given.', 'poocommerce' ),
 				),
 				'refunded_by'      => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the user who made the refund. Omitted when nobody was logged in.', 'woocommerce' ),
+					'description' => __( 'ID of the user who made the refund. Omitted when nobody was logged in.', 'poocommerce' ),
 				),
 				'refunded_payment' => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether WooCommerce recorded that the payment gateway refunded the payment. False for a manual refund, but also when the gateway or an extension refunded it and the refund was not marked as paid, so check with the gateway when a refund error asked you to.', 'woocommerce' ),
+					'description' => __( 'Whether PooCommerce recorded that the payment gateway refunded the payment. False for a manual refund, but also when the gateway or an extension refunded it and the refund was not marked as paid, so check with the gateway when a refund error asked you to.', 'poocommerce' ),
 				),
 				'date_created'     => array(
 					'type'        => 'string',
 					'format'      => 'date-time',
-					'description' => __( 'Refund date in the store timezone.', 'woocommerce' ),
+					'description' => __( 'Refund date in the store timezone.', 'poocommerce' ),
 				),
 				'line_items'       => array(
 					'type'        => 'array',
-					'description' => __( 'Order lines that the refund covers. Empty for a refund of an amount only.', 'woocommerce' ),
+					'description' => __( 'Order lines that the refund covers. Empty for a refund of an amount only.', 'poocommerce' ),
 					'items'       => array(
 						'type'                 => 'object',
 						'properties'           => array(
 							'refunded_item_id' => array(
 								'type'        => 'integer',
-								'description' => __( 'ID of the order line.', 'woocommerce' ),
+								'description' => __( 'ID of the order line.', 'poocommerce' ),
 							),
 							'name'             => array( 'type' => 'string' ),
 							'quantity'         => array( 'type' => 'number' ),
 							'total'            => array(
 								'type'        => 'string',
-								'description' => __( 'Amount refunded for the line, excluding tax. Negative for a discount or credit line.', 'woocommerce' ),
+								'description' => __( 'Amount refunded for the line, excluding tax. Negative for a discount or credit line.', 'poocommerce' ),
 							),
 							'total_tax'        => array( 'type' => 'string' ),
 						),

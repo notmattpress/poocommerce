@@ -2,7 +2,7 @@
 
 Files below this directory implement extension-facing JavaScript contracts.
 
-- Preserve stable exports from each `@woocommerce/*` package root.
+- Preserve stable exports from each `@poocommerce/*` package root.
 - Prefer additive changes. Deprecate existing exports before removing or
   renaming them.
 - Preserve the package import, WordPress script handle, and `window.wc` global

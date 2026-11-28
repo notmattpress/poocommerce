@@ -7,8 +7,8 @@ import type {
 	CartVariationItem,
 	ApiErrorResponse,
 	CartResponseTotals,
-} from '@woocommerce/types';
-import type { Notice } from '@woocommerce/stores/store-notices';
+} from '@poocommerce/types';
+import type { Notice } from '@poocommerce/stores/store-notices';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ export type CartUpdateOptions = { showCartUpdatesNotices?: boolean };
 export type AddCartItemError = {
 	/**
 	 * Server error code for a per-item rejection (e.g.
-	 * `woocommerce_rest_product_out_of_stock`), or the batcher's
+	 * `poocommerce_rest_product_out_of_stock`), or the batcher's
 	 * `unknown_error` fallback. Absent on whole-batch/transport failures.
 	 */
 	code?: string;

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Channel rules fetched from a published rules file, so a channel's spec
- * change can reach stores without a WooCommerce release.
+ * change can reach stores without a PooCommerce release.
  *
  * The file is the list of checks that run. Each id has to match a check in
  * code; an id the file leaves out does not run, and an id code does not know
@@ -25,15 +25,15 @@ defined( 'ABSPATH' ) || exit;
  *
  * The file is fetched before each background scan: the daily run and any
  * scan that is asked for. Only a GET is made; the request's user agent
- * includes the site URL, as other WooCommerce.com polls do. A failed fetch
+ * includes the site URL, as other PooCommerce.com polls do. A failed fetch
  * keeps the last good copy, and with no copy the bundled checks apply.
- * With marketplace suggestions turned off (woocommerce_show_marketplace_suggestions), the
- * WooCommerce.com file is not fetched, as for the other WooCommerce.com polls. A URL set by the
+ * With marketplace suggestions turned off (poocommerce_show_marketplace_suggestions), the
+ * PooCommerce.com file is not fetched, as for the other PooCommerce.com polls. A URL set by the
  * filter is still fetched. With the fetch turned off, by that setting or an empty URL, a copy
  * stored earlier is removed at the next scan and the bundled checks apply.
  *
  * The file is fetched from PUBLISHED_URL, the same host as the payment gateway
- * suggestions; the woocommerce_agent_readiness_rules_url filter changes it.
+ * suggestions; the poocommerce_agent_readiness_rules_url filter changes it.
  *
  * @since 11.4.0
  */
@@ -42,12 +42,12 @@ class RemoteRules {
 	/**
 	 * Option holding the last good rules file.
 	 */
-	public const OPTION = 'woocommerce_agent_readiness_remote_rules';
+	public const OPTION = 'poocommerce_agent_readiness_remote_rules';
 
 	/**
 	 * Default rules file URL. While it answers with an error, such as a 404, the bundled checks run.
 	 */
-	public const PUBLISHED_URL = 'https://woocommerce.com/wp-json/wccom/agent-readiness/1.0/rules.json';
+	public const PUBLISHED_URL = 'https://poocommerce.com/wp-json/wccom/agent-readiness/1.0/rules.json';
 
 	/**
 	 * Fetch the rules file and store it when at least one check entry is valid
@@ -65,9 +65,9 @@ class RemoteRules {
 		 *
 		 * @param string $url Rules file URL.
 		 */
-		$url = apply_filters( 'woocommerce_agent_readiness_rules_url', self::PUBLISHED_URL );
-		// The opt-out is about reaching WooCommerce.com. A URL a developer set is still fetched.
-		$opted_out = self::PUBLISHED_URL === $url && 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' );
+		$url = apply_filters( 'poocommerce_agent_readiness_rules_url', self::PUBLISHED_URL );
+		// The opt-out is about reaching PooCommerce.com. A URL a developer set is still fetched.
+		$opted_out = self::PUBLISHED_URL === $url && 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' );
 		if ( ! is_string( $url ) || '' === $url || $opted_out ) {
 			// A copy stored earlier could never update, and would hide checks added in later releases.
 			delete_option( self::OPTION );

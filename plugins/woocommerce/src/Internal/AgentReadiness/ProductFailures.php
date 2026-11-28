@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -186,7 +186,7 @@ class ProductFailures {
 			}
 			// The delete bypasses the meta API, so clear what its deleted_post_meta listeners would, also while
 			// cache invalidation is suspended: the meta cache, cached post queries like the Products list filter,
-			// WooCommerce's product meta cache and the cached product (product instance caching).
+			// PooCommerce's product meta cache and the cached product (product instance caching).
 			wp_cache_delete_multiple( $chunk, 'post_meta' );
 			wp_cache_set_posts_last_changed();
 			$product_cache = wc_get_container()->get( ProductCache::class );

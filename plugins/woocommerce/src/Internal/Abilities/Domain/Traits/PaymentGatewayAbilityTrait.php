@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,20 +58,20 @@ trait PaymentGatewayAbilityTrait {
 				'id'           => array( 'type' => 'string' ),
 				'title'        => array(
 					'type'        => 'string',
-					'description' => __( 'Title shown to customers at checkout. Can be empty.', 'woocommerce' ),
+					'description' => __( 'Title shown to customers at checkout. Can be empty.', 'poocommerce' ),
 				),
 				'method_title' => array(
 					'type'        => 'string',
-					'description' => __( 'Name of the payment method or provider.', 'woocommerce' ),
+					'description' => __( 'Name of the payment method or provider.', 'poocommerce' ),
 				),
 				'description'  => array(
 					'type'        => 'string',
-					'description' => __( 'Description shown to customers at checkout. Can be empty.', 'woocommerce' ),
+					'description' => __( 'Description shown to customers at checkout. Can be empty.', 'poocommerce' ),
 				),
 				'enabled'      => array( 'type' => 'boolean' ),
 				'order'        => array(
 					'type'        => 'integer',
-					'description' => __( 'Position in the checkout order, starting at 0.', 'woocommerce' ),
+					'description' => __( 'Position in the checkout order, starting at 0.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,
@@ -87,7 +87,7 @@ trait PaymentGatewayAbilityTrait {
 	protected static function payment_gateway_not_found( string $code ): \WP_Error {
 		return new \WP_Error(
 			$code,
-			__( 'Payment gateway not found. Use the woocommerce/payment-gateways-query ability to list gateway IDs.', 'woocommerce' ),
+			__( 'Payment gateway not found. Use the poocommerce/payment-gateways-query ability to list gateway IDs.', 'poocommerce' ),
 			array( 'status' => 404 )
 		);
 	}

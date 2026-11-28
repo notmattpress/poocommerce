@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for wc-template-functions.php.
  *
- * @package WooCommerce\Tests\Includes
+ * @package PooCommerce\Tests\Includes
  */
 class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	/**
@@ -64,7 +64,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 
 		ob_start();
 		try {
-			woocommerce_template_loop_add_to_cart( $args );
+			poocommerce_template_loop_add_to_cart( $args );
 
 			return (string) ob_get_clean();
 		} finally {
@@ -160,13 +160,13 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->prepare_checkout_payment();
 
 		ob_start();
-		woocommerce_checkout_payment();
+		poocommerce_checkout_payment();
 
 		return (string) ob_get_clean();
 	}
 
 	/**
-	 * Render the checkout/payment.php template directly, as code that loads it without woocommerce_checkout_payment() would.
+	 * Render the checkout/payment.php template directly, as code that loads it without poocommerce_checkout_payment() would.
 	 *
 	 * @param array $extra_args Template arguments on top of the checkout, the gateways and the button text.
 	 * @return string Rendered markup.
@@ -198,7 +198,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			}
 			$gateway->enabled = 'yes';
 		}
-		add_filter( 'woocommerce_cart_needs_payment', '__return_true' );
+		add_filter( 'poocommerce_cart_needs_payment', '__return_true' );
 		// The mock session is one object for the whole run and the base class never clears this key.
 		WC()->session->set( 'chosen_payment_method', null );
 	}
@@ -235,7 +235,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	 * @testdox The classic checkout should start with nothing selected when the default payment method callback returns nothing.
 	 */
 	public function test_checkout_payment_selects_nothing_when_the_callback_returns_nothing(): void {
-		add_filter( 'woocommerce_default_payment_method', '__return_empty_string' );
+		add_filter( 'poocommerce_default_payment_method', '__return_empty_string' );
 
 		$output = $this->render_checkout_payment();
 
@@ -282,7 +282,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 				'post_title'  => 'Retired catalog',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_page_id );
+		update_option( 'poocommerce_shop_page_id', $shop_page_id );
 		wp_delete_post( $shop_page_id, true );
 
 		$query                       = new WP_Query( array( 'post_type' => 'product' ) );
@@ -297,14 +297,14 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertSame( '', get_the_title( $shop_page_id ), 'The configured Shop page must be missing.' );
 		$this->assertSame( 10, has_filter( 'post_type_archive_title', 'wc_update_product_archive_title' ) );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress core owns this hook; the test exercises WooCommerce's registered callback.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- WordPress core owns this hook; the test exercises PooCommerce's registered callback.
 		$title = apply_filters( 'post_type_archive_title', 'Products', 'product' );
 
-		$this->assertSame( __( 'Shop', 'woocommerce' ), $title );
+		$this->assertSame( __( 'Shop', 'poocommerce' ), $title );
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories caches results under the expected key.
+	 * @testdox poocommerce_get_product_subcategories caches results under the expected key.
 	 */
 	public function test_subcategories_are_cached_under_expected_key(): void {
 		$parent_id = $this->create_category_tree();
@@ -313,7 +313,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		// Cache should be empty before the call.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
 
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should be populated after the call.
 		$cached = wp_cache_get( $cache_key, 'product_cat' );
@@ -323,7 +323,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories does not cache when taxonomy is cleared by filter.
+	 * @testdox poocommerce_get_product_subcategories does not cache when taxonomy is cleared by filter.
 	 */
 	public function test_cache_is_skipped_when_taxonomy_is_cleared(): void {
 		$parent_id = $this->create_category_tree();
@@ -333,9 +333,9 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$args['taxonomy'] = '';
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
 
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should remain empty because taxonomy was cleared.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
@@ -344,7 +344,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories does not cache when taxonomy is missing after filter.
+	 * @testdox poocommerce_get_product_subcategories does not cache when taxonomy is missing after filter.
 	 */
 	public function test_cache_is_skipped_when_taxonomy_is_missing(): void {
 		$parent_id = $this->create_category_tree();
@@ -354,16 +354,16 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			unset( $args['taxonomy'] );
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
 
-		woocommerce_get_product_subcategories( $parent_id );
+		poocommerce_get_product_subcategories( $parent_id );
 
 		// Cache should remain empty because taxonomy was removed.
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
 	}
 
 	/**
-	 * @testdox woocommerce_get_product_subcategories caches normally after filter is removed.
+	 * @testdox poocommerce_get_product_subcategories caches normally after filter is removed.
 	 */
 	public function test_cache_works_normally_after_filter_removed(): void {
 		$parent_id = $this->create_category_tree();
@@ -374,13 +374,13 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$args['taxonomy'] = '';
 			return $args;
 		};
-		add_filter( 'woocommerce_product_subcategories_args', $filter );
-		woocommerce_get_product_subcategories( $parent_id );
+		add_filter( 'poocommerce_product_subcategories_args', $filter );
+		poocommerce_get_product_subcategories( $parent_id );
 		$this->assertFalse( wp_cache_get( $cache_key, 'product_cat' ) );
-		remove_filter( 'woocommerce_product_subcategories_args', $filter );
+		remove_filter( 'poocommerce_product_subcategories_args', $filter );
 
 		// Second call without filter should cache normally.
-		$result = woocommerce_get_product_subcategories( $parent_id );
+		$result = poocommerce_get_product_subcategories( $parent_id );
 		$cached = wp_cache_get( $cache_key, 'product_cat' );
 		$this->assertNotFalse( $cached );
 		$this->assertCount( 3, $cached );
@@ -408,11 +408,11 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			return $args;
 		};
 
-		add_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+		add_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		try {
 			$this->render_loop_add_to_cart( $product );
 		} finally {
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $filter );
 		}
 
 		$this->assertIsArray( $filtered_args );
@@ -448,11 +448,11 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			return $minimum;
 		};
 
-		add_filter( 'woocommerce_quantity_input_min', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $filter );
 		try {
 			$markup = $this->render_loop_add_to_cart( $product );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $filter );
 		}
 
 		$processor = new WP_HTML_Tag_Processor( $markup );
@@ -478,8 +478,8 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$args['quantity'] = 10;
 			return $args;
 		};
-		add_filter( 'woocommerce_quantity_input_min', $minimum );
-		add_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
+		add_filter( 'poocommerce_quantity_input_min', $minimum );
+		add_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
 		try {
 			$markup = $this->render_loop_add_to_cart( $product );
 			$this->assertStringContainsString( 'data-quantity="30"', $markup );
@@ -493,16 +493,16 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'aria-label="Add 10 to cart:', $markup );
 			$this->assertStringContainsString( 'quantity=10', $markup );
 
-			add_filter( 'woocommerce_loop_add_to_cart_args', $args_filter );
+			add_filter( 'poocommerce_loop_add_to_cart_args', $args_filter );
 			$markup = $this->render_loop_add_to_cart( $product );
 			$this->assertStringContainsString( 'data-quantity="10"', $markup );
 			$this->assertStringContainsString( '>Add 10 to cart</a>', $markup );
 			$this->assertStringContainsString( 'aria-label="Add 10 to cart:', $markup );
 			$this->assertStringContainsString( 'quantity=10', $markup );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $minimum );
-			remove_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
-			remove_filter( 'woocommerce_loop_add_to_cart_args', $args_filter );
+			remove_filter( 'poocommerce_quantity_input_min', $minimum );
+			remove_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_args', $args_filter );
 		}
 	}
 
@@ -516,12 +516,12 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		$product          = WC_Helper_Product::create_simple_product();
 		$product_id       = $product->get_id();
 		$url_filter       = static fn( $url ) => add_query_arg( 'quantity', 12, $url );
-		add_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
+		add_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
 		try {
 			$markup          = wc_get_template_html( 'loop/add-to-cart.php' );
 			$explicit_markup = wc_get_template_html( 'loop/add-to-cart.php', array( 'quantity' => 1 ) );
 		} finally {
-			remove_filter( 'woocommerce_product_add_to_cart_url', $url_filter );
+			remove_filter( 'poocommerce_product_add_to_cart_url', $url_filter );
 			$product = $previous_product;
 		}
 
@@ -559,7 +559,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		};
 
 		add_filter( 'wc_get_template', $template_filter, 10, 3 );
-		add_filter( 'woocommerce_loop_add_to_cart_link', $link_filter, 10, 3 );
+		add_filter( 'poocommerce_loop_add_to_cart_link', $link_filter, 10, 3 );
 		try {
 			$this->render_loop_add_to_cart(
 				$product,
@@ -572,7 +572,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			);
 		} finally {
 			remove_filter( 'wc_get_template', $template_filter );
-			remove_filter( 'woocommerce_loop_add_to_cart_link', $link_filter );
+			remove_filter( 'poocommerce_loop_add_to_cart_link', $link_filter );
 		}
 
 		$this->assertSame( '3', $template_args['quantity'], 'Existing overrides must retain the original quantity value and type.' );
@@ -618,11 +618,11 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			return 10;
 		};
 
-		add_filter( 'woocommerce_quantity_input_min', $filter );
+		add_filter( 'poocommerce_quantity_input_min', $filter );
 		try {
 			$markup = $this->render_loop_add_to_cart( $product );
 		} finally {
-			remove_filter( 'woocommerce_quantity_input_min', $filter );
+			remove_filter( 'poocommerce_quantity_input_min', $filter );
 		}
 
 		$this->assertStringContainsString( 'href="' . esc_url( $product->get_permalink() ) . '"', $markup, 'Unavailable products should link to their product page.' );
@@ -647,7 +647,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 
 		$original_permalink_structure = $wp_rewrite->permalink_structure;
 		$buffer_level                 = ob_get_level();
-		$previous_loop                = $GLOBALS['woocommerce_loop'] ?? null;
+		$previous_loop                = $GLOBALS['poocommerce_loop'] ?? null;
 		$pagination_args              = null;
 		$get_pagenum_link_filter      = static function ( $link, $pagenum ) {
 			return 'https://example.test/shop/page/' . $pagenum . '/';
@@ -668,23 +668,23 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			)
 		);
 		add_filter( 'get_pagenum_link', $get_pagenum_link_filter, 10, 2 );
-		add_filter( 'woocommerce_pagination_args', $pagination_args_filter );
+		add_filter( 'poocommerce_pagination_args', $pagination_args_filter );
 
 		ob_start();
 		try {
-			woocommerce_pagination();
+			poocommerce_pagination();
 			$markup = (string) ob_get_clean();
 		} finally {
 			while ( ob_get_level() > $buffer_level ) {
 				ob_end_clean();
 			}
 			remove_filter( 'get_pagenum_link', $get_pagenum_link_filter, 10 );
-			remove_filter( 'woocommerce_pagination_args', $pagination_args_filter );
+			remove_filter( 'poocommerce_pagination_args', $pagination_args_filter );
 			$wp_rewrite->set_permalink_structure( $original_permalink_structure );
 			if ( null === $previous_loop ) {
 				wc_reset_loop();
 			} else {
-				$GLOBALS['woocommerce_loop'] = $previous_loop;
+				$GLOBALS['poocommerce_loop'] = $previous_loop;
 			}
 		}
 
@@ -784,7 +784,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 			$term = get_term( $attribute->get_options()[0], $taxonomy );
 			wp_delete_term( $term->term_id, $taxonomy );
 
-			add_filter( 'woocommerce_get_product_terms', static fn() => array( $term ) );
+			add_filter( 'poocommerce_get_product_terms', static fn() => array( $term ) );
 			ob_start();
 			wc_display_product_attributes( $product );
 			$markup = (string) ob_get_clean();
@@ -806,7 +806,7 @@ class WC_Template_Functions_Tests extends \WC_Unit_Test_Case {
 		$markup = (string) ob_get_clean();
 
 		$this->assertStringContainsString(
-			'<div class="woocommerce-notices-wrapper wc-empty-cart-message">',
+			'<div class="poocommerce-notices-wrapper wc-empty-cart-message">',
 			$markup,
 			'The empty cart message should keep its own class and gain the notices wrapper class.'
 		);

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { EmptyTable } from '@woocommerce/components';
+import { EmptyTable } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => <EmptyTable>There are no entries.</EmptyTable>;

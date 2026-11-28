@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
  */
 import { SettingsPaymentsMain } from '../settings-payments-main';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -20,7 +20,7 @@ jest.mock( '~/utils/features', () => ( {
 
 describe( 'SettingsPaymentsMain', () => {
 	afterEach( () => {
-		delete window.wcSettings.admin.woocommerce_payments_nox_profile;
+		delete window.wcSettings.admin.poocommerce_payments_nox_profile;
 	} );
 
 	it( 'should record settings_payments_pageview event on load', () => {
@@ -73,7 +73,7 @@ describe( 'SettingsPaymentsMain', () => {
 		// Verify the link has the correct href attribute for external navigation
 		expect( morePaymentOptionsLink.closest( 'a' ) ).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations'
+			'https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations'
 		);
 
 		// Verify the link opens in a new tab
@@ -95,7 +95,7 @@ describe( 'SettingsPaymentsMain', () => {
 	} );
 
 	it( 'should filter the marketplace link by the selected business location', () => {
-		window.wcSettings.admin.woocommerce_payments_nox_profile = {
+		window.wcSettings.admin.poocommerce_payments_nox_profile = {
 			business_country_code: 'BR',
 		};
 
@@ -111,7 +111,7 @@ describe( 'SettingsPaymentsMain', () => {
 			} )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations&country=BR'
+			'https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations&country=BR'
 		);
 	} );
 } );

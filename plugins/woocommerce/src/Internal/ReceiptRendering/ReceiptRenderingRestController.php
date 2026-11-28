@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ReceiptRendering;
+namespace Automattic\PooCommerce\Internal\ReceiptRendering;
 
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
 use \WP_REST_Server;
 use \WP_REST_Request;
 use \WP_Error;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 
 /**
  * Controller for the REST endpoints associated to the receipt rendering engine.
@@ -15,7 +15,7 @@ use Automattic\WooCommerce\Internal\RestApiControllerBase;
 class ReceiptRenderingRestController extends RestApiControllerBase {
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -70,7 +70,7 @@ class ReceiptRenderingRestController extends RestApiControllerBase {
 		$filename = wc_get_container()->get( ReceiptRenderingEngine::class )->get_existing_receipt( $order_id );
 
 		return is_null( $filename ) ?
-			new WP_Error( 'woocommerce_rest_not_found', __( 'Receipt not found', 'woocommerce' ), array( 'status' => 404 ) ) :
+			new WP_Error( 'poocommerce_rest_not_found', __( 'Receipt not found', 'poocommerce' ), array( 'status' => 404 ) ) :
 			$this->get_response_for_file( $filename );
 	}
 
@@ -100,7 +100,7 @@ class ReceiptRenderingRestController extends RestApiControllerBase {
 		$filename = wc_get_container()->get( ReceiptRenderingEngine::class )->generate_receipt( $order_id, $expiration_date, $request->get_param( 'force_new' ) );
 
 		return is_null( $filename ) ?
-			new WP_Error( 'woocommerce_rest_not_found', __( 'Order not found', 'woocommerce' ), array( 'status' => 404 ) ) :
+			new WP_Error( 'poocommerce_rest_not_found', __( 'Order not found', 'poocommerce' ), array( 'status' => 404 ) ) :
 			$this->get_response_for_file( $filename );
 	}
 
@@ -128,7 +128,7 @@ class ReceiptRenderingRestController extends RestApiControllerBase {
 	private function get_args_for_get_order_receipt(): array {
 		return array(
 			'id' => array(
-				'description' => __( 'Unique identifier of the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier of the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -145,13 +145,13 @@ class ReceiptRenderingRestController extends RestApiControllerBase {
 		$schema               = $this->get_base_schema();
 		$schema['properties'] = array(
 			'receipt_url'     => array(
-				'description' => __( 'Public url of the receipt.', 'woocommerce' ),
+				'description' => __( 'Public url of the receipt.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'expiration_date' => array(
-				'description' => __( 'Expiration date of the receipt, formatted as yyyy-mm-dd.', 'woocommerce' ),
+				'description' => __( 'Expiration date of the receipt, formatted as yyyy-mm-dd.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -169,27 +169,27 @@ class ReceiptRenderingRestController extends RestApiControllerBase {
 	private function get_args_for_create_order_receipt(): array {
 		return array(
 			'id'              => array(
-				'description' => __( 'Unique identifier of the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier of the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'expiration_date' => array(
-				'description' => __( 'Expiration date formatted as yyyy-mm-dd.', 'woocommerce' ),
+				'description' => __( 'Expiration date formatted as yyyy-mm-dd.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'default'     => null,
 			),
 			'expiration_days' => array(
-				'description' => __( 'Number of days to be added to the current date to get the expiration date.', 'woocommerce' ),
+				'description' => __( 'Number of days to be added to the current date to get the expiration date.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'default'     => 1,
 			),
 			'force_new'       => array(
-				'description' => __( 'True to force the creation of a new receipt even if one already exists and has not expired yet.', 'woocommerce' ),
+				'description' => __( 'True to force the creation of a new receipt even if one already exists and has not expired yet.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'required'    => false,
 				'context'     => array( 'view', 'edit' ),

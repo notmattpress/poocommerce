@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce admin menu icons.
+ * PooCommerce admin menu icons.
  *
- * @package WooCommerce\Internal\Admin
+ * @package PooCommerce\Internal\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 /**
  * Uses registered SVG icons in the WordPress 7.2 admin menu.
@@ -37,7 +37,7 @@ final class MenuIcons {
 	}
 
 	/**
-	 * Register WooCommerce's private icon collection before menu registration.
+	 * Register PooCommerce's private icon collection before menu registration.
 	 *
 	 * @internal
 	 *
@@ -49,24 +49,24 @@ final class MenuIcons {
 			return;
 		}
 
-		if ( ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'woocommerce' ) ) {
+		if ( ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'poocommerce' ) ) {
 			wp_register_icon_collection(
-				'woocommerce',
+				'poocommerce',
 				array(
-					'label'  => __( 'WooCommerce', 'woocommerce' ),
+					'label'  => __( 'PooCommerce', 'poocommerce' ),
 					'public' => false,
 				)
 			);
 		}
 
 		$labels = array(
-			'logo'      => __( 'WooCommerce', 'woocommerce' ),
-			'megaphone' => __( 'Megaphone', 'woocommerce' ),
+			'logo'      => __( 'PooCommerce', 'poocommerce' ),
+			'megaphone' => __( 'Megaphone', 'poocommerce' ),
 		);
 		foreach ( self::ICONS as $name => $content ) {
-			if ( ! \WP_Icons_Registry::get_instance()->is_registered( 'woocommerce/' . $name ) ) {
+			if ( ! \WP_Icons_Registry::get_instance()->is_registered( 'poocommerce/' . $name ) ) {
 				wp_register_icon(
-					'woocommerce/' . $name,
+					'poocommerce/' . $name,
 					array(
 						'label'   => $labels[ $name ],
 						'content' => $content,

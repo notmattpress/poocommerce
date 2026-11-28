@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests for the payment-gateway-update ability.
@@ -85,11 +85,11 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should turn on a listed gateway, so the query reports it as enabled.
 	 */
 	public function test_enables_a_listed_gateway(): void {
-		update_option( 'woocommerce_bacs_settings', array( 'enabled' => 'no' ) );
+		update_option( 'poocommerce_bacs_settings', array( 'enabled' => 'no' ) );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'bacs',
 				'enabled' => true,
@@ -98,10 +98,10 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotWPError( $result );
 		$this->assertTrue( $result['payment_gateway']['enabled'] );
-		$this->assertSame( 'yes', get_option( 'woocommerce_bacs_settings' )['enabled'] );
+		$this->assertSame( 'yes', get_option( 'poocommerce_bacs_settings' )['enabled'] );
 
 		self::reload_payment_gateways();
-		$query = $this->run_ability( 'woocommerce/payment-gateways-query', array( 'id' => 'bacs' ) );
+		$query = $this->run_ability( 'poocommerce/payment-gateways-query', array( 'id' => 'bacs' ) );
 		$this->assertTrue( $query['gateways'][0]['enabled'], 'The query should see the gateway enabled after a reload.' );
 	}
 
@@ -116,7 +116,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_reports_the_saved_settings_when_a_filter_changes_them( array $changes ): void {
 		update_option(
-			'woocommerce_bacs_settings',
+			'poocommerce_bacs_settings',
 			array(
 				'enabled' => 'yes',
 				'title'   => 'Direct bank transfer',
@@ -124,7 +124,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 		);
 		self::reload_payment_gateways();
 		add_filter(
-			'woocommerce_settings_api_sanitized_fields_bacs',
+			'poocommerce_settings_api_sanitized_fields_bacs',
 			static function ( $settings ) {
 				$settings['enabled'] = 'no';
 				$settings['title']   = 'Bank transfer';
@@ -132,7 +132,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 			}
 		);
 
-		$result = $this->run_ability( 'woocommerce/payment-gateway-update', array( 'id' => 'bacs' ) + $changes );
+		$result = $this->run_ability( 'poocommerce/payment-gateway-update', array( 'id' => 'bacs' ) + $changes );
 
 		$this->assertNotWPError( $result );
 		$this->assertFalse( $result['payment_gateway']['enabled'] );
@@ -143,11 +143,11 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should turn off an enabled gateway.
 	 */
 	public function test_disables_a_gateway(): void {
-		update_option( 'woocommerce_cod_settings', array( 'enabled' => 'yes' ) );
+		update_option( 'poocommerce_cod_settings', array( 'enabled' => 'yes' ) );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'cod',
 				'enabled' => false,
@@ -156,7 +156,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotWPError( $result );
 		$this->assertFalse( $result['payment_gateway']['enabled'] );
-		$this->assertSame( 'no', get_option( 'woocommerce_cod_settings' )['enabled'] );
+		$this->assertSame( 'no', get_option( 'poocommerce_cod_settings' )['enabled'] );
 	}
 
 	/**
@@ -176,11 +176,11 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 			'title'       => 'Bank transfer',
 			'description' => 'Original description',
 		);
-		update_option( 'woocommerce_bacs_settings', $settings );
+		update_option( 'poocommerce_bacs_settings', $settings );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'bacs',
 				'enabled' => true,
@@ -190,7 +190,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
-		$this->assertSame( $settings, get_option( 'woocommerce_bacs_settings' ), 'A refused call should write nothing.' );
+		$this->assertSame( $settings, get_option( 'poocommerce_bacs_settings' ), 'A refused call should write nothing.' );
 	}
 
 	/**
@@ -204,11 +204,11 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 			'instructions'    => 'Use your order number as the reference.',
 			'account_details' => 'secret-account-details',
 		);
-		update_option( 'woocommerce_bacs_settings', $settings );
+		update_option( 'poocommerce_bacs_settings', $settings );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'bacs',
 				'enabled' => true,
@@ -218,7 +218,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotWPError( $result );
 
-		$saved = get_option( 'woocommerce_bacs_settings' );
+		$saved = get_option( 'poocommerce_bacs_settings' );
 		$this->assertSame( 'yes', $saved['enabled'] );
 		$this->assertSame( 'Wire transfer', $saved['title'] );
 		unset( $saved['enabled'], $saved['title'], $settings['enabled'], $settings['title'] );
@@ -231,7 +231,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_sanitizes_the_title(): void {
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'    => 'cheque',
 				'title' => 'Check <script>alert(1)</script>payments',
@@ -240,7 +240,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->assertNotWPError( $result );
 		$this->assertStringNotContainsString( '<script', $result['payment_gateway']['title'] );
-		$this->assertStringNotContainsString( '<script', get_option( 'woocommerce_cheque_settings' )['title'] );
+		$this->assertStringNotContainsString( '<script', get_option( 'poocommerce_cheque_settings' )['title'] );
 	}
 
 	/**
@@ -275,23 +275,23 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 			$gateways[] = $gateway;
 			return $gateways;
 		};
-		add_filter( 'woocommerce_payment_gateways', $register );
-		update_option( 'woocommerce_unconnected_gateway_settings', array( 'enabled' => 'no' ) );
+		add_filter( 'poocommerce_payment_gateways', $register );
+		update_option( 'poocommerce_unconnected_gateway_settings', array( 'enabled' => 'no' ) );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'unconnected_gateway',
 				'enabled' => true,
 			)
 		);
 
-		remove_filter( 'woocommerce_payment_gateways', $register );
+		remove_filter( 'poocommerce_payment_gateways', $register );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_payment_gateway_needs_setup', $result->get_error_code() );
-		$this->assertSame( array( 'enabled' => 'no' ), get_option( 'woocommerce_unconnected_gateway_settings' ) );
+		$this->assertSame( 'poocommerce_ability_payment_gateway_needs_setup', $result->get_error_code() );
+		$this->assertSame( array( 'enabled' => 'no' ), get_option( 'poocommerce_unconnected_gateway_settings' ) );
 	}
 
 	/**
@@ -400,8 +400,8 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 		$offline = $this->get_offline_positions( $this->get_saved_positions() );
 		$input   = array( 'id' => 'bacs' );
 
-		$this->run_ability( 'woocommerce/payment-gateway-update', $input + array( 'order' => end( $offline ) ) );
-		$result = $this->run_ability( 'woocommerce/payment-gateway-update', $input + array( 'order' => $offline[0] ) );
+		$this->run_ability( 'poocommerce/payment-gateway-update', $input + array( 'order' => end( $offline ) ) );
+		$result = $this->run_ability( 'poocommerce/payment-gateway-update', $input + array( 'order' => $offline[0] ) );
 
 		$this->assertNotWPError( $result );
 		$this->assertSame( $offline[0], $result['payment_gateway']['order'] );
@@ -418,11 +418,11 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 * @param string $title Title without visible text.
 	 */
 	public function test_refuses_a_title_without_visible_text( string $title ): void {
-		update_option( 'woocommerce_cheque_settings', array( 'title' => 'Check payments' ) );
+		update_option( 'poocommerce_cheque_settings', array( 'title' => 'Check payments' ) );
 		self::reload_payment_gateways();
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'    => 'cheque',
 				'title' => $title,
@@ -430,8 +430,8 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_payment_gateway_title_invalid', $result->get_error_code() );
-		$this->assertSame( 'Check payments', get_option( 'woocommerce_cheque_settings' )['title'] );
+		$this->assertSame( 'poocommerce_ability_payment_gateway_title_invalid', $result->get_error_code() );
+		$this->assertSame( 'Check payments', get_option( 'poocommerce_cheque_settings' )['title'] );
 	}
 
 	/**
@@ -439,7 +439,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_returns_not_found_for_an_unknown_gateway(): void {
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'no-such-gateway',
 				'enabled' => true,
@@ -447,14 +447,14 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_payment_gateway_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_payment_gateway_not_found', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should refuse a call that sends only the gateway ID.
 	 */
 	public function test_refuses_a_call_without_a_change(): void {
-		$result = $this->run_ability( 'woocommerce/payment-gateway-update', array( 'id' => 'bacs' ) );
+		$result = $this->run_ability( 'poocommerce/payment-gateway-update', array( 'id' => 'bacs' ) );
 
 		$this->assertWPError( $result );
 		$this->assertSame( 'ability_invalid_input', $result->get_error_code() );
@@ -467,7 +467,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 		wp_set_current_user( $this->factory->user->create( array( 'role' => 'shop_manager' ) ) );
 
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'      => 'cheque',
 				'enabled' => false,
@@ -507,7 +507,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 			}
 		};
 		add_filter(
-			'woocommerce_payment_gateways',
+			'poocommerce_payment_gateways',
 			static function ( $gateways ) use ( $gateway ) {
 				$gateways[] = $gateway;
 				return $gateways;
@@ -524,7 +524,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	private function get_saved_positions(): array {
 		self::reload_payment_gateways();
 
-		return array_column( $this->run_ability( 'woocommerce/payment-gateways-query' )['gateways'], 'order', 'id' );
+		return array_column( $this->run_ability( 'poocommerce/payment-gateways-query' )['gateways'], 'order', 'id' );
 	}
 
 	/**
@@ -536,7 +536,7 @@ class PaymentGatewayUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	private function move_gateway( string $id, int $order ): array {
 		$result = $this->run_ability(
-			'woocommerce/payment-gateway-update',
+			'poocommerce/payment-gateway-update',
 			array(
 				'id'    => $id,
 				'order' => $order,

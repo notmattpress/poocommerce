@@ -3,7 +3,7 @@
  */
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useState } from '@wordpress/element';
-import { allSettings } from '@woocommerce/settings';
+import { allSettings } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

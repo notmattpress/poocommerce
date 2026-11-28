@@ -27,7 +27,7 @@ const ImporterCounters: React.FC< Props > = ( { counts } ) => {
 				'Fulfillment created',
 				'Fulfillments created',
 				counts.created,
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
@@ -37,7 +37,7 @@ const ImporterCounters: React.FC< Props > = ( { counts } ) => {
 				'Fulfillment updated',
 				'Fulfillments updated',
 				counts.updated,
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
@@ -47,7 +47,7 @@ const ImporterCounters: React.FC< Props > = ( { counts } ) => {
 				'Row skipped',
 				'Rows skipped',
 				counts.skipped,
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
@@ -57,7 +57,7 @@ const ImporterCounters: React.FC< Props > = ( { counts } ) => {
 				'Row failed',
 				'Rows failed',
 				counts.failed,
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
@@ -67,17 +67,17 @@ const ImporterCounters: React.FC< Props > = ( { counts } ) => {
 				'Customer notified',
 				'Customers notified',
 				counts.notified,
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	];
 
 	return (
-		<dl className="woocommerce-fulfillment-importer-counts">
+		<dl className="poocommerce-fulfillment-importer-counts">
 			{ items.map( ( item ) => (
 				<div
 					key={ item.key }
-					className="woocommerce-fulfillment-importer-counts__item"
+					className="poocommerce-fulfillment-importer-counts__item"
 				>
 					<dt>{ item.label }</dt>
 					<dd>{ item.value.toLocaleString() }</dd>

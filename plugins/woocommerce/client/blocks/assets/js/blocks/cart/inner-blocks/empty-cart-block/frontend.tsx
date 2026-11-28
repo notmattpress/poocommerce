@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import { useEffect, useLayoutEffect, useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 import {
 	dispatchEvent,
 	isKeyboardInput,
 	whenAnimationsEnd,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -64,7 +64,7 @@ const FrontendBlock = ( {
 		}
 		dispatchEvent( 'wc-blocks_render_blocks_frontend', {
 			element: document.body.querySelector(
-				'.wp-block-woocommerce-cart'
+				'.wp-block-poocommerce-cart'
 			),
 		} );
 	}, [ cartIsLoading, cartItems ] );

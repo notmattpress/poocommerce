@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi;
 
-use Automattic\WooCommerce\Internal\RestApi\OrderLineItemValidationTrait;
+use Automattic\PooCommerce\Internal\RestApi\OrderLineItemValidationTrait;
 use WC_Helper_Product;
 use WC_REST_Exception;
 use WC_Unit_Test_Case;

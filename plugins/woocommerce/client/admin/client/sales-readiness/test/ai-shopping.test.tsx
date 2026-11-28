@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import {
 	act,
 	fireEvent,
@@ -66,7 +66,7 @@ const view = ( fields: Partial< ShoppingView > = {} ): ShoppingView => ( {
 		title: 'Allow AI assistants to shop your store',
 		description: 'Your products can be found by AI assistants.',
 		learn_more: {
-			href: 'https://woocommerce.com/document/woocommerce-ai/agentic-commerce/',
+			href: 'https://poocommerce.com/document/poocommerce-ai/agentic-commerce/',
 			text: 'Learn how it works',
 		},
 		turned_on: 'AI assistants can now shop your store.',
@@ -129,15 +129,15 @@ const view = ( fields: Partial< ShoppingView > = {} ): ShoppingView => ( {
 		description: 'AI assistants share these pages with shoppers.',
 		fields: [
 			{
-				id: 'woocommerce_refund_returns_page_id',
-				name: 'woocommerce_refund_returns_page_id',
+				id: 'poocommerce_refund_returns_page_id',
+				name: 'poocommerce_refund_returns_page_id',
 				label: 'Refund and returns policy',
 				value: '',
 				options: pages,
 			},
 			{
-				id: 'woocommerce_terms_page_id',
-				name: 'woocommerce_terms_page_id',
+				id: 'poocommerce_terms_page_id',
+				name: 'poocommerce_terms_page_id',
 				label: 'Terms and conditions',
 				value: '12',
 				options: pages,
@@ -384,12 +384,12 @@ describe( 'AiShopping', () => {
 			container.querySelector( `input[type="hidden"][name="${ id }"]` );
 
 		expect(
-			input( 'woocommerce_refund_returns_page_id' )?.getAttribute(
+			input( 'poocommerce_refund_returns_page_id' )?.getAttribute(
 				'value'
 			)
 		).toBe( '' );
 		expect(
-			input( 'woocommerce_terms_page_id' )?.getAttribute( 'value' )
+			input( 'poocommerce_terms_page_id' )?.getAttribute( 'value' )
 		).toBe( '' );
 		expect(
 			screen.getByRole( 'combobox', {
@@ -411,11 +411,11 @@ describe( 'AiShopping', () => {
 
 		expect(
 			container.querySelector(
-				'input[name="woocommerce_refund_returns_page_id"]'
+				'input[name="poocommerce_refund_returns_page_id"]'
 			)?.value
 		).toBe( '12' );
 		expect(
-			container.querySelector( 'input[name="woocommerce_terms_page_id"]' )
+			container.querySelector( 'input[name="poocommerce_terms_page_id"]' )
 				?.value
 		).toBe( '12' );
 		expect( save() ).not.toHaveAttribute( 'aria-disabled', 'true' );
@@ -542,7 +542,7 @@ describe( 'AiShopping', () => {
 
 	it( 'puts the switch back and says why when it can’t be turned on', async () => {
 		mockedFetch.mockRejectedValue( {
-			code: 'woocommerce_ucp_required_checks_failing',
+			code: 'poocommerce_ucp_required_checks_failing',
 			message: 'Finish the required steps first.',
 			data: { status: 409 },
 		} );
@@ -608,7 +608,7 @@ describe( 'AiShopping', () => {
 			screen.getByRole( 'link', { name: /Learn how it works/ } )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/document/woocommerce-ai/agentic-commerce/'
+			'https://poocommerce.com/document/poocommerce-ai/agentic-commerce/'
 		);
 	} );
 
@@ -673,7 +673,7 @@ describe( 'AiShopping', () => {
 	it( 'goes to a policy field from a link, on load and from the Setup checklist on this page', () => {
 		const scroll = jest.fn();
 		Element.prototype.scrollIntoView = scroll;
-		window.location.hash = '#woocommerce_terms_page_id';
+		window.location.hash = '#poocommerce_terms_page_id';
 		renderPage( view() );
 
 		expect( scroll ).toHaveBeenCalled();
@@ -682,7 +682,7 @@ describe( 'AiShopping', () => {
 		);
 
 		scroll.mockClear();
-		window.location.hash = '#woocommerce_refund_returns_page_id';
+		window.location.hash = '#poocommerce_refund_returns_page_id';
 		act( () => {
 			window.dispatchEvent( new HashChangeEvent( 'hashchange' ) );
 		} );

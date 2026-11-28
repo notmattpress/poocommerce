@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class WC_Product_Variable_Data_Store_CPT_Test
@@ -39,7 +39,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$product                           = WC_Helper_Product::create_variation_product();
 			self::$product_id                  = $product->get_id();
 			self::$attribute_ids               = array_values( array_diff( wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_id' ), $existing_attribute_ids ) );
-			self::$had_scheduled_rewrite_flush = false !== wp_next_scheduled( 'woocommerce_flush_rewrite_rules' );
+			self::$had_scheduled_rewrite_flush = false !== wp_next_scheduled( 'poocommerce_flush_rewrite_rules' );
 		} finally {
 			self::disable_direct_product_attribute_lookup_updates();
 		}
@@ -72,7 +72,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			}
 
 			if ( ! self::$had_scheduled_rewrite_flush ) {
-				wp_clear_scheduled_hook( 'woocommerce_flush_rewrite_rules' );
+				wp_clear_scheduled_hook( 'poocommerce_flush_rewrite_rules' );
 			}
 		} finally {
 			self::disable_direct_product_attribute_lookup_updates();
@@ -97,8 +97,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 * Cleans up global state that individual tests may leave behind.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_product_lookup_table_is_generating' );
-		delete_option( 'woocommerce_hide_out_of_stock_items' );
+		delete_option( 'poocommerce_product_lookup_table_is_generating' );
+		delete_option( 'poocommerce_hide_out_of_stock_items' );
 		parent::tearDown();
 	}
 
@@ -149,7 +149,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$register = static function ( $stock_statuses ) use ( $custom_stock_statuses ) {
 			return array_merge( $stock_statuses, array_fill_keys( $custom_stock_statuses, 'Custom status' ) );
 		};
-		add_filter( 'woocommerce_product_stock_status_options', $register );
+		add_filter( 'poocommerce_product_stock_status_options', $register );
 
 		return $register;
 	}
@@ -190,7 +190,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_derives_parent_status_from_children( bool $lookup_table_is_generating, array $child_stock_statuses, string $expected_stock_status ): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a', 'custom_status_b' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 
 		$product    = $this->create_variable_product_with_child_stock_statuses( $child_stock_statuses );
 		$data_store = new WC_Product_Variable_Data_Store_CPT();
@@ -208,10 +208,10 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_normalizes_filtered_children( bool $lookup_table_is_generating ): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 		$product = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		add_filter(
-			'woocommerce_get_children',
+			'poocommerce_get_children',
 			static function ( $children ) {
 				return array_merge( $children, array( (string) $children[0], 0 ) );
 			}
@@ -231,10 +231,10 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_rejects_stale_stored_custom_status_when_another_custom_status_is_registered( bool $lookup_table_is_generating ): void {
 		$register_stored_statuses = $this->register_custom_stock_statuses( array( 'custom_status_a', 'custom_status_b' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 
 		$product = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_b', 'custom_status_b' ) );
-		remove_filter( 'woocommerce_product_stock_status_options', $register_stored_statuses );
+		remove_filter( 'poocommerce_product_stock_status_options', $register_stored_statuses );
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
 
 		$data_store = new WC_Product_Variable_Data_Store_CPT();
@@ -253,7 +253,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 
 		$product          = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$missing_child_id = $product->get_children()[0];
@@ -279,7 +279,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_rejects_custom_status_when_child_has_duplicate_identical_postmeta_rows( bool $missing_child ): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', true );
+		update_option( 'poocommerce_product_lookup_table_is_generating', true );
 
 		$product             = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$duplicated_child_id = $product->get_children()[0];
@@ -304,7 +304,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 
 		$product        = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$affected_child = $product->get_children()[0];
@@ -360,7 +360,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$this->register_custom_stock_statuses( array( 'custom_status_a', $mutated_stock_status ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_is_generating );
 
 		$product          = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$mutated_child_id = $product->get_children()[1];
@@ -410,15 +410,15 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		};
 
 		$register_stable_status = $this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', false );
+		update_option( 'poocommerce_product_lookup_table_is_generating', false );
 
 		$product = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$product->set_stock_status( ProductStockStatus::IN_STOCK );
 		$product->apply_changes();
 
 		$data_store = new WC_Product_Variable_Data_Store_CPT();
-		remove_filter( 'woocommerce_product_stock_status_options', $register_stable_status );
-		add_filter( 'woocommerce_product_stock_status_options', $register_status_once );
+		remove_filter( 'poocommerce_product_stock_status_options', $register_stable_status );
+		add_filter( 'poocommerce_product_stock_status_options', $register_status_once );
 
 		$data_store->sync_stock_status( $product );
 
@@ -431,7 +431,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_does_not_change_clean_product_with_unanimous_custom_status(): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', false );
+		update_option( 'poocommerce_product_lookup_table_is_generating', false );
 
 		$product = $this->create_variable_product_with_child_stock_statuses( array( 'custom_status_a', 'custom_status_a' ) );
 		$product->set_stock_status( 'custom_status_a' );
@@ -450,7 +450,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_sync_stock_status_does_not_inherit_core_status_from_storage(): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_product_lookup_table_is_generating', false );
+		update_option( 'poocommerce_product_lookup_table_is_generating', false );
 
 		$stored_product = $this->create_variable_product_with_child_stock_statuses( array( ProductStockStatus::IN_STOCK, ProductStockStatus::IN_STOCK ) );
 		$stored_product->save();
@@ -501,7 +501,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_inherited_custom_stock_status_changes_catalog_visibility(): void {
 		$this->register_custom_stock_statuses( array( 'custom_status_a' ) );
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		$data_store = new WC_Product_Variable_Data_Store_CPT();
 
 		$out_of_stock_product = $this->create_variable_product_with_child_stock_statuses(
@@ -526,7 +526,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->assertNotContains( ProductStockStatus::OUT_OF_STOCK, $custom_status_terms, 'A parent holding a custom status carries no outofstock visibility term.' );
 
 		// Assert through the real catalog query rather than is_visible(), which routes through is_in_stock() and so
-		// returns the same answer before and after this change once a store filters woocommerce_product_is_in_stock.
+		// returns the same answer before and after this change once a store filters poocommerce_product_is_in_stock.
 		$visible_ids = ( new WP_Query(
 			array(
 				'post_type'      => 'product',
@@ -874,9 +874,9 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	public function test_variation_price_cache_vat_exempt() {
 		// Set store to include tax in price display.
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_prices_include_tax', '__return_true' );
-		add_filter( 'pre_option_woocommerce_tax_display_shop', array( $this, '__return_incl' ) );
-		add_filter( 'pre_option_woocommerce_tax_display_cart', array( $this, '__return_incl' ) );
+		add_filter( 'poocommerce_prices_include_tax', '__return_true' );
+		add_filter( 'pre_option_poocommerce_tax_display_shop', array( $this, '__return_incl' ) );
+		add_filter( 'pre_option_poocommerce_tax_display_cart', array( $this, '__return_incl' ) );
 
 		// Create tax rate.
 		$tax_id = WC_Tax::_insert_tax_rate(
@@ -1012,8 +1012,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_dont_influence_price( bool $tax_enabled, bool $taxable_product, bool $tax_has_rates, bool $user_vat_exempt ) {
 		add_filter( 'wc_tax_enabled', $tax_enabled ? '__return_true' : '__return_false' );
-		add_filter( 'woocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
-		add_filter( 'woocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
+		add_filter( 'poocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
+		add_filter( 'poocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
 		WC()->customer->set_is_vat_exempt( $user_vat_exempt );
 
 		$data_store     = new WC_Product_Variable_Data_Store_CPT();
@@ -1050,8 +1050,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->setExpectedDeprecated( 'WC_Product_Variable_Data_Store_CPT::taxes_influence_price' );
 
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_true' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_true' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 
 		$product = $this->get_variation_product_fixture();
 
@@ -1071,7 +1071,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_variable_product_taxes_influence_price filter can override the default decision.
+	 * @testdox The poocommerce_variable_product_taxes_influence_price filter can override the default decision.
 	 *
 	 * @testWith [true,  true,  true,  true,  true]
 	 *           [true,  true,  true,  false, false]
@@ -1088,11 +1088,11 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_taxes_influence_price_filter_overrides_default( bool $taxable_product, bool $tax_has_rates, bool $expected_default, bool $filter_returns, bool $expected ) {
 		$this->setExpectedDeprecated( 'WC_Product_Variable_Data_Store_CPT::taxes_influence_price' );
-		$this->setExpectedDeprecated( 'woocommerce_variable_product_taxes_influence_price' );
+		$this->setExpectedDeprecated( 'poocommerce_variable_product_taxes_influence_price' );
 
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
-		add_filter( 'woocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
+		add_filter( 'poocommerce_product_is_taxable', $taxable_product ? '__return_true' : '__return_false' );
+		add_filter( 'poocommerce_matched_rates', $tax_has_rates ? array( $this, '__return_rates' ) : '__return_empty_array' );
 
 		$received_default = null;
 		$received_product = null;
@@ -1101,7 +1101,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$received_product = $product;
 			return $filter_returns;
 		};
-		add_filter( 'woocommerce_variable_product_taxes_influence_price', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_variable_product_taxes_influence_price', $filter_callback, 10, 2 );
 
 		$product             = $this->get_variation_product_fixture();
 		$extended_data_store = $this->get_data_store_with_public_taxes_influence_price();
@@ -1121,8 +1121,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_influence_price( bool $for_display ) {
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_true' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_true' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 		WC()->customer->set_is_vat_exempt( false );
 
 		$data_store     = new WC_Product_Variable_Data_Store_CPT();
@@ -1141,7 +1141,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox read_prices skips unified caching if code hooked to woocommerce_variation_prices_array modifies the prices array.
+	 * @testdox read_prices skips unified caching if code hooked to poocommerce_variation_prices_array modifies the prices array.
 	 *
 	 * @testWith [true]
 	 *           [false]
@@ -1151,12 +1151,12 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_prices_cache_when_taxes_dont_influence_price_plus_hook( bool $hook_modifies_prices ) {
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_false' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_false' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 		WC()->customer->set_is_vat_exempt( false );
 
 		add_filter(
-			'woocommerce_variation_prices_array',
+			'poocommerce_variation_prices_array',
 			function ( $prices_array, $variation, $for_display ) use ( $hook_modifies_prices ) {
 				if ( $hook_modifies_prices ) {
 					$prices_array['foobar'] = $for_display;
@@ -1184,7 +1184,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	/**
 	 * Data provider for falsy values that should disable the legacy algorithm.
 	 */
-	public function woocommerce_use_legacy_get_variations_price_hash_disabled_values_provider(): array {
+	public function poocommerce_use_legacy_get_variations_price_hash_disabled_values_provider(): array {
 		return array(
 			'false'        => array( false ),
 			'zero'         => array( 0 ),
@@ -1195,12 +1195,12 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox get_price_hash includes callback signatures via CallbackUtil when the filter returns $falsy_value.
-	 * @dataProvider woocommerce_use_legacy_get_variations_price_hash_disabled_values_provider
+	 * @dataProvider poocommerce_use_legacy_get_variations_price_hash_disabled_values_provider
 	 * @param mixed $falsy_value The falsy value to inject via the filter.
 	 */
 	public function test_get_price_hash_uses_callback_util_when_legacy_algorithm_is_disabled( $falsy_value ): void {
 		$filter = fn() => $falsy_value;
-		add_filter( 'woocommerce_use_legacy_get_variations_price_hash', $filter );
+		add_filter( 'poocommerce_use_legacy_get_variations_price_hash', $filter );
 
 		$product             = WC_Helper_Product::create_variation_product();
 		$extended_data_store = $this->get_data_store_with_public_get_price_hash();
@@ -1208,7 +1208,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$hash_without_callback = $extended_data_store->get_price_hash( $product, false );
 
 		$callback = static fn( $price ) => $price;
-		add_filter( 'woocommerce_variation_prices_price', $callback );
+		add_filter( 'poocommerce_variation_prices_price', $callback );
 
 		$hash_with_callback = $extended_data_store->get_price_hash( $product, false );
 
@@ -1216,8 +1216,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		// is active and captures new hook registrations.
 		$this->assertNotSame( $hash_without_callback, $hash_with_callback );
 
-		remove_filter( 'woocommerce_variation_prices_price', $callback );
-		remove_filter( 'woocommerce_use_legacy_get_variations_price_hash', $filter );
+		remove_filter( 'poocommerce_variation_prices_price', $callback );
+		remove_filter( 'poocommerce_use_legacy_get_variations_price_hash', $filter );
 
 		$product->delete();
 	}
@@ -1901,7 +1901,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$variation->set_stock_status( ProductStockStatus::ON_BACKORDER );
 		$variation->save();
 
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_generating );
 
 		$this->assertTrue( $data_store->child_has_stock_status( $product, ProductStockStatus::ON_BACKORDER ) );
 		$this->assertFalse( $data_store->child_has_stock_status( $product, ProductStockStatus::OUT_OF_STOCK ) );
@@ -2254,7 +2254,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$variation->set_stock_status( ProductStockStatus::IN_STOCK );
 		$variation->save();
 
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_generating );
 
 		( new WC_Product_Variable_Data_Store_CPT() )->sync_stock_status( $product );
 
@@ -2284,7 +2284,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$variation->set_stock_status( ProductStockStatus::ON_BACKORDER );
 		$variation->save();
 
-		update_option( 'woocommerce_product_lookup_table_is_generating', $lookup_table_generating );
+		update_option( 'poocommerce_product_lookup_table_is_generating', $lookup_table_generating );
 
 		( new WC_Product_Variable_Data_Store_CPT() )->sync_stock_status( $product );
 
@@ -2326,9 +2326,9 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$product->set_name( 'Renamed sold-out product' );
 		$product->set_stock_status( ProductStockStatus::IN_STOCK );
 
-		add_filter( 'woocommerce_product_stock_status_options', '__return_null' );
+		add_filter( 'poocommerce_product_stock_status_options', '__return_null' );
 		$product->save();
-		remove_filter( 'woocommerce_product_stock_status_options', '__return_null' );
+		remove_filter( 'poocommerce_product_stock_status_options', '__return_null' );
 
 		$saved = new WC_Product_Variable( $product->get_id() );
 		$this->assertSame( 'Renamed sold-out product', $saved->get_name() );
@@ -2458,10 +2458,10 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$this->assertGreaterThan( 8192, strlen( $stored ), 'Seeded transient JSON should exceed 8KB before pruning.' );
 
 		// Enable taxes so the missing opposite hash triggers recalculation + pruning.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$display_hash = $data_store->get_price_hash( $product, true );
 		$data_store->read_price_data( $product, true );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// After pruning: fewer buckets, under 8KB, both hashes moved from head to tail.
 		$stored = json_decode( (string) get_transient( 'wc_var_prices_' . $product_id ), true );
@@ -2474,7 +2474,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 
 	/**
-	 * @testdox get_price_hash respects the woocommerce_use_legacy_get_variations_price_hash option.
+	 * @testdox get_price_hash respects the poocommerce_use_legacy_get_variations_price_hash option.
 	 */
 	public function test_get_price_hash_respects_legacy_price_hash_option(): void {
 		$product = WC_Helper_Product::create_variation_product();
@@ -2484,23 +2484,23 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			$captured = $use_legacy;
 			return $use_legacy;
 		};
-		add_filter( 'woocommerce_use_legacy_get_variations_price_hash', $capture_filter );
+		add_filter( 'poocommerce_use_legacy_get_variations_price_hash', $capture_filter );
 
 		// Option 'yes' → legacy enabled → filter receives true.
-		update_option( 'woocommerce_use_legacy_get_variations_price_hash', 'yes' );
+		update_option( 'poocommerce_use_legacy_get_variations_price_hash', 'yes' );
 		$this->get_data_store_with_public_get_price_hash()->get_price_hash( $product, false );
 		$this->assertTrue( $captured, 'Option "yes" must dispatch true (legacy enabled) into the filter.' );
 
 		// Option 'no' → legacy disabled → filter receives false.
-		update_option( 'woocommerce_use_legacy_get_variations_price_hash', 'no' );
+		update_option( 'poocommerce_use_legacy_get_variations_price_hash', 'no' );
 		$this->get_data_store_with_public_get_price_hash()->get_price_hash( $product, false );
 		$this->assertFalse( $captured, 'Option "no" must dispatch false (legacy disabled) into the filter.' );
 
-		delete_option( 'woocommerce_use_legacy_get_variations_price_hash' );
+		delete_option( 'poocommerce_use_legacy_get_variations_price_hash' );
 		$this->get_data_store_with_public_get_price_hash()->get_price_hash( $product, false );
 		$this->assertTrue( $captured, 'Missing option must dispatch true (legacy enabled) into the filter.' );
 
-		remove_filter( 'woocommerce_use_legacy_get_variations_price_hash', $capture_filter );
+		remove_filter( 'poocommerce_use_legacy_get_variations_price_hash', $capture_filter );
 
 		$product->delete();
 	}
@@ -2510,8 +2510,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_read_price_data_no_double_aggregation(): void {
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_product_is_taxable', '__return_true' );
-		add_filter( 'woocommerce_matched_rates', array( $this, '__return_rates' ) );
+		add_filter( 'poocommerce_product_is_taxable', '__return_true' );
+		add_filter( 'poocommerce_matched_rates', array( $this, '__return_rates' ) );
 
 		$product        = $this->get_variation_product_fixture();
 		$data_store     = new WC_Product_Variable_Data_Store_CPT();
@@ -2524,7 +2524,7 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$aggregation_count;
 			return $price;
 		};
-		add_filter( 'woocommerce_variation_prices_price', $count_aggregation );
+		add_filter( 'poocommerce_variation_prices_price', $count_aggregation );
 
 		// First call primes both display and raw hashes in a single pass.
 		$data_store->read_price_data( $product, true );

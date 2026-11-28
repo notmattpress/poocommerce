@@ -31,7 +31,7 @@ function everyCheckPassed( view: ReadinessView ): boolean {
 }
 
 /**
- * WooCommerce > Settings > AI tools, the Overview: the WordPress.com connection card, the AI shopping
+ * PooCommerce > Settings > AI tools, the Overview: the WordPress.com connection card, the AI shopping
  * card, then the Sales readiness card with Fix first and a link to every check.
  */
 export default function SalesReadinessOverview( {
@@ -158,11 +158,11 @@ export default function SalesReadinessOverview( {
 									{ everyCheckPassed( view )
 										? __(
 												'Nothing to fix right now. Your store has everything AI assistants need to find and shop your products.',
-												'woocommerce'
+												'poocommerce'
 											)
 										: __(
 												'Nothing ranked to fix right now. View all checks for the full results.',
-												'woocommerce'
+												'poocommerce'
 											) }
 								</Text>
 							) }

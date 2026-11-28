@@ -2,14 +2,14 @@
 /**
  * Admin Dashboard - Setup
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 			if ( $this->should_display_widget() ) {
 				add_meta_box(
 					'wc_admin_dashboard_setup',
-					__( 'WooCommerce Setup', 'woocommerce' ),
+					__( 'PooCommerce Setup', 'poocommerce' ),
 					array( $this, 'render' ),
 					'dashboard',
 					'normal',
@@ -101,10 +101,10 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 			$image_url = method_exists( $task, 'get_image_url' ) ? (string) $task->get_image_url() : '';
 			$image_alt = method_exists( $task, 'get_image_alt' ) ? (string) $task->get_image_alt() : '';
 
-			// Fallback to the generic WooCommerce setup illustration.
+			// Fallback to the generic PooCommerce setup illustration.
 			if ( '' === $image_url ) {
 				$image_url = $asset_url . 'images/dashboard-widget-setup.png';
-				$image_alt = __( 'WooCommerce setup illustration', 'woocommerce' );
+				$image_alt = __( 'PooCommerce setup illustration', 'poocommerce' );
 			}
 
 			return array(
@@ -214,7 +214,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 		 * @return bool
 		 */
 		public function should_display_widget() {
-			if ( ! class_exists( 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
+			if ( ! class_exists( 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
 				return false;
 			}
 
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 				return false;
 			}
 
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			if ( ! current_user_can( 'manage_poocommerce' ) ) {
 				return false;
 			}
 

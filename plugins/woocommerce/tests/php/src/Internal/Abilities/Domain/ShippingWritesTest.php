@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests for the shipping-zone-create, shipping-zone-method-create and shipping-zone-method-update abilities.
@@ -121,7 +121,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	private function create_germany_zone(): int {
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'Germany',
 				'locations' => array(
@@ -170,7 +170,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$zone_id = $this->create_germany_zone();
 
 		$flat_rate = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -178,7 +178,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$free      = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'free_shipping',
@@ -199,7 +199,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 			'Above the minimum free shipping is offered too.'
 		);
 
-		$zones = $this->run_ability( 'woocommerce/shipping-zones-query', array( 'include' => array( $zone_id ) ) );
+		$zones = $this->run_ability( 'poocommerce/shipping-zones-query', array( 'include' => array( $zone_id ) ) );
 		$this->assertSame( array( 'flat_rate', 'free_shipping' ), array_column( $zones['zones'][0]['methods'], 'method_id' ) );
 	}
 
@@ -209,7 +209,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	public function test_cost_change_reaches_a_cart_with_calculated_rates(): void {
 		$zone_id = $this->create_germany_zone();
 		$created = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -219,7 +219,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$this->assertSame( array( 'flat_rate' => '5' ), $this->rates_for_cart_of( 40 ) );
 
 		$updated = $this->run_ability(
-			'woocommerce/shipping-zone-method-update',
+			'poocommerce/shipping-zone-method-update',
 			array(
 				'instance_id' => $created['method']['instance_id'],
 				'settings'    => array( 'cost' => '10 + [qty] * 2' ),
@@ -240,7 +240,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 
 		$zone_id = $this->create_germany_zone();
 		$created = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
@@ -250,12 +250,12 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$this->rates_for_cart_of( 40 );
 
 		$break_method_update = static function ( string $query ) use ( $wpdb ): string {
-			return 0 === strpos( $query, "UPDATE `{$wpdb->prefix}woocommerce_shipping_zone_methods`" ) ? 'UPDATE no_such_table SET x = 1' : $query;
+			return 0 === strpos( $query, "UPDATE `{$wpdb->prefix}poocommerce_shipping_zone_methods`" ) ? 'UPDATE no_such_table SET x = 1' : $query;
 		};
 		add_filter( 'query', $break_method_update );
 		$suppress = $wpdb->suppress_errors( true );
 		$updated  = $this->run_ability(
-			'woocommerce/shipping-zone-method-update',
+			'poocommerce/shipping-zone-method-update',
 			array(
 				'instance_id' => $created['method']['instance_id'],
 				'enabled'     => true,
@@ -266,7 +266,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		remove_filter( 'query', $break_method_update );
 
 		$this->assertWPError( $updated );
-		$this->assertSame( 'woocommerce_ability_shipping_method_update_failed', $updated->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_shipping_method_update_failed', $updated->get_error_code() );
 		WC()->cart->calculate_totals();
 		$this->assertSame( '7', WC()->shipping()->get_packages()[0]['rates'][ 'flat_rate:' . $created['method']['instance_id'] ]->get_cost() );
 	}
@@ -276,7 +276,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_minimum_keeps_a_stored_requirement(): void {
 		$created = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => 0,
 				'method_id' => 'free_shipping',
@@ -285,7 +285,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		);
 
 		$updated = $this->run_ability(
-			'woocommerce/shipping-zone-method-update',
+			'poocommerce/shipping-zone-method-update',
 			array(
 				'instance_id' => $created['method']['instance_id'],
 				'settings'    => array( 'min_amount' => '75' ),
@@ -302,7 +302,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_writes_text_and_checkbox_settings(): void {
 		$created = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => 0,
 				'method_id' => 'free_shipping',
@@ -316,7 +316,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'yes', ( (array) $created['method']['settings'] )['ignore_discounts'] );
 
 		$updated = $this->run_ability(
-			'woocommerce/shipping-zone-method-update',
+			'poocommerce/shipping-zone-method-update',
 			array(
 				'instance_id' => $created['method']['instance_id'],
 				'enabled'     => false,
@@ -330,11 +330,11 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should refuse settings the method rejects, and leave no method behind.
-	 * @testWith ["flat_rate", {"min_amount": "50"}, "woocommerce_ability_shipping_method_setting_unknown"]
-	 *           ["flat_rate", {"cost": "10 +"}, "woocommerce_ability_shipping_method_setting_invalid"]
-	 *           ["free_shipping", {"min_amount": "-5"}, "woocommerce_ability_shipping_method_setting_invalid"]
-	 *           ["free_shipping", {"min_amount": ","}, "woocommerce_ability_shipping_method_setting_invalid"]
-	 *           ["free_shipping", {"min_amount": ""}, "woocommerce_ability_shipping_method_setting_invalid"]
+	 * @testWith ["flat_rate", {"min_amount": "50"}, "poocommerce_ability_shipping_method_setting_unknown"]
+	 *           ["flat_rate", {"cost": "10 +"}, "poocommerce_ability_shipping_method_setting_invalid"]
+	 *           ["free_shipping", {"min_amount": "-5"}, "poocommerce_ability_shipping_method_setting_invalid"]
+	 *           ["free_shipping", {"min_amount": ","}, "poocommerce_ability_shipping_method_setting_invalid"]
+	 *           ["free_shipping", {"min_amount": ""}, "poocommerce_ability_shipping_method_setting_invalid"]
 	 *
 	 * @param string $method_id Method to add.
 	 * @param array  $settings  Settings to send.
@@ -344,7 +344,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$zone_id = $this->create_germany_zone();
 
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => $method_id,
@@ -367,30 +367,30 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 			return $methods;
 		};
 		add_action(
-			'woocommerce_shipping_zone_method_added',
+			'poocommerce_shipping_zone_method_added',
 			static function () use ( $unregister ): void {
-				add_filter( 'woocommerce_shipping_methods', $unregister );
+				add_filter( 'poocommerce_shipping_methods', $unregister );
 			}
 		);
 
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-method-create',
+			'poocommerce/shipping-zone-method-create',
 			array(
 				'zone_id'   => $zone_id,
 				'method_id' => 'flat_rate',
 			)
 		);
-		remove_filter( 'woocommerce_shipping_methods', $unregister );
+		remove_filter( 'poocommerce_shipping_methods', $unregister );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_shipping_method_create_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_shipping_method_create_failed', $result->get_error_code() );
 		$this->assertSame( array(), ( new \WC_Shipping_Zone( $zone_id ) )->get_shipping_methods( false, 'admin' ), 'The method should be removed again.' );
 	}
 
 	/**
 	 * @testdox Should refuse a zone or method that does not exist.
-	 * @testWith ["woocommerce/shipping-zone-method-create", {"zone_id": 999999, "method_id": "flat_rate"}, "woocommerce_ability_shipping_zone_not_found"]
-	 *           ["woocommerce/shipping-zone-method-update", {"instance_id": 999999, "enabled": true}, "woocommerce_ability_shipping_method_not_found"]
+	 * @testWith ["poocommerce/shipping-zone-method-create", {"zone_id": 999999, "method_id": "flat_rate"}, "poocommerce_ability_shipping_zone_not_found"]
+	 *           ["poocommerce/shipping-zone-method-update", {"instance_id": 999999, "enabled": true}, "poocommerce_ability_shipping_method_not_found"]
 	 *
 	 * @param string $ability Ability name.
 	 * @param array  $input   Ability input.
@@ -422,11 +422,11 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 			$methods['test_carrier'] = $carrier;
 			return $methods;
 		};
-		add_filter( 'woocommerce_shipping_methods', $register );
+		add_filter( 'poocommerce_shipping_methods', $register );
 		$instance_id = ( new \WC_Shipping_Zone( 0 ) )->add_shipping_method( 'test_carrier' );
 
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-method-update',
+			'poocommerce/shipping-zone-method-update',
 			array(
 				'instance_id' => $instance_id,
 				'settings'    => array( 'cost' => '1' ),
@@ -434,8 +434,8 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_shipping_method_unsupported', $result->get_error_code() );
-		$this->assertFalse( get_option( "woocommerce_test_carrier_{$instance_id}_settings" ), 'Nothing should be written for the extension method.' );
+		$this->assertSame( 'poocommerce_ability_shipping_method_unsupported', $result->get_error_code() );
+		$this->assertFalse( get_option( "poocommerce_test_carrier_{$instance_id}_settings" ), 'Nothing should be written for the extension method.' );
 	}
 
 	/**
@@ -443,7 +443,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_creates_a_zone_with_locations(): void {
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'California <b>metro</b>',
 				'order'     => 3,
@@ -493,7 +493,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		}
 
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'Everywhere',
 				'locations' => $locations,
@@ -506,7 +506,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should refuse a location code WooCommerce does not know, or one that does not fit its type, and save nothing.
+	 * @testdox Should refuse a location code PooCommerce does not know, or one that does not fit its type, and save nothing.
 	 * @testWith ["XX", "country"]
 	 *           ["UK", "country"]
 	 *           ["US:ZZ", "state"]
@@ -523,7 +523,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		$zone_count = count( \WC_Shipping_Zones::get_zones() );
 
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'Nowhere',
 				'locations' => array(
@@ -536,7 +536,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_shipping_zone_location_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_shipping_zone_location_invalid', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 		$this->assertStringContainsString( "{$code} ({$type})", $result->get_error_message() );
 		$this->assertCount( $zone_count, \WC_Shipping_Zones::get_zones(), 'No zone should be created.' );
@@ -547,7 +547,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_names_every_bad_location_code_in_one_error(): void {
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'Mixed',
 				'locations' => array(
@@ -580,11 +580,11 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should save known codes of each type in the form WooCommerce stores, so the zone matches an address.
+	 * @testdox Should save known codes of each type in the form PooCommerce stores, so the zone matches an address.
 	 */
 	public function test_saves_known_location_codes_in_stored_form(): void {
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => 'Known',
 				'locations' => array(
@@ -632,7 +632,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refuses_an_empty_zone_name(): void {
 		$result = $this->run_ability(
-			'woocommerce/shipping-zone-create',
+			'poocommerce/shipping-zone-create',
 			array(
 				'name'      => '  <b></b> ',
 				'locations' => self::GERMANY,
@@ -640,7 +640,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_shipping_zone_name_empty', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_shipping_zone_name_empty', $result->get_error_code() );
 	}
 
 	/**
@@ -649,25 +649,25 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 	public function test_refuses_writes_while_shipping_is_disabled(): void {
 		$instance_id = ( new \WC_Shipping_Zone( 0 ) )->add_shipping_method( 'flat_rate' );
 		$zone_count  = count( \WC_Shipping_Zones::get_zones() );
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 
 		$results = array(
 			$this->run_ability(
-				'woocommerce/shipping-zone-create',
+				'poocommerce/shipping-zone-create',
 				array(
 					'name'      => 'Refused',
 					'locations' => self::GERMANY,
 				)
 			),
 			$this->run_ability(
-				'woocommerce/shipping-zone-method-create',
+				'poocommerce/shipping-zone-method-create',
 				array(
 					'zone_id'   => 0,
 					'method_id' => 'free_shipping',
 				)
 			),
 			$this->run_ability(
-				'woocommerce/shipping-zone-method-update',
+				'poocommerce/shipping-zone-method-update',
 				array(
 					'instance_id' => $instance_id,
 					'settings'    => array( 'cost' => '9' ),
@@ -677,21 +677,21 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 
 		foreach ( $results as $result ) {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_shipping_disabled', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_shipping_disabled', $result->get_error_code() );
 		}
 		$this->assertCount( $zone_count, \WC_Shipping_Zones::get_zones(), 'No zone should be created.' );
 		$this->assertCount( 1, ( new \WC_Shipping_Zone( 0 ) )->get_shipping_methods(), 'No method should be added.' );
-		$this->assertFalse( get_option( "woocommerce_flat_rate_{$instance_id}_settings" ), 'The flat rate settings should stay untouched.' );
+		$this->assertFalse( get_option( "poocommerce_flat_rate_{$instance_id}_settings" ), 'The flat rate settings should stay untouched.' );
 	}
 
 	/**
-	 * @testdox Should let a shop manager write shipping, and refuse a user who cannot manage WooCommerce.
+	 * @testdox Should let a shop manager write shipping, and refuse a user who cannot manage PooCommerce.
 	 */
 	public function test_requires_settings_permission(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 		$this->assertWPError(
 			$this->run_ability(
-				'woocommerce/shipping-zone-create',
+				'poocommerce/shipping-zone-create',
 				array(
 					'name'      => 'Refused',
 					'locations' => self::GERMANY,
@@ -700,7 +700,7 @@ class ShippingWritesTest extends \WC_Unit_Test_Case {
 		);
 		$this->assertWPError(
 			$this->run_ability(
-				'woocommerce/shipping-zone-method-create',
+				'poocommerce/shipping-zone-method-create',
 				array(
 					'zone_id'   => 0,
 					'method_id' => 'flat_rate',

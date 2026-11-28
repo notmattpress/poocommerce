@@ -1,6 +1,6 @@
-# WooCommerce Admin
+# PooCommerce Admin
 
-The WooCommerce Admin is where the next iteration of the administrative experience for WooCommerce is being developed. The project is being built on top of the modern JavaScript packages that are being released from the [core WordPress editor project](https://github.com/wordpress/gutenberg). By building with these `@wordpress/components` - WooCommerce Admin seeks to create a cohesive experience with the latest WordPress core design system, and to deliver a fast and modern set of tools to manage one's WooCommerce Store with.
+The PooCommerce Admin is where the next iteration of the administrative experience for PooCommerce is being developed. The project is being built on top of the modern JavaScript packages that are being released from the [core WordPress editor project](https://github.com/wordpress/gutenberg). By building with these `@wordpress/components` - PooCommerce Admin seeks to create a cohesive experience with the latest WordPress core design system, and to deliver a fast and modern set of tools to manage one's PooCommerce Store with.
 
 Currently, development efforts have been focused on two primary areas:
 
@@ -10,7 +10,7 @@ Currently, development efforts have been focused on two primary areas:
 
 ## Analytics
 
-With WooCommerce installed, a new Analytics menu item is created in the wp-admin menu system. This menu item, and the reports contained inside of it are available to all wp-admin users that have the `view_woocommerce_reports` capability, so per a standard WooCommerce install this would give `shop_manager`s and `administrator`s access to the reports.
+With PooCommerce installed, a new Analytics menu item is created in the wp-admin menu system. This menu item, and the reports contained inside of it are available to all wp-admin users that have the `view_poocommerce_reports` capability, so per a standard PooCommerce install this would give `shop_manager`s and `administrator`s access to the reports.
 
 Each report is quite unique with its own set of filtering options and chart types. To learn more about each individual report, please view the pages below:
 
@@ -27,7 +27,7 @@ Each report is quite unique with its own set of filtering options and chart type
 
 ### Settings and Historical Data Import
 
-The Analytics section also has a menu item for _Settings_. On this page you can control items that affect how the WooCommerce Admin Analytics system works, and you can also import historical data into the reporting database tables.
+The Analytics section also has a menu item for _Settings_. On this page you can control items that affect how the PooCommerce Admin Analytics system works, and you can also import historical data into the reporting database tables.
 
 - [Analytics settings](analytics-settings.md)
 - [Historical Data Import](analytics-historical-data-import.md)

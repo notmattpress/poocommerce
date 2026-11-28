@@ -2,7 +2,7 @@
 /**
  * Fails a test that runs schema-changing SQL inside its transaction.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

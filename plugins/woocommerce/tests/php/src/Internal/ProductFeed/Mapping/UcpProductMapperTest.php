@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Mapping;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Mapping;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\ProductShapeMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper;
 use WC_Helper_Product;
 
 /**
@@ -291,13 +291,13 @@ class UcpProductMapperTest extends \WC_Unit_Test_Case {
 		$raise_small = function ( $price, $variation ) use ( $ids ) {
 			return $variation->get_id() === $ids['small'] ? '20' : $price;
 		};
-		add_filter( 'woocommerce_product_variation_get_price', $raise_small, 10, 2 );
+		add_filter( 'poocommerce_product_variation_get_price', $raise_small, 10, 2 );
 
 		$mapper = new UcpProductMapper( 'USD' );
 		$mapper->begin_response( array( 'max' => 1500 ) );
 		$mapped = $mapper->map_detail_product( wc_get_product( $parent_id ) );
 
-		remove_filter( 'woocommerce_product_variation_get_price', $raise_small, 10 );
+		remove_filter( 'poocommerce_product_variation_get_price', $raise_small, 10 );
 
 		$this->assertSame( array( (string) $ids['large'] ), array_column( $mapped['variants'], 'id' ) );
 		$this->assertSame( 'large', $mapped['selected'][0]['label'] );

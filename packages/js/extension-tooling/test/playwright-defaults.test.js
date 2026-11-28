@@ -1,6 +1,6 @@
 const assert = require( 'node:assert/strict' );
 const test = require( 'node:test' );
-const playwrightDefaults = require( '@woocommerce/extension-tooling/playwright-defaults' );
+const playwrightDefaults = require( '@poocommerce/extension-tooling/playwright-defaults' );
 
 test( 'uses local defaults and writes only the configured HTML report', () => {
 	assert.deepEqual(

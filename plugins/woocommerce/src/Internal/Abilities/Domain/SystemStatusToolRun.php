@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -39,7 +39,7 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/system-status-tool-run';
+		return 'poocommerce/system-status-tool-run';
 	}
 
 	/**
@@ -51,12 +51,12 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Run status tool', 'woocommerce' ),
+			'label'               => __( 'Run status tool', 'poocommerce' ),
 			'description'         => __(
-				'Run a maintenance tool from WooCommerce > Status > Tools that clears caches or rebuilds derived data. Only tools that woocommerce/system-status-tools-query marks as runnable can be run.',
-				'woocommerce'
+				'Run a maintenance tool from PooCommerce > Status > Tools that clears caches or rebuilds derived data. Only tools that poocommerce/system-status-tools-query marks as runnable can be run.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -91,8 +91,8 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 
 		if ( ! isset( $tools[ $id ] ) || ! is_array( $tools[ $id ] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_system_status_tool_not_found',
-				__( 'This status tool is not available on this store.', 'woocommerce' ),
+				'poocommerce_ability_system_status_tool_not_found',
+				__( 'This status tool is not available on this store.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -100,10 +100,10 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 		$result = $controller->execute_tool( $id );
 		$tool   = $tools[ $id ];
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		/** This action is documented in includes/admin/class-wc-admin-status.php */
 		do_action(
-			'woocommerce_system_status_tool_executed',
+			'poocommerce_system_status_tool_executed',
 			array_merge(
 				array(
 					'id'          => $id,
@@ -115,14 +115,14 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 				$result
 			)
 		);
-		// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$message = wp_strip_all_tags( (string) ( $result['message'] ?? '' ) );
 
 		if ( empty( $result['success'] ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_system_status_tool_failed',
-				'' !== $message ? $message : __( 'The status tool did not run.', 'woocommerce' ),
+				'poocommerce_ability_system_status_tool_failed',
+				'' !== $message ? $message : __( 'The status tool did not run.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -155,7 +155,7 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 			'properties'           => array(
 				'id' => array(
 					'type'        => 'string',
-					'description' => __( 'Status tool ID.', 'woocommerce' ),
+					'description' => __( 'Status tool ID.', 'poocommerce' ),
 					'enum'        => self::RUNNABLE_TOOLS,
 				),
 			),
@@ -176,7 +176,7 @@ class SystemStatusToolRun extends AbstractDomainAbility implements AbilityDefini
 				'id'      => array( 'type' => 'string' ),
 				'message' => array(
 					'type'        => 'string',
-					'description' => __( 'What the tool did, or that it scheduled the work to run in the background.', 'woocommerce' ),
+					'description' => __( 'What the tool did, or that it scheduled the work to run in the background.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

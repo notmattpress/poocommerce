@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { useUser } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { useUser } from '@poocommerce/data';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useUser: jest.fn(),
 } ) );
 
@@ -17,7 +17,7 @@ jest.mock( '../../../../../utils/functions', () => ( {
 	removeNotice: jest.fn(),
 	getInstallUrl: jest.fn( () =>
 		Promise.resolve(
-			'https://woocommerce.com/install/?product-key=k&token=t&signature=s&utm_source=helper'
+			'https://poocommerce.com/install/?product-key=k&token=t&signature=s&utm_source=helper'
 		)
 	),
 } ) );
@@ -32,7 +32,7 @@ const subscription = {
 	product_key: 'product-key',
 	product_name: 'Product Add-Ons',
 	product_id: 18618,
-	zip_slug: 'woocommerce-product-addons',
+	zip_slug: 'poocommerce-product-addons',
 	version: '8.0.0',
 	is_installable: false,
 } as unknown as Subscription;
@@ -65,12 +65,12 @@ describe( 'Install', () => {
 				'marketplace_product_install_url',
 				expect.objectContaining( {
 					product_install_url:
-						'https://woocommerce.com/install/?utm_source=helper',
+						'https://poocommerce.com/install/?utm_source=helper',
 				} )
 			)
 		);
 		expect( open ).toHaveBeenCalledWith(
-			'https://woocommerce.com/install/?product-key=k&token=t&signature=s&utm_source=helper',
+			'https://poocommerce.com/install/?product-key=k&token=t&signature=s&utm_source=helper',
 			'_self'
 		);
 	} );

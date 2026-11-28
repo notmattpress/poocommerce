@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\StoreApi\Authentication;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\StoreApi\Authentication;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use WC_Unit_Test_Case;
 
 /**
@@ -82,7 +82,7 @@ class AuthenticationRouteMatchingTest extends WC_Unit_Test_Case {
 
 		$this->sut->opt_in_checkout_endpoint( null );
 
-		$this->assertNotFalse( has_filter( 'woocommerce_store_api_rate_limit_options' ) );
+		$this->assertNotFalse( has_filter( 'poocommerce_store_api_rate_limit_options' ) );
 	}
 
 	/**

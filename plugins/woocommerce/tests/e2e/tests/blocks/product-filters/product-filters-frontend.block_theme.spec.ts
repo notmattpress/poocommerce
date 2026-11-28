@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { getProductAttributeIds, test, expect } from '@woocommerce/e2e-utils';
+import { getProductAttributeIds, test, expect } from '@poocommerce/e2e-utils';
 
-test.describe( 'woocommerce/product-filters - Frontend', () => {
+test.describe( 'poocommerce/product-filters - Frontend', () => {
 	test.describe( 'Overlay', () => {
 		let postLink: string;
 
@@ -178,7 +178,7 @@ test.describe( 'woocommerce/product-filters - Frontend', () => {
 			await page.goto( link );
 
 			const productFilters = page.locator(
-				'.wp-block-woocommerce-product-filters'
+				'.wp-block-poocommerce-product-filters'
 			);
 			await expect( productFilters ).toHaveCount( 2 );
 

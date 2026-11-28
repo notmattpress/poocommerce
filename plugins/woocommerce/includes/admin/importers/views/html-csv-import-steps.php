@@ -2,7 +2,7 @@
 /**
  * Admin View: Steps
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

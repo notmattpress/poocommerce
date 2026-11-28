@@ -6,17 +6,17 @@ category_slug: testing
 
 # Testing abilities over MCP
 
-WooCommerce registers its abilities through the WordPress Abilities API, and the [MCP Adapter plugin](https://wordpress.org/plugins/mcp-adapter/) exposes them to Model Context Protocol (MCP) clients. When you change an ability, you can run your local `wp-env` site as an MCP server and call the ability the way an AI client would, using [MCP Inspector](https://github.com/modelcontextprotocol/inspector).
+PooCommerce registers its abilities through the WordPress Abilities API, and the [MCP Adapter plugin](https://wordpress.org/plugins/mcp-adapter/) exposes them to Model Context Protocol (MCP) clients. When you change an ability, you can run your local `wp-env` site as an MCP server and call the ability the way an AI client would, using [MCP Inspector](https://github.com/modelcontextprotocol/inspector).
 
 This complements the PHP unit tests: it shows the schema, permission check, and output exactly as an MCP client receives them.
 
 ## Prerequisites
 
-A working monorepo checkout and the `wp-env` development environment, as described in [Setting up your development environment](/docs/getting-started/development-environment/). All commands below run from `plugins/woocommerce`.
+A working monorepo checkout and the `wp-env` development environment, as described in [Setting up your development environment](/docs/getting-started/development-environment/). All commands below run from `plugins/poocommerce`.
 
 ## Add the MCP Adapter to your environment
 
-WooCommerce does not bundle the MCP Adapter. Add it to your environment with a `.wp-env.override.json` in `plugins/woocommerce`. The file is gitignored, so it only affects your machine:
+PooCommerce does not bundle the MCP Adapter. Add it to your environment with a `.wp-env.override.json` in `plugins/poocommerce`. The file is gitignored, so it only affects your machine:
 
 ```json
 {
@@ -30,7 +30,7 @@ WooCommerce does not bundle the MCP Adapter. Add it to your environment with a `
 
 - `plugins` in an override replaces the list in `.wp-env.json` instead of extending it, so keep `"."` in it.
 - `WP_DEBUG_DISPLAY` is `true` in `.wp-env.json`. Over STDIO, PHP notices would be printed into the JSON-RPC stream and break the client connection. With it set to `false`, notices still go to `wp-content/debug.log`.
-- `WP_MEMORY_LIMIT` raises the default 128 MB limit, which a WP-CLI run with WooCommerce loaded can exceed.
+- `WP_MEMORY_LIMIT` raises the default 128 MB limit, which a WP-CLI run with PooCommerce loaded can exceed.
 
 Then start (or restart) the environment:
 
@@ -44,7 +44,7 @@ pnpm env:dev:start
 pnpm exec wp-env run cli wp mcp-adapter list
 ```
 
-The output lists `mcp-adapter-default-server`, which is the server that exposes WooCommerce abilities.
+The output lists `mcp-adapter-default-server`, which is the server that exposes PooCommerce abilities.
 
 Use `pnpm exec wp-env` rather than `pnpm wp-env` whenever a command runs `mcp-adapter serve`. Running wp-env as a package script makes `pnpm` print the command to stdout, which corrupts the MCP stream. `wp-env` itself writes its status messages to stderr.
 
@@ -57,13 +57,13 @@ npx @modelcontextprotocol/inspector -- \
 
 Everything after `--` is the server command. Without it, Inspector takes `--server` as its own option and the adapter never receives it.
 
-Run it from `plugins/woocommerce`, because `wp-env` finds the environment from the working directory. The first connection takes several seconds while `wp-env` starts the command.
+Run it from `plugins/poocommerce`, because `wp-env` finds the environment from the working directory. The first connection takes several seconds while `wp-env` starts the command.
 
 The default server provides three tools:
 
 - `mcp-adapter-discover-abilities` lists the abilities exposed to MCP.
 - `mcp-adapter-get-ability-info` returns the input and output schema of one ability.
-- `mcp-adapter-execute-ability` runs an ability. Pass its name as `ability_name` and its input as `parameters`, for example `{ "ability_name": "woocommerce/products-query", "parameters": {} }`.
+- `mcp-adapter-execute-ability` runs an ability. Pass its name as `ability_name` and its input as `parameters`, for example `{ "ability_name": "poocommerce/products-query", "parameters": {} }`.
 
 ## Exercise an ability
 
@@ -82,14 +82,14 @@ npx @modelcontextprotocol/inspector -- \
   pnpm exec wp-env run cli wp mcp-adapter serve --server=mcp-adapter-default-server --user=customer
 ```
 
-Executing `woocommerce/products-query` as `customer` returns `Permission denied`.
+Executing `poocommerce/products-query` as `customer` returns `Permission denied`.
 
 For a quick check without the web UI, Inspector's CLI mode makes one call and prints the result. Its options go before `--`, as above:
 
 ```bash
 npx @modelcontextprotocol/inspector --cli \
   --method tools/call --tool-name mcp-adapter-execute-ability \
-  --tool-arg ability_name=woocommerce/products-query --tool-arg 'parameters={}' \
+  --tool-arg ability_name=poocommerce/products-query --tool-arg 'parameters={}' \
   -- pnpm exec wp-env run cli wp mcp-adapter serve --server=mcp-adapter-default-server --user=admin
 ```
 

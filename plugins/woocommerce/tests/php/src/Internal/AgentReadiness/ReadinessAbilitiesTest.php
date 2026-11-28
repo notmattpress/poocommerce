@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReportAbility;
-use Automattic\WooCommerce\Internal\AgentReadiness\RunCheckAbility;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReportAbility;
+use Automattic\PooCommerce\Internal\AgentReadiness\RunCheckAbility;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -36,12 +36,12 @@ class ReadinessAbilitiesTest extends WC_Unit_Test_Case {
 		}
 		// The Abilities API registry needs init to have fired.
 		$wp_actions['init'] = max( 1, (int) ( $wp_actions['init'] ?? 0 ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		if ( ! wp_has_ability_category( 'woocommerce' ) ) {
+		if ( ! wp_has_ability_category( 'poocommerce' ) ) {
 			$category = static fn() => wp_register_ability_category(
-				'woocommerce',
+				'poocommerce',
 				array(
-					'label'       => 'WooCommerce',
-					'description' => 'WooCommerce.',
+					'label'       => 'PooCommerce',
+					'description' => 'PooCommerce.',
 				)
 			);
 			add_action( 'wp_abilities_api_categories_init', $category );
@@ -105,7 +105,7 @@ class ReadinessAbilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Only users who can manage WooCommerce can read the report or run a check.
+	 * @testdox Only users who can manage PooCommerce can read the report or run a check.
 	 */
 	public function test_permission(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
@@ -130,7 +130,7 @@ class ReadinessAbilitiesTest extends WC_Unit_Test_Case {
 
 		WC_Helper_Product::create_simple_product();
 		wc_get_container()->get( AgentReadiness::class )->refresh_report();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$output = $ability->execute();
 
@@ -186,8 +186,8 @@ class ReadinessAbilitiesTest extends WC_Unit_Test_Case {
 		$ability  = wp_get_ability( RunCheckAbility::NAME );
 		$external = WC_Helper_Product::create_external_product();
 
-		$this->assertSame( 'woocommerce_agent_readiness_product_not_checked', $ability->execute( array( 'product_id' => $external->get_id() ) )->get_error_code() );
-		$this->assertSame( 'woocommerce_agent_readiness_product_not_found', $ability->execute( array( 'product_id' => 999999 ) )->get_error_code() );
+		$this->assertSame( 'poocommerce_agent_readiness_product_not_checked', $ability->execute( array( 'product_id' => $external->get_id() ) )->get_error_code() );
+		$this->assertSame( 'poocommerce_agent_readiness_product_not_found', $ability->execute( array( 'product_id' => 999999 ) )->get_error_code() );
 	}
 
 	/**

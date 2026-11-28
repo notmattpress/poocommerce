@@ -6,7 +6,7 @@ require_once WC_ABSPATH . 'includes/admin/class-wc-admin-webhooks.php';
 /**
  * Tests for WC_Admin_Webhooks.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 
@@ -151,7 +151,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$_REQUEST = array(
 			'action'   => $action,
 			'webhook'  => array( $webhook->get_id() ),
-			'_wpnonce' => wp_create_nonce( 'woocommerce-settings' ),
+			'_wpnonce' => wp_create_nonce( 'poocommerce-settings' ),
 		);
 		$sut      = new WC_Admin_Webhooks_Table_List();
 		$redirect = $this->capture_redirect(
@@ -192,7 +192,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$_REQUEST = array(
 			'action'   => 'pause',
 			'webhook'  => array( $webhook->get_id() ),
-			'_wpnonce' => wp_create_nonce( 'woocommerce-settings' ),
+			'_wpnonce' => wp_create_nonce( 'poocommerce-settings' ),
 		);
 
 		$sut      = new WC_Admin_Webhooks_Table_List();
@@ -292,7 +292,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$webhook_id      = $this->create_webhook_owned_by( $shop_manager_id, 'https://example.com/hook' );
 
 		add_filter(
-			'woocommerce_webhook_delivery_url',
+			'poocommerce_webhook_delivery_url',
 			static function ( $delivery_url ) {
 				return $delivery_url . '?site=1';
 			}
@@ -410,7 +410,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 	 * @param string $delivery_url Delivery URL to submit.
 	 */
 	private function submit_webhook_form( int $webhook_id, string $delivery_url ): void {
-		$nonce = wp_create_nonce( 'woocommerce-settings' );
+		$nonce = wp_create_nonce( 'poocommerce-settings' );
 
 		$query = array(
 			'page'    => 'wc-settings',
@@ -431,7 +431,7 @@ class WC_Admin_Webhooks_Test extends WC_Unit_Test_Case {
 		$_GET     = $query;
 		$_POST    = $form;
 		$_REQUEST = array_merge( $query, $form );
-		set_current_screen( 'woocommerce_page_wc-settings' );
+		set_current_screen( 'poocommerce_page_wc-settings' );
 
 		add_filter(
 			'wp_redirect',

@@ -114,7 +114,7 @@ export function createBlocksCli( execute: RunCommand, containerIdFile: string ) 
 	};
 }
 
-// Relative to `plugins/woocommerce`, where wp-env and Playwright run.
+// Relative to `plugins/poocommerce`, where wp-env and Playwright run.
 const blocksCli = createBlocksCli(
 	runCommand,
 	path.resolve(

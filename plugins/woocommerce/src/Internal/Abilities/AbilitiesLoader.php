@@ -5,62 +5,62 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderAddNote;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderNotesQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderRefundCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderRefundsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderSendEmail;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderDelete;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderUpdateStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CustomersQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CustomerUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrdersQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CouponsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\PaymentGatewayUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\PaymentGatewaysQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductDelete;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewReply;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductReviewUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ShippingZoneCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ShippingZoneMethodCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ShippingZoneMethodUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ShippingZonesQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SystemStatusGet;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SystemStatusToolRun;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SystemStatusToolsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\TaxRateCreate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\TaxRateDelete;
-use Automattic\WooCommerce\Internal\Abilities\Domain\TaxRatesQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\TaxRateUpdate;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReportAbility;
-use Automattic\WooCommerce\Internal\AgentReadiness\RunCheckAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\StoreSettingsGet;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SettingsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SettingsUpdate;
-use Automattic\WooCommerce\Internal\Abilities\Domain\SettingsGroupsQuery;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderAddNote;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderNotesQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderRefundCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderRefundsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderSendEmail;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderDelete;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderUpdateStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CustomersQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CustomerUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrdersQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CouponsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\PaymentGatewayUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\PaymentGatewaysQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributeCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductAttributesQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductDelete;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewReply;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductReviewUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ShippingZoneCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ShippingZoneMethodCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ShippingZoneMethodUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ShippingZonesQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SystemStatusGet;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SystemStatusToolRun;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SystemStatusToolsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\TaxRateCreate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\TaxRateDelete;
+use Automattic\PooCommerce\Internal\Abilities\Domain\TaxRatesQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\TaxRateUpdate;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReportAbility;
+use Automattic\PooCommerce\Internal\AgentReadiness\RunCheckAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\StoreSettingsGet;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SettingsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SettingsUpdate;
+use Automattic\PooCommerce\Internal\Abilities\Domain\SettingsGroupsQuery;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hooks WooCommerce ability definitions into the WordPress Abilities API.
+ * Hooks PooCommerce ability definitions into the WordPress Abilities API.
  */
 class AbilitiesLoader {
 
@@ -72,7 +72,7 @@ class AbilitiesLoader {
 	private static bool $initialized = false;
 
 	/**
-	 * Canonical WooCommerce domain ability definition classes.
+	 * Canonical PooCommerce domain ability definition classes.
 	 *
 	 * @var array<int, class-string>
 	 */
@@ -130,7 +130,7 @@ class AbilitiesLoader {
 	 *
 	 * @var string
 	 */
-	private const LOG_SOURCE = 'woocommerce-abilities';
+	private const LOG_SOURCE = 'poocommerce-abilities';
 
 	/**
 	 * Ability instances registered by this loader in the current request.
@@ -144,7 +144,7 @@ class AbilitiesLoader {
 	 *
 	 * @internal
 	 */
-	public const EXTENSION_QUERY_VAR = 'woocommerce_extensible_abilities_query_args';
+	public const EXTENSION_QUERY_VAR = 'poocommerce_extensible_abilities_query_args';
 
 	/**
 	 * Initialize ability registration hooks.
@@ -159,11 +159,11 @@ class AbilitiesLoader {
 		}
 
 		AbilitiesCategories::init();
-		add_action( 'woocommerce_extensible_abilities_resources_init', array( __CLASS__, 'register_core_resources' ), 0 );
+		add_action( 'poocommerce_extensible_abilities_resources_init', array( __CLASS__, 'register_core_resources' ), 0 );
 		add_action( 'wp_abilities_api_init', array( __CLASS__, 'init_extensions' ), 0 );
 		add_action( 'wp_abilities_api_init', array( __CLASS__, 'register_abilities' ) );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array( __CLASS__, 'add_extension_query_args' ), 10, 2 );
-		add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( __CLASS__, 'add_extension_query_args' ), 10, 2 );
+		add_filter( 'poocommerce_product_data_store_cpt_get_products_query', array( __CLASS__, 'add_extension_query_args' ), 10, 2 );
+		add_filter( 'poocommerce_order_data_store_cpt_get_orders_query', array( __CLASS__, 'add_extension_query_args' ), 10, 2 );
 
 		self::$initialized = true;
 	}
@@ -213,19 +213,19 @@ class AbilitiesLoader {
 	 * @since 11.3.0
 	 */
 	public static function init_extensions(): void {
-		if ( did_action( 'woocommerce_extensible_abilities_init' ) || ! ExtensibleAbilities::is_enabled() ) {
+		if ( did_action( 'poocommerce_extensible_abilities_init' ) || ! ExtensibleAbilities::is_enabled() ) {
 			return;
 		}
 
 		/**
 		 * Fires when extensions can register their resources with ExtensibleAbilities.
 		 *
-		 * Fires one time, before `woocommerce_extensible_abilities_init`, only when the
+		 * Fires one time, before `poocommerce_extensible_abilities_init`, only when the
 		 * experimental `extensible_abilities` feature is on.
 		 *
 		 * @since 11.3.0
 		 */
-		do_action( 'woocommerce_extensible_abilities_resources_init' );
+		do_action( 'poocommerce_extensible_abilities_resources_init' );
 
 		/**
 		 * Fires when extensions can register their fields with ExtensibleAbilities.
@@ -234,7 +234,7 @@ class AbilitiesLoader {
 		 *
 		 * @since 11.3.0
 		 */
-		do_action( 'woocommerce_extensible_abilities_init' );
+		do_action( 'poocommerce_extensible_abilities_init' );
 	}
 
 	/**
@@ -263,7 +263,7 @@ class AbilitiesLoader {
 
 			$is_core_ability = self::is_core_ability_definition_class( $class_name );
 
-			if ( self::is_reserved_woocommerce_ability_name( $ability_name ) && ! $is_core_ability ) {
+			if ( self::is_reserved_poocommerce_ability_name( $ability_name ) && ! $is_core_ability ) {
 				continue;
 			}
 
@@ -324,7 +324,7 @@ class AbilitiesLoader {
 	}
 
 	/**
-	 * Log when WooCommerce replaces a pre-existing registration in its reserved namespace.
+	 * Log when PooCommerce replaces a pre-existing registration in its reserved namespace.
 	 *
 	 * @param string       $ability_name Ability name.
 	 * @param class-string $class_name Ability definition class name.
@@ -335,18 +335,18 @@ class AbilitiesLoader {
 		}
 
 		wc_get_logger()->warning(
-			'WooCommerce unregistered a previously registered ability before registering its canonical definition.',
+			'PooCommerce unregistered a previously registered ability before registering its canonical definition.',
 			array(
 				'source'           => self::LOG_SOURCE,
 				'ability_name'     => $ability_name,
 				'definition_class' => $class_name,
-				'reserved_prefix'  => 'woocommerce/',
+				'reserved_prefix'  => 'poocommerce/',
 			)
 		);
 	}
 
 	/**
-	 * Check whether an ability definition class is provided by WooCommerce core.
+	 * Check whether an ability definition class is provided by PooCommerce core.
 	 *
 	 * @param class-string $class_name Ability definition class name.
 	 * @return bool
@@ -356,13 +356,13 @@ class AbilitiesLoader {
 	}
 
 	/**
-	 * Check whether an ability name uses WooCommerce's reserved namespace.
+	 * Check whether an ability name uses PooCommerce's reserved namespace.
 	 *
 	 * @param string $ability_name Ability name.
 	 * @return bool
 	 */
-	private static function is_reserved_woocommerce_ability_name( string $ability_name ): bool {
-		return 0 === strpos( $ability_name, 'woocommerce/' );
+	private static function is_reserved_poocommerce_ability_name( string $ability_name ): bool {
+		return 0 === strpos( $ability_name, 'poocommerce/' );
 	}
 
 	/**
@@ -372,7 +372,7 @@ class AbilitiesLoader {
 	 */
 	private static function get_ability_definition_classes(): array {
 		/**
-		 * Filter WooCommerce ability definition classes.
+		 * Filter PooCommerce ability definition classes.
 		 *
 		 * Extensions can append autoloadable classes that implement
 		 * {@see AbilityDefinition}. The loader will call get_name() and
@@ -385,7 +385,7 @@ class AbilitiesLoader {
 		 *
 		 * @param array<int, class-string> $classes Ability definition class names.
 		 */
-		$classes = apply_filters( 'woocommerce_ability_definition_classes', self::CORE_ABILITY_DEFINITION_CLASSES );
+		$classes = apply_filters( 'poocommerce_ability_definition_classes', self::CORE_ABILITY_DEFINITION_CLASSES );
 
 		if ( ! is_array( $classes ) ) {
 			$classes = array();

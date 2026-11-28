@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
 /**
  * Notification query class.

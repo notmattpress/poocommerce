@@ -1,16 +1,16 @@
 {
-	"name": "woocommerce/product-average-rating",
+	"name": "poocommerce/product-average-rating",
 	"title": "Product Average Rating (Beta)",
 	"description": "Display the average rating of a product",
 	"apiVersion": 3,
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"textAlign": {
 			"type": "string"
 		}
 	},
-	"keywords": [ "WooCommerce" ],
-	"ancestor": [ "woocommerce/single-product" ],
+	"keywords": [ "PooCommerce" ],
+	"ancestor": [ "poocommerce/single-product" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -33,6 +33,6 @@
 		"__experimentalSelector": ".wc-block-components-product-average-rating"
 	},
 	"viewScript": "file:../product-average-rating-frontend.js",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

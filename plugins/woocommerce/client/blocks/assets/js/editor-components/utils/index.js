@@ -3,8 +3,8 @@
  */
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
-import { getSetting } from '@woocommerce/settings';
-import { blocksConfig } from '@woocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
+import { blocksConfig } from '@poocommerce/block-settings';
 
 /**
  * Get product query requests for the Store API.
@@ -250,7 +250,7 @@ export const getProductVariationsWithTotal = ( product, args = {} ) => {
  * NOTE: If implementing new features, prefer using the
  * `getProductVariationsWithTotal()` function above, as it doesn't default to
  * `per_page: 0`.
- * See: https://github.com/woocommerce/woocommerce/pull/61755#issuecomment-3499859585
+ * See: https://github.com/poocommerce/poocommerce/pull/61755#issuecomment-3499859585
  *
  * @param {number} product Product ID.
  */

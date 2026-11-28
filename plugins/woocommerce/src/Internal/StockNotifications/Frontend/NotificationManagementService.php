@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Internal\Orders\TexturizeExclusions;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\Orders\TexturizeExclusions;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Notification management service.
@@ -147,7 +147,7 @@ class NotificationManagementService {
 
 		$notice = sprintf(
 			/* translators: %s user email. */
-			esc_html__( 'Verification email sent to %s.', 'woocommerce' ),
+			esc_html__( 'Verification email sent to %s.', 'poocommerce' ),
 			esc_html( $notification->get_user_email() )
 		);
 
@@ -172,12 +172,12 @@ class NotificationManagementService {
 	 */
 	public function resend_verification_email( Notification $notification ) {
 		if ( NotificationStatus::PENDING !== $notification->get_status() ) {
-			return new \WP_Error( self::RESEND_ERROR_NOT_PENDING, __( 'This notification is already verified or cancelled.', 'woocommerce' ) );
+			return new \WP_Error( self::RESEND_ERROR_NOT_PENDING, __( 'This notification is already verified or cancelled.', 'poocommerce' ) );
 		}
 
 		$last_sent_at = (int) $notification->get_meta( self::LAST_VERIFY_EMAIL_SENT_META );
 		if ( $last_sent_at > 0 && ( time() - $last_sent_at ) < self::RESEND_RATE_LIMIT_SECONDS ) {
-			return new \WP_Error( self::RESEND_ERROR_RATE_LIMITED, __( 'Please wait a moment before requesting another verification email.', 'woocommerce' ) );
+			return new \WP_Error( self::RESEND_ERROR_RATE_LIMITED, __( 'Please wait a moment before requesting another verification email.', 'poocommerce' ) );
 		}
 
 		// Persist the rate-limit timestamp before dispatching the email so two near-simultaneous

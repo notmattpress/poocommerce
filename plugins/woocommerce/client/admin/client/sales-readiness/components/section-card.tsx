@@ -187,14 +187,14 @@ export const SectionCard = ( { section }: { section: Section } ) => {
 				{ section.folded.length > 0 && (
 					<Fold
 						section={ section.id }
-						hideLabel={ __( 'Hide', 'woocommerce' ) }
+						hideLabel={ __( 'Hide', 'poocommerce' ) }
 						label={ sprintf(
 							/* translators: %d: number of checks. */
 							_n(
 								'Show %d more check',
 								'Show %d more checks',
 								section.folded.length,
-								'woocommerce'
+								'poocommerce'
 							),
 							section.folded.length
 						) }
@@ -210,12 +210,12 @@ export const SectionCard = ( { section }: { section: Section } ) => {
 const declaredState = ( found: boolean | null, waiting?: boolean ) => {
 	if ( found === null ) {
 		return waiting
-			? __( 'Not checked yet:', 'woocommerce' )
-			: __( 'Couldn’t check:', 'woocommerce' );
+			? __( 'Not checked yet:', 'poocommerce' )
+			: __( 'Couldn’t check:', 'poocommerce' );
 	}
 	return found
-		? __( 'Found:', 'woocommerce' )
-		: __( 'Not found:', 'woocommerce' );
+		? __( 'Found:', 'poocommerce' )
+		: __( 'Not found:', 'poocommerce' );
 };
 
 // The design's marks for a declared item: a check when found, a dashed line otherwise.
@@ -319,7 +319,7 @@ export const DeclaredCard = ( { declared }: { declared: Declared } ) => (
 												{ ' ' }
 												{ __(
 													'· not found',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</span>
 										) }

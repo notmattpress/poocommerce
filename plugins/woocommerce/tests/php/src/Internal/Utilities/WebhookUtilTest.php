@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
-use Automattic\WooCommerce\Internal\Utilities\WebhookUtil;
+use Automattic\PooCommerce\Internal\Utilities\WebhookUtil;
 use WC_Unit_Test_Case;
 use WC_Webhook;
 
@@ -52,7 +52,7 @@ class WebhookUtilTest extends WC_Unit_Test_Case {
 		$this->sut->maybe_render_user_with_webhooks_warning( wp_get_current_user(), array( $user_id ) );
 		$output = (string) ob_get_clean();
 
-		$this->assertStringContainsString( 'has created 1 WooCommerce webhook.', $output, 'The warning should count the webhooks of the user.' );
+		$this->assertStringContainsString( 'has created 1 PooCommerce webhook.', $output, 'The warning should count the webhooks of the user.' );
 		$this->assertSame(
 			$user_has_content,
 			str_contains( $output, 'Attribute all content to' ),

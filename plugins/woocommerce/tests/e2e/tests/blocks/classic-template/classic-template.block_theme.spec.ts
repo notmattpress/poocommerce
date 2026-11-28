@@ -7,10 +7,10 @@ import {
 	BlockData,
 	Editor,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData: Partial< BlockData > = {
-	name: 'woocommerce/legacy-template',
+	name: 'poocommerce/legacy-template',
 };
 
 const getClassicTemplateBlocksInInserter = async ( {
@@ -41,7 +41,7 @@ const getClassicTemplateBlocksInInserter = async ( {
 	// Filter out blocks that don't match one of the possible Classic Template block names (case-insensitive).
 	const classicTemplateBlocks = await options.evaluateAll( ( elements ) => {
 		const blockOptions = elements.filter( ( element ) => {
-			return element.textContent === 'WooCommerce Classic Template';
+			return element.textContent === 'PooCommerce Classic Template';
 		} );
 		return blockOptions.map( ( element ) => element.textContent );
 	} );

@@ -2,23 +2,23 @@
 /**
  * Integration tests for Contracts::list_for_address_email().
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\AssertsValidationErrors;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\AssertsValidationErrors;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts
  */
 class ContractAddressEmailListTest extends EngineIntegrationTestCase {
 

@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\CouponAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce coupon create ability.
+ * Registers the PooCommerce coupon create ability.
  */
 class CouponCreate extends ActionableAbility {
 
@@ -22,7 +22,7 @@ class CouponCreate extends ActionableAbility {
 	use DomainAbilityHelpers;
 
 	/** Ability name. */
-	public const ABILITY_NAME = 'woocommerce/coupon-create';
+	public const ABILITY_NAME = 'poocommerce/coupon-create';
 
 	/**
 	 * Get the ability registration arguments.
@@ -33,12 +33,12 @@ class CouponCreate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create coupon', 'woocommerce' ),
+			'label'               => __( 'Create coupon', 'poocommerce' ),
 			'description'         => __(
-				'Create a coupon. Defaults to a published fixed cart discount. Requires publication permission even for drafts, matching WooCommerce REST.',
-				'woocommerce'
+				'Create a coupon. Defaults to a published fixed cart discount. Requires publication permission even for drafts, matching PooCommerce REST.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_entity_output_schema( 'coupon', self::get_coupon_output_schema() ),
 			'permission_callback' => array( __CLASS__, 'can_create_coupon' ),

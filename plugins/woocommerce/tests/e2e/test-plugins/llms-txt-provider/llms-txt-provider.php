@@ -3,7 +3,7 @@
  * Plugin Name: E2E llms.txt provider
  * Description: Provides a template-based llms.txt for integration tests.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

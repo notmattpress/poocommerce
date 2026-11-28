@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ test.describe(
 			await qtyInput.fill( '-1' );
 
 			await page
-				.locator( '#woocommerce-order-items button.save-action' )
+				.locator( '#poocommerce-order-items button.save-action' )
 				.click();
 
 			// The input reports its constraint violation instead of saving.

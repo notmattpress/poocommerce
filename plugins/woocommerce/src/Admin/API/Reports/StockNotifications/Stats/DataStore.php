@@ -5,14 +5,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\Reports\StockNotifications\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\StockNotifications\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
-use Automattic\WooCommerce\Admin\API\Reports\StockNotifications\DataStore as StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Admin\API\Reports\StockNotifications\DataStore as StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 
 /**
  * Stock notifications stats report: totals plus per-interval subtotals.

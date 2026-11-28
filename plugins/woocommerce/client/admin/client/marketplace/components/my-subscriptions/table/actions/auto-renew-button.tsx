@@ -4,7 +4,7 @@
 import { ComponentProps } from 'react';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { queueRecordEvent } from '@woocommerce/tracks';
+import { queueRecordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ export default function AutoRenewButton( props: AutoRenewProps ) {
 			variant={ props.variant ?? 'secondary' }
 			onClick={ recordTracksEvent }
 		>
-			{ __( 'Renew', 'woocommerce' ) }
+			{ __( 'Renew', 'poocommerce' ) }
 		</Button>
 	);
 }

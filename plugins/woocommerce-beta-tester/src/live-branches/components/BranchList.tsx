@@ -31,7 +31,7 @@ const BranchListItem = ( {
 	const { isError, isInProgress, installAndActivate, activate, status } =
 		useLiveBranchInstall(
 			branch.download_url,
-			`https://github.com/woocommerce/woocommerce/pull/${ branch.pr }`,
+			`https://github.com/poocommerce/poocommerce/pull/${ branch.pr }`,
 			branch.version,
 			branch.install_status
 		);
@@ -73,7 +73,7 @@ const BranchListItem = ( {
 			<p>
 				Pull Request:{ ' ' }
 				<a
-					href={ `https://github.com/woocommerce/woocommerce/pull/${ branch.pr }` }
+					href={ `https://github.com/poocommerce/poocommerce/pull/${ branch.pr }` }
 				>
 					{ branch.branch }
 				</a>
@@ -90,7 +90,7 @@ const BranchInfo = ( { branch }: { branch: Branch } ) => {
 		<p>
 			<strong>Pull Request Branch:</strong>{ ' ' }
 			<a
-				href={ `https://github.com/woocommerce/woocommerce/pull/${ branch.pr }` }
+				href={ `https://github.com/poocommerce/poocommerce/pull/${ branch.pr }` }
 			>
 				{ branch.branch }
 			</a>
@@ -102,12 +102,12 @@ const BranchInfo = ( { branch }: { branch: Branch } ) => {
 	);
 };
 
-const WooCommerceVersionInfo = () => {
+const PooCommerceVersionInfo = () => {
 	const version = window?.wc?.wcSettings?.WC_VERSION || 'unknown';
 
 	return (
 		<p>
-			Live branch not installed. Running WooCommerce version: { version }
+			Live branch not installed. Running PooCommerce version: { version }
 		</p>
 	);
 };
@@ -145,7 +145,7 @@ export const BranchList = ( { branches }: { branches: Branch[] } ) => {
 							key={ activeBranch.version }
 						/>
 					) }
-					{ ! activeBranch && <WooCommerceVersionInfo /> }
+					{ ! activeBranch && <PooCommerceVersionInfo /> }
 				</CardBody>
 				<CardFooter>
 					<Fragment />

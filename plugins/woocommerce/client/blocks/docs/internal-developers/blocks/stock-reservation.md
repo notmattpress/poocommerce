@@ -9,7 +9,7 @@
     -   [How the queries work](#how-the-queries-work)
 -   [How this all fits into Checkout Block vs Traditional Checkout](#how-this-all-fits-into-checkout-block-vs-traditional-checkout)
 
-To prevent multiple customers trying to purchase the same stock when limits are in place, both WooCommerce ([4.3+](https://github.com/woocommerce/woocommerce/pull/26395#pullrequestreview-430633490)) and the Blocks plugin have a stock reservation system which is used during checkout.
+To prevent multiple customers trying to purchase the same stock when limits are in place, both PooCommerce ([4.3+](https://github.com/poocommerce/poocommerce/pull/26395#pullrequestreview-430633490)) and the Blocks plugin have a stock reservation system which is used during checkout.
 
 ## The Reserved Stock Database Table
 
@@ -64,7 +64,7 @@ On the technical side:
 
 -   The `ReserveStock` class joins the `wc_reserved_stock` table to the orders table (`wc_orders` with HPOS, `wp_posts` otherwise) using the order ID
 -   Only non-expired rows are used
--   Only rows for orders in a counted status are used: checkout-draft, pending, failed, processing, on-hold, and completed by default. Change the list with the `woocommerce_reserved_stock_order_statuses` filter.
+-   Only rows for orders in a counted status are used: checkout-draft, pending, failed, processing, on-hold, and completed by default. Change the list with the `poocommerce_reserved_stock_order_statuses` filter.
 
 Here is an example query getting stock for Product ID 99 and excluding order ID 100, on a store using posts storage.
 

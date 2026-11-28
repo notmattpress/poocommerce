@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Products;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Products;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Products\Controller as ProductsController;
 use WC_Helper_Product;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -39,7 +39,7 @@ class ProductsAddToCartTest extends WC_REST_Unit_Test_Case {
 
 		// Enable the REST API v4 feature.
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -62,11 +62,11 @@ class ProductsAddToCartTest extends WC_REST_Unit_Test_Case {
 		switch ( $product_type ) {
 			case 'simple':
 				$product                   = WC_Helper_Product::create_simple_product();
-				$expected_add_to_cart_text = __( 'Add to cart', 'woocommerce' );
+				$expected_add_to_cart_text = __( 'Add to cart', 'poocommerce' );
 				break;
 			case 'grouped':
 				$product                   = new \WC_Product_Grouped();
-				$expected_add_to_cart_text = __( 'View products', 'woocommerce' );
+				$expected_add_to_cart_text = __( 'View products', 'poocommerce' );
 				$product->set_name( 'Dummy Grouped Product' );
 				$product->save();
 				break;
@@ -97,7 +97,7 @@ class ProductsAddToCartTest extends WC_REST_Unit_Test_Case {
 				$this->assertNotEmpty( $product->get_children(), 'Variable fixture should expose its child.' );
 				$this->assertNotSame( '', $product->get_price(), 'Variable fixture should have a synced price.' );
 				$this->assertTrue( $product->is_purchasable(), 'Variable fixture should be purchasable.' );
-				$expected_add_to_cart_text = __( 'Select options', 'woocommerce' );
+				$expected_add_to_cart_text = __( 'Select options', 'poocommerce' );
 				break;
 		}
 

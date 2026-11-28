@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Tests for reusing a placed order from the session when the cart's coupons changed.
@@ -45,15 +45,15 @@ class CheckoutReuseOrderCoupons extends \WP_Test_REST_TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ), 10, 4 );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
+		add_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ), 10, 4 );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
 
 		$this->gateways_before = WC()->payment_gateways()->payment_gateways;
 		$this->paypal_before   = \WC_Gateway_Paypal::get_instance();
 
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'enabled'  => 'yes',
 				'email'    => 'merchant@example.com',
@@ -84,7 +84,7 @@ class CheckoutReuseOrderCoupons extends \WP_Test_REST_TestCase {
 	 */
 	protected function tearDown(): void {
 		try {
-			remove_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ) );
+			remove_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ) );
 			WC()->cart->empty_cart();
 			WC()->session->destroy_session();
 			WC()->customer = null;
@@ -109,7 +109,7 @@ class CheckoutReuseOrderCoupons extends \WP_Test_REST_TestCase {
 	 * @param int    $expire  Cookie expiry.
 	 * @return false
 	 */
-	public function filter_woocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
+	public function filter_poocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
 		if ( $expire < time() ) {
 			unset( $_COOKIE[ $name ] );
 		} else {
@@ -368,7 +368,7 @@ class CheckoutReuseOrderCoupons extends \WP_Test_REST_TestCase {
 	public function test_order_follows_cart_with_extension_coupon(): void {
 		$this->create_coupon( 'reuse-before-extension' );
 		add_filter(
-			'woocommerce_get_shop_coupon_data',
+			'poocommerce_get_shop_coupon_data',
 			function ( $data, $code ) {
 				if ( 'extension_discount' !== $code ) {
 					return $data;
@@ -400,7 +400,7 @@ class CheckoutReuseOrderCoupons extends \WP_Test_REST_TestCase {
 		$this->create_coupon( 'reuse-placed-five', 'fixed_cart', 5 );
 		$this->create_coupon( 'reuse-added-one', 'fixed_cart', 1 );
 		add_filter(
-			'woocommerce_get_shop_coupon_data',
+			'poocommerce_get_shop_coupon_data',
 			function ( $data, $code ) {
 				if ( 'extension_four' !== $code ) {
 					return $data;

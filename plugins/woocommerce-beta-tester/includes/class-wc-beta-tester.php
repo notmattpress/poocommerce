@@ -54,7 +54,7 @@ class WC_Beta_Tester {
 	 */
 	public static function activate() {
 		delete_site_transient( 'update_plugins' );
-		delete_site_transient( 'woocommerce_latest_tag' );
+		delete_site_transient( 'poocommerce_latest_tag' );
 	}
 
 	/**
@@ -93,14 +93,14 @@ class WC_Beta_Tester {
 		$this->plugin_name   = plugin_basename( WC_BETA_TESTER_FILE );
 		$this->plugin_config = array(
 			'plugin_file'        => WC_PLUGIN_BASENAME,
-			'slug'               => 'woocommerce',
-			'proper_folder_name' => 'woocommerce',
-			'api_url'            => 'https://api.wordpress.org/plugins/info/1.0/woocommerce.json',
-			'repo_url'           => 'https://wordpress.org/plugins/woocommerce/',
+			'slug'               => 'poocommerce',
+			'proper_folder_name' => 'poocommerce',
+			'api_url'            => 'https://api.wordpress.org/plugins/info/1.0/poocommerce.json',
+			'repo_url'           => 'https://wordpress.org/plugins/poocommerce/',
 		);
 
 		add_filter( "plugin_action_links_{$this->plugin_name}", array( $this, 'plugin_action_links' ), 10, 1 );
-		add_filter( 'auto_update_plugin', array( $this, 'auto_update_woocommerce' ), 100, 2 );
+		add_filter( 'auto_update_plugin', array( $this, 'auto_update_poocommerce' ), 100, 2 );
 
 		if ( 'stable' !== $this->get_settings()->channel ) {
 			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'api_check' ) );
@@ -270,13 +270,13 @@ class WC_Beta_Tester {
 		}
 
 		// Populate response data.
-		if ( ! isset( $transient->response['woocommerce/woocommerce.php'] ) ) {
-			$transient->response['woocommerce/woocommerce.php'] = (object) $this->plugin_config;
+		if ( ! isset( $transient->response['poocommerce/poocommerce.php'] ) ) {
+			$transient->response['poocommerce/poocommerce.php'] = (object) $this->plugin_config;
 		}
 
-		$transient->response['woocommerce/woocommerce.php']->new_version = $new_version;
-		$transient->response['woocommerce/woocommerce.php']->zip_url     = $this->get_download_url( $new_version );
-		$transient->response['woocommerce/woocommerce.php']->package     = $this->get_download_url( $new_version );
+		$transient->response['poocommerce/poocommerce.php']->new_version = $new_version;
+		$transient->response['poocommerce/poocommerce.php']->zip_url     = $this->get_download_url( $new_version );
+		$transient->response['poocommerce/poocommerce.php']->package     = $this->get_download_url( $new_version );
 
 		return $transient;
 	}
@@ -304,11 +304,11 @@ class WC_Beta_Tester {
 		$warning = '';
 
 		if ( $this->is_beta_version( $new_version ) ) {
-			$warning = __( '<h1><span>&#9888;</span>This is a beta release<span>&#9888;</span></h1>', 'woocommerce-beta-tester' );
+			$warning = __( '<h1><span>&#9888;</span>This is a beta release<span>&#9888;</span></h1>', 'poocommerce-beta-tester' );
 		}
 
 		if ( $this->is_rc_version( $new_version ) ) {
-			$warning = __( '<h1><span>&#9888;</span>This is a pre-release version<span>&#9888;</span></h1>', 'woocommerce-beta-tester' );
+			$warning = __( '<h1><span>&#9888;</span>This is a pre-release version<span>&#9888;</span></h1>', 'poocommerce-beta-tester' );
 		}
 
 		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
@@ -316,8 +316,8 @@ class WC_Beta_Tester {
 		$response->download_link = $this->get_download_url( $new_version );
 
 		$response->sections['changelog'] = sprintf(
-			'<p><a target="_blank" href="%s">' . __( 'Read the changelog and find out more about the release on GitHub.', 'woocommerce-beta-tester' ) . '</a></p>',
-			'https://github.com/woocommerce/woocommerce/blob/' . $response->version . '/readme.txt'
+			'<p><a target="_blank" href="%s">' . __( 'Read the changelog and find out more about the release on GitHub.', 'poocommerce-beta-tester' ) . '</a></p>',
+			'https://github.com/poocommerce/poocommerce/blob/' . $response->version . '/readme.txt'
 		);
 
 		foreach ( $response->sections as $key => $section ) {
@@ -338,7 +338,7 @@ class WC_Beta_Tester {
 	public function upgrader_source_selection( $source, $remote_source, $upgrader ) {
 		global $wp_filesystem;
 
-		if ( strstr( $source, '/woocommerce-woocommerce-' ) ) {
+		if ( strstr( $source, '/poocommerce-poocommerce-' ) ) {
 			$corrected_source = trailingslashit( $remote_source ) . trailingslashit( $this->plugin_config['proper_folder_name'] );
 
 			if ( $wp_filesystem->move( $source, $corrected_source, true ) ) {
@@ -352,14 +352,14 @@ class WC_Beta_Tester {
 	}
 
 	/**
-	 * Enable auto updates for WooCommerce.
+	 * Enable auto updates for PooCommerce.
 	 *
 	 * @param bool   $update Should this autoupdate.
 	 * @param object $plugin Plugin being checked.
 	 * @return bool
 	 */
-	public function auto_update_woocommerce( $update, $plugin ) {
-		if ( true === $this->get_settings()->auto_update && 'woocommerce' === $plugin->slug ) {
+	public function auto_update_poocommerce( $update, $plugin ) {
+		if ( true === $this->get_settings()->auto_update && 'poocommerce' === $plugin->slug ) {
 			return true;
 		} else {
 			return $update;
@@ -470,12 +470,12 @@ class WC_Beta_Tester {
 			'switch-version' => sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'plugins.php?page=wc-beta-tester-version-picker' ) ),
-				esc_html__( 'Switch versions', 'woocommerce-beta-tester' )
+				esc_html__( 'Switch versions', 'poocommerce-beta-tester' )
 			),
 			'settings'       => sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'plugins.php?page=wc-beta-tester' ) ),
-				esc_html__( 'Settings', 'woocommerce-beta-tester' )
+				esc_html__( 'Settings', 'poocommerce-beta-tester' )
 			),
 		);
 

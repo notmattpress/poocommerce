@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/proceed-to-checkout-block",
+	"name": "poocommerce/proceed-to-checkout-block",
 	"title": "Proceed to Checkout",
 	"description": "Allow customers proceed to Checkout.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"color": {
 			"text": true,
@@ -59,11 +59,11 @@
 		"lock": false
 	},
 	"selectors": {
-		"root": ".wp-block-woocommerce-proceed-to-checkout-block",
-		"color": ".wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
-		"typography": ".wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
-		"border": ".wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
-		"spacing": ".wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button"
+		"root": ".wp-block-poocommerce-proceed-to-checkout-block",
+		"color": ".wp-block-poocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
+		"typography": ".wp-block-poocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
+		"border": ".wp-block-poocommerce-proceed-to-checkout-block .wc-block-cart__submit-button",
+		"spacing": ".wp-block-poocommerce-proceed-to-checkout-block .wc-block-cart__submit-button"
 	},
 	"attributes": {
 		"lock": {
@@ -75,9 +75,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-totals-block"
+		"poocommerce/cart-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

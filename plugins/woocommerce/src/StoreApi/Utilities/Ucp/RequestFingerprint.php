@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
 /**
  * Fingerprints a UCP request, binding an `Idempotency-Key` to the payload it was first used with.

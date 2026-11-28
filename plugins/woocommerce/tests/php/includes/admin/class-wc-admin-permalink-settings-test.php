@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Admin_Permalink_Settings.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
@@ -21,13 +21,13 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	/**
 	 * Ensure `wc_get_page_id( 'shop' )` resolves to a real, existing post.
 	 *
-	 * The install-time `woocommerce_shop_page_id` option can point at a page whose row was
+	 * The install-time `poocommerce_shop_page_id` option can point at a page whose row was
 	 * rolled back by an earlier test's DB transaction, leaving a stale ID with no matching post.
 	 *
 	 * @return int Shop page ID.
 	 */
 	private function ensure_shop_page(): int {
-		return (int) wc_create_page( 'shop', 'woocommerce_shop_page_id', 'Shop' );
+		return (int) wc_create_page( 'shop', 'poocommerce_shop_page_id', 'Shop' );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 
 		return (int) $shop_id;
 	}
@@ -70,7 +70,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	 */
 	private function activate_french_product_slug_translation(): void {
 		$translate_product_slug = static function ( string $translation, string $text, string $context, string $domain ): string {
-			if ( 'woocommerce' === $domain && 'slug' === $context && 'product' === $text && 'fr_FR' === determine_locale() ) {
+			if ( 'poocommerce' === $domain && 'slug' === $context && 'product' === $text && 'fr_FR' === determine_locale() ) {
 				return 'produit';
 			}
 
@@ -118,9 +118,9 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	private function save_and_render( $product_permalink, $product_permalink_structure = null ): string {
 		$_POST['permalink_structure']                = '';
 		$_POST['wc-permalinks-nonce']                = wp_create_nonce( 'wc-permalinks' );
-		$_POST['woocommerce_product_category_slug']  = 'product-category';
-		$_POST['woocommerce_product_tag_slug']       = 'product-tag';
-		$_POST['woocommerce_product_attribute_slug'] = '';
+		$_POST['poocommerce_product_category_slug']  = 'product-category';
+		$_POST['poocommerce_product_tag_slug']       = 'product-tag';
+		$_POST['poocommerce_product_attribute_slug'] = '';
 		$_POST['product_permalink']                  = $product_permalink;
 
 		if ( null !== $product_permalink_structure ) {
@@ -160,8 +160,8 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	 *           ["/%postname%/", "collections", "/collections/%product_cat%", false, null, "category-archive"]
 	 *           ["", "collections", "/collections/%product_cat%", false]
 	 * @param string      $structure       WordPress permalink structure.
-	 * @param string      $category_base   WooCommerce category base.
-	 * @param string      $product_base    WooCommerce product base.
+	 * @param string      $category_base   PooCommerce category base.
+	 * @param string      $product_base    PooCommerce product base.
 	 * @param bool        $expect_warning  Whether the settings show the warning.
 	 * @param string|null $alternate_query Rewrite target for an extension's replacement archive rules.
 	 * @param string|null $link_base       Base used when an extension supplies alternate category URLs.
@@ -173,7 +173,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 		update_option( 'home', home_url( '/store' ) );
 		update_option( 'permalink_structure', $structure );
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'category_base' => $category_base,
 				'product_base'  => $product_base,
@@ -206,7 +206,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 			$wp_rewrite->add_permastruct( 'product', $product_base . '/%product%', array( 'with_front' => false ) );
 			$wp_rewrite->rewrite_rules();
 
-			$this->assertSame( $expect_warning, str_contains( $this->render_settings(), 'id="woocommerce-product-category-permalink-warning"' ) );
+			$this->assertSame( $expect_warning, str_contains( $this->render_settings(), 'id="poocommerce-product-category-permalink-warning"' ) );
 		} finally {
 			$wp_rewrite = $original_rewrite; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore the original rewrite object.
 		}
@@ -286,7 +286,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( $posted_base, $posted_structure );
 
-		$this->assertSame( $expected_stored, get_option( 'woocommerce_permalinks' )['product_base'], 'The stored product base must not change.' );
+		$this->assertSame( $expected_stored, get_option( 'poocommerce_permalinks' )['product_base'], 'The stored product base must not change.' );
 		$this->assert_only_radio_checked( $html, $choice );
 	}
 
@@ -304,7 +304,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( '' );
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'], 'The Default base should be stored in the site locale.' );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'], 'The Default base should be stored in the site locale.' );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 
@@ -322,11 +322,11 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 		add_filter( 'locale', static fn() => 'fr_FR' );
 		$this->assertSame( 'fr_FR', determine_locale(), 'The request locale should follow the locale filter.' );
 
-		delete_option( 'woocommerce_permalinks' );
+		delete_option( 'poocommerce_permalinks' );
 		wc_get_permalink_structure();
 		$html = $this->render_settings();
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'], 'The Default base should be initialized in the site locale.' );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'], 'The Default base should be initialized in the site locale.' );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 
@@ -335,7 +335,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_unchanged_save_keeps_a_bare_custom_base(): void {
 		$this->ensure_shop_page();
-		update_option( 'woocommerce_permalinks', array( 'product_base' => 'waren' ) );
+		update_option( 'poocommerce_permalinks', array( 'product_base' => 'waren' ) );
 
 		$html  = $this->render_settings();
 		$xpath = $this->get_xpath( $html );
@@ -344,7 +344,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 			$xpath->query( '//input[@name="product_permalink"][@checked]' )->item( 0 )->getAttribute( 'value' ),
 			$xpath->query( '//input[@name="product_permalink_structure"]' )->item( 0 )->getAttribute( 'value' )
 		);
-		$this->assertSame( 'waren', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( 'waren', get_option( 'poocommerce_permalinks' )['product_base'] );
 	}
 
 	/**
@@ -359,7 +359,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$xpath         = $this->get_xpath( $this->save_and_render( '' ) );
 		$default_radio = $xpath->query( '(//input[@name="product_permalink"])[1]' )->item( 0 );
-		$custom_input  = $xpath->query( '//input[@id="woocommerce_permalink_structure"]' )->item( 0 );
+		$custom_input  = $xpath->query( '//input[@id="poocommerce_permalink_structure"]' )->item( 0 );
 
 		$this->assertInstanceOf( DOMElement::class, $default_radio );
 		$this->assertInstanceOf( DOMElement::class, $custom_input );
@@ -382,12 +382,12 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 		$this->ensure_shop_page();
 
 		$xpath        = $this->get_xpath( $this->render_settings() );
-		$custom_input = $xpath->query( '//input[@id="woocommerce_permalink_structure"]' )->item( 0 );
+		$custom_input = $xpath->query( '//input[@id="poocommerce_permalink_structure"]' )->item( 0 );
 		$this->assertInstanceOf( DOMElement::class, $custom_input );
 
 		$html = $this->save_and_render( 'custom', $custom_input->getAttribute( 'value' ) );
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'], 'The Default-equivalent custom base should be normalized to the bare slug.' );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'], 'The Default-equivalent custom base should be normalized to the bare slug.' );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 
@@ -402,21 +402,21 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 	public function test_legacy_slash_prefixed_default_base_shows_as_custom(): void {
 		$this->ensure_shop_page();
 
-		$permalinks                 = (array) get_option( 'woocommerce_permalinks', array() );
+		$permalinks                 = (array) get_option( 'poocommerce_permalinks', array() );
 		$permalinks['product_base'] = '/product';
-		update_option( 'woocommerce_permalinks', $permalinks );
+		update_option( 'poocommerce_permalinks', $permalinks );
 
 		$html         = $this->render_settings();
-		$custom_input = $this->get_xpath( $html )->query( '//input[@id="woocommerce_permalink_structure"]' )->item( 0 );
+		$custom_input = $this->get_xpath( $html )->query( '//input[@id="poocommerce_permalink_structure"]' )->item( 0 );
 
-		$this->assertSame( '/product', get_option( 'woocommerce_permalinks' )['product_base'], 'The render must not rewrite the stored value.' );
+		$this->assertSame( '/product', get_option( 'poocommerce_permalinks' )['product_base'], 'The render must not rewrite the stored value.' );
 		$this->assertInstanceOf( DOMElement::class, $custom_input );
 		$this->assertSame( '/product/', $custom_input->getAttribute( 'value' ) );
 		$this->assert_only_radio_checked( $html, 'custom' );
 
 		// A save posting that same value through the custom branch converges it to the bare form.
 		$this->assert_only_radio_checked( $this->save_and_render( 'custom', '/product/' ), 'default' );
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'] );
 	}
 
 	/**
@@ -428,7 +428,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( '/' . trailingslashit( $base_slug ) );
 
-		$this->assertSame( '/stores/shop', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( '/stores/shop', get_option( 'poocommerce_permalinks' )['product_base'] );
 		$this->assert_only_radio_checked( $html, 'shop_base' );
 	}
 
@@ -457,14 +457,14 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop_id );
+		update_option( 'poocommerce_shop_page_id', $shop_id );
 
 		$base_slug = urldecode( get_page_uri( $shop_id ) );
 		$this->assertSame( 'product', $base_slug, 'The fixture Shop page should share the default product slug.' );
 
 		$html = $this->save_and_render( '/' . trailingslashit( $base_slug ) );
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'], 'Both choices store the bare default base.' );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'], 'Both choices store the bare default base.' );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 
@@ -480,7 +480,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( 'custom', '//widgets///gad#gets' );
 
-		$this->assertSame( '/widgets/gadgets', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( '/widgets/gadgets', get_option( 'poocommerce_permalinks' )['product_base'] );
 		$this->assert_only_radio_checked( $html, 'custom' );
 	}
 
@@ -502,24 +502,24 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( 'custom', $posted_structure );
 
-		$this->assertSame( '/product/%product_cat%', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( '/product/%product_cat%', get_option( 'poocommerce_permalinks' )['product_base'] );
 		$this->assert_only_radio_checked( $html, 'custom' );
 	}
 
 	/**
 	 * The Shop rows are gated on wc_get_page_id( 'shop' ), which returns 0 when the
-	 * woocommerce_get_shop_page_id filter yields a truthy non-numeric value. A stored base
+	 * poocommerce_get_shop_page_id filter yields a truthy non-numeric value. A stored base
 	 * matching a hidden Shop row must fall back to Custom base — otherwise no rendered radio is
 	 * checked at all.
 	 *
 	 * @testdox Should check "Custom base" when the stored structure's Shop row is not rendered.
 	 */
 	public function test_shop_structure_falls_back_to_custom_when_shop_rows_are_hidden(): void {
-		$permalinks                 = (array) get_option( 'woocommerce_permalinks', array() );
+		$permalinks                 = (array) get_option( 'poocommerce_permalinks', array() );
 		$permalinks['product_base'] = '/shop';
-		update_option( 'woocommerce_permalinks', $permalinks );
+		update_option( 'poocommerce_permalinks', $permalinks );
 
-		add_filter( 'woocommerce_get_shop_page_id', static fn() => 'abc' );
+		add_filter( 'poocommerce_get_shop_page_id', static fn() => 'abc' );
 
 		// Only the Default and Custom base rows render without a Shop page.
 		$this->assert_only_radio_checked( $this->render_settings(), 'custom', array( 'default', 'custom' ) );
@@ -543,7 +543,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( 'custom', $posted_structure );
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'] );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 
@@ -561,7 +561,7 @@ class WC_Admin_Permalink_Settings_Test extends WC_Unit_Test_Case {
 
 		$html = $this->save_and_render( $product_permalink, $product_permalink_structure );
 
-		$this->assertSame( 'product', get_option( 'woocommerce_permalinks' )['product_base'] );
+		$this->assertSame( 'product', get_option( 'poocommerce_permalinks' )['product_base'] );
 		$this->assert_only_radio_checked( $html, 'default' );
 	}
 }

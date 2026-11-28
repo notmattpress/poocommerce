@@ -12,14 +12,14 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	checkoutStore: {
 		name: 'wc/store/checkout',
 	},
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => {
-	const actual = jest.requireActual( '@woocommerce/base-hooks' );
+jest.mock( '@poocommerce/base-hooks', () => {
+	const actual = jest.requireActual( '@poocommerce/base-hooks' );
 	return { ...actual, usePresence: jest.fn( actual.usePresence ) };
 } );
 
@@ -31,16 +31,16 @@ jest.mock( '@wordpress/compose', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	isKeyboardInput: jest.fn( () => false ),
 } ) );
 
 /**
  * External dependencies
  */
-import { usePresence } from '@woocommerce/base-hooks';
-import { isKeyboardInput } from '@woocommerce/base-utils';
+import { usePresence } from '@poocommerce/base-hooks';
+import { isKeyboardInput } from '@poocommerce/base-utils';
 import { act, renderHook } from '@testing-library/react';
 import { useReducedMotion } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';

@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -69,7 +69,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		delete_option( RemoteRules::OPTION );
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 		parent::tearDown();
 	}
 
@@ -102,7 +102,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	private function serve( array $checks, ?array $store_checks = null ): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -135,7 +135,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 		$output_checks = new StoreOutputChecks();
 		$output_checks->init( new ComingSoonHelper() );
 		$agent_readiness = new AgentReadiness();
-		$agent_readiness->init( $store_conditions, $output_checks, $this->sut, wc_get_container()->get( \Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\WooCommerce\Internal\AgentReadiness\ProductSales() );
+		$agent_readiness->init( $store_conditions, $output_checks, $this->sut, wc_get_container()->get( \Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents::class ), new \Automattic\PooCommerce\Internal\AgentReadiness\ProductSales() );
 		return $agent_readiness;
 	}
 
@@ -147,8 +147,8 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $this->sut->refresh(), 'A copy is stored first' );
 		$this->assertArrayNotHasKey( 'missing_images', $this->agent_readiness()->get_channel_rules(), 'The stored file is the list' );
 		$this->requests = array();
-		remove_all_filters( 'woocommerce_agent_readiness_rules_url' );
-		add_filter( 'woocommerce_agent_readiness_rules_url', '__return_empty_string' );
+		remove_all_filters( 'poocommerce_agent_readiness_rules_url' );
+		add_filter( 'poocommerce_agent_readiness_rules_url', '__return_empty_string' );
 
 		$this->assertFalse( $this->sut->refresh() );
 		$this->assertSame( array(), $this->requests );
@@ -157,18 +157,18 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox With marketplace suggestions turned off the WooCommerce.com file isn't fetched, and a copy stored earlier is removed so the bundled checks run; a URL set by the filter is still fetched.
+	 * @testdox With marketplace suggestions turned off the PooCommerce.com file isn't fetched, and a copy stored earlier is removed so the bundled checks run; a URL set by the filter is still fetched.
 	 */
 	public function test_suggestions_opt_out_skips_the_published_file(): void {
 		$this->serve( self::BRAND_ONLY );
 		$this->assertTrue( $this->sut->refresh(), 'A copy is stored first' );
 		$this->assertArrayNotHasKey( 'missing_images', $this->agent_readiness()->get_channel_rules(), 'The stored file is the list' );
-		remove_all_filters( 'woocommerce_agent_readiness_rules_url' );
+		remove_all_filters( 'poocommerce_agent_readiness_rules_url' );
 		$this->requests = array();
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
 		$this->assertFalse( $this->sut->refresh() );
-		$this->assertSame( array(), $this->requests, 'Nothing is fetched from WooCommerce.com' );
+		$this->assertSame( array(), $this->requests, 'Nothing is fetched from PooCommerce.com' );
 		$this->assertFalse( $this->sut->has_stored_file(), 'The stored copy is removed' );
 		$this->assertSame( '', $this->sut->version() );
 		$this->assertArrayHasKey( 'missing_images', $this->agent_readiness()->get_channel_rules(), 'A bundled check the old file left out runs again' );
@@ -182,7 +182,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 * @testdox A file from a URL set by the filter stays stored with marketplace suggestions turned off.
 	 */
 	public function test_suggestions_opt_out_keeps_a_file_from_a_filtered_url(): void {
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 		$this->serve( self::BRAND_ONLY );
 		$this->assertTrue( $this->sut->refresh() );
 		$this->answer['code'] = 500;
@@ -335,7 +335,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_failed_fetch_with_no_copy_uses_bundled_checks(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -405,7 +405,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_network_error_uses_bundled_checks(): void {
 		add_filter(
-			'woocommerce_agent_readiness_rules_url',
+			'poocommerce_agent_readiness_rules_url',
 			static function () {
 				return self::URL;
 			}
@@ -455,7 +455,7 @@ class RemoteRulesTest extends WC_Unit_Test_Case {
 		$this->sut->refresh();
 		$seen = array();
 		add_filter(
-			'woocommerce_agent_readiness_rules',
+			'poocommerce_agent_readiness_rules',
 			static function ( $rules ) use ( &$seen ) {
 				$seen = $rules;
 

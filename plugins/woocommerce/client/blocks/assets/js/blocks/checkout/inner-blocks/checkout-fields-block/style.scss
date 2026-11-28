@@ -101,7 +101,7 @@
 
 // The billing section, the address line 2 field, and the account password grow in, and the ones that a checkbox
 // removes collapse out.
-:where(.wp-block-woocommerce-checkout) {
+:where(.wp-block-poocommerce-checkout) {
 	.wc-block-checkout__billing-fields,
 	.wc-block-components-address-form__address_2,
 	.wc-block-components-address-form__password {

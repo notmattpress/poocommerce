@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G33A-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 			"before": {
 				"file": "fixtures/G33A/before.js"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 						"lines": [
 							2,
 							2
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G33C-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 			"before": {
 				"file": "fixtures/G33C/before.js"
 			},
@@ -39,7 +39,7 @@
 		},
 		{
 			"id": "G33D-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 			"before": {
 				"file": "fixtures/G33D/before.js"
 			},
@@ -52,7 +52,7 @@
 		},
 		{
 			"id": "G33B-v5",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 			"before": {
 				"code": "/* Cart reads this localStorage cache before initial render; a cache miss is refreshed from the server. */\nexport function readCartCache( storage ) { try { const value = JSON.parse( storage.getItem( 'wc-cart' ) ); return value && Array.isArray( value.items ) ? value.items : []; } catch ( error ) { return []; } }\n"
 			},
@@ -63,7 +63,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/checkout/address-suggestions.js",
 						"lines": [
 							2,
 							2

@@ -23,7 +23,7 @@ export function SendPreview() {
 
 	if (
 		applyFilters(
-			'woocommerce_email_editor_send_preview_enabled',
+			'poocommerce_email_editor_send_preview_enabled',
 			true,
 			postType
 		) === false

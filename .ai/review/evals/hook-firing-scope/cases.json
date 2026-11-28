@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G02A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 			"before": {
 				"file": "fixtures/G02A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+						"file": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 						"lines": [
 							3,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G02B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 			"before": {
 				"file": "fixtures/G02B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+						"file": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 						"lines": [
 							5,
 							5
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G02C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 			"before": {
 				"file": "fixtures/G02C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G02D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-hook-firing-scope.php",
+			"path": "plugins/poocommerce/includes/class-wc-hook-firing-scope.php",
 			"before": {
 				"file": "fixtures/G02D/before.php"
 			},

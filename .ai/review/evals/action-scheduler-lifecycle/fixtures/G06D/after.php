@@ -3,15 +3,15 @@
 final class Order_Export_Queue {
     public function register() {
         add_action( 'action_scheduler_init', array( $this, 'register_producer' ) );
-        add_action( 'woocommerce_export_order', array( $this, 'run' ) );
+        add_action( 'poocommerce_export_order', array( $this, 'run' ) );
     }
 
     public function register_producer() {
-        add_action( 'woocommerce_order_status_completed', array( $this, 'queue' ) );
+        add_action( 'poocommerce_order_status_completed', array( $this, 'queue' ) );
     }
 
     public function queue( $order_id ) {
-        return as_enqueue_async_action( 'woocommerce_export_order', array( (int) $order_id ), 'wc-export' );
+        return as_enqueue_async_action( 'poocommerce_export_order', array( (int) $order_id ), 'wc-export' );
     }
 
     public function run( $order_id ) {
@@ -24,6 +24,6 @@ final class Order_Export_Queue {
 
 ( new Order_Export_Queue() )->register();
 
-add_action( 'woocommerce_export_order', static function ( $order_id ) {
+add_action( 'poocommerce_export_order', static function ( $order_id ) {
     update_option( 'last_export_observed_order', $order_id );
 }, 20 );

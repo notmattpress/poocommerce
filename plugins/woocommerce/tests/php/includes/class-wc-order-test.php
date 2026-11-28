@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\PaymentMode;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\PaymentMode;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Tests for the WC_Order class.
@@ -41,7 +41,7 @@ class WC_Order_Test extends WC_Unit_Test_Case {
 	public function test_get_payment_mode_is_empty_by_default(): void {
 		$order = wc_create_order();
 
-		$this->assertSame( '', wc_get_order( $order->get_id() )->get_payment_mode(), 'WooCommerce should not set a payment mode' );
+		$this->assertSame( '', wc_get_order( $order->get_id() )->get_payment_mode(), 'PooCommerce should not set a payment mode' );
 	}
 
 	/**

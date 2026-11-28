@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Providers;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\UPSShippingProvider;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\UPSShippingProvider;
 
 /**
  * Unit tests for UPSShippingProvider class.

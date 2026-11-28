@@ -6,7 +6,7 @@ import {
 	expect,
 	BLOCK_THEME_SLUG,
 	enableTestPlugin,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -467,7 +467,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				} )
 				.catch( ( error ) => {
 					if (
-						error?.code !== 'woocommerce_rest_product_invalid_id'
+						error?.code !== 'poocommerce_rest_product_invalid_id'
 					) {
 						throw error;
 					}

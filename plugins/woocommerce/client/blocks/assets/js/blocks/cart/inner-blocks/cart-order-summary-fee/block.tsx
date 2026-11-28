@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { TotalsFees, TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsFees, TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useStoreCart,
 	useOrderSummaryRow,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 
 const Block = ( { className }: { className: string } ) => {
 	const { cart, wrapperProps } = useOrderSummaryRow(

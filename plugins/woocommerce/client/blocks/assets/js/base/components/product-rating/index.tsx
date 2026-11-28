@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
-import type { RatingValues } from '@woocommerce/types';
+import type { RatingValues } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -26,14 +26,14 @@ const Rating = ( {
 
 	const ratingText = sprintf(
 		/* translators: %f is referring to the average rating value */
-		__( 'Rated %f out of 5', 'woocommerce' ),
+		__( 'Rated %f out of 5', 'poocommerce' ),
 		rating
 	);
 
 	const ratingHTML = {
 		__html: sprintf(
 			/* translators: %s is the rating value wrapped in HTML strong tags. */
-			__( 'Rated %s out of 5', 'woocommerce' ),
+			__( 'Rated %s out of 5', 'poocommerce' ),
 			sprintf( '<strong class="rating">%f</strong>', rating )
 		),
 	};

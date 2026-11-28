@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -288,7 +288,7 @@ class OrdersTableStatusUnionQuery {
 		 *
 		 * Hosts that know their database benefits from the rewrite regardless of store size (or that don't want
 		 * to depend on the order count cache being warm) can force-enable it with
-		 * add_filter( 'woocommerce_orders_table_query_status_union_optimization', '__return_true' ); the
+		 * add_filter( 'poocommerce_orders_table_query_status_union_optimization', '__return_true' ); the
 		 * structural eligibility checks above still apply.
 		 *
 		 * @param bool             $enabled Whether the rewrite is enabled. Defaults to TRUE only when the cached
@@ -298,6 +298,6 @@ class OrdersTableStatusUnionQuery {
 		 *
 		 * @since 11.0.0
 		 */
-		return (bool) apply_filters( 'woocommerce_orders_table_query_status_union_optimization', $enabled, $this->query );
+		return (bool) apply_filters( 'poocommerce_orders_table_query_status_union_optimization', $enabled, $this->query );
 	}
 }

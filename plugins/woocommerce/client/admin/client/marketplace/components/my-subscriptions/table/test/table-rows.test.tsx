@@ -4,7 +4,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 	queueRecordEvent: jest.fn(),
 } ) );
@@ -27,7 +27,7 @@ const subscription = {
 	product_key: 'test-key',
 	product_id: 123,
 	product_name: 'Test Extension',
-	product_url: 'https://woocommerce.com/products/test-extension/',
+	product_url: 'https://poocommerce.com/products/test-extension/',
 	zip_slug: 'test-extension',
 	expires: 0,
 	expired: false,

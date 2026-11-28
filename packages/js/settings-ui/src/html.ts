@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import { createElement } from '@wordpress/element';
 
 export const sanitizeSettingsHtml = ( html?: string ) => sanitizeHTML( html );

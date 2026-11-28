@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { StatsList } from '../stats-list';
 
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 
 const stats = [
 	{ stat: 'revenue/net_revenue', label: 'Net sales' },

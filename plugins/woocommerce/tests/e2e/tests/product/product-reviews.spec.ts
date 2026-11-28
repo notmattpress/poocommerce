@@ -3,7 +3,7 @@
  */
 import { faker } from '@faker-js/faker';
 import { Frame } from '@playwright/test';
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies

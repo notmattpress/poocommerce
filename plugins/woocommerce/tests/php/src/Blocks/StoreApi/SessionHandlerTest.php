@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard;
 use WC_Session;
 use WC_Unit_Test_Case;
 
@@ -162,7 +162,7 @@ class SessionHandlerTest extends WC_Unit_Test_Case {
 		$customer_id   = 't_session_revision';
 		$initial_data  = array( 'cart_version' => 'initial' );
 		$external_data = array( 'cart_version' => 'external' );
-		$table         = $wpdb->prefix . 'woocommerce_sessions';
+		$table         = $wpdb->prefix . 'poocommerce_sessions';
 
 		try {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

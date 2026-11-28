@@ -21,8 +21,8 @@ foreach ( $zone->get_shipping_methods() as $method ) {
 	$zone->delete_shipping_method( $method->instance_id );
 }
 
-update_option( 'woocommerce_admin_created_default_shipping_zones', 'yes' );
-if ( 'yes' !== get_option( 'woocommerce_admin_created_default_shipping_zones' ) ) {
+update_option( 'poocommerce_admin_created_default_shipping_zones', 'yes' );
+if ( 'yes' !== get_option( 'poocommerce_admin_created_default_shipping_zones' ) ) {
 	WP_CLI::error( 'Unable to persist the smart-default shipping zone marker.' );
 }
 PHP

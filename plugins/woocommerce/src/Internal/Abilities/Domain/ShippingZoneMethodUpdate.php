@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class ShippingZoneMethodUpdate extends AbstractDomainAbility implements AbilityD
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/shipping-zone-method-update';
+		return 'poocommerce/shipping-zone-method-update';
 	}
 
 	/**
@@ -39,9 +39,9 @@ class ShippingZoneMethodUpdate extends AbstractDomainAbility implements AbilityD
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update shipping method', 'woocommerce' ),
-			'description'         => __( 'Turn a flat rate, free shipping or local pickup method of a zone on or off, move it, or change its settings, such as the cost or the free shipping minimum. Get the instance_id from shipping-zones-query.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Update shipping method', 'poocommerce' ),
+			'description'         => __( 'Turn a flat rate, free shipping or local pickup method of a zone on or off, move it, or change its settings, such as the cost or the free shipping minimum. Get the instance_id from shipping-zones-query.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array_merge(
@@ -93,9 +93,9 @@ class ShippingZoneMethodUpdate extends AbstractDomainAbility implements AbilityD
 		$zone        = $method ? \WC_Shipping_Zones::get_zone_by( 'instance_id', $instance_id ) : false;
 		if ( ! $method instanceof \WC_Shipping_Method || ! $zone instanceof \WC_Shipping_Zone ) {
 			return new \WP_Error(
-				'woocommerce_ability_shipping_method_not_found',
+				'poocommerce_ability_shipping_method_not_found',
 				/* translators: %d: shipping method instance ID. */
-				sprintf( __( 'There is no shipping method with instance ID %d.', 'woocommerce' ), $instance_id ),
+				sprintf( __( 'There is no shipping method with instance ID %d.', 'poocommerce' ), $instance_id ),
 				array( 'status' => 404 )
 			);
 		}

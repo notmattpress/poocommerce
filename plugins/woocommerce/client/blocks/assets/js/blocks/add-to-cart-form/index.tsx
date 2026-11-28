@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { registerProductBlockType } from '@woocommerce/utils/register-product-block-type';
+import { registerProductBlockType } from '@poocommerce/utils/register-product-block-type';
 import { Icon, button } from '@wordpress/icons';
 import type { BlockConfiguration } from '@wordpress/blocks';
 import { createBlock } from '@wordpress/blocks';
@@ -28,14 +28,14 @@ const blockConfig = {
 			/>
 		),
 	},
-	ancestor: [ 'woocommerce/single-product' ],
+	ancestor: [ 'poocommerce/single-product' ],
 	transforms: {
 		to: [
 			{
 				type: 'block',
-				blocks: [ 'woocommerce/add-to-cart-with-options' ],
+				blocks: [ 'poocommerce/add-to-cart-with-options' ],
 				transform: () =>
-					createBlock( 'woocommerce/add-to-cart-with-options' ),
+					createBlock( 'poocommerce/add-to-cart-with-options' ),
 			},
 		],
 	},

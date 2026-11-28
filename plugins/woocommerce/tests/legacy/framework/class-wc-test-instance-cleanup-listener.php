@@ -2,7 +2,7 @@
 /**
  * Releases what a finished test left on its own properties.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

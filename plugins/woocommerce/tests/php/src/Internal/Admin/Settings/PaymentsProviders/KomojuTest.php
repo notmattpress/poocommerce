@@ -1,15 +1,15 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\Komoju;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakeKomojuPaymentGateway;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\Komoju;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakeKomojuPaymentGateway;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 
@@ -114,7 +114,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 * @testdox is_in_test_mode() returns true when the current global secret key has the `sk_test_` prefix.
 	 */
 	public function test_is_in_test_mode_returns_true_with_a_test_secret_key(): void {
-		update_option( 'komoju_woocommerce_secret_key', 'sk_test_123' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_test_123' );
 
 		$is_test_mode = $this->sut->is_in_test_mode( $this->get_fake_gateway() );
 
@@ -125,7 +125,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 * @testdox is_in_test_mode() returns false when the current global secret key has the `sk_live_` prefix.
 	 */
 	public function test_is_in_test_mode_returns_false_with_a_live_secret_key(): void {
-		update_option( 'komoju_woocommerce_secret_key', 'sk_live_456' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_live_456' );
 
 		$is_test_mode = $this->sut->is_in_test_mode( $this->get_fake_gateway() );
 
@@ -137,7 +137,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 *          is set with the `sk_test_` prefix.
 	 */
 	public function test_is_in_test_mode_returns_true_with_the_legacy_secret_key(): void {
-		update_option( 'woocommerce_komoju_settings', array( 'secretKey' => 'sk_test_789' ) );
+		update_option( 'poocommerce_komoju_settings', array( 'secretKey' => 'sk_test_789' ) );
 
 		$is_test_mode = $this->sut->is_in_test_mode( $this->get_fake_gateway() );
 
@@ -162,7 +162,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 *          processing test payments.
 	 */
 	public function test_is_in_test_mode_onboarding_returns_true_with_a_test_secret_key(): void {
-		update_option( 'komoju_woocommerce_secret_key', 'sk_test_123' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_test_123' );
 
 		$is_test_mode_onboarding = $this->sut->is_in_test_mode_onboarding( $this->get_fake_gateway() );
 
@@ -173,7 +173,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 * @testdox is_in_test_mode_onboarding() returns false when the secret key has the `sk_live_` prefix.
 	 */
 	public function test_is_in_test_mode_onboarding_returns_false_with_a_live_secret_key(): void {
-		update_option( 'komoju_woocommerce_secret_key', 'sk_live_456' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_live_456' );
 
 		$is_test_mode_onboarding = $this->sut->is_in_test_mode_onboarding( $this->get_fake_gateway() );
 
@@ -185,7 +185,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 *          is set with the `sk_test_` prefix.
 	 */
 	public function test_is_in_test_mode_onboarding_returns_true_with_the_legacy_secret_key(): void {
-		update_option( 'woocommerce_komoju_settings', array( 'secretKey' => 'sk_test_789' ) );
+		update_option( 'poocommerce_komoju_settings', array( 'secretKey' => 'sk_test_789' ) );
 
 		$is_test_mode_onboarding = $this->sut->is_in_test_mode_onboarding( $this->get_fake_gateway() );
 
@@ -212,7 +212,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_in_test_mode_prefers_the_key_resolved_by_the_gateway(): void {
 		// Arrange. The option says live, the gateway says test - the gateway must win.
-		update_option( 'komoju_woocommerce_secret_key', 'sk_live_456' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_live_456' );
 		$gateway = new FakeKomojuPaymentGateway( 'komoju' );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$gateway->secretKey = 'sk_test_123';
@@ -247,7 +247,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_secret_key_falls_back_to_the_options_for_older_extension_versions(): void {
 		// Arrange. The gateway leaves its key null, the way pre-2.5.0 versions do.
-		update_option( 'komoju_woocommerce_secret_key', 'sk_test_123' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_test_123' );
 		$gateway = new FakeKomojuPaymentGateway( 'komoju' );
 
 		// Act.
@@ -266,7 +266,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_secret_key_falls_back_when_the_gateway_resolved_an_empty_key(): void {
 		// Arrange. Only the global option holds a key; the gateway resolved an empty string.
-		update_option( 'komoju_woocommerce_secret_key', 'sk_test_global111' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_test_global111' );
 		$gateway = new FakeKomojuPaymentGateway( 'komoju' );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$gateway->secretKey = '';
@@ -296,7 +296,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_account_connected_returns_true_with_the_global_secret_key(): void {
 		// Arrange.
-		update_option( 'komoju_woocommerce_secret_key', 'sk_test_123' );
+		update_option( 'komoju_poocommerce_secret_key', 'sk_test_123' );
 
 		// Act.
 		$is_connected = $this->sut->is_account_connected( $this->get_fake_gateway() );
@@ -311,7 +311,7 @@ class KomojuTest extends WC_Unit_Test_Case {
 	 */
 	public function test_is_account_connected_returns_true_with_the_legacy_secret_key(): void {
 		// Arrange.
-		update_option( 'woocommerce_komoju_settings', array( 'secretKey' => 'sk_live_456' ) );
+		update_option( 'poocommerce_komoju_settings', array( 'secretKey' => 'sk_live_456' ) );
 
 		// Act.
 		$is_connected = $this->sut->is_account_connected( $this->get_fake_gateway() );

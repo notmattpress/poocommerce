@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Reports;
+namespace Automattic\PooCommerce\Internal\Admin\Reports;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -357,8 +357,8 @@ class HposLegacyOrderReportQueryBuilder {
 			global $wpdb;
 			$alias = "order_item_meta_{$key}";
 			return array(
-				'order_items' => "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON orders.id = order_items.order_id",
-				$alias        => "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS {$alias} ON order_items.order_item_id = {$alias}.order_item_id",
+				'order_items' => "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON orders.id = order_items.order_id",
+				$alias        => "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS {$alias} ON order_items.order_item_id = {$alias}.order_item_id",
 			);
 		}
 
@@ -440,7 +440,7 @@ class HposLegacyOrderReportQueryBuilder {
 	}
 
 	/**
-	 * Build the JOIN onto `wp_woocommerce_order_items`.
+	 * Build the JOIN onto `wp_poocommerce_order_items`.
 	 *
 	 * @param string $join_type Join type.
 	 *
@@ -449,7 +449,7 @@ class HposLegacyOrderReportQueryBuilder {
 	private function build_order_items_join( $join_type ) {
 		global $wpdb;
 		return array(
-			'order_items' => "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON orders.id = order_items.order_id",
+			'order_items' => "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON orders.id = order_items.order_id",
 		);
 	}
 
@@ -465,7 +465,7 @@ class HposLegacyOrderReportQueryBuilder {
 	 */
 	private function build_order_item_meta_joins( $key, $raw_key, $order_item_type, $join_type ) {
 		global $wpdb;
-		$items_join = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON (orders.id = order_items.order_id)";
+		$items_join = "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON (orders.id = order_items.order_id)";
 
 		if ( '' !== $order_item_type ) {
 			$items_join .= " AND (order_items.order_item_type = '{$order_item_type}')";
@@ -474,7 +474,7 @@ class HposLegacyOrderReportQueryBuilder {
 		$itemmeta_alias = "order_item_meta_{$key}";
 		return array(
 			'order_items'   => $items_join,
-			$itemmeta_alias => "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS {$itemmeta_alias} ON " .
+			$itemmeta_alias => "{$join_type} JOIN {$wpdb->prefix}poocommerce_order_itemmeta AS {$itemmeta_alias} ON " .
 				"(order_items.order_item_id = {$itemmeta_alias}.order_item_id) " .
 				" AND ({$itemmeta_alias}.meta_key = '{$raw_key}')",
 		);
@@ -841,7 +841,7 @@ class HposLegacyOrderReportQueryBuilder {
 	 * Translate legacy `posts.<col>` and bare `<col>` references in an arbitrary SQL fragment.
 	 *
 	 * Both passes cover every column in {@see self::legacy_to_hpos_column_map()}: legacy callers
-	 * often leave these unqualified (e.g. WooCommerce Subscriptions before 7.8.0 passed a bare
+	 * often leave these unqualified (e.g. PooCommerce Subscriptions before 7.8.0 passed a bare
 	 * `post_status` where-key), and an untranslated bare token names a column `wc_orders` lacks.
 	 *
 	 * Tokens inside longer identifiers (`product_ID`, `posts.post_date_gmt`), qualified by another

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -492,7 +492,7 @@ class StoreResponses {
 				'timeout'             => self::TIMEOUT,
 				'redirection'         => 0,
 				'limit_response_size' => $limit,
-				// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook for requests a site makes to itself.
+				// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook for requests a site makes to itself.
 				'sslverify'           => (bool) apply_filters( 'https_local_ssl_verify', false ),
 			)
 		);
@@ -500,7 +500,7 @@ class StoreResponses {
 			return null;
 		}
 		$headers = array();
-		foreach ( array( 'location', 'x-robots-tag', 'content-type', 'vary', 'link', 'x-woocommerce-llms-txt' ) as $name ) {
+		foreach ( array( 'location', 'x-robots-tag', 'content-type', 'vary', 'link', 'x-poocommerce-llms-txt' ) as $name ) {
 			$value = wp_remote_retrieve_header( $response, $name );
 			$value = is_array( $value ) ? implode( ', ', $value ) : (string) $value;
 			if ( '' !== $value ) {

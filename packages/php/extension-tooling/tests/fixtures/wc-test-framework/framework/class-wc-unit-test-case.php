@@ -1,8 +1,8 @@
 <?php
 /**
- * Stub for the WooCommerce legacy tests directory.
+ * Stub for the PooCommerce legacy tests directory.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**

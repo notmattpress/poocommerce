@@ -6,7 +6,7 @@
 -   [Cloning the Git repository](#cloning-the-git-repository)
 -   [Installing dependencies](#installing-dependencies)
 -   [Building the Blocks client](#building-the-blocks-client)
--   [Running WooCommerce locally](#running-woocommerce-locally)
+-   [Running PooCommerce locally](#running-poocommerce-locally)
 -   [Configuring your WordPress site](#configuring-your-wordpress-site)
 -   [Create a plugin package in ZIP format](#create-a-plugin-package-in-zip-format)
 -   [Linting](#linting)
@@ -16,7 +16,7 @@
     -   [Prettier](#prettier)
 -   [Testing](#testing)
 
-The Blocks client lives in the WooCommerce monorepo at `plugins/woocommerce/client/blocks` and ships as part of WooCommerce core, so there is no separate Blocks plugin to install or activate. This page covers the setup that is specific to it. The [monorepo README](../../../../../../README.md#getting-started) and the [WooCommerce plugin README](../../../../README.md#getting-started) are the source of truth for everything else.
+The Blocks client lives in the PooCommerce monorepo at `plugins/poocommerce/client/blocks` and ships as part of PooCommerce core, so there is no separate Blocks plugin to install or activate. This page covers the setup that is specific to it. The [monorepo README](../../../../../../README.md#getting-started) and the [PooCommerce plugin README](../../../../README.md#getting-started) are the source of truth for everything else.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ Docker is needed as well if you want the `wp-env` environment described below.
 Clone the monorepo, either from the command line or with a Git client such as [GitHub Desktop](https://desktop.github.com/):
 
 ```sh
-git clone https://github.com/woocommerce/woocommerce.git
+git clone https://github.com/poocommerce/poocommerce.git
 ```
 
 ## Installing dependencies
@@ -42,29 +42,29 @@ pnpm install --frozen-lockfile
 
 ## Building the Blocks client
 
-Building is required before the blocks work in WordPress. Both commands below compile the client with `webpack` and write the result to `plugins/woocommerce/assets/client/blocks`:
+Building is required before the blocks work in WordPress. Both commands below compile the client with `webpack` and write the result to `plugins/poocommerce/assets/client/blocks`:
 
 ```sh
 # Build the Blocks client once.
-pnpm --filter='@woocommerce/plugin-woocommerce' build:blocks
+pnpm --filter='@poocommerce/plugin-poocommerce' build:blocks
 
 # Rebuild whenever a file changes.
-pnpm --filter='@woocommerce/block-library' watch:build
+pnpm --filter='@poocommerce/block-library' watch:build
 ```
 
-To build every part of the WooCommerce plugin instead of the Blocks client alone, run `pnpm --filter='@woocommerce/plugin-woocommerce' build`. The [JavaScript Build System](javascript-build-system.md) document explains how the webpack configuration is put together.
+To build every part of the PooCommerce plugin instead of the Blocks client alone, run `pnpm --filter='@poocommerce/plugin-poocommerce' build`. The [JavaScript Build System](javascript-build-system.md) document explains how the webpack configuration is put together.
 
-## Running WooCommerce locally
+## Running PooCommerce locally
 
-The quickest environment is `wp-env`, which the WooCommerce plugin provides:
+The quickest environment is `wp-env`, which the PooCommerce plugin provides:
 
 ```sh
-pnpm --filter='@woocommerce/plugin-woocommerce' env:dev
+pnpm --filter='@poocommerce/plugin-poocommerce' env:dev
 ```
 
-It serves WordPress with WooCommerce active at `http://localhost:8888/`. Edit a page or post in the block editor, and the WooCommerce blocks are in the inserter.
+It serves WordPress with PooCommerce active at `http://localhost:8888/`. Edit a page or post in the block editor, and the PooCommerce blocks are in the inserter.
 
-You can also run WooCommerce on your own environment. In that case, make sure the `plugins/woocommerce` directory is available as a plugin in your site's `wp-content/plugins` folder.
+You can also run PooCommerce on your own environment. In that case, make sure the `plugins/poocommerce` directory is available as a plugin in your site's `wp-content/plugins` folder.
 
 ## Configuring your WordPress site
 
@@ -80,10 +80,10 @@ define( 'SCRIPT_DEBUG', true );
 
 ## Create a plugin package in ZIP format
 
-Build a WooCommerce ZIP that you can install through WP Admin:
+Build a PooCommerce ZIP that you can install through WP Admin:
 
 ```sh
-pnpm --filter='@woocommerce/plugin-woocommerce' build:zip
+pnpm --filter='@poocommerce/plugin-poocommerce' build:zip
 ```
 
 ## Linting
@@ -91,7 +91,7 @@ pnpm --filter='@woocommerce/plugin-woocommerce' build:zip
 Run the Blocks linters:
 
 ```sh
-pnpm --filter='@woocommerce/block-library' lint
+pnpm --filter='@poocommerce/block-library' lint
 ```
 
 That covers JavaScript and TypeScript with ESLint, SCSS with Stylelint, and TypeScript declarations with `tsc`:
@@ -99,16 +99,16 @@ That covers JavaScript and TypeScript with ESLint, SCSS with Stylelint, and Type
 -   ESLint uses the package's own [`eslint.config.mjs`](../../eslint.config.mjs), which adds rules on top of the monorepo configuration.
 -   Stylelint uses [`.stylelintrc.json`](../../.stylelintrc.json).
 
-To lint or fix a single file, pass its path, relative to `plugins/woocommerce/client/blocks`, before any flags:
+To lint or fix a single file, pass its path, relative to `plugins/poocommerce/client/blocks`, before any flags:
 
 ```sh
-pnpm --filter='@woocommerce/block-library' lint:js assets/js/blocks/cart/metadata.tsx --fix
+pnpm --filter='@poocommerce/block-library' lint:js assets/js/blocks/cart/metadata.tsx --fix
 ```
 
-The PHP behind the blocks lives in `plugins/woocommerce/src/Blocks` and is linted with the plugin's PHPCS setup, which uses [`phpcs.xml`](../../../../phpcs.xml):
+The PHP behind the blocks lives in `plugins/poocommerce/src/Blocks` and is linted with the plugin's PHPCS setup, which uses [`phpcs.xml`](../../../../phpcs.xml):
 
 ```sh
-pnpm --filter='@woocommerce/plugin-woocommerce' lint:php:changes
+pnpm --filter='@poocommerce/plugin-poocommerce' lint:php:changes
 ```
 
 Linters also run against staged files before each commit. If there are violations, the commit is blocked until they are fixed, unless you add the `--no-verify` flag.
@@ -150,25 +150,25 @@ Run the Jest unit tests:
 
 ```sh
 # Run the test suite.
-pnpm --filter='@woocommerce/block-library' test:js
+pnpm --filter='@poocommerce/block-library' test:js
 
 # Run a single test file.
-pnpm --filter='@woocommerce/block-library' test:js -- path/to/test
+pnpm --filter='@poocommerce/block-library' test:js -- path/to/test
 
 # Update snapshots after intentional changes.
-pnpm --filter='@woocommerce/block-library' test:update
+pnpm --filter='@poocommerce/block-library' test:update
 ```
 
 To find out more about how to run automated JavaScript tests, check out the documentation on [JavaScript Testing](javascript-testing.md).
 
-End-to-end tests for the blocks are part of the WooCommerce end-to-end suite in `plugins/woocommerce/tests/e2e`. The [E2E guidelines](e2e-guidelines.md) cover how to write and run them.
+End-to-end tests for the blocks are part of the PooCommerce end-to-end suite in `plugins/poocommerce/tests/e2e`. The [E2E guidelines](e2e-guidelines.md) cover how to write and run them.
 
 <!-- FEEDBACK -->
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/getting-started.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/getting-started.md)
 
 <!-- /FEEDBACK -->

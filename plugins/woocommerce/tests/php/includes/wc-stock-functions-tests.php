@@ -2,12 +2,12 @@
 /**
  * Unit tests for wc-stock-functions.php.
  *
- * @package WooCommerce\Tests\Functions\Stock
+ * @package PooCommerce\Tests\Functions\Stock
  */
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Stock_Functions_Tests.
@@ -92,9 +92,9 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 	 */
 	private function with_stock_reservation_options( $hold_stock_minutes, $callback ) {
 		$option_names         = array(
-			'woocommerce_hold_stock_minutes',
-			'woocommerce_manage_stock',
-			'woocommerce_schema_version',
+			'poocommerce_hold_stock_minutes',
+			'poocommerce_manage_stock',
+			'poocommerce_schema_version',
 		);
 		$missing_option_value = new stdClass();
 		$original_options     = array();
@@ -107,9 +107,9 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 			);
 		}
 
-		update_option( 'woocommerce_hold_stock_minutes', $hold_stock_minutes );
-		update_option( 'woocommerce_manage_stock', 'yes' );
-		update_option( 'woocommerce_schema_version', 430 );
+		update_option( 'poocommerce_hold_stock_minutes', $hold_stock_minutes );
+		update_option( 'poocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_schema_version', 430 );
 
 		try {
 			return $callback();
@@ -137,12 +137,12 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 			return 0;
 		};
 
-		add_filter( 'woocommerce_order_hold_stock_minutes', $capture_minutes );
+		add_filter( 'poocommerce_order_hold_stock_minutes', $capture_minutes );
 
 		try {
 			$reserve_stock_callback();
 		} finally {
-			remove_filter( 'woocommerce_order_hold_stock_minutes', $capture_minutes );
+			remove_filter( 'poocommerce_order_hold_stock_minutes', $capture_minutes );
 		}
 
 		return $captured_minutes;
@@ -505,7 +505,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 				$observed = array();
 				foreach ( array( 9, 10, 11 ) as $priority ) {
 					add_action(
-						'woocommerce_order_status_processing',
+						'poocommerce_order_status_processing',
 						function () use ( &$observed, $stock_product, $priority ) {
 							$observed[ $priority ] = $this->get_available_stock( $stock_product->get_id() );
 						},
@@ -515,7 +515,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 
 				// Fires inside the reduction loop, once per item, after its stock is reduced and its share of the hold lowered.
 				add_action(
-					'woocommerce_reduce_order_item_stock',
+					'poocommerce_reduce_order_item_stock',
 					function () use ( &$observed, $stock_product ) {
 						$observed['item'][] = $this->get_available_stock( $stock_product->get_id() );
 					}
@@ -621,7 +621,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Reducing an order's stock releases its hold even when woocommerce_hold_stock_for_checkout is false.
+	 * @testdox Reducing an order's stock releases its hold even when poocommerce_hold_stock_for_checkout is false.
 	 */
 	public function test_reducing_stock_releases_hold_regardless_of_hold_stock_filter() {
 		$held = $this->with_stock_reservation_options(
@@ -631,11 +631,11 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 				wc_reserve_stock_for_order( $order );
 				$this->assertSame( 1, (int) wc_get_held_stock_quantity( $this->stock_product ), 'The pending order should hold its units.' );
 
-				add_filter( 'woocommerce_hold_stock_for_checkout', '__return_false' );
+				add_filter( 'poocommerce_hold_stock_for_checkout', '__return_false' );
 				try {
 					wc_reduce_stock_levels( $order );
 				} finally {
-					remove_filter( 'woocommerce_hold_stock_for_checkout', '__return_false' );
+					remove_filter( 'poocommerce_hold_stock_for_checkout', '__return_false' );
 				}
 
 				return (int) wc_get_held_stock_quantity( $this->stock_product );
@@ -646,45 +646,45 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A custom status added through woocommerce_reserved_stock_order_statuses counts its holds.
+	 * @testdox A custom status added through poocommerce_reserved_stock_order_statuses counts its holds.
 	 */
 	public function test_stock_hold_counts_for_status_added_by_filter() {
 		$add_status = function ( $statuses ) {
 			$statuses[] = 'wc-awaiting-shipment';
 			return $statuses;
 		};
-		add_filter( 'woocommerce_reserved_stock_order_statuses', $add_status );
+		add_filter( 'poocommerce_reserved_stock_order_statuses', $add_status );
 
 		try {
 			$held = $this->get_held_quantity_for_order_in_status( 'wc-awaiting-shipment' );
 		} finally {
-			remove_filter( 'woocommerce_reserved_stock_order_statuses', $add_status );
+			remove_filter( 'poocommerce_reserved_stock_order_statuses', $add_status );
 		}
 
 		$this->assertSame( 2, $held, 'A status added through the filter should count its holds.' );
 	}
 
 	/**
-	 * @testdox An unprefixed status added through woocommerce_reserved_stock_order_statuses counts its holds.
+	 * @testdox An unprefixed status added through poocommerce_reserved_stock_order_statuses counts its holds.
 	 */
 	public function test_stock_hold_counts_for_unprefixed_status_added_by_filter() {
 		$add_status = function ( $statuses ) {
 			$statuses[] = 'awaiting-shipment';
 			return $statuses;
 		};
-		add_filter( 'woocommerce_reserved_stock_order_statuses', $add_status );
+		add_filter( 'poocommerce_reserved_stock_order_statuses', $add_status );
 
 		try {
 			$held = $this->get_held_quantity_for_order_in_status( 'wc-awaiting-shipment' );
 		} finally {
-			remove_filter( 'woocommerce_reserved_stock_order_statuses', $add_status );
+			remove_filter( 'poocommerce_reserved_stock_order_statuses', $add_status );
 		}
 
 		$this->assertSame( 2, $held, 'An unprefixed status added through the filter should count its holds.' );
 	}
 
 	/**
-	 * @testdox A woocommerce_query_for_reserved_stock callback that string-replaces the pre-11.3.1 status literal still works.
+	 * @testdox A poocommerce_query_for_reserved_stock callback that string-replaces the pre-11.3.1 status literal still works.
 	 */
 	public function test_stock_hold_counts_for_status_added_by_replacing_legacy_query_literal() {
 		$replace_literal = function ( $query ) {
@@ -694,31 +694,31 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 				$query
 			);
 		};
-		add_filter( 'woocommerce_query_for_reserved_stock', $replace_literal );
+		add_filter( 'poocommerce_query_for_reserved_stock', $replace_literal );
 
 		try {
 			$held = $this->get_held_quantity_for_order_in_status( 'wc-quote-open' );
 		} finally {
-			remove_filter( 'woocommerce_query_for_reserved_stock', $replace_literal );
+			remove_filter( 'poocommerce_query_for_reserved_stock', $replace_literal );
 		}
 
 		$this->assertSame( 2, $held, 'A status added by replacing the legacy status literal should count its holds.' );
 	}
 
 	/**
-	 * @testdox An unusable return from woocommerce_reserved_stock_order_statuses falls back to the default list.
+	 * @testdox An unusable return from poocommerce_reserved_stock_order_statuses falls back to the default list.
 	 *
 	 * @dataProvider invalid_stock_hold_statuses_provider
 	 *
 	 * @param callable $callback Filter callback returning an unusable value.
 	 */
 	public function test_stock_hold_statuses_filter_ignores_invalid_return( $callback ) {
-		add_filter( 'woocommerce_reserved_stock_order_statuses', $callback );
+		add_filter( 'poocommerce_reserved_stock_order_statuses', $callback );
 
 		try {
 			$held = $this->get_held_quantity_for_order_in_status( OrderInternalStatus::PROCESSING );
 		} finally {
-			remove_filter( 'woocommerce_reserved_stock_order_statuses', $callback );
+			remove_filter( 'poocommerce_reserved_stock_order_statuses', $callback );
 		}
 
 		$this->assertSame( 2, $held, 'An unusable filter return should leave the default statuses counted.' );
@@ -781,7 +781,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Simple product, set low stock amount.
 		$product = WC_Helper_Product::create_simple_product(
@@ -803,7 +803,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Simple product, don't set low stock amount.
 		$product = WC_Helper_Product::create_simple_product(
@@ -826,7 +826,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$variation_low_stock_amount = 7;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Parent low stock amount NOT set.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -863,7 +863,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$variation_low_stock_amount = 7;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -890,7 +890,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$parent_low_stock_amount    = 5;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();
@@ -913,7 +913,7 @@ class WC_Stock_Functions_Tests extends \WC_Unit_Test_Case {
 		$site_wide_low_stock_amount = 3;
 
 		// Set the store-wide default.
-		update_option( 'woocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
+		update_option( 'poocommerce_notify_low_stock_amount', strval( $site_wide_low_stock_amount ) );
 
 		// Set the parent low stock amount.
 		$variable_product = WC_Helper_Product::create_variation_product();

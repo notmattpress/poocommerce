@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\Admin;
 
-use Automattic\WooCommerce\Internal\Admin\MenuIcons;
+use Automattic\PooCommerce\Internal\Admin\MenuIcons;
 use WC_Unit_Test_Case;
 
 /**
- * Tests for WooCommerce admin menu icons.
+ * Tests for PooCommerce admin menu icons.
  */
 class MenuIconsTest extends WC_Unit_Test_Case {
 
@@ -26,7 +26,7 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 	private $globals_backup;
 
 	/**
-	 * Whether the test owns the WooCommerce icon collection.
+	 * Whether the test owns the PooCommerce icon collection.
 	 *
 	 * @var bool
 	 */
@@ -42,7 +42,7 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 			'wp_version' => $GLOBALS['wp_version'],
 		);
 		$this->sut             = wc_get_container()->get( MenuIcons::class );
-		$this->owns_collection = class_exists( '\WP_Icon_Collections_Registry' ) && ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'woocommerce' );
+		$this->owns_collection = class_exists( '\WP_Icon_Collections_Registry' ) && ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'poocommerce' );
 	}
 
 	/**
@@ -50,13 +50,13 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		try {
-			if ( $this->owns_collection && \WP_Icon_Collections_Registry::get_instance()->is_registered( 'woocommerce' ) ) {
-				foreach ( array( 'woocommerce/logo', 'woocommerce/megaphone' ) as $name ) {
+			if ( $this->owns_collection && \WP_Icon_Collections_Registry::get_instance()->is_registered( 'poocommerce' ) ) {
+				foreach ( array( 'poocommerce/logo', 'poocommerce/megaphone' ) as $name ) {
 					if ( \WP_Icons_Registry::get_instance()->is_registered( $name ) ) {
 						wp_unregister_icon( $name );
 					}
 				}
-				wp_unregister_icon_collection( 'woocommerce' );
+				wp_unregister_icon_collection( 'poocommerce' );
 			}
 			foreach ( $this->globals_backup as $name => $value ) {
 				$GLOBALS[ $name ] = $value; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restore test globals.
@@ -79,7 +79,7 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 		$GLOBALS['wp_version'] = $version; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Simulate supported WordPress versions.
 
 		$this->assertSame( 'dashicons-archive', $this->sut->get_icon( 'core-admin/tag', 'dashicons-archive' ) );
-		$this->assertSame( 'data:image/svg+xml;base64,legacy', $this->sut->get_icon( 'woocommerce/logo', 'data:image/svg+xml;base64,legacy' ) );
+		$this->assertSame( 'data:image/svg+xml;base64,legacy', $this->sut->get_icon( 'poocommerce/logo', 'data:image/svg+xml;base64,legacy' ) );
 	}
 
 	/**
@@ -98,10 +98,10 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 
 		$this->assertSame( 'core-admin/tag', $this->sut->get_icon( 'core-admin/tag', 'dashicons-archive' ) );
 		$this->assertSame( 'core-admin/payment', $this->sut->get_icon( 'core-admin/payment', 'legacy' ) );
-		$this->assertSame( 'woocommerce/logo', $this->sut->get_icon( 'woocommerce/logo', 'legacy' ) );
-		$this->assertStringContainsString( '<svg', wp_get_icon( 'woocommerce/logo' ) );
-		$this->assertStringContainsString( 'stroke="currentColor"', wp_get_icon( 'woocommerce/megaphone' ) );
-		$this->assertStringContainsString( 'fill: none', wp_get_icon( 'woocommerce/megaphone' ) );
+		$this->assertSame( 'poocommerce/logo', $this->sut->get_icon( 'poocommerce/logo', 'legacy' ) );
+		$this->assertStringContainsString( '<svg', wp_get_icon( 'poocommerce/logo' ) );
+		$this->assertStringContainsString( 'stroke="currentColor"', wp_get_icon( 'poocommerce/megaphone' ) );
+		$this->assertStringContainsString( 'fill: none', wp_get_icon( 'poocommerce/megaphone' ) );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class MenuIconsTest extends WC_Unit_Test_Case {
 	public function test_missing_icon_falls_back(): void {
 		$this->require_icon_api();
 		$GLOBALS['wp_version'] = '7.2'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Exercise the missing-icon fallback on a supported version.
-		$this->assertSame( 'dashicons-archive', $this->sut->get_icon( 'woocommerce/missing', 'dashicons-archive' ) );
+		$this->assertSame( 'dashicons-archive', $this->sut->get_icon( 'poocommerce/missing', 'dashicons-archive' ) );
 	}
 
 	/**

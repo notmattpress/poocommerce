@@ -37,7 +37,7 @@ curl https://example.com/wp-json/wc/v2/settings \
   <TabItem value="js" label="JavaScript">
 
 ```javascript
-WooCommerce.get("settings")
+PooCommerce.get("settings")
   .then((response) => {
     console.log(response.data);
   })
@@ -50,7 +50,7 @@ WooCommerce.get("settings")
   <TabItem value="php" label="PHP">
 
 ```php
-<?php print_r($woocommerce->get('settings')); ?>
+<?php print_r($poocommerce->get('settings')); ?>
 ```
 
   </TabItem>
@@ -64,7 +64,7 @@ print(wcapi.get("settings").json())
   <TabItem value="ruby" label="Ruby">
 
 ```ruby
-woocommerce.get("settings").parsed_response
+poocommerce.get("settings").parsed_response
 ```
 
   </TabItem>

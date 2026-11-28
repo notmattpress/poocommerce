@@ -54,7 +54,7 @@ export const SupportDownload = ( {
 			onError(
 				__(
 					'The report couldn’t be downloaded. Try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {
@@ -75,7 +75,7 @@ export const SupportDownload = ( {
 			aria-busy={ busy }
 			onClick={ download }
 		>
-			{ children ?? __( 'Download your results', 'woocommerce' ) }
+			{ children ?? __( 'Download your results', 'poocommerce' ) }
 		</Link>
 	);
 };

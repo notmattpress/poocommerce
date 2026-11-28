@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Reads the JSON-LD blocks in a page, for store checks that look for schema.org
- * items whoever added them: WooCommerce, an SEO plugin or the theme.
+ * items whoever added them: PooCommerce, an SEO plugin or the theme.
  *
  * @since 11.4.0
  */

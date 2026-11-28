@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\Init as RemoteFreeExtensions;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\RemoteFreeExtensionsDataSourcePoller;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\Init as RemoteFreeExtensions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\RemoteFreeExtensionsDataSourcePoller;
 use WC_Unit_Test_Case;
 
 /**
  * class WC_Admin_Tests_RemoteFreeExtensions_Init
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\Init
+ * @covers \Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\Init
  */
 class InitTest extends WC_Unit_Test_Case {
 	/** @var callable|null Filter used to provide local remote-extension specs. */
@@ -28,8 +28,8 @@ class InitTest extends WC_Unit_Test_Case {
 		parent::setUp();
 
 		$this->assertFalse( (bool) wp_using_ext_object_cache(), 'This test requires database-backed transients so that the rollback removes them.' );
-		$this->assert_option_cache_matches_raw_state( 'woocommerce_default_country' );
-		$this->assert_option_cache_matches_raw_state( 'woocommerce_show_marketplace_suggestions' );
+		$this->assert_option_cache_matches_raw_state( 'poocommerce_default_country' );
+		$this->assert_option_cache_matches_raw_state( 'poocommerce_show_marketplace_suggestions' );
 		$this->fixture_setup_started = true;
 
 		$this->user = $this->factory->user->create(
@@ -37,7 +37,7 @@ class InitTest extends WC_Unit_Test_Case {
 				'role' => 'administrator',
 			)
 		);
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 		$this->specs_transient_filter = function ( $value ) {
 			if ( $value ) {
 				return $value;
@@ -49,7 +49,7 @@ class InitTest extends WC_Unit_Test_Case {
 				$locale => array(
 					array(
 						'key'     => 'obw/basics',
-						'title'   => __( 'Get the basics', 'woocommerce' ),
+						'title'   => __( 'Get the basics', 'poocommerce' ),
 						'plugins' => array(
 							array(
 								'name'       => 'mock-extension-1',
@@ -75,7 +75,7 @@ class InitTest extends WC_Unit_Test_Case {
 			);
 		};
 		add_filter(
-			'transient_woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
+			'transient_poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
 			$this->specs_transient_filter,
 		);
 	}
@@ -99,7 +99,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 * @return string
 	 */
 	private function get_specs_transient_name(): string {
-		return 'woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs';
+		return 'poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs';
 	}
 
 	/**
@@ -165,7 +165,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_specs_transient() {
 		set_transient(
-			'woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -186,7 +186,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 * Test that matched extensions are shown.
 	 */
 	public function test_matching_extensions() {
-		update_option( 'woocommerce_default_country', 'ZA' );
+		update_option( 'poocommerce_default_country', 'ZA' );
 		$bundles = RemoteFreeExtensions::get_extensions();
 		$this->assertEquals( 'mock-extension-1', $bundles[0]['plugins'][0]->name );
 		$this->assertCount( 1, $bundles[0]['plugins'] );
@@ -197,7 +197,7 @@ class InitTest extends WC_Unit_Test_Case {
 	 */
 	public function test_empty_extensions() {
 		set_transient(
-			'woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(),
 			)
@@ -205,7 +205,7 @@ class InitTest extends WC_Unit_Test_Case {
 
 		$bundles           = RemoteFreeExtensions::get_extensions();
 		$defaults          = DefaultFreeExtensions::get_all();
-		$stored_transients = get_transient( 'woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs' );
+		$stored_transients = get_transient( 'poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs' );
 
 		$this->assertTrue( count( $stored_transients['en_US'] ) === 0 );
 		$this->assertTrue( count( $bundles ) > 1 );
@@ -214,7 +214,7 @@ class InitTest extends WC_Unit_Test_Case {
 			$this->assertEquals( $defaults[ $key ]->key, $bundle['key'] );
 		}
 
-		$expires = (int) get_transient( '_transient_timeout_woocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs' );
+		$expires = (int) get_transient( '_transient_timeout_poocommerce_admin_' . RemoteFreeExtensionsDataSourcePoller::ID . '_specs' );
 		$this->assertTrue( ( $expires - time() ) < 3 * HOUR_IN_SECONDS );
 	}
 }

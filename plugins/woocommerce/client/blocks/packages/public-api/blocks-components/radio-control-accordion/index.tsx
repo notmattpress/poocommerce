@@ -8,7 +8,7 @@ import {
 	animateCollapse,
 	collapseCopy,
 	removeCollapseCopies,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

@@ -7,4 +7,4 @@ function wc_checkout_inventory_snapshot() {
 }
 add_action( 'wp', 'wc_checkout_inventory_snapshot' );
 
-function wc_inventory_debug_enabled() { return 'yes' === get_option( 'woocommerce_inventory_debug', 'no' ); }
+function wc_inventory_debug_enabled() { return 'yes' === get_option( 'poocommerce_inventory_debug', 'no' ); }

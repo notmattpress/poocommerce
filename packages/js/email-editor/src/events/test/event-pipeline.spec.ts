@@ -13,7 +13,7 @@ import {
 	recordEventOnce,
 } from '../event-pipeline';
 
-const HOOK = 'woocommerce_email_editor_events_tracking_enabled';
+const HOOK = 'poocommerce_email_editor_events_tracking_enabled';
 
 describe( 'event pipeline', () => {
 	let received: Record< string, unknown >[];

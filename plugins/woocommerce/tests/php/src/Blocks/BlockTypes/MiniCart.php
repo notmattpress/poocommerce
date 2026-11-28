@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\MiniCart as MiniCartBlock;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\MiniCartMock;
+use Automattic\PooCommerce\Blocks\BlockTypes\MiniCart as MiniCartBlock;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\MiniCartMock;
 
 /**
  * Tests for the Checkout block type
@@ -32,31 +32,31 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @var string
 	 */
 	private $upcoming_template = '
-			<!-- wp:woocommerce/mini-cart-contents -->
-				<!-- wp:woocommerce/filled-mini-cart-contents-block -->
-					<!-- wp:woocommerce/mini-cart-title-block -->
-						<!-- wp:woocommerce/mini-cart-title-label-block -->
-					<!-- /wp:woocommerce/mini-cart-title-label-block -->
-					<!-- wp:woocommerce/mini-cart-title-items-counter-block -->
-					<!-- /wp:woocommerce/mini-cart-title-items-counter-block -->
-				<!-- /wp:woocommerce/mini-cart-title-block -->
-				<!-- wp:woocommerce/mini-cart-items-block -->
-					<!-- wp:woocommerce/mini-cart-products-table-block -->
-					<!-- /wp:woocommerce/mini-cart-products-table-block -->
-				<!-- /wp:woocommerce/mini-cart-items-block -->
-				<!-- wp:woocommerce/mini-cart-footer-block -->
-					<!-- wp:woocommerce/mini-cart-cart-button-block -->
-					<!-- /wp:woocommerce/mini-cart-cart-button-block -->
-					<!-- wp:woocommerce/mini-cart-checkout-button-block -->
-					<!-- /wp:woocommerce/mini-cart-checkout-button-block -->
-				<!-- /wp:woocommerce/mini-cart-footer-block -->
-			<!-- /wp:woocommerce/filled-mini-cart-contents-block -->
-			<!-- wp:woocommerce/empty-mini-cart-contents-block -->
-				<!-- wp:pattern {"slug":"woocommerce/mini-cart-empty-cart-message"} /-->
-				<!-- wp:woocommerce/mini-cart-shopping-button-block -->
-				<!-- /wp:woocommerce/mini-cart-shopping-button-block -->
-			<!-- /wp:woocommerce/empty-mini-cart-contents-block -->
-		<!-- /wp:woocommerce/mini-cart-contents -->';
+			<!-- wp:poocommerce/mini-cart-contents -->
+				<!-- wp:poocommerce/filled-mini-cart-contents-block -->
+					<!-- wp:poocommerce/mini-cart-title-block -->
+						<!-- wp:poocommerce/mini-cart-title-label-block -->
+					<!-- /wp:poocommerce/mini-cart-title-label-block -->
+					<!-- wp:poocommerce/mini-cart-title-items-counter-block -->
+					<!-- /wp:poocommerce/mini-cart-title-items-counter-block -->
+				<!-- /wp:poocommerce/mini-cart-title-block -->
+				<!-- wp:poocommerce/mini-cart-items-block -->
+					<!-- wp:poocommerce/mini-cart-products-table-block -->
+					<!-- /wp:poocommerce/mini-cart-products-table-block -->
+				<!-- /wp:poocommerce/mini-cart-items-block -->
+				<!-- wp:poocommerce/mini-cart-footer-block -->
+					<!-- wp:poocommerce/mini-cart-cart-button-block -->
+					<!-- /wp:poocommerce/mini-cart-cart-button-block -->
+					<!-- wp:poocommerce/mini-cart-checkout-button-block -->
+					<!-- /wp:poocommerce/mini-cart-checkout-button-block -->
+				<!-- /wp:poocommerce/mini-cart-footer-block -->
+			<!-- /wp:poocommerce/filled-mini-cart-contents-block -->
+			<!-- wp:poocommerce/empty-mini-cart-contents-block -->
+				<!-- wp:pattern {"slug":"poocommerce/mini-cart-empty-cart-message"} /-->
+				<!-- wp:poocommerce/mini-cart-shopping-button-block -->
+				<!-- /wp:poocommerce/mini-cart-shopping-button-block -->
+			<!-- /wp:poocommerce/empty-mini-cart-contents-block -->
+		<!-- /wp:poocommerce/mini-cart-contents -->';
 
 	/**
 	 * The current template for the Mini-Cart block.
@@ -64,23 +64,23 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @var string
 	 */
 	private $current_template_with_user_edits = '
-	<!-- wp:woocommerce/mini-cart-contents -->
-		<div class="wp-block-woocommerce-mini-cart-contents">
-			<!-- wp:woocommerce/filled-mini-cart-contents-block -->
-			<div class="wp-block-woocommerce-filled-mini-cart-contents-block">
-				<!-- wp:woocommerce/mini-cart-title-block -->
-				<div class="wp-block-woocommerce-mini-cart-title-block">
-					<!-- wp:woocommerce/mini-cart-title-label-block -->
-					<div class="wp-block-woocommerce-mini-cart-title-label-block">
+	<!-- wp:poocommerce/mini-cart-contents -->
+		<div class="wp-block-poocommerce-mini-cart-contents">
+			<!-- wp:poocommerce/filled-mini-cart-contents-block -->
+			<div class="wp-block-poocommerce-filled-mini-cart-contents-block">
+				<!-- wp:poocommerce/mini-cart-title-block -->
+				<div class="wp-block-poocommerce-mini-cart-title-block">
+					<!-- wp:poocommerce/mini-cart-title-label-block -->
+					<div class="wp-block-poocommerce-mini-cart-title-label-block">
 					</div>
-					<!-- /wp:woocommerce/mini-cart-title-label-block -->
+					<!-- /wp:poocommerce/mini-cart-title-label-block -->
 
 					<!-- wp:group -->
 						<div class="wp-block-group">
-							<!-- wp:woocommerce/mini-cart-title-items-counter-block -->
-							<div class="wp-block-woocommerce-mini-cart-title-items-counter-block">
+							<!-- wp:poocommerce/mini-cart-title-items-counter-block -->
+							<div class="wp-block-poocommerce-mini-cart-title-items-counter-block">
 							</div>
-							<!-- /wp:woocommerce/mini-cart-title-items-counter-block -->
+							<!-- /wp:poocommerce/mini-cart-title-items-counter-block -->
 						</div>
 					<!-- /wp:group -->
 
@@ -88,23 +88,23 @@ class MiniCart extends \WC_Unit_Test_Case {
 						<img class="wp-image-block" src="https://example.com/image.jpg" alt="Example Image" />
 					<!-- /wp:image -->
 				</div>
-				<!-- /wp:woocommerce/mini-cart-title-block -->
+				<!-- /wp:poocommerce/mini-cart-title-block -->
 
-				<!-- wp:woocommerce/mini-cart-footer-block -->
-				<div class="wp-block-woocommerce-mini-cart-footer-block">
-					<!-- wp:woocommerce/mini-cart-cart-button-block -->
-					<div class="wp-block-woocommerce-mini-cart-cart-button-block"></div>
-					<!-- /wp:woocommerce/mini-cart-cart-button-block -->
+				<!-- wp:poocommerce/mini-cart-footer-block -->
+				<div class="wp-block-poocommerce-mini-cart-footer-block">
+					<!-- wp:poocommerce/mini-cart-cart-button-block -->
+					<div class="wp-block-poocommerce-mini-cart-cart-button-block"></div>
+					<!-- /wp:poocommerce/mini-cart-cart-button-block -->
 
-					<!-- wp:woocommerce/mini-cart-checkout-button-block -->
-					<div class="wp-block-woocommerce-mini-cart-checkout-button-block"></div>
-					<!-- /wp:woocommerce/mini-cart-checkout-button-block -->
+					<!-- wp:poocommerce/mini-cart-checkout-button-block -->
+					<div class="wp-block-poocommerce-mini-cart-checkout-button-block"></div>
+					<!-- /wp:poocommerce/mini-cart-checkout-button-block -->
 				</div>
-				<!-- /wp:woocommerce/mini-cart-footer-block -->
+				<!-- /wp:poocommerce/mini-cart-footer-block -->
 			</div>
-			<!-- /wp:woocommerce/filled-mini-cart-contents-block -->
+			<!-- /wp:poocommerce/filled-mini-cart-contents-block -->
 		</div>
-		<!-- /wp:woocommerce/mini-cart-contents -->
+		<!-- /wp:poocommerce/mini-cart-contents -->
 
 		<!-- wp:separator -->
 			<hr class="wp-block-separator" />
@@ -117,7 +117,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->mock = $this->replace_block_type( 'woocommerce/mini-cart', static fn () => new MiniCartMock() );
+		$this->mock = $this->replace_block_type( 'poocommerce/mini-cart', static fn () => new MiniCartMock() );
 
 		$fixtures       = new FixtureData();
 		$this->products = array(
@@ -131,7 +131,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 			),
 		);
 		WC()->cart->empty_cart();
-		add_filter( 'woocommerce_is_rest_api_request', '__return_false', 1 );
+		add_filter( 'poocommerce_is_rest_api_request', '__return_false', 1 );
 
 		// Earlier tests leave WOOCOMMERCE_CART and WOOCOMMERCE_CHECKOUT defined for the rest of the process, so the real
 		// is_cart() and is_checkout() can never return false again here. Start each test on neither page;
@@ -151,17 +151,17 @@ class MiniCart extends \WC_Unit_Test_Case {
 	public function test_product_count_visibility_with_empty_cart() {
 
 		// Test badge is shown when "always" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"always"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"always"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertTrue( $this->has_mini_cart_badge( $output ) );
 
 		// Tests badge is not shown, because product count is not greater than zero when "greater_than_zero" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"greater_than_zero"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"greater_than_zero"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertTrue( $this->has_mini_cart_badge( $output ) );
 
 		// Tests badge is not shown when "never" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"never"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"never"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertFalse( $this->has_mini_cart_badge( $output ) );
 	}
@@ -174,17 +174,17 @@ class MiniCart extends \WC_Unit_Test_Case {
 		WC()->cart->add_to_cart( $this->products[0]->get_id(), 2 );
 
 		// Tests badge is shown with items in cart when "always" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"always"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"always"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertTrue( $this->has_mini_cart_badge( $output ) );
 
 		// Tests badge *is* shown, because product count is greater than zero when "greater_than_zero" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"greater_than_zero"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"greater_than_zero"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertTrue( $this->has_mini_cart_badge( $output ) );
 
 		// Tests badge is not shown with items in cart when "never" is selected.
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountVisibility":"never"} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountVisibility":"never"} /-->' );
 		$output = render_block( $block[0] );
 		$this->assertFalse( $this->has_mini_cart_badge( $output ) );
 	}
@@ -234,7 +234,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @testdox Should process legacy wrappers while preserving the pattern rendering lifecycle.
 	 */
 	public function test_render_pattern_backed_template(): void {
-		$pattern_name = 'woocommerce-tests/mini-cart-template-part';
+		$pattern_name = 'poocommerce-tests/mini-cart-template-part';
 		register_block_pattern(
 			$pattern_name,
 			array(
@@ -272,7 +272,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 
 		$p                    = new \WP_HTML_Tag_Processor( $rendered_template );
 		$footer_wrapper_count = 0;
-		while ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-mini-cart-footer-block' ) ) ) {
+		while ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-mini-cart-footer-block' ) ) ) {
 			++$footer_wrapper_count;
 		}
 
@@ -360,13 +360,13 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 */
 	public function test_mini_cart_does_not_render_for_logged_out_users_when_store_coming_soon() {
 		// Set up coming soon mode for store pages only.
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 
 		// Ensure user is logged out.
 		wp_set_current_user( 0 );
 
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		$output = render_block( $block[0] );
 
 		// Mini-cart should not render (empty output).
@@ -380,14 +380,14 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 */
 	public function test_mini_cart_renders_for_logged_in_users_when_store_coming_soon() {
 		// Set up coming soon mode for store pages only.
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 
 		// Create and log in a user.
 		$user_id = $this->factory->user->create( array( 'role' => 'customer' ) );
 		wp_set_current_user( $user_id );
 
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		$output = render_block( $block[0] );
 
 		// Mini-cart should render (non-empty output).
@@ -404,13 +404,13 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 */
 	public function test_mini_cart_renders_for_logged_out_users_when_coming_soon_disabled() {
 		// Ensure coming soon mode is disabled.
-		update_option( 'woocommerce_coming_soon', 'no' );
-		update_option( 'woocommerce_store_pages_only', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_store_pages_only', 'no' );
 
 		// Ensure user is logged out.
 		wp_set_current_user( 0 );
 
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		$output = render_block( $block[0] );
 
 		// Mini-cart should render (non-empty output).
@@ -425,7 +425,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	public function test_badge_contains_configured_product_count_color() {
 		$color = '#ff0000';
 
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart {"productCountColor":{"color":"' . $color . '"}} /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart {"productCountColor":{"color":"' . $color . '"}} /-->' );
 		$output = render_block( $block[0] );
 
 		$processor = new \WP_HTML_Tag_Processor( $output );
@@ -451,7 +451,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_badge_has_no_background_color_when_not_configured() {
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		$output = render_block( $block[0] );
 
 		$processor = new \WP_HTML_Tag_Processor( $output );
@@ -478,13 +478,13 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 */
 	public function test_mini_cart_renders_when_site_wide_coming_soon_not_store_only() {
 		// Set up site-wide coming soon mode (not store pages only).
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_store_pages_only', 'no' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'no' );
 
 		// Ensure user is logged out.
 		wp_set_current_user( 0 );
 
-		$block  = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block  = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		$output = render_block( $block[0] );
 
 		// Mini-cart should render (non-empty output) because the logic only checks for store pages coming soon.
@@ -500,20 +500,20 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @param string $page_check The conditional function for the page: is_cart or is_checkout.
 	 */
 	public function test_view_script_module_is_not_enqueued_on_cart_and_checkout_pages( string $page_check ): void {
-		wp_dequeue_script_module( 'woocommerce/mini-cart' );
+		wp_dequeue_script_module( 'poocommerce/mini-cart' );
 		$this->use_cart_or_checkout_page( $page_check );
 
-		$block = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		render_block( $block[0] );
 
-		$this->assertNotContains( 'woocommerce/mini-cart', $this->get_enqueued_script_module_ids(), 'View script module should not be enqueued on the cart and checkout pages.' );
+		$this->assertNotContains( 'poocommerce/mini-cart', $this->get_enqueued_script_module_ids(), 'View script module should not be enqueued on the cart and checkout pages.' );
 	}
 
 	/**
 	 * @testdox Should not declare a view script module so WordPress never enqueues it automatically.
 	 */
 	public function test_view_script_module_is_not_declared_on_the_block_type(): void {
-		$block_type = \WP_Block_Type_Registry::get_instance()->get_registered( 'woocommerce/mini-cart' );
+		$block_type = \WP_Block_Type_Registry::get_instance()->get_registered( 'poocommerce/mini-cart' );
 
 		$this->assertSame( array(), $block_type->view_script_module_ids, 'The view script module must only be enqueued explicitly from render().' );
 	}
@@ -547,7 +547,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 		$this->use_cart_or_checkout_page( $page_check );
 		$asset_data_registry = $this->createMock( AssetDataRegistry::class );
 		$asset_data_registry->expects( $this->never() )->method( 'add' );
-		$this->mock = $this->replace_block_type( 'woocommerce/mini-cart', static fn () => new MiniCartMock( $asset_data_registry ) );
+		$this->mock = $this->replace_block_type( 'poocommerce/mini-cart', static fn () => new MiniCartMock( $asset_data_registry ) );
 
 		$output = $this->render_mini_cart_block();
 
@@ -578,7 +578,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 */
 	private function use_cart_or_checkout_page( string $page_check ): void {
 		$this->register_legacy_proxy_function_mocks( array( $page_check => $page_check ) );
-		add_filter( 'woocommerce_' . $page_check, '__return_true' );
+		add_filter( 'poocommerce_' . $page_check, '__return_true' );
 	}
 
 	/**
@@ -587,7 +587,7 @@ class MiniCart extends \WC_Unit_Test_Case {
 	 * @return string Rendered block markup.
 	 */
 	private function render_mini_cart_block(): string {
-		$block = parse_blocks( '<!-- wp:woocommerce/mini-cart /-->' );
+		$block = parse_blocks( '<!-- wp:poocommerce/mini-cart /-->' );
 		return render_block( $block[0] );
 	}
 

@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Filter by Attribute',
-	slug: 'woocommerce/attribute-filter',
+	slug: 'poocommerce/attribute-filter',
 	urlSearchParamWhenFilterIsApplied: 'filter_size=small&query_type_size=or',
 };
 
@@ -27,7 +27,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'attribute-filter',
 				heading: 'Filter By Attribute',
@@ -43,10 +43,10 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		await page.goto( '/shop' );
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 		const productTitles = legacyTemplate.locator(
-			'.woocommerce-loop-product__title'
+			'.poocommerce-loop-product__title'
 		);
 
 		await expect( productTitles.first() ).toBeVisible();

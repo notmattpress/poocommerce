@@ -2,13 +2,13 @@
 /**
  * Unit tests for the WC_Order_Item_Product class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * WC_Order_Item_Product unit tests.
@@ -97,7 +97,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$raw_meta = $sut->get_meta( 'Finish%20type', false )[0];
 		$received = array();
 
-		foreach ( array( 'woocommerce_order_item_display_meta_key', 'woocommerce_order_item_display_meta_value' ) as $hook ) {
+		foreach ( array( 'poocommerce_order_item_display_meta_key', 'poocommerce_order_item_display_meta_value' ) as $hook ) {
 			add_filter(
 				$hook,
 				static function ( $display, $meta, $item ) use ( &$received, $hook ) {
@@ -119,8 +119,8 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 			$this->assertSame( 'Black White', $arguments[1]->value, 'Filters must receive the decoded value.' );
 			$this->assertSame( $sut, $arguments[2], 'Filters must receive the original order item.' );
 		}
-		$this->assertSame( 'Finish type', $received['woocommerce_order_item_display_meta_key'][0] );
-		$this->assertSame( 'Black White', $received['woocommerce_order_item_display_meta_value'][0] );
+		$this->assertSame( 'Finish type', $received['poocommerce_order_item_display_meta_key'][0] );
+		$this->assertSame( 'Black White', $received['poocommerce_order_item_display_meta_value'][0] );
 		$this->assertSame( "<p>Black White</p>\n", $formatted[ $raw_meta->id ]->display_value, 'Rendered output should remain unchanged.' );
 		$this->assertSame( 'Finish%20type', $raw_meta->key, 'Display filters must not be given the live metadata object.' );
 		$this->assertSame( 'Black%20White', $raw_meta->value, 'The order item must retain its original value.' );
@@ -134,7 +134,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_formatted_meta_data_backorder_display_label( bool $generic_filter_customizes, string $expected_label ): void {
 		add_filter(
-			'woocommerce_backordered_item_meta_name',
+			'poocommerce_backordered_item_meta_name',
 			static function () {
 				return 'Pendiente';
 			}
@@ -142,7 +142,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 
 		if ( $generic_filter_customizes ) {
 			add_filter(
-				'woocommerce_order_item_display_meta_key',
+				'poocommerce_order_item_display_meta_key',
 				function ( $display_key, $meta ) {
 					return WC_Order_Item_Product::BACKORDER_META_KEY === $meta->key ? 'Custom label' : $display_key;
 				},
@@ -150,7 +150,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 				2
 			);
 		} else {
-			$this->setExpectedDeprecated( 'woocommerce_backordered_item_meta_name' );
+			$this->setExpectedDeprecated( 'poocommerce_backordered_item_meta_name' );
 		}
 
 		$this->item->add_meta_data( WC_Order_Item_Product::BACKORDER_META_KEY, 1, true );
@@ -187,7 +187,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_backorder_meta_write_paths_reconcile_legacy_key(): void {
 		add_filter(
-			'woocommerce_backordered_item_meta_name',
+			'poocommerce_backordered_item_meta_name',
 			static function () {
 				return 'Pendiente';
 			}
@@ -202,7 +202,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$this->item->add_meta_data( 'Pendiente', 1, true );
 		$this->item->set_quantity( 1 );
 
-		$this->setExpectedDeprecated( 'woocommerce_backordered_item_meta_name' );
+		$this->setExpectedDeprecated( 'poocommerce_backordered_item_meta_name' );
 		$this->item->set_backorder_meta();
 		$this->item->save();
 
@@ -243,12 +243,12 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 
 		if ( in_array( 'Pendiente', $keys_to_seed, true ) ) {
 			add_filter(
-				'woocommerce_backordered_item_meta_name',
+				'poocommerce_backordered_item_meta_name',
 				static function () {
 					return 'Pendiente';
 				}
 			);
-			$this->setExpectedDeprecated( 'woocommerce_backordered_item_meta_name' );
+			$this->setExpectedDeprecated( 'poocommerce_backordered_item_meta_name' );
 		}
 
 		foreach ( $keys_to_seed as $key ) {
@@ -360,14 +360,14 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test the woocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
+	 * @testdox Test the poocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
 	 */
 	public function test_get_refund_html_with_filter() {
 		$this->enable_cogs_feature();
 
 		$refunded_cost = -12.34;
 		add_filter(
-			'woocommerce_order_item_cogs_refunded_html',
+			'poocommerce_order_item_cogs_refunded_html',
 			function ( $html, $refunded_cost, $item, $order ) {
 				return sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $item->get_id(), $order->get_id() );
 			},
@@ -376,7 +376,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		);
 
 		$actual = $this->item->get_cogs_refund_value_html( $refunded_cost, );
-		remove_all_filters( 'woocommerce_order_item_cogs_refunded_html' );
+		remove_all_filters( 'poocommerce_order_item_cogs_refunded_html' );
 		$expected = sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $this->item->get_id(), $this->order->get_id() );
 		$this->assertEquals( $expected, $actual );
 	}
@@ -553,7 +553,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	 * may have tax data stored as floats instead of arrays, causing:
 	 * "TypeError: array_map(): Argument #2 ($array) must be of type array, float given"
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/60233
+	 * @see https://github.com/poocommerce/poocommerce/issues/60233
 	 */
 	public function test_set_taxes_with_legacy_float_values_does_not_throw_error() {
 		$order = WC_Helper_Order::create_order();
@@ -601,7 +601,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$item = new WC_Order_Item_Product();
 		$item->set_order_id( $order->get_id() );
 
-		// Serialized legacy data with floats (as stored in wp_woocommerce_order_itemmeta).
+		// Serialized legacy data with floats (as stored in wp_poocommerce_order_itemmeta).
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- Testing legacy serialized data format.
 		$serialized_legacy_data = serialize(
 			array(
@@ -807,7 +807,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 			unset( $converted );
 			return array( 999 => $value );
 		};
-		add_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
 
 		// Legacy tax data as float.
 		$legacy_tax_data = array(
@@ -824,7 +824,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 50.00, (float) $taxes['total'][999] );
 
 		// Clean up filter.
-		remove_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback );
+		remove_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback );
 
 		// Clean up order.
 		$order->delete( true );

@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
  * Renders an image block.
@@ -397,7 +397,7 @@ class Image extends Abstract_Block_Renderer {
 		/**
 		 * Filters the URL of a cropped image block so an integration can serve a server-cropped file.
 		 *
-		 * Takes the same arguments as `woocommerce_email_editor_gallery_cropped_image_url`, so one
+		 * Takes the same arguments as `poocommerce_email_editor_gallery_cropped_image_url`, so one
 		 * callback can serve both. Return the URL unchanged to keep the uncropped image.
 		 *
 		 * @since 2.21.0
@@ -408,7 +408,7 @@ class Image extends Abstract_Block_Renderer {
 		 * @param int    $height       Display height the crop gives the image in px.
 		 * @param array  $attrs        Parsed attributes of the core/image block (id, sizeSlug, ...).
 		 */
-		$filtered_url = apply_filters( 'woocommerce_email_editor_image_cropped_image_url', $image_url, $aspect_ratio, $width, $height, $attrs );
+		$filtered_url = apply_filters( 'poocommerce_email_editor_image_cropped_image_url', $image_url, $aspect_ratio, $width, $height, $attrs );
 
 		$cropped_url = Html_Processing_Helper::get_server_cropped_url( $filtered_url, $image_url );
 		if ( '' === $cropped_url ) {

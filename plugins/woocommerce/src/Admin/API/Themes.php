@@ -5,12 +5,12 @@
  * Handles requests to /themes
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Overrides\ThemeUpgrader;
-use Automattic\WooCommerce\Admin\Overrides\ThemeUpgraderSkin;
+use Automattic\PooCommerce\Admin\Overrides\ThemeUpgrader;
+use Automattic\PooCommerce\Admin\Overrides\ThemeUpgraderSkin;
 
 /**
  * Themes controller.
@@ -60,7 +60,7 @@ class Themes extends \WC_REST_Data_Controller {
 	 */
 	public function upload_theme_permissions_check( $request ) {
 		if ( ! current_user_can( 'upload_themes' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you are not allowed to install themes on this site.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you are not allowed to install themes on this site.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -75,7 +75,7 @@ class Themes extends \WC_REST_Data_Controller {
 	public function upload_theme( $request ) {
 		if (
 			! isset( $_FILES['pluginzip'] ) || ! isset( $_FILES['pluginzip']['tmp_name'] ) || ! is_uploaded_file( $_FILES['pluginzip']['tmp_name'] ) || ! is_file( $_FILES['pluginzip']['tmp_name'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,  WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			return new \WP_Error( 'woocommerce_rest_invalid_file', __( 'Specified file failed upload test.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_rest_invalid_file', __( 'Specified file failed upload test.', 'poocommerce' ) );
 		}
 
 		include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -107,7 +107,7 @@ class Themes extends \WC_REST_Data_Controller {
 			 *
 			 * @param string $theme The theme name.
 			 */
-			do_action( 'woocommerce_theme_installed', $theme );
+			do_action( 'poocommerce_theme_installed', $theme );
 		} else {
 			if ( is_wp_error( $install ) && $install->get_error_code() ) {
 				$error_message = isset( $upgrader->strings[ $install->get_error_code() ] ) ? $upgrader->strings[ $install->get_error_code() ] : $install->get_error_data();
@@ -147,7 +147,7 @@ class Themes extends \WC_REST_Data_Controller {
 		 * @param array            $item     The original item.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_themes', $response, $item, $request );
+		return apply_filters( 'poocommerce_rest_prepare_themes', $response, $item, $request );
 	}
 
 
@@ -163,19 +163,19 @@ class Themes extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'status'  => array(
-					'description' => __( 'Theme installation status.', 'woocommerce' ),
+					'description' => __( 'Theme installation status.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'message' => array(
-					'description' => __( 'Theme installation message.', 'woocommerce' ),
+					'description' => __( 'Theme installation message.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'theme'   => array(
-					'description' => __( 'Uploaded theme.', 'woocommerce' ),
+					'description' => __( 'Uploaded theme.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -194,11 +194,11 @@ class Themes extends \WC_REST_Data_Controller {
 	public function get_collection_params() {
 		$params              = array( 'context' => $this->get_context_param( array( 'default' => 'view' ) ) );
 		$params['pluginzip'] = array(
-			'description'       => __( 'A zip file of the theme to be uploaded.', 'woocommerce' ),
+			'description'       => __( 'A zip file of the theme to be uploaded.', 'poocommerce' ),
 			'type'              => 'file',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
-		return apply_filters( 'woocommerce_rest_themes_collection_params', $params );
+		return apply_filters( 'poocommerce_rest_themes_collection_params', $params );
 	}
 }

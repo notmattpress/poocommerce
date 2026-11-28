@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
 
 /**
  * Abstract base class for specific classes of CSS values: `Size`, `Color`, `CSSString` and `URL`, and another

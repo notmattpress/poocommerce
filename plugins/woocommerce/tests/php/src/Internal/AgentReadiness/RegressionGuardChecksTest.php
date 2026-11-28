@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreResponses;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreResponses;
 use WC_Helper_Product;
 use WC_Structured_Data;
 use WC_Unit_Test_Case;
@@ -42,7 +42,7 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->set_permalink_structure( '/%postname%/' );
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		$this->product = WC_Helper_Product::create_simple_product();
 		foreach ( array( AgenticCommerceSettings::PRIVACY_PAGE_OPTION, AgenticCommerceSettings::REFUND_RETURNS_PAGE_OPTION ) as $option ) {
 			update_option(
@@ -200,7 +200,7 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 
 		remove_all_filters( 'pre_http_request' );
 		update_option(
-			'woocommerce_myaccount_page_id',
+			'poocommerce_myaccount_page_id',
 			self::factory()->post->create(
 				array(
 					'post_type'   => 'page',
@@ -359,10 +359,10 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A price WooCommerce prints rounded to the store's decimals matches. A different amount does not.
+	 * @testdox A price PooCommerce prints rounded to the store's decimals matches. A different amount does not.
 	 */
 	public function test_schema_price_rounded_to_store_decimals(): void {
-		update_option( 'woocommerce_price_num_decimals', '0' );
+		update_option( 'poocommerce_price_num_decimals', '0' );
 		$this->product->set_regular_price( '9.99' );
 		$this->product->set_price( '9.99' );
 		$this->product->save();
@@ -393,7 +393,7 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox A served price at another tax rate of the product's tax class matches: the page was served to one location.
 	 */
 	public function test_schema_price_at_another_tax_rate(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$second = 0;
 		$rate   = \WC_Tax::_insert_tax_rate(
 			array(
@@ -445,7 +445,7 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 				\WC_Tax::_delete_tax_rate( $second );
 			}
 			\WC_Tax::_delete_tax_rate( $rate );
-			delete_option( 'woocommerce_calc_taxes' );
+			delete_option( 'poocommerce_calc_taxes' );
 		}
 	}
 
@@ -453,8 +453,8 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox A product with rated reviews needs a rating in its structured data; text-only reviews or ratings turned off need none.
 	 */
 	public function test_review_markup(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$reviewed = WC_Helper_Product::create_simple_product();
 		update_post_meta( $reviewed->get_id(), '_wc_review_count', 3 );
 		$path = self::path( $reviewed->get_permalink() );
@@ -476,11 +476,11 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 		);
 		$this->assertFalse( $this->results( $store )['product_review_markup'] );
 
-		update_option( 'woocommerce_enable_review_rating', 'no' );
+		update_option( 'poocommerce_enable_review_rating', 'no' );
 		remove_all_filters( 'pre_http_request' );
-		$this->assertTrue( $this->results( $store )['product_review_markup'], 'Ratings off: WooCommerce prints none' );
+		$this->assertTrue( $this->results( $store )['product_review_markup'], 'Ratings off: PooCommerce prints none' );
 
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		remove_all_filters( 'pre_http_request' );
 		$store[ $path ] = array(
 			200,
@@ -507,8 +507,8 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox A review page cut off before its rating is couldn't check. The sampled product is read past the short page limit.
 	 */
 	public function test_truncated_review_page_is_unknown(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$this->product->set_date_created( time() - HOUR_IN_SECONDS );
 		$this->product->save();
 		$reviewed = WC_Helper_Product::create_simple_product();
@@ -545,8 +545,8 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox When the newest reviewed product is hidden, the next visible reviewed product is read.
 	 */
 	public function test_review_markup_skips_hidden_products(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$visible = WC_Helper_Product::create_simple_product();
 		update_post_meta( $visible->get_id(), '_wc_average_rating', '4.00' );
 		$visible->set_date_created( time() - HOUR_IN_SECONDS );
@@ -572,8 +572,8 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox A reviewed Search results only product is sampled, so missing rating markup fails.
 	 */
 	public function test_review_markup_samples_search_only_products(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$search = WC_Helper_Product::create_simple_product();
 		$search->set_catalog_visibility( 'search' );
 		$search->save();
@@ -595,8 +595,8 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 	 * @testdox Hidden reviewed products are skipped before the sample limit, so an older visible one is still read.
 	 */
 	public function test_review_markup_skips_a_run_of_hidden_products(): void {
-		update_option( 'woocommerce_enable_reviews', 'yes' );
-		update_option( 'woocommerce_enable_review_rating', 'yes' );
+		update_option( 'poocommerce_enable_reviews', 'yes' );
+		update_option( 'poocommerce_enable_review_rating', 'yes' );
 		$visible = WC_Helper_Product::create_simple_product();
 		$visible->set_date_created( time() - DAY_IN_SECONDS );
 		$visible->save();
@@ -702,7 +702,7 @@ class RegressionGuardChecksTest extends WC_Unit_Test_Case {
 				'post_name'   => 'shop',
 			)
 		);
-		update_option( 'woocommerce_shop_page_id', $shop );
+		update_option( 'poocommerce_shop_page_id', $shop );
 		$term = wp_insert_term( 'Mugs', 'product_cat' );
 		wp_set_object_terms( $this->product->get_id(), array( (int) $term['term_id'] ), 'product_cat' );
 		$this->product = wc_get_product( $this->product->get_id() );

@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
 
 /**
  * Tests for the Ability class.
@@ -22,7 +22,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 	private $received = array();
 
 	/**
-	 * Assert that an invalid output error has the retry hint once: from WooCommerce on the
+	 * Assert that an invalid output error has the retry hint once: from PooCommerce on the
 	 * legacy error code, from WordPress on the codes that WordPress 7.2.1 adds.
 	 *
 	 * @param \WP_Error $error The invalid output error.
@@ -52,7 +52,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Convert input',
 				'description'         => 'Returns its input.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'input_schema'        => array(
 					'type'                 => 'object',
 					'additionalProperties' => false,
@@ -101,7 +101,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Invalid output',
 				'description'         => 'Returns output that does not match its schema.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => function () use ( &$runs ) {
 					++$runs;
@@ -127,7 +127,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Invalid output',
 				'description'         => 'Returns output that does not match its schema.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => fn() => 'not an object',
 				'permission_callback' => '__return_true',
@@ -150,7 +150,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Callback error',
 				'description'         => 'Returns its own error.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => fn() => new \WP_Error( 'ability_invalid_output', 'The callback failed.' ),
 				'permission_callback' => '__return_true',
@@ -176,7 +176,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Short-circuit error',
 				'description'         => 'Never runs its callback.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => fn() => array(),
 				'permission_callback' => '__return_true',
@@ -207,7 +207,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Nested run',
 				'description'         => 'Returns output that does not match its schema.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'input_schema'        => array( 'type' => 'integer' ),
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => fn() => 'not an object',
@@ -249,7 +249,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Invalid output',
 				'description'         => 'Returns output that does not match its schema.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'output_schema'       => array( 'type' => 'object' ),
 				'execute_callback'    => fn() => 'not an object',
 				'permission_callback' => '__return_true',
@@ -496,7 +496,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 			array(
 				'label'               => 'Count sanitization',
 				'description'         => 'Count calls to the real sanitizer.',
-				'category'            => 'woocommerce',
+				'category'            => 'poocommerce',
 				'input_schema'        => array( 'type' => 'boolean' ),
 				'permission_callback' => '__return_true',
 				'execute_callback'    => static function ( $input ) {
@@ -548,7 +548,7 @@ class AbilityTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Remove when WooCommerce requires WordPress 7.2, together with the backport in Ability.
+	 * Remove when PooCommerce requires WordPress 7.2, together with the backport in Ability.
 	 *
 	 * @testdox Should refuse a number that converts to a value the schema does not allow, and not run the callbacks.
 	 */

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderWithdrawal;
+namespace Automattic\PooCommerce\Internal\OrderWithdrawal;
 
 /**
  * Provides configuration and URLs for the order withdrawal endpoint.
@@ -25,7 +25,7 @@ final class OrderWithdrawalEndpoint {
 	/**
 	 * Option containing the configured endpoint slug.
 	 */
-	public const ENDPOINT_OPTION = 'woocommerce_myaccount_order_withdrawal_endpoint';
+	public const ENDPOINT_OPTION = 'poocommerce_myaccount_order_withdrawal_endpoint';
 
 	/**
 	 * Get the configured endpoint slug.

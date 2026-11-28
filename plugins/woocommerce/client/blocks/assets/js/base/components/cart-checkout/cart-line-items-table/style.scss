@@ -142,7 +142,7 @@ table.wc-block-cart-items {
 
 // A removed row: a copy fades out in its place, then the rows below slide up and the space at the bottom of the table
 // closes. See `use-row-removal-motion.ts`.
-.wp-block-woocommerce-cart table.wc-block-cart-items {
+.wp-block-poocommerce-cart table.wc-block-cart-items {
 	> [data-wc-row-copy] {
 		@include motion-fade-out;
 
@@ -289,7 +289,7 @@ table.wc-block-cart-items {
 
 // Rows rise in, 50ms apart, the first time they show (`useListEntrance`). The cells animate, not the row, so the
 // movement works in table and grid layouts and does not override the row's dimmed opacity.
-.wp-block-woocommerce-cart [data-wc-list-entering] > .wc-block-cart-items__row {
+.wp-block-poocommerce-cart [data-wc-list-entering] > .wc-block-cart-items__row {
 	@include motion-stagger-index;
 
 	> td {

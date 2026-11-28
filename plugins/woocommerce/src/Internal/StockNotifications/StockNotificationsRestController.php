@@ -5,12 +5,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 use WP_Error;
 use WP_Http;
 use WP_REST_Request;
@@ -49,7 +49,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 	);
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'get_items' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 					'args'                => $this->get_collection_params(),
 				),
 				'schema' => array( $this, 'get_item_schema' ),
@@ -82,10 +82,10 @@ class StockNotificationsRestController extends RestApiControllerBase {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => fn( $request ) => $this->run( $request, 'get_item' ),
-					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_woocommerce' ),
+					'permission_callback' => fn( $request ) => $this->check_permission( $request, 'manage_poocommerce' ),
 					'args'                => array(
 						'id'      => array(
-							'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 						'context' => $this->get_context_param( array( 'default' => 'view' ) ),
@@ -186,7 +186,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 		}
 
 		if ( ! $notification ) {
-			return new WP_Error( 'woocommerce_rest_stock_notification_invalid_id', __( 'Invalid ID.', 'woocommerce' ), array( 'status' => WP_Http::NOT_FOUND ) );
+			return new WP_Error( 'poocommerce_rest_stock_notification_invalid_id', __( 'Invalid ID.', 'poocommerce' ), array( 'status' => WP_Http::NOT_FOUND ) );
 		}
 
 		return $this->prepare_item_for_response( $notification, $request );
@@ -239,9 +239,9 @@ class StockNotificationsRestController extends RestApiControllerBase {
 		 * @param Notification     $notification The notification.
 		 * @param WP_REST_Request  $request      The request.
 		 */
-		$filtered = apply_filters( 'woocommerce_rest_prepare_stock_notification', $response, $notification, $request );
+		$filtered = apply_filters( 'poocommerce_rest_prepare_stock_notification', $response, $notification, $request );
 		if ( ! $filtered instanceof WP_REST_Response ) {
-			_doing_it_wrong( 'woocommerce_rest_prepare_stock_notification', esc_html( 'The filter must return a WP_REST_Response.' ), '11.5.0' );
+			_doing_it_wrong( 'poocommerce_rest_prepare_stock_notification', esc_html( 'The filter must return a WP_REST_Response.' ), '11.5.0' );
 			return $response;
 		}
 
@@ -317,7 +317,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 	private function get_context_param( array $args = array() ): array {
 		return array_merge(
 			array(
-				'description' => __( 'Scope under which the request is made; determines fields present in response.', 'woocommerce' ),
+				'description' => __( 'Scope under which the request is made; determines fields present in response.', 'poocommerce' ),
 				'type'        => 'string',
 				'enum'        => array( 'view', 'edit' ),
 				'default'     => 'view',
@@ -335,37 +335,37 @@ class StockNotificationsRestController extends RestApiControllerBase {
 		return array(
 			'context'         => $this->get_context_param(),
 			'page'            => array(
-				'description' => __( 'Current page of the collection.', 'woocommerce' ),
+				'description' => __( 'Current page of the collection.', 'poocommerce' ),
 				'type'        => 'integer',
 				'default'     => 1,
 				'minimum'     => 1,
 			),
 			'per_page'        => array(
-				'description' => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+				'description' => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 				'type'        => 'integer',
 				'default'     => 10,
 				'minimum'     => 1,
 				'maximum'     => 100,
 			),
 			'offset'          => array(
-				'description' => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+				'description' => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 				'type'        => 'integer',
 				'minimum'     => 0,
 			),
 			'order'           => array(
-				'description' => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+				'description' => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => 'desc',
 				'enum'        => array( 'asc', 'desc' ),
 			),
 			'orderby'         => array(
-				'description' => __( 'Sort collection by attribute.', 'woocommerce' ),
+				'description' => __( 'Sort collection by attribute.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => 'date_created',
 				'enum'        => array_keys( self::ORDERBY_COLUMNS ),
 			),
 			'status'          => array(
-				'description' => __( 'Limit result set to notifications with one or more statuses.', 'woocommerce' ),
+				'description' => __( 'Limit result set to notifications with one or more statuses.', 'poocommerce' ),
 				'type'        => 'array',
 				'items'       => array(
 					'type' => 'string',
@@ -374,7 +374,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 				'default'     => array(),
 			),
 			'product_id'      => array(
-				'description' => __( 'Limit result set to notifications for one or more product or variation IDs. A variable product ID also matches its variations.', 'woocommerce' ),
+				'description' => __( 'Limit result set to notifications for one or more product or variation IDs. A variable product ID also matches its variations.', 'poocommerce' ),
 				'type'        => 'array',
 				'items'       => array(
 					'type'    => 'integer',
@@ -383,37 +383,37 @@ class StockNotificationsRestController extends RestApiControllerBase {
 				'default'     => array(),
 			),
 			'user_id'         => array(
-				'description' => __( 'Limit result set to notifications of a registered user.', 'woocommerce' ),
+				'description' => __( 'Limit result set to notifications of a registered user.', 'poocommerce' ),
 				'type'        => 'integer',
 				'minimum'     => 1,
 			),
 			'email'           => array(
-				'description' => __( 'Limit result set to notifications for an email address (exact match).', 'woocommerce' ),
+				'description' => __( 'Limit result set to notifications for an email address (exact match).', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'email',
 			),
 			'after'           => array(
-				'description' => __( 'Limit response to notifications created on or after a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'woocommerce' ),
+				'description' => __( 'Limit response to notifications created on or after a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 			),
 			'before'          => array(
-				'description' => __( 'Limit response to notifications created before a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'woocommerce' ),
+				'description' => __( 'Limit response to notifications created before a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 			),
 			'notified_after'  => array(
-				'description' => __( 'Limit response to notifications sent on or after a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'woocommerce' ),
+				'description' => __( 'Limit response to notifications sent on or after a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 			),
 			'notified_before' => array(
-				'description' => __( 'Limit response to notifications sent before a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'woocommerce' ),
+				'description' => __( 'Limit response to notifications sent before a given ISO8601 compliant date. Without a timezone offset, the date is in the site\'s timezone, unless dates_are_gmt is true.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 			),
 			'dates_are_gmt'   => array(
-				'description' => __( 'Whether date filters without a timezone offset are in GMT instead of the site\'s timezone.', 'woocommerce' ),
+				'description' => __( 'Whether date filters without a timezone offset are in GMT instead of the site\'s timezone.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 			),
@@ -428,16 +428,16 @@ class StockNotificationsRestController extends RestApiControllerBase {
 	public function get_item_schema(): array {
 		$date_props = array();
 		foreach ( array(
-			'date_created'      => __( 'The date the notification was created', 'woocommerce' ),
-			'date_modified'     => __( 'The date the notification was last modified', 'woocommerce' ),
-			'date_confirmed'    => __( 'The date the notification was confirmed by the customer', 'woocommerce' ),
-			'date_notified'     => __( 'The date the back in stock email was sent', 'woocommerce' ),
-			'date_last_attempt' => __( 'The date the back in stock email was last attempted', 'woocommerce' ),
-			'date_cancelled'    => __( 'The date the notification was cancelled', 'woocommerce' ),
+			'date_created'      => __( 'The date the notification was created', 'poocommerce' ),
+			'date_modified'     => __( 'The date the notification was last modified', 'poocommerce' ),
+			'date_confirmed'    => __( 'The date the notification was confirmed by the customer', 'poocommerce' ),
+			'date_notified'     => __( 'The date the back in stock email was sent', 'poocommerce' ),
+			'date_last_attempt' => __( 'The date the back in stock email was last attempted', 'poocommerce' ),
+			'date_cancelled'    => __( 'The date the notification was cancelled', 'poocommerce' ),
 		) as $key => $description ) {
 			$date_props[ $key ]          = array(
 				/* translators: %s: what the date records. */
-				'description' => sprintf( __( "%s, in the site's timezone.", 'woocommerce' ), $description ),
+				'description' => sprintf( __( "%s, in the site's timezone.", 'poocommerce' ), $description ),
 				'type'        => array( 'string', 'null' ),
 				'format'      => 'date-time',
 				'context'     => array( 'view', 'edit' ),
@@ -445,7 +445,7 @@ class StockNotificationsRestController extends RestApiControllerBase {
 			);
 			$date_props[ $key . '_gmt' ] = array(
 				/* translators: %s: what the date records. */
-				'description' => sprintf( __( '%s, as GMT.', 'woocommerce' ), $description ),
+				'description' => sprintf( __( '%s, as GMT.', 'poocommerce' ), $description ),
 				'type'        => array( 'string', 'null' ),
 				'format'      => 'date-time',
 				'context'     => array( 'view', 'edit' ),
@@ -458,70 +458,70 @@ class StockNotificationsRestController extends RestApiControllerBase {
 		$schema['properties'] = array_merge(
 			array(
 				'id'                  => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status'              => array(
-					'description' => __( 'Notification status.', 'woocommerce' ),
+					'description' => __( 'Notification status.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => NotificationStatus::get_valid_statuses(),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'product_id'          => array(
-					'description' => __( 'ID of the product or variation the customer signed up for.', 'woocommerce' ),
+					'description' => __( 'ID of the product or variation the customer signed up for.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'parent_id'           => array(
-					'description' => __( 'Parent product ID when the product is a variation, otherwise 0. Null if the product no longer exists.', 'woocommerce' ),
+					'description' => __( 'Parent product ID when the product is a variation, otherwise 0. Null if the product no longer exists.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'variation_id'        => array(
-					'description' => __( 'Variation ID when the product is a variation, otherwise 0. Null if the product no longer exists.', 'woocommerce' ),
+					'description' => __( 'Variation ID when the product is a variation, otherwise 0. Null if the product no longer exists.', 'poocommerce' ),
 					'type'        => array( 'integer', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'sku'                 => array(
-					'description' => __( 'Product SKU. Null if the product no longer exists.', 'woocommerce' ),
+					'description' => __( 'Product SKU. Null if the product no longer exists.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'posted_attributes'   => array(
-					'description' => __( 'Variation attributes the customer selected when signing up, keyed by attribute name (e.g. attribute_pa_color).', 'woocommerce' ),
+					'description' => __( 'Variation attributes the customer selected when signing up, keyed by attribute name (e.g. attribute_pa_color).', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'user_id'             => array(
-					'description' => __( 'User ID, or 0 for a guest.', 'woocommerce' ),
+					'description' => __( 'User ID, or 0 for a guest.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'user_email'          => array(
-					'description' => __( 'Email address the notification is sent to.', 'woocommerce' ),
+					'description' => __( 'Email address the notification is sent to.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'cancellation_source' => array(
-					'description' => __( 'Who or what cancelled the notification. Null unless cancelled.', 'woocommerce' ),
+					'description' => __( 'Who or what cancelled the notification. Null unless cancelled.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'enum'        => array_merge( NotificationCancellationSource::get_valid_cancellation_sources(), array( null ) ),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'product_permalink'   => array(
-					'description' => __( 'Product URL, with the posted attributes preselected for variations. Null if the product no longer exists.', 'woocommerce' ),
+					'description' => __( 'Product URL, with the posted attributes preselected for variations. Null if the product no longer exists.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),

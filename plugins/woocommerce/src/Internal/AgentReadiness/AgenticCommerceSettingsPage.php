@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerce > Settings > AI tools. It opens on the Overview, a React view with the WordPress.com connection
+ * PooCommerce > Settings > AI tools. It opens on the Overview, a React view with the WordPress.com connection
  * card, the AI shopping card and the Sales readiness card; Manage opens AI shopping, a React view with the UCP switch, Product visibility, the
  * Setup checklist, the store policy fields and the connection URL. settings-embed mounts both, from data
  * this class builds. The UCP switch saves on its own through wc/v3/agent-readiness/ucp; the store policy
@@ -58,14 +58,14 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 	 */
 	public function __construct( StoreConditions $store_conditions, AgentReadiness $agent_readiness, ReadinessCheckPage $readiness_page ) {
 		$this->id               = AgenticCommerceSettings::TAB;
-		$this->label            = __( 'AI tools', 'woocommerce' );
+		$this->label            = __( 'AI tools', 'poocommerce' );
 		$this->store_conditions = $store_conditions;
 		$this->agent_readiness  = $agent_readiness;
 		$this->readiness_page   = $readiness_page;
 
 		parent::__construct();
 
-		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_page_option' ), 10, 3 );
+		add_filter( 'poocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_page_option' ), 10, 3 );
 	}
 
 	/**
@@ -75,8 +75,8 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 	 */
 	protected function get_own_sections() {
 		return array(
-			''                                        => __( 'Overview', 'woocommerce' ),
-			AgenticCommerceSettings::SHOPPING_SECTION => __( 'AI shopping', 'woocommerce' ),
+			''                                        => __( 'Overview', 'poocommerce' ),
+			AgenticCommerceSettings::SHOPPING_SECTION => __( 'AI shopping', 'poocommerce' ),
 		);
 	}
 
@@ -115,7 +115,7 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 	 */
 	protected function get_settings_for_shopping_section() {
 		$store_pages = StoreConditions::store_page_ids();
-		$pages       = array( '' => __( 'Choose a page', 'woocommerce' ) );
+		$pages       = array( '' => __( 'Choose a page', 'poocommerce' ) );
 		$published   = get_pages(
 			array(
 				'post_status' => 'publish',
@@ -131,9 +131,9 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 			// A stored page that can't be chosen here stays listed, so saving another field keeps it.
 			if ( $stored instanceof \WP_Post && 'page' === $stored->post_type && ! isset( $options[ (string) $stored->ID ] ) ) {
 				$status = get_post_status_object( $stored->post_status );
-				$state  = in_array( $stored->ID, $store_pages, true ) ? __( 'Store page', 'woocommerce' ) : ( $status ? $status->label : $stored->post_status );
+				$state  = in_array( $stored->ID, $store_pages, true ) ? __( 'Store page', 'poocommerce' ) : ( $status ? $status->label : $stored->post_status );
 				/* translators: 1: page title, 2: page status, such as Draft, or "Store page". */
-				$options[ (string) $stored->ID ] = sprintf( __( '%1$s (%2$s)', 'woocommerce' ), self::page_title( $stored ), $state );
+				$options[ (string) $stored->ID ] = sprintf( __( '%1$s (%2$s)', 'poocommerce' ), self::page_title( $stored ), $state );
 			}
 			return array(
 				'title'              => $title,
@@ -149,17 +149,17 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 
 		return array(
 			array(
-				'title' => __( 'Store policies', 'woocommerce' ),
+				'title' => __( 'Store policies', 'poocommerce' ),
 				'type'  => 'title',
-				'desc'  => __( 'AI assistants share these pages with shoppers. The pages you choose here are also used across the rest of your store.', 'woocommerce' ),
+				'desc'  => __( 'AI assistants share these pages with shoppers. The pages you choose here are also used across the rest of your store.', 'poocommerce' ),
 				'id'    => self::POLICIES_SECTION,
 			),
-			$page_field( AgenticCommerceSettings::REFUND_RETURNS_PAGE_OPTION, __( 'Refund and returns policy', 'woocommerce' ) ),
-			$page_field( AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION, __( 'Shipping policy (optional)', 'woocommerce' ) ),
-			...( current_user_can( 'manage_privacy_options' ) ? array( $page_field( AgenticCommerceSettings::PRIVACY_PAGE_OPTION, __( 'Privacy policy', 'woocommerce' ) ) ) : array() ),
-			$page_field( AgenticCommerceSettings::TERMS_PAGE_OPTION, __( 'Terms and conditions', 'woocommerce' ) ),
-			$page_field( AgenticCommerceSettings::FAQ_PAGE_OPTION, __( 'FAQ (optional)', 'woocommerce' ) ),
-			$page_field( AgenticCommerceSettings::WARRANTY_PAGE_OPTION, __( 'Warranty policy (optional)', 'woocommerce' ) ),
+			$page_field( AgenticCommerceSettings::REFUND_RETURNS_PAGE_OPTION, __( 'Refund and returns policy', 'poocommerce' ) ),
+			$page_field( AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION, __( 'Shipping policy (optional)', 'poocommerce' ) ),
+			...( current_user_can( 'manage_privacy_options' ) ? array( $page_field( AgenticCommerceSettings::PRIVACY_PAGE_OPTION, __( 'Privacy policy', 'poocommerce' ) ) ) : array() ),
+			$page_field( AgenticCommerceSettings::TERMS_PAGE_OPTION, __( 'Terms and conditions', 'poocommerce' ) ),
+			$page_field( AgenticCommerceSettings::FAQ_PAGE_OPTION, __( 'FAQ (optional)', 'poocommerce' ) ),
+			$page_field( AgenticCommerceSettings::WARRANTY_PAGE_OPTION, __( 'Warranty policy (optional)', 'poocommerce' ) ),
 			array(
 				'type' => 'sectionend',
 				'id'   => self::POLICIES_SECTION,
@@ -227,52 +227,52 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 				'href' => AgenticCommerceSettings::url(),
 				'text' => $this->label,
 			),
-			'title'       => __( 'AI shopping', 'woocommerce' ),
-			'description' => __( 'Control how AI assistants shop your store.', 'woocommerce' ),
+			'title'       => __( 'AI shopping', 'poocommerce' ),
+			'description' => __( 'Control how AI assistants shop your store.', 'poocommerce' ),
 			// The switch saves on its own, through wc/v3/agent-readiness/ucp. It can't be turned on while a
 			// required step fails; turning it off always works.
 			'ucp'         => array(
 				'enabled'     => $enabled,
 				'blocked'     => ! $enabled && array() !== $failing,
-				'title'       => __( 'Allow AI assistants to shop your store', 'woocommerce' ),
-				'description' => __( 'Your products can be found by AI assistants and added to a shopper’s cart. Orders come through your checkout as usual.', 'woocommerce' ),
+				'title'       => __( 'Allow AI assistants to shop your store', 'poocommerce' ),
+				'description' => __( 'Your products can be found by AI assistants and added to a shopper’s cart. Orders come through your checkout as usual.', 'poocommerce' ),
 				'learn_more'  => array(
-					'href' => 'https://woocommerce.com/document/woocommerce-ai/agentic-commerce/',
-					'text' => __( 'Learn how it works', 'woocommerce' ),
+					'href' => 'https://poocommerce.com/document/poocommerce-ai/agentic-commerce/',
+					'text' => __( 'Learn how it works', 'poocommerce' ),
 				),
 				// The snackbar after the switch saves, as in the design.
-				'turned_on'   => __( 'AI assistants can now shop your store.', 'woocommerce' ),
-				'turned_off'  => __( 'AI assistants can no longer shop your store.', 'woocommerce' ),
+				'turned_on'   => __( 'AI assistants can now shop your store.', 'poocommerce' ),
+				'turned_off'  => __( 'AI assistants can no longer shop your store.', 'poocommerce' ),
 				'path'        => '/wc/v3/agent-readiness/ucp',
 				// Shown when the switch didn't save, unless the reason is required steps that aren't done.
-				'error_on'    => __( 'AI shopping wasn’t turned on. Reload the page and try again.', 'woocommerce' ),
-				'error_off'   => __( 'AI shopping wasn’t turned off. Reload the page and try again.', 'woocommerce' ),
-				'unsaved'     => __( 'Save your changes to see the updated status.', 'woocommerce' ),
+				'error_on'    => __( 'AI shopping wasn’t turned on. Reload the page and try again.', 'poocommerce' ),
+				'error_off'   => __( 'AI shopping wasn’t turned off. Reload the page and try again.', 'poocommerce' ),
+				'unsaved'     => __( 'Save your changes to see the updated status.', 'poocommerce' ),
 			),
 			// Agents can't shop a store that isn't live.
 			'coming_soon' => $launched && ! $launched['ok'] ? array(
-				'text' => __( 'Your store is in coming soon mode, so AI assistants can’t find your products yet.', 'woocommerce' ),
+				'text' => __( 'Your store is in coming soon mode, so AI assistants can’t find your products yet.', 'poocommerce' ),
 				'link' => array(
 					'href' => $launched['fix_url'],
-					'text' => __( 'Change site visibility', 'woocommerce' ),
+					'text' => __( 'Change site visibility', 'poocommerce' ),
 				),
 			) : null,
 			'visibility'  => self::visibility( $report ),
 			'checklist'   => self::checklist( $checks ),
 			'policies'    => array(
-				'title'       => __( 'Store policies', 'woocommerce' ),
-				'description' => __( 'AI assistants share these pages with shoppers. The pages you choose here are also used across the rest of your store.', 'woocommerce' ),
+				'title'       => __( 'Store policies', 'poocommerce' ),
+				'description' => __( 'AI assistants share these pages with shoppers. The pages you choose here are also used across the rest of your store.', 'poocommerce' ),
 				'fields'      => $this->policy_fields(),
 			),
 			'connection'  => array(
-				'title'       => __( 'Connection URL', 'woocommerce' ),
-				'description' => __( 'A separate address, just for AI assistants to connect to your store. It was created automatically.', 'woocommerce' ),
+				'title'       => __( 'Connection URL', 'poocommerce' ),
+				'description' => __( 'A separate address, just for AI assistants to connect to your store. It was created automatically.', 'poocommerce' ),
 				'url'         => home_url( '/.well-known/ucp' ),
-				'copy'        => __( 'Copy', 'woocommerce' ),
-				'copied'      => __( 'Copied', 'woocommerce' ),
+				'copy'        => __( 'Copy', 'poocommerce' ),
+				'copied'      => __( 'Copied', 'poocommerce' ),
 				'test'        => array(
 					'href' => 'https://ucpplayground.com',
-					'text' => __( 'Test the connection in UCP Playground', 'woocommerce' ),
+					'text' => __( 'Test the connection in UCP Playground', 'poocommerce' ),
 				),
 			),
 		);
@@ -371,9 +371,9 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 			$report = array_merge( $report, ProductScan::catalog_counts() );
 			$cards  = array(
 				// The whole catalog, like the other two; `products` stops at PRODUCT_LIMIT. Reports from before `available` have only `products`.
-				array( ProductScan::COUNT_AVAILABLE, __( 'Visible', 'woocommerce' ), (int) ( $report['available'] ?? $report['products'] ?? 0 ), '', '' ),
-				array( ProductScan::COUNT_HIDDEN, __( 'Hidden', 'woocommerce' ), (int) ( $report['hidden_from_catalog'] ?? 0 ), __( 'Products set to Hidden in Catalog visibility.', 'woocommerce' ), __( 'More information about hidden products', 'woocommerce' ) ),
-				array( ProductScan::COUNT_UNSUPPORTED, __( 'Not supported', 'woocommerce' ), (int) ( $report['unsupported_types'] ?? 0 ), __( 'AI assistants can find these products, but shoppers can\'t buy them through an assistant yet. This includes grouped, external, subscription, booking, and bundle products.', 'woocommerce' ), __( 'More information about products that aren’t supported', 'woocommerce' ) ),
+				array( ProductScan::COUNT_AVAILABLE, __( 'Visible', 'poocommerce' ), (int) ( $report['available'] ?? $report['products'] ?? 0 ), '', '' ),
+				array( ProductScan::COUNT_HIDDEN, __( 'Hidden', 'poocommerce' ), (int) ( $report['hidden_from_catalog'] ?? 0 ), __( 'Products set to Hidden in Catalog visibility.', 'poocommerce' ), __( 'More information about hidden products', 'poocommerce' ) ),
+				array( ProductScan::COUNT_UNSUPPORTED, __( 'Not supported', 'poocommerce' ), (int) ( $report['unsupported_types'] ?? 0 ), __( 'AI assistants can find these products, but shoppers can\'t buy them through an assistant yet. This includes grouped, external, subscription, booking, and bundle products.', 'poocommerce' ), __( 'More information about products that aren’t supported', 'poocommerce' ) ),
 			);
 			foreach ( $cards as $card ) {
 				$counts[] = array(
@@ -384,15 +384,15 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 					'tip_label' => $card[4],
 					'link'      => array(
 						'href' => ProductsList::url( $card[0] ),
-						'text' => __( 'View products', 'woocommerce' ),
+						'text' => __( 'View products', 'poocommerce' ),
 					),
 				);
 			}
 		}
 		return array(
-			'title'       => __( 'Product visibility', 'woocommerce' ),
-			'description' => __( 'AI assistants can see the same products as shoppers. For now, shoppers can only buy simple and variable products through an assistant.', 'woocommerce' ),
-			'empty'       => null === $report ? __( 'Product counts show after the first AI shopping health check.', 'woocommerce' ) : null,
+			'title'       => __( 'Product visibility', 'poocommerce' ),
+			'description' => __( 'AI assistants can see the same products as shoppers. For now, shoppers can only buy simple and variable products through an assistant.', 'poocommerce' ),
+			'empty'       => null === $report ? __( 'Product counts show after the first AI shopping health check.', 'poocommerce' ) : null,
 			'counts'      => $counts,
 		);
 	}
@@ -413,11 +413,11 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 			$summary = ReadinessCheckPage::required_steps_summary( $required );
 		} elseif ( array() !== $open ) {
 			/* translators: %d: number of open setup steps. */
-			$summary = sprintf( _n( 'Your store is ready for AI shopping. You have %d optional step left.', 'Your store is ready for AI shopping. You have %d optional steps left.', count( $open ), 'woocommerce' ), count( $open ) );
+			$summary = sprintf( _n( 'Your store is ready for AI shopping. You have %d optional step left.', 'Your store is ready for AI shopping. You have %d optional steps left.', count( $open ), 'poocommerce' ), count( $open ) );
 		} elseif ( UcpUtils::is_enabled() ) {
-			$summary = __( 'Your store is ready for AI shopping.', 'woocommerce' );
+			$summary = __( 'Your store is ready for AI shopping.', 'poocommerce' );
 		} else {
-			$summary = __( 'Your store is ready for AI shopping. Turn it on to let AI assistants find your products.', 'woocommerce' );
+			$summary = __( 'Your store is ready for AI shopping. Turn it on to let AI assistants find your products.', 'poocommerce' );
 		}
 
 		$steps = array();
@@ -431,7 +431,7 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 				'title' => $action[0],
 				'badge' => $is_req ? array(
 					'intent' => 'low',
-					'text'   => __( 'Required', 'woocommerce' ),
+					'text'   => __( 'Required', 'poocommerce' ),
 				) : null,
 				'lines' => array_values( array_filter( array( $action[1], $action[4] ), static fn( string $line ): bool => '' !== trim( $line ) ) ),
 				// Policy steps repeat the same button, so screen readers also hear which policy it is for.
@@ -456,22 +456,22 @@ class AgenticCommerceSettingsPage extends \WC_Settings_Page {
 		// The badge counts what the summary counts: the required steps while any is left, then the optional ones.
 		$left = $required > 0 ? $required : count( $open );
 		return array(
-			'title'     => __( 'Setup checklist', 'woocommerce' ),
+			'title'     => __( 'Setup checklist', 'poocommerce' ),
 			// As in the design: the steps left, or All steps done in green once none are.
 			'badge'     => array() === $open ? array(
 				'intent' => 'stable',
-				'text'   => __( 'All steps done', 'woocommerce' ),
+				'text'   => __( 'All steps done', 'poocommerce' ),
 			) : array(
 				'intent' => 'none',
 				/* translators: %d: number of setup steps left. */
-				'text'   => sprintf( _n( '%d step left', '%d steps left', $left, 'woocommerce' ), $left ),
+				'text'   => sprintf( _n( '%d step left', '%d steps left', $left, 'poocommerce' ), $left ),
 			),
 			'summary'   => $summary,
 			'steps'     => $steps,
 			'done'      => $passed,
 			/* translators: %d: number of completed setup steps. */
-			'show_done' => sprintf( _n( 'Show %d completed step', 'Show %d completed steps', count( $done ), 'woocommerce' ), count( $done ) ),
-			'hide_done' => __( 'Hide completed steps', 'woocommerce' ),
+			'show_done' => sprintf( _n( 'Show %d completed step', 'Show %d completed steps', count( $done ), 'poocommerce' ), count( $done ) ),
+			'hide_done' => __( 'Hide completed steps', 'poocommerce' ),
 		);
 	}
 }

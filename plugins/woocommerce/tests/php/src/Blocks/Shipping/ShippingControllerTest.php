@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Shipping\ShippingController;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Shipping\ShippingController;
 
 /**
  * Unit tests for the PatternRegistry class.
@@ -43,7 +43,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 		// Setup mock logger.
 		$this->mock_logger = $this->getMockBuilder( \WC_Logger_Interface::class )->getMock();
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			array( $this, 'override_wc_logger' )
 		);
 
@@ -55,11 +55,11 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 			array(
 				'post_type'    => 'page',
 				'post_title'   => 'Checkout',
-				'post_content' => '<!-- wp:woocommerce/checkout /-->',
+				'post_content' => '<!-- wp:poocommerce/checkout /-->',
 				'post_status'  => 'publish',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $block_checkout_page_id );
+		update_option( 'poocommerce_checkout_page_id', $block_checkout_page_id );
 		// An earlier test class may have loaded the shipping methods while the checkout was a
 		// shortcode page, which skips local pickup. Unload them so the next read registers it.
 		WC()->shipping()->unregister_shipping_methods();
@@ -80,10 +80,10 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		global $woocommerce;
+		global $poocommerce;
 
 		try {
-			$woocommerce = $this->backup_wc;
+			$poocommerce = $this->backup_wc;
 			WC()->session->set( 'chosen_shipping_methods', null );
 			// A test may null WC()->shipping, which leaves a dynamic property on the WC singleton.
 			unset( WC()->shipping );
@@ -118,7 +118,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 
 		// Now add a filter to set US state to optional, and UK state to required.
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['US']['state']['required']      = false;
 				$locale['GB']['state']['required']      = true;
@@ -167,9 +167,9 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 					);
 
 		// Test that the method does not throw exceptions with missing WC object.
-		global $woocommerce;
+		global $poocommerce;
 		$incomplete_wc = new \stdClass(); // Object without shipping property.
-		$woocommerce   = $incomplete_wc;
+		$poocommerce   = $incomplete_wc;
 
 		$this->shipping_controller->register_local_pickup();
 		$this->assertTrue( true, 'Method did not throw exceptions with missing WC object' );
@@ -226,7 +226,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 
 		$order         = new \WC_Order();
 		$shipping_item = new \WC_Order_Item_Shipping();
-		// 'legacy_local_pickup' is in the canonical woocommerce_local_pickup_methods list but is not returned by
+		// 'legacy_local_pickup' is in the canonical poocommerce_local_pickup_methods list but is not returned by
 		// LocalPickupUtils::get_local_pickup_method_ids(), so it stands in for any method no longer registered.
 		$shipping_item->set_method_id( 'legacy_local_pickup' );
 		$shipping_item->set_method_title( 'Local pickup' );
@@ -452,9 +452,9 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 		$this->shopper_is_on_the_block_checkout();
 
 		if ( null === $stored ) {
-			delete_option( 'woocommerce_shipping_cost_requires_address' );
+			delete_option( 'poocommerce_shipping_cost_requires_address' );
 		} else {
-			update_option( 'woocommerce_shipping_cost_requires_address', $stored );
+			update_option( 'poocommerce_shipping_cost_requires_address', $stored );
 		}
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
@@ -475,7 +475,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_delivery_is_hidden_until_an_address_is_entered(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
 			array( $this->package_offering( array( 'flat_rate:1', 'free_shipping:2', 'local_pickup:3', 'pickup_location:0' ) ) )
@@ -493,7 +493,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_completing_the_address_brings_delivery_back(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->customer_enters_a_full_address();
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
@@ -520,7 +520,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_delivery_stays_hidden_while_the_address_is_incomplete( array $address, string $why ): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->customer->set_shipping_country( $address['country'] );
 		WC()->customer->set_shipping_state( $address['state'] );
@@ -588,7 +588,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_clearing_part_of_the_address_hides_delivery_again(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->customer_enters_a_full_address();
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
@@ -620,7 +620,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_a_country_that_asks_for_no_postcode_needs_no_postcode(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->customer->set_shipping_country( 'AE' );
 		WC()->customer->set_shipping_city( 'Dubai' );
@@ -642,14 +642,14 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Stores change what their countries ask for through `woocommerce_get_country_locale`, and that
+	 * Stores change what their countries ask for through `poocommerce_get_country_locale`, and that
 	 * has to move what counts as a finished address here too.
 	 *
 	 * @testdox A field an extension made optional no longer holds delivery back.
 	 */
 	public function test_a_field_an_extension_made_optional_no_longer_holds_delivery_back(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->customer->set_shipping_country( 'US' );
 		WC()->customer->set_shipping_city( 'Beverly Hills' );
@@ -661,7 +661,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			static function ( $locale ) {
 				$locale['US']['postcode']['required'] = false;
 				return $locale;
@@ -694,7 +694,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_a_field_the_locale_hides_does_not_hold_delivery_back( callable $hide_the_postcode, string $why ): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->customer->set_shipping_country( 'US' );
 		WC()->customer->set_shipping_city( 'Beverly Hills' );
@@ -731,7 +731,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 			'hidden for this country'  => array(
 				static function () {
 					add_filter(
-						'woocommerce_get_country_locale',
+						'poocommerce_get_country_locale',
 						static function ( $locale ) {
 							$locale['US']['postcode']['hidden']   = true;
 							$locale['US']['postcode']['required'] = true;
@@ -744,7 +744,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 			'hidden for every country' => array(
 				static function () {
 					add_filter(
-						'woocommerce_get_country_locale_default',
+						'poocommerce_get_country_locale_default',
 						static function ( $fields ) {
 							$fields['postcode']['hidden']   = true;
 							$fields['postcode']['required'] = true;
@@ -766,7 +766,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_the_classic_cart_is_left_alone(): void {
 		WC()->cart->cart_context = 'shortcode';
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
 			array( $this->package_offering( array( 'flat_rate:1', 'pickup_location:0' ) ) )
@@ -784,7 +784,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_every_package_is_hidden_not_just_the_first(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		$packages = $this->shipping_controller->remove_shipping_if_no_address(
 			array(
@@ -807,7 +807,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_delivery_is_hidden_when_there_is_no_customer_to_ask(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		WC()->customer = null;
 
@@ -832,7 +832,7 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_only_real_rates_survive_the_hiding(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		$package                               = $this->package_offering( array( 'flat_rate:1', 'pickup_location:0' ) );
 		$package['rates']['pickup_location:9'] = 'not a rate at all';
@@ -912,10 +912,10 @@ class ShippingControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_an_uncollectable_package_leaves_an_addressless_shopper_with_nothing(): void {
 		$this->shopper_is_on_the_block_checkout();
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 
 		$packages = apply_filters(
-			'woocommerce_shipping_packages',
+			'poocommerce_shipping_packages',
 			array(
 				$this->package_offering( array( 'flat_rate:1', 'pickup_location:0' ) ),
 				$this->package_offering( array( 'flat_rate:2' ) ),

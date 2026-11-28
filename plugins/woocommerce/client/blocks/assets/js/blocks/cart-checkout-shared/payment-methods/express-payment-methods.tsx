@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 import {
 	useExpressPaymentMethods,
 	usePaymentMethodInterface,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import {
 	cloneElement,
 	isValidElement,
 	useCallback,
 	useRef,
 } from '@wordpress/element';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 import deprecated from '@wordpress/deprecated';
 import { useDispatch, useSelect } from '@wordpress/data';
 import clsx from 'clsx';
@@ -22,12 +22,12 @@ import {
 	ConfigOf,
 	CurriedSelectorsOf,
 } from '@wordpress/data/build-types/types';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
  */
-import type { PaymentStoreDescriptor } from '@woocommerce/block-data/payment';
+import type { PaymentStoreDescriptor } from '@poocommerce/block-data/payment';
 import PaymentMethodErrorBoundary from './payment-method-error-boundary';
 import { useExpressPaymentContext } from '../../cart-checkout-shared/payment-methods/express-payment/express-payment-context';
 import { useExpressPaymentFocus } from './use-express-payment-focus';
@@ -142,7 +142,7 @@ const ExpressPaymentMethods = () => {
 				'Express Payment Methods should use the provided onError handler instead.',
 				{
 					alternative: 'onError',
-					link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/4228',
+					link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/4228',
 				}
 			);
 			if ( errorMessage ) {
@@ -198,7 +198,7 @@ const ExpressPaymentMethods = () => {
 						<NoticeBanner status="error" isDismissible={ false }>
 							{ sprintf(
 								/* translators: %s: express payment method title, e.g. "Apple Pay". */
-								__( "%s couldn't load.", 'woocommerce' ),
+								__( "%s couldn't load.", 'poocommerce' ),
 								paymentMethod.title
 							) }
 						</NoticeBanner>
@@ -232,7 +232,7 @@ const ExpressPaymentMethods = () => {
 			} )
 		) : (
 			<div key="noneRegistered">
-				{ __( 'No registered Payment Methods', 'woocommerce' ) }
+				{ __( 'No registered Payment Methods', 'poocommerce' ) }
 			</div>
 		);
 

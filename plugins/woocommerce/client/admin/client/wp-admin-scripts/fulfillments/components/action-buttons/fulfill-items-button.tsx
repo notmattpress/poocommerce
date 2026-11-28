@@ -38,7 +38,7 @@ export default function FulfillItemsButton( {
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 
@@ -71,13 +71,13 @@ export default function FulfillItemsButton( {
 				aria-describedby={ descriptionId }
 			>
 				{ isExecuting
-					? __( 'Fulfilling…', 'woocommerce' )
-					: __( 'Fulfill items', 'woocommerce' ) }
+					? __( 'Fulfilling…', 'poocommerce' )
+					: __( 'Fulfill items', 'poocommerce' ) }
 			</Button>
 			<span id={ descriptionId } className="screen-reader-text">
 				{ __(
 					'Marks the selected items as fulfilled and updates their status',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>

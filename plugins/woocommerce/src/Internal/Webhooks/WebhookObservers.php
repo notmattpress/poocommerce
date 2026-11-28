@@ -1,13 +1,13 @@
 <?php
 /**
- * Suppresses webhook observers while WooCommerce processes their deliveries.
+ * Suppresses webhook observers while PooCommerce processes their deliveries.
  *
- * @package WooCommerce\Internal\Webhooks
+ * @package PooCommerce\Internal\Webhooks
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Webhooks;
+namespace Automattic\PooCommerce\Internal\Webhooks;
 
 /**
  * Keeps webhook bookkeeping from recursively scheduling webhook observers.
@@ -17,25 +17,25 @@ namespace Automattic\WooCommerce\Internal\Webhooks;
 final class WebhookObservers {
 
 	/**
-	 * Hook names that can fire when WooCommerce reads, schedules or delivers a webhook.
+	 * Hook names that can fire when PooCommerce reads, schedules or delivers a webhook.
 	 */
 	private const HOOKS = array(
-		'woocommerce_format_log_entry'            => true,
-		'woocommerce_logger_log_message'          => true,
-		'woocommerce_valid_webhook_events'        => true,
-		'woocommerce_valid_webhook_resources'     => true,
-		'woocommerce_webhook_disabled_due_delivery_failures' => true,
-		'woocommerce_webhook_enable_delivery_log' => true,
-		'woocommerce_webhook_event'               => true,
-		'woocommerce_webhook_hash_algorithm'      => true,
-		'woocommerce_webhook_hooks'               => true,
-		'woocommerce_webhook_name'                => true,
-		'woocommerce_webhook_resource'            => true,
-		'woocommerce_webhook_status'              => true,
-		'woocommerce_webhook_statuses'            => true,
-		'woocommerce_webhook_topic'               => true,
-		'woocommerce_webhook_topic_hooks'         => true,
-		'woocommerce_webhook_updated'             => true,
+		'poocommerce_format_log_entry'            => true,
+		'poocommerce_logger_log_message'          => true,
+		'poocommerce_valid_webhook_events'        => true,
+		'poocommerce_valid_webhook_resources'     => true,
+		'poocommerce_webhook_disabled_due_delivery_failures' => true,
+		'poocommerce_webhook_enable_delivery_log' => true,
+		'poocommerce_webhook_event'               => true,
+		'poocommerce_webhook_hash_algorithm'      => true,
+		'poocommerce_webhook_hooks'               => true,
+		'poocommerce_webhook_name'                => true,
+		'poocommerce_webhook_resource'            => true,
+		'poocommerce_webhook_status'              => true,
+		'poocommerce_webhook_statuses'            => true,
+		'poocommerce_webhook_topic'               => true,
+		'poocommerce_webhook_topic_hooks'         => true,
+		'poocommerce_webhook_updated'             => true,
 	);
 
 	/**

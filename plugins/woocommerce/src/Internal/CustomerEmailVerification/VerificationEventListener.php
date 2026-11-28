@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WP_User;
 
 defined( 'ABSPATH' ) || exit;
@@ -27,8 +27,8 @@ class VerificationEventListener {
 
 	/** Register credential delivery and completion hooks. */
 	public function __construct() {
-		add_filter( 'woocommerce_email_recipient_customer_reset_password', array( $this, 'on_wc_email' ), PHP_INT_MAX, 3 );
-		add_filter( 'woocommerce_email_recipient_customer_new_account', array( $this, 'on_wc_email' ), PHP_INT_MAX, 3 );
+		add_filter( 'poocommerce_email_recipient_customer_reset_password', array( $this, 'on_wc_email' ), PHP_INT_MAX, 3 );
+		add_filter( 'poocommerce_email_recipient_customer_new_account', array( $this, 'on_wc_email' ), PHP_INT_MAX, 3 );
 		add_filter( 'retrieve_password_notification_email', array( $this, 'on_core_email' ), PHP_INT_MAX, 4 );
 		add_action( 'after_password_reset', array( $this, 'on_password_reset' ) );
 	}
@@ -44,7 +44,7 @@ class VerificationEventListener {
 	}
 
 	/**
-	 * Bind WooCommerce password emails to their final recipient.
+	 * Bind PooCommerce password emails to their final recipient.
 	 *
 	 * @param mixed $recipient Filtered recipient.
 	 * @param mixed $user Email customer.

@@ -21,7 +21,7 @@
         "outcome": "finding",
         "locations": [
           {
-            "file": "plugins/woocommerce/includes/tracks/class-wc-site-tracking.php",
+            "file": "plugins/poocommerce/includes/tracks/class-wc-site-tracking.php",
             "lines": [
               123,
               123

@@ -2,16 +2,16 @@
 /**
  * Tests for the Analytics report exporter.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Admin\ReportExporter;
-use Automattic\WooCommerce\Testing\Tools\FakeQueue;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Testing\Tools\FakeQueue;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -83,7 +83,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 		}
 
 		add_filter(
-			'woocommerce_admin_stock_report_export_batch_limit',
+			'poocommerce_admin_stock_report_export_batch_limit',
 			static function () {
 				return 2;
 			}
@@ -437,11 +437,11 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The date range label goes through the WooCommerce date format, so a store can filter it.
+	 * @testdox The date range label goes through the PooCommerce date format, so a store can filter it.
 	 */
-	public function test_date_range_label_uses_the_woocommerce_date_format(): void {
+	public function test_date_range_label_uses_the_poocommerce_date_format(): void {
 		update_option( 'date_format', 'F j, Y' );
-		add_filter( 'woocommerce_date_format', fn() => 'd/m/Y' );
+		add_filter( 'poocommerce_date_format', fn() => 'd/m/Y' );
 
 		$this->assertSame(
 			'01/06/2025 - 30/06/2025',
@@ -451,7 +451,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 					'before' => '2025-06-30T23:59:59',
 				)
 			),
-			'The label should honour woocommerce_date_format like the rest of WooCommerce date output.'
+			'The label should honour poocommerce_date_format like the rest of PooCommerce date output.'
 		);
 	}
 
@@ -581,9 +581,9 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	 *
 	 * @testWith [{}]
 	 *           [{"action": "edit", "filename": "wc-products-report-export-1234567890"}]
-	 *           [{"action": "woocommerce_admin_download_report_csv"}]
-	 *           [{"action": "woocommerce_admin_download_report_csv", "filename": ""}]
-	 *           [{"action": "woocommerce_admin_download_report_csv", "filename": ["x"]}]
+	 *           [{"action": "poocommerce_admin_download_report_csv"}]
+	 *           [{"action": "poocommerce_admin_download_report_csv", "filename": ""}]
+	 *           [{"action": "poocommerce_admin_download_report_csv", "filename": ["x"]}]
 	 *
 	 * @param array $request Request parameters, as the download handler reads them.
 	 */
@@ -670,7 +670,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 			'An export queued without report arguments should keep the original subject.'
 		);
 		$this->assertStringContainsString(
-			'action=woocommerce_admin_download_report_csv',
+			'action=poocommerce_admin_download_report_csv',
 			$sent['body'],
 			'An export queued without report arguments should still be emailed a download link.'
 		);
@@ -748,7 +748,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Cleanup runs from the daily WooCommerce Admin event.
+	 * @testdox Cleanup runs from the daily PooCommerce Admin event.
 	 */
 	public function test_cleanup_is_hooked_to_the_daily_event(): void {
 		$this->assertSame(
@@ -885,7 +885,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	 * @testdox An export queued outside a user session is still emailed, to the recipient a filter names.
 	 */
 	public function test_export_queued_outside_a_user_session_is_emailed_to_the_filtered_recipient(): void {
-		add_filter( 'woocommerce_email_recipient_admin_report_export_download', fn() => 'reports@example.org' );
+		add_filter( 'poocommerce_email_recipient_admin_report_export_download', fn() => 'reports@example.org' );
 		reset_phpmailer_instance();
 
 		$this->queue_stock_export( 'nouser', true, false );
@@ -909,7 +909,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	public function test_export_with_a_missing_file_is_not_finished(): void {
 		$logged = array();
 		add_filter(
-			'woocommerce_logger_log_message',
+			'poocommerce_logger_log_message',
 			function ( $message, $level ) use ( &$logged ) {
 				$logged[] = $level . ': ' . $message;
 
@@ -944,7 +944,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	 */
 	public function test_export_stops_at_a_page_that_could_not_be_written( bool $inline ): void {
 		if ( $inline ) {
-			add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+			add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		}
 		reset_phpmailer_instance();
 
@@ -953,7 +953,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 		$path  = $this->export_path( 'failedpage' );
 		$reads = 0;
 		add_filter(
-			'woocommerce_export_report_data_endpoint',
+			'poocommerce_export_report_data_endpoint',
 			static function ( $endpoint ) use ( $path, &$reads ) {
 				++$reads;
 
@@ -1028,12 +1028,12 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 	 * @testdox An export runs every page and sends the email in the same request when Action Scheduler is not used.
 	 */
 	public function test_export_runs_inline_without_action_scheduler(): void {
-		add_filter( 'woocommerce_analytics_disable_action_scheduling', '__return_true' );
+		add_filter( 'poocommerce_analytics_disable_action_scheduling', '__return_true' );
 		reset_phpmailer_instance();
 
 		$stack_depths = array();
 		add_filter(
-			'woocommerce_csv_exporter_fopen_mode',
+			'poocommerce_csv_exporter_fopen_mode',
 			static function ( $mode ) use ( &$stack_depths ) {
 				$stack_depths[] = count( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Measures how deep each page is written.
 
@@ -1102,7 +1102,7 @@ class ReportExporterTest extends WC_Unit_Test_Case {
 
 		$logged = array();
 		add_filter(
-			'woocommerce_logger_log_message',
+			'poocommerce_logger_log_message',
 			function ( $message, $level ) use ( &$logged ) {
 				$logged[] = $level . ': ' . $message;
 

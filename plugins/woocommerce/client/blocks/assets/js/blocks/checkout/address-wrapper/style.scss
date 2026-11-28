@@ -51,6 +51,6 @@
 }
 
 // The height changes while the card and the form crossfade.
-:where(.wp-block-woocommerce-checkout) .wc-block-components-address-address-wrapper {
+:where(.wp-block-poocommerce-checkout) .wc-block-components-address-address-wrapper {
 	@include motion-collapse;
 }

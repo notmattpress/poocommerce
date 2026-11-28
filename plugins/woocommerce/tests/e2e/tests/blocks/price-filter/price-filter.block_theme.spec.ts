@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { test, expect, BASE_URL, flushMacrotask } from '@woocommerce/e2e-utils';
+import { test, expect, BASE_URL, flushMacrotask } from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/price-filter',
+	slug: 'poocommerce/price-filter',
 	name: 'Filter by Price',
 	mainClass: '.wc-block-price-filter',
 	selectors: {
@@ -13,14 +13,14 @@ const blockData = {
 	},
 	urlSearchParamWhenFilterIsApplied: 'max_price=5',
 	endpointAPI: 'max_price=500',
-	placeholderUrl: `${ BASE_URL }/wp-content/plugins/woocommerce/assets/images/placeholder.webp`,
+	placeholderUrl: `${ BASE_URL }/wp-content/plugins/poocommerce/assets/images/placeholder.webp`,
 };
 
 test.describe( `${ blockData.name } Block - editor side`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.createNewPost();
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'price-filter',
 				heading: 'Filter By Price',
@@ -34,7 +34,7 @@ test.describe( `${ blockData.name } Block - editor side`, () => {
 		editor,
 	} ) => {
 		const textSelector =
-			'.wp-block-woocommerce-filter-wrapper .wp-block-heading';
+			'.wp-block-poocommerce-filter-wrapper .wp-block-heading';
 		const title = 'New Title';
 
 		await editor.canvas.locator( textSelector ).fill( title );
@@ -128,7 +128,7 @@ test.describe( `${ blockData.name } Block - with All products Block`, () => {
 		frontendUtils,
 	} ) => {
 		const allProductsBlock = await frontendUtils.getBlockByName(
-			'woocommerce/all-products'
+			'poocommerce/all-products'
 		);
 		const productTitles = allProductsBlock.locator(
 			'.wc-block-grid__product-title'
@@ -209,7 +209,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		await page.clock.install();
 		const post = await createPost( 'filters-with-product-collection' );
 		const productTitles = page.locator(
-			'.wp-block-woocommerce-product-template .wp-block-post-title'
+			'.wp-block-poocommerce-product-template .wp-block-post-title'
 		);
 
 		await page.goto( post.link );

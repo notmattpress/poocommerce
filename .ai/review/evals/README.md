@@ -44,7 +44,7 @@ Existing logins can be reused. Live evals consume model usage.
 
 ## Run locally
 
-From the WooCommerce repository root on a branch containing these evals:
+From the PooCommerce repository root on a branch containing these evals:
 
 ```sh
 a8c-review eval --plan
@@ -66,9 +66,9 @@ The default timeout is 600 seconds per reviewer attempt. `--timeout 300` changes
 
 If a case reports `Native review failed`, inspect its `stdout.json` and `stderr.log` beneath the printed results directory. An authentication or quota error means the review did not complete, not that the case failed its expectation. For a quota limit, stop the run with Ctrl+C and rerun after quota is available. `--plan` does not check authentication or quota.
 
-Each fixture directory contains before and after source files. The suite's `path` is the simulated WooCommerce source location used for routing and finding matching. These are focused source fixtures, not executable WordPress integration tests. Supporting callers, consumers and framework behavior establish the contract being tested.
+Each fixture directory contains before and after source files. The suite's `path` is the simulated PooCommerce source location used for routing and finding matching. These are focused source fixtures, not executable WordPress integration tests. Supporting callers, consumers and framework behavior establish the contract being tested.
 
-The runner creates an isolated Git repository containing the case file and configured review prompts. It does not copy the whole WooCommerce checkout. Include the surrounding code needed to establish a case's behavior in its before and after files.
+The runner creates an isolated Git repository containing the case file and configured review prompts. It does not copy the whole PooCommerce checkout. Include the surrounding code needed to establish a case's behavior in its before and after files.
 
 All current `finding` expectations use `locations`, which require the finding's primary file and line to match a listed location. A `quiet` expectation requires no findings, including suppressed ones. The runner also supports legacy `contains` checks, but these suites do not use them. An `introduced_by` anchor alone cannot satisfy it. Inspect the finding's reasoning against the fixture before treating the automated score as evidence of detection. Routing alone does not determine whether a case passes.
 

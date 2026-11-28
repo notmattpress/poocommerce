@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
+namespace Automattic\PooCommerce\Blocks\Payments\Integrations;
 
 /**
  * Reads the shipping method restriction settings shared by the offline payment

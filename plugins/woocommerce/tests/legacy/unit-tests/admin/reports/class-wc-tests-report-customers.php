@@ -2,7 +2,7 @@
 /**
  * Class WC_Tests_Report_Customers file.
  *
- * @package WooCommerce\Tests\Admin\Reports
+ * @package PooCommerce\Tests\Admin\Reports
  */
 
 declare(strict_types=1);
@@ -20,7 +20,7 @@ class WC_Tests_Report_Customers extends WC_Unit_Test_Case {
 	private $original_thousands_sep = null;
 
 	/**
-	 * Load the necessary files, as they're not automatically loaded by WooCommerce.
+	 * Load the necessary files, as they're not automatically loaded by PooCommerce.
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();

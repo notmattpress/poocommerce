@@ -2,7 +2,7 @@
 /**
  * Fails the run when the PHP process ends before PHPUnit finishes, for example when code under test calls exit().
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

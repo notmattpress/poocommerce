@@ -106,7 +106,7 @@ export class ErrorBoundary extends Component<
 
 		if ( this.state.hasError ) {
 			return (
-				<div className="woocommerce-error-boundary">
+				<div className="poocommerce-error-boundary">
 					<EmptyContent
 						title=""
 						actionLabel=""
@@ -114,11 +114,11 @@ export class ErrorBoundary extends Component<
 							errorMessage ||
 							__(
 								'Oops, something went wrong. Please try again',
-								'woocommerce'
+								'poocommerce'
 							)
 						}
 						secondaryActionLabel={
-							actionLabel || __( 'Reload', 'woocommerce' )
+							actionLabel || __( 'Reload', 'poocommerce' )
 						}
 						secondaryActionURL={ null }
 						secondaryActionCallback={

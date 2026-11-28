@@ -28,7 +28,7 @@ describe( 'OfficialBadge component', () => {
 			);
 			fireEvent.click(
 				screen.getByRole( 'button', {
-					name: /Official WooCommerce extension badge/,
+					name: /Official PooCommerce extension badge/,
 				} )
 			);
 			const link = await screen.findByRole( 'link', {
@@ -53,7 +53,7 @@ describe( 'OfficialBadge component', () => {
 			<OfficialBadge variant="expanded" suggestionId="test_gateway" />
 		);
 		const trigger = screen.getByRole( 'button', {
-			name: /Official WooCommerce extension badge/,
+			name: /Official PooCommerce extension badge/,
 		} );
 		trigger.focus();
 		fireEvent.keyDown( trigger, { key: 'Enter' } );

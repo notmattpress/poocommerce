@@ -2,23 +2,23 @@
 /**
  * Unit tests for the HistoryEntry entity.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Core\Entity;
 
 use ReflectionClass;
 use ReflectionMethod;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\AssertsInvalidInput;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry
  */
 class HistoryEntryTest extends TestCase {
 

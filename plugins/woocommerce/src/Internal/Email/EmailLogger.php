@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
-use Automattic\WooCommerce\Internal\Orders\OrderNoteGroup;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Orders\OrderNoteGroup;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Email;
 use WC_Log_Levels;
 use WC_Order;
@@ -13,9 +13,9 @@ use WP_Error;
 use WP_User;
 
 /**
- * Logs transactional email send attempts so store owners can inspect what WooCommerce attempted locally.
+ * Logs transactional email send attempts so store owners can inspect what PooCommerce attempted locally.
  *
- * Records are written to the WooCommerce logger under the `transactional-emails` source and include the email type,
+ * Records are written to the PooCommerce logger under the `transactional-emails` source and include the email type,
  * related object, recipient identifier, and the local send state. The recipient is logged as the WordPress username
  * when the address is linked to an account, or as 'guest' for unrecognised addresses. Failure reasons are captured
  * from wp_mail_failed.
@@ -44,9 +44,9 @@ class EmailLogger implements RegisterHooksInterface {
 	 */
 	public function register(): void {
 		add_action( 'wp_mail_failed', array( $this, 'capture_mail_error' ), 10, 1 );
-		add_action( 'woocommerce_email_sent', array( $this, 'handle_woocommerce_email_sent' ), 10, 3 );
-		add_action( 'woocommerce_email_disabled', array( $this, 'handle_woocommerce_email_disabled' ), 10, 2 );
-		add_action( 'woocommerce_email_skipped', array( $this, 'handle_woocommerce_email_skipped' ), 10, 3 );
+		add_action( 'poocommerce_email_sent', array( $this, 'handle_poocommerce_email_sent' ), 10, 3 );
+		add_action( 'poocommerce_email_disabled', array( $this, 'handle_poocommerce_email_disabled' ), 10, 2 );
+		add_action( 'poocommerce_email_skipped', array( $this, 'handle_poocommerce_email_skipped' ), 10, 3 );
 	}
 
 	/**
@@ -54,9 +54,9 @@ class EmailLogger implements RegisterHooksInterface {
 	 *
 	 * Error attribution is best-effort: wp_mail_failed is a global hook, so any plugin's failed
 	 * wp_mail() call will set $last_mail_error. The trailing edge is controlled — $last_mail_error
-	 * is cleared immediately after each WooCommerce send — but the leading edge is unbounded: a
-	 * non-WooCommerce wp_mail_failed fired before a WooCommerce send failure will be attributed
-	 * to that WooCommerce send. This may produce misleading error reasons in stores where other
+	 * is cleared immediately after each PooCommerce send — but the leading edge is unbounded: a
+	 * non-PooCommerce wp_mail_failed fired before a PooCommerce send failure will be attributed
+	 * to that PooCommerce send. This may produce misleading error reasons in stores where other
 	 * plugins also call wp_mail().
 	 *
 	 * @param WP_Error $error The error returned by wp_mail.
@@ -67,14 +67,14 @@ class EmailLogger implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Handle the woocommerce_email_sent action.
+	 * Handle the poocommerce_email_sent action.
 	 *
 	 * @param bool     $success  Whether the email was sent successfully.
 	 * @param string   $email_id The email type ID (e.g. `customer_processing_order`).
 	 * @param WC_Email $email    The WC_Email instance.
 	 * @return void
 	 */
-	public function handle_woocommerce_email_sent( $success, string $email_id, WC_Email $email ): void {
+	public function handle_poocommerce_email_sent( $success, string $email_id, WC_Email $email ): void {
 		/**
 		 * Filter whether to log this transactional email attempt.
 		 *
@@ -86,7 +86,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 * @param string   $email_id The email type ID.
 		 * @param WC_Email $email    The WC_Email instance.
 		 */
-		if ( ! apply_filters( 'woocommerce_email_log_enabled', true, $email_id, $email ) ) {
+		if ( ! apply_filters( 'poocommerce_email_log_enabled', true, $email_id, $email ) ) {
 			$this->last_mail_error = null;
 			return;
 		}
@@ -119,7 +119,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 * @param string   $email_id The email type ID.
 		 * @param WC_Email $email    The WC_Email instance.
 		 */
-		$context = (array) apply_filters( 'woocommerce_email_log_context', $context, $email_id, $email );
+		$context = (array) apply_filters( 'poocommerce_email_log_context', $context, $email_id, $email );
 
 		$type_label = ! empty( $context['is_test'] ) ? 'Test email' : 'Email';
 
@@ -158,7 +158,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 * Filter whether to add an order note for this transactional email attempt.
 		 *
 		 * Return false to suppress the order note for a particular email or globally,
-		 * while still allowing the WooCommerce logger entry to be written.
+		 * while still allowing the PooCommerce logger entry to be written.
 		 *
 		 * @since 10.9.0
 		 *
@@ -167,7 +167,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 * @param WC_Email $email    The WC_Email instance.
 		 * @param WC_Order $order    The order the note would be added to.
 		 */
-		if ( ! apply_filters( 'woocommerce_email_log_add_order_note', true, $email_id, $email, $wc_object ) ) {
+		if ( ! apply_filters( 'poocommerce_email_log_add_order_note', true, $email_id, $email, $wc_object ) ) {
 			return;
 		}
 
@@ -177,20 +177,20 @@ class EmailLogger implements RegisterHooksInterface {
 		if ( $success ) {
 			$note = sprintf(
 				/* translators: %s: Email title or type identifier */
-				__( 'Email "%s" sent.', 'woocommerce' ),
+				__( 'Email "%s" sent.', 'poocommerce' ),
 				$email_label
 			);
 		} elseif ( $error_reason ) {
 			$note = sprintf(
 				/* translators: 1: Email title or type identifier, 2: Error reason */
-				__( 'Email "%1$s" failed to send: %2$s.', 'woocommerce' ),
+				__( 'Email "%1$s" failed to send: %2$s.', 'poocommerce' ),
 				$email_label,
 				$this->redact_emails( $error_reason )
 			);
 		} else {
 			$note = sprintf(
 				/* translators: %s: Email title or type identifier */
-				__( 'Email "%s" failed to send.', 'woocommerce' ),
+				__( 'Email "%s" failed to send.', 'poocommerce' ),
 				$email_label
 			);
 		}
@@ -199,25 +199,25 @@ class EmailLogger implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Handle the woocommerce_email_disabled action.
+	 * Handle the poocommerce_email_disabled action.
 	 *
 	 * @param string   $email_id The email type ID (e.g. `customer_processing_order`).
 	 * @param WC_Email $email    The WC_Email instance.
 	 * @return void
 	 */
-	public function handle_woocommerce_email_disabled( string $email_id, WC_Email $email ): void {
+	public function handle_poocommerce_email_disabled( string $email_id, WC_Email $email ): void {
 		$this->log_non_send_outcome( $email_id, $email, 'disabled' );
 	}
 
 	/**
-	 * Handle the woocommerce_email_skipped action.
+	 * Handle the poocommerce_email_skipped action.
 	 *
 	 * @param string   $reason   Short identifier for why the email was skipped (e.g. 'no_recipient').
 	 * @param string   $email_id The email type ID (e.g. `new_order`).
 	 * @param WC_Email $email    The WC_Email instance.
 	 * @return void
 	 */
-	public function handle_woocommerce_email_skipped( string $reason, string $email_id, WC_Email $email ): void {
+	public function handle_poocommerce_email_skipped( string $reason, string $email_id, WC_Email $email ): void {
 		$this->log_non_send_outcome( $email_id, $email, 'skipped', $reason );
 	}
 
@@ -243,7 +243,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 *
 		 * @since 10.9.0
 		 */
-		if ( ! apply_filters( 'woocommerce_email_log_enabled', true, $email_id, $email ) ) {
+		if ( ! apply_filters( 'poocommerce_email_log_enabled', true, $email_id, $email ) ) {
 			return;
 		}
 
@@ -280,7 +280,7 @@ class EmailLogger implements RegisterHooksInterface {
 		 *
 		 * @since 10.9.0
 		 */
-		$context = (array) apply_filters( 'woocommerce_email_log_context', $context, $email_id, $email );
+		$context = (array) apply_filters( 'poocommerce_email_log_context', $context, $email_id, $email );
 
 		wc_get_logger()->log( WC_Log_Levels::NOTICE, $message, $context );
 	}
@@ -319,7 +319,7 @@ class EmailLogger implements RegisterHooksInterface {
 	 * (e.g. "SMTP Error: Could not send to foo@example.com"). Without redaction,
 	 * the address would be written into the log message and — when the database
 	 * log handler is active — surface in WC > Status > Logs to anyone with
-	 * `manage_woocommerce`, defeating the username/`guest` resolution applied
+	 * `manage_poocommerce`, defeating the username/`guest` resolution applied
 	 * to the `recipient` context field.
 	 *
 	 * Mirrors the regex used by RemoteLogger::redact_user_data() so the privacy
@@ -333,7 +333,7 @@ class EmailLogger implements RegisterHooksInterface {
 	}
 
 	/**
-	 * Extract loggable context from the WooCommerce object attached to the email.
+	 * Extract loggable context from the PooCommerce object attached to the email.
 	 *
 	 * Returns a stable short type identifier rather than the raw class name so that log aggregation
 	 * is not brittle across subclasses (e.g. WC_Order_Refund still returns type 'order').

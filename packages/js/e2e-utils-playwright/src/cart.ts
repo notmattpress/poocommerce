@@ -4,7 +4,7 @@
 import type { Page } from '@playwright/test';
 
 /**
- * Adds a specified quantity of a product by ID to the WooCommerce cart.
+ * Adds a specified quantity of a product by ID to the PooCommerce cart.
  *
  * @param page      - Playwright page object
  * @param productId - The product ID to add

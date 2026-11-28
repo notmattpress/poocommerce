@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Filter by Price',
@@ -21,7 +21,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'price-filter',
 				heading: 'Filter By Price',
@@ -38,10 +38,10 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		frontendUtils,
 	} ) => {
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 		const productTitles = legacyTemplate.locator(
-			'.woocommerce-loop-product__title'
+			'.poocommerce-loop-product__title'
 		);
 
 		await expect( productTitles.first() ).toBeVisible();

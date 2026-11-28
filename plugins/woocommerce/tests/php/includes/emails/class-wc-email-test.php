@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * WC_Email test.
@@ -54,12 +54,12 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 		$filter = function () {
 			return '<strong>I <3 Shoes</strong> &amp; more';
 		};
-		add_filter( 'woocommerce_email_subject_' . $email->id, $filter );
+		add_filter( 'poocommerce_email_subject_' . $email->id, $filter );
 
 		try {
 			$this->assertSame( 'I <3 Shoes & more', $email->get_subject() );
 		} finally {
-			remove_filter( 'woocommerce_email_subject_' . $email->id, $filter );
+			remove_filter( 'poocommerce_email_subject_' . $email->id, $filter );
 			$features_controller->change_feature_enable( 'block_email_editor', $was_enabled );
 		}
 	}
@@ -86,8 +86,8 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 		$filter = function () {
 			return '<strong>Big</strong> <!--[wc-email-test/sale]-->';
 		};
-		add_filter( 'woocommerce_email_subject_' . $email->id, $filter );
-		add_filter( 'woocommerce_email_preheader' . $email->id, $filter );
+		add_filter( 'poocommerce_email_subject_' . $email->id, $filter );
+		add_filter( 'poocommerce_email_preheader' . $email->id, $filter );
 
 		try {
 			$this->assertSame( 'Big <em>Sale</em>', $email->get_subject() );
@@ -97,15 +97,15 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 			$filter_text = function () {
 				return '<strong>Big</strong> a&lt;b <!-- [wc-email-test/sale] -->';
 			};
-			add_filter( 'woocommerce_email_subject_' . $email->id, $filter_text, 20 );
-			add_filter( 'woocommerce_email_preheader' . $email->id, $filter_text, 20 );
+			add_filter( 'poocommerce_email_subject_' . $email->id, $filter_text, 20 );
+			add_filter( 'poocommerce_email_preheader' . $email->id, $filter_text, 20 );
 			$this->assertSame( 'Big a<b <em>Sale</em>', $email->get_subject() );
 			$this->assertSame( 'Big a<b <em>Sale</em>', $email->get_preheader() );
-			remove_filter( 'woocommerce_email_subject_' . $email->id, $filter_text, 20 );
-			remove_filter( 'woocommerce_email_preheader' . $email->id, $filter_text, 20 );
+			remove_filter( 'poocommerce_email_subject_' . $email->id, $filter_text, 20 );
+			remove_filter( 'poocommerce_email_preheader' . $email->id, $filter_text, 20 );
 		} finally {
-			remove_filter( 'woocommerce_email_subject_' . $email->id, $filter );
-			remove_filter( 'woocommerce_email_preheader' . $email->id, $filter );
+			remove_filter( 'poocommerce_email_subject_' . $email->id, $filter );
+			remove_filter( 'poocommerce_email_preheader' . $email->id, $filter );
 			$registry->unregister( '[wc-email-test/sale]' );
 			$features_controller->change_feature_enable( 'block_email_editor', $was_enabled );
 		}
@@ -126,13 +126,13 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 		$filter        = function () {
 			return 'Your order';
 		};
-		add_filter( 'woocommerce_email_subject_' . $email->id, $filter );
+		add_filter( 'poocommerce_email_subject_' . $email->id, $filter );
 
 		try {
 			$this->assertSame( 'Your order', $email->get_subject() );
 			$this->assertSame( $order, $personalizer->get_context()['order'] ?? null );
 		} finally {
-			remove_filter( 'woocommerce_email_subject_' . $email->id, $filter );
+			remove_filter( 'poocommerce_email_subject_' . $email->id, $filter );
 			$personalizer->set_context( array() );
 			$features_controller->change_feature_enable( 'block_email_editor', $was_enabled );
 		}
@@ -145,14 +145,14 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 		$features_controller = wc_get_container()->get( FeaturesController::class );
 		$was_enabled         = $features_controller->feature_is_enabled( 'block_email_editor' );
 		$features_controller->change_feature_enable( 'block_email_editor', true );
-		update_option( 'woocommerce_customer_invoice_settings', array( 'subject' => '<strong>Invoice</strong> a&lt;b' ) );
+		update_option( 'poocommerce_customer_invoice_settings', array( 'subject' => '<strong>Invoice</strong> a&lt;b' ) );
 		$email         = new WC_Email_Customer_Invoice();
 		$email->object = WC_Helper_Order::create_order();
 
 		try {
 			$this->assertSame( 'Invoice a<b', $email->get_subject() );
 		} finally {
-			delete_option( 'woocommerce_customer_invoice_settings' );
+			delete_option( 'poocommerce_customer_invoice_settings' );
 			$features_controller->change_feature_enable( 'block_email_editor', $was_enabled );
 		}
 	}
@@ -175,14 +175,14 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 				}
 			)
 		);
-		update_option( 'woocommerce_customer_pos_refunded_order_settings', array( 'subject_full' => '<strong>Refund</strong> a&lt;b from <!--[wc-email-test/store]-->' ) );
+		update_option( 'poocommerce_customer_pos_refunded_order_settings', array( 'subject_full' => '<strong>Refund</strong> a&lt;b from <!--[wc-email-test/store]-->' ) );
 		$email         = new WC_Email_Customer_POS_Refunded_Order();
 		$email->object = WC_Helper_Order::create_order();
 
 		try {
 			$this->assertSame( 'Refund a<b from Tom & Jerry', $email->get_subject() );
 		} finally {
-			delete_option( 'woocommerce_customer_pos_refunded_order_settings' );
+			delete_option( 'poocommerce_customer_pos_refunded_order_settings' );
 			$registry->unregister( '[wc-email-test/store]' );
 			$features_controller->change_feature_enable( 'block_email_editor', $was_enabled );
 		}
@@ -193,7 +193,7 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_cc_bcc_are_ignored_when_email_does_not_support_them(): void {
 		update_option(
-			'woocommerce_no_cc_bcc_test_settings',
+			'poocommerce_no_cc_bcc_test_settings',
 			array(
 				'cc'  => 'cc@example.com',
 				'bcc' => 'bcc@example.com',
@@ -228,7 +228,7 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_cc_bcc_filters_apply_when_email_does_not_support_them( string $type, string $header ): void {
 		add_filter(
-			"woocommerce_email_{$type}_recipient_no_cc_bcc_test",
+			"poocommerce_email_{$type}_recipient_no_cc_bcc_test",
 			function ( $value ) {
 				$this->assertSame( '', $value, 'Filter must not receive a stored value' );
 				return 'audit@example.com';
@@ -245,8 +245,8 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 	 *
 	 * @testWith ["WC_Email_Customer_Reset_Password"]
 	 *           ["WC_Email_Customer_New_Account"]
-	 *           ["Automattic\\WooCommerce\\Internal\\CustomerEmailVerification\\Emails\\CustomerVerifyEmail"]
-	 *           ["Automattic\\WooCommerce\\Internal\\StockNotifications\\Emails\\CustomerStockNotificationVerifyEmail"]
+	 *           ["Automattic\\PooCommerce\\Internal\\CustomerEmailVerification\\Emails\\CustomerVerifyEmail"]
+	 *           ["Automattic\\PooCommerce\\Internal\\StockNotifications\\Emails\\CustomerStockNotificationVerifyEmail"]
 	 *
 	 * @param string $class_name Email class name.
 	 */
@@ -267,7 +267,7 @@ class WC_Email_Test extends \WC_Unit_Test_Case {
 		$email->object     = WC_Helper_Order::create_order();
 		$email->email_type = 'plain';
 		add_filter(
-			'woocommerce_email_heading_customer_completed_order',
+			'poocommerce_email_heading_customer_completed_order',
 			function () use ( $heading ) {
 				return $heading;
 			}

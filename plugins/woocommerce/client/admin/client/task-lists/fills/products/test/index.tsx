@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { removeAllFilters } from '@wordpress/hooks';
 import { useSelect } from '@wordpress/data';
 
@@ -50,10 +50,10 @@ global.fetch = jest.fn().mockImplementation( () =>
 	} )
 );
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 const confirmModalText =
-	'We’ll import images from WooCommerce.com to set up your sample products.';
+	'We’ll import images from PooCommerce.com to set up your sample products.';
 
 describe( 'Products', () => {
 	beforeEach( () => {
@@ -89,11 +89,11 @@ describe( 'Products', () => {
 				? [
 						{
 							slug: 'products-list-empty-body-bookings',
-							product: 'woocommerce-bookings',
+							product: 'poocommerce-bookings',
 							title: 'Bookings',
 							copy: 'Take bookings.',
 							icon: '',
-							url: 'https://woocommerce.com/products/woocommerce-bookings/',
+							url: 'https://poocommerce.com/products/poocommerce-bookings/',
 							promoted: '',
 						},
 					]
@@ -288,15 +288,15 @@ describe( 'Products', () => {
 		const { container } = render( <Products /> );
 
 		expect(
-			container.getElementsByClassName( 'woocommerce-products-stack' )
+			container.getElementsByClassName( 'poocommerce-products-stack' )
 				.length
 		).toBeGreaterThanOrEqual( 1 );
 	} );
 
-	it( 'should trigger event tasklist_add_product_visit_marketplace_click when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should trigger event tasklist_add_product_visit_marketplace_click when clicking the PooCommerce Marketplace link', async () => {
 		const { getByText } = render( <Products /> );
 
-		await userEvent.click( getByText( 'the WooCommerce Marketplace' ) );
+		await userEvent.click( getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'tasklist_add_product_visit_marketplace_click',
@@ -304,10 +304,10 @@ describe( 'Products', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { getByText } = render( <Products /> );
 
-		await userEvent.click( getByText( 'the WooCommerce Marketplace' ) );
+		await userEvent.click( getByText( 'the PooCommerce Marketplace' ) );
 		expect( setHref ).toHaveBeenCalledWith(
 			expect.stringContaining(
 				'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=merchandising'
@@ -364,7 +364,7 @@ describe( 'Products', () => {
 			( useSelect as jest.Mock ).mockImplementation( ( callback ) =>
 				callback( () => ( {
 					getInstalledPlugins: () => [
-						'printful-shipping-for-woocommerce',
+						'printful-shipping-for-poocommerce',
 					],
 					isPluginsRequesting: () => false,
 				} ) )

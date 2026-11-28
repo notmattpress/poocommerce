@@ -18,12 +18,12 @@ jest.mock( '@wordpress/data', () => ( {
 	withSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	optionsStore: 'wc/admin/options',
 } ) );
 
 jest.mock( '../../../store', () => ( {
-	QUEUE_OPTION_NAME: 'woocommerce_ces_tracks_queue',
+	QUEUE_OPTION_NAME: 'poocommerce_ces_tracks_queue',
 	STORE_KEY: 'wc/customer-effort-score',
 } ) );
 

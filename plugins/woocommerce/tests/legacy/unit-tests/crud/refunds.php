@@ -2,7 +2,7 @@
 /**
  * Tests for WC_Order_Refund.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
 /**

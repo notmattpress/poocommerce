@@ -2,7 +2,7 @@
 /**
  * Tests that event props fit the types the analytics pipeline stores them as.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic\Woocommerce_Analytics;

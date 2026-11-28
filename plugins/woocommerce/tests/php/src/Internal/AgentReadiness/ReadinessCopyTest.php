@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessCopy;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessCopy;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
 use WC_Unit_Test_Case;
 
 /**
@@ -81,7 +81,7 @@ class ReadinessCopyTest extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'doesn’t open: example.com/old-sale/.', $copy['found'] );
 		$this->assertStringContainsString( 'llms.txt file in your store’s root folder', $copy['fix'] );
 		$this->assertStringContainsString( 'plugin that adds your llms.txt file', ReadinessCopy::store_check( 'llms_txt_links_resolve', 'other' )['fix'] );
-		$this->assertStringContainsString( 'WooCommerce adds these links', ReadinessCopy::store_check( 'llms_txt_links_resolve', 'woocommerce' )['fix'] );
+		$this->assertStringContainsString( 'PooCommerce adds these links', ReadinessCopy::store_check( 'llms_txt_links_resolve', 'poocommerce' )['fix'] );
 		$general = ReadinessCopy::store_check( 'llms_txt_links_resolve' );
 		$this->assertStringStartsWith( 'Some links in the file', $general['found'], 'Without a link, the general line' );
 		$this->assertSame( 'Update or remove the broken links in the file.', $general['fix'] );
@@ -269,7 +269,7 @@ class ReadinessCopyTest extends WC_Unit_Test_Case {
 	 * @testdox Each llms.txt source has a line for a served file or a fix for a missing one, and an unknown source has none.
 	 */
 	public function test_llms_txt_source_copy(): void {
-		foreach ( array( 'woocommerce', 'file', 'other' ) as $source ) {
+		foreach ( array( 'poocommerce', 'file', 'other' ) as $source ) {
 			$this->assertNotEmpty( ReadinessCopy::llms_txt_source( $source )['pass'] ?? '', "{$source} says where llms.txt comes from" );
 		}
 		foreach ( array( 'disabled', 'not_reached' ) as $source ) {

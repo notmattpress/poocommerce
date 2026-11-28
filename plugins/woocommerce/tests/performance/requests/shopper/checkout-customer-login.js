@@ -45,7 +45,7 @@ import {
 import { checkResponse } from '../../utils.js';
 
 export function checkoutCustomerLogin() {
-	let woocommerce_login_nonce;
+	let poocommerce_login_nonce;
 	let storeApiNonce;
 
 	group( 'Proceed to checkout', function () {
@@ -64,14 +64,14 @@ export function checkoutCustomerLogin() {
 
 		checkResponse( response, 200, {
 			title: `Checkout – ${ STORE_NAME }`,
-			body: 'wp-block-woocommerce-checkout',
+			body: 'wp-block-poocommerce-checkout',
 			footer: FOOTER_TEXT,
 		} );
 
 		// Correlate login nonce for use in subsequent request.
-		woocommerce_login_nonce = findBetween(
+		poocommerce_login_nonce = findBetween(
 			response.body,
-			'name="woocommerce-login-nonce" value="',
+			'name="poocommerce-login-nonce" value="',
 			'"'
 		);
 	} );
@@ -92,7 +92,7 @@ export function checkoutCustomerLogin() {
 			{
 				username: `${ customer_email }`,
 				password: `${ customer_password }`,
-				'woocommerce-login-nonce': `${ woocommerce_login_nonce }`,
+				'poocommerce-login-nonce': `${ poocommerce_login_nonce }`,
 				_wp_http_referer: '%2Fcheckout',
 				redirect: `${ base_url }/checkout`,
 				login: 'Login',

@@ -8,7 +8,7 @@ import {
 	inertCopy,
 	whenAnimationsEnd,
 	whenAllAnimationsEnd,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import type { MouseEvent, RefObject } from 'react';
 
 // The styles in `style.scss` use these attributes.
@@ -37,7 +37,7 @@ const canAnimate = (
 	table: HTMLTableElement | null
 ): table is HTMLTableElement =>
 	typeof table?.getAnimations === 'function' &&
-	table.closest( '.wp-block-woocommerce-cart' ) !== null;
+	table.closest( '.wp-block-poocommerce-cart' ) !== null;
 
 const keyOf = ( row: HTMLTableRowElement ) => row.dataset.cartItemKey as string;
 

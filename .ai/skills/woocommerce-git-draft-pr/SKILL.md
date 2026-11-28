@@ -1,5 +1,5 @@
 ---
-name: woocommerce-git-draft-pr
+name: poocommerce-git-draft-pr
 description: Create a high-quality draft PR for the current branch. Use when the user says "create a PR", "draft PR", "open a PR", "make a PR", "push and create PR", or "submit PR".
 ---
 

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G32B-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 			"before": {
 				"file": "fixtures/G32B/before.css"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 						"lines": [
 							4,
 							4
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G32C-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 			"before": {
 				"file": "fixtures/G32C/before.css"
 			},
@@ -39,7 +39,7 @@
 		},
 		{
 			"id": "G32D-v3",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 			"before": {
 				"file": "fixtures/G32D/before.css"
 			},
@@ -52,7 +52,7 @@
 		},
 		{
 			"id": "G32A-v4",
-			"path": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+			"path": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 			"before": {
 				"code": "/* Main and sidebar are consecutive children in the cart editor. */\n.editor-styles-wrapper .wc-block-cart { display: block; }\n.wc-block-cart .wc-block-cart__main + .wc-block-cart__sidebar { margin-block-start: 24px; }\n"
 			},
@@ -63,7 +63,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/client/blocks/assets/js/blocks/cart/style.css",
+						"file": "plugins/poocommerce/client/blocks/assets/js/blocks/cart/style.css",
 						"lines": [
 							3,
 							4

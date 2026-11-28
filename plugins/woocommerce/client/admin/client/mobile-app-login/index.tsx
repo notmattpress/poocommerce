@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import { Card, CardBody } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Link } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ import './style.scss';
  * place regardless of which troubleshooting affordance they tap.
  */
 const FAQ_URL =
-	'https://woocommerce.com/document/android-ios-apps-login-help-faq/';
+	'https://poocommerce.com/document/android-ios-apps-login-help-faq/';
 
 /**
  * Standalone wc-admin page for signing in to the Woo mobile app via QR code.
@@ -43,23 +43,23 @@ export const MobileAppLoginPage = () => {
 	}, [] );
 
 	return (
-		<div className="woocommerce-mobile-app-login">
-			<Card className="woocommerce-mobile-app-login__card">
-				<CardBody className="woocommerce-mobile-app-login__body">
+		<div className="poocommerce-mobile-app-login">
+			<Card className="poocommerce-mobile-app-login__card">
+				<CardBody className="poocommerce-mobile-app-login__body">
 					<div
-						className="woocommerce-mobile-app-login__logo"
+						className="poocommerce-mobile-app-login__logo"
 						aria-hidden="true"
 					>
 						<WooLogo />
 					</div>
-					<h1 className="woocommerce-mobile-app-login__heading">
-						{ __( 'Sign in to the Woo mobile app', 'woocommerce' ) }
+					<h1 className="poocommerce-mobile-app-login__heading">
+						{ __( 'Sign in to the Woo mobile app', 'poocommerce' ) }
 					</h1>
-					<p className="woocommerce-mobile-app-login__intro">
+					<p className="poocommerce-mobile-app-login__intro">
 						{ interpolateComponents( {
 							mixedString: __(
 								'Open the Woo mobile app on your phone, tap {{strong}}Scan QR code{{/strong}}, then point your camera at the code below.',
-								'woocommerce'
+								'poocommerce'
 							),
 							components: {
 								strong: <strong />,
@@ -67,7 +67,7 @@ export const MobileAppLoginPage = () => {
 						} ) }
 					</p>
 
-					<div className="woocommerce-mobile-app-login__qr">
+					<div className="poocommerce-mobile-app-login__qr">
 						<QRDirectLoginCode />
 					</div>
 
@@ -78,11 +78,11 @@ export const MobileAppLoginPage = () => {
 					 * separate task owns that flow.
 					 */ }
 
-					<p className="woocommerce-mobile-app-login__faq">
+					<p className="poocommerce-mobile-app-login__faq">
 						{ interpolateComponents( {
 							mixedString: __(
 								'Any troubles signing in? Check out the {{link}}FAQ{{/link}}.',
-								'woocommerce'
+								'poocommerce'
 							),
 							components: {
 								link: (

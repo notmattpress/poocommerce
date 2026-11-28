@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
-import { exitingProps, usePresence } from '@woocommerce/base-hooks';
+import { validationStore } from '@poocommerce/block-data';
+import { exitingProps, usePresence } from '@poocommerce/base-hooks';
 import { Icon, cautionFilled } from '@wordpress/icons';
 
 /**

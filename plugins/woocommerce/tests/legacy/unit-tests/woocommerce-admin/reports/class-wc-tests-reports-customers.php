@@ -2,14 +2,14 @@
 /**
  * Reports customers tests.
  *
- * @package WooCommerce\Admin\Tests\Customers
+ * @package PooCommerce\Admin\Tests\Customers
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 
 /**
  * Class WC_Admin_Tests_Reports_Customers
@@ -27,7 +27,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		$original_row      = $this->get_customer_record( $customer_id );
 		$updated_customers = array();
 		add_action(
-			'woocommerce_analytics_update_customer',
+			'poocommerce_analytics_update_customer',
 			static function ( $updated_customer_id ) use ( &$updated_customers ) {
 				$updated_customers[] = $updated_customer_id;
 			}
@@ -101,7 +101,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		$order->save();
 		$updated_customers = array();
 		add_action(
-			'woocommerce_analytics_update_customer',
+			'poocommerce_analytics_update_customer',
 			static function ( $updated_customer_id ) use ( &$updated_customers ) {
 				$updated_customers[] = (int) $updated_customer_id;
 			}
@@ -183,7 +183,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	/**
 	 * Test order count calculation for customer.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
 	 */
 	public function test_customer_order_count() {
 		WC_Helper_Reports::reset_stats_dbs();
@@ -225,7 +225,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 *
 	 * Registered profiles remain until account or privacy operations remove them.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion_preserves_registered_customer() {
 		WC_Helper_Reports::reset_stats_dbs();
@@ -272,7 +272,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 * Test that delayed account creation (order confirmation page) merges the
 	 * guest customer_lookup row instead of creating a duplicate.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
 	 */
 	public function test_delayed_account_creation_merges_guest_row() {
 		global $wpdb;
@@ -289,7 +289,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
 		// Verify guest row exists.
-		$guest_customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
+		$guest_customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
 		$this->assertNotFalse( $guest_customer_id, 'Guest customer row should exist after guest order.' );
 
 		// Register via delayed account creation (same source as the order confirmation page).
@@ -323,7 +323,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	/**
 	 * Test that normal (non-delayed) registration does NOT merge a guest row.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::merge_guest_customer_on_delayed_account_creation
 	 */
 	public function test_normal_registration_does_not_merge_guest_row() {
 		global $wpdb;
@@ -339,7 +339,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
-		$guest_customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
+		$guest_customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_guest_id_by_email( $email );
 		$this->assertNotFalse( $guest_customer_id, 'Guest customer row should exist.' );
 
 		// Register via normal flow (no source = no merge).
@@ -370,12 +370,12 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 * This is a regression test for the scenario described in issue #64338,
 	 * where get_customer_first_name/get_customer_last_name do not exist on plain WC_Order.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_or_create_customer_from_order
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_or_create_customer_from_order
 	 */
 	public function test_get_or_create_customer_from_plain_wc_order() {
 		WC_Helper_Reports::reset_stats_dbs();
 
-		// Build a plain WC_Order directly, bypassing the woocommerce_order_class filter
+		// Build a plain WC_Order directly, bypassing the poocommerce_order_class filter
 		// that normally swaps in the Overrides\Order subclass. This is the exact path
 		// that produced the production fatal.
 		$order = new WC_Order();
@@ -385,7 +385,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		$order->set_status( 'completed' );
 		$order->save();
 
-		$customer_id = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_or_create_customer_from_order( $order );
+		$customer_id = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_or_create_customer_from_order( $order );
 
 		$this->assertNotFalse( $customer_id, 'Should return a customer ID for a plain WC_Order without fataling.' );
 		$this->assertIsInt( $customer_id, 'Returned customer ID should be an integer.' );
@@ -396,10 +396,10 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 * and date_paid when date_created is null, and ultimately falls back to null
 	 * rather than stamping an incorrect current timestamp.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_customer_order_data_and_format
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_customer_order_data_and_format
 	 */
 	public function test_date_last_active_falls_back_when_date_created_is_null() {
-		$order = $this->createMock( \Automattic\WooCommerce\Admin\Overrides\Order::class );
+		$order = $this->createMock( \Automattic\PooCommerce\Admin\Overrides\Order::class );
 		$order->method( 'get_id' )->willReturn( 0 );
 		$order->method( 'get_date_created' )->willReturn( null );
 		$order->method( 'get_date_modified' )->willReturn( null );
@@ -415,7 +415,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 		$order->method( 'get_customer_first_name' )->willReturn( 'Test' );
 		$order->method( 'get_customer_last_name' )->willReturn( 'User' );
 
-		list( $data, ) = \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_customer_order_data_and_format( $order );
+		list( $data, ) = \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_customer_order_data_and_format( $order );
 
 		$this->assertNull(
 			$data['date_last_active'],

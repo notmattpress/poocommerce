@@ -2,10 +2,10 @@
 /**
  * Changelog_Entry class
  *
- * @package WooCommerce\ExtensionChangelogger
+ * @package PooCommerce\ExtensionChangelogger
  */
 
-namespace Automattic\WooCommerce\ExtensionTools\Changelogger;
+namespace Automattic\PooCommerce\ExtensionTools\Changelogger;
 
 use Automattic\Jetpack\Changelog\ChangelogEntry;
 

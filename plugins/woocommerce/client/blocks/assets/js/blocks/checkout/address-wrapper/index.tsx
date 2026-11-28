@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { useLayoutEffect, useRef } from '@wordpress/element';
-import { animateCollapse } from '@woocommerce/base-utils';
+import { animateCollapse } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

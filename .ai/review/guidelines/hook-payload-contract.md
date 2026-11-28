@@ -2,13 +2,13 @@
 
 **Source:**
 
-- #68707 moved `woocommerce_package_rates` ahead of the free-shipping hide; reverted in #68854.
+- #68707 moved `poocommerce_package_rates` ahead of the free-shipping hide; reverted in #68854.
 - #66856: restored the `rel` key in loop add-to-cart args.
-- #67679: restored the Taxes report `orders_count` string carried by `woocommerce_admin_report_columns`.
+- #67679: restored the Taxes report `orders_count` string carried by `poocommerce_admin_report_columns`.
 - #66822: restored the breadcrumb callback.
 - #58574 (9.9.3): reverted a typed filter callback param.
 - #67854, #68798.
-- Earlier review findings: `woocommerce_structured_data_context` `@type` became an array; `woocommerce_untrash_order` got `wc-pending` instead of `pending`; ORDER BY string seen by other `posts_clauses` callbacks changed; sanitizer returned null.
+- Earlier review findings: `poocommerce_structured_data_context` `@type` became an array; `poocommerce_untrash_order` got `wc-pending` instead of `pending`; ORDER BY string seen by other `posts_clauses` callbacks changed; sanitizer returned null.
 
 **What broke:** The hook kept its name but what it passed changed: type, value set, keys, escaping, SQL text, or when it ran relative to a core step. Extension callbacks comparing against the old value broke silently.
 

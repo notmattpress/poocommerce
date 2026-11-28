@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/email-editor-lib",
+	"name": "poocommerce/email-editor-lib",
 	"description": "A package for hiding re-namespaced dependencies and executing them",
 	"prefer-stable": true,
 	"minimum-stability": "dev",
@@ -16,17 +16,17 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"\"../../../../plugins/woocommerce/vendor/bin/mozart\" compose",
+			"\"../../../../plugins/poocommerce/vendor/bin/mozart\" compose",
 			"php patches/patch-memory-leaks.php"
 		],
 		"post-update-cmd": [
-			"\"../../../../plugins/woocommerce/vendor/bin/mozart\" compose",
+			"\"../../../../plugins/poocommerce/vendor/bin/mozart\" compose",
 			"php patches/patch-memory-leaks.php"
 		]
 	},
 	"extra": {
 		"mozart": {
-			"dep_namespace": "Automattic\\WooCommerce\\EmailEditorVendor\\",
+			"dep_namespace": "Automattic\\PooCommerce\\EmailEditorVendor\\",
 			"dep_directory": "/packages/",
 			"packages": [
 				"pelago/emogrifier"

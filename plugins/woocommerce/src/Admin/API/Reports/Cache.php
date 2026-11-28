@@ -5,7 +5,7 @@
  * Handles report data object caching.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ class Cache {
 	/**
 	 * Cache version. Used to invalidate all cached values.
 	 */
-	const VERSION_OPTION = 'woocommerce_reports';
+	const VERSION_OPTION = 'poocommerce_reports';
 
 	/**
 	 * Invalidate cache.
@@ -78,7 +78,7 @@ class Cache {
 		 * @param int    $expiration Time until expiration in seconds. Must be greater than 0; other values use the default of one week.
 		 * @param string $key        Cache key.
 		 */
-		$expiration = apply_filters( 'woocommerce_reports_cache_expiration', WEEK_IN_SECONDS, $key );
+		$expiration = apply_filters( 'poocommerce_reports_cache_expiration', WEEK_IN_SECONDS, $key );
 		$expiration = is_numeric( $expiration ) && $expiration > 0 && is_finite( (float) $expiration ) ? (int) ceil( (float) $expiration ) : WEEK_IN_SECONDS;
 
 		$result = set_transient( $key, $transient_value, $expiration );

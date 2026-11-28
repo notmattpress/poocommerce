@@ -5,15 +5,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\MCP;
+namespace Automattic\PooCommerce\Internal\MCP;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Tells store managers to update the MCP Adapter plugin when its version cannot run WooCommerce abilities correctly.
+ * Tells store managers to update the MCP Adapter plugin when its version cannot run PooCommerce abilities correctly.
  *
  * MCP Adapter 0.7.2 prepares the ability input before it checks permissions. Older versions pass raw input
- * to the permission callbacks of WooCommerce abilities.
+ * to the permission callbacks of PooCommerce abilities.
  *
  * Remove when MCP Adapter requires WordPress 7.2.
  *
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 class McpAdapterVersionNotice {
 
 	/**
-	 * The lowest MCP Adapter version that WooCommerce abilities support.
+	 * The lowest MCP Adapter version that PooCommerce abilities support.
 	 *
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ class McpAdapterVersionNotice {
 		if ( $bundled && class_exists( 'WP\MCP\Core\McpAdapter', false ) ) {
 			$version = (string) constant( 'WP\MCP\Core\McpAdapter::VERSION' );
 		}
-		if ( ! self::is_outdated( $version ) || ! current_user_can( 'manage_woocommerce' ) || \WC_Admin_Notices::user_has_dismissed_notice( self::NOTICE ) ) {
+		if ( ! self::is_outdated( $version ) || ! current_user_can( 'manage_poocommerce' ) || \WC_Admin_Notices::user_has_dismissed_notice( self::NOTICE ) ) {
 			return;
 		}
 
@@ -62,7 +62,7 @@ class McpAdapterVersionNotice {
 		if ( null !== $bundled_by ) {
 			$message = sprintf(
 				/* translators: 1: Required MCP Adapter version, 2: Plugin name, 3: Active MCP Adapter version. */
-				__( 'WooCommerce abilities need MCP Adapter %1$s or later, but %2$s loads version %3$s. Update %2$s so MCP clients can keep using WooCommerce.', 'woocommerce' ),
+				__( 'PooCommerce abilities need MCP Adapter %1$s or later, but %2$s loads version %3$s. Update %2$s so MCP clients can keep using PooCommerce.', 'poocommerce' ),
 				self::MIN_VERSION,
 				$bundled_by,
 				$version
@@ -70,14 +70,14 @@ class McpAdapterVersionNotice {
 		} elseif ( $bundled ) {
 			$message = sprintf(
 				/* translators: 1: Required MCP Adapter version, 2: Active MCP Adapter version. */
-				__( 'WooCommerce abilities need MCP Adapter %1$s or later, but another plugin loads version %2$s. Update the plugin that includes MCP Adapter so MCP clients can keep using WooCommerce.', 'woocommerce' ),
+				__( 'PooCommerce abilities need MCP Adapter %1$s or later, but another plugin loads version %2$s. Update the plugin that includes MCP Adapter so MCP clients can keep using PooCommerce.', 'poocommerce' ),
 				self::MIN_VERSION,
 				$version
 			);
 		} else {
 			$message = sprintf(
 				/* translators: 1: Required MCP Adapter version, 2: Active MCP Adapter version. */
-				__( 'WooCommerce abilities need MCP Adapter %1$s or later, but version %2$s is active. Update the MCP Adapter plugin so MCP clients can keep using WooCommerce.', 'woocommerce' ),
+				__( 'PooCommerce abilities need MCP Adapter %1$s or later, but version %2$s is active. Update the MCP Adapter plugin so MCP clients can keep using PooCommerce.', 'poocommerce' ),
 				self::MIN_VERSION,
 				$version
 			);
@@ -85,18 +85,18 @@ class McpAdapterVersionNotice {
 		$message = esc_html( $message );
 
 		if ( current_user_can( 'update_plugins' ) ) {
-			$message .= sprintf( ' <a href="%1$s">%2$s</a>', esc_url( network_admin_url( 'plugins.php' ) ), esc_html__( 'Go to Plugins', 'woocommerce' ) );
+			$message .= sprintf( ' <a href="%1$s">%2$s</a>', esc_url( network_admin_url( 'plugins.php' ) ), esc_html__( 'Go to Plugins', 'poocommerce' ) );
 		}
 
 		$dismiss_url = wp_nonce_url(
 			add_query_arg( 'wc-hide-notice', self::NOTICE ),
-			'woocommerce_hide_notices_nonce',
+			'poocommerce_hide_notices_nonce',
 			'_wc_notice_nonce'
 		);
 
 		echo wp_kses_post(
 			'<div class="notice notice-warning is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'woocommerce' ) . '"></a>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '" aria-label="' . esc_attr__( 'Dismiss this notice', 'poocommerce' ) . '"></a>'
 			. '<p>' . $message . '</p>'
 			. '</div>'
 		);
@@ -145,7 +145,7 @@ class McpAdapterVersionNotice {
 	}
 
 	/**
-	 * Check whether an MCP Adapter version is older than the version WooCommerce abilities support.
+	 * Check whether an MCP Adapter version is older than the version PooCommerce abilities support.
 	 *
 	 * @param string|null $version The active MCP Adapter version, or null when no adapter is loaded.
 	 * @return bool

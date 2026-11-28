@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreResponses;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreResponses;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils as UcpUtils;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -45,7 +45,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->set_permalink_structure( '/%postname%/' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->product = WC_Helper_Product::create_simple_product( true, array( 'name' => 'Blue & Gold Mug' ) );
 		$this->sut     = wc_get_container()->get( StoreOutputChecks::class );
 	}
@@ -103,7 +103,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * A page as an SEO plugin and WooCommerce print it, with extra head markup.
+	 * A page as an SEO plugin and PooCommerce print it, with extra head markup.
 	 *
 	 * @param string $head Extra head markup, after the defaults.
 	 * @param string $body Body markup.
@@ -260,10 +260,10 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Store output checks that see the given WooCommerce llms.txt status, as woocommerce #70741 reports it.
+	 * Store output checks that see the given PooCommerce llms.txt status, as poocommerce #70741 reports it.
 	 *
 	 * @param string|null $status  Status, or null without the fallback.
-	 * @param string      $section Guidance WooCommerce adds.
+	 * @param string      $section Guidance PooCommerce adds.
 	 */
 	private static function with_llms_status( ?string $status, string $section = '' ): StoreOutputChecks {
 		$sut         = new class() extends StoreOutputChecks {
@@ -285,7 +285,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 			'status'  => $status,
 			'section' => $section,
 		);
-		$sut->init( new \Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper() );
+		$sut->init( new \Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper() );
 		return $sut;
 	}
 
@@ -303,13 +303,13 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox llms.txt names its source from the response header, a file in the site root, or another provider.
 	 */
 	public function test_llms_txt_source_when_served(): void {
-		$section                = "## Agentic capabilities\n\n- [WooCommerce Store API](" . home_url( '/wp-json/wc/store/v1' ) . ')';
+		$section                = "## Agentic capabilities\n\n- [PooCommerce Store API](" . home_url( '/wp-json/wc/store/v1' ) . ')';
 		$responses              = $this->good_store();
-		$responses['/llms.txt'] = array( 200, "# Shop\n\nA customized guide.\n", array( 'X-WooCommerce-LLMs-Txt' => '1' ) );
+		$responses['/llms.txt'] = array( 200, "# Shop\n\nA customized guide.\n", array( 'X-PooCommerce-LLMs-Txt' => '1' ) );
 		$this->serve( $responses );
 
-		$this->assertSame( 'woocommerce', self::llms_present( self::with_llms_status( 'unknown', $section . "\n" ) )['source'] );
-		$this->assertSame( 'woocommerce', self::llms_present( self::with_llms_status( 'physical_file', $section ) )['source'], 'The served response takes precedence over a local file' );
+		$this->assertSame( 'poocommerce', self::llms_present( self::with_llms_status( 'unknown', $section . "\n" ) )['source'] );
+		$this->assertSame( 'poocommerce', self::llms_present( self::with_llms_status( 'physical_file', $section ) )['source'], 'The served response takes precedence over a local file' );
 
 		$responses['/llms.txt'] = array( 200, "# Shop\n\n" . $section . "\n" );
 		$this->serve( $responses );
@@ -320,7 +320,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->serve( $responses );
 		$this->assertSame( 'file', self::llms_present( self::with_llms_status( 'physical_file', $section ) )['source'] );
 		$this->assertSame( 'other', self::llms_present( self::with_llms_status( 'unknown', $section ) )['source'] );
-		$this->assertSame( 'other', self::llms_present( self::with_llms_status( 'disabled' ) )['source'], 'Served while WooCommerce\'s is off' );
+		$this->assertSame( 'other', self::llms_present( self::with_llms_status( 'disabled' ) )['source'], 'Served while PooCommerce\'s is off' );
 		$this->assertSame( '', self::llms_present( self::with_llms_status( null ) )['source'], 'Without the fallback, no source' );
 
 		$subdirectory = static fn( string $url ): string => (string) preg_replace( '#^(https?://[^/]+)#', '$1/shop', $url );
@@ -332,7 +332,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 				unset( $pre, $args );
 				$is_llms = '/llms.txt' === wp_parse_url( $url, PHP_URL_PATH );
 				return array(
-					'headers'  => new \WpOrg\Requests\Utility\CaseInsensitiveDictionary( $is_llms ? array( 'X-WooCommerce-LLMs-Txt' => '1' ) : array() ),
+					'headers'  => new \WpOrg\Requests\Utility\CaseInsensitiveDictionary( $is_llms ? array( 'X-PooCommerce-LLMs-Txt' => '1' ) : array() ),
 					'body'     => $is_llms ? "# Shop\n" : self::page(),
 					'response' => array(
 						'code'    => 200,
@@ -354,7 +354,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A missing llms.txt says whether WooCommerce's is turned off or doesn't reach the store, and its fix follows; couldn't check has no source.
+	 * @testdox A missing llms.txt says whether PooCommerce's is turned off or doesn't reach the store, and its fix follows; couldn't check has no source.
 	 */
 	public function test_llms_txt_source_when_missing(): void {
 		$responses = $this->good_store();
@@ -366,7 +366,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$disabled = self::llms_present( self::with_llms_status( 'disabled' ) );
 		$this->assertFalse( $disabled['ok'] );
 		$this->assertSame( 'disabled', $disabled['source'] );
-		$this->assertStringContainsString( 'woocommerce_enable_llms_txt', $disabled['fix'] );
+		$this->assertStringContainsString( 'poocommerce_enable_llms_txt', $disabled['fix'] );
 
 		$not_reached = self::llms_present( self::with_llms_status( 'unknown', '## Agentic capabilities' ) );
 		$this->assertSame( 'not_reached', $not_reached['source'] );
@@ -374,15 +374,15 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->assertNotSame( $default['fix'], $not_reached['fix'] );
 		$this->assertSame( '', self::llms_present( self::with_llms_status( 'no_rewrite', '## Agentic capabilities' ) )['source'], 'A status it doesn\'t know claims no cause' );
 
-		// A root file that isn't reached still blocks WooCommerce's fallback, so keep the default SEO fix.
+		// A root file that isn't reached still blocks PooCommerce's fallback, so keep the default SEO fix.
 		$root_file = self::llms_present( self::with_llms_status( 'physical_file', '## Agentic capabilities' ) );
-		$this->assertSame( '', $root_file['source'], 'A root file that isn\'t served is not "WooCommerce will serve one"' );
+		$this->assertSame( '', $root_file['source'], 'A root file that isn\'t served is not "PooCommerce will serve one"' );
 		$this->assertSame( $default['fix'], $root_file['fix'] );
 
 		$subdirectory = static fn( string $url ): string => (string) preg_replace( '#^(https?://[^/]+)#', '$1/shop', $url );
 		add_filter( 'home_url', $subdirectory );
 		try {
-			$this->assertSame( '', self::llms_present( self::with_llms_status( 'unknown', '## Agentic capabilities' ) )['source'], 'In a subdirectory WooCommerce serves it elsewhere' );
+			$this->assertSame( '', self::llms_present( self::with_llms_status( 'unknown', '## Agentic capabilities' ) )['source'], 'In a subdirectory PooCommerce serves it elsewhere' );
 			$subdir_off = self::llms_present( self::with_llms_status( 'disabled' ) );
 			$this->assertSame( '', $subdir_off['source'], 'Turned off in a subdirectory still is not this URL' );
 			$this->assertSame( $default['fix'], $subdir_off['fix'] );
@@ -438,7 +438,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox The price is matched as the store formats it, here with trailing zeros trimmed.
 	 */
 	public function test_price_in_store_format(): void {
-		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+		add_filter( 'poocommerce_price_trim_zeros', '__return_true' );
 		$responses                          = $this->good_store();
 		$responses[ $this->product_path() ] = array( 200, self::page( '', '<h1>Blue &amp; Gold Mug</h1><p class="price">&#36;10</p>' ) );
 		$this->serve( $responses );
@@ -450,10 +450,10 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox A price with a currency symbol after it that ends in a period (10,00 kr.) is found in the page.
 	 */
 	public function test_price_with_symbol_ending_in_period(): void {
-		update_option( 'woocommerce_currency', 'DKK' );
-		update_option( 'woocommerce_currency_pos', 'right_space' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
-		update_option( 'woocommerce_price_thousand_sep', '.' );
+		update_option( 'poocommerce_currency', 'DKK' );
+		update_option( 'poocommerce_currency_pos', 'right_space' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
+		update_option( 'poocommerce_price_thousand_sep', '.' );
 		$responses                          = $this->good_store();
 		$responses[ $this->product_path() ] = array( 200, self::page( '', '<h1>Blue &amp; Gold Mug</h1><p class="price">10,00&nbsp;kr.</p>' ) );
 		$this->serve( $responses );
@@ -492,7 +492,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox With UCP on, the profile check reads the served profile, and the endpoint check POSTs to catalog search, once more when it fails, and keeps what a failed one answered.
 	 */
 	public function test_ucp_checks(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$endpoint = home_url( '/wp-json/wc/ucp/v1' );
 		$path     = substr( $endpoint, strlen( untrailingslashit( home_url() ) ) );
 		$service  = array(
@@ -551,7 +551,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$results = $this->results();
 		$this->assertFalse( $results['ucp_profile'] );
 		$this->assertNull( $results['ucp_profile_version'], 'No profile is reported by ucp_profile alone' );
-		$this->assertFalse( $results['ucp_endpoints_live'], 'Without a profile, WooCommerce\'s catalog search is tried' );
+		$this->assertFalse( $results['ucp_endpoints_live'], 'Without a profile, PooCommerce\'s catalog search is tried' );
 		$this->assertContains( 'POST ' . $search, $this->requested );
 
 		$responses[ 'POST ' . $search ] = array( 403, '<html>Blocked</html>', array( 'content-type' => 'text/HTML; charset=UTF-8' ) );
@@ -609,7 +609,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox Each catalog search check adds to the running counts: first-try failures, failures after the retry, no answer, and what a failing one answered.
 	 */
 	public function test_catalog_search_counts(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		delete_option( StoreOutputChecks::SEARCH_COUNTS_OPTION );
 		$search    = substr( rest_url( 'wc/ucp/v1' ), strlen( untrailingslashit( home_url() ) ) ) . '/catalog/search';
 		$responses = $this->good_store();
@@ -669,12 +669,12 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->assertSame( '403 text/html', $counts['last_recovered'], 'A recovery keeps what the first try answered' );
 		$this->assertSame( $today, $counts['last_recovered_on'] );
 
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		$this->serve( $responses );
 		$this->sut->all();
 		$this->assertNotContains( 'POST ' . $search, $this->requested );
 		$this->assertSame( array( 5, 4, 2 ), array( StoreOutputChecks::search_counts()['checks'], StoreOutputChecks::search_counts()['first_try_failed'], StoreOutputChecks::search_counts()['no_answer'] ), 'In coming soon mode nothing is asked, so nothing is counted' );
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 
 		$unreachable      = $responses;
 		$unreachable['/'] = null;
@@ -683,12 +683,12 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->assertNotContains( 'POST ' . $search, $this->requested );
 		$this->assertSame( 5, StoreOutputChecks::search_counts()['checks'], 'A store that can\'t reach its home page sends nothing more, so nothing is counted' );
 
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->serve( $responses );
 		$this->sut->all();
 		$this->assertSame( 5, StoreOutputChecks::search_counts()['checks'], 'With UCP off, catalog search isn\'t checked or counted' );
 
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->serve( $responses );
 		$answers = array( array( 403, '<html>Blocked</html>', array( 'content-type' => 'text/html' ) ), null );
 		add_filter(
@@ -729,10 +729,10 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Only the UCP checkout check waits as pending, until this WooCommerce serves UCP checkout; the product structured data checks run.
+	 * @testdox Only the UCP checkout check waits as pending, until this PooCommerce serves UCP checkout; the product structured data checks run.
 	 */
 	public function test_pending_checks(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->serve( $this->good_store() );
 
 		$checks = array_column( $this->sut->all(), null, 'id' );
@@ -742,7 +742,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->assertSame(
 			StoreConditions::serves_ucp_checkout() ? array() : array( 'ucp_checkout' ),
 			array_keys( array_filter( array_column( $checks, 'pending', 'id' ) ) ),
-			'The UCP checkout check runs once this WooCommerce serves UCP checkout'
+			'The UCP checkout check runs once this PooCommerce serves UCP checkout'
 		);
 	}
 
@@ -766,47 +766,47 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 
 		$this->assertTrue( $result( '{"@type":"Offer","price":"10","shippingDetails":{"@type":"OfferShippingDetails"}}', 'product_shipping_schema' ) );
 		$this->assertFalse( $result( $bare, 'product_shipping_schema' ) );
-		$this->assertFalse( $result( $bare, 'product_buy_action_schema' ), 'An in-stock simple product gets a BuyAction from WooCommerce' );
+		$this->assertFalse( $result( $bare, 'product_buy_action_schema' ), 'An in-stock simple product gets a BuyAction from PooCommerce' );
 		$responses[ $this->product_path() ] = array( 200, self::page( '' ) );
 		$this->serve( $responses );
 		$no_ld = array_column( $this->sut->all(), 'ok', 'id' );
 		$this->assertNull( $no_ld['product_shipping_schema'], 'Without product details it couldn\'t check, as the other product details checks' );
 		$this->assertNull( $no_ld['product_buy_action_schema'] );
 
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 		$this->assertNull( $result( $bare, 'product_shipping_schema' ), 'Shipping turned off: no shipping details to give' );
-		delete_option( 'woocommerce_ship_to_countries' );
-		add_filter( 'woocommerce_get_zone_criteria', '__return_empty_array' );
-		$this->assertNull( $result( $bare, 'product_shipping_schema' ), 'A zone criteria filter: WooCommerce prints no shipping details' );
-		remove_filter( 'woocommerce_get_zone_criteria', '__return_empty_array' );
+		delete_option( 'poocommerce_ship_to_countries' );
+		add_filter( 'poocommerce_get_zone_criteria', '__return_empty_array' );
+		$this->assertNull( $result( $bare, 'product_shipping_schema' ), 'A zone criteria filter: PooCommerce prints no shipping details' );
+		remove_filter( 'poocommerce_get_zone_criteria', '__return_empty_array' );
 
-		add_filter( 'woocommerce_countries_shipping_countries', '__return_empty_array' );
-		$this->assertNull( $result( $bare, 'product_shipping_schema' ), 'A zone WooCommerce can\'t describe: it prints no shipping details' );
-		remove_filter( 'woocommerce_countries_shipping_countries', '__return_empty_array' );
+		add_filter( 'poocommerce_countries_shipping_countries', '__return_empty_array' );
+		$this->assertNull( $result( $bare, 'product_shipping_schema' ), 'A zone PooCommerce can\'t describe: it prints no shipping details' );
+		remove_filter( 'poocommerce_countries_shipping_countries', '__return_empty_array' );
 		$zone->delete();
 		$this->assertFalse( $result( $bare, 'product_shipping_schema' ), 'No zone with a delivery method: the merchant can add one' );
 		$this->assertTrue( $result( '{"@type":"Offer","price":"10","shippingDetails":{"@type":"OfferShippingDetails"}}', 'product_shipping_schema' ), 'Printed by another plugin, it still counts' );
 
-		add_filter( 'woocommerce_product_is_visible', '__return_false' );
-		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'Hidden by a visibility filter: WooCommerce prints no BuyAction' );
-		remove_filter( 'woocommerce_product_is_visible', '__return_false' );
+		add_filter( 'poocommerce_product_is_visible', '__return_false' );
+		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'Hidden by a visibility filter: PooCommerce prints no BuyAction' );
+		remove_filter( 'poocommerce_product_is_visible', '__return_false' );
 
 		$price = $this->product->get_regular_price();
 		$this->product->set_regular_price( '' );
 		$this->product->save();
-		add_filter( 'woocommerce_is_purchasable', '__return_true' );
-		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'No price, made purchasable by an extension: WooCommerce prints no offer' );
-		remove_filter( 'woocommerce_is_purchasable', '__return_true' );
+		add_filter( 'poocommerce_is_purchasable', '__return_true' );
+		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'No price, made purchasable by an extension: PooCommerce prints no offer' );
+		remove_filter( 'poocommerce_is_purchasable', '__return_true' );
 		$this->product->set_regular_price( $price );
 		$this->product->save();
 
 		$this->product->set_stock_status( 'outofstock' );
 		$this->product->save();
-		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'WooCommerce links only a product in stock to checkout' );
+		$this->assertNull( $result( $bare, 'product_buy_action_schema' ), 'PooCommerce links only a product in stock to checkout' );
 	}
 
 	/**
-	 * @testdox The returns policy check passes for a policy on an offer or on the store's item, as WooCommerce adds it, fails without one, and couldn't check without product details.
+	 * @testdox The returns policy check passes for a policy on an offer or on the store's item, as PooCommerce adds it, fails without one, and couldn't check without product details.
 	 */
 	public function test_return_policy_on_offer_or_store(): void {
 		$returns   = '{"@type":"MerchantReturnPolicy","merchantReturnLink":"' . home_url( '/refund_returns/' ) . '"}';
@@ -818,7 +818,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 			return array_column( $this->sut->all(), 'ok', 'id' )['product_return_policy_schema'];
 		};
 
-		$this->assertTrue( $result( '{"@type":"Product","name":"Mug","offers":{"@type":"Offer","price":"10"}},{"@type":"OnlineStore","name":"Shop","hasMerchantReturnPolicy":' . $returns . '}' ), 'WooCommerce adds it to the OnlineStore item' );
+		$this->assertTrue( $result( '{"@type":"Product","name":"Mug","offers":{"@type":"Offer","price":"10"}},{"@type":"OnlineStore","name":"Shop","hasMerchantReturnPolicy":' . $returns . '}' ), 'PooCommerce adds it to the OnlineStore item' );
 		$this->assertTrue( $result( '{"@type":"Product","name":"Mug","offers":{"@type":"Offer","price":"10","hasMerchantReturnPolicy":' . $returns . '}}' ), 'On the offer' );
 		$this->assertFalse( $result( '{"@type":"Product","name":"Mug","offers":{"@type":"Offer","price":"10"}},{"@type":"OnlineStore","name":"Shop"}' ) );
 		$this->assertNull( $result( '{"@type":"OnlineStore","name":"Shop"}' ), 'Without product details it couldn\'t check, as the other product details checks' );
@@ -866,7 +866,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	 * @testdox Every store output check, UCP ones included, names the question it answers on the settings page.
 	 */
 	public function test_every_check_has_a_group(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$this->serve( array() );
 		$checks = $this->sut->all();
 		$this->assertContains( 'ucp_profile', array_column( $checks, 'id' ) );
@@ -876,7 +876,7 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The pending product checks read the variants of a ProductGroup, and don't fail a variable product, which WooCommerce gives no buy action, or a product that doesn't ship.
+	 * @testdox The pending product checks read the variants of a ProductGroup, and don't fail a variable product, which PooCommerce gives no buy action, or a product that doesn't ship.
 	 */
 	public function test_pending_product_detectors_read_variants(): void {
 		$offer_has  = new \ReflectionMethod( StoreOutputChecks::class, 'offer_has' );
@@ -916,12 +916,12 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$zone->add_location( 'US', 'country' );
 		$zone->save();
 		$zone->add_shipping_method( 'local_pickup' );
-		$this->assertFalse( $ships->invoke( null, new StoreResponses( true ) ), 'Local pickup only: WooCommerce describes no delivery' );
+		$this->assertFalse( $ships->invoke( null, new StoreResponses( true ) ), 'Local pickup only: PooCommerce describes no delivery' );
 		$zone->add_shipping_method( 'flat_rate' );
 		$this->assertTrue( $ships->invoke( null, new StoreResponses( true ) ) );
 		$this->product->set_regular_price( '' );
 		$this->product->save();
-		$this->assertNull( $ships->invoke( null, new StoreResponses( true ) ), 'Without a price WooCommerce prints no offer' );
+		$this->assertNull( $ships->invoke( null, new StoreResponses( true ) ), 'Without a price PooCommerce prints no offer' );
 		$this->product->set_regular_price( '10' );
 		$this->product->set_virtual( true );
 		$this->product->save();
@@ -929,11 +929,11 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 
 		$this->product->delete( true );
 		WC_Helper_Product::create_variation_product();
-		$this->assertNull( $ships->invoke( null, new StoreResponses( true ) ), 'A variable product: WooCommerce prints shipping details only for a chosen variation' );
+		$this->assertNull( $ships->invoke( null, new StoreResponses( true ) ), 'A variable product: PooCommerce prints shipping details only for a chosen variation' );
 	}
 
 	/**
-	 * @testdox When something strips WooCommerce's Open Graph tags from the product page, the check flags a likely conflict, names the page but no plugin, even with an SEO plugin active; with WooCommerce's tags turned off, the check isn't run.
+	 * @testdox When something strips PooCommerce's Open Graph tags from the product page, the check flags a likely conflict, names the page but no plugin, even with an SEO plugin active; with PooCommerce's tags turned off, the check isn't run.
 	 */
 	public function test_open_graph_conflict(): void {
 		$responses                          = $this->good_store();
@@ -952,8 +952,8 @@ class ServedOutputChecksTest extends WC_Unit_Test_Case {
 		$this->serve( $this->good_store() );
 		$this->assertTrue( array_column( $this->sut->all(), 'ok', 'id' )['open_graph_from_core'] );
 
-		add_filter( 'woocommerce_enable_open_graph', '__return_false' );
+		add_filter( 'poocommerce_enable_open_graph', '__return_false' );
 		$this->assertArrayNotHasKey( 'open_graph_from_core', array_column( $this->sut->all(), 'ok', 'id' ) );
-		remove_filter( 'woocommerce_enable_open_graph', '__return_false' );
+		remove_filter( 'poocommerce_enable_open_graph', '__return_false' );
 	}
 }

@@ -2,17 +2,17 @@
 /**
  * Backward compatibility shim for the relocated RefundPreviewSchema class.
  *
- * @package Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds
+ * @package Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema as RelocatedRefundPreviewSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema as RelocatedRefundPreviewSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 /**
@@ -20,7 +20,7 @@ use WP_REST_Request;
  * version-neutral Internal\RestApi\Refunds namespace. It still extends the V4
  * AbstractSchema, like the old class did, and reads its properties from the relocated class.
  *
- * @deprecated 11.3.0 Use Automattic\WooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema instead.
+ * @deprecated 11.3.0 Use Automattic\PooCommerce\Internal\RestApi\Refunds\Schema\RefundPreviewSchema instead.
  */
 class RefundPreviewSchema extends AbstractSchema {
 

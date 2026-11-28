@@ -43,7 +43,7 @@ const mockUseUserPreferences = jest.fn( () => {
 
 const mockSelect = jest.fn( () => ( {
 	getSetting: () => ( {
-		woocommerce_default_date_range: 'period=month&compare=previous_year',
+		poocommerce_default_date_range: 'period=month&compare=previous_year',
 	} ),
 } ) );
 
@@ -101,7 +101,7 @@ jest.mock( '@wordpress/data', () => ( {
 	),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	settingsStore: 'settingsStore',
 	useUserPreferences: () => mockUseUserPreferences(),
 } ) );
@@ -109,15 +109,15 @@ jest.mock( '@woocommerce/data', () => ( {
 // Load only the real component modules used by the dashboard owner. Importing
 // the package barrel eagerly loads unrelated search code that is not involved
 // in section preference behavior.
-jest.mock( '@woocommerce/components', () => ( {
-	H: jest.requireActual( '@woocommerce/components/section/header' ).H,
+jest.mock( '@poocommerce/components', () => ( {
+	H: jest.requireActual( '@poocommerce/components/section/header' ).H,
 	MenuItem: jest.requireActual(
-		'@woocommerce/components/ellipsis-menu/menu-item'
+		'@poocommerce/components/ellipsis-menu/menu-item'
 	).default,
 	Spinner: () => null,
 } ) );
 
-jest.mock( '@woocommerce/currency', () => {
+jest.mock( '@poocommerce/currency', () => {
 	const { createContext } = jest.requireActual( '@wordpress/element' );
 
 	return {
@@ -126,11 +126,11 @@ jest.mock( '@woocommerce/currency', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getQuery: () => ( {} ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

@@ -9,8 +9,8 @@ import { __ } from '@wordpress/i18n';
 
 export default function HeaderTitle() {
 	return (
-		<h1 className="woocommerce-marketplace__header-title">
-			{ __( 'The WooCommerce Marketplace', 'woocommerce' ) }
+		<h1 className="poocommerce-marketplace__header-title">
+			{ __( 'The PooCommerce Marketplace', 'poocommerce' ) }
 		</h1>
 	);
 }

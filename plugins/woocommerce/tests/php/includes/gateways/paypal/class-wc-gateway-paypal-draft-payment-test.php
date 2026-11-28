@@ -2,12 +2,12 @@
 /**
  * Tests that PayPal Standard IPN and PDT notifications do not pay a checkout-draft order.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Gateway_Paypal_Draft_Payment_Test.

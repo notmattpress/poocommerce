@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductReviewAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductReviewAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/product-review-reply';
+		return 'poocommerce/product-review-reply';
 	}
 
 	/**
@@ -37,9 +37,9 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Reply to product review', 'woocommerce' ),
-			'description'         => __( 'Publish a reply to an approved product review, as the current user and under their display name. Approve a held review with woocommerce/product-review-update first. Check the review\'s store_reply_count first, so the store does not answer it twice. A reply can be held or trashed with woocommerce/product-review-update. Replies to replies are not supported.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Reply to product review', 'poocommerce' ),
+			'description'         => __( 'Publish a reply to an approved product review, as the current user and under their display name. Approve a held review with poocommerce/product-review-update first. Check the review\'s store_reply_count first, so the store does not answer it twice. A reply can be held or trashed with poocommerce/product-review-update. Replies to replies are not supported.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_reply_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -93,8 +93,8 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 
 		if ( 'approved' !== self::get_review_status( $review ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_not_approved',
-				__( 'Only approved reviews can get a reply. Approve the review with the woocommerce/product-review-update ability first.', 'woocommerce' ),
+				'poocommerce_ability_product_review_not_approved',
+				__( 'Only approved reviews can get a reply. Approve the review with the poocommerce/product-review-update ability first.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -102,8 +102,8 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 		$content = trim( wp_kses_post( $input['content'] ) );
 		if ( '' === $content ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_reply_empty',
-				__( 'The reply has no text left after removing unsafe HTML.', 'woocommerce' ),
+				'poocommerce_ability_product_review_reply_empty',
+				__( 'The reply has no text left after removing unsafe HTML.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -129,9 +129,9 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 			$data = is_wp_error( $reply_id ) ? $reply_id->get_error_data() : null;
 
 			return new \WP_Error(
-				'woocommerce_ability_product_review_reply_failed',
+				'poocommerce_ability_product_review_reply_failed',
 				// WordPress escapes these messages for HTML; the agent reads plain text.
-				is_wp_error( $reply_id ) ? html_entity_decode( $reply_id->get_error_message(), ENT_QUOTES, 'UTF-8' ) : __( 'Failed to add the reply.', 'woocommerce' ),
+				is_wp_error( $reply_id ) ? html_entity_decode( $reply_id->get_error_message(), ENT_QUOTES, 'UTF-8' ) : __( 'Failed to add the reply.', 'poocommerce' ),
 				array( 'status' => is_int( $data ) ? $data : 500 )
 			);
 		}
@@ -141,9 +141,9 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 		if ( $reply instanceof \WP_Comment && (int) $reply->comment_parent !== (int) $review->comment_ID ) {
 			if ( ! wp_delete_comment( (int) $reply_id, true ) ) {
 				return new \WP_Error(
-					'woocommerce_ability_product_review_reply_failed',
+					'poocommerce_ability_product_review_reply_failed',
 					/* translators: %d: comment ID. */
-					sprintf( __( 'The review was moderated while the reply was being added, and the reply was saved as a separate comment %d that could not be removed.', 'woocommerce' ), (int) $reply_id ),
+					sprintf( __( 'The review was moderated while the reply was being added, and the reply was saved as a separate comment %d that could not be removed.', 'poocommerce' ), (int) $reply_id ),
 					array(
 						'status' => 500,
 						'saved'  => true,
@@ -153,17 +153,17 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 			}
 
 			return new \WP_Error(
-				'woocommerce_ability_product_review_not_approved',
-				__( 'The review was moderated while the reply was being added, so no reply was published.', 'woocommerce' ),
+				'poocommerce_ability_product_review_not_approved',
+				__( 'The review was moderated while the reply was being added, so no reply was published.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
 
 		if ( ! $reply instanceof \WP_Comment ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_reply_failed',
+				'poocommerce_ability_product_review_reply_failed',
 				/* translators: %d: reply ID. */
-				sprintf( __( 'Reply %d was added, but it could not be read back.', 'woocommerce' ), (int) $reply_id ),
+				sprintf( __( 'Reply %d was added, but it could not be read back.', 'poocommerce' ), (int) $reply_id ),
 				array(
 					'status' => 500,
 					'saved'  => true,
@@ -186,12 +186,12 @@ class ProductReviewReply extends AbstractDomainAbility implements AbilityDefinit
 			'properties'           => array(
 				'id'      => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the review to reply to, from the woocommerce/product-reviews-query ability.', 'woocommerce' ),
+					'description' => __( 'ID of the review to reply to, from the poocommerce/product-reviews-query ability.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'content' => array(
 					'type'        => 'string',
-					'description' => __( 'Reply text, shown publicly under the review. Plain text or safe HTML; Markdown is not rendered.', 'woocommerce' ),
+					'description' => __( 'Reply text, shown publicly under the review. Plain text or safe HTML; Markdown is not rendered.', 'poocommerce' ),
 					'minLength'   => 1,
 					'pattern'     => '\S',
 				),

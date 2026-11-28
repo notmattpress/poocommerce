@@ -1,5 +1,5 @@
 /**
- * Webpack config for WooCommerce Dependency Detection script.
+ * Webpack config for PooCommerce Dependency Detection script.
  *
  * This builds a standalone JS File that PHP inlines into the page.
  */
@@ -15,7 +15,7 @@ const FilesystemCacheWarningsPlugin = require( './filesystem-cache-warnings-webp
 const { getProgressBarPluginConfig } = require( './webpack-helpers' );
 
 const ROOT_DIR = path.resolve( __dirname, '../../../../../' );
-// Blocks' webpack writes directly to the WooCommerce plugin's
+// Blocks' webpack writes directly to the PooCommerce plugin's
 // `assets/client/blocks/` so PHP can enqueue files from their final location
 // without an intermediate rsync step.
 const BUILD_DIR = path.resolve( __dirname, '../../../assets/client/blocks' );

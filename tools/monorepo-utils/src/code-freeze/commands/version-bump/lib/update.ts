@@ -20,7 +20,7 @@ export const updateReadmeChangelog = async (
 	tmpRepoPath: string,
 	nextVersion: string
 ): Promise< void > => {
-	const filePath = join( tmpRepoPath, 'plugins/woocommerce/readme.txt' );
+	const filePath = join( tmpRepoPath, 'plugins/poocommerce/readme.txt' );
 	try {
 		const readmeContents = await readFile( filePath, 'utf8' );
 
@@ -47,11 +47,11 @@ export const updateClassPluginFile = async (
 ): Promise< void > => {
 	const filePath = join(
 		tmpRepoPath,
-		`plugins/woocommerce/includes/class-woocommerce.php`
+		`plugins/poocommerce/includes/class-poocommerce.php`
 	);
 
 	if ( ! existsSync( filePath ) ) {
-		Logger.error( "File 'class-woocommerce.php' does not exist." );
+		Logger.error( "File 'class-poocommerce.php' does not exist." );
 	}
 
 	try {
@@ -80,7 +80,7 @@ export const updateJSON = async (
 	tmpRepoPath: string,
 	nextVersion: string
 ): Promise< void > => {
-	const filePath = join( tmpRepoPath, `plugins/woocommerce/${ type }.json` );
+	const filePath = join( tmpRepoPath, `plugins/poocommerce/${ type }.json` );
 	try {
 		const composerJson = JSON.parse( await readFile( filePath, 'utf8' ) );
 		composerJson.version = nextVersion;
@@ -103,7 +103,7 @@ export const updatePluginFile = async (
 	tmpRepoPath: string,
 	nextVersion: string
 ): Promise< void > => {
-	const filePath = join( tmpRepoPath, `plugins/woocommerce/woocommerce.php` );
+	const filePath = join( tmpRepoPath, `plugins/poocommerce/poocommerce.php` );
 	try {
 		const pluginFileContents = await readFile( filePath, 'utf8' );
 

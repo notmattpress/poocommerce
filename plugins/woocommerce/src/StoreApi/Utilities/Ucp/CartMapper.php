@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 
 /**
  * Maps a Store API cart response onto the UCP cart shape.
  *
- * Reads {@see \Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema} output, so
+ * Reads {@see \Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema} output, so
  * cart tax display, minor units, image filters and stock validation follow the
- * storefront. Stateless; the catalog's {@see \Automattic\WooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper}
+ * storefront. Stateless; the catalog's {@see \Automattic\PooCommerce\Internal\ProductFeed\Mapping\UcpProductMapper}
  * is the same idea for products.
  */
 class CartMapper {
@@ -65,7 +65,7 @@ class CartMapper {
 
 		foreach ( $items as $cart_item ) {
 			// The Store API keeps variation attributes apart from the name; a UCP title is
-			// one string, so rejoin them as "Parent - a, b". WooCommerce builds stored
+			// one string, so rejoin them as "Parent - a, b". PooCommerce builds stored
 			// variation names the same way but leaves the attributes out past two; here
 			// every attribute is kept, since the agent has no other place to read them.
 			$title  = (string) $cart_item['name'];
@@ -167,7 +167,7 @@ class CartMapper {
 	 * Build the discount extension's `discounts` object.
 	 *
 	 * `codes` echoes what the request submitted, rejected codes included, or else the coupons applied.
-	 * WooCommerce coupons have no buyer-facing name, so the code is the title.
+	 * PooCommerce coupons have no buyer-facing name, so the code is the title.
 	 *
 	 * @param array      $coupons Store API cart coupons.
 	 * @param array|null $submitted Normalized codes the request submitted, or null when it sent none.
@@ -206,7 +206,7 @@ class CartMapper {
 		foreach ( $errors as $error ) {
 			$code = (string) ( $error['code'] ?? '' );
 			// A coupon the cart no longer accepts, which the cart has removed.
-			$is_coupon = 'woocommerce_rest_cart_coupon_error' === $code;
+			$is_coupon = 'poocommerce_rest_cart_coupon_error' === $code;
 
 			$messages[] = array(
 				'type'         => 'warning',
@@ -241,7 +241,7 @@ class CartMapper {
 		 * @param string $continue_url Continue URL.
 		 * @param string $cart_id Cart identifier.
 		 */
-		return (string) apply_filters( 'woocommerce_ucp_cart_continue_url', $continue_url, $cart_id );
+		return (string) apply_filters( 'poocommerce_ucp_cart_continue_url', $continue_url, $cart_id );
 	}
 
 	/**

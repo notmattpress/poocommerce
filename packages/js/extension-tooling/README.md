@@ -1,6 +1,6 @@
-# WooCommerce extension tooling
+# PooCommerce extension tooling
 
-Install `@woocommerce/extension-tooling` as a development dependency in the extension.
+Install `@poocommerce/extension-tooling` as a development dependency in the extension.
 
 ## Extension configuration
 
@@ -36,7 +36,7 @@ In `bin/link_plugins.js`, call the shared site setup after any local preparation
 
 ```js
 const path = require( 'node:path' );
-const writeE2ESiteConfig = require( '@woocommerce/extension-tooling/e2e-site-config' );
+const writeE2ESiteConfig = require( '@poocommerce/extension-tooling/e2e-site-config' );
 
 writeE2ESiteConfig( {
 	root: path.resolve( __dirname, '..' ),
@@ -44,11 +44,11 @@ writeE2ESiteConfig( {
 } );
 ```
 
-The helper reads `.wp-env.test.json`, mounts the unpacked ZIP in place of `.` and maps a separate debug log. It applies the E2E runner's `WP_VERSION` and `WC_VERSION`. Set `E2E_PHP_VERSION` to a major and minor version such as `8.4` to override the browser site's PHP version. The debug log mount is set after `configure( config )`. WooCommerce overrides replace the `woocommerce.latest-stable.zip` or `woocommerce.zip` entry from `downloads.wordpress.org`. Use `configure( config )` to add local plugins or mappings, and pass `woocommerce.latest` or `woocommerce.nightly` when an integration requires a specific WooCommerce mount.
+The helper reads `.wp-env.test.json`, mounts the unpacked ZIP in place of `.` and maps a separate debug log. It applies the E2E runner's `WP_VERSION` and `WC_VERSION`. Set `E2E_PHP_VERSION` to a major and minor version such as `8.4` to override the browser site's PHP version. The debug log mount is set after `configure( config )`. PooCommerce overrides replace the `poocommerce.latest-stable.zip` or `poocommerce.zip` entry from `downloads.wordpress.org`. Use `configure( config )` to add local plugins or mappings, and pass `poocommerce.latest` or `poocommerce.nightly` when an integration requires a specific PooCommerce mount.
 
 `phpcs-baseline` uses the scan paths set by the extension's PHPCS ruleset. Declare at least one `<file>` entry in the ruleset.
 
-For hosts with Composer and no Node.js, check out this package's `bin` directory from a reviewed WooCommerce commit and run its Bash files directly. Install the tools used by the selected command, such as `jq` for configuration, `rsync` and `zip` for packaging, `unzip` for ZIP checks, `git` for syntax checks, and WP-CLI for POT generation. Keep `woo-config.sh` and `woo-config.schema.json` alongside the commands that read extension configuration. For example, from the extension root:
+For hosts with Composer and no Node.js, check out this package's `bin` directory from a reviewed PooCommerce commit and run its Bash files directly. Install the tools used by the selected command, such as `jq` for configuration, `rsync` and `zip` for packaging, `unzip` for ZIP checks, `git` for syntax checks, and WP-CLI for POT generation. Keep `woo-config.sh` and `woo-config.schema.json` alongside the commands that read extension configuration. For example, from the extension root:
 
 ```sh
 bash "$EXTENSION_TOOLING_BIN/install.sh" wordpress_test root root 127.0.0.1 7.0 11.2.0
@@ -57,7 +57,7 @@ bash "$EXTENSION_TOOLING_BIN/phpcs.sh" .
 bash "$EXTENSION_TOOLING_BIN/phpcompat.sh" deploy/example-extension.zip
 ```
 
-Set `EXTENSION_TOOLING_BIN` to the absolute path of that `bin` directory. The installer uses Git, Subversion, curl or wget, and a MySQL client to reset and provision the selected test database and directories. It accepts a numeric WordPress release, `latest`, or `nightly`, and a WooCommerce tag, `latest`, or `trunk`. WordPress `nightly` tracks trunk. WordPress `latest` uses the same resolved release for the core and test library. The installer resolves relative `WP_TESTS_DIR`, `WP_CORE_DIR`, and `WC_CORE_DIR` paths from the invocation directory.
+Set `EXTENSION_TOOLING_BIN` to the absolute path of that `bin` directory. The installer uses Git, Subversion, curl or wget, and a MySQL client to reset and provision the selected test database and directories. It accepts a numeric WordPress release, `latest`, or `nightly`, and a PooCommerce tag, `latest`, or `trunk`. WordPress `nightly` tracks trunk. WordPress `latest` uses the same resolved release for the core and test library. The installer resolves relative `WP_TESTS_DIR`, `WP_CORE_DIR`, and `WC_CORE_DIR` paths from the invocation directory.
 
 The Bash ZIP command works without Node.js when `config.woo.zip.build` is empty and the extension's staging hook and Composer scripts, if present, also work on that host.
 
@@ -67,7 +67,7 @@ Use the shared defaults in `tests/e2e/playwright.config.js` with the extension's
 
 ```js
 const { defineConfig } = require( '@playwright/test' );
-const playwrightDefaults = require( '@woocommerce/extension-tooling/playwright-defaults' );
+const playwrightDefaults = require( '@poocommerce/extension-tooling/playwright-defaults' );
 
 module.exports = defineConfig( playwrightDefaults( {
 	htmlReport: './test-results/playwright-report',
@@ -82,21 +82,21 @@ Use the second config to set suite-specific projects, worker limits, storage sta
 
 ### Wait for cart and checkout updates
 
-Call `await waitForCheckoutUpdates( page )` using `@woocommerce/extension-tooling/wait-for-checkout-updates` to wait for active jQuery requests and pending WooCommerce cart and checkout store updates. For actions that schedule a later update, wait for the expected response or UI change in the test.
+Call `await waitForCheckoutUpdates( page )` using `@poocommerce/extension-tooling/wait-for-checkout-updates` to wait for active jQuery requests and pending PooCommerce cart and checkout store updates. For actions that schedule a later update, wait for the expected response or UI change in the test.
 
 ### Filter PHP debug logs
 
-Use `@woocommerce/extension-tooling/php-warning-filter` with the log text and the path fragments for the tested plugins. The filter returns matching PHP errors, warnings, notices and deprecations. The extension reads the log and checks the result in its warnings project.
+Use `@poocommerce/extension-tooling/php-warning-filter` with the log text and the path fragments for the tested plugins. The filter returns matching PHP errors, warnings, notices and deprecations. The extension reads the log and checks the result in its warnings project.
 
-For suites that verify the debug log is connected to WordPress, map `./node_modules/@woocommerce/extension-tooling/bin/e2e-log-marker.php` to `wp-content/mu-plugins/e2e-log-marker.php` in the browser test environment. A request with `?e2e_log_marker=test-id` writes `e2e-log-marker-test-id` to the PHP log. Install the marker only on test sites.
+For suites that verify the debug log is connected to WordPress, map `./node_modules/@poocommerce/extension-tooling/bin/e2e-log-marker.php` to `wp-content/mu-plugins/e2e-log-marker.php` in the browser test environment. A request with `?e2e_log_marker=test-id` writes `e2e-log-marker-test-id` to the PHP log. Install the marker only on test sites.
 
 ## Webpack
 
 Import the helpers from the extension's webpack configuration. Keep the entry paths, output paths and match patterns in that configuration.
 
 ```js
-const includeScripts = require( '@woocommerce/extension-tooling/webpack-text-includes' );
-const minifyBundleCopies = require( '@woocommerce/extension-tooling/webpack-dist-minify' );
+const includeScripts = require( '@poocommerce/extension-tooling/webpack-text-includes' );
+const minifyBundleCopies = require( '@poocommerce/extension-tooling/webpack-dist-minify' );
 ```
 
 - `includeScripts( [ [ source, destination ] ] )` expands classic scripts that use `include( 'relative/file.js' );`. It emits the regular asset and a `.min.js` copy for the caller's webpack minimizer. Limit the minimizer to `.min.js` files, for example `new TerserPlugin( { test: /\.min\.js$/ } )`, to keep the regular asset readable. Each `include()` must be on its own line; the build fails on any other `include()` line.
@@ -110,7 +110,7 @@ The helper checks that the ruleset rejects wrong text domains, using generated f
 
 ```js
 const path = require( 'node:path' );
-const checkI18n = require( '@woocommerce/extension-tooling/check-i18n' );
+const checkI18n = require( '@poocommerce/extension-tooling/check-i18n' );
 
 checkI18n( {
 	root: path.resolve( __dirname, '..' ),
@@ -127,12 +127,12 @@ Add this mapping alongside the extension's existing `wp-content/bin` mapping in 
 ```json
 {
 	"mappings": {
-		"./wp-content/woo-extension-tooling": "./node_modules/@woocommerce/extension-tooling/bin"
+		"./wp-content/woo-extension-tooling": "./node_modules/@poocommerce/extension-tooling/bin"
 	}
 }
 ```
 
-Use `wp-env run cli bash wp-content/woo-extension-tooling/seed-dev.sh wp-content/bin/seed_dev_plugin.sh` for `env:dev:seed`. Pass the fixture hook's path inside the container. Include WooCommerce Gateway Dummy in the development site's plugin list to use the seeded dummy payment method.
+Use `wp-env run cli bash wp-content/woo-extension-tooling/seed-dev.sh wp-content/bin/seed_dev_plugin.sh` for `env:dev:seed`. Pass the fixture hook's path inside the container. Include PooCommerce Gateway Dummy in the development site's plugin list to use the seeded dummy payment method.
 
 ### Provision a browser test store
 
@@ -142,11 +142,11 @@ For suites that switch between shortcode and block checkout, add the same `./wp-
 pnpm run wp-env:e2e run cli bash wp-content/woo-extension-tooling/provision-e2e-store.sh
 ```
 
-The site needs Storefront, WooCommerce, and the extension's `WC_Docker_Provision_Manager` test mu-plugin. The script configures the block pages, creates the shortcode pages, and calls the mu-plugin's `wp wc docker-e2e provision` importer once. A failed WP-CLI step stops provisioning. Pass `--metric-units` if the suite expects kilograms and centimeters, as Product Bundles does.
+The site needs Storefront, PooCommerce, and the extension's `WC_Docker_Provision_Manager` test mu-plugin. The script configures the block pages, creates the shortcode pages, and calls the mu-plugin's `wp wc docker-e2e provision` importer once. A failed WP-CLI step stops provisioning. Pass `--metric-units` if the suite expects kilograms and centimeters, as Product Bundles does.
 
 ### Switch checkout modes in test fixtures
 
-In a test mu-plugin, load `checkout-mode.php` from the tooling bin mount and use the `Automattic\WooCommerce\ExtensionTooling\Checkout_Mode` trait. The fixture defines `THEME_LEGACY` and `THEME_BLOCKS`, registers its filters and decides when a request may switch modes. Add the tooling bin mapping to every test site that loads the fixture.
+In a test mu-plugin, load `checkout-mode.php` from the tooling bin mount and use the `Automattic\PooCommerce\ExtensionTooling\Checkout_Mode` trait. The fixture defines `THEME_LEGACY` and `THEME_BLOCKS`, registers its filters and decides when a request may switch modes. Add the tooling bin mapping to every test site that loads the fixture.
 
 The package test suite requires a PHP CLI on `PATH` to exercise the checkout fixture.
 
@@ -158,15 +158,15 @@ If your Stylelint config already disables `selector-class-pattern` for legacy SC
 {
 	"extends": [
 		"@wordpress/stylelint-config/scss-stylistic",
-		"@woocommerce/extension-tooling/stylelint/legacy-scss"
+		"@poocommerce/extension-tooling/stylelint/legacy-scss"
 	]
 }
 ```
 
 Add `configs/phpstan.neon` from the pinned tooling source as the last entry in PHPStan's `includes` list. To use analysis level 8 and a two-process cap, remove the local `level` and `parallel.maximumNumberOfProcesses` settings, which take precedence over included values. Composer-only jobs can read the file directly from the same checkout. Keep the PHP target version, paths, bootstrap, stubs, and baseline in your extension config.
 
-For PHPCS, extend the `WooCommerce-Core` standard from `woocommerce/woocommerce-sniffs`. Define text domains, PHP compatibility checks, and exclusions in the extension's ruleset.
+For PHPCS, extend the `PooCommerce-Core` standard from `poocommerce/poocommerce-sniffs`. Define text domains, PHP compatibility checks, and exclusions in the extension's ruleset.
 
 ## License
 
-GPL-3.0-or-later. The helpers originated in WooCommerce Composite Products.
+GPL-3.0-or-later. The helpers originated in PooCommerce Composite Products.

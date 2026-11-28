@@ -56,5 +56,5 @@ export function errorMessage( error: unknown ): string {
 	}
 	return message.trim() !== ''
 		? message
-		: __( 'Something went wrong. Please try again.', 'woocommerce' );
+		: __( 'Something went wrong. Please try again.', 'poocommerce' );
 }

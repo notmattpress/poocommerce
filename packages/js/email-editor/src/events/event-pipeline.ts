@@ -6,7 +6,7 @@ import { applyFilters } from '@wordpress/hooks';
 
 const isEventTrackingEnabled = () => {
 	return applyFilters(
-		'woocommerce_email_editor_events_tracking_enabled',
+		'poocommerce_email_editor_events_tracking_enabled',
 		false
 	) as boolean;
 };

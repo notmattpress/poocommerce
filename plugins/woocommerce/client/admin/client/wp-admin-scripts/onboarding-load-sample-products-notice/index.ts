@@ -4,11 +4,11 @@
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 import domReady from '@wordpress/dom-ready';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 domReady( () => {
 	dispatch( 'core/notices' ).createSuccessNotice(
-		__( 'Sample products added', 'woocommerce' ),
+		__( 'Sample products added', 'poocommerce' ),
 		{
 			id: 'WOOCOMMERCE_ONBOARDING_LOAD_SAMPLE_PRODUCTS_NOTICE',
 			actions: [
@@ -16,7 +16,7 @@ domReady( () => {
 					url: getAdminLink( 'admin.php?page=wc-admin' ),
 					label: __(
 						'Continue setting up your store',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			],

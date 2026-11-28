@@ -1,23 +1,23 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifiedEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifyEmail;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotifications;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifiedEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\CustomerStockNotificationVerifyEmail;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\MyAccountEndpoint;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotifications;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Helper_Product;
 
 /**
@@ -33,7 +33,7 @@ class StockNotificationBlockEmailsTests extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->enable_stock_notifications_feature();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 
 		wc_get_container()->get( Package::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();

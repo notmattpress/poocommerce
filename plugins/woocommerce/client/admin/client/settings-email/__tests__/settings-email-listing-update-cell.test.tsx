@@ -5,7 +5,7 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests/src/util/index.js';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests/src/util/index.js';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 /**
@@ -16,7 +16,7 @@ import { UpdatesCell } from '../settings-email-listing-update-cell';
 
 const setHref = mockBrowserLocation( 'href' );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.test/wp-admin/${ path }`,
 } ) );
 

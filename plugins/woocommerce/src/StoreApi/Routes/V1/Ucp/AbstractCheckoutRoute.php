@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\OrderSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\OrderSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Shared behaviour of the UCP checkout routes.
@@ -55,7 +55,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 	 * @return \WP_REST_Response
 	 */
 	protected function ucp_not_found(): \WP_REST_Response {
-		return $this->ucp_error( 'not_found', __( 'Checkout session not found.', 'woocommerce' ), 'unrecoverable', 404, '$.id' );
+		return $this->ucp_error( 'not_found', __( 'Checkout session not found.', 'poocommerce' ), 'unrecoverable', 404, '$.id' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 			}
 
 			if ( $this->awaits_confirmation( $state ) ) {
-				return $this->ucp_conflict( __( 'This checkout session is awaiting confirmation of a payment the buyer already made.', 'woocommerce' ) );
+				return $this->ucp_conflict( __( 'This checkout session is awaiting confirmation of a payment the buyer already made.', 'poocommerce' ) );
 			}
 		}
 
@@ -106,8 +106,8 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 	 * @return array<string>
 	 */
 	protected function payable_statuses( \WC_Order $order ): array {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Order::needs_payment().
-		return (array) apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Core's hook, documented in WC_Order::needs_payment().
+		return (array) apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
 	}
 
 	/**
@@ -173,7 +173,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 		}
 
 		if ( $this->hand_off_is_payable( $refusal ) ) {
-			return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The order handed off earlier could not be canceled. Please try again.', 'woocommerce' ), 'recoverable', 500 );
+			return $this->ucp_error( 'TRANSPORT_ERROR', __( 'The order handed off earlier could not be canceled. Please try again.', 'poocommerce' ), 'recoverable', 500 );
 		}
 
 		return $this->ucp_conflict();
@@ -217,7 +217,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 	 */
 	protected function ucp_conflict( string $message = '' ): \WP_REST_Response {
 		if ( '' === $message ) {
-			$message = __( 'This checkout session is already completed or canceled.', 'woocommerce' );
+			$message = __( 'This checkout session is already completed or canceled.', 'poocommerce' );
 		}
 
 		return $this->ucp_error( 'CONFLICT', $message, 'unrecoverable', 409, '$.status' );
@@ -275,7 +275,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 	 */
 	private function order_as_cart( \WC_Order $order ): array {
 		$cart     = (array) json_decode( (string) wp_json_encode( $this->schema_controller->get( OrderSchema::IDENTIFIER )->get_item_response( $order ) ), true );
-		$with_tax = 'incl' === get_option( 'woocommerce_tax_display_cart' );
+		$with_tax = 'incl' === get_option( 'poocommerce_tax_display_cart' );
 
 		foreach ( array_values( $order->get_items() ) as $index => $item ) {
 			if ( ! $item instanceof \WC_Order_Item_Product || ! isset( $cart['items'][ $index ] ) ) {
@@ -392,7 +392,7 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 			$valid          = $address_schema->validate_callback( $address, $request, $param );
 
 			if ( true !== $valid ) {
-				$message = is_wp_error( $valid ) ? implode( ' ', $valid->get_error_messages() ) : __( 'Invalid address.', 'woocommerce' );
+				$message = is_wp_error( $valid ) ? implode( ' ', $valid->get_error_messages() ) : __( 'Invalid address.', 'poocommerce' );
 
 				return $this->ucp_error( 'VALIDATION_ERROR', $message, 'recoverable', 400, '$.' . $param );
 			}
@@ -444,10 +444,10 @@ abstract class AbstractCheckoutRoute extends AbstractCartRoute {
 	}
 
 	/**
-	 * Copy the scalar fields of a request object into WooCommerce field names.
+	 * Copy the scalar fields of a request object into PooCommerce field names.
 	 *
 	 * @param mixed                 $input Request object, ignored unless an array.
-	 * @param array<string, string> $map UCP field name to WooCommerce field name.
+	 * @param array<string, string> $map UCP field name to PooCommerce field name.
 	 * @return array<string, string>
 	 */
 	private function pick_fields( $input, array $map ): array {

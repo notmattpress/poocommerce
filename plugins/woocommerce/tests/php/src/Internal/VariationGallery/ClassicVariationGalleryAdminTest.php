@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\VariationGallery;
+namespace Automattic\PooCommerce\Tests\Internal\VariationGallery;
 
-use Automattic\WooCommerce\Internal\VariationGallery\ClassicVariationGalleryAdmin;
-use Automattic\WooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
+use Automattic\PooCommerce\Internal\VariationGallery\ClassicVariationGalleryAdmin;
+use Automattic\PooCommerce\Internal\VariationGallery\LegacyVariationGalleryCompatibility;
 use WC_Helper_Product;
 use WC_Product_Variation;
 
@@ -206,7 +206,7 @@ class ClassicVariationGalleryAdminTest extends \WC_Unit_Test_Case {
 		$parent    = wc_get_product( $variation->get_parent_id() );
 		$parent->set_image_id( $this->create_attachment( 'Parent featured image' ) );
 		$parent->save();
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\ProductCache::class )->flush();
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\ProductCache::class )->flush();
 
 		return $variation;
 	}

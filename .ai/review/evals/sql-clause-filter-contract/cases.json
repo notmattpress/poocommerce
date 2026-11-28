@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G21A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-21.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-21.php",
 			"before": {
 				"file": "fixtures/G21A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-21.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-21.php",
 						"lines": [
 							5,
 							5
@@ -22,7 +22,7 @@
 						"anchor": "    $clauses['join'] .= \" LEFT JOIN {$wpdb->prefix}wc_product_meta_lookup lookup ON {$wpdb->posts}.ID = lookup.product_id\";"
 					},
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-21.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-21.php",
 						"lines": [
 							10,
 							10
@@ -34,7 +34,7 @@
 		},
 		{
 			"id": "G21B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-21.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-21.php",
 			"before": {
 				"file": "fixtures/G21B/before.php"
 			},
@@ -45,7 +45,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-eval-21.php",
+						"file": "plugins/poocommerce/includes/class-wc-eval-21.php",
 						"lines": [
 							5,
 							5
@@ -57,7 +57,7 @@
 		},
 		{
 			"id": "G21C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-21.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-21.php",
 			"before": {
 				"file": "fixtures/G21C/before.php"
 			},
@@ -70,7 +70,7 @@
 		},
 		{
 			"id": "G21D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-eval-21.php",
+			"path": "plugins/poocommerce/includes/class-wc-eval-21.php",
 			"before": {
 				"file": "fixtures/G21D/before.php"
 			},

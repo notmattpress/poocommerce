@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport\Product;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport\Product;
 
 use WC_Product_CSV_Exporter;
 

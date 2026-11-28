@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Filter by Stock',
@@ -23,7 +23,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'stock-filter',
 				heading: 'Filter By Stock',
@@ -40,7 +40,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		page,
 	} ) => {
 		const stockFilter = await frontendUtils.getBlockByName(
-			'woocommerce/filter-wrapper'
+			'poocommerce/filter-wrapper'
 		);
 		await stockFilter.getByText( 'Out of Stock' ).click();
 
@@ -49,7 +49,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		);
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 		const products = legacyTemplate
 			.getByRole( 'list' )

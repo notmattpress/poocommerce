@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
 use WC_Helper_Product;
 
 /**
@@ -180,18 +180,18 @@ class HandlerRegistry extends \WP_UnitTestCase {
 
 		// The reference has no categories or tags; keep force-display off so
 		// wc_get_related_products() short-circuits to an empty set instead of querying the
-		// data store. The mocked woocommerce_related_products filter then drives the result,
+		// data store. The mocked poocommerce_related_products filter then drives the result,
 		// independent of any products in the database.
-		add_filter( 'woocommerce_product_related_posts_force_display', '__return_false', 0 );
+		add_filter( 'poocommerce_product_related_posts_force_display', '__return_false', 0 );
 		$related_filter->expects( $this->exactly( 2 ) )
 			->method( '__invoke' )
 			->with( array(), $reference_id )
 			->willReturn( $expected_product_ids );
-		add_filter( 'woocommerce_related_products', array( $related_filter, '__invoke' ), 10, 2 );
+		add_filter( 'poocommerce_related_products', array( $related_filter, '__invoke' ), 10, 2 );
 
 		// Frontend.
 		$parsed_block                                       = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/related';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/related';
 		$parsed_block['attrs']['query']['productReference'] = $reference_id;
 		$result_frontend                                    = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -202,13 +202,13 @@ class HandlerRegistry extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/related',
+				'collection' => 'poocommerce/product-collection/related',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
 
-		remove_filter( 'woocommerce_product_related_posts_force_display', '__return_false', 0 );
-		remove_filter( 'woocommerce_related_products', array( $related_filter, '__invoke' ) );
+		remove_filter( 'poocommerce_product_related_posts_force_display', '__return_false', 0 );
+		remove_filter( 'poocommerce_related_products', array( $related_filter, '__invoke' ) );
 
 		$this->assertEqualsCanonicalizing( $expected_product_ids, $result_frontend['post__in'] );
 		$this->assertEqualsCanonicalizing( $expected_product_ids, $result_editor['post__in'] );
@@ -223,7 +223,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 		$data = array();
 		foreach ( array( 'related', 'upsells', 'cross-sells' ) as $collection ) {
 			foreach ( array( 'draft', 'pending', 'private', 'future', 'trash' ) as $status ) {
-				$data[ "$collection of a $status product" ] = array( "woocommerce/product-collection/$collection", $status );
+				$data[ "$collection of a $status product" ] = array( "poocommerce/product-collection/$collection", $status );
 			}
 		}
 		return $data;
@@ -234,7 +234,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 	 *
 	 * @dataProvider provider_reference_collections_and_hidden_statuses
 	 *
-	 * @param string $collection Collection name, e.g. woocommerce/product-collection/upsells.
+	 * @param string $collection Collection name, e.g. poocommerce/product-collection/upsells.
 	 * @param string $status     Status that hides the referenced product from visitors.
 	 */
 	public function test_collection_ignores_reference_the_user_cannot_view( string $collection, string $status ) {
@@ -285,7 +285,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                                       = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/upsells';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/upsells';
 		$parsed_block['attrs']['query']['productReference'] = $test_product->get_id();
 		$result_frontend                                    = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -296,7 +296,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/upsells',
+				'collection' => 'poocommerce/product-collection/upsells',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -315,7 +315,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/upsells',
+				'collection' => 'poocommerce/product-collection/upsells',
 			)
 		);
 
@@ -332,13 +332,13 @@ class HandlerRegistry extends \WP_UnitTestCase {
 	public function provider_cart_collections_with_related_ids(): array {
 		return array(
 			'upsells'     => array(
-				'woocommerce/product-collection/upsells',
+				'poocommerce/product-collection/upsells',
 				function ( $product, $ids ) {
 					$product->set_upsell_ids( $ids );
 				},
 			),
 			'cross-sells' => array(
-				'woocommerce/product-collection/cross-sells',
+				'poocommerce/product-collection/cross-sells',
 				function ( $product, $ids ) {
 					$product->set_cross_sell_ids( $ids );
 				},
@@ -351,7 +351,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 	 *
 	 * @dataProvider provider_cart_collections_with_related_ids
 	 *
-	 * @param string   $collection      Collection name, e.g. woocommerce/product-collection/upsells.
+	 * @param string   $collection      Collection name, e.g. poocommerce/product-collection/upsells.
 	 * @param callable $set_related_ids Receives the cart product and the related ids to assign to it.
 	 */
 	public function test_cart_collection_excludes_unresolvable_reference_from_results( string $collection, callable $set_related_ids ) {
@@ -406,7 +406,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                                       = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/cross-sells';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/cross-sells';
 		$parsed_block['attrs']['query']['productReference'] = $test_product->get_id();
 		$result_frontend                                    = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
@@ -417,7 +417,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/cross-sells',
+				'collection' => 'poocommerce/product-collection/cross-sells',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -432,18 +432,18 @@ class HandlerRegistry extends \WP_UnitTestCase {
 	public function test_collection_hand_picked_empty() {
 		// Frontend.
 		$parsed_block                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/hand-picked';
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = array();
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/hand-picked';
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = array();
 		$result_frontend = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
 		// Editor.
 		$request = Utils::build_request(
-			array( 'woocommerceHandPickedProducts' => array() )
+			array( 'poocommerceHandPickedProducts' => array() )
 		);
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/hand-picked',
+				'collection' => 'poocommerce/product-collection/hand-picked',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -460,18 +460,18 @@ class HandlerRegistry extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/hand-picked';
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $product_ids;
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/hand-picked';
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $product_ids;
 		$result_frontend = Utils::initialize_merged_query( $this->block_instance, $parsed_block );
 
 		// Editor.
 		$request = Utils::build_request(
-			array( 'woocommerceHandPickedProducts' => $product_ids )
+			array( 'poocommerceHandPickedProducts' => $product_ids )
 		);
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/hand-picked',
+				'collection' => 'poocommerce/product-collection/hand-picked',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -505,7 +505,7 @@ class HandlerRegistry extends \WP_UnitTestCase {
 
 		// Frontend - test using the standard block setup pattern.
 		$parsed_block                        = Utils::get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/cross-sells';
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/cross-sells';
 
 		// Set the product collection location context for cart.
 		$this->block_instance->set_parsed_block( $parsed_block );

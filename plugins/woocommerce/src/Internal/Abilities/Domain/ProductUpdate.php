@@ -5,19 +5,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ProductFieldRefusalsTrait;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductAbilityTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ProductFieldRefusalsTrait;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The WooCommerce product update ability. It runs the steps of ActionableAbility.
+ * The PooCommerce product update ability. It runs the steps of ActionableAbility.
  */
 class ProductUpdate extends ActionableAbility {
 
@@ -28,7 +28,7 @@ class ProductUpdate extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/product-update';
+	public const ABILITY_NAME = 'poocommerce/product-update';
 
 	/**
 	 * The variations that change() planned, saved after their parent by save().
@@ -49,12 +49,12 @@ class ProductUpdate extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update product', 'woocommerce' ),
+			'label'               => __( 'Update product', 'poocommerce' ),
 			'description'         => __(
 				'Update an existing product using supported catalog fields.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::get_product_mutation_output_schema(),
 			'permission_callback' => array( __CLASS__, 'can_update_product' ),
@@ -107,8 +107,8 @@ class ProductUpdate extends ActionableAbility {
 
 		if ( empty( array_diff( array_keys( $input ), array( 'id' ) ) ) ) {
 			return new \WP_Error(
-				'woocommerce_product_update_no_fields',
-				__( 'At least one product field is required to update a product.', 'woocommerce' ),
+				'poocommerce_product_update_no_fields',
+				__( 'At least one product field is required to update a product.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -122,8 +122,8 @@ class ProductUpdate extends ActionableAbility {
 			$target_class = \WC_Product_Factory::get_product_classname( $product->get_id(), $input['type'] );
 			if ( $product instanceof \WC_Product_Variation || is_a( $target_class, \WC_Product_Variation::class, true ) ) {
 				return new \WP_Error(
-					'woocommerce_product_type_unsupported',
-					__( 'A variation cannot change its type, and a product cannot become a variation.', 'woocommerce' ),
+					'poocommerce_product_type_unsupported',
+					__( 'A variation cannot change its type, and a product cannot become a variation.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -131,8 +131,8 @@ class ProductUpdate extends ActionableAbility {
 			$this->variable_old = $product instanceof \WC_Product_Variable ? $product->get_type() : '';
 			if ( $this->type_deletes && isset( $input['variations'] ) ) {
 				return new \WP_Error(
-					'woocommerce_product_type_unsupported',
-					__( 'This type change deletes every variation of the product, so the call cannot also send variations.', 'woocommerce' ),
+					'poocommerce_product_type_unsupported',
+					__( 'This type change deletes every variation of the product, so the call cannot also send variations.', 'poocommerce' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -142,8 +142,8 @@ class ProductUpdate extends ActionableAbility {
 				$this->variations['delete'] = array_values( array_filter( array_map( 'wc_get_product', $children ), static fn( $child ) => $child instanceof \WC_Product_Variation ) );
 				if ( count( $this->variations['delete'] ) !== count( $children ) ) {
 					return new \WP_Error(
-						'woocommerce_product_type_unsupported',
-						__( 'A variation of this product cannot be loaded, so the ability cannot check it before it deletes it.', 'woocommerce' ),
+						'poocommerce_product_type_unsupported',
+						__( 'A variation of this product cannot be loaded, so the ability cannot check it before it deletes it.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -252,7 +252,7 @@ class ProductUpdate extends ActionableAbility {
 
 	/**
 	 * Save the product, then the variations that the input names. A type change
-	 * saves without the WooCommerce handler that deletes variations, so the
+	 * saves without the PooCommerce handler that deletes variations, so the
 	 * decision that the permission check and the validators saw is the one that
 	 * runs. When it deletes, the ability deletes only the checked variations,
 	 * and refuses the call when the save hooks added or removed one.
@@ -265,8 +265,8 @@ class ProductUpdate extends ActionableAbility {
 
 		if ( '' !== $this->variable_old && $subject instanceof \WC_Product_Variable && self::filter_deletes_variations( $subject, $this->variable_old ) !== $this->type_deletes ) {
 			return new \WP_Error(
-				'woocommerce_product_type_unsupported',
-				__( 'The other fields of this call change whether the type change deletes the variations. Change the type in a call of its own.', 'woocommerce' ),
+				'poocommerce_product_type_unsupported',
+				__( 'The other fields of this call change whether the type change deletes the variations. Change the type in a call of its own.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -276,7 +276,7 @@ class ProductUpdate extends ActionableAbility {
 			return $error;
 		}
 
-		$error = $this->changes_type ? self::save_product_keeping_variations( $subject ) : self::save_product( $subject, 'woocommerce_product_update_failed' );
+		$error = $this->changes_type ? self::save_product_keeping_variations( $subject ) : self::save_product( $subject, 'poocommerce_product_update_failed' );
 		if ( is_wp_error( $error ) ) {
 			return $error;
 		}
@@ -289,7 +289,7 @@ class ProductUpdate extends ActionableAbility {
 			foreach ( $this->variations['delete'] as $variation ) {
 				$variation_id = $variation->get_id();
 				if ( ! $variation->delete( true ) || null !== get_post( $variation_id ) ) {
-					return new \WP_Error( 'woocommerce_product_update_failed', __( 'Failed to delete a variation.', 'woocommerce' ), array( 'status' => 500 ) );
+					return new \WP_Error( 'poocommerce_product_update_failed', __( 'Failed to delete a variation.', 'poocommerce' ), array( 'status' => 500 ) );
 				}
 			}
 			$this->variations['delete'] = array();
@@ -304,7 +304,7 @@ class ProductUpdate extends ActionableAbility {
 		}
 
 		if ( $subject instanceof \WC_Product_Variable ) {
-			$error = self::save_variations( $subject, $this->variations, 'woocommerce_product_update_failed' );
+			$error = self::save_variations( $subject, $this->variations, 'poocommerce_product_update_failed' );
 			if ( null === $error && $this->changes_type && empty( $this->variations['save'] ) && empty( $this->variations['delete'] ) ) {
 				self::sync_variable_parent( $subject );
 			}
@@ -337,11 +337,11 @@ class ProductUpdate extends ActionableAbility {
 			return null;
 		}
 
-		return new \WP_Error( 'woocommerce_product_update_conflict', __( 'The variations of the product changed during the call. Try again.', 'woocommerce' ), array( 'status' => 409 ) );
+		return new \WP_Error( 'poocommerce_product_update_conflict', __( 'The variations of the product changed during the call. Try again.', 'poocommerce' ), array( 'status' => 409 ) );
 	}
 
 	/**
-	 * Save a product whose type changes without the WooCommerce handler that
+	 * Save a product whose type changes without the PooCommerce handler that
 	 * deletes the variations in the save. The ability deletes them itself.
 	 *
 	 * @param \WC_Product $product Changed product.
@@ -349,15 +349,15 @@ class ProductUpdate extends ActionableAbility {
 	 */
 	private static function save_product_keeping_variations( \WC_Product $product ) {
 		$handler  = array( \WC_Post_Data::class, 'product_type_changed' );
-		$priority = has_action( 'woocommerce_product_type_changed', $handler );
+		$priority = has_action( 'poocommerce_product_type_changed', $handler );
 		if ( false !== $priority ) {
-			remove_action( 'woocommerce_product_type_changed', $handler, $priority );
+			remove_action( 'poocommerce_product_type_changed', $handler, $priority );
 		}
 		try {
-			return self::save_product( $product, 'woocommerce_product_update_failed' );
+			return self::save_product( $product, 'poocommerce_product_update_failed' );
 		} finally {
 			if ( false !== $priority ) {
-				add_action( 'woocommerce_product_type_changed', $handler, $priority, 3 );
+				add_action( 'poocommerce_product_type_changed', $handler, $priority, 3 );
 			}
 		}
 	}
@@ -395,11 +395,11 @@ class ProductUpdate extends ActionableAbility {
 	/**
 	 * Whether a type change deletes the variations of a product. A product of
 	 * a variable class that becomes a product of a class that is not variable
-	 * always loses its variations. Here the ability differs from WooCommerce on
-	 * purpose: WooCommerce keeps them when the old type is not exactly
+	 * always loses its variations. Here the ability differs from PooCommerce on
+	 * purpose: PooCommerce keeps them when the old type is not exactly
 	 * `variable` or when the filter returns false, and they stay without a
 	 * variable parent. Between two variable classes the filter decides. It gets
-	 * the product with its new class, as WooCommerce passes it in the save.
+	 * the product with its new class, as PooCommerce passes it in the save.
 	 *
 	 * @param \WC_Product $product Product before the change.
 	 * @param string      $type    New product type.
@@ -422,7 +422,7 @@ class ProductUpdate extends ActionableAbility {
 	}
 
 	/**
-	 * Whether the WooCommerce filter deletes the variations of a variable
+	 * Whether the PooCommerce filter deletes the variations of a variable
 	 * product that changes into another variable type. The save asks again
 	 * with the changed product, to refuse a call whose other fields change the answer.
 	 *
@@ -434,7 +434,7 @@ class ProductUpdate extends ActionableAbility {
 		$type = $target->get_type();
 
 		/**
-		 * Filter whether WooCommerce deletes the variations of a variable product when its type changes.
+		 * Filter whether PooCommerce deletes the variations of a variable product when its type changes.
 		 *
 		 * @since 5.0.0
 		 *
@@ -443,7 +443,7 @@ class ProductUpdate extends ActionableAbility {
 		 * @param string      $from    Old product type.
 		 * @param string      $to      New product type.
 		 */
-		return (bool) apply_filters( 'woocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $type, $target, $from, $type );
+		return (bool) apply_filters( 'poocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $type, $target, $from, $type );
 	}
 
 	/**

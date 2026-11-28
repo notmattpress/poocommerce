@@ -10,7 +10,7 @@ import formStepAttributes from '../../form-step/attributes';
 
 export default {
 	...formStepAttributes( {
-		defaultTitle: __( 'Additional order information', 'woocommerce' ),
+		defaultTitle: __( 'Additional order information', 'poocommerce' ),
 		defaultDescription: '',
 	} ),
 	className: {

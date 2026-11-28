@@ -10,7 +10,7 @@ import { trackPluginNoticeLinks } from '~/utils/plugin-notice-tracking';
 
 domReady( () => {
 	trackPluginNoticeLinks(
-		'.woocommerce-purchase-subscription',
+		'.poocommerce-purchase-subscription',
 		'woo_purchase_subscription_in_plugins'
 	);
 } );

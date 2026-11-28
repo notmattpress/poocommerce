@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use WC_Order;
 use WP_Error, WP_User;
 
@@ -35,7 +35,7 @@ class Users {
 	 *
 	 * In a multisite context, that may mean that they both must be members of the current blog, or else the active
 	 * user must either have special permissions (manage_network_users) or else a special legacy mode
-	 * (woocommerce_network_wide_customers) is enabled.
+	 * (poocommerce_network_wide_customers) is enabled.
 	 *
 	 * @param int      $user_id            The ID of the desired user.
 	 * @param int|null $requesting_user_id The ID of the user making the request. Optional, defaults to the current user.
@@ -48,7 +48,7 @@ class Users {
 
 		$legacy_proxy       = wc_get_container()->get( LegacyProxy::class );
 		$requesting_user_id = $requesting_user_id > 0 ? $requesting_user_id : wp_get_current_user()->ID;
-		$error              = new WP_Error( 'wc_user_invalid_id', __( 'Invalid user ID.', 'woocommerce' ) );
+		$error              = new WP_Error( 'wc_user_invalid_id', __( 'Invalid user ID.', 'poocommerce' ) );
 
 		if ( $user_id <= 0 ) {
 			return $error;
@@ -63,7 +63,7 @@ class Users {
 			$legacy_proxy->call_function( 'is_multisite' )
 			&& ! $legacy_proxy->call_function( 'is_user_member_of_blog', $user->ID )
 			&& ! $legacy_proxy->call_function( 'user_can', $requesting_user_id, 'manage_network_users' )
-			&& get_site_option( 'woocommerce_network_wide_customers', 'no' ) !== 'yes'
+			&& get_site_option( 'poocommerce_network_wide_customers', 'no' ) !== 'yes'
 		) {
 			return $error;
 		}
@@ -113,7 +113,7 @@ class Users {
 		 * @param WC_Order $this         The order for which this grace period is being assessed.
 		 * @param string   $context      Indicates the context in which we might verify the email address. Typically 'order-pay' or 'order-received'.
 		 */
-		$verification_grace_period = (int) apply_filters( 'woocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, $context );
+		$verification_grace_period = (int) apply_filters( 'poocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, $context );
 		$date_created              = $order->get_date_created();
 
 		// We do not need to verify the email address if we are within the grace period immediately following order creation.
@@ -168,7 +168,7 @@ class Users {
 		 * @param WC_Order $order                       The relevant order.
 		 * @param string   $context                     The context under which we are performing this check.
 		 */
-		$email_verification_required = (bool) apply_filters( 'woocommerce_order_email_verification_required', $email_verification_required, $order, $context );
+		$email_verification_required = (bool) apply_filters( 'poocommerce_order_email_verification_required', $email_verification_required, $order, $context );
 
 		// The email challenge and payment form are separate requests. Remember only an explicitly verified guest email.
 		if ( ! $email_verification_required && $supplied_email_match && '' !== $payment_email_hash ) {

@@ -20,7 +20,7 @@ export const App = () => {
 	return (
 		<>
 			<Heading level={ 1 }>
-				Live Branches - Install and test WooCommerce PRs
+				Live Branches - Install and test PooCommerce PRs
 			</Heading>
 			{ isError && <p>Something Went Wrong!</p> }
 			{ isLoading && <Spinner /> }

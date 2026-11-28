@@ -1,11 +1,11 @@
 {
 	"name": "code-analyzer",
 	"version": "1.0.0",
-	"description": "A tool to analyze code changes in WooCommerce Monorepo.",
+	"description": "A tool to analyze code changes in PooCommerce Monorepo.",
 	"author": "Automattic",
-	"homepage": "https://github.com/woocommerce/woocommerce",
+	"homepage": "https://github.com/poocommerce/poocommerce",
 	"license": "GPL-2.0-or-later",
-	"repository": "woocommerce/woocommerce",
+	"repository": "poocommerce/poocommerce",
 	"private": true,
 	"scripts": {
 		"analyzer": "node -r ts-node/register ./src/commands/analyzer/index.ts",
@@ -17,7 +17,7 @@
 		"@actions/core": "^2.0.3",
 		"@commander-js/extra-typings": "catalog:tooling",
 		"@tsconfig/node16": "^1.0.4",
-		"@woocommerce/monorepo-utils": "workspace:*",
+		"@poocommerce/monorepo-utils": "workspace:*",
 		"commander": "catalog:tooling",
 		"dotenv": "^10.0.0",
 		"simple-git": "catalog:tooling"
@@ -25,8 +25,8 @@
 	"devDependencies": {
 		"@types/jest": "catalog:types",
 		"@types/node": "catalog:types",
-		"@woocommerce/eslint-config": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "catalog:tooling",
 		"jest": "catalog:tooling",
 		"ts-jest": "catalog:tooling",

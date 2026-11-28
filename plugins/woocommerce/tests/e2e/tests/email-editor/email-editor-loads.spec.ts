@@ -40,7 +40,7 @@ const isWordPressAtLeast = async (
 };
 
 test.describe(
-	'WooCommerce Email Editor Core',
+	'PooCommerce Email Editor Core',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -93,7 +93,7 @@ test.describe(
 				const verification = await setOption(
 					request,
 					baseURL,
-					'woocommerce_feature_block_email_editor_enabled',
+					'poocommerce_feature_block_email_editor_enabled',
 					'no'
 				);
 				// The e2e test-helper plugin answers a no-op option write with this
@@ -133,7 +133,7 @@ test.describe(
 					.locator( 'iframe[name="editor-canvas"]' )
 					.contentFrame()
 					.getByLabel( 'Block: Heading' )
-			).toContainText( `New order: #[woocommerce/order-number]` );
+			).toContainText( `New order: #[poocommerce/order-number]` );
 		} );
 
 		test( 'Hides core menu items that change the site', async ( {
@@ -270,7 +270,7 @@ test.describe(
 					( candidate ) =>
 						candidate.request().method() === 'POST' &&
 						decodeURIComponent( candidate.url() ).includes(
-							'/woocommerce-email-editor/v1/send_preview_email'
+							'/poocommerce-email-editor/v1/send_preview_email'
 						)
 				),
 				sendButton.click(),
@@ -363,7 +363,7 @@ test.describe(
 			// change in a title this batch does not otherwise touch.
 			await enableEmailEditor( baseURL );
 
-			// WooCommerce's own categories fit on one row, so mock extra ones in the
+			// PooCommerce's own categories fit on one row, so mock extra ones in the
 			// REST response, as if extensions had registered them.
 			const extraCategories = [
 				'Subscriber',
@@ -430,7 +430,7 @@ test.describe(
 
 			// Every category stays visible, with no sideways scrolling.
 			const modal = page.locator(
-				'.woocommerce-personalization-tags-modal'
+				'.poocommerce-personalization-tags-modal'
 			);
 			for ( const category of [ 'All', ...extraCategories ] ) {
 				await expect(
@@ -450,7 +450,7 @@ test.describe(
 			// Set a URL personalization tag as the button link.
 			await page
 				.locator(
-					'.woocommerce-personalization-tags-modal-category-group-item'
+					'.poocommerce-personalization-tags-modal-category-group-item'
 				)
 				.filter( { hasText: 'Payment URL' } )
 				.getByRole( 'button', { name: 'Set as URL' } )
@@ -468,7 +468,7 @@ test.describe(
 								.getSelectedBlock()?.attributes?.url
 					)
 				)
-				.toBe( '[woocommerce/order-payment-url]' );
+				.toBe( '[poocommerce/order-payment-url]' );
 		} );
 	}
 );

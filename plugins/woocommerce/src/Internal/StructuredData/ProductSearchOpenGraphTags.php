@@ -2,12 +2,12 @@
 /**
  * Product search Open Graph metadata.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,11 +26,11 @@ class ProductSearchOpenGraphTags {
 	 */
 	public function get_tags( string $search ): array {
 		/* translators: %s: search query. */
-		$title = sprintf( __( 'Search results for “%s”', 'woocommerce' ), $search );
+		$title = sprintf( __( 'Search results for “%s”', 'poocommerce' ), $search );
 		$page  = max( 1, (int) get_query_var( 'paged' ) );
 		if ( $page > 1 ) {
 			/* translators: 1: search title, 2: page number. */
-			$title = sprintf( __( '%1$s – Page %2$d', 'woocommerce' ), $title, $page );
+			$title = sprintf( __( '%1$s – Page %2$d', 'poocommerce' ), $title, $page );
 		}
 		$url = wc_get_container()->get( CatalogOpenGraphUrl::class )->get_url();
 

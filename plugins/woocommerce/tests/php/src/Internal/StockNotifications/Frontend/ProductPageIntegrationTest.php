@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Frontend;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Frontend;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsMocks;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\BlockTypeRegistryTrait;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsMocks;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WC_Unit_Test_Case;
 
 /**
@@ -43,7 +43,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_customer_stock_notifications_allow_signups', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_allow_signups', 'yes' );
 
 		// The container caches the instance and the hooks it added in an earlier test are gone
 		// after that test tore down, so re-resolve the services to hook the product page again.
@@ -132,7 +132,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 	public function test_interactive_form_is_rendered_after_add_to_cart_with_options_block(): void {
 		$product_id = $this->create_and_visit_variable_product();
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'data-wp-on--submit', $markup, 'The Add to Cart + Options block should keep its Interactivity API form when sign-ups are enabled.' );
 		$this->assertSame( 1, substr_count( $markup, 'class="wc_bis_form"' ), 'The Back in Stock form should render once.' );
@@ -155,7 +155,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$html = new \WP_HTML_Tag_Processor( $markup );
 		$html->next_tag( array( 'class_name' => 'wc_bis_form' ) );
 		$this->assertNotNull( $html->get_attribute( 'hidden' ), 'The form should stay hidden until an out of stock variation is chosen.' );
-		$this->assertSame( 'woocommerce/back-in-stock-form', $html->get_attribute( 'data-wp-interactive' ), 'The form should be driven by the Interactivity API.' );
+		$this->assertSame( 'poocommerce/back-in-stock-form', $html->get_attribute( 'data-wp-interactive' ), 'The form should be driven by the Interactivity API.' );
 
 		$html->next_tag( 'form' );
 		$this->assertSame( $html->get_attribute( 'id' ), $attribute_input['form'] ?? '', 'The attribute inputs should be posted with the Back in Stock form.' );
@@ -164,7 +164,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		while ( $html->next_tag( 'input' ) ) {
 			$bound_inputs[ $html->get_attribute( 'name' ) ] = $html->get_attribute( 'data-wp-bind--value' );
 		}
-		$this->assertSame( 'woocommerce/products::state.productInContext.id', $bound_inputs['wc_bis_product_id'] ?? null, 'The form should target the chosen variation.' );
+		$this->assertSame( 'poocommerce/products::state.productInContext.id', $bound_inputs['wc_bis_product_id'] ?? null, 'The form should target the chosen variation.' );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$this->create_and_visit_variable_product();
 
 		ob_start();
-		do_action( 'woocommerce_after_add_to_cart_form' );
+		do_action( 'poocommerce_after_add_to_cart_form' );
 		$markup = ob_get_clean();
 
 		$this->assertStringContainsString( 'wc_bis_form', $markup, 'The Back in Stock form should render when the hook fires from a classic template.' );
@@ -187,7 +187,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 	public function test_form_is_rendered_for_simple_product_after_add_to_cart_with_options_block(): void {
 		$product_id = $this->create_and_visit_out_of_stock_simple_product();
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'data-wp-on--submit', $markup, 'The Add to Cart + Options block should keep its Interactivity API form for an out of stock simple product.' );
 		$this->assertGreaterThan( strpos( $markup, '</form>' ), strpos( $markup, 'class="wc_bis_form"' ), 'The Back in Stock form should render outside the block form.' );
@@ -196,7 +196,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$html = new \WP_HTML_Tag_Processor( $form );
 		$this->assertTrue( $html->next_tag( array( 'class_name' => 'wc_bis_form' ) ), 'The Back in Stock form should render.' );
 		$this->assertNull( $html->get_attribute( 'hidden' ), 'The form should be visible.' );
-		$this->assertStringNotContainsString( 'woocommerce/back-in-stock-form', $form, 'A simple product form needs no Interactivity API store.' );
+		$this->assertStringNotContainsString( 'poocommerce/back-in-stock-form', $form, 'A simple product form needs no Interactivity API store.' );
 	}
 
 	/**
@@ -223,7 +223,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$this->go_to( get_permalink( $product_id ) );
 		$GLOBALS['product'] = wc_get_product( $product_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertSame( 1, substr_count( $markup, 'class="wc_bis_form"' ), 'The Back in Stock form should render once.' );
 		$this->assertStringNotContainsString( 'form="wc-bis-form-', $markup, 'Without a variation selector there are no attributes to post.' );
@@ -254,7 +254,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 			)
 		)->get_id();
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $other_product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $other_product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringNotContainsString( 'wc_bis_form', $markup, 'Blocks for other products, e.g. in related products, should not get a Back in Stock form.' );
 	}
@@ -266,10 +266,10 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$product_id = $this->create_and_visit_out_of_stock_simple_product();
 
 		ob_start();
-		do_action( 'woocommerce_simple_add_to_cart' );
+		do_action( 'poocommerce_simple_add_to_cart' );
 		$classic_markup = ob_get_clean();
 
-		$block_markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$block_markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'wc_bis_form', $classic_markup, 'The classic hook should render the form.' );
 		$this->assertStringNotContainsString( 'wc_bis_form', $block_markup, 'The block should not render a second form for the same product.' );
@@ -282,7 +282,7 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 		$this->create_and_visit_out_of_stock_simple_product();
 
 		ob_start();
-		do_action( 'woocommerce_simple_add_to_cart' );
+		do_action( 'poocommerce_simple_add_to_cart' );
 		$markup = ob_get_clean();
 
 		$this->assertStringContainsString( 'wc_bis_form', $markup, 'The Back in Stock form should render when the simple product hook fires from a classic template.' );
@@ -292,16 +292,16 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 	 * @testdox Should send guests back to the product after logging in when an account is required.
 	 */
 	public function test_login_link_returns_guest_to_the_product_when_account_is_required(): void {
-		update_option( 'woocommerce_customer_stock_notifications_require_account', 'yes' );
+		update_option( 'poocommerce_customer_stock_notifications_require_account', 'yes' );
 		wp_set_current_user( 0 );
 		$product_id = $this->create_and_visit_out_of_stock_simple_product();
 
 		try {
 			ob_start();
-			do_action( 'woocommerce_simple_add_to_cart' );
+			do_action( 'poocommerce_simple_add_to_cart' );
 			$markup = ob_get_clean();
 		} finally {
-			delete_option( 'woocommerce_customer_stock_notifications_require_account' );
+			delete_option( 'poocommerce_customer_stock_notifications_require_account' );
 		}
 
 		$expected_url = add_query_arg( 'redirect_to', rawurlencode( get_permalink( $product_id ) ), wc_get_page_permalink( 'myaccount' ) );
@@ -315,12 +315,12 @@ class ProductPageIntegrationTest extends WC_Unit_Test_Case {
 	 */
 	public function test_form_is_rendered_inside_legacy_add_to_cart_form_block(): void {
 		$variable_product_id = $this->create_and_visit_variable_product();
-		$markup              = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $variable_product_id . '} --><!-- wp:woocommerce/add-to-cart-form /--><!-- /wp:woocommerce/single-product -->' );
+		$markup              = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $variable_product_id . '} --><!-- wp:poocommerce/add-to-cart-form /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'wc_bis_form', $markup, 'The Back in Stock form should render inside the legacy Add to Cart Form block for a variable product.' );
 
 		$simple_product_id = $this->create_and_visit_out_of_stock_simple_product();
-		$markup            = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $simple_product_id . '} --><!-- wp:woocommerce/add-to-cart-form /--><!-- /wp:woocommerce/single-product -->' );
+		$markup            = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $simple_product_id . '} --><!-- wp:poocommerce/add-to-cart-form /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'wc_bis_form', $markup, 'The Back in Stock form should render inside the legacy Add to Cart Form block for an out of stock simple product.' );
 	}

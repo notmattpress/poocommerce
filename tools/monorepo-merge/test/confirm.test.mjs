@@ -38,7 +38,7 @@ describe( 'confirm', () => {
 	it( 'cancels a command cleanly when input ends at the first prompt', () => {
 		const { stderr, status } = spawnSync(
 			process.execPath,
-			[ BIN, 'transfer-issues', 'woocommerce/example' ],
+			[ BIN, 'transfer-issues', 'poocommerce/example' ],
 			{ input: '', encoding: 'utf8', timeout: 10000 }
 		);
 

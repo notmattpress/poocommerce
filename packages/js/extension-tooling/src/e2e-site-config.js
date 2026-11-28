@@ -1,12 +1,12 @@
 const fs = require( 'node:fs' );
 const path = require( 'node:path' );
 
-const latestWooCommerce =
-	'https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip';
-const stableWooCommerce =
-	'https://downloads.wordpress.org/plugin/woocommerce.zip';
-const nightlyWooCommerce =
-	'https://github.com/woocommerce/woocommerce/releases/download/nightly/woocommerce-trunk-nightly.zip';
+const latestPooCommerce =
+	'https://downloads.wordpress.org/plugin/poocommerce.latest-stable.zip';
+const stablePooCommerce =
+	'https://downloads.wordpress.org/plugin/poocommerce.zip';
+const nightlyPooCommerce =
+	'https://github.com/poocommerce/poocommerce/releases/download/nightly/poocommerce-trunk-nightly.zip';
 // Match dotted version numbers and pre-release tags such as 11.3.0-rc.1.
 const isVersionNumber = ( value ) =>
 	typeof value === 'string' && /^\d+(\.\d+)*(-\w+(\.\w+)*)*$/.test( value );
@@ -51,15 +51,15 @@ function setSiteVersion( config, option, value ) {
  * @param {Object}   options                   Site setup options.
  * @param {string}   options.root              Extension checkout directory.
  * @param {string}   options.pluginPath        Relative path to the unpacked production plugin.
- * @param {Object}   [options.env=process.env] WordPress, WooCommerce and explicit E2E PHP version variables.
- * @param {Object}   [options.woocommerce]     Optional latest and nightly WooCommerce install sources.
+ * @param {Object}   [options.env=process.env] WordPress, PooCommerce and explicit E2E PHP version variables.
+ * @param {Object}   [options.poocommerce]     Optional latest and nightly PooCommerce install sources.
  * @param {Function} [options.configure]       Set repo-specific plugins and mappings.
  */
 function writeE2ESiteConfig( {
 	root,
 	pluginPath,
 	env = process.env,
-	woocommerce = {},
+	poocommerce = {},
 	configure,
 } ) {
 	const config = JSON.parse(
@@ -76,9 +76,9 @@ function writeE2ESiteConfig( {
 	configure?.( config );
 
 	const { WC_VERSION = '', WP_VERSION, E2E_PHP_VERSION } = env;
-	let wooSource = woocommerce.latest ?? null;
+	let wooSource = poocommerce.latest ?? null;
 	if ( WC_VERSION === 'nightly' || WC_VERSION === 'trunk' ) {
-		wooSource = woocommerce.nightly ?? nightlyWooCommerce;
+		wooSource = poocommerce.nightly ?? nightlyPooCommerce;
 	} else if ( WC_VERSION !== '' && WC_VERSION !== 'latest' ) {
 		if (
 			typeof WC_VERSION !== 'string' ||
@@ -91,18 +91,18 @@ function writeE2ESiteConfig( {
 			);
 		}
 		wooSource =
-			'https://github.com/woocommerce/woocommerce/releases/download/' +
+			'https://github.com/poocommerce/poocommerce/releases/download/' +
 			WC_VERSION +
-			'/woocommerce.zip';
+			'/poocommerce.zip';
 	}
 	if ( wooSource !== null && Array.isArray( config.plugins ) ) {
 		const wooIndex = config.plugins.findIndex(
 			( source ) =>
-				source === latestWooCommerce || source === stableWooCommerce
+				source === latestPooCommerce || source === stablePooCommerce
 		);
 		if ( wooIndex === -1 ) {
 			throw new Error(
-				'.wp-env.test.json must include a WooCommerce ZIP mount.'
+				'.wp-env.test.json must include a PooCommerce ZIP mount.'
 			);
 		}
 		config.plugins[ wooIndex ] = wooSource;

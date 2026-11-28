@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\ShippingZoneAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/shipping-zones-query';
+		return 'poocommerce/shipping-zones-query';
 	}
 
 	/**
@@ -39,15 +39,15 @@ class ShippingZonesQuery extends AbstractDomainAbility implements AbilityDefinit
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query shipping zones', 'woocommerce' ),
-			'description'         => __( 'List shipping zones in matching order, with the regions each covers and its shipping methods. Zone 0 covers every location no other zone matches.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query shipping zones', 'poocommerce' ),
+			'description'         => __( 'List shipping zones in matching order, with the regions each covers and its shipping methods. Zone 0 covers every location no other zone matches.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'include' => array(
 						'type'        => 'array',
-						'description' => __( 'Return only these zone IDs.', 'woocommerce' ),
+						'description' => __( 'Return only these zone IDs.', 'poocommerce' ),
 						'items'       => array(
 							'type'    => 'integer',
 							'minimum' => 0,

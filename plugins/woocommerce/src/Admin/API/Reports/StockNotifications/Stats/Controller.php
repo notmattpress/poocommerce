@@ -7,12 +7,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\Reports\StockNotifications\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\StockNotifications\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -83,7 +83,7 @@ class Controller extends GenericStatsController {
 		 * @param array            $report   The original report interval.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_stock_notifications_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_stock_notifications_stats', $response, $report, $request );
 	}
 
 	/**
@@ -95,29 +95,29 @@ class Controller extends GenericStatsController {
 	protected function get_item_properties_schema() {
 		return array(
 			'signups'            => array(
-				'title'       => __( 'Sign-ups', 'woocommerce' ),
-				'description' => __( 'Sign-ups created in the period. Excludes unconfirmed (pending) sign-ups.', 'woocommerce' ),
+				'title'       => __( 'Sign-ups', 'poocommerce' ),
+				'description' => __( 'Sign-ups created in the period. Excludes unconfirmed (pending) sign-ups.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'notifications_sent' => array(
-				'title'       => __( 'Notifications sent', 'woocommerce' ),
-				'description' => __( 'Back-in-stock emails sent in the period. A re-sent notification counts once, on its latest send date.', 'woocommerce' ),
+				'title'       => __( 'Notifications sent', 'poocommerce' ),
+				'description' => __( 'Back-in-stock emails sent in the period. A re-sent notification counts once, on its latest send date.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'customers'          => array(
-				'title'       => __( 'Customers', 'woocommerce' ),
-				'description' => __( 'Distinct customers, by email, who signed up in the period.', 'woocommerce' ),
+				'title'       => __( 'Customers', 'poocommerce' ),
+				'description' => __( 'Distinct customers, by email, who signed up in the period.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'products_count'     => array(
-				'title'       => __( 'Products', 'woocommerce' ),
-				'description' => __( 'Products with sign-ups or notifications sent in the period.', 'woocommerce' ),
+				'title'       => __( 'Products', 'poocommerce' ),
+				'description' => __( 'Products with sign-ups or notifications sent in the period.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

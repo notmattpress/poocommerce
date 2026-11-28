@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 use WP_Block;
 
 /**
  * Product Filter: Rating Block
  *
- * @package Automattic\WooCommerce\Blocks\BlockTypes
+ * @package Automattic\PooCommerce\Blocks\BlockTypes
  */
 final class ProductFilterRating extends AbstractBlock {
 	/**
@@ -33,7 +33,7 @@ final class ProductFilterRating extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 
@@ -68,7 +68,7 @@ final class ProductFilterRating extends AbstractBlock {
 				'type'        => 'rating',
 				'value'       => (string) $rating,
 				/* translators: %s is referring to rating value. Example: Rated 4 out of 5. */
-				'activeLabel' => sprintf( __( 'Rating: Rated %d out of 5', 'woocommerce' ), $rating ),
+				'activeLabel' => sprintf( __( 'Rating: Rated %d out of 5', 'poocommerce' ), $rating ),
 			);
 		}
 
@@ -108,7 +108,7 @@ final class ProductFilterRating extends AbstractBlock {
 				$rating_value = (int) $rating['rating'];
 				$aria_label   = sprintf(
 					/* translators: %1$d is referring to rating value. Example: Rated 4 out of 5. */
-					__( 'Rated %1$d out of 5', 'woocommerce' ),
+					__( 'Rated %1$d out of 5', 'poocommerce' ),
 					$rating_value,
 				);
 
@@ -133,18 +133,18 @@ final class ProductFilterRating extends AbstractBlock {
 		$filter_context = array(
 			'items'          => array_values( $filter_options ),
 			'selectionMode'  => 'multiple',
-			'storeNamespace' => 'woocommerce/product-filters',
-			'groupLabel'     => __( 'Rating', 'woocommerce' ),
+			'storeNamespace' => 'poocommerce/product-filters',
+			'groupLabel'     => __( 'Rating', 'poocommerce' ),
 			'filterType'     => 'rating',
 		);
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'     => wp_json_encode(
 				array(
 					/* translators: {{label}} is the rating filter item label. */
-					'activeLabelTemplate' => __( 'Rating: {{label}}', 'woocommerce' ),
+					'activeLabelTemplate' => __( 'Rating: {{label}}', 'poocommerce' ),
 					'filterType'          => 'rating',
 					'items'               => array_values( $filter_options ),
 				),
@@ -155,9 +155,9 @@ final class ProductFilterRating extends AbstractBlock {
 		$is_empty            = empty( $filter_options );
 		$product_filters_key = $block->context['productFiltersKey'] ?? '';
 		if ( is_string( $product_filters_key ) && '' !== $product_filters_key ) {
-			$state = wp_interactivity_state( 'woocommerce/product-filters' );
+			$state = wp_interactivity_state( 'poocommerce/product-filters' );
 			$state['filterEmptyStates'][ $product_filters_key ][] = $is_empty;
-			wp_interactivity_state( 'woocommerce/product-filters', $state );
+			wp_interactivity_state( 'poocommerce/product-filters', $state );
 		}
 
 		if ( $is_empty ) {
@@ -171,7 +171,7 @@ final class ProductFilterRating extends AbstractBlock {
 			array_reduce(
 				$block->parsed_block['innerBlocks'],
 				function ( $carry, $parsed_block ) use ( $filter_context ) {
-					$carry .= ( new \WP_Block( $parsed_block, array( 'woocommerce/selectableItems' => $filter_context ) ) )->render();
+					$carry .= ( new \WP_Block( $parsed_block, array( 'poocommerce/selectableItems' => $filter_context ) ) )->render();
 					return $carry;
 				},
 				''

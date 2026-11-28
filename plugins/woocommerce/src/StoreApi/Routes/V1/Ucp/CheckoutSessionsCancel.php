@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
 
 /**
  * UCP `POST /checkout-sessions/{id}/cancel` route.
@@ -69,7 +69,7 @@ class CheckoutSessionsCancel extends AbstractCheckoutRoute {
 			return $state;
 		}
 
-		$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session canceled.', 'woocommerce' ) );
+		$state = $this->cancel_handed_off_order( $state, __( 'UCP checkout session canceled.', 'poocommerce' ) );
 
 		if ( ! empty( $state['order_id'] ) ) {
 			return $this->refuse_kept_order();

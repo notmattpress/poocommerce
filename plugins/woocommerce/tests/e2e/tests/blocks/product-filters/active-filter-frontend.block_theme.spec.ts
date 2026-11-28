@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 // The post's Product Collection has `queryId: 1`, so its filters read
 // `wcp-1-` prefixed URL params.
@@ -13,7 +13,7 @@ const withFilters = ( link: string, params: Record< string, string > ) => {
 	return url.href;
 };
 
-test.describe( 'woocommerce/product-filter-active - Frontend', () => {
+test.describe( 'poocommerce/product-filter-active - Frontend', () => {
 	let postLink: string;
 
 	test.beforeEach( async ( { page, createPost } ) => {
@@ -39,7 +39,7 @@ test.describe( 'woocommerce/product-filter-active - Frontend', () => {
 		await page.goto( postLink );
 
 		const chips = page.locator(
-			'.wp-block-woocommerce-product-filter-active'
+			'.wp-block-poocommerce-product-filter-active'
 		);
 
 		await expect( chips ).toHaveCount( 1 );

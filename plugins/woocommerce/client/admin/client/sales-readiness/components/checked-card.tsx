@@ -51,7 +51,7 @@ export const CheckedCard = ( {
 							<Spinner />
 							<Text variant="body-md">
 								{ view.run.message ||
-									__( 'Checking your store', 'woocommerce' ) }
+									__( 'Checking your store', 'poocommerce' ) }
 							</Text>
 						</div>
 					) : (
@@ -73,7 +73,7 @@ export const CheckedCard = ( {
 									{ createInterpolateElement(
 										__(
 											'Need help? <download>Download your results</download> and <support>contact support</support>.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											download: (
@@ -101,7 +101,7 @@ export const CheckedCard = ( {
 						onClick={ onRun }
 					>
 						{ checking
-							? __( 'Check again', 'woocommerce' )
+							? __( 'Check again', 'poocommerce' )
 							: view.run.label }
 					</Button>
 				</div>
@@ -112,14 +112,14 @@ export const CheckedCard = ( {
 							__nextHasNoMarginBottom
 							label={ __(
 								'Automatically run checks daily',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={
 								view.daily_checks
 									? undefined
 									: __(
 											'For an updated report on how well AI assistants can find and shop your store, select Check again above.',
-											'woocommerce'
+											'poocommerce'
 										)
 							}
 							checked={ view.daily_checks }

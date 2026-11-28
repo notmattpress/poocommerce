@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Order Tracking
+ * PooCommerce Order Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of a WooCommerce Order.
+ * This class adds actions to track usage of a PooCommerce Order.
  */
 class WC_Order_Tracking {
 
@@ -16,7 +16,7 @@ class WC_Order_Tracking {
 	 * Init tracking.
 	 */
 	public function init() {
-		add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'track_order_viewed' ) );
+		add_action( 'poocommerce_admin_order_data_after_order_details', array( $this, 'track_order_viewed' ) );
 	}
 
 	/**

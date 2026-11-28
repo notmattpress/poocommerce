@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { ProductResponseItem } from '@woocommerce/types';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { ProductResponseItem } from '@poocommerce/types';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -35,13 +35,13 @@ jest.mock(
 const product = { id: 42, name: 'Hoodie' } as ProductResponseItem;
 const variation = { id: 99, name: 'Hoodie - Blue' } as ProductResponseItem;
 
-describe( 'woocommerce store – product data', () => {
-	it( 'returns the woocommerce/products objects, empty when it holds no product data', () => {
+describe( 'poocommerce store – product data', () => {
+	it( 'returns the poocommerce/products objects, empty when it holds no product data', () => {
 		require( '../products' );
 		const productsState = mockStates[
-			'woocommerce/products'
+			'poocommerce/products'
 		] as ProductsStore[ 'state' ];
-		const state = mockStates.woocommerce as ProductDataState;
+		const state = mockStates.poocommerce as ProductDataState;
 
 		expect( state.products ).toEqual( {} );
 		expect( state.productVariations ).toEqual( {} );

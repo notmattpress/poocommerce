@@ -4,10 +4,10 @@
  *
  * Note: This template is only used in the back-in-stock emails.
  *
- * Used to render information for the email editor WooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
+ * Used to render information for the email editor PooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails\Block
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails\Block
  * @version 11.5.0
  *
  * @var Notification $notification                      Notification object.
@@ -25,7 +25,7 @@
  * @var string       $verification_expiration_threshold How long the confirm link stays valid. Verification email only.
  */
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,16 +38,16 @@ echo wp_kses_post( wpautop( wptexturize( $intro_content ) ) );
 <div style="text-align: center;">
 	<?php
 	/**
-	 * Hook: woocommerce_email_stock_notification_product.
+	 * Hook: poocommerce_email_stock_notification_product.
 	 *
 	 * @since 10.2.0
 	 *
-	 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_image - 10
-	 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_title - 20
-	 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_attributes - 30
-	 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_price - 40
+	 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_image - 10
+	 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_title - 20
+	 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_attributes - 30
+	 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailTemplatesController::email_product_price - 40
 	 */
-	do_action( 'woocommerce_email_stock_notification_product', $product, $notification, $plain_text, $email );
+	do_action( 'poocommerce_email_stock_notification_product', $product, $notification, $plain_text, $email );
 
 	if ( isset( $verification_link ) ) {
 		wc_get_template(
@@ -60,7 +60,7 @@ echo wp_kses_post( wpautop( wptexturize( $intro_content ) ) );
 		?>
 		<p><?php
 		// translators: %s: how long the verification link stays valid, e.g. "60 minutes".
-		echo esc_html( sprintf( __( 'This link will remain active for %s.', 'woocommerce' ), $verification_expiration_threshold ) );
+		echo esc_html( sprintf( __( 'This link will remain active for %s.', 'poocommerce' ), $verification_expiration_threshold ) );
 		?></p>
 		<?php
 	} elseif ( isset( $button_link ) ) {
@@ -77,18 +77,18 @@ echo wp_kses_post( wpautop( wptexturize( $intro_content ) ) );
 
 <p><?php
 if ( isset( $verification_link ) ) {
-	esc_html_e( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store. Wasn\'t you? Please get in touch with us if you keep receiving these messages.', 'woocommerce' );
+	esc_html_e( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store. Wasn\'t you? Please get in touch with us if you keep receiving these messages.', 'poocommerce' );
 } else {
-	esc_html_e( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store.', 'woocommerce' );
+	esc_html_e( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store.', 'poocommerce' );
 	echo ' ';
 	if ( ! $is_guest && $account_link ) {
-		$account_link_tag = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $account_link ), esc_html_x( 'click here', 'account management cta for stock notifications for existing customers', 'woocommerce' ) );
+		$account_link_tag = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $account_link ), esc_html_x( 'click here', 'account management cta for stock notifications for existing customers', 'poocommerce' ) );
 		// translators: %s: "click here" link to the customer's account.
-		echo wp_kses_post( sprintf( __( 'To manage your notifications, %s to log in to your account.', 'woocommerce' ), $account_link_tag ) );
+		echo wp_kses_post( sprintf( __( 'To manage your notifications, %s to log in to your account.', 'poocommerce' ), $account_link_tag ) );
 	} else {
-		$unsubscribe_link_tag = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $unsubscribe_link ), esc_html_x( 'click here', 'unsubscribe cta for stock notifications for guests', 'woocommerce' ) );
+		$unsubscribe_link_tag = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $unsubscribe_link ), esc_html_x( 'click here', 'unsubscribe cta for stock notifications for guests', 'poocommerce' ) );
 		// translators: %s: "click here" unsubscribe link.
-		echo wp_kses_post( sprintf( __( 'To stop receiving these messages, %s to unsubscribe.', 'woocommerce' ), $unsubscribe_link_tag ) );
+		echo wp_kses_post( sprintf( __( 'To stop receiving these messages, %s to unsubscribe.', 'poocommerce' ), $unsubscribe_link_tag ) );
 	}
 }
 ?></p>

@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\StockNotifications;
 
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 use WP_REST_Request;
 use WP_REST_Response;
 

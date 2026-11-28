@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import {
 	act,
 	fireEvent,

@@ -93,7 +93,7 @@ describe( 'CheckedCard', () => {
 			last_checked: 'Last checked today',
 			checked_note: null,
 			checked: hasRun,
-			support_url: 'https://woocommerce.com/my-account/create-a-ticket/',
+			support_url: 'https://poocommerce.com/my-account/create-a-ticket/',
 			run: {
 				label: 'Check again',
 				pending: false,
@@ -128,7 +128,7 @@ describe( 'CheckedCard', () => {
 			screen.getByRole( 'link', { name: /contact support/ } )
 		).toHaveAttribute(
 			'href',
-			'https://woocommerce.com/my-account/create-a-ticket/'
+			'https://poocommerce.com/my-account/create-a-ticket/'
 		);
 	} );
 

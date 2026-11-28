@@ -21,7 +21,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 		$this->set_test_session( $handler, $customer_id );
 
 		$cache_key = WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP ) . $customer_id;
-		$table     = $wpdb->prefix . 'woocommerce_sessions';
+		$table     = $wpdb->prefix . 'poocommerce_sessions';
 
 		try {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -56,7 +56,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 		$stale_data  = array( 'cart_version' => 'stale' );
 		$latest_data = array( 'cart_version' => 'latest' );
 		$handler     = new WC_Session_Handler();
-		$table       = $wpdb->prefix . 'woocommerce_sessions';
+		$table       = $wpdb->prefix . 'poocommerce_sessions';
 		$cache_key   = WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP ) . $customer_id;
 		$this->set_test_session( $handler, $customer_id );
 
@@ -74,16 +74,16 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 			wp_cache_set( $cache_key, $stale_data, WC_SESSION_CACHE_GROUP );
 
 			$cached_data = $handler->get_session_data();
-			\Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $handler, $cached_data );
-			$this->assertTrue( \Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ) );
+			\Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $handler, $cached_data );
+			$this->assertTrue( \Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ) );
 
 			$next_handler = new WC_Session_Handler();
 			$this->set_test_session( $next_handler, $customer_id );
 			$next_request_data = $next_handler->get_session_data();
-			\Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $next_handler, $next_request_data );
+			\Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $next_handler, $next_request_data );
 
 			$this->assertSame( $latest_data, $next_request_data );
-			$this->assertFalse( \Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $next_handler ) );
+			$this->assertFalse( \Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $next_handler ) );
 		} finally {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->delete( $table, array( 'session_key' => $customer_id ), array( '%s' ) );
@@ -102,7 +102,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 		$this->set_test_session( $handler, $customer_id );
 
 		$cache_key = WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP ) . $customer_id;
-		$table     = $wpdb->prefix . 'woocommerce_sessions';
+		$table     = $wpdb->prefix . 'poocommerce_sessions';
 
 		try {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -177,7 +177,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 		$initial_data  = array( 'cart_version' => 'initial' );
 		$external_data = array( 'cart_version' => 'external' );
 		$handler       = new WC_Session_Handler();
-		$table         = $wpdb->prefix . 'woocommerce_sessions';
+		$table         = $wpdb->prefix . 'poocommerce_sessions';
 		$cache_key     = WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP ) . $customer_id;
 
 		try {
@@ -194,10 +194,10 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 			$this->set_test_session( $handler, $customer_id, $initial_data );
 
 			$handler->set( 'current_request', 'changed' );
-			$this->assertFalse( \Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'Unsaved changes from this request should not look external.' );
+			$this->assertFalse( \Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'Unsaved changes from this request should not look external.' );
 
 			$handler->save_data();
-			$this->assertFalse( \Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'Saving this request should update its persisted baseline.' );
+			$this->assertFalse( \Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'Saving this request should update its persisted baseline.' );
 
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->update(
@@ -207,7 +207,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 				array( '%s' ),
 				array( '%s' )
 			);
-			$this->assertTrue( \Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'A later persisted change should be detected.' );
+			$this->assertTrue( \Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::has_changed( $handler ), 'A later persisted change should be detected.' );
 		} finally {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->delete( $table, array( 'session_key' => $customer_id ), array( '%s' ) );
@@ -240,7 +240,7 @@ class WC_Session_Handler_Test extends WC_Unit_Test_Case {
 		}
 
 		if ( null !== $session_data ) {
-			\Automattic\WooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $handler, $session_data );
+			\Automattic\PooCommerce\StoreApi\Utilities\SessionConcurrencyGuard::capture( $handler, $session_data );
 		}
 	}
 }

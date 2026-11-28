@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -56,13 +56,13 @@ const WCAddonsTour = () => {
 				}
 			}
 
-			// In a rare case, admin notices might load before observe is added below (moving `.woocommerce-marketplace`).
+			// In a rare case, admin notices might load before observe is added below (moving `.poocommerce-marketplace`).
 			// In such a case, if Tour is shown before this effect is called, it might not be position correctly.
 			// Updating popper's position here, ensures it's always visible.
 			const timeoutId = setTimeout( showPopper, 500 );
 
 			const intervalId = observePositionChange(
-				'.woocommerce-marketplace',
+				'.poocommerce-marketplace',
 				showPopper,
 				150
 			);
@@ -84,7 +84,7 @@ const WCAddonsTour = () => {
 		setShowTour( false );
 		// mark tour as completed
 		void updateOptions( {
-			woocommerce_admin_dismissed_in_app_marketplace_tour: 'yes',
+			poocommerce_admin_dismissed_in_app_marketplace_tour: 'yes',
 		} );
 		// remove `tutorial` from search query, so it's not shown on page refresh
 		const url = new URL( window.location.href );

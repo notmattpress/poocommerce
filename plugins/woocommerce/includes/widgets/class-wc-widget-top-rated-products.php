@@ -3,7 +3,7 @@
  * Top Rated Products Widget.
  * Gets and displays top rated products in an unordered list.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 3.3.0
  */
 
@@ -18,15 +18,15 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_top_rated_products';
-		$this->widget_description = __( "A list of your store's top-rated products.", 'woocommerce' );
-		$this->widget_id          = 'woocommerce_top_rated_products';
-		$this->widget_name        = __( 'Products by Rating list', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_top_rated_products';
+		$this->widget_description = __( "A list of your store's top-rated products.", 'poocommerce' );
+		$this->widget_id          = 'poocommerce_top_rated_products';
+		$this->widget_name        = __( 'Products by Rating list', 'poocommerce' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'std'   => __( 'Top rated products', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Top rated products', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'number' => array(
 				'type'  => 'number',
@@ -34,7 +34,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 				'min'   => 1,
 				'max'   => '',
 				'std'   => 5,
-				'label' => __( 'Number of products to show', 'woocommerce' ),
+				'label' => __( 'Number of products to show', 'poocommerce' ),
 			),
 		);
 
@@ -59,7 +59,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 		$number = ! empty( $instance['number'] ) ? absint( $instance['number'] ) : $this->settings['number']['std'];
 
 		$query_args = apply_filters(
-			'woocommerce_top_rated_products_widget_args',
+			'poocommerce_top_rated_products_widget_args',
 			array(
 				'posts_per_page' => $number,
 				'no_found_rows'  => 1,
@@ -70,7 +70,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 				'meta_key'       => '_wc_average_rating', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Part of the filter payload only; query_top_rated_products() orders through wc_product_meta_lookup instead of joining post meta.
 				'orderby'        => 'meta_value_num',
 				'order'          => 'DESC',
-				'meta_query'     => WC()->query->get_meta_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Empty unless an extension adds clauses through woocommerce_product_query_meta_query; the same container the shop catalog query uses.
+				'meta_query'     => WC()->query->get_meta_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Empty unless an extension adds clauses through poocommerce_product_query_meta_query; the same container the shop catalog query uses.
 				'tax_query'      => WC()->query->get_tax_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Product visibility exclusions are indexed by term_taxonomy_id and are the only way to hide catalog-excluded products.
 			)
 		);
@@ -81,7 +81,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 
 			$this->widget_start( $args, $instance );
 
-			echo wp_kses_post( apply_filters( 'woocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
 
 			$template_args = array(
 				'widget_id'   => isset( $args['widget_id'] ) ? $args['widget_id'] : $this->widget_id,
@@ -93,7 +93,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 				wc_get_template( 'content-widget-product.php', $template_args );
 			}
 
-			echo wp_kses_post( apply_filters( 'woocommerce_after_widget_product_list', '</ul>' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_after_widget_product_list', '</ul>' ) );
 
 			$this->widget_end( $args );
 		}
@@ -116,7 +116,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 	 * callback the shop catalog uses for "sort by average rating", which also breaks ties on rating count
 	 * and product ID rather than leaving equally rated products in an undefined order.
 	 *
-	 * The swap happens after `woocommerce_top_rated_products_widget_args` has run, and only when nothing on
+	 * The swap happens after `poocommerce_top_rated_products_widget_args` has run, and only when nothing on
 	 * that filter changed the ordering arguments, so the filter payload keeps its documented shape and a
 	 * consumer that overrides the ordering still wins.
 	 *

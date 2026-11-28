@@ -5,24 +5,24 @@ sidebar_label: Hooks
 
 # Order fulfillments hooks
 
-WooCommerce exposes lifecycle hooks, status filters, provider filters, notification actions, email template hooks, and CSV importer hooks for order fulfillments. These hooks let extensions validate fulfillment data, synchronize external systems, customize tracking behavior, adjust merchant or customer-facing output, accept header names from warehouse exports, map custom order numbers and set the chunk size of a CSV import, and react when a staged import file is cleaned up.
+PooCommerce exposes lifecycle hooks, status filters, provider filters, notification actions, email template hooks, and CSV importer hooks for order fulfillments. These hooks let extensions validate fulfillment data, synchronize external systems, customize tracking behavior, adjust merchant or customer-facing output, accept header names from warehouse exports, map custom order numbers and set the chunk size of a CSV import, and react when a staged import file is cleaned up.
 
 ## Data lifecycle filters
 
-These filters run before WooCommerce persists fulfillment changes. Each filter receives the `Fulfillment` object and must return it (optionally modified). To **cancel the operation** — for example, to enforce a validation rule — throw a `FulfillmentException` inside the callback. The exception message is surfaced to the caller as an error response.
+These filters run before PooCommerce persists fulfillment changes. Each filter receives the `Fulfillment` object and must return it (optionally modified). To **cancel the operation** — for example, to enforce a validation rule — throw a `FulfillmentException` inside the callback. The exception message is surfaced to the caller as an error response.
 
 | Hook | Purpose |
 | --- | --- |
-| `woocommerce_fulfillment_before_create` | Modify a `Fulfillment` object before it is inserted into the database. Throw a `FulfillmentException` to block creation. |
-| `woocommerce_fulfillment_before_fulfill` | Modify a `Fulfillment` object immediately before it transitions into a fulfilled state during create or update operations. |
-| `woocommerce_fulfillment_before_update` | Modify a `Fulfillment` object before changes are written to the database. Throw a `FulfillmentException` to block the update. |
-| `woocommerce_fulfillment_before_delete` | Modify a `Fulfillment` object before WooCommerce soft-deletes it. Throw a `FulfillmentException` to block deletion. |
+| `poocommerce_fulfillment_before_create` | Modify a `Fulfillment` object before it is inserted into the database. Throw a `FulfillmentException` to block creation. |
+| `poocommerce_fulfillment_before_fulfill` | Modify a `Fulfillment` object immediately before it transitions into a fulfilled state during create or update operations. |
+| `poocommerce_fulfillment_before_update` | Modify a `Fulfillment` object before changes are written to the database. Throw a `FulfillmentException` to block the update. |
+| `poocommerce_fulfillment_before_delete` | Modify a `Fulfillment` object before PooCommerce soft-deletes it. Throw a `FulfillmentException` to block deletion. |
 
 ```php
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentException;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentException;
 
 // Require a tracking number before a fulfillment can be created in fulfilled status.
-add_filter( 'woocommerce_fulfillment_before_create', function( $fulfillment ) {
+add_filter( 'poocommerce_fulfillment_before_create', function( $fulfillment ) {
     if ( $fulfillment->get_is_fulfilled() && ! $fulfillment->get_tracking_number() ) {
         throw new FulfillmentException(
             __( 'A tracking number is required to create a fulfilled fulfillment.', 'my-plugin' )
@@ -35,17 +35,17 @@ add_filter( 'woocommerce_fulfillment_before_create', function( $fulfillment ) {
 
 ## Data lifecycle actions
 
-These actions fire after WooCommerce saves or deletes the fulfillment.
+These actions fire after PooCommerce saves or deletes the fulfillment.
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillment_after_create` | `Fulfillment $fulfillment` | React after a fulfillment is created. |
-| `woocommerce_fulfillment_after_fulfill` | `Fulfillment $fulfillment` | React when a fulfillment becomes fulfilled. |
-| `woocommerce_fulfillment_after_update` | `Fulfillment $fulfillment`, `array $changes`, `string $previous_status` | React after an update and inspect the changed core fields or metadata. |
-| `woocommerce_fulfillment_after_delete` | `Fulfillment $fulfillment` | React after a fulfillment is soft-deleted. |
+| `poocommerce_fulfillment_after_create` | `Fulfillment $fulfillment` | React after a fulfillment is created. |
+| `poocommerce_fulfillment_after_fulfill` | `Fulfillment $fulfillment` | React when a fulfillment becomes fulfilled. |
+| `poocommerce_fulfillment_after_update` | `Fulfillment $fulfillment`, `array $changes`, `string $previous_status` | React after an update and inspect the changed core fields or metadata. |
+| `poocommerce_fulfillment_after_delete` | `Fulfillment $fulfillment` | React after a fulfillment is soft-deleted. |
 
 ```php
-add_action( 'woocommerce_fulfillment_after_update', function( $fulfillment, $changes, $previous_status ) {
+add_action( 'poocommerce_fulfillment_after_update', function( $fulfillment, $changes, $previous_status ) {
     $meta_changes = $changes['meta_data'] ?? array();
 
     if ( array_key_exists( '_tracking_number', $meta_changes ) ) {
@@ -64,12 +64,12 @@ These actions back the built-in customer fulfillment emails and any additional n
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillment_created_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was created. |
-| `woocommerce_fulfillment_updated_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was updated. |
-| `woocommerce_fulfillment_deleted_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was deleted. |
+| `poocommerce_fulfillment_created_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was created. |
+| `poocommerce_fulfillment_updated_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was updated. |
+| `poocommerce_fulfillment_deleted_notification` | `int $order_id`, `Fulfillment $fulfillment`, `WC_Order $order` | Notify the customer that a fulfilled fulfillment was deleted. |
 
 ```php
-add_action( 'woocommerce_fulfillment_created_notification', function( $order_id, $fulfillment, $order ) {
+add_action( 'poocommerce_fulfillment_created_notification', function( $order_id, $fulfillment, $order ) {
     $phone = $order->get_billing_phone();
 
     if ( $phone && $fulfillment->get_tracking_number() ) {
@@ -80,24 +80,24 @@ add_action( 'woocommerce_fulfillment_created_notification', function( $order_id,
 
 ## Status, provider, and tracking filters
 
-These filters change how WooCommerce calculates fulfillment state and resolves shipping providers.
+These filters change how PooCommerce calculates fulfillment state and resolves shipping providers.
 
 | Hook | Purpose |
 | --- | --- |
-| `woocommerce_fulfillment_order_fulfillment_statuses` | Register or modify order-level fulfillment statuses. |
-| `woocommerce_fulfillment_fulfillment_statuses` | Register or modify fulfillment record statuses. |
-| `woocommerce_fulfillment_calculate_order_fulfillment_status` | Override how WooCommerce derives an order's fulfillment state from its fulfillment records. |
-| `woocommerce_fulfillments_auto_fulfill_products` | Return an array of product or variation IDs to fulfill automatically. Receives the IDs array and the `WC_Order` object. |
-| `woocommerce_fulfillment_order_fulfillment_status_text` | Customize the display label for an order-level fulfillment state. |
-| `woocommerce_fulfillment_shipping_providers` | Add or modify shipping providers available to the feature. |
-| `woocommerce_fulfillment_shipment_provider_label` | Customize the provider label used in fulfillment emails, order notes, and the orders list column, after WooCommerce resolves it from the provider list or from fulfillment metadata. Receives the label and the `Fulfillment` object. A value that cannot be rendered as text is ignored. |
-| `woocommerce_rest_prepare_fulfillments_providers` | Add or modify the provider list returned by the fulfillments providers REST endpoint. Receives the providers array and the `WP_REST_Request`. Entries missing `label`, `icon`, `value`, or `url` are dropped. |
-| `woocommerce_fulfillment_parse_tracking_number` | Parse or normalize tracking numbers based on origin and destination countries. |
-| `woocommerce_fulfillment_meta_key_translations` | Customize the translation map for fulfillment metadata labels. |
-| `woocommerce_fulfillment_translate_meta_key` | Customize the label for one metadata key before it is rendered in emails or other UI. |
+| `poocommerce_fulfillment_order_fulfillment_statuses` | Register or modify order-level fulfillment statuses. |
+| `poocommerce_fulfillment_fulfillment_statuses` | Register or modify fulfillment record statuses. |
+| `poocommerce_fulfillment_calculate_order_fulfillment_status` | Override how PooCommerce derives an order's fulfillment state from its fulfillment records. |
+| `poocommerce_fulfillments_auto_fulfill_products` | Return an array of product or variation IDs to fulfill automatically. Receives the IDs array and the `WC_Order` object. |
+| `poocommerce_fulfillment_order_fulfillment_status_text` | Customize the display label for an order-level fulfillment state. |
+| `poocommerce_fulfillment_shipping_providers` | Add or modify shipping providers available to the feature. |
+| `poocommerce_fulfillment_shipment_provider_label` | Customize the provider label used in fulfillment emails, order notes, and the orders list column, after PooCommerce resolves it from the provider list or from fulfillment metadata. Receives the label and the `Fulfillment` object. A value that cannot be rendered as text is ignored. |
+| `poocommerce_rest_prepare_fulfillments_providers` | Add or modify the provider list returned by the fulfillments providers REST endpoint. Receives the providers array and the `WP_REST_Request`. Entries missing `label`, `icon`, `value`, or `url` are dropped. |
+| `poocommerce_fulfillment_parse_tracking_number` | Parse or normalize tracking numbers based on origin and destination countries. |
+| `poocommerce_fulfillment_meta_key_translations` | Customize the translation map for fulfillment metadata labels. |
+| `poocommerce_fulfillment_translate_meta_key` | Customize the label for one metadata key before it is rendered in emails or other UI. |
 
 ```php
-add_filter( 'woocommerce_fulfillment_shipping_providers', function( $providers ) {
+add_filter( 'poocommerce_fulfillment_shipping_providers', function( $providers ) {
     // Option 1: Register a provider class name
     $providers['my-carrier'] = 'My_Carrier_Provider';
 
@@ -110,15 +110,15 @@ add_filter( 'woocommerce_fulfillment_shipping_providers', function( $providers )
 
 ## Order note filters
 
-WooCommerce writes order notes when fulfillments are created, updated, deleted, or when fulfillment-related status changes occur. These filters let extensions rewrite those note messages.
+PooCommerce writes order notes when fulfillments are created, updated, deleted, or when fulfillment-related status changes occur. These filters let extensions rewrite those note messages.
 
 | Hook | Purpose |
 | --- | --- |
-| `woocommerce_fulfillment_created_order_note` | Customize the order note written after a fulfillment is created. |
-| `woocommerce_fulfillment_updated_order_note` | Customize the order note written after a fulfillment is updated. |
-| `woocommerce_fulfillment_deleted_order_note` | Customize the order note written after a fulfillment is deleted. |
-| `woocommerce_fulfillment_order_status_changed_order_note` | Customize the note written when the order-level fulfillment status changes. |
-| `woocommerce_fulfillment_status_changed_order_note` | Customize the note written when an individual fulfillment status changes. |
+| `poocommerce_fulfillment_created_order_note` | Customize the order note written after a fulfillment is created. |
+| `poocommerce_fulfillment_updated_order_note` | Customize the order note written after a fulfillment is updated. |
+| `poocommerce_fulfillment_deleted_order_note` | Customize the order note written after a fulfillment is deleted. |
+| `poocommerce_fulfillment_order_status_changed_order_note` | Customize the note written when the order-level fulfillment status changes. |
+| `poocommerce_fulfillment_status_changed_order_note` | Customize the note written when an individual fulfillment status changes. |
 
 ## Email template hooks
 
@@ -126,28 +126,28 @@ The fulfillment email templates expose the standard extension points below.
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_email_fulfillment_details` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Render the fulfillment details block in the email. |
-| `woocommerce_email_fulfillment_meta` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Render additional metadata inside the email. |
-| `woocommerce_email_before_fulfillment_table` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Inject content before the fulfillment items table. |
-| `woocommerce_email_after_fulfillment_table` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Inject content after the fulfillment items table. |
-| `woocommerce_email_fulfillment_items_args` | Template arguments array | Customize how fulfillment line items are rendered in the email templates. |
-| `woocommerce_get_email_fulfillment_items_table` | `string $html`, `WC_Order $order`, `Fulfillment $fulfillment` | Filter and return the rendered fulfillment items table HTML. |
+| `poocommerce_email_fulfillment_details` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Render the fulfillment details block in the email. |
+| `poocommerce_email_fulfillment_meta` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Render additional metadata inside the email. |
+| `poocommerce_email_before_fulfillment_table` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Inject content before the fulfillment items table. |
+| `poocommerce_email_after_fulfillment_table` | `WC_Order $order`, `Fulfillment $fulfillment`, `bool $sent_to_admin`, `bool $plain_text`, `WC_Email $email` | Inject content after the fulfillment items table. |
+| `poocommerce_email_fulfillment_items_args` | Template arguments array | Customize how fulfillment line items are rendered in the email templates. |
+| `poocommerce_get_email_fulfillment_items_table` | `string $html`, `WC_Order $order`, `Fulfillment $fulfillment` | Filter and return the rendered fulfillment items table HTML. |
 
 ## Completed order email
 
-An order that ships in parts sends one fulfillment email per shipment, and WooCommerce still sends the order-level "Completed order" email when the order is marked complete. Both are kept on purpose: a fulfillment email covers a single shipment, the "Completed order" email covers the order as a whole. A store that would rather send only the fulfillment emails can opt out of the order-level one.
+An order that ships in parts sends one fulfillment email per shipment, and PooCommerce still sends the order-level "Completed order" email when the order is marked complete. Both are kept on purpose: a fulfillment email covers a single shipment, the "Completed order" email covers the order as a whole. A store that would rather send only the fulfillment emails can opt out of the order-level one.
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillment_suppress_completed_order_email` | `bool $suppress`, `WC_Order $order` | Return true to skip the "Completed order" email for an order whose fulfillment status is `fulfilled`. Defaults to false, which sends both emails. |
+| `poocommerce_fulfillment_suppress_completed_order_email` | `bool $suppress`, `WC_Order $order` | Return true to skip the "Completed order" email for an order whose fulfillment status is `fulfilled`. Defaults to false, which sends both emails. |
 
-Only `true` skips the email, and only a fully fulfilled order is affected: a partially fulfilled order, or one with no fulfillments, still receives it. Only the email that follows the order being marked complete is skipped, so sending the "Completed order" email again, through the REST API or the `woocommerce/order-send-email` ability, still reaches the customer.
+Only `true` skips the email, and only a fully fulfilled order is affected: a partially fulfilled order, or one with no fulfillments, still receives it. Only the email that follows the order being marked complete is skipped, so sending the "Completed order" email again, through the REST API or the `poocommerce/order-send-email` ability, still reaches the customer.
 
 The callback owns the decision of whether an order can do without its "Completed order" email, and it receives the order so it can decide per order rather than store-wide. That order is the instance the email carries, which can predate the order's last edit and hold an out-of-date fulfillment status, so a callback that depends on either should re-read the order with `wc_get_order( $order->get_id() )`. The example below skips the email for shipped orders and keeps it whenever the order holds a downloadable item, which is part of the check the email itself uses to decide whether to show download links:
 
 ```php
 add_filter(
-    'woocommerce_fulfillment_suppress_completed_order_email',
+    'poocommerce_fulfillment_suppress_completed_order_email',
     function ( $suppress, $order ) {
         // Read again, because the instance the email carries can predate the order's last edit.
         $order = wc_get_order( $order->get_id() );
@@ -166,14 +166,14 @@ Two things are worth checking before opting out of the email for every order:
 
 ## Privacy filters
 
-When an order is anonymized, through the WordPress personal-data eraser or the automatic retention cleanup, WooCommerce clears the personal data stored on its fulfillments. This also runs on a store where the fulfillments feature has since been disabled, as long as its tables were created while it was on, since any tracking data they hold is still stored.
+When an order is anonymized, through the WordPress personal-data eraser or the automatic retention cleanup, PooCommerce clears the personal data stored on its fulfillments. This also runs on a store where the fulfillments feature has since been disabled, as long as its tables were created while it was on, since any tracking data they hold is still stored.
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_privacy_remove_fulfillment_personal_data_meta` | `string[] $meta_keys`, `WC_Order $order` | Add or remove the fulfillment meta keys cleared during erasure. Defaults to `_tracking_number` and `_tracking_url`. |
+| `poocommerce_privacy_remove_fulfillment_personal_data_meta` | `string[] $meta_keys`, `WC_Order $order` | Add or remove the fulfillment meta keys cleared during erasure. Defaults to `_tracking_number` and `_tracking_url`. |
 
 ```php
-add_filter( 'woocommerce_privacy_remove_fulfillment_personal_data_meta', function( $meta_keys, $order ) {
+add_filter( 'poocommerce_privacy_remove_fulfillment_personal_data_meta', function( $meta_keys, $order ) {
     // Redact a shipping label URL stored by this extension.
     $meta_keys[] = '_shipping_label_url';
 
@@ -189,12 +189,12 @@ Aliases are normalized before matching (lowercase, with runs of non-alphanumeric
 
 | Hook | Purpose |
 | --- | --- |
-| `woocommerce_fulfillments_csv_importer_column_aliases` | Change the accepted header names for `order_number`, `tracking_number`, `shipment_provider`, `tracking_url`, and `items`. Receives the alias map and returns the modified map. |
+| `poocommerce_fulfillments_csv_importer_column_aliases` | Change the accepted header names for `order_number`, `tracking_number`, `shipment_provider`, `tracking_url`, and `items`. Receives the alias map and returns the modified map. |
 
-The `shipment_provider` cell is matched to a provider from `woocommerce_fulfillment_shipping_providers` by key or name, ignoring case. Any other value is stored the way the fulfillment editor stores a custom provider: `other`, with the name in `_provider_name`.
+The `shipment_provider` cell is matched to a provider from `poocommerce_fulfillment_shipping_providers` by key or name, ignoring case. Any other value is stored the way the fulfillment editor stores a custom provider: `other`, with the name in `_provider_name`.
 
 ```php
-add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', function( $aliases ) {
+add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', function( $aliases ) {
     $aliases['order_number'][]      = 'PO Number';
     $aliases['shipment_provider'][] = 'Ship Via';
 
@@ -206,10 +206,10 @@ Each data row names its order in the `order_number` column. By default a number 
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillments_csv_importer_resolve_order` | `WC_Order\|null $order`, `string $order_number` | Find the order for an `order_number` cell that is not an order ID. |
+| `poocommerce_fulfillments_csv_importer_resolve_order` | `WC_Order\|null $order`, `string $order_number` | Find the order for an `order_number` cell that is not an order ID. |
 
 ```php
-add_filter( 'woocommerce_fulfillments_csv_importer_resolve_order', function( $order, $order_number ) {
+add_filter( 'poocommerce_fulfillments_csv_importer_resolve_order', function( $order, $order_number ) {
     if ( $order instanceof WC_Order || 0 !== strpos( $order_number, 'INV-' ) ) {
         return $order;
     }
@@ -224,10 +224,10 @@ The import runs in chunks of CSV data rows, one request per chunk. The chunk siz
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillments_csv_importer_chunk_size` | `int $chunk_size`, `bool $notify_customer` | Change the most data rows one import request processes. |
+| `poocommerce_fulfillments_csv_importer_chunk_size` | `int $chunk_size`, `bool $notify_customer` | Change the most data rows one import request processes. |
 
 ```php
-add_filter( 'woocommerce_fulfillments_csv_importer_chunk_size', function( $chunk_size, $notify_customer ) {
+add_filter( 'poocommerce_fulfillments_csv_importer_chunk_size', function( $chunk_size, $notify_customer ) {
     return $notify_customer ? 10 : 100;
 }, 10, 2 );
 ```
@@ -238,12 +238,12 @@ The import wizard stages the uploaded CSV and schedules its cleanup through Acti
 
 | Hook | Parameters | Purpose |
 | --- | --- | --- |
-| `woocommerce_fulfillments_import_session_cleanup` | `int $user_id`, `string $token`, `string $file`, `int $attachment_id` | React when an abandoned import upload is cleaned up, for example to log it or to remove data stored alongside the session. Skip live sessions, or a running import loses that data. `$file` is the absolute path of the staged CSV and `$attachment_id` is the attachment post created for it, or `0`. |
+| `poocommerce_fulfillments_import_session_cleanup` | `int $user_id`, `string $token`, `string $file`, `int $attachment_id` | React when an abandoned import upload is cleaned up, for example to log it or to remove data stored alongside the session. Skip live sessions, or a running import loses that data. `$file` is the absolute path of the staged CSV and `$attachment_id` is the attachment post created for it, or `0`. |
 
 ```php
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
 
-add_action( 'woocommerce_fulfillments_import_session_cleanup', 'log_abandoned_import', 10, 4 );
+add_action( 'poocommerce_fulfillments_import_session_cleanup', 'log_abandoned_import', 10, 4 );
 
 function log_abandoned_import( $user_id, $token, $file, $attachment_id ) {
     // Action Scheduler stores the arguments, so cast them before calling a typed method.

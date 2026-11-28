@@ -2,14 +2,14 @@
 /**
  * Tests for WC_Form_Handler.
  *
- * @package WooCommerce\Tests\FormHandler
+ * @package PooCommerce\Tests\FormHandler
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Form_Handler tests.
@@ -38,7 +38,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	private array $original_request = array();
 
 	/**
-	 * Original WooCommerce session.
+	 * Original PooCommerce session.
 	 *
 	 * @var WC_Session|null
 	 */
@@ -84,7 +84,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		WC()->session = $this->original_session;
 
 		foreach ( $this->registered_checkout_fields as $field_id ) {
-			__internal_woocommerce_blocks_deregister_checkout_field( $field_id );
+			__internal_poocommerce_blocks_deregister_checkout_field( $field_id );
 		}
 
 		parent::tearDown();
@@ -112,22 +112,22 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_process_registration_respects_myaccount_setting( string $registration_enabled, bool $expected_customer ): void {
 		wp_set_current_user( 0 );
-		update_option( 'woocommerce_enable_myaccount_registration', $registration_enabled );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
-		add_filter( 'woocommerce_registration_auth_new_customer', '__return_false' );
+		update_option( 'poocommerce_enable_myaccount_registration', $registration_enabled );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		add_filter( 'poocommerce_registration_auth_new_customer', '__return_false' );
 		add_filter( 'pre_wp_mail', '__return_true' );
 
 		$_POST             = array(
 			'register'                   => 'Register',
 			'email'                      => 'registration-policy@example.com',
-			'woocommerce-register-nonce' => wp_create_nonce( 'woocommerce-register' ),
+			'poocommerce-register-nonce' => wp_create_nonce( 'poocommerce-register' ),
 		);
-		$created_customers = did_action( 'woocommerce_created_customer' );
+		$created_customers = did_action( 'poocommerce_created_customer' );
 
 		WC_Form_Handler::process_registration();
 
 		$this->assertSame( $expected_customer, get_user_by( 'email', 'registration-policy@example.com' ) instanceof WP_User, 'The stored customer must reflect the My Account registration setting.' );
-		$this->assertSame( $created_customers + ( $expected_customer ? 1 : 0 ), did_action( 'woocommerce_created_customer' ), 'Disabled registration must not notify customer-creation consumers.' );
+		$this->assertSame( $created_customers + ( $expected_customer ? 1 : 0 ), did_action( 'poocommerce_created_customer' ), 'Disabled registration must not notify customer-creation consumers.' );
 		$this->assertSame( $expected_customer ? 0 : 1, wc_notice_count( 'error' ), 'Only disabled registration should produce an error.' );
 		if ( ! $expected_customer ) {
 			$this->assertTrue( wc_has_notice( 'Registration is disabled.', 'error' ), 'The registration policy error should be shown.' );
@@ -168,13 +168,13 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 
 		// No payment method is posted, so a processed order stops at "Invalid payment method" instead of redirecting.
 		$_GET['key']                       = $order->get_order_key();
-		$_POST['woocommerce_pay']          = '1';
-		$_REQUEST['woocommerce-pay-nonce'] = wp_create_nonce( 'woocommerce-pay' );
+		$_POST['poocommerce_pay']          = '1';
+		$_REQUEST['poocommerce-pay-nonce'] = wp_create_nonce( 'poocommerce-pay' );
 		$wp->query_vars['order-pay']       = $order->get_id();
 
 		$processed = false;
 		add_action(
-			'woocommerce_before_pay_action',
+			'poocommerce_before_pay_action',
 			function () use ( &$processed ) {
 				$processed = true;
 			}
@@ -197,7 +197,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			while ( ob_get_level() > $ob_level ) {
 				ob_end_clean();
 			}
-			unset( $wp->query_vars['order-pay'], $_GET['key'], $_POST['woocommerce_pay'], $_REQUEST['woocommerce-pay-nonce'] );
+			unset( $wp->query_vars['order-pay'], $_GET['key'], $_POST['poocommerce_pay'], $_REQUEST['poocommerce-pay-nonce'] );
 		}
 
 		$this->assertSame( $expect_processed, $processed, 'pay_action() must take on a pending order and leave a draft alone.' );
@@ -234,9 +234,9 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			return $filtered_endpoint . '?' . $query;
 		};
 
-		add_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		add_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 		$this->prepare_cancel_order_request( $order );
-		remove_filter( 'woocommerce_get_cancel_order_url_raw', $filter );
+		remove_filter( 'poocommerce_get_cancel_order_url_raw', $filter );
 
 		$this->dispatch_cancel_order_expecting_redirect( wp_make_link_relative( $filtered_endpoint ) );
 
@@ -607,7 +607,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer  = $this->create_customer_with_address( $source_type );
 		$hook_args = null;
 		add_action(
-			'woocommerce_customer_copy_address',
+			'poocommerce_customer_copy_address',
 			function ( ...$args ) use ( &$hook_args ) {
 				$hook_args = $args;
 			},
@@ -633,7 +633,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox copy_address() fires woocommerce_before_copy_address_save with the copied address set on the customer.
+	 * @testdox copy_address() fires poocommerce_before_copy_address_save with the copied address set on the customer.
 	 *
 	 * @covers WC_Form_Handler::copy_address()
 	 */
@@ -641,7 +641,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer  = $this->create_customer_with_address( 'billing' );
 		$hook_args = null;
 		add_action(
-			'woocommerce_before_copy_address_save',
+			'poocommerce_before_copy_address_save',
 			function ( $user_id, $target_type, $source_type, $hook_customer ) use ( &$hook_args ) {
 				$hook_args = array( $user_id, $target_type, $source_type, $hook_customer->get_shipping_address_1( 'edit' ) );
 			},
@@ -656,14 +656,14 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox copy_address() doesn't save the copied address when woocommerce_before_copy_address_save adds an error notice.
+	 * @testdox copy_address() doesn't save the copied address when poocommerce_before_copy_address_save adds an error notice.
 	 *
 	 * @covers WC_Form_Handler::copy_address()
 	 */
 	public function test_copy_address_is_rejected_by_error_in_before_save_action(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_action(
-			'woocommerce_before_copy_address_save',
+			'poocommerce_before_copy_address_save',
 			function () {
 				wc_add_notice( 'Extension rejected the address.', 'error' );
 			}
@@ -756,7 +756,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_copy_address_rejects_country_not_available_for_shipping(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_countries_shipping_countries',
+			'poocommerce_countries_shipping_countries',
 			function () {
 				return array( 'CA' => 'Canada' );
 			}
@@ -777,7 +777,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_copy_address_ignores_getter_filters(): void {
 		$customer = $this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_customer_get_billing_address_1',
+			'poocommerce_customer_get_billing_address_1',
 			function () {
 				return 'Filtered street';
 			}
@@ -868,7 +868,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$customer->set_shipping_phone( '' );
 		$customer->save();
 		add_filter(
-			'woocommerce_billing_fields',
+			'poocommerce_billing_fields',
 			function ( $fields ) {
 				$fields['billing_phone']['required'] = true;
 				return $fields;
@@ -1055,7 +1055,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	public function test_edit_address_form_is_not_filled_from_country_not_available(): void {
 		$this->create_customer_with_address( 'billing' );
 		add_filter(
-			'woocommerce_countries_shipping_countries',
+			'poocommerce_countries_shipping_countries',
 			function () {
 				return array( 'CA' => 'Canada' );
 			}
@@ -1069,7 +1069,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox The edit address form fills Checkout block address fields from the other address after a refused copy.
 	 *
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 */
 	public function test_edit_address_form_fills_additional_checkout_fields_from_copy_source(): void {
 		$this->register_checkout_field(
@@ -1096,7 +1096,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 *           ["billing", "shipping", "country", "US"]
 	 *           ["shipping", "billing", "test-namespace/gate-code", "1234"]
 	 *           ["billing", "shipping", "test-namespace/gate-code", "1234"]
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 *
 	 * @param string $source_type Address type copied from.
 	 * @param string $target_type Address type being edited.
@@ -1138,7 +1138,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	/**
 	 * @testdox The edit address form gives a Checkout block address field the edited address's default when the copied address has no value.
 	 *
-	 * @covers \Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
+	 * @covers \Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend::edit_address_fields()
 	 */
 	public function test_edit_address_form_uses_edited_address_default_for_empty_copied_field(): void {
 		$this->register_checkout_field(
@@ -1149,7 +1149,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			)
 		);
 		add_filter(
-			'woocommerce_get_default_value_for_test-namespace/gate-code',
+			'poocommerce_get_default_value_for_test-namespace/gate-code',
 			function ( $value, $group ) {
 				return "{$group} default";
 			},
@@ -1446,13 +1446,13 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$cookie_name      = '';
 		$cookie_value     = '';
 		$capture_cookie   = static function ( $enabled, $name, $value ) use ( &$cookie_name, &$cookie_value ) {
-			if ( false !== strpos( $name, 'woocommerce_session' ) ) {
+			if ( false !== strpos( $name, 'poocommerce_session' ) ) {
 				$cookie_name  = $name;
 				$cookie_value = $value;
 			}
 			return false;
 		};
-		add_filter( 'woocommerce_set_cookie_enabled', $capture_cookie, 10, 3 );
+		add_filter( 'poocommerce_set_cookie_enabled', $capture_cookie, 10, 3 );
 
 		try {
 			$_COOKIE      = array();
@@ -1460,7 +1460,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			WC()->session->init_session_cookie();
 			WC()->session->set_customer_session_cookie( true );
 			$this->assertNotSame( '', $cookie_value, 'The production handler should issue a signed session cookie.' );
-			$this->assertFalse( \Automattic\WooCommerce\Internal\Utilities\Users::should_user_verify_order_email( $order->get_id(), $order->get_billing_email(), 'order-pay' ) );
+			$this->assertFalse( \Automattic\PooCommerce\Internal\Utilities\Users::should_user_verify_order_email( $order->get_id(), $order->get_billing_email(), 'order-pay' ) );
 			$customer_id = WC()->session->get_customer_id();
 			WC()->session->save_data();
 			wp_cache_delete( WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP ) . $customer_id, WC_SESSION_CACHE_GROUP );
@@ -1475,7 +1475,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		} finally {
 			WC()->session->destroy_session();
 			$_COOKIE = $original_cookies;
-			remove_filter( 'woocommerce_set_cookie_enabled', $capture_cookie );
+			remove_filter( 'poocommerce_set_cookie_enabled', $capture_cookie );
 		}
 	}
 
@@ -1528,7 +1528,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 				WC()->customer             = $original_customer;
 			}
 			if ( in_array( $scenario, array( 'wrong_email', 'wrong_nonce' ), true ) ) {
-				$this->assertStringContainsString( 'woocommerce-verify-email', $output );
+				$this->assertStringContainsString( 'poocommerce-verify-email', $output );
 				$this->assertNull( WC()->session->get( 'order_pay_email_verification' ) );
 			} else {
 				$this->assertStringContainsString( 'id="order_review"', $output );
@@ -1570,11 +1570,11 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 				WC()->session->set( 'order_pay_email_verification', $proof );
 				break;
 			case 'required_filter':
-				add_filter( 'woocommerce_order_email_verification_required', '__return_true' );
+				add_filter( 'poocommerce_order_email_verification_required', '__return_true' );
 				break;
 			case 'grace_disabled':
 				add_filter(
-					'woocommerce_order_email_verification_grace_period',
+					'poocommerce_order_email_verification_grace_period',
 					static function () {
 						return -1;
 					}
@@ -1584,7 +1584,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 				$order->set_date_created( time() );
 				break;
 			case 'verification_disabled':
-				add_filter( 'woocommerce_order_email_verification_required', '__return_false' );
+				add_filter( 'poocommerce_order_email_verification_required', '__return_false' );
 				break;
 			case 'session_email':
 				WC()->session->set(
@@ -1600,7 +1600,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		if ( 'verified' === $scenario ) {
-			$this->assertTrue( \Automattic\WooCommerce\Internal\Utilities\Users::should_user_verify_order_email( $order->get_id(), null, 'order-received' ), 'Payment proof must not authorize another context.' );
+			$this->assertTrue( \Automattic\PooCommerce\Internal\Utilities\Users::should_user_verify_order_email( $order->get_id(), null, 'order-received' ), 'Payment proof must not authorize another context.' );
 		}
 		$this->assert_payment_authorization( $order, $allowed );
 	}
@@ -1666,7 +1666,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			->with( $order->get_id() )->willReturn( array( 'result' => 'failure' ) );
 		$gateway_selections = 0;
 		add_filter(
-			'woocommerce_available_payment_gateways',
+			'poocommerce_available_payment_gateways',
 			static function () use ( $gateway, &$gateway_selections ) {
 				++$gateway_selections;
 				return array( $gateway->id => $gateway );
@@ -1682,8 +1682,8 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		WC()->customer->set_billing_postcode( 'M5V 1A1' );
 		WC()->customer->save();
 		$customer_before  = WC()->session->get( 'customer' );
-		$before_actions   = did_action( 'woocommerce_before_pay_action' );
-		$after_actions    = did_action( 'woocommerce_after_pay_action' );
+		$before_actions   = did_action( 'poocommerce_before_pay_action' );
+		$after_actions    = did_action( 'poocommerce_after_pay_action' );
 		$status           = $order->get_status();
 		$stock_reduced    = $order->get_data_store()->get_stock_reduced( $order->get_id() );
 		$stock_quantities = array();
@@ -1701,16 +1701,16 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		}
 		$_GET         = array( 'key' => 'invalid_key' === $scenario ? 'invalid' : $order->get_order_key() );
 		$_POST        = array(
-			'woocommerce_pay' => '1',
+			'poocommerce_pay' => '1',
 			'payment_method'  => $gateway->id,
 		);
-		$_REQUEST     = array( 'woocommerce-pay-nonce' => wp_create_nonce( 'woocommerce-pay' ) );
+		$_REQUEST     = array( 'poocommerce-pay-nonce' => wp_create_nonce( 'poocommerce-pay' ) );
 		$buffer_level = ob_get_level();
 		try {
 			WC_Form_Handler::pay_action();
 			$this->assertSame( $allowed ? 1 : 0, $gateway_selections );
-			$this->assertSame( $before_actions + ( $allowed ? 1 : 0 ), did_action( 'woocommerce_before_pay_action' ) );
-			$this->assertSame( $after_actions + ( $allowed ? 1 : 0 ), did_action( 'woocommerce_after_pay_action' ) );
+			$this->assertSame( $before_actions + ( $allowed ? 1 : 0 ), did_action( 'poocommerce_before_pay_action' ) );
+			$this->assertSame( $after_actions + ( $allowed ? 1 : 0 ), did_action( 'poocommerce_after_pay_action' ) );
 			if ( ! $allowed ) {
 				$this->assertSame( 0, wc_notice_count( 'error' ), 'The order-pay page explains a denied payment; the handler must not queue a second notice.' );
 				$this->assertSame( $customer_before, WC()->session->get( 'customer' ), 'Denied payment must not copy the order billing location into the session.' );
@@ -1757,7 +1757,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			$validated_ids[] = $product_id;
 			return $passed;
 		};
-		add_filter( 'woocommerce_add_to_cart_validation', $validation, 10, 2 );
+		add_filter( 'poocommerce_add_to_cart_validation', $validation, 10, 2 );
 
 		$_REQUEST = array(
 			'add-to-cart' => (string) $grouped->get_id(),
@@ -1765,7 +1765,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		);
 		WC_Form_Handler::add_to_cart_action();
 
-		remove_filter( 'woocommerce_add_to_cart_validation', $validation, 10 );
+		remove_filter( 'poocommerce_add_to_cart_validation', $validation, 10 );
 
 		$this->assertSame( array( $protected->get_id() ), $validated_ids, 'Validation should see the ID WC_Cart::add_to_cart() would add.' );
 		$this->assertCount( 0, WC()->cart->get_cart(), 'The protected product should not be added to the cart.' );
@@ -1877,7 +1877,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 			$prefixed_fields
 		);
 		$_REQUEST = array(
-			'woocommerce-edit-address-nonce' => wp_create_nonce( 'woocommerce-edit_address' ),
+			'poocommerce-edit-address-nonce' => wp_create_nonce( 'poocommerce-edit_address' ),
 		);
 	}
 
@@ -1949,7 +1949,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 */
 	private function prepare_copy_address_request( string $target_type ): void {
 		$_GET     = array( 'copy-address' => $target_type );
-		$_REQUEST = array( '_wpnonce' => wp_create_nonce( 'woocommerce-copy-address-' . $target_type ) );
+		$_REQUEST = array( '_wpnonce' => wp_create_nonce( 'poocommerce-copy-address-' . $target_type ) );
 	}
 
 	/**
@@ -1994,7 +1994,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		$_GET   = $source_type ? array( 'copy-address-from' => $source_type ) : array();
 		$fields = array();
 		add_filter(
-			'woocommerce_address_to_edit',
+			'poocommerce_address_to_edit',
 			function ( $address ) use ( &$fields ) {
 				$fields = $address;
 				return $address;
@@ -2026,15 +2026,15 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 		wp_set_current_user( $customer_id );
 		$order = WC_Helper_Order::create_order( $customer_id );
 		add_filter(
-			'woocommerce_available_payment_gateways',
+			'poocommerce_available_payment_gateways',
 			function () use ( $available ) {
 				return array_intersect_key( WC()->payment_gateways()->payment_gateways(), array_flip( $available ) );
 			}
 		);
 
-		$_POST['woocommerce_pay']          = '1';
+		$_POST['poocommerce_pay']          = '1';
 		$_POST['payment_method']           = $posted;
-		$_REQUEST['woocommerce-pay-nonce'] = wp_create_nonce( 'woocommerce-pay' );
+		$_REQUEST['poocommerce-pay-nonce'] = wp_create_nonce( 'poocommerce-pay' );
 		$_GET['key']                       = $order->get_order_key();
 		$wp->query_vars['order-pay']       = $order->get_id();
 		$buffer_level                      = ob_get_level();
@@ -2070,7 +2070,7 @@ class WC_Form_Handler_Test extends WC_Unit_Test_Case {
 	 * @param array $args Field arguments.
 	 */
 	private function register_checkout_field( array $args ): void {
-		woocommerce_register_additional_checkout_field( $args );
+		poocommerce_register_additional_checkout_field( $args );
 		$this->registered_checkout_fields[] = $args['id'];
 	}
 }

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * ProductBrandsById class.
@@ -50,7 +50,7 @@ class ProductBrandsById extends AbstractRoute {
 		return [
 			'args'   => array(
 				'identifier' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -87,9 +87,9 @@ class ProductBrandsById extends AbstractRoute {
 
 		if ( ! $object ) {
 			if ( isset( $request['identifier'] ) && is_numeric( $request['identifier'] ) ) {
-				throw new RouteException( 'woocommerce_rest_brand_invalid_id', esc_html__( 'Invalid brand ID.', 'woocommerce' ), 404 );
+				throw new RouteException( 'poocommerce_rest_brand_invalid_id', esc_html__( 'Invalid brand ID.', 'poocommerce' ), 404 );
 			} else {
-				throw new RouteException( 'woocommerce_rest_brand_invalid_slug', esc_html__( 'Invalid brand slug.', 'woocommerce' ), 404 );
+				throw new RouteException( 'poocommerce_rest_brand_invalid_slug', esc_html__( 'Invalid brand slug.', 'poocommerce' ), 404 );
 			}
 		}
 

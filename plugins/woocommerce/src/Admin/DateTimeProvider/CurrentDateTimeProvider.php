@@ -3,11 +3,11 @@
  * A provider for getting the current DateTime.
  */
 
-namespace Automattic\WooCommerce\Admin\DateTimeProvider;
+namespace Automattic\PooCommerce\Admin\DateTimeProvider;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
+use Automattic\PooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
 
 /**
  * Current DateTime Provider.

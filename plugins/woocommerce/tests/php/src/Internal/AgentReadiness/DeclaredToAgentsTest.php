@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\DeclaredToAgents;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\DeclaredToAgents;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
 use WC_Unit_Test_Case;
 
 /**
@@ -18,7 +18,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		remove_all_filters( 'pre_http_request' );
-		delete_option( 'woocommerce_coming_soon' );
+		delete_option( 'poocommerce_coming_soon' );
 		parent::tearDown();
 	}
 
@@ -29,7 +29,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 * @return array<string, bool|null>
 	 */
 	private function results( array $responses ): array {
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		add_filter(
 			'pre_http_request',
 			static function ( $pre, $args, $url ) use ( $responses ) {
@@ -454,7 +454,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_scan_shares_responses(): void {
 		$requests = array();
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		add_filter(
 			'pre_http_request',
 			static function ( $pre, $args, $url ) use ( &$requests ) {
@@ -486,7 +486,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	 * @testdox In coming soon mode nothing is requested and every item is not checked.
 	 */
 	public function test_coming_soon(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		add_filter(
 			'pre_http_request',
 			function () {
@@ -500,10 +500,10 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox With WooCommerce's llms.txt fallback, its guidance is found when the served llms.txt holds it, from any provider; without the fallback the item isn't listed.
+	 * @testdox With PooCommerce's llms.txt fallback, its guidance is found when the served llms.txt holds it, from any provider; without the fallback the item isn't listed.
 	 */
 	public function test_llms_txt_guidance(): void {
-		$section = "## Agentic capabilities\n\n- [WooCommerce Store API](" . home_url( '/wp-json/wc/store/v1' ) . ')';
+		$section = "## Agentic capabilities\n\n- [PooCommerce Store API](" . home_url( '/wp-json/wc/store/v1' ) . ')';
 		$sut     = new class() extends DeclaredToAgents {
 			/**
 			 * The status to report.
@@ -524,31 +524,31 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 			return array_column( $sut->all( wc_get_container()->get( StoreOutputChecks::class )->responses() ), 'found', 'id' );
 		};
 
-		$this->assertArrayNotHasKey( 'llms-txt-woocommerce-guidance', $found( array() ), 'Not listed without the fallback' );
+		$this->assertArrayNotHasKey( 'llms-txt-poocommerce-guidance', $found( array() ), 'Not listed without the fallback' );
 
 		$sut->status = array(
 			'status'  => 'unknown',
 			'section' => $section . "\n",
 		);
-		$this->assertTrue( $found( array( '/llms.txt' => array( 200, "# Shop\n\n" . $section . "\n" ) ) )['llms-txt-woocommerce-guidance'] );
+		$this->assertTrue( $found( array( '/llms.txt' => array( 200, "# Shop\n\n" . $section . "\n" ) ) )['llms-txt-poocommerce-guidance'] );
 		$this->assertTrue(
 			$found(
 				array(
 					'/llms.txt' => array( 200, "# Shop\r\n\r\n" . str_replace( "\n", "\r\n", $section ) . "\r\n" ),
 				)
-			)['llms-txt-woocommerce-guidance'],
+			)['llms-txt-poocommerce-guidance'],
 			'CRLF line endings still match'
 		);
-		$this->assertFalse( $found( array( '/llms.txt' => array( 200, "# Shop\n\n- [About](" . home_url( '/about/' ) . ')' ) ) )['llms-txt-woocommerce-guidance'], 'Another provider\'s file without it' );
-		$this->assertFalse( $found( array() )['llms-txt-woocommerce-guidance'], 'No llms.txt' );
-		$this->assertNull( $found( array( '/llms.txt' => array( 503, '' ) ) )['llms-txt-woocommerce-guidance'], 'Couldn\'t check' );
-		$this->assertNull( $found( array( '/llms.txt' => array( 429, '' ) ) )['llms-txt-woocommerce-guidance'], 'Rate limited' );
+		$this->assertFalse( $found( array( '/llms.txt' => array( 200, "# Shop\n\n- [About](" . home_url( '/about/' ) . ')' ) ) )['llms-txt-poocommerce-guidance'], 'Another provider\'s file without it' );
+		$this->assertFalse( $found( array() )['llms-txt-poocommerce-guidance'], 'No llms.txt' );
+		$this->assertNull( $found( array( '/llms.txt' => array( 503, '' ) ) )['llms-txt-poocommerce-guidance'], 'Couldn\'t check' );
+		$this->assertNull( $found( array( '/llms.txt' => array( 429, '' ) ) )['llms-txt-poocommerce-guidance'], 'Rate limited' );
 		$this->assertNull(
 			$found(
 				array(
 					'/llms.txt' => array( 200, "# Shop\n", array( 'content-length' => '999999' ) ),
 				)
-			)['llms-txt-woocommerce-guidance'],
+			)['llms-txt-poocommerce-guidance'],
 			'Truncated body with no match is couldn\'t check'
 		);
 		$this->assertNull(
@@ -563,7 +563,7 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 						),
 					),
 				)
-			)['llms-txt-woocommerce-guidance'],
+			)['llms-txt-poocommerce-guidance'],
 			'A body cut off in leading blank lines is couldn\'t check'
 		);
 
@@ -571,6 +571,6 @@ class DeclaredToAgentsTest extends WC_Unit_Test_Case {
 			'status'  => 'disabled',
 			'section' => '',
 		);
-		$this->assertArrayNotHasKey( 'llms-txt-woocommerce-guidance', $found( array() ), 'Not listed while WooCommerce adds no guidance' );
+		$this->assertArrayNotHasKey( 'llms-txt-poocommerce-guidance', $found( array() ), 'Not listed while PooCommerce adds no guidance' );
 	}
 }

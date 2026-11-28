@@ -45,7 +45,7 @@ const modifyActionsForPostType = ( postType: string ) => {
 function modifyTemplateActions() {
 	addActionForEmail(
 		'core.registerPostTypeSchema',
-		'woocommerce-email-editor/modify-template-actions',
+		'poocommerce-email-editor/modify-template-actions',
 		( postType ) => {
 			modifyActionsForPostType( postType );
 		}

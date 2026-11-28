@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Tests\Internal\CustomerEmailVerification;
 
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
-use Automattic\WooCommerce\Internal\CustomerEmailVerification\VerificationController;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\EmailVerificationService;
+use Automattic\PooCommerce\Internal\CustomerEmailVerification\VerificationController;
 use WC_Unit_Test_Case;
 
 /**
@@ -35,7 +35,7 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 		// Resolving the controller also triggers its constructor (hooks) and init() (deps).
 		$this->ctrl = wc_get_container()->get( VerificationController::class );
 		// Link guest orders on verification (the boot wires this in production; register it here for the test).
-		add_action( 'woocommerce_customer_email_verified', 'wc_update_new_customer_past_orders' );
+		add_action( 'poocommerce_customer_email_verified', 'wc_update_new_customer_past_orders' );
 	}
 
 	/**
@@ -81,8 +81,8 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 		$email           = 'set-password@example.com';
 		$user_id         = wc_create_new_customer( $email, 'setpassworduser', 'pw' );
 		$order           = $this->create_guest_order( $email );
-		$previous_option = get_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+		$previous_option = get_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 		update_user_meta( $user_id, 'default_password_nag', true );
 
 		try {
@@ -103,7 +103,7 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 			$this->assertStringContainsString( 'wc_verify_notice=confirmed', $redirect );
 		} finally {
 			wp_set_current_user( 0 );
-			update_option( 'woocommerce_enable_guest_checkout', $previous_option );
+			update_option( 'poocommerce_enable_guest_checkout', $previous_option );
 		}
 	}
 
@@ -142,7 +142,7 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertStringContainsString( 'render@example.com', $logged_in );
 		$this->assertStringContainsString( 'name="wc_confirm_password"', $logged_in );
-		$this->assertStringNotContainsString( 'woocommerce-MyAccount-navigation', $logged_in, 'The account navigation should be hidden.' );
+		$this->assertStringNotContainsString( 'poocommerce-MyAccount-navigation', $logged_in, 'The account navigation should be hidden.' );
 
 		wp_set_current_user( 0 );
 		$logged_out = $this->render_my_account( $user_id, $key );
@@ -150,8 +150,8 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'name="wc_confirm_password"', $logged_out );
 		$this->assertStringNotContainsString( 'render@example.com', $logged_out, 'A logged out page should not show the email address.' );
 		$this->assertStringNotContainsString( 'renderuser', $logged_out, 'A logged out page should not show the username.' );
-		$this->assertStringNotContainsString( 'woocommerce-form-register', $logged_out, 'The registration form should not show.' );
-		$this->assertStringNotContainsString( 'woocommerce-form-login', $logged_out, 'The standard login form should not show.' );
+		$this->assertStringNotContainsString( 'poocommerce-form-register', $logged_out, 'The registration form should not show.' );
+		$this->assertStringNotContainsString( 'poocommerce-form-login', $logged_out, 'The standard login form should not show.' );
 	}
 
 	/**
@@ -319,9 +319,9 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 			unset( $uid );
 			$captured = $url;
 		};
-		add_action( 'woocommerce_customer_verify_email_notification', $listener, 10, 2 );
+		add_action( 'poocommerce_customer_verify_email_notification', $listener, 10, 2 );
 		$this->ctrl->send_verification_email( $user_id );
-		remove_action( 'woocommerce_customer_verify_email_notification', $listener, 10 );
+		remove_action( 'poocommerce_customer_verify_email_notification', $listener, 10 );
 
 		return (string) $captured;
 	}
@@ -367,7 +367,7 @@ class VerificationControllerTest extends WC_Unit_Test_Case {
 		$_POST = array(
 			'wc_confirm_email'                => '1',
 			'wc_confirm_password'             => $password,
-			'woocommerce-confirm-email-nonce' => '' !== $nonce ? $nonce : wp_create_nonce( 'woocommerce-confirm-email' ),
+			'poocommerce-confirm-email-nonce' => '' !== $nonce ? $nonce : wp_create_nonce( 'poocommerce-confirm-email' ),
 		);
 
 		try {

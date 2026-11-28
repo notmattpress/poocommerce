@@ -7,12 +7,12 @@ sidebar_label: Changelog.txt
 
 ## The changelog.txt file
 
-WooCommerce extensions use a standard changelog format. A changelog.txt file is required for extensions on the WooCommerce Marketplace.
+PooCommerce extensions use a standard changelog format. A changelog.txt file is required for extensions on the PooCommerce Marketplace.
 
 Your `changelog.txt` file should look like this:
 
 ```php
-*** WooCommerce Extension Name Changelog ***
+*** PooCommerce Extension Name Changelog ***
 
 YYYY-MM-DD - version 1.1.0
 * Added - Useful new feature
@@ -52,6 +52,6 @@ Items indented under a specific entry type can nest additional changes of the sa
 
 ## Example changelog.txt
 
-This is how a parsed changelog appears in a modal on WooCommerce.com, with each entry type replaced by an icon. Changelog entries without a type are displayed with the Other icon, while nested entries have no icon. 
+This is how a parsed changelog appears in a modal on PooCommerce.com, with each entry type replaced by an icon. Changelog entries without a type are displayed with the Other icon, while nested entries have no icon. 
 
-![Example changelog as shown on WooCommerce.com](https://woocommerce.com/wp-content/uploads/2025/11/changelog-formatting.png)
+![Example changelog as shown on PooCommerce.com](https://poocommerce.com/wp-content/uploads/2025/11/changelog-formatting.png)

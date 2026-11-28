@@ -79,7 +79,7 @@ const ColorField = ( { input }: { input: HTMLInputElement } ) => {
 
 	const displayedColorValue = color
 		? color.toUpperCase()
-		: __( 'Select a color', 'woocommerce' );
+		: __( 'Select a color', 'poocommerce' );
 
 	const popoverColor = color || FALLBACK_COLOR;
 
@@ -108,7 +108,7 @@ const ColorField = ( { input }: { input: HTMLInputElement } ) => {
 					className="button-link wc-admin-visual-attribute-color-picker-clear"
 					onClick={ clearColor }
 				>
-					{ __( 'Clear', 'woocommerce' ) }
+					{ __( 'Clear', 'poocommerce' ) }
 				</button>
 			) }
 			{ isPopoverVisible && triggerRef.current && (

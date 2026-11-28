@@ -38,7 +38,7 @@ export default function Edit( {
 	);
 
 	if ( ! commentId || ! date ) {
-		date = _x( 'Review Date', 'block title', 'woocommerce' );
+		date = _x( 'Review Date', 'block title', 'poocommerce' );
 	}
 
 	let reviewDate =
@@ -66,7 +66,7 @@ export default function Edit( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<DateFormatPicker
 						format={ format }
 						defaultFormat={ siteFormat }
@@ -76,7 +76,7 @@ export default function Edit( {
 					/>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Link to review', 'woocommerce' ) }
+						label={ __( 'Link to review', 'poocommerce' ) }
 						onChange={ () => setAttributes( { isLink: ! isLink } ) }
 						checked={ isLink }
 					/>

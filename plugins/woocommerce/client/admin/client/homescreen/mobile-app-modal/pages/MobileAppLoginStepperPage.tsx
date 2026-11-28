@@ -61,7 +61,7 @@ export const MobileAppLoginStepperPage = ( {
 				<h3>
 					{ __(
 						'Run your store from anywhere with the Woo mobile app.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</h3>
 			</div>

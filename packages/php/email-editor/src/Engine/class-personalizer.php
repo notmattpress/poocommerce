@@ -1,20 +1,20 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\HTML_Tag_Processor;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Html2Text;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\HTML_Tag_Processor;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Html2Text;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper;
 
 /**
  * Class for replacing personalization tags with their values in the email content.
@@ -22,7 +22,7 @@ use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Html_Processing_Helper
 class Personalizer {
 
 	/**
-	 * Regex pattern for matching personalization tag names (e.g., "woocommerce/store-url", "user-firstname").
+	 * Regex pattern for matching personalization tag names (e.g., "poocommerce/store-url", "user-firstname").
 	 * Used in both tag detection and parsing.
 	 */
 	private const TAG_NAME_PATTERN = '[a-zA-Z0-9\-\/]+';

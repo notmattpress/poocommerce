@@ -2,18 +2,18 @@
 /**
  * Fulfillments CSV importer service.
  *
- * @package Automattic\WooCommerce\Admin\Features\Fulfillments\Importer
+ * @package Automattic\PooCommerce\Admin\Features\Fulfillments\Importer
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Admin\Features\Fulfillments\Importer;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentException;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\DataStore\FulfillmentsDataStore;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentException;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Data_Store;
 use WC_Order;
 
@@ -274,7 +274,7 @@ class FulfillmentsCsvImporter {
 		 * @param int  $chunk_size      Default chunk size (200).
 		 * @param bool $notify_customer Whether the import sends customer notifications.
 		 */
-		$size = apply_filters( 'woocommerce_fulfillments_csv_importer_chunk_size', self::DEFAULT_CHUNK_SIZE, $notify_customer );
+		$size = apply_filters( 'poocommerce_fulfillments_csv_importer_chunk_size', self::DEFAULT_CHUNK_SIZE, $notify_customer );
 		$size = is_numeric( $size ) ? (int) $size : 0;
 		if ( $size < 1 ) {
 			$size = self::DEFAULT_CHUNK_SIZE;
@@ -480,7 +480,7 @@ class FulfillmentsCsvImporter {
 				'missing_required_columns',
 				sprintf(
 					/* translators: %s: comma-separated list of missing column names. */
-					__( 'The column mapping is missing required columns: %s.', 'woocommerce' ),
+					__( 'The column mapping is missing required columns: %s.', 'poocommerce' ),
 					implode( ', ', $missing )
 				)
 			);
@@ -523,7 +523,7 @@ class FulfillmentsCsvImporter {
 					sprintf( 'Fulfillments import could not import row %1$d: %2$s', $row['row_number'], $e->getMessage() ),
 					array( 'source' => 'fulfillments-importer' )
 				);
-				$result = self::fail( self::CODE_ROW_FAILED, __( 'Could not import this row.', 'woocommerce' ) );
+				$result = self::fail( self::CODE_ROW_FAILED, __( 'Could not import this row.', 'poocommerce' ) );
 			}
 			$rows[] = array(
 				'row'          => $row['row_number'],
@@ -565,18 +565,18 @@ class FulfillmentsCsvImporter {
 		$tracking_url    = self::get_field( $cells, $header_map, self::COL_TRACKING_URL );
 
 		if ( '' === $order_number ) {
-			return self::fail( self::CODE_MISSING_ORDER_NUMBER, __( 'Missing order number.', 'woocommerce' ) );
+			return self::fail( self::CODE_MISSING_ORDER_NUMBER, __( 'Missing order number.', 'poocommerce' ) );
 		}
 		if ( '' === $tracking_number ) {
-			return self::fail( self::CODE_MISSING_TRACKING_NUMBER, __( 'Missing tracking number.', 'woocommerce' ) );
+			return self::fail( self::CODE_MISSING_TRACKING_NUMBER, __( 'Missing tracking number.', 'poocommerce' ) );
 		}
 		if ( '' === $provider ) {
-			return self::fail( self::CODE_MISSING_PROVIDER, __( 'Missing shipment provider.', 'woocommerce' ) );
+			return self::fail( self::CODE_MISSING_PROVIDER, __( 'Missing shipment provider.', 'poocommerce' ) );
 		}
 		if ( '' !== $tracking_url ) {
 			$tracking_url = $this->sanitize_tracking_url( $tracking_url );
 			if ( '' === $tracking_url ) {
-				return self::fail( self::CODE_INVALID_TRACKING_URL, __( 'Tracking URL must be a valid http or https URL.', 'woocommerce' ) );
+				return self::fail( self::CODE_INVALID_TRACKING_URL, __( 'Tracking URL must be a valid http or https URL.', 'poocommerce' ) );
 			}
 		}
 
@@ -585,7 +585,7 @@ class FulfillmentsCsvImporter {
 			return self::fail(
 				self::CODE_ORDER_NOT_FOUND,
 				/* translators: %s: order number from the CSV. */
-				sprintf( __( 'Order not found for order number "%s".', 'woocommerce' ), self::clip( $order_number ) )
+				sprintf( __( 'Order not found for order number "%s".', 'poocommerce' ), self::clip( $order_number ) )
 			);
 		}
 		$order_id = $order->get_id();
@@ -595,7 +595,7 @@ class FulfillmentsCsvImporter {
 		if ( isset( $seen[ $pair ] ) ) {
 			return array(
 				'status'   => self::STATUS_SKIPPED,
-				'message'  => __( 'Duplicate order and tracking number in this file.', 'woocommerce' ),
+				'message'  => __( 'Duplicate order and tracking number in this file.', 'poocommerce' ),
 				'order_id' => $order_id,
 			);
 		}
@@ -603,7 +603,7 @@ class FulfillmentsCsvImporter {
 		try {
 			$existing = $this->find_existing_fulfillment( $order_id, $tracking_number );
 		} catch ( \RuntimeException $e ) {
-			return self::fail( self::CODE_STORE_READ_FAILED, __( 'Could not read the fulfillments of this order. Please try again.', 'woocommerce' ), $order_id );
+			return self::fail( self::CODE_STORE_READ_FAILED, __( 'Could not read the fulfillments of this order. Please try again.', 'poocommerce' ), $order_id );
 		}
 
 		$pending    = $this->pending_items( $order, $existing );
@@ -626,13 +626,13 @@ class FulfillmentsCsvImporter {
 		if ( null !== $existing && ! $this->options['update_existing'] ) {
 			return array(
 				'status'         => self::STATUS_SKIPPED,
-				'message'        => __( 'Fulfillment with this tracking number already exists.', 'woocommerce' ),
+				'message'        => __( 'Fulfillment with this tracking number already exists.', 'poocommerce' ),
 				'order_id'       => $order_id,
 				'fulfillment_id' => $existing->get_id(),
 			);
 		}
 		if ( null !== $existing && $existing->is_locked() ) {
-			return self::fail( self::CODE_FULFILLMENT_LOCKED, __( 'The fulfillment with this tracking number is locked and cannot be changed.', 'woocommerce' ), $order_id );
+			return self::fail( self::CODE_FULFILLMENT_LOCKED, __( 'The fulfillment with this tracking number is locked and cannot be changed.', 'poocommerce' ), $order_id );
 		}
 
 		$result = $this->save_fulfillment(
@@ -668,7 +668,7 @@ class FulfillmentsCsvImporter {
 		$was_fulfilled = null !== $existing && $existing->get_is_fulfilled();
 		if ( null === $existing ) {
 			if ( array() === $items ) {
-				return self::fail( self::CODE_NO_ITEMS, __( 'This order has no items left to fulfill.', 'woocommerce' ), $order_id );
+				return self::fail( self::CODE_NO_ITEMS, __( 'This order has no items left to fulfill.', 'poocommerce' ), $order_id );
 			}
 			$fulfillment->set_entity_type( WC_Order::class );
 			$fulfillment->set_entity_id( (string) $order_id );
@@ -693,7 +693,7 @@ class FulfillmentsCsvImporter {
 		if ( null !== $existing && array() === $fulfillment->get_changes() ) {
 			return array(
 				'status'         => self::STATUS_SKIPPED,
-				'message'        => __( 'Fulfillment unchanged.', 'woocommerce' ),
+				'message'        => __( 'Fulfillment unchanged.', 'poocommerce' ),
 				'order_id'       => $order_id,
 				'fulfillment_id' => $existing->get_id(),
 			);
@@ -701,7 +701,7 @@ class FulfillmentsCsvImporter {
 
 		$hook_depth = count( $GLOBALS['wp_current_filter'] );
 		// The data store fires this action with the fulfillment only once its row is written.
-		$written_hook = null === $existing ? 'woocommerce_fulfillment_after_create' : 'woocommerce_fulfillment_after_update';
+		$written_hook = null === $existing ? 'poocommerce_fulfillment_after_create' : 'poocommerce_fulfillment_after_update';
 		$written      = false;
 		$mark_written = static function ( $saved ) use ( $fulfillment, &$written ) {
 			if ( $saved === $fulfillment ) {
@@ -720,7 +720,7 @@ class FulfillmentsCsvImporter {
 			// The cached fulfillment may hold values that were not written, so the next row reads it again.
 			unset( $this->fulfillments_cache[ $order_id ] );
 			if ( ! $written ) {
-				return self::fail( self::CODE_SAVE_FAILED, $e instanceof FulfillmentException ? $e->getMessage() : __( 'Could not save the fulfillment.', 'woocommerce' ), $order_id );
+				return self::fail( self::CODE_SAVE_FAILED, $e instanceof FulfillmentException ? $e->getMessage() : __( 'Could not save the fulfillment.', 'poocommerce' ), $order_id );
 			}
 			// The listener may have changed the object after the write, so the notification uses the stored row.
 			$fulfillment = new Fulfillment( (string) $fulfillment->get_id() );
@@ -733,7 +733,7 @@ class FulfillmentsCsvImporter {
 
 		return array(
 			'status'         => null === $existing ? self::STATUS_CREATED : self::STATUS_UPDATED,
-			'message'        => null === $existing ? __( 'Fulfillment created.', 'woocommerce' ) : __( 'Fulfillment updated.', 'woocommerce' ),
+			'message'        => null === $existing ? __( 'Fulfillment created.', 'poocommerce' ) : __( 'Fulfillment updated.', 'poocommerce' ),
 			'order_id'       => $order_id,
 			'fulfillment_id' => $fulfillment->get_id(),
 			'notified'       => $this->options['notify_customer'] && $fulfillment->get_is_fulfilled() && $this->notify_customer( $order, $fulfillment, $was_fulfilled, $row_number ),
@@ -763,14 +763,14 @@ class FulfillmentsCsvImporter {
 				 * @since 10.1.0
 				 * @since 10.8.0 Added $customer_note parameter.
 				 */
-				do_action( 'woocommerce_fulfillment_updated_notification', $order->get_id(), $fulfillment, $order, '' );
+				do_action( 'poocommerce_fulfillment_updated_notification', $order->get_id(), $fulfillment, $order, '' );
 			} else {
 				/**
 				 * This action is documented in src/Admin/Features/Fulfillments/OrderFulfillmentsRestController.php.
 				 *
 				 * @since 10.1.0
 				 */
-				do_action( 'woocommerce_fulfillment_created_notification', $order->get_id(), $fulfillment, $order );
+				do_action( 'poocommerce_fulfillment_created_notification', $order->get_id(), $fulfillment, $order );
 			}
 			return true;
 		} catch ( \Throwable $e ) {
@@ -909,7 +909,7 @@ class FulfillmentsCsvImporter {
 				'status'   => array_diff( array_keys( wc_get_order_statuses() ), array( 'wc-' . OrderStatus::CHECKOUT_DRAFT ) ),
 			)
 		);
-		// The result passes through the woocommerce_order_query filter, so it is checked.
+		// The result passes through the poocommerce_order_query filter, so it is checked.
 		foreach ( is_array( $orders ) ? $orders : array() as $order ) {
 			if ( $order instanceof WC_Order ) {
 				$this->primed_orders[ $order->get_id() ] = $order;
@@ -950,7 +950,7 @@ class FulfillmentsCsvImporter {
 		 * @param WC_Order|null $order        Order found by ID, or null.
 		 * @param string        $order_number Order number cell from the CSV.
 		 */
-		$order = apply_filters( 'woocommerce_fulfillments_csv_importer_resolve_order', $order instanceof WC_Order ? $order : null, $order_number );
+		$order = apply_filters( 'poocommerce_fulfillments_csv_importer_resolve_order', $order instanceof WC_Order ? $order : null, $order_number );
 
 		$this->order_cache[ $order_number ] = $order instanceof WC_Order ? $order : null;
 		return $this->order_cache[ $order_number ];
@@ -1021,7 +1021,7 @@ class FulfillmentsCsvImporter {
 			$is_sku = 'sku' === strtolower( $parts[0] );
 			if ( count( $parts ) !== ( $is_sku ? 3 : 2 ) ) {
 				/* translators: %s: one entry of the items cell. */
-				return sprintf( __( 'Invalid items entry: %s.', 'woocommerce' ), self::clip( $entry ) );
+				return sprintf( __( 'Invalid items entry: %s.', 'poocommerce' ), self::clip( $entry ) );
 			}
 			if ( $is_sku ) {
 				// Built on first use, since it loads the product of every line item.
@@ -1029,29 +1029,29 @@ class FulfillmentsCsvImporter {
 				$item   = $by_sku[ wc_strtolower( $parts[1] ) ] ?? null;
 				if ( false === $item ) {
 					/* translators: %s: SKU from the CSV. */
-					return sprintf( __( 'SKU %s matches more than one item of this order. Use the item ID instead.', 'woocommerce' ), self::clip( $parts[1] ) );
+					return sprintf( __( 'SKU %s matches more than one item of this order. Use the item ID instead.', 'poocommerce' ), self::clip( $parts[1] ) );
 				}
 				if ( null === $item ) {
 					/* translators: %s: SKU from the CSV. */
-					return sprintf( __( 'SKU %s was not found on the order.', 'woocommerce' ), self::clip( $parts[1] ) );
+					return sprintf( __( 'SKU %s was not found on the order.', 'poocommerce' ), self::clip( $parts[1] ) );
 				}
 			} else {
 				$item = ctype_digit( $parts[0] ) ? ( $line_items[ (int) $parts[0] ] ?? null ) : null;
 				if ( null === $item ) {
 					/* translators: %s: order item ID from the CSV. */
-					return sprintf( __( 'Item ID %s is not part of this order.', 'woocommerce' ), self::clip( $parts[0] ) );
+					return sprintf( __( 'Item ID %s is not part of this order.', 'poocommerce' ), self::clip( $parts[0] ) );
 				}
 			}
 
 			$qty = (string) end( $parts );
 			if ( ! ctype_digit( $qty ) || 0 === (int) $qty ) {
-				return __( 'Item quantity must be a positive integer.', 'woocommerce' );
+				return __( 'Item quantity must be a positive integer.', 'poocommerce' );
 			}
 			$totals[ $item->get_id() ] = ( $totals[ $item->get_id() ] ?? 0 ) + (int) $qty;
 		}
 
 		if ( array() === $totals ) {
-			return __( 'The items cell has no item entries.', 'woocommerce' );
+			return __( 'The items cell has no item entries.', 'poocommerce' );
 		}
 
 		$items = array();
@@ -1059,7 +1059,7 @@ class FulfillmentsCsvImporter {
 			$left = $pending[ $item_id ] ?? 0;
 			if ( $qty > $left ) {
 				/* translators: 1: quantity from the CSV, 2: quantity of the item not fulfilled yet. */
-				return sprintf( __( 'Item quantity %1$d exceeds the quantity left to fulfill %2$d.', 'woocommerce' ), $qty, $left );
+				return sprintf( __( 'Item quantity %1$d exceeds the quantity left to fulfill %2$d.', 'poocommerce' ), $qty, $left );
 			}
 			$items[] = array(
 				'item_id' => (int) $item_id,
@@ -1120,7 +1120,7 @@ class FulfillmentsCsvImporter {
 		$records                 = $this->read_records( $handle, $delimiter, 1 );
 		$header                  = $this->next_data_record( $records );
 		if ( null === $header ) {
-			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'woocommerce' ) );
+			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'poocommerce' ) );
 		}
 
 		$last_row_number = (int) $header['row_number'];
@@ -1130,7 +1130,7 @@ class FulfillmentsCsvImporter {
 			// Drop the header generator before seeking so it cannot read again from the new position.
 			unset( $records );
 			if ( 0 !== fseek( $handle, $byte_offset ) ) {
-				return $this->error( 'byte_offset_invalid', __( 'Could not resume reading the CSV file.', 'woocommerce' ) );
+				return $this->error( 'byte_offset_invalid', __( 'Could not resume reading the CSV file.', 'poocommerce' ) );
 			}
 			$record_number   = isset( $options['record_number'] ) ? max( 1, (int) $options['record_number'] ) : 1;
 			$records         = $this->read_records( $handle, $delimiter, $record_number );
@@ -1225,13 +1225,13 @@ class FulfillmentsCsvImporter {
 		$delimiter = '' === $delimiter_override ? $this->options['delimiter'] : self::normalize_delimiter( $delimiter_override );
 
 		if ( ! is_readable( $this->file ) ) {
-			return $this->error( 'file_not_readable', __( 'File is not readable.', 'woocommerce' ) );
+			return $this->error( 'file_not_readable', __( 'File is not readable.', 'poocommerce' ) );
 		}
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Streaming a staged local CSV; WP_Filesystem has no line reader.
 		$handle = fopen( $this->file, 'rb' );
 		if ( false === $handle ) {
-			return $this->error( 'file_open_failed', __( 'Could not open file.', 'woocommerce' ) );
+			return $this->error( 'file_open_failed', __( 'Could not open file.', 'poocommerce' ) );
 		}
 
 		if ( $this->is_utf16( $handle ) ) {
@@ -1240,7 +1240,7 @@ class FulfillmentsCsvImporter {
 			// Excel's "Unicode Text" export. fgetcsv() would return cells with a NUL after every character.
 			return $this->error(
 				'utf16_encoding',
-				__( 'This file is saved as UTF-16 and cannot be read. Re-save it as a UTF-8 CSV and try again.', 'woocommerce' )
+				__( 'This file is saved as UTF-16 and cannot be read. Re-save it as a UTF-8 CSV and try again.', 'poocommerce' )
 			);
 		}
 
@@ -1250,7 +1250,7 @@ class FulfillmentsCsvImporter {
 			// fgetcsv() only splits on LF. auto_detect_line_endings is deprecated, so a CR-only file would be one record.
 			return $this->error(
 				'cr_line_endings',
-				__( 'This file uses old Mac line endings and cannot be read. Re-save it as CSV and try again.', 'woocommerce' )
+				__( 'This file uses old Mac line endings and cannot be read. Re-save it as CSV and try again.', 'poocommerce' )
 			);
 		}
 
@@ -1325,7 +1325,7 @@ class FulfillmentsCsvImporter {
 		$records                 = $this->read_records( $handle, $delimiter, 1 );
 		$header                  = $this->next_data_record( $records );
 		if ( null === $header ) {
-			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'woocommerce' ) );
+			return $this->error( 'empty_csv', __( 'CSV file is empty.', 'poocommerce' ) );
 		}
 
 		$sample       = array();
@@ -1363,7 +1363,7 @@ class FulfillmentsCsvImporter {
 	private function unsupported_encoding_error(): array {
 		return $this->error(
 			'unsupported_encoding',
-			__( 'This file is not valid UTF-8 and could not be converted. Save it as a UTF-8 CSV and try again.', 'woocommerce' )
+			__( 'This file is not valid UTF-8 and could not be converted. Save it as a UTF-8 CSV and try again.', 'poocommerce' )
 		);
 	}
 
@@ -1636,7 +1636,7 @@ class FulfillmentsCsvImporter {
 		 *
 		 * @param array<string, array<int, string>> $aliases Default alias map.
 		 */
-		$aliases = apply_filters( 'woocommerce_fulfillments_csv_importer_column_aliases', $defaults );
+		$aliases = apply_filters( 'poocommerce_fulfillments_csv_importer_column_aliases', $defaults );
 
 		// Any callback can return anything; drop malformed entries instead of
 		// letting a non-array alias list fatal in build_header_map().

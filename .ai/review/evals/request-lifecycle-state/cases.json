@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G14A-v3",
-			"path": "plugins/woocommerce/includes/order-fragment.php",
+			"path": "plugins/poocommerce/includes/order-fragment.php",
 			"before": {
 				"file": "fixtures/G14A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/order-fragment.php",
+						"file": "plugins/poocommerce/includes/order-fragment.php",
 						"lines": [
 							5,
 							6
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G14B-v5",
-			"path": "plugins/woocommerce/includes/email-bootstrap.php",
+			"path": "plugins/poocommerce/includes/email-bootstrap.php",
 			"before": {
 				"file": "fixtures/G14B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/email-bootstrap.php",
+						"file": "plugins/poocommerce/includes/email-bootstrap.php",
 						"lines": [
 							16,
 							18
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G14C-v3",
-			"path": "plugins/woocommerce/includes/order-fragment.php",
+			"path": "plugins/poocommerce/includes/order-fragment.php",
 			"before": {
 				"file": "fixtures/G14C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G14D-v4",
-			"path": "plugins/woocommerce/includes/email-bootstrap.php",
+			"path": "plugins/poocommerce/includes/email-bootstrap.php",
 			"before": {
 				"file": "fixtures/G14D/before.php"
 			},

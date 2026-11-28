@@ -7,7 +7,7 @@ import { Icon, chevronUp, chevronDown } from '@wordpress/icons';
 import type { ReactNode, ReactElement } from 'react';
 import { Button } from '@ariakit/react';
 import deprecated from '@wordpress/deprecated';
-import { exitingProps, usePresence } from '@woocommerce/base-hooks';
+import { exitingProps, usePresence } from '@poocommerce/base-hooks';
 /**
  * Internal dependencies
  */

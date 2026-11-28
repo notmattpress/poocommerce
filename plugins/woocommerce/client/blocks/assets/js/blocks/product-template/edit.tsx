@@ -16,11 +16,11 @@ import {
 } from '@wordpress/block-editor';
 import { Spinner } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
-import { ProductCollectionAttributes } from '@woocommerce/blocks/product-collection/types';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isNumber, ProductResponseItem } from '@woocommerce/types';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
-import { withProduct } from '@woocommerce/block-hocs';
+import { ProductCollectionAttributes } from '@poocommerce/blocks/product-collection/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isNumber, ProductResponseItem } from '@poocommerce/types';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
+import { withProduct } from '@poocommerce/block-hocs';
 import type { BlockEditProps, BlockInstance } from '@wordpress/blocks';
 
 /**
@@ -336,13 +336,13 @@ const ProductTemplateEdit = (
 				) as unknown as Record< string, string | number >;
 
 				query.per_page = isNumber(
-					settings.woocommerce_catalog_products_per_page
+					settings.poocommerce_catalog_products_per_page
 				)
-					? settings.woocommerce_catalog_products_per_page
+					? settings.poocommerce_catalog_products_per_page
 					: loopShopPerPage;
 
 				const orderProperties = getOrderPropertiesForDefaultQuery(
-					settings.woocommerce_default_catalog_orderby as string
+					settings.poocommerce_default_catalog_orderby as string
 				);
 				query.orderby = orderProperties.orderby;
 				query.order = orderProperties.order;
@@ -360,12 +360,12 @@ const ProductTemplateEdit = (
 					 * from template is true.
 					 */
 					...( inherit && {
-						woocommerceStockStatus: getDefaultStockStatuses(),
+						poocommerceStockStatus: getDefaultStockStatuses(),
 					} ),
 				} ),
 				isInSingleProductBlock:
 					getBlockParentsByBlockName( clientId, [
-						'woocommerce/single-product',
+						'poocommerce/single-product',
 					] ).length > 0,
 				blocks: getBlocks( clientId ),
 			};
@@ -505,7 +505,7 @@ const ProductTemplateEdit = (
 				{ ' ' }
 				{ __(
 					'No products to display. Try adjusting the filters in the block settings panel.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		);

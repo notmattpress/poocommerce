@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFailures;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFailures;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
 
 /**
  * Tests that require a product catalog spanning two scan batches.
@@ -48,12 +48,12 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 		$count   = static function ( array $product_ids ) use ( &$batches ): void {
 			$batches[] = count( $product_ids );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $count );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $count );
 
 		$this->sut->run();
 		$this->assertTrue( $this->sut->is_pending(), 'A scan testing batches is pending' );
 		$runs = $this->run_batches();
-		remove_action( 'woocommerce_agent_readiness_scan_batch', $count );
+		remove_action( 'poocommerce_agent_readiness_scan_batch', $count );
 
 		$this->assertSame( array( ProductScan::BATCH_SIZE, 1 ), $batches, 'One batch per action' );
 		$this->assertSame( 3, $runs, 'Two batches, then the report' );
@@ -77,7 +77,7 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 		$crash = static function (): void {
 			throw new \RuntimeException( 'Timed out' );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		// Action Scheduler has started the queued batch, so it is no longer pending.
 		as_unschedule_all_actions( ScheduledScan::NEXT_HOOK );
 
@@ -87,7 +87,7 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 		} catch ( \RuntimeException $e ) {
 			unset( $e );
 		} finally {
-			remove_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+			remove_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		}
 
 		$retry = as_next_scheduled_action( ScheduledScan::NEXT_HOOK, array( $chain ), ScheduledScan::GROUP );
@@ -119,7 +119,7 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 		$crash = static function (): void {
 			throw new \RuntimeException( 'Fatal on the next batch' );
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		for ( $i = 0; $i < AgentReadiness::MAX_ATTEMPTS; $i++ ) {
 			try {
 				$this->sut->run_batch( $chain );
@@ -127,7 +127,7 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 				unset( $e );
 			}
 		}
-		remove_action( 'woocommerce_agent_readiness_scan_batch', $crash );
+		remove_action( 'poocommerce_agent_readiness_scan_batch', $crash );
 		$this->sut->run_batch( $chain );
 
 		$this->assertFalse( get_option( AgentReadiness::SCAN_OPTION ) );
@@ -171,9 +171,9 @@ class ScheduledScanBatchTest extends ScheduledScanTestCase {
 		$replace = function (): void {
 			$this->sut->run();
 		};
-		add_action( 'woocommerce_agent_readiness_scan_batch', $replace );
+		add_action( 'poocommerce_agent_readiness_scan_batch', $replace );
 		$this->sut->run_batch( $first );
-		remove_action( 'woocommerce_agent_readiness_scan_batch', $replace );
+		remove_action( 'poocommerce_agent_readiness_scan_batch', $replace );
 
 		$this->assertNotSame( $first, get_option( AgentReadiness::SCAN_OPTION )['id'] );
 		$this->assertSame( array(), ProductFailures::stored( $covered ), 'The replaced batch stored nothing' );

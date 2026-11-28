@@ -3,8 +3,8 @@
  */
 import { act, render } from '@testing-library/react';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { config as checkoutStoreConfig } from '@woocommerce/block-data/checkout';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { config as checkoutStoreConfig } from '@poocommerce/block-data/checkout';
 
 /**
  * Internal dependencies
@@ -13,8 +13,8 @@ import { ShippingDataProvider } from '../index';
 import { useStoreCart } from '../../../../hooks/cart/use-store-cart';
 import { useShippingData } from '../../../../hooks/shipping/use-shipping-data';
 
-jest.mock( '@woocommerce/block-data', () => {
-	const checkout = jest.requireActual( '@woocommerce/block-data/checkout' );
+jest.mock( '@poocommerce/block-data', () => {
+	const checkout = jest.requireActual( '@poocommerce/block-data/checkout' );
 
 	return {
 		__esModule: true,

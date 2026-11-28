@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Class WC_Payment_Token_ECheck_Test file.
  *
- * @package WooCommerce\Tests\Payment_Tokens
+ * @package PooCommerce\Tests\Payment_Tokens
  */
 
 /**

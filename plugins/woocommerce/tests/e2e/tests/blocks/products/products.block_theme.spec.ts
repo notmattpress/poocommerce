@@ -8,7 +8,7 @@ import {
 	BlockData,
 	BLOCK_THEME_SLUG,
 	WPTemplate,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ const blockData: BlockData = {
 };
 
 const CATEGORY_PAGE = '/product-category/clothing/tshirts/';
-const LEGACY_BLOCK_NAME = 'woocommerce/legacy-template';
+const LEGACY_BLOCK_NAME = 'poocommerce/legacy-template';
 
 const test = base.extend< { categoryTemplate: WPTemplate } >( {
 	// A template for the Tshirts category only, so no other page changes.
@@ -196,7 +196,7 @@ test.describe(
 
 			await page.goto( CATEGORY_PAGE );
 			await expect(
-				page.locator( '.woocommerce-loop-product__title' ).first()
+				page.locator( '.poocommerce-loop-product__title' ).first()
 			).toBeVisible();
 
 			const classicProducts =

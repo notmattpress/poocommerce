@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Helpers\ImageAttachmentTrait;
+use Automattic\PooCommerce\Tests\Helpers\ImageAttachmentTrait;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -55,7 +55,7 @@ class ProductCategoriesTest extends WC_Unit_Test_Case {
 	 * @return string Rendered markup.
 	 */
 	private function render_product_categories( string $attrs = '' ): string {
-		return do_blocks( "<!-- wp:woocommerce/product-categories {$attrs} /-->" );
+		return do_blocks( "<!-- wp:poocommerce/product-categories {$attrs} /-->" );
 	}
 
 	/**
@@ -136,10 +136,10 @@ class ProductCategoriesTest extends WC_Unit_Test_Case {
 	 *
 	 * @param string $catalog_visibility Catalog visibility of the only product.
 	 * @param string $stock_status       Stock status of the only product.
-	 * @param string $hide_out_of_stock  Value of the woocommerce_hide_out_of_stock_items option.
+	 * @param string $hide_out_of_stock  Value of the poocommerce_hide_out_of_stock_items option.
 	 */
 	public function test_children_only_without_visible_products( string $catalog_visibility, string $stock_status, string $hide_out_of_stock ): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', $hide_out_of_stock );
+		update_option( 'poocommerce_hide_out_of_stock_items', $hide_out_of_stock );
 		$accessories_id = (int) wp_insert_term( 'Accessories', 'product_cat' )['term_id'];
 		$scarves_id     = (int) wp_insert_term( 'Scarves', 'product_cat', array( 'parent' => $accessories_id ) )['term_id'];
 		WC_Helper_Product::create_simple_product(

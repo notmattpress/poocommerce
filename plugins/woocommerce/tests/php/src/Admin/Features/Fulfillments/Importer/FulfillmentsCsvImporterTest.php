@@ -1,15 +1,15 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Importer;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Importer;
 
 require_once __DIR__ . '/FulfillmentsCsvReadTracker.php';
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentException;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentException;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\FulfillmentsCsvImporter;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Importer\ImportSession;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Data_Store;
 use WC_Order;
 
@@ -165,14 +165,14 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases['warehouse_bay'] = array( 'bay' );
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$csv    = "order_number,tracking_number,shipment_provider,bay\n1,UNKNOWN-KEY,ups,A1\n";
 			$sut    = new FulfillmentsCsvImporter( $this->make_csv( $csv ) );
 			$parsed = $sut->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		// An unknown key would be auto-detected here even though the importer can never import it.
@@ -190,13 +190,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases[0] = array( 'zero' );
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$csv    = "order_number,tracking_number,shipment_provider,items\n1,ALIAS-BAD,ups,\n";
 			$parsed = ( new FulfillmentsCsvImporter( $this->make_csv( $csv ) ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertArrayNotHasKey( 'error', $parsed );
@@ -505,13 +505,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			$aliases[ FulfillmentsCsvImporter::COL_ORDER_NUMBER ][] = 'PO Number';
 			return $aliases;
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$file   = $this->make_csv( "po_number,tracking_number,shipment_provider\n1,PO-1,ups\n" );
 			$parsed = ( new FulfillmentsCsvImporter( $file ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertSame( FulfillmentsCsvImporter::COL_ORDER_NUMBER, $parsed['detected_mapping'][0] );
@@ -524,13 +524,13 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$filter = function () {
 			return array( FulfillmentsCsvImporter::COL_ORDER_NUMBER => array( 42, '', '  ' ) );
 		};
-		add_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+		add_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 
 		try {
 			$file   = $this->make_csv( "order_number,tracking_number,shipment_provider\n1,DEF-1,ups\n" );
 			$parsed = ( new FulfillmentsCsvImporter( $file ) )->parse_headers();
 		} finally {
-			remove_filter( 'woocommerce_fulfillments_csv_importer_column_aliases', $filter );
+			remove_filter( 'poocommerce_fulfillments_csv_importer_column_aliases', $filter );
 		}
 
 		$this->assertSame(
@@ -1025,7 +1025,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 	public function test_resolve_chunk_size_clamps_the_filtered_value( $filtered, bool $notify, int $expected ): void {
 		$received = array();
 		add_filter(
-			'woocommerce_fulfillments_csv_importer_chunk_size',
+			'poocommerce_fulfillments_csv_importer_chunk_size',
 			function ( $size, $notify_customer ) use ( $filtered, &$received ) {
 				$received = array( $size, $notify_customer );
 				return $filtered ?? $size;
@@ -1084,7 +1084,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$draft->set_status( 'checkout-draft' );
 		$draft->save();
 		add_filter(
-			'woocommerce_fulfillment_before_create',
+			'poocommerce_fulfillment_before_create',
 			function ( $fulfillment ) {
 				if ( 'TRK-BLOCKED' === $fulfillment->get_tracking_number() ) {
 					throw new FulfillmentException( 'Blocked by an extension.' );
@@ -1191,8 +1191,8 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A listener that changes the fulfillment and throws after the write leaves the row imported and notified, keeps a later row from duplicating it and does not block later order updates.
-	 * @testWith ["woocommerce_fulfillment_after_create", "created"]
-	 *           ["woocommerce_fulfillment_after_update", "updated"]
+	 * @testWith ["poocommerce_fulfillment_after_create", "created"]
+	 *           ["poocommerce_fulfillment_after_update", "updated"]
 	 *
 	 * @param string $hook   Action whose listener throws once.
 	 * @param string $status Expected status of the first row.
@@ -1225,8 +1225,8 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 				$notified[] = $fulfillment->get_status() . '|' . $fulfillment->get_tracking_url();
 			}
 		};
-		add_action( 'woocommerce_fulfillment_created_notification', $collect, 10, 2 );
-		add_action( 'woocommerce_fulfillment_updated_notification', $collect, 10, 2 );
+		add_action( 'poocommerce_fulfillment_created_notification', $collect, 10, 2 );
+		add_action( 'poocommerce_fulfillment_updated_notification', $collect, 10, 2 );
 
 		$result = $this->import_csv( "order_number,tracking_number,shipment_provider\n{$id},TRK-1,ups\n{$id},TRK-1,dhl\n{$other->get_id()},TRK-2,ups\n{$id},TRK-3,ups\n", array( 'notify_customer' => true ) );
 
@@ -1241,8 +1241,8 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox A save that fails before the write is failed even when a listener saved another fulfillment first.
-	 * @testWith ["woocommerce_fulfillment_before_create", "created"]
-	 *           ["woocommerce_fulfillment_before_update", "updated"]
+	 * @testWith ["poocommerce_fulfillment_before_create", "created"]
+	 *           ["poocommerce_fulfillment_before_update", "updated"]
 	 *
 	 * @param string $hook   Filter whose callback saves another fulfillment and then throws once.
 	 * @param string $status Expected status of the retried row.
@@ -1288,7 +1288,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$this->import_csv( "order_number,tracking_number,shipment_provider,tracking_url\n{$id},TRK-1,ups,https://example.com/1\n" );
 		$blocks = 1;
 		add_filter(
-			'woocommerce_fulfillment_before_update',
+			'poocommerce_fulfillment_before_update',
 			function ( $fulfillment ) use ( &$blocks ) {
 				if ( $blocks-- > 0 ) {
 					throw new FulfillmentException( 'Blocked once.' );
@@ -1315,7 +1315,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$this->import_csv( "order_number,tracking_number,shipment_provider,tracking_url,items\n{$id},TRK-1,ups,,{$item}:1\n" );
 		$throws = 1;
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) use ( &$throws ) {
 				if ( $throws-- > 0 ) {
 					throw new \RuntimeException( 'Provider service down.' );
@@ -1339,7 +1339,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$second = OrderHelper::create_order();
 		$throws = 1;
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) use ( &$throws ) {
 				if ( $throws-- > 0 ) {
 					throw new \RuntimeException( 'Provider service down.' );
@@ -1364,7 +1364,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$id     = $order->get_id();
 		$blocks = 1;
 		add_filter(
-			'woocommerce_fulfillment_before_create',
+			'poocommerce_fulfillment_before_create',
 			function ( $fulfillment ) use ( &$blocks ) {
 				if ( $blocks-- > 0 ) {
 					throw new FulfillmentException( 'Blocked once.' );
@@ -1395,7 +1395,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$id    = $order->get_id();
 		$this->import_csv( "order_number,tracking_number,shipment_provider,tracking_url\n{$id},TRK-1,ups,https://example.com/1\n" );
 		add_filter(
-			'woocommerce_fulfillment_fulfillment_statuses',
+			'poocommerce_fulfillment_fulfillment_statuses',
 			fn( $statuses ) => $statuses + array(
 				'delivered' => array(
 					'label'        => 'Delivered',
@@ -1433,16 +1433,16 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			'update_existing' => true,
 		);
 		$this->import_csv( $csv, $options );
-		$updates = did_action( 'woocommerce_fulfillment_after_update' );
-		$emails  = did_action( 'woocommerce_fulfillment_updated_notification' );
+		$updates = did_action( 'poocommerce_fulfillment_after_update' );
+		$emails  = did_action( 'poocommerce_fulfillment_updated_notification' );
 
 		$result = $this->import_csv( $csv, $options );
 
 		$this->assertSame( array( FulfillmentsCsvImporter::STATUS_SKIPPED, FulfillmentsCsvImporter::STATUS_SKIPPED ), array_column( $result['rows'], 'status' ) );
 		$this->assertSame( 'Fulfillment unchanged.', $result['rows'][0]['message'] );
 		$this->assertSame( 0, $result['counts']['notified'] );
-		$this->assertSame( $updates, did_action( 'woocommerce_fulfillment_after_update' ), 'An unchanged row is not saved' );
-		$this->assertSame( $emails, did_action( 'woocommerce_fulfillment_updated_notification' ) );
+		$this->assertSame( $updates, did_action( 'poocommerce_fulfillment_after_update' ), 'An unchanged row is not saved' );
+		$this->assertSame( $emails, did_action( 'poocommerce_fulfillment_updated_notification' ) );
 	}
 
 	/**
@@ -1494,7 +1494,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$other = OrderHelper::create_order();
 		$calls = array();
 		add_filter(
-			'woocommerce_fulfillments_csv_importer_resolve_order',
+			'poocommerce_fulfillments_csv_importer_resolve_order',
 			function ( $resolved, $order_number ) use ( $order, $other, &$calls ) {
 				$calls[] = $order_number;
 				if ( 'INV-7' === $order_number ) {
@@ -1523,7 +1523,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$first  = OrderHelper::create_order();
 		$second = OrderHelper::create_order();
 		add_filter(
-			'woocommerce_fulfillments_csv_importer_resolve_order',
+			'poocommerce_fulfillments_csv_importer_resolve_order',
 			function ( $order, $order_number ) {
 				if ( 'BOOM' === $order_number ) {
 					throw new \RuntimeException( 'Lookup service down.' );
@@ -1539,7 +1539,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$this->assertSame( array( FulfillmentsCsvImporter::STATUS_CREATED, FulfillmentsCsvImporter::STATUS_FAILED, FulfillmentsCsvImporter::STATUS_CREATED ), array_column( $result['rows'], 'status' ) );
 		$this->assertSame( FulfillmentsCsvImporter::CODE_ROW_FAILED, $result['rows'][1]['code'] );
 		$this->assertSame( 'BOOM', $result['rows'][1]['order_number'] );
-		$this->assertFalse( doing_filter( 'woocommerce_fulfillments_csv_importer_resolve_order' ) );
+		$this->assertFalse( doing_filter( 'poocommerce_fulfillments_csv_importer_resolve_order' ) );
 	}
 
 	/**
@@ -1552,7 +1552,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$queries = array();
 		$primed  = array();
 		add_filter(
-			'woocommerce_order_query_args',
+			'poocommerce_order_query_args',
 			function ( $args ) use ( &$queries ) {
 				if ( isset( $args['post__in'] ) ) {
 					$queries[] = array( $args['post__in'], $args['limit'] );
@@ -1561,7 +1561,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_order_query',
+			'poocommerce_order_query',
 			function ( $orders, $args ) use ( &$queries ) {
 				if ( ! isset( $args['post__in'] ) ) {
 					return $orders;
@@ -1580,7 +1580,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			2
 		);
 		add_filter(
-			'woocommerce_fulfillments_csv_importer_resolve_order',
+			'poocommerce_fulfillments_csv_importer_resolve_order',
 			function ( $order ) use ( &$primed ) {
 				$primed[] = $order ? $order->get_meta( '_test_primed' ) : null;
 				return $order;
@@ -1693,7 +1693,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 	 * @param int $consumed Expected rows consumed.
 	 */
 	public function test_chunk_limit_is_capped_by_the_resolved_chunk_size( int $limit, int $consumed ): void {
-		add_filter( 'woocommerce_fulfillments_csv_importer_chunk_size', fn() => 2 );
+		add_filter( 'poocommerce_fulfillments_csv_importer_chunk_size', fn() => 2 );
 		$id  = OrderHelper::create_order()->get_id();
 		$sut = new FulfillmentsCsvImporter( $this->make_csv( "order_number,tracking_number,shipment_provider\n{$id},T-1,ups\n{$id},T-2,ups\n{$id},T-3,ups\n" ) );
 
@@ -1937,7 +1937,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		);
 		$fired = array();
 		add_action(
-			'woocommerce_fulfillment_created_notification',
+			'poocommerce_fulfillment_created_notification',
 			function ( $order_id, $fulfillment, $notified_order ) use ( &$fired ) {
 				$fired[] = array( 'created', $order_id, $fulfillment->get_tracking_number(), $notified_order->get_id() );
 			},
@@ -1945,7 +1945,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 			3
 		);
 		add_action(
-			'woocommerce_fulfillment_updated_notification',
+			'poocommerce_fulfillment_updated_notification',
 			function ( $order_id, $fulfillment, $notified_order, $note ) use ( &$fired ) {
 				$fired[] = array( 'updated', $order_id, $fulfillment->get_tracking_number(), $notified_order->get_id(), $note );
 			},
@@ -1977,19 +1977,19 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 	public function test_no_notification_for_a_fulfillment_saved_as_not_fulfilled(): void {
 		$order = OrderHelper::create_order();
 		add_filter(
-			'woocommerce_fulfillment_before_create',
+			'poocommerce_fulfillment_before_create',
 			function ( $fulfillment ) {
 				$fulfillment->set_status( 'unfulfilled' );
 				return $fulfillment;
 			}
 		);
-		$fired = did_action( 'woocommerce_fulfillment_created_notification' );
+		$fired = did_action( 'poocommerce_fulfillment_created_notification' );
 
 		$result = $this->import_csv( "order_number,tracking_number,shipment_provider\n{$order->get_id()},TRK-1,ups\n", array( 'notify_customer' => true ) );
 
 		$this->assertSame( FulfillmentsCsvImporter::STATUS_CREATED, $result['rows'][0]['status'] );
 		$this->assertFalse( $result['rows'][0]['notified'] );
-		$this->assertSame( $fired, did_action( 'woocommerce_fulfillment_created_notification' ) );
+		$this->assertSame( $fired, did_action( 'poocommerce_fulfillment_created_notification' ) );
 	}
 
 	/**
@@ -2001,7 +2001,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$item   = current( $order->get_items() )->get_id();
 		$throws = 1;
 		add_action(
-			'woocommerce_fulfillment_created_notification',
+			'poocommerce_fulfillment_created_notification',
 			function ( $order_id, $fulfillment ) use ( &$throws ) {
 				if ( $throws-- > 0 ) {
 					$fulfillment->set_tracking_number( 'TRK-2' );
@@ -2026,7 +2026,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 		$other  = OrderHelper::create_order();
 		$throws = 1;
 		add_action(
-			'woocommerce_fulfillment_created_notification',
+			'poocommerce_fulfillment_created_notification',
 			function () use ( &$throws ) {
 				if ( $throws-- > 0 ) {
 					throw new \Exception( 'Mail server down' );
@@ -2038,7 +2038,7 @@ class FulfillmentsCsvImporterTest extends \WC_Unit_Test_Case {
 
 		$this->assertSame( 2, $result['counts'][ FulfillmentsCsvImporter::STATUS_CREATED ] );
 		$this->assertSame( array( false, true ), array_column( $result['rows'], 'notified' ), 'A later row is notified normally' );
-		$this->assertFalse( doing_action( 'woocommerce_fulfillment_created_notification' ), 'The interrupted action is taken off the filter stack' );
+		$this->assertFalse( doing_action( 'poocommerce_fulfillment_created_notification' ), 'The interrupted action is taken off the filter stack' );
 		$this->assertCount( 1, $this->fulfillments_of( $order ) );
 	}
 }

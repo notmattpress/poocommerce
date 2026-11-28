@@ -255,12 +255,12 @@ describe( 'SendPreviewEmail', () => {
 			( hook: string, value: unknown, postType: string ) => {
 				if (
 					hook ===
-					'woocommerce_email_editor_check_sending_method_configuration_link'
+					'poocommerce_email_editor_check_sending_method_configuration_link'
 				) {
 					return 'https://example.com/smtp';
 				}
 				if (
-					hook === 'woocommerce_email_editor_send_preview_help_items'
+					hook === 'poocommerce_email_editor_send_preview_help_items'
 				) {
 					return [ <span key="a">Help for { postType }</span> ];
 				}
@@ -283,7 +283,7 @@ describe( 'SendPreviewEmail', () => {
 	it( 'skips help items that are not text or elements', () => {
 		( applyFilters as jest.Mock ).mockImplementation(
 			( hook: string, value: unknown ) =>
-				hook === 'woocommerce_email_editor_send_preview_help_items'
+				hook === 'poocommerce_email_editor_send_preview_help_items'
 					? [ { label: 'Not renderable' }, 'Check your mailer' ]
 					: value
 		);

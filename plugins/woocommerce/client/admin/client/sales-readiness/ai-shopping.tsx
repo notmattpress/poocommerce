@@ -38,7 +38,7 @@ type Values = Record< string, string | boolean >;
 
 declare global {
 	interface Window {
-		woocommerce_settings_params?: { i18n_nav_warning?: string };
+		poocommerce_settings_params?: { i18n_nav_warning?: string };
 	}
 }
 
@@ -53,7 +53,7 @@ export const SettingsBreadcrumbs = ( {
 	parent: ShoppingView[ 'parent' ];
 	title: string;
 } ) => (
-	<nav aria-label={ __( 'Breadcrumbs', 'woocommerce' ) }>
+	<nav aria-label={ __( 'Breadcrumbs', 'poocommerce' ) }>
 		<Stack
 			render={ <ul /> }
 			direction="row"
@@ -154,7 +154,7 @@ const showSnackbar = ( text: string ) => {
 };
 
 /**
- * WooCommerce > Settings > AI tools > AI shopping. The switch saves on its own; Save posts the
+ * PooCommerce > Settings > AI tools > AI shopping. The switch saves on its own; Save posts the
  * settings form around this page, with the store policy fields as hidden inputs, so they save and
  * validate as settings fields do. Everything shown comes from the page, built in PHP.
  */
@@ -261,7 +261,7 @@ export default function AiShopping( { view }: { view: ShoppingView } ) {
 				const fallback = enable ? ucp.error_on : ucp.error_off;
 				say(
 					failure?.code ===
-						'woocommerce_ucp_required_checks_failing' &&
+						'poocommerce_ucp_required_checks_failing' &&
 						failure.message
 						? failure.message
 						: fallback
@@ -283,10 +283,10 @@ export default function AiShopping( { view }: { view: ShoppingView } ) {
 			dirtyRef.current = true;
 			setDirty( true );
 			const warning =
-				window.woocommerce_settings_params?.i18n_nav_warning ??
+				window.poocommerce_settings_params?.i18n_nav_warning ??
 				__(
 					'The changes you made will be lost if you navigate away from this page.',
-					'woocommerce'
+					'poocommerce'
 				);
 			const handler = () => warning;
 			unloadHandler.current = handler;
@@ -455,7 +455,7 @@ export default function AiShopping( { view }: { view: ShoppingView } ) {
 						disabled={ ! dirty }
 						onClick={ allowUnload }
 					>
-						{ __( 'Save', 'woocommerce' ) }
+						{ __( 'Save', 'poocommerce' ) }
 					</Button>
 				}
 			>

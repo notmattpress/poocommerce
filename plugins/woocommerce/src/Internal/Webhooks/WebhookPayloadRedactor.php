@@ -2,12 +2,12 @@
 /**
  * Redacts internal fields from custom webhook arguments.
  *
- * @package WooCommerce\Internal\Webhooks
+ * @package PooCommerce\Internal\Webhooks
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Webhooks;
+namespace Automattic\PooCommerce\Internal\Webhooks;
 
 use WC_Data;
 
@@ -29,19 +29,19 @@ final class WebhookPayloadRedactor {
 	 * Core hooks that pass a bare checkout password.
 	 */
 	private const PASSWORD_HOOKS = array(
-		'woocommerce_process_checkout_field_account_password',
-		'woocommerce_process_checkout_password_field',
+		'poocommerce_process_checkout_field_account_password',
+		'poocommerce_process_checkout_password_field',
 	);
 
 	/**
 	 * Hook that passes checkout form data.
 	 */
-	private const FORM_ARGUMENT_HOOK = 'woocommerce_checkout_update_order_review';
+	private const FORM_ARGUMENT_HOOK = 'poocommerce_checkout_update_order_review';
 
 	/**
 	 * Hook that passes a Helper API request with a query string.
 	 */
-	private const REQUEST_QUERY_HOOK = 'woocommerce_helper_api_request_args';
+	private const REQUEST_QUERY_HOOK = 'poocommerce_helper_api_request_args';
 
 	/**
 	 * Fields to redact, matched case-insensitively in structured data.
@@ -70,8 +70,8 @@ final class WebhookPayloadRedactor {
 		'verification_key'                   => true,
 		'verify_email_key'                   => true,
 		'verify_url'                         => true,
-		'woocommerce-login-nonce'            => true,
-		'woocommerce-process-checkout-nonce' => true,
+		'poocommerce-login-nonce'            => true,
+		'poocommerce-process-checkout-nonce' => true,
 		'x-woo-signature'                    => true,
 	);
 
@@ -151,13 +151,13 @@ final class WebhookPayloadRedactor {
 		/**
 		 * Filters the additional field names to hide from a custom action webhook's argument.
 		 *
-		 * WooCommerce applies these names in addition to its built-in list. Matching is case-insensitive.
+		 * PooCommerce applies these names in addition to its built-in list. Matching is case-insensitive.
 		 *
 		 * @since 11.4.0
 		 * @param string[] $additional_fields Field names to hide from structured data and recognized form or query parameters.
 		 * @param string   $hook              Hook name from the webhook topic.
 		 */
-		$additional_fields = apply_filters( 'woocommerce_webhook_redact_additional_fields', array(), $hook );
+		$additional_fields = apply_filters( 'poocommerce_webhook_redact_additional_fields', array(), $hook );
 		$fields            = self::REDACTED_FIELDS;
 		if ( is_array( $additional_fields ) ) {
 			foreach ( $additional_fields as $field ) {

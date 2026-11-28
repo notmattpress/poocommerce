@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use WC_Unit_Test_Case;
 
 /**
@@ -94,7 +94,7 @@ class ReportsSyncTest extends WC_Unit_Test_Case {
 	 * @testdox Adding, updating or deleting $option drops cached report results.
 	 *
 	 * @testWith ["start_of_week", "1", "0"]
-	 *           ["woocommerce_excluded_report_order_statuses", ["pending", "failed", "cancelled"], ["pending", "failed", "cancelled", "on-hold"]]
+	 *           ["poocommerce_excluded_report_order_statuses", ["pending", "failed", "cancelled"], ["pending", "failed", "cancelled", "on-hold"]]
 	 *
 	 * @param string $option    Option that shapes report results.
 	 * @param mixed  $old_value Value before the change.

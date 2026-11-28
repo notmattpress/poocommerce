@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\PaymentGatewayAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\PaymentGatewayAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/payment-gateways-query';
+		return 'poocommerce/payment-gateways-query';
 	}
 
 	/**
@@ -39,12 +39,12 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query payment gateways', 'woocommerce' ),
+			'label'               => __( 'Query payment gateways', 'poocommerce' ),
 			'description'         => __(
 				'List the payment gateways in checkout order, enabled or not, or get one by ID.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -76,7 +76,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 		$gateways = WC()->payment_gateways()->payment_gateways();
 
 		if ( isset( $input['id'] ) && ! isset( $gateways[ $input['id'] ] ) ) {
-			return self::payment_gateway_not_found( 'woocommerce_payment_gateway_not_found' );
+			return self::payment_gateway_not_found( 'poocommerce_payment_gateway_not_found' );
 		}
 
 		$items = array();
@@ -120,7 +120,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 			'properties'           => array(
 				'id' => array(
 					'type'        => 'string',
-					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'woocommerce' ),
+					'description' => __( 'Payment gateway ID, such as bacs or cod.', 'poocommerce' ),
 					'minLength'   => 1,
 				),
 			),
@@ -138,7 +138,7 @@ class PaymentGatewaysQuery extends AbstractDomainAbility implements AbilityDefin
 		$schema                        = self::get_collection_output_schema( 'gateways', self::get_payment_gateway_item_schema() );
 		$schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Total number of matching payment gateways.', 'woocommerce' ),
+			'description' => __( 'Total number of matching payment gateways.', 'poocommerce' ),
 		);
 
 		return $schema;

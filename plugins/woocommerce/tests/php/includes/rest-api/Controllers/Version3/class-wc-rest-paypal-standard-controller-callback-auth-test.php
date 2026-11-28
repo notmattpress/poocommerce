@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName, Squiz.Classes.ValidClassName.NotCamelCaps -- Match legacy controller test naming.
 

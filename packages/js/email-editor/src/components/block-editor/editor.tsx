@@ -116,7 +116,7 @@ export function InnerEditor( {
 	}, [] );
 
 	// From WordPress 7.2 emails whose post type doesn't opt in to the email editor's delete action
-	// (`woocommerce_email_editor_replace_trash_action`) get core's, which leave it to the editor
+	// (`poocommerce_email_editor_replace_trash_action`) get core's, which leave it to the editor
 	// screen to move away from the deleted post. Go back to the email list.
 	const onActionPerformed = useCallback(
 		( actionId: string ) => {
@@ -224,7 +224,7 @@ export function InnerEditor( {
 						}
 					/>
 					<BlockCompatibilityWarnings />
-					<PluginArea scope="woocommerce-email-editor" />
+					<PluginArea scope="poocommerce-email-editor" />
 				</Editor>
 			</ErrorBoundary>
 		</SlotFillProvider>

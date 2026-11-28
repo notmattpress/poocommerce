@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { Children } from '@wordpress/element';
-import { exitingProps } from '@woocommerce/base-hooks';
+import { exitingProps } from '@poocommerce/base-hooks';
 import type { ReactNode, Ref } from 'react';
 
 /**

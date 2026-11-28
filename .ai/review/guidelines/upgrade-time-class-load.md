@@ -14,4 +14,4 @@
 
 **How to confirm:** Is the new symbol referenced from legacy `includes/` files or REST registration? Is a referenced class removed in this PR? Look for `class_exists` guards and compat stubs.
 
-**Don't flag when:** New classes used only from other new classes, or only after `woocommerce_loaded` on a fresh request.
+**Don't flag when:** New classes used only from other new classes, or only after `poocommerce_loaded` on a fresh request.

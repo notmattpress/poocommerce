@@ -22,7 +22,7 @@ if ( ! empty( $ids ) ) {
 
 The comment `// Prime caches to reduce future queries.` must always sit **inside** the `if` block, directly above the call. Do not place it before the `if`. Place the prime immediately before the loop or `array_map` that consumes the IDs. Exception: if a `do_action` call between the guard and the loop passes the IDs as arguments (e.g. `do_action( 'wc_before_products_starting_sales', $product_ids )`), move the prime before that action so hooked callbacks loading the same objects also benefit from the warmed cache. If the action does not receive the IDs, keep the prime directly above the loop.
 
-`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 3.4. The minimum supported WordPress version for WooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` as a readability convention; WordPress short-circuits internally before firing SQL on an empty array, so this is not a correctness requirement. The function issues a single `SELECT wp_posts.* WHERE ID IN (...)` for all non-cached IDs, plus batched queries for their postmeta and terms — a fixed number of queries regardless of collection size, not one per ID. Keep the default flags when priming products: `wc_get_product()` reads the `product_type` and `product_visibility` terms as well as post meta, so passing `false` for `$update_term_cache` leaves a per-product term query.
+`_prime_post_caches()` is a WordPress internal (underscore-prefixed) that has existed since WP 3.4. The minimum supported WordPress version for PooCommerce guarantees its presence — `is_callable( '_prime_post_caches' )` guards are unnecessary and must be removed when encountered. Always wrap in `! empty()` as a readability convention; WordPress short-circuits internally before firing SQL on an empty array, so this is not a correctness requirement. The function issues a single `SELECT wp_posts.* WHERE ID IN (...)` for all non-cached IDs, plus batched queries for their postmeta and terms — a fixed number of queries regardless of collection size, not one per ID. Keep the default flags when priming products: `wc_get_product()` reads the `product_type` and `product_visibility` terms as well as post meta, so passing `false` for `$update_term_cache` leaves a per-product term query.
 
 ---
 
@@ -46,7 +46,7 @@ if ( ! empty( $product_ids ) ) {
 }
 ```
 
-Applies to: `woocommerce_related_products()`, `woocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
+Applies to: `poocommerce_related_products()`, `poocommerce_upsell_display()`, block type `RelatedProducts`, and any similar rendering functions.
 
 **Correct pattern — variation collections:**
 
@@ -110,7 +110,7 @@ if ( ! empty( $variations ) ) {
 **Prefer `ProductUtil::prime_image_caches()` over Form B inline code** when `WC_Product` objects are already in memory. It encapsulates the full collect-and-prime cycle (featured + gallery, dedup, intval, empty guard) in one call:
 
 ```php
-wc_get_container()->get( \Automattic\WooCommerce\Internal\Utilities\ProductUtil::class )->prime_image_caches( $variations );
+wc_get_container()->get( \Automattic\PooCommerce\Internal\Utilities\ProductUtil::class )->prime_image_caches( $variations );
 ```
 
 `WC_Product_Variation` extends `WC_Product` so variation collections are accepted directly. Use Form B inline code only when the helper's scope does not fit, for example when only featured images are rendered.
@@ -142,8 +142,8 @@ Blocks and classic templates are separate entry points — each must be audited 
 
 **Check pairs:**
 
-- `woocommerce_related_products()` ↔ `RelatedProducts` block type
-- `woocommerce_upsell_display()` ↔ any upsells block
+- `poocommerce_related_products()` ↔ `RelatedProducts` block type
+- `poocommerce_upsell_display()` ↔ any upsells block
 - Legacy template functions ↔ StoreApi schema handlers
 
 ---
@@ -188,7 +188,7 @@ Use `_prime_post_caches()` only when no such native argument exists on the data 
 
 By the time an explicit `_prime_post_caches()` runs after collecting IDs from a `get_items()` loop, the product post caches for those items are already warm on both CPT and HPOS backends.
 
-**Two gaps to check before deleting a prime:** the lazy-load path primes the variation when an item has one, not its parent product, so code that then loads the parent of each variation still needs a batch; and items added through the `woocommerce_order_get_items` filter were never seen by either mechanism.
+**Two gaps to check before deleting a prime:** the lazy-load path primes the variation when an item has one, not its parent product, so code that then loads the parent of each variation still needs a batch; and items added through the `poocommerce_order_get_items` filter were never seen by either mechanism.
 
 **Example**:
 

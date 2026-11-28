@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import triggerFetch from '@wordpress/api-fetch';
 import { useEffect, useCallback, useState } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
-import { triggerAddedToCartEvent } from '@woocommerce/base-utils';
+import { triggerAddedToCartEvent } from '@poocommerce/base-utils';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ const FormSubmit = () => {
 		setIsSubmitting( true );
 		removeNotice(
 			'add-to-cart',
-			`woocommerce/single-product/${ product?.id || 0 }`
+			`poocommerce/single-product/${ product?.id || 0 }`
 		);
 
 		const fetchData = {
@@ -99,7 +99,7 @@ const FormSubmit = () => {
 								decodeEntities( response.body.message ),
 								{
 									id: 'add-to-cart',
-									context: `woocommerce/single-product/${
+									context: `poocommerce/single-product/${
 										product?.id || 0
 									}`,
 								}
@@ -108,11 +108,11 @@ const FormSubmit = () => {
 							createErrorNotice(
 								__(
 									'Something went wrong. Please contact us for assistance.',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									id: 'add-to-cart',
-									context: `woocommerce/single-product/${
+									context: `poocommerce/single-product/${
 										product?.id || 0
 									}`,
 								}

@@ -2,7 +2,7 @@
 /**
  * Tests for the listener that fails a run the PHP process ended early.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 declare( strict_types = 1 );

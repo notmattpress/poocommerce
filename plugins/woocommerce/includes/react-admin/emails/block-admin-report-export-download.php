@@ -2,13 +2,13 @@
 /**
  * Admin report export download email (initial block version)
  *
- * This template can be overridden by editing it in the WooCommerce email editor.
+ * This template can be overridden by editing it in the PooCommerce email editor.
  *
- * @package WooCommerce\Admin\Templates\Emails\Block
+ * @package PooCommerce\Admin\Templates\Emails\Block
  * @version 11.5.0
  */
 
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,9 +17,9 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading"><?php echo esc_html__( 'Your Report Download', 'woocommerce' ); ?></h2>
+<h2 class="wp-block-heading"><?php echo esc_html__( 'Your Report Download', 'poocommerce' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->
-<div class="wp-block-woocommerce-email-content"> <?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?> </div>
-<!-- /wp:woocommerce/email-content -->
+<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->
+<div class="wp-block-poocommerce-email-content"> <?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?> </div>
+<!-- /wp:poocommerce/email-content -->

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks\Product_Price;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks\Product_Price;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
 
@@ -112,7 +112,7 @@ class ProductPriceTest extends WC_Unit_Test_Case {
 	public function test_variable_product_on_sale_with_mixed_price_types(): void {
 		$product = $this->create_variable_product( array( 20, 20 ), 15 );
 		add_filter(
-			'woocommerce_variation_prices',
+			'poocommerce_variation_prices',
 			function ( $prices ) {
 				foreach ( array( 'price', 'regular_price', 'sale_price' ) as $key ) {
 					$ids                       = array_keys( $prices[ $key ] );
@@ -225,7 +225,7 @@ class ProductPriceTest extends WC_Unit_Test_Case {
 	 */
 	private function render( int $product_id ): string {
 		$parsed_block = array(
-			'blockName' => 'woocommerce/product-price',
+			'blockName' => 'poocommerce/product-price',
 			'attrs'     => array(),
 			'context'   => array( 'postId' => $product_id ),
 		);

@@ -3,16 +3,16 @@ const fs = require( 'node:fs' );
 const os = require( 'node:os' );
 const path = require( 'node:path' );
 const { test } = require( 'node:test' );
-const writeE2ESiteConfig = require( '@woocommerce/extension-tooling/e2e-site-config' );
+const writeE2ESiteConfig = require( '@poocommerce/extension-tooling/e2e-site-config' );
 
-const latestWooCommerce =
-	'https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip';
+const latestPooCommerce =
+	'https://downloads.wordpress.org/plugin/poocommerce.latest-stable.zip';
 
 function site( context ) {
 	const root = fs.mkdtempSync( path.join( os.tmpdir(), 'woo-e2e-config-' ) );
 	context.after( () => fs.rmSync( root, { recursive: true, force: true } ) );
 	const defaults = {
-		plugins: [ '.', latestWooCommerce, './fixture' ],
+		plugins: [ '.', latestPooCommerce, './fixture' ],
 		core: null,
 		phpVersion: '8.3',
 		mappings: { 'wp-content/mu-plugins/example.php': './example.php' },
@@ -33,7 +33,7 @@ test( 'mounts the packaged plugin and adds a separate debug log', ( context ) =>
 	writeE2ESiteConfig( { root, pluginPath, env: {} } );
 	assert.deepEqual( JSON.parse( fs.readFileSync( output, 'utf8' ) ), {
 		...defaults,
-		plugins: [ pluginPath, latestWooCommerce, './fixture' ],
+		plugins: [ pluginPath, latestPooCommerce, './fixture' ],
 		mappings: {
 			...defaults.mappings,
 			'./wp-content/debug.log': './tests/_output/e2e-debug.log',
@@ -45,7 +45,7 @@ test( 'mounts the packaged plugin and adds a separate debug log', ( context ) =>
 	);
 } );
 
-test( 'sets pinned WordPress, WooCommerce and PHP versions', ( context ) => {
+test( 'sets pinned WordPress, PooCommerce and PHP versions', ( context ) => {
 	const { root, pluginPath, input, defaults, output } = site( context );
 	defaults.env = {
 		development: { core: 'WordPress/WordPress#7.0', phpVersion: '8.4' },
@@ -70,7 +70,7 @@ test( 'sets pinned WordPress, WooCommerce and PHP versions', ( context ) => {
 	} );
 	assert.equal(
 		config.plugins[ 1 ],
-		'https://github.com/woocommerce/woocommerce/releases/download/11.3.0-rc.1/woocommerce.zip'
+		'https://github.com/poocommerce/poocommerce/releases/download/11.3.0-rc.1/poocommerce.zip'
 	);
 } );
 
@@ -81,7 +81,7 @@ test( 'keeps the configured PHP version when the host exports PHP_VERSION', ( co
 	assert.equal( config.phpVersion, '8.3' );
 } );
 
-test( 'rejects invalid explicit PHP and WooCommerce versions', ( context ) => {
+test( 'rejects invalid explicit PHP and PooCommerce versions', ( context ) => {
 	const { root, pluginPath, output } = site( context );
 	fs.writeFileSync( output, '{}' );
 	for ( const [ env, key ] of [
@@ -186,11 +186,11 @@ test( 'preserves the previous output when a plugin override is invalid', ( conte
 				config.plugins.push( source );
 			},
 		} ) ),
-		{ woocommerce: { latest: 42 } },
-		{ woocommerce: { latest: '' } },
+		{ poocommerce: { latest: 42 } },
+		{ poocommerce: { latest: '' } },
 		{
 			env: { WC_VERSION: 'nightly' },
-			woocommerce: { nightly: '' },
+			poocommerce: { nightly: '' },
 		},
 	];
 
@@ -233,9 +233,9 @@ test( 'preserves the previous output when a mapping override is invalid', ( cont
 	}
 } );
 
-test( 'preserves local integration mappings and the WooCommerce nightly mount', ( context ) => {
+test( 'preserves local integration mappings and the PooCommerce nightly mount', ( context ) => {
 	const { root, pluginPath, output } = site( context );
-	const nightly = './deploy/e2e-integrations/woocommerce';
+	const nightly = './deploy/e2e-integrations/poocommerce';
 	writeE2ESiteConfig( {
 		root,
 		pluginPath,
@@ -244,7 +244,7 @@ test( 'preserves local integration mappings and the WooCommerce nightly mount', 
 			WC_VERSION: 'nightly',
 			PHP_VERSION: 'nightly',
 		},
-		woocommerce: { nightly },
+		poocommerce: { nightly },
 		configure( config ) {
 			config.plugins.push( './deploy/e2e-integrations/order-barcodes' );
 			config.mappings[ 'wp-content/mu-plugins/barcodes.php' ] =
@@ -269,16 +269,16 @@ test( 'preserves local integration mappings and the WooCommerce nightly mount', 
 	);
 } );
 
-test( 'can override the latest WooCommerce source and add mappings', ( context ) => {
+test( 'can override the latest PooCommerce source and add mappings', ( context ) => {
 	const { root, pluginPath, input, defaults, output } = site( context );
 	delete defaults.mappings;
 	fs.writeFileSync( input, JSON.stringify( defaults ) );
-	const latest = 'https://downloads.wordpress.org/plugin/woocommerce.zip';
+	const latest = 'https://downloads.wordpress.org/plugin/poocommerce.zip';
 	writeE2ESiteConfig( {
 		root,
 		pluginPath,
 		env: { WC_VERSION: 'latest' },
-		woocommerce: { latest },
+		poocommerce: { latest },
 	} );
 	const config = JSON.parse( fs.readFileSync( output, 'utf8' ) );
 	assert.equal( config.plugins[ 1 ], latest );
@@ -287,10 +287,10 @@ test( 'can override the latest WooCommerce source and add mappings', ( context )
 	} );
 } );
 
-test( 'replaces the standard WooCommerce ZIP in a pinned job', ( context ) => {
+test( 'replaces the standard PooCommerce ZIP in a pinned job', ( context ) => {
 	const { root, pluginPath, input, defaults, output } = site( context );
 	defaults.plugins[ 1 ] =
-		'https://downloads.wordpress.org/plugin/woocommerce.zip';
+		'https://downloads.wordpress.org/plugin/poocommerce.zip';
 	fs.writeFileSync( input, JSON.stringify( defaults ) );
 	writeE2ESiteConfig( {
 		root,
@@ -300,11 +300,11 @@ test( 'replaces the standard WooCommerce ZIP in a pinned job', ( context ) => {
 	const config = JSON.parse( fs.readFileSync( output, 'utf8' ) );
 	assert.equal(
 		config.plugins[ 1 ],
-		'https://github.com/woocommerce/woocommerce/releases/download/11.3.0/woocommerce.zip'
+		'https://github.com/poocommerce/poocommerce/releases/download/11.3.0/poocommerce.zip'
 	);
 } );
 
-test( 'rejects a WooCommerce override without a WooCommerce ZIP mount', ( context ) => {
+test( 'rejects a PooCommerce override without a PooCommerce ZIP mount', ( context ) => {
 	const { root, pluginPath, input, defaults, output } = site( context );
 	fs.writeFileSync(
 		input,
@@ -317,7 +317,7 @@ test( 'rejects a WooCommerce override without a WooCommerce ZIP mount', ( contex
 				pluginPath,
 				env: { WC_VERSION: 'nightly' },
 			} ),
-		/must include a WooCommerce ZIP mount/
+		/must include a PooCommerce ZIP mount/
 	);
 	assert.equal( fs.existsSync( output ), false );
 } );

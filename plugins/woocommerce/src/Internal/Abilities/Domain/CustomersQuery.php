@@ -2,15 +2,15 @@
 /**
  * Customers query ability.
  *
- * @package woocommerce
+ * @package poocommerce
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -48,7 +48,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 	 * @return string
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/customers-query';
+		return 'poocommerce/customers-query';
 	}
 
 	/**
@@ -59,9 +59,9 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query customers', 'woocommerce' ),
-			'description'         => __( 'Find registered and guest customers by ID, user ID, name or email, with their order count, total spent and activity dates, as WooCommerce Analytics counts them. A registered customer appears once Analytics has recorded them: when they register, order, or visit signed in, or the store imports historical data. Guest orders with the same email count as one guest. Core fields leave out names, usernames, emails, phone numbers and addresses.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query customers', 'poocommerce' ),
+			'description'         => __( 'Find registered and guest customers by ID, user ID, name or email, with their order count, total spent and activity dates, as PooCommerce Analytics counts them. A registered customer appears once Analytics has recorded them: when they register, order, or visit signed in, or the store imports historical data. Guest orders with the same email count as one guest. Core fields leave out names, usernames, emails, phone numbers and addresses.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => self::get_input_schema(),
 			'output_schema'       => self::get_output_schema(),
 			'execute_callback'    => array( __CLASS__, 'execute' ),
@@ -131,8 +131,8 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 		if ( '0' === $search ) {
 			// The data store reads a search of "0" as no search, which would return every customer.
 			return new \WP_Error(
-				'woocommerce_ability_customer_search_unsupported',
-				__( 'A search for "0" alone is not supported. Search for a longer part of the name, or a full email address.', 'woocommerce' ),
+				'poocommerce_ability_customer_search_unsupported',
+				__( 'A search for "0" alone is not supported. Search for a longer part of the name, or a full email address.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -141,8 +141,8 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 		if ( $by_email && str_contains( $search, ',' ) ) {
 			// The data store splits an exact email match on commas, which would turn one search into several.
 			return new \WP_Error(
-				'woocommerce_ability_customer_search_unsupported',
-				__( 'An email search must be a single email address, without commas.', 'woocommerce' ),
+				'poocommerce_ability_customer_search_unsupported',
+				__( 'An email search must be a single email address, without commas.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -207,7 +207,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 				wc_get_logger()->warning(
 					'The customers-query ability skipped a user that does not load as a customer, so total counts more customers than it returns.',
 					array(
-						'source'  => 'woocommerce-abilities',
+						'source'  => 'poocommerce-abilities',
 						'user_id' => (int) $row['user_id'],
 					)
 				);
@@ -298,20 +298,20 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 					'properties' => array(
 						'id'               => array(
 							'type'        => 'integer',
-							'description' => __( 'Analytics customer ID. Guests have one too.', 'woocommerce' ),
+							'description' => __( 'Analytics customer ID. Guests have one too.', 'poocommerce' ),
 						),
 						'user_id'          => array(
 							'type'        => 'integer',
-							'description' => __( 'WordPress user ID. Only registered customers have one.', 'woocommerce' ),
+							'description' => __( 'WordPress user ID. Only registered customers have one.', 'poocommerce' ),
 						),
 						'role'             => array( 'type' => 'string' ),
 						'order_count'      => array(
 							'type'        => 'integer',
-							'description' => __( 'Orders in the statuses that Analytics counts.', 'woocommerce' ),
+							'description' => __( 'Orders in the statuses that Analytics counts.', 'poocommerce' ),
 						),
 						'total_spent'      => array(
 							'type'        => 'string',
-							'description' => __( 'Decimal amount of those orders after refunds, in the store currency.', 'woocommerce' ),
+							'description' => __( 'Decimal amount of those orders after refunds, in the store currency.', 'poocommerce' ),
 						),
 						'date_registered'  => $date,
 						'date_last_active' => $date,
@@ -324,7 +324,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 
 		$schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Number of customers that match the query.', 'woocommerce' ),
+			'description' => __( 'Number of customers that match the query.', 'poocommerce' ),
 		);
 		return $schema;
 	}
@@ -346,18 +346,18 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 			'type'                 => 'object',
 			'properties'           => array(
 				'include'   => $ids + array(
-					'description' => __( 'Return only these customer IDs, up to 100. Without per_page, they come back in one page.', 'woocommerce' ),
+					'description' => __( 'Return only these customer IDs, up to 100. Without per_page, they come back in one page.', 'poocommerce' ),
 					'maxItems'    => 100,
 				),
-				'exclude'   => $ids + array( 'description' => __( 'Leave out these customer IDs.', 'woocommerce' ) ),
+				'exclude'   => $ids + array( 'description' => __( 'Leave out these customer IDs.', 'poocommerce' ) ),
 				'user_id'   => array(
 					'type'        => 'integer',
-					'description' => __( 'Return only the registered customer with this WordPress user ID, such as the customer_id of an order.', 'woocommerce' ),
+					'description' => __( 'Return only the registered customer with this WordPress user ID, such as the customer_id of an order.', 'poocommerce' ),
 					'minimum'     => 1,
 				),
 				'search'    => array(
 					'type'        => 'string',
-					'description' => __( 'With search_by name, return only customers whose name contains this text. With search_by email, return only the customer with this exact email address.', 'woocommerce' ),
+					'description' => __( 'With search_by name, return only customers whose name contains this text. With search_by email, return only the customer with this exact email address.', 'poocommerce' ),
 					'minLength'   => 1,
 					'maxLength'   => 200,
 				),
@@ -388,7 +388,7 @@ class CustomersQuery extends AbstractDomainAbility implements AbilityDefinition 
 				),
 				'per_page'  => array(
 					'type'        => 'integer',
-					'description' => __( 'Customers per page. Defaults to 10, or to the number of IDs in include.', 'woocommerce' ),
+					'description' => __( 'Customers per page. Defaults to 10, or to the number of IDs in include.', 'poocommerce' ),
 					'minimum'     => 1,
 					'maximum'     => 100,
 				),

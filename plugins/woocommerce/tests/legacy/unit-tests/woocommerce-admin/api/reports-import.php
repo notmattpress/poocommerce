@@ -2,17 +2,17 @@
 /**
  * Reports Import REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore;
 
 /**
  * Reports Import REST API Test Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 class WC_Admin_Tests_API_Reports_Import extends WC_REST_Unit_Test_Case {
 	/**
@@ -279,7 +279,7 @@ class WC_Admin_Tests_API_Reports_Import extends WC_REST_Unit_Test_Case {
 
 		// Delete the orders in two batches, as a larger store would.
 		add_filter(
-			'woocommerce_analytics_regenerate_batch_size',
+			'poocommerce_analytics_regenerate_batch_size',
 			function ( $batch_size, $scheduler, $action ) {
 				unset( $scheduler );
 				return 'delete' === $action ? 2 : $batch_size;

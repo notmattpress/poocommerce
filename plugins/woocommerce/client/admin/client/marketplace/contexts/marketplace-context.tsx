@@ -7,7 +7,7 @@ import {
 	useCallback,
 	createContext,
 } from '@wordpress/element';
-import { useExperimentWithDefaultVariationName } from '@woocommerce/explat';
+import { useExperimentWithDefaultVariationName } from '@poocommerce/explat';
 
 /**
  * Internal dependencies

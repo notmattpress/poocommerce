@@ -7,7 +7,7 @@ import {
 	createClient,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ import { accessTheEmailEditor, expectEmail } from '../../utils/email';
  * WP Mail Logging inbox like the classic `order-emails.spec.ts`.
  *
  * The customization includes a Product Collection block, so the sent email also
- * covers WooCommerce registering its block types for the render. Orders created
+ * covers PooCommerce registering its block types for the render. Orders created
  * through the REST API are one of the requests that skip that registration, and
  * the block used to render empty in the emails they send.
  */
@@ -38,7 +38,7 @@ const SUBJECT_REGEX = /Your .+ order has been received!/;
 const DRAFT_MARKER = 'WOOPLUG6171_DRAFT_ONLY_MARKER';
 const PRODUCT_NAME = 'WOOPLUG7795 Email product';
 const EMAIL_POST_MAPPING_OPTION =
-	'woocommerce_email_templates_customer_processing_order_post_id';
+	'poocommerce_email_templates_customer_processing_order_post_id';
 
 const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
@@ -90,30 +90,30 @@ const productCollectionBlock = ( handPickedProductId: number ) => {
 			inherit: false,
 			taxQuery: {},
 			isProductCollectionBlock: true,
-			woocommerceOnSale: false,
-			woocommerceStockStatus: [ 'instock', 'outofstock', 'onbackorder' ],
-			woocommerceAttributes: [],
-			woocommerceHandPickedProducts: [ String( handPickedProductId ) ],
+			poocommerceOnSale: false,
+			poocommerceStockStatus: [ 'instock', 'outofstock', 'onbackorder' ],
+			poocommerceAttributes: [],
+			poocommerceHandPickedProducts: [ String( handPickedProductId ) ],
 		},
 		tagName: 'div',
 		displayLayout: { type: 'flex', columns: 1 },
-		collection: 'woocommerce/product-collection/hand-picked',
+		collection: 'poocommerce/product-collection/hand-picked',
 	};
 
-	return `<!-- wp:woocommerce/product-collection ${ JSON.stringify(
+	return `<!-- wp:poocommerce/product-collection ${ JSON.stringify(
 		attributes
 	) } -->
-<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->
-<!-- wp:post-title {"isLink":true,"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
-<!-- /wp:woocommerce/product-template --></div>
-<!-- /wp:woocommerce/product-collection -->`;
+<div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template -->
+<!-- wp:post-title {"isLink":true,"__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
+<!-- /wp:poocommerce/product-template --></div>
+<!-- /wp:poocommerce/product-collection -->`;
 };
 
 test.beforeAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'yes'
 	);
 	// Start from a clean slate in case another spec left a post behind.
@@ -154,7 +154,7 @@ test.afterAll( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		'no'
 	);
 } );
@@ -261,7 +261,7 @@ test(
 			DRAFT_MARKER
 		);
 		// The order was created through the REST API, which skips registering
-		// WooCommerce's block types. Without the on-demand registration the
+		// PooCommerce's block types. Without the on-demand registration the
 		// product collection renders empty in the sent email.
 		await expect( emailBody.locator( 'body' ) ).toContainText(
 			PRODUCT_NAME

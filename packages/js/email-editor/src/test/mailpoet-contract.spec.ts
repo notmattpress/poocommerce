@@ -153,15 +153,15 @@ describe( 'MailPoet contract', () => {
 	} );
 
 	it.each( [
-		[ 'woocommerce_email_editor_wrap_editor_component', 1 ],
-		[ 'woocommerce_email_editor_content_validation_rules', 1 ],
-		[ 'woocommerce_email_editor_send_button_label', 1 ],
-		[ 'woocommerce_email_editor_send_action_callback', 1 ],
-		[ 'woocommerce_email_editor_send_button_disabled', 2 ],
-		[ 'woocommerce_email_editor_events', 1 ],
-		[ 'woocommerce_email_editor_events_tracking_enabled', 1 ],
-		[ 'woocommerce_email_editor_preferred_template_title', 2 ],
-		[ 'woocommerce_email_editor_recent_emails_query', 2 ],
+		[ 'poocommerce_email_editor_wrap_editor_component', 1 ],
+		[ 'poocommerce_email_editor_content_validation_rules', 1 ],
+		[ 'poocommerce_email_editor_send_button_label', 1 ],
+		[ 'poocommerce_email_editor_send_action_callback', 1 ],
+		[ 'poocommerce_email_editor_send_button_disabled', 2 ],
+		[ 'poocommerce_email_editor_events', 1 ],
+		[ 'poocommerce_email_editor_events_tracking_enabled', 1 ],
+		[ 'poocommerce_email_editor_preferred_template_title', 2 ],
+		[ 'poocommerce_email_editor_recent_emails_query', 2 ],
 	] )( 'fires %s with at least %d argument(s)', ( hook, args ) => {
 		expect( fired.has( hook ) ).toBe( true );
 		expect( fired.get( hook ) ).toBeGreaterThanOrEqual( args );
@@ -172,7 +172,7 @@ describe( 'MailPoet contract', () => {
 		// for the wrong reason, so this test names that cause directly.
 		expect(
 			[ ...fired.keys() ].filter( ( name ) =>
-				name.startsWith( 'woocommerce_email_editor_' )
+				name.startsWith( 'poocommerce_email_editor_' )
 			).length
 		).toBeGreaterThan( 9 );
 	} );

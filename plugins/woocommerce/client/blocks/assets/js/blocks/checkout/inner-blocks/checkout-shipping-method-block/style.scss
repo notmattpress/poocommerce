@@ -54,7 +54,7 @@ $component-background-hover: color-mix(in srgb, currentColor 12%, transparent);
 }
 
 // While the selection slides, the indicator shows the selected style, behind the content of the options.
-:where(.wp-block-woocommerce-checkout) {
+:where(.wp-block-poocommerce-checkout) {
 	.wc-block-checkout__shipping-method-container:has(> .wc-block-checkout__shipping-method-indicator) {
 		position: relative;
 		isolation: isolate;

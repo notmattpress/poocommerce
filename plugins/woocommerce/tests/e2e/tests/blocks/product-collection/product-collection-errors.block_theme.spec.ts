@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, guestFile } from '@woocommerce/e2e-utils';
+import { test, expect, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -51,14 +51,14 @@ test.describe(
 				data: {
 					status: 'publish',
 					title: 'Product Collection errors',
-					content: `<!-- wp:woocommerce/product-collection {"query":{"perPage":9,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"featured":false,"woocommerceOnSale":false,"woocommerceStockStatus":["instock","outofstock","onbackorder"],"woocommerceAttributes":[],"woocommerceHandPickedProducts":["${ product.id }"]},"tagName":"div","displayLayout":{"type":"flex","columns":3,"shrinkColumns":true},"queryContextIncludes":["collection"]} -->
-<div class="wp-block-woocommerce-product-collection">
-<!-- wp:woocommerce/product-template -->
-<!-- wp:post-title {"isLink":true,"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
-<!-- wp:woocommerce/product-button /-->
-<!-- /wp:woocommerce/product-template -->
+					content: `<!-- wp:poocommerce/product-collection {"query":{"perPage":9,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"featured":false,"poocommerceOnSale":false,"poocommerceStockStatus":["instock","outofstock","onbackorder"],"poocommerceAttributes":[],"poocommerceHandPickedProducts":["${ product.id }"]},"tagName":"div","displayLayout":{"type":"flex","columns":3,"shrinkColumns":true},"queryContextIncludes":["collection"]} -->
+<div class="wp-block-poocommerce-product-collection">
+<!-- wp:poocommerce/product-template -->
+<!-- wp:post-title {"isLink":true,"__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
+<!-- wp:poocommerce/product-button /-->
+<!-- /wp:poocommerce/product-template -->
 </div>
-<!-- /wp:woocommerce/product-collection -->`,
+<!-- /wp:poocommerce/product-collection -->`,
 				},
 			} );
 			cleanup( () =>

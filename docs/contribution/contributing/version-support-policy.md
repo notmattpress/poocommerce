@@ -1,12 +1,12 @@
 ---
 sidebar_label: Version support policy
 category_slug: contributing
-post_title: WordPress and WooCommerce version support policy
+post_title: WordPress and PooCommerce version support policy
 ---
 
-# WordPress and WooCommerce version support policy
+# WordPress and PooCommerce version support policy
 
-Woo uses a latest-minus-one (L-1) policy for WordPress and WooCommerce version
+Woo uses a latest-minus-one (L-1) policy for WordPress and PooCommerce version
 compatibility. This policy defines the versions that we officially test and
 support as dependencies; it is separate from entitlement to customer support services.
 
@@ -23,12 +23,12 @@ series, testing should use the latest available `6.8.x` and `6.7.x` releases.
 
 | Project | Supported versions |
 | --- | --- |
-| WooCommerce Core | The latest and immediately previous WordPress release series. |
-| Woo-owned extensions | The latest and immediately previous release series of both WordPress and WooCommerce. |
+| PooCommerce Core | The latest and immediately previous WordPress release series. |
+| Woo-owned extensions | The latest and immediately previous release series of both WordPress and PooCommerce. |
 
-The policy for WooCommerce Core refers to the versions of WordPress on which
-Core runs. Woo-owned extensions also depend on WooCommerce, so they apply L-1
-to both WordPress and WooCommerce.
+The policy for PooCommerce Core refers to the versions of WordPress on which
+Core runs. Woo-owned extensions also depend on PooCommerce, so they apply L-1
+to both WordPress and PooCommerce.
 
 Third-party extension authors control their own version requirements. They can
 adopt a wider compatibility window, but should test every version they claim
@@ -36,7 +36,7 @@ to support and publish accurate requirements.
 
 ## When the support window changes
 
-When a new stable WordPress or WooCommerce release series becomes available:
+When a new stable WordPress or PooCommerce release series becomes available:
 
 1. The new release series becomes the latest supported version.
 2. The former latest release series becomes the L-1 version.
@@ -54,8 +54,8 @@ Keep plugin headers and `readme.txt` metadata aligned with the support window:
   series.
 - `Tested up to` identifies the latest tested WordPress release series.
 - `WC requires at least` identifies an extension's earliest supported
-  WooCommerce release series.
-- `WC tested up to` identifies an extension's latest tested WooCommerce
+  PooCommerce release series.
+- `WC tested up to` identifies an extension's latest tested PooCommerce
   release series.
 
 For an extension following L-1, the two "requires at least" fields should

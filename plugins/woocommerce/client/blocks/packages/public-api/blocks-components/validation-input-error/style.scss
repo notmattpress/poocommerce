@@ -32,7 +32,7 @@
 }
 
 // Only the blocks that use motion animate the error.
-:where(.wp-block-woocommerce-cart, .wp-block-woocommerce-checkout) .wc-block-components-validation-error {
+:where(.wp-block-poocommerce-cart, .wp-block-poocommerce-checkout) .wc-block-components-validation-error {
 	@include motion-collapse;
 
 	// Lets the height reach zero.

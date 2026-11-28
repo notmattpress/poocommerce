@@ -22,8 +22,8 @@ case "$*" in
 	"$WP_FAIL"*) [[ -z "$WP_FAIL" ]] || exit 4 ;;
 esac
 case "$*" in
-	'option get woocommerce_cart_page_id') echo 20 ;;
-	'option get woocommerce_checkout_page_id') echo 21 ;;
+	'option get poocommerce_cart_page_id') echo 20 ;;
+	'option get poocommerce_checkout_page_id') echo 21 ;;
 	'post create'*'--post_name=cart '*) echo 30 ;;
 	'post create'*'--post_name=checkout '*) echo 31 ;;
 esac
@@ -62,11 +62,11 @@ test( 'provisions the classic and block checkout pages before importing extensio
 		command.startsWith( 'post create ' )
 	);
 	assert.equal( shortcodePages.length, 2 );
-	assert.ok( shortcodePages[ 0 ].endsWith( '[woocommerce_cart]' ) );
-	assert.ok( shortcodePages[ 1 ].endsWith( '[woocommerce_checkout]' ) );
+	assert.ok( shortcodePages[ 0 ].endsWith( '[poocommerce_cart]' ) );
+	assert.ok( shortcodePages[ 1 ].endsWith( '[poocommerce_checkout]' ) );
 	assert.deepEqual( result.commands.slice( -6 ), [
-		'option set tests_legacy_woocommerce_cart_page_id 30',
-		'option set tests_legacy_woocommerce_checkout_page_id 31',
+		'option set tests_legacy_poocommerce_cart_page_id 30',
+		'option set tests_legacy_poocommerce_checkout_page_id 31',
 		'option set e2e_tests_mode legacy',
 		'wc docker-e2e provision',
 		'action-scheduler run',
@@ -74,12 +74,12 @@ test( 'provisions the classic and block checkout pages before importing extensio
 	] );
 	assert.ok(
 		! result.commands.some( ( command ) =>
-			command.startsWith( 'option update woocommerce_weight_unit ' )
+			command.startsWith( 'option update poocommerce_weight_unit ' )
 		)
 	);
 	assert.ok(
 		! result.commands.some( ( command ) =>
-			command.startsWith( 'option update woocommerce_dimension_unit ' )
+			command.startsWith( 'option update poocommerce_dimension_unit ' )
 		)
 	);
 } );
@@ -87,12 +87,12 @@ test( 'provisions the classic and block checkout pages before importing extensio
 test( 'applies Product Bundles metric units when requested', ( context ) => {
 	const result = run( context, [ '--metric-units' ] );
 	assert.equal( result.status, 0, result.stderr );
-	const weight = 'option update woocommerce_weight_unit kg';
+	const weight = 'option update poocommerce_weight_unit kg';
 	const index = result.commands.indexOf( weight );
 	assert.notEqual( index, -1 );
 	assert.equal(
 		result.commands[ index + 1 ],
-		'option update woocommerce_dimension_unit cm'
+		'option update poocommerce_dimension_unit cm'
 	);
 } );
 

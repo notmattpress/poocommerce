@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 class WC_Beta_Tester_Version_Picker {
 
 	/**
-	 * Currently installed version of WooCommerce plugin.
+	 * Currently installed version of PooCommerce plugin.
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ class WC_Beta_Tester_Version_Picker {
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'wcbt_switch_version_nonce' ) ) {
-			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce-beta-tester' ) );
+			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'poocommerce-beta-tester' ) );
 		}
 
 		$version = isset( $_GET['wcbt_switch_to_version'] ) ? sanitize_text_field( wp_unslash( $_GET['wcbt_switch_to_version'] ) ) : '';
@@ -51,8 +51,8 @@ class WC_Beta_Tester_Version_Picker {
 		try {
 			include dirname( __FILE__ ) . '/class-wc-beta-tester-plugin-upgrader.php';
 
-			$plugin_name = 'woocommerce';
-			$plugin      = 'woocommerce/woocommerce.php';
+			$plugin_name = 'poocommerce';
+			$plugin      = 'poocommerce/poocommerce.php';
 			$skin_args   = array(
 				'type'    => 'web',
 				'url'     => 'plugins.php?page=wc-beta-tester-version-picker',
@@ -80,8 +80,8 @@ class WC_Beta_Tester_Version_Picker {
 				// Try to reactivate.
 				activate_plugin( $plugin, '', is_network_admin(), true );
 			} elseif ( true === $result && ! is_wp_error( $skin->result ) ) {
-				// An active Live Branch build is already loaded in this request, so activating WooCommerce
-				// here would declare it twice. Deactivate the build and activate WooCommerce in a new request.
+				// An active Live Branch build is already loaded in this request, so activating PooCommerce
+				// here would declare it twice. Deactivate the build and activate PooCommerce in a new request.
 				// Only after a successful switch, so a failed one leaves the Live Branch build active.
 				if ( ! empty( $live_branch_plugins ) ) {
 					deactivate_plugins( $live_branch_plugins );
@@ -96,7 +96,7 @@ class WC_Beta_Tester_Version_Picker {
 			} elseif ( is_wp_error( $result ) ) {
 				throw new Exception( $result->get_error_message() );
 			} elseif ( true !== $result ) {
-				throw new Exception( __( 'Update failed', 'woocommerce-beta-tester' ) );
+				throw new Exception( __( 'Update failed', 'poocommerce-beta-tester' ) );
 			}
 
 			if ( $has_live_branch ) {
@@ -121,7 +121,7 @@ class WC_Beta_Tester_Version_Picker {
 					$plugin . '_update_error',
 					sprintf(
 						// translators: 1: plugin name, 2: error message.
-						__( '%1$s could not be updated (%2$s).', 'woocommerce-beta-tester' ),
+						__( '%1$s could not be updated (%2$s).', 'poocommerce-beta-tester' ),
 						$plugin,
 						$e->getMessage()
 					)
@@ -142,8 +142,8 @@ class WC_Beta_Tester_Version_Picker {
 	public function add_to_menus() {
 		add_submenu_page(
 			'plugins.php',
-			__( 'WooCommerce Version Switch', 'woocommerce-beta-tester' ),
-			__( 'WooCommerce Version Switch', 'woocommerce-beta-tester' ),
+			__( 'PooCommerce Version Switch', 'poocommerce-beta-tester' ),
+			__( 'PooCommerce Version Switch', 'poocommerce-beta-tester' ),
 			'install_plugins',
 			'wc-beta-tester-version-picker',
 			array( $this, 'select_versions_form_html' )
@@ -151,7 +151,7 @@ class WC_Beta_Tester_Version_Picker {
 	}
 
 	/**
-	 * Return HTML code representation of list of WooCommerce versions for the selected channel.
+	 * Return HTML code representation of list of PooCommerce versions for the selected channel.
 	 *
 	 * @param string $channel Filter versions by channel: all|beta|rc|stable.
 	 * @return string
@@ -170,8 +170,8 @@ class WC_Beta_Tester_Version_Picker {
 		// The nonce is validated upstream.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['switched'] ) ) {
-			/* translators: %s: WooCommerce version  */
-			$versions_html .= '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Successfully switched version to %s.', 'woocommerce-beta-tester' ), esc_html( sanitize_text_field( wp_unslash( $_GET['switched'] ) ) ) ) . '</p></div>'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			/* translators: %s: PooCommerce version  */
+			$versions_html .= '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Successfully switched version to %s.', 'poocommerce-beta-tester' ), esc_html( sanitize_text_field( wp_unslash( $_GET['switched'] ) ) ) ) . '</p></div>'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		$versions_html        .= '<ul class="wcbt-version-list">';
@@ -186,7 +186,7 @@ class WC_Beta_Tester_Version_Picker {
 
 			// Is this the current version?
 			if ( strcasecmp( $tag_version, $this->current_version ) === 0 ) {
-				$versions_html .= '<span class="wcbt-current-version"><strong>' . esc_html__( '&nbsp;Installed Version', 'woocommerce-beta-tester' ) . '</strong></span>';
+				$versions_html .= '<span class="wcbt-current-version"><strong>' . esc_html__( '&nbsp;Installed Version', 'poocommerce-beta-tester' ) . '</strong></span>';
 			}
 
 			$versions_html .= '</label>';
@@ -199,7 +199,7 @@ class WC_Beta_Tester_Version_Picker {
 	}
 
 	/**
-	 * Echo HTML form to switch WooCommerce versions, filtered for the selected channel.
+	 * Echo HTML form to switch PooCommerce versions, filtered for the selected channel.
 	 */
 	public function select_versions_form_html() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -212,16 +212,16 @@ class WC_Beta_Tester_Version_Picker {
 		?>
 		<div class="wrap">
 			<div class="wcbt-content-wrap">
-				<h1><?php esc_html_e( 'Available WooCommerce Releases', 'woocommerce-beta-tester' ); ?></h1>
+				<h1><?php esc_html_e( 'Available PooCommerce Releases', 'poocommerce-beta-tester' ); ?></h1>
 				<form name="wcbt-select-version" class="wcbt-select-version-form" action="<?php echo esc_attr( admin_url( '/tools.php' ) ); ?>">
 					<div class="wcbt-submit-wrap">
-						<a href="#wcbt-modal-version-switch-confirm" class="button-primary" id="wcbt-modal-version-switch-confirm"><?php esc_html_e( 'Switch version', 'woocommerce-beta-tester' ); ?></a>
+						<a href="#wcbt-modal-version-switch-confirm" class="button-primary" id="wcbt-modal-version-switch-confirm"><?php esc_html_e( 'Switch version', 'poocommerce-beta-tester' ); ?></a>
 					</div>
 					<div class="wcbt-versions-wrap">
 						<?php echo $this->get_versions_html( $channel ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 					<div class="wcbt-submit-wrap">
-						<a href="#wcbt-modal-version-switch-confirm" class="button-primary" id="wcbt-modal-version-switch-confirm"><?php esc_html_e( 'Switch version', 'woocommerce-beta-tester' ); ?></a>
+						<a href="#wcbt-modal-version-switch-confirm" class="button-primary" id="wcbt-modal-version-switch-confirm"><?php esc_html_e( 'Switch version', 'poocommerce-beta-tester' ); ?></a>
 					</div>
 					<?php wp_nonce_field( 'wcbt_switch_version_nonce' ); ?>
 					<input type="hidden" name="noheader" value="1">
@@ -234,11 +234,11 @@ class WC_Beta_Tester_Version_Picker {
 									<header class="wc-backbone-modal-header">
 										<h1>
 											<?php
-											esc_html_e( 'Are you sure you want to switch the version of WooCommerce plugin?', 'woocommerce-beta-tester' );
+											esc_html_e( 'Are you sure you want to switch the version of PooCommerce plugin?', 'poocommerce-beta-tester' );
 											?>
 										</h1>
 										<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-											<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce-beta-tester' ); ?></span>
+											<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce-beta-tester' ); ?></span>
 										</button>
 									</header>
 									<article>
@@ -247,24 +247,24 @@ class WC_Beta_Tester_Version_Picker {
 											<tbody>
 											<tr class="alternate">
 												<td class="row-title">
-													<label for="tablecell"><?php esc_html_e( 'Installed Version:', 'woocommerce-beta-tester' ); ?></label>
+													<label for="tablecell"><?php esc_html_e( 'Installed Version:', 'poocommerce-beta-tester' ); ?></label>
 												</td>
 												<td><span class="wcbt-installed-version"><?php echo esc_html( $this->current_version ); ?></span></td>
 											</tr>
 											<tr>
 												<td class="row-title">
-													<label for="tablecell"><?php esc_html_e( 'New Version:', 'woocommerce-beta-tester' ); ?></label>
+													<label for="tablecell"><?php esc_html_e( 'New Version:', 'poocommerce-beta-tester' ); ?></label>
 												</td>
 												<td><span class="wcbt-new-version">{{ data.new_version }}</span></td>
 											</tr>
 											</tbody>
 										</table>
 
-										<p class="wcbt-notice"><?php esc_html_e( 'Notice: We strongly recommend you perform the test on a staging site and create a complete backup of your WordPress files and database prior to performing a version switch. We are not responsible for any misuse, deletions, white screens, fatal errors, or any other issue arising from using this plugin.', 'woocommerce-beta-tester' ); ?></p>
+										<p class="wcbt-notice"><?php esc_html_e( 'Notice: We strongly recommend you perform the test on a staging site and create a complete backup of your WordPress files and database prior to performing a version switch. We are not responsible for any misuse, deletions, white screens, fatal errors, or any other issue arising from using this plugin.', 'poocommerce-beta-tester' ); ?></p>
 									</article>
 									<footer>
-										<input type="submit" value="<?php esc_attr_e( 'Switch version', 'woocommerce-beta-tester' ); ?>" class="button-primary wcbt-go" id="wcbt-submit-version-switch"/>&nbsp;
-										<a href="#" class="modal-close modal-close-link"><?php esc_attr_e( 'Cancel', 'woocommerce-beta-tester' ); ?></a>
+										<input type="submit" value="<?php esc_attr_e( 'Switch version', 'poocommerce-beta-tester' ); ?>" class="button-primary wcbt-go" id="wcbt-submit-version-switch"/>&nbsp;
+										<a href="#" class="modal-close modal-close-link"><?php esc_attr_e( 'Cancel', 'poocommerce-beta-tester' ); ?></a>
 									</footer>
 								</section>
 							</div>

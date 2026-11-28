@@ -2,12 +2,12 @@
 /**
  * Checks whether an earlier variation already matches an add to cart selection.
  *
- * @package WooCommerce\Internal\ProductVariations
+ * @package PooCommerce\Internal\ProductVariations
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\ProductVariations;
+namespace Automattic\PooCommerce\Internal\ProductVariations;
 
 use WC_Product_Variable;
 use WC_Product_Variation;
@@ -26,7 +26,7 @@ class VariationMatcher {
 	/**
 	 * Whether an earlier available variation matches this selection.
 	 *
-	 * Fully specified variations return false, so they can still be added by their own ID. Disabled and unpriced variations are ignored, as are variations removed by woocommerce_available_variation. Out-of-stock variations are ignored when out-of-stock products are hidden from the catalog.
+	 * Fully specified variations return false, so they can still be added by their own ID. Disabled and unpriced variations are ignored, as are variations removed by poocommerce_available_variation. Out-of-stock variations are ignored when out-of-stock products are hidden from the catalog.
 	 *
 	 * @since 11.4.0
 	 *
@@ -106,7 +106,7 @@ class VariationMatcher {
 			return false;
 		}
 
-		$hide_out_of_stock = 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' );
+		$hide_out_of_stock = 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' );
 		if ( $hide_out_of_stock && ! $variation->is_in_stock() ) {
 			return false;
 		}
@@ -116,7 +116,7 @@ class VariationMatcher {
 		 *
 		 * @since 2.6.8
 		 */
-		$hide_invisible = apply_filters( 'woocommerce_hide_invisible_variations', true, $parent_product->get_id(), $variation );
+		$hide_invisible = apply_filters( 'poocommerce_hide_invisible_variations', true, $parent_product->get_id(), $variation );
 
 		if ( $hide_invisible && ! $variation->variation_is_visible() ) {
 			return false;

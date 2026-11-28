@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { exitingProps } from '@woocommerce/base-hooks';
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { exitingProps } from '@poocommerce/base-hooks';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useSettledOrderSummaryValue,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
-import { animateCollapse, whenAnimationsEnd } from '@woocommerce/base-utils';
+} from '@poocommerce/base-context/hooks';
+import { animateCollapse, whenAnimationsEnd } from '@poocommerce/base-utils';
 import { __ } from '@wordpress/i18n';
 import { Icon, chevronDown, chevronUp } from '@wordpress/icons';
 import {
@@ -19,7 +19,7 @@ import {
 	useState,
 } from '@wordpress/element';
 import clsx from 'clsx';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
 /**
  * Internal dependencies
  */
@@ -206,7 +206,7 @@ const FrontendBlock = ( {
 						role="heading"
 						aria-level={ 2 }
 					>
-						{ __( 'Order summary', 'woocommerce' ) }
+						{ __( 'Order summary', 'poocommerce' ) }
 					</p>
 					<FormattedMonetaryAmount
 						currency={ totalsCurrency }
@@ -242,7 +242,7 @@ const FrontendBlock = ( {
 					) }
 				>
 					<FormStepHeading>
-						<>{ __( 'Order summary', 'woocommerce' ) }</>
+						<>{ __( 'Order summary', 'poocommerce' ) }</>
 					</FormStepHeading>
 					<div
 						ref={ setCheckoutActionsHost }

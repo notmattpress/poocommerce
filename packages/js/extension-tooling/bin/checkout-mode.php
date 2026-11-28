@@ -2,10 +2,10 @@
 /**
  * Checkout mode and page selection for extension browser tests.
  *
- * @package WooCommerce\ExtensionTooling
+ * @package PooCommerce\ExtensionTooling
  */
 
-namespace Automattic\WooCommerce\ExtensionTooling;
+namespace Automattic\PooCommerce\ExtensionTooling;
 
 /**
  * Shared methods for test fixtures that define THEME_LEGACY and THEME_BLOCKS.
@@ -36,7 +36,7 @@ trait Checkout_Mode {
 	 */
 	public static function filter_cart_page_id( $cart_page_id ) {
 		if ( 'legacy' === get_option( 'e2e_tests_mode', 'legacy' ) ) {
-			$legacy_page_id = (int) get_option( 'tests_legacy_woocommerce_cart_page_id', 0 );
+			$legacy_page_id = (int) get_option( 'tests_legacy_poocommerce_cart_page_id', 0 );
 			if ( $legacy_page_id > 0 ) {
 				return $legacy_page_id;
 			}
@@ -53,7 +53,7 @@ trait Checkout_Mode {
 	 */
 	public static function filter_checkout_page_id( $checkout_page_id ) {
 		if ( 'legacy' === get_option( 'e2e_tests_mode', 'legacy' ) ) {
-			$legacy_page_id = (int) get_option( 'tests_legacy_woocommerce_checkout_page_id', 0 );
+			$legacy_page_id = (int) get_option( 'tests_legacy_poocommerce_checkout_page_id', 0 );
 			if ( $legacy_page_id > 0 ) {
 				return $legacy_page_id;
 			}

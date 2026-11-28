@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness\Checks;
+namespace Automattic\PooCommerce\Internal\AgentReadiness\Checks;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\FeedChannels;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductFields;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\FeedChannels;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductFields;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,21 +30,21 @@ class DuplicateGtinCheck extends AbstractReadinessCheck {
 	 * Merchant-facing label.
 	 */
 	public function label(): string {
-		return __( 'Products sharing a GTIN with another product', 'woocommerce' );
+		return __( 'Products sharing a GTIN with another product', 'poocommerce' );
 	}
 
 	/**
 	 * Why it matters.
 	 */
 	public function why(): string {
-		return __( 'Google asks for one GTIN per product and variant; a shared one can merge different products into one item.', 'woocommerce' );
+		return __( 'Google asks for one GTIN per product and variant; a shared one can merge different products into one item.', 'poocommerce' );
 	}
 
 	/**
 	 * What to do about it.
 	 */
 	public function fix(): string {
-		return __( 'Give each product its own GTIN.', 'woocommerce' );
+		return __( 'Give each product its own GTIN.', 'poocommerce' );
 	}
 
 	/**

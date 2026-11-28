@@ -5,9 +5,9 @@ import { __, _n } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { map } from 'lodash';
-import { Link } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Link } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -26,14 +26,14 @@ class StockNotificationsReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Product', 'woocommerce' ),
+				label: __( 'Product', 'poocommerce' ),
 				key: 'product_id',
 				required: true,
 				isLeftAligned: true,
 				isSortable: false,
 			},
 			{
-				label: __( 'Sign-ups', 'woocommerce' ),
+				label: __( 'Sign-ups', 'poocommerce' ),
 				key: 'signups',
 				required: true,
 				defaultSort: true,
@@ -42,13 +42,13 @@ class StockNotificationsReportTable extends Component {
 				isNumeric: true,
 			},
 			{
-				label: __( 'Notifications sent', 'woocommerce' ),
+				label: __( 'Notifications sent', 'poocommerce' ),
 				key: 'notifications_sent',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Customers', 'woocommerce' ),
+				label: __( 'Customers', 'poocommerce' ),
 				key: 'customers',
 				isSortable: true,
 				isNumeric: true,
@@ -111,12 +111,12 @@ class StockNotificationsReportTable extends Component {
 					'Product',
 					'Products',
 					productsCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', productsCount ),
 			},
 			{
-				label: _n( 'Sign-up', 'Sign-ups', signups, 'woocommerce' ),
+				label: _n( 'Sign-up', 'Sign-ups', signups, 'poocommerce' ),
 				value: formatValue( currency, 'number', signups ),
 			},
 			{
@@ -124,12 +124,12 @@ class StockNotificationsReportTable extends Component {
 					'Notification sent',
 					'Notifications sent',
 					notificationsSent,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', notificationsSent ),
 			},
 			{
-				label: _n( 'Customer', 'Customers', customers, 'woocommerce' ),
+				label: _n( 'Customer', 'Customers', customers, 'poocommerce' ),
 				value: formatValue( currency, 'number', customers ),
 			},
 		];
@@ -158,7 +158,7 @@ class StockNotificationsReportTable extends Component {
 					order: query.order || 'desc',
 					extended_info: true,
 				} }
-				title={ __( 'Stock notifications', 'woocommerce' ) }
+				title={ __( 'Stock notifications', 'poocommerce' ) }
 				columnPrefsKey="stock_notifications_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }

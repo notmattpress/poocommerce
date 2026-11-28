@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
-import { CheckboxControl, Textarea } from '@woocommerce/blocks-components';
-import { useToggleCollapse } from '@woocommerce/base-hooks';
+import { CheckboxControl, Textarea } from '@poocommerce/blocks-components';
+import { useToggleCollapse } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
@@ -44,7 +44,7 @@ const CheckoutOrderNotes = ( {
 			<CheckboxControl
 				ref={ noteCollapse.triggerRef }
 				disabled={ disabled }
-				label={ __( 'Add a note to your order', 'woocommerce' ) }
+				label={ __( 'Add a note to your order', 'poocommerce' ) }
 				checked={ withOrderNotes }
 				onChange={ ( isChecked ) => {
 					noteCollapse.onToggle();

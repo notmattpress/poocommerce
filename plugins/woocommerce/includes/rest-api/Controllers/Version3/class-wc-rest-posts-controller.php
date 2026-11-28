@@ -3,7 +3,7 @@
  * Abstract Rest Posts Controller Class
  *
  * @class WC_REST_Posts_Controller
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_REST_Posts_Controller
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @version  2.6.0
  */
 abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
@@ -54,7 +54,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -68,7 +68,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 	 */
 	public function create_item_permissions_check( $request ) {
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'create' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -84,7 +84,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post = get_post( (int) $request['id'] );
 
 		if ( $post && ! wc_rest_check_post_permissions( $this->post_type, 'read', $post->ID ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -100,7 +100,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post = get_post( (int) $request['id'] );
 
 		if ( $post && ! wc_rest_check_post_permissions( $this->post_type, 'edit', $post->ID ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -116,7 +116,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post = get_post( (int) $request['id'] );
 
 		if ( $post && ! wc_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -131,7 +131,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 	 */
 	public function batch_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'batch' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -148,9 +148,9 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post = get_post( $id );
 
 		if ( ! empty( $post->post_type ) && 'product_variation' === $post->post_type && 'product' === $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'poocommerce' ), array( 'status' => 404 ) );
 		} elseif ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$data = $this->prepare_item_for_response( $post, $request );
@@ -172,7 +172,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
 			/* translators: %s: post type */
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_exists", sprintf( __( 'Cannot create existing %s.', 'woocommerce' ), $this->post_type ), array( 'status' => 400 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_exists", sprintf( __( 'Cannot create existing %s.', 'poocommerce' ), $this->post_type ), array( 'status' => 400 ) );
 		}
 
 		$post = $this->prepare_item_for_database( $request );
@@ -213,7 +213,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating item, false when updating.
 		 */
-		do_action( "woocommerce_rest_insert_{$this->post_type}", $post, $request, true );
+		do_action( "poocommerce_rest_insert_{$this->post_type}", $post, $request, true );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $post, $request );
@@ -255,9 +255,9 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post = get_post( $id );
 
 		if ( ! empty( $post->post_type ) && 'product_variation' === $post->post_type && 'product' === $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'poocommerce' ), array( 'status' => 404 ) );
 		} elseif ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$post = $this->prepare_item_for_database( $request );
@@ -291,7 +291,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating item, false when updating.
 		 */
-		do_action( "woocommerce_rest_insert_{$this->post_type}", $post, $request, false );
+		do_action( "poocommerce_rest_insert_{$this->post_type}", $post, $request, false );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $post, $request );
@@ -348,7 +348,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 * @param array           $args    Key value array of query var to query value.
 		 * @param WP_REST_Request $request The request used.
 		 */
-		$args = apply_filters( "woocommerce_rest_{$this->post_type}_query", $args, $request );
+		$args = apply_filters( "poocommerce_rest_{$this->post_type}_query", $args, $request );
 		$query_args = $this->prepare_items_query( $args, $request );
 
 		$posts_query = new WP_Query();
@@ -418,7 +418,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$post  = get_post( $id );
 
 		if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$supports_trash = EMPTY_TRASH_DAYS > 0;
@@ -431,11 +431,11 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 * @param boolean $supports_trash Whether the item type support trashing.
 		 * @param WP_Post $post           The Post object being considered for trashing support.
 		 */
-		$supports_trash = apply_filters( "woocommerce_rest_{$this->post_type}_trashable", $supports_trash, $post );
+		$supports_trash = apply_filters( "poocommerce_rest_{$this->post_type}_trashable", $supports_trash, $post );
 
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
 			/* translators: %s: post type */
-			return new WP_Error( "woocommerce_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'woocommerce' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( "poocommerce_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'poocommerce' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		$request->set_param( 'context', 'edit' );
@@ -448,13 +448,13 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 			// If we don't support trashing for this type, error out.
 			if ( ! $supports_trash ) {
 				/* translators: %s: post type */
-				return new WP_Error( 'woocommerce_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'woocommerce' ), $this->post_type ), array( 'status' => 501 ) );
+				return new WP_Error( 'poocommerce_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'poocommerce' ), $this->post_type ), array( 'status' => 501 ) );
 			}
 
 			// Otherwise, only trash if we haven't already.
 			if ( 'trash' === $post->post_status ) {
 				/* translators: %s: post type */
-				return new WP_Error( 'woocommerce_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'woocommerce' ), $this->post_type ), array( 'status' => 410 ) );
+				return new WP_Error( 'poocommerce_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'poocommerce' ), $this->post_type ), array( 'status' => 410 ) );
 			}
 
 			// (Note that internally this falls through to `wp_delete_post` if
@@ -464,7 +464,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 
 		if ( ! $result ) {
 			/* translators: %s: post type */
-			return new WP_Error( 'woocommerce_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'woocommerce' ), $this->post_type ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'poocommerce' ), $this->post_type ), array( 'status' => 500 ) );
 		}
 
 		/**
@@ -474,7 +474,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Response $response The response data.
 		 * @param WP_REST_Request  $request  The request sent to the API.
 		 */
-		do_action( "woocommerce_rest_delete_{$this->post_type}", $post, $response, $request );
+		do_action( "poocommerce_rest_delete_{$this->post_type}", $post, $response, $request );
 
 		return $response;
 	}
@@ -520,7 +520,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 				 *
 				 * @param mixed $prepared_args[ $var ] The query_var value.
 				 */
-				$query_args[ $var ] = apply_filters( "woocommerce_rest_query_var-{$var}", $prepared_args[ $var ] );
+				$query_args[ $var ] = apply_filters( "poocommerce_rest_query_var-{$var}", $prepared_args[ $var ] );
 			}
 		}
 
@@ -564,12 +564,12 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 			 * frontend, but are safe for use in query strings.
 			 *
 			 * To disable anyway, use
-			 * `add_filter( 'woocommerce_rest_private_query_vars', '__return_empty_array' );`
+			 * `add_filter( 'poocommerce_rest_private_query_vars', '__return_empty_array' );`
 			 *
 			 * @param array $private_query_vars Array of allowed query vars for authorized users.
 			 * }
 			 */
-			$private = apply_filters( 'woocommerce_rest_private_query_vars', $wp->private_query_vars );
+			$private = apply_filters( 'poocommerce_rest_private_query_vars', $wp->private_query_vars );
 			$valid_vars = array_merge( $valid_vars, $private );
 		}
 		// Define our own in addition to WP's normal vars.
@@ -605,7 +605,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		 *    @param string $allowed_query_var The query var to allow.
 		 * }
 		 */
-		$valid_vars = apply_filters( 'woocommerce_rest_query_vars', $valid_vars );
+		$valid_vars = apply_filters( 'poocommerce_rest_query_vars', $valid_vars );
 
 		return $valid_vars;
 	}
@@ -621,19 +621,19 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		$params['context']['default'] = 'view';
 
 		$params['after'] = array(
-			'description'        => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'        => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'               => 'string',
 			'format'             => 'date-time',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['before'] = array(
-			'description'        => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'        => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'               => 'string',
 			'format'             => 'date-time',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -642,7 +642,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -651,20 +651,20 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['offset'] = array(
-			'description'        => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+			'description'        => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 			'type'               => 'integer',
 			'sanitize_callback'  => 'absint',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['order'] = array(
-			'description'        => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+			'description'        => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 			'type'               => 'string',
 			'default'            => 'desc',
 			'enum'               => array( 'asc', 'desc' ),
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['orderby'] = array(
-			'description'        => __( 'Sort collection by object attribute.', 'woocommerce' ),
+			'description'        => __( 'Sort collection by object attribute.', 'poocommerce' ),
 			'type'               => 'string',
 			'default'            => 'date',
 			'enum'               => array(
@@ -682,7 +682,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 
 		if ( isset( $post_type_obj->hierarchical ) && $post_type_obj->hierarchical ) {
 			$params['parent'] = array(
-				'description'       => __( 'Limit result set to those of particular parent IDs.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to those of particular parent IDs.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type'          => 'integer',
@@ -691,7 +691,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 				'default'           => array(),
 			);
 			$params['parent_exclude'] = array(
-				'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type'          => 'integer',
@@ -704,7 +704,7 @@ abstract class WC_REST_Posts_Controller extends WC_REST_Controller {
 		if ( 'wc/v1' === $this->namespace ) {
 			$params['filter'] = array(
 				'type'        => 'object',
-				'description' => __( 'Use WP Query arguments to modify the response; private query vars require appropriate authorization.', 'woocommerce' ),
+				'description' => __( 'Use WP Query arguments to modify the response; private query vars require appropriate authorization.', 'poocommerce' ),
 			);
 		}
 

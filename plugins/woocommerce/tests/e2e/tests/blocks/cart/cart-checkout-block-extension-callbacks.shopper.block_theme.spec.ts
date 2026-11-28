@@ -6,7 +6,7 @@ import {
 	test as base,
 	enableTestPlugin,
 	guestFile,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ test.describe( 'Shopper → Cart Extension Callbacks', () => {
 		).rejects.toThrow( 'This is an error with cart context.' );
 	} );
 
-	test( 'Error code `woocommerce_rest_cart_extensions_error` creates notice', async ( {
+	test( 'Error code `poocommerce_rest_cart_extensions_error` creates notice', async ( {
 		frontendUtils,
 		page,
 	} ) => {

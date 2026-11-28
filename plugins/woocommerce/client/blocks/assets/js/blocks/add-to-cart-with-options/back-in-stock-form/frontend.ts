@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { store, getContext } from '@wordpress/interactivity';
-import type { SelectedAttributes } from '@woocommerce/stores/woocommerce';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { SelectedAttributes } from '@poocommerce/stores/poocommerce';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
@@ -33,7 +33,7 @@ export type BackInStockFormStore = {
  * of a variable product, see templates/single-product/back-in-stock-form.php.
  */
 store< BackInStockFormStore >(
-	'woocommerce/back-in-stock-form',
+	'poocommerce/back-in-stock-form',
 	{
 		state: {
 			/**
@@ -56,7 +56,7 @@ store< BackInStockFormStore >(
 				const { attribute } = getContext< { attribute: string } >();
 				const { selectedAttributes = [] } =
 					getContext< { selectedAttributes?: SelectedAttributes[] } >(
-						'woocommerce/add-to-cart-with-options'
+						'poocommerce/add-to-cart-with-options'
 					) ?? {};
 
 				return (

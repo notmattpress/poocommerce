@@ -23,15 +23,15 @@ import { useDispatch, withDispatch, withSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Icon, grid } from '@wordpress/icons';
-import { getBlockMap } from '@woocommerce/utils/get-block-map';
-import { blocksConfig } from '@woocommerce/block-settings';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import { previewProducts } from '@woocommerce/resource-previews';
-import { getSetting } from '@woocommerce/settings';
+import { getBlockMap } from '@poocommerce/utils/get-block-map';
+import { blocksConfig } from '@poocommerce/block-settings';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import { previewProducts } from '@poocommerce/resource-previews';
+import { getSetting } from '@poocommerce/settings';
 import {
 	InnerBlockLayoutContextProvider,
 	ProductDataContextProvider,
-} from '@woocommerce/shared-context';
+} from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ import metadata from './block.json';
 import defaults from './defaults';
 import './editor.scss';
 
-const blockMap = getBlockMap( 'woocommerce/all-products' );
+const blockMap = getBlockMap( 'poocommerce/all-products' );
 
 const blockIcon = <Icon icon={ grid } />;
 
@@ -111,7 +111,7 @@ const Edit = ( {
 
 		if ( ! isEditing ) {
 			debouncedSpeak(
-				__( 'Showing All Products block preview.', 'woocommerce' )
+				__( 'Showing All Products block preview.', 'poocommerce' )
 			);
 		}
 	};
@@ -122,7 +122,7 @@ const Edit = ( {
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody
-					title={ __( 'Layout Settings', 'woocommerce' ) }
+					title={ __( 'Layout Settings', 'poocommerce' ) }
 					initialOpen
 				>
 					<GridLayoutControl
@@ -136,7 +136,7 @@ const Edit = ( {
 						maxRows={ getSetting( 'maxRows', 6 ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Content Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Content Settings', 'poocommerce' ) }>
 					{ getSharedContentControls( attributes, setAttributes ) }
 					{ getSharedListControls( attributes, setAttributes ) }
 				</PanelBody>
@@ -153,7 +153,7 @@ const Edit = ( {
 							icon: 'edit',
 							title: __(
 								'Edit the layout of each product',
-								'woocommerce'
+								'poocommerce'
 							),
 							onClick: () => togglePreview(),
 							isActive: isEditing,
@@ -202,7 +202,7 @@ const Edit = ( {
 			<Placeholder icon={ blockIcon } label={ metadata.title }>
 				{ __(
 					'Display all products from your store as a grid.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<div className="wc-block-all-products-grid-item-template">
 					<Notice
@@ -213,11 +213,11 @@ const Edit = ( {
 					>
 						{ __(
 							'Edit the blocks inside the example below to change the content displayed for all products within the product grid.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 					<InnerBlockLayoutContextProvider
-						parentName="woocommerce/all-products"
+						parentName="poocommerce/all-products"
 						parentClassName="wc-block-grid"
 					>
 						<div className="wc-block-grid wc-block-layout has-1-columns">
@@ -238,25 +238,25 @@ const Edit = ( {
 							variant="primary"
 							onClick={ onDone }
 						>
-							{ __( 'Done', 'woocommerce' ) }
+							{ __( 'Done', 'poocommerce' ) }
 						</Button>
 						<Button
 							className="wc-block-all-products__cancel-button"
 							variant="tertiary"
 							onClick={ onCancel }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							className="wc-block-all-products__reset-button"
 							icon={ blockIcon }
 							label={ __(
 								'Reset layout to default',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onClick={ onReset }
 						>
-							{ __( 'Reset Layout', 'woocommerce' ) }
+							{ __( 'Reset Layout', 'poocommerce' ) }
 						</Button>
 					</div>
 				</div>

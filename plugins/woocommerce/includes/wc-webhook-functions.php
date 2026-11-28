@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Webhook functions
+ * PooCommerce Webhook functions
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.3.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Utilities\ActionSchedulerUtil;
-use Automattic\WooCommerce\Internal\Webhooks\WebhookCaptureRules;
-use Automattic\WooCommerce\Internal\Webhooks\WebhookObservers;
-use Automattic\WooCommerce\Internal\Webhooks\WebhookPayloadRedactor;
+use Automattic\PooCommerce\Internal\Utilities\ActionSchedulerUtil;
+use Automattic\PooCommerce\Internal\Webhooks\WebhookCaptureRules;
+use Automattic\PooCommerce\Internal\Webhooks\WebhookObservers;
+use Automattic\PooCommerce\Internal\Webhooks\WebhookPayloadRedactor;
 
 /**
  * Process the web hooks at the end of the request.
@@ -39,14 +39,14 @@ function wc_webhook_execute_queue() {
 		 * @param WC_Webhook $webhook       The webhook being delivered.
 		 * @param mixed      $arg           The argument the webhook fired with, usually a resource ID.
 		 */
-		if ( apply_filters( 'woocommerce_webhook_deliver_async', true, $data['webhook'], $original_arg ) ) {
+		if ( apply_filters( 'poocommerce_webhook_deliver_async', true, $data['webhook'], $original_arg ) ) {
 
 			$queue_args = array(
 				'webhook_id' => $data['webhook']->get_id(),
 				'arg'        => $data['arg'],
 			);
 
-			$next_scheduled = as_next_scheduled_action( 'woocommerce_deliver_webhook_async', $queue_args, 'woocommerce-webhooks' );
+			$next_scheduled = as_next_scheduled_action( 'poocommerce_deliver_webhook_async', $queue_args, 'poocommerce-webhooks' );
 
 			// Make webhooks unique - only schedule one webhook every 10 minutes to maintain backward compatibility with WP Cron behaviour seen in WC < 3.5.0.
 			// A pending delivery has a timestamp; an in-progress delivery (true) or none (false) gets a new one.
@@ -60,10 +60,10 @@ function wc_webhook_execute_queue() {
 				 * @param WC_Webhook $webhook  The webhook being delivered.
 				 * @param mixed      $arg      The argument the webhook fired with, usually the resource ID.
 				 */
-				$priority = apply_filters( 'woocommerce_webhook_delivery_priority', 10, $data['webhook'], $original_arg );
+				$priority = apply_filters( 'poocommerce_webhook_delivery_priority', 10, $data['webhook'], $original_arg );
 				$priority = is_numeric( $priority ) && is_finite( $priority ) ? (int) max( 0, min( $priority, 255 ) ) : 10;
 
-				ActionSchedulerUtil::schedule_single( $now, 'woocommerce_deliver_webhook_async', $queue_args, 'woocommerce-webhooks', false, $priority );
+				ActionSchedulerUtil::schedule_single( $now, 'poocommerce_deliver_webhook_async', $queue_args, 'poocommerce-webhooks', false, $priority );
 			}
 		} else {
 			// Deliver immediately.
@@ -92,10 +92,10 @@ function wc_webhook_process_delivery( $webhook, $arg ) {
 		'original_arg' => $arg,
 	);
 }
-add_action( 'woocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10, 2 );
+add_action( 'poocommerce_webhook_process_delivery', 'wc_webhook_process_delivery', 10, 2 );
 
 /**
- * Wrapper function to execute the `woocommerce_deliver_webhook_async` cron.
+ * Wrapper function to execute the `poocommerce_deliver_webhook_async` cron.
  * hook, see WC_Webhook::process().
  *
  * @since 2.2.0
@@ -116,7 +116,7 @@ function wc_deliver_webhook_async( $webhook_id, $arg ) {
 		$webhook->deliver( $arg );
 	}
 }
-add_action( 'woocommerce_deliver_webhook_async', 'wc_deliver_webhook_async', 10, 2 );
+add_action( 'poocommerce_deliver_webhook_async', 'wc_deliver_webhook_async', 10, 2 );
 
 /**
  * Check if the given topic is a valid webhook topic, a topic is valid if:
@@ -141,7 +141,7 @@ function wc_is_webhook_valid_topic( $topic ) {
 	if ( 'action' === $data[0] ) {
 		// WC_Webhook subscribes to the second segment, even when the topic has a suffix.
 		$hook = $data[1];
-		if ( 0 !== strpos( $hook, 'woocommerce_' ) && 0 !== strpos( $hook, 'wc_' ) ) {
+		if ( 0 !== strpos( $hook, 'poocommerce_' ) && 0 !== strpos( $hook, 'wc_' ) ) {
 			return false;
 		}
 
@@ -157,7 +157,7 @@ function wc_is_webhook_valid_topic( $topic ) {
 	 * @since 2.2.0
 	 * @param array $valid_resources Array of valid webhook resources.
 	 */
-	$valid_resources = apply_filters( 'woocommerce_valid_webhook_resources', $default_resources );
+	$valid_resources = apply_filters( 'poocommerce_valid_webhook_resources', $default_resources );
 
 	/**
 	 * Filters the list of valid webhook events.
@@ -165,7 +165,7 @@ function wc_is_webhook_valid_topic( $topic ) {
 	 * @since 2.2.0
 	 * @param array $valid_events Array of valid webhook events.
 	 */
-	$valid_events = apply_filters( 'woocommerce_valid_webhook_events', $default_events );
+	$valid_events = apply_filters( 'poocommerce_valid_webhook_events', $default_events );
 
 	if ( ! in_array( $data[0], $valid_resources, true ) || ! in_array( $data[1], $valid_events, true ) ) {
 		return false;
@@ -173,7 +173,7 @@ function wc_is_webhook_valid_topic( $topic ) {
 
 	// Topics that include a filter-added resource or event are accepted; plugins
 	// extending the resource/event lists are expected to wire delivery via the
-	// `woocommerce_webhook_topic_hooks` or `woocommerce_webhook_hooks` filters.
+	// `poocommerce_webhook_topic_hooks` or `poocommerce_webhook_hooks` filters.
 	if ( ! in_array( $data[0], $default_resources, true ) || ! in_array( $data[1], $default_events, true ) ) {
 		return true;
 	}
@@ -183,7 +183,7 @@ function wc_is_webhook_valid_topic( $topic ) {
 	// as Active webhooks but never deliver, so reject them.
 	//
 	// The allowlist is derived from `WC_Webhook::get_default_topic_hooks()`,
-	// which runs through the `woocommerce_webhook_topic_hooks` filter.
+	// which runs through the `poocommerce_webhook_topic_hooks` filter.
 	// Extensions that register hooks for an otherwise-empty default pair (via
 	// that filter) are therefore honored automatically, with no separate
 	// allowlist to keep in sync.
@@ -211,11 +211,11 @@ function wc_is_webhook_valid_status( $status ) {
  */
 function wc_get_webhook_statuses() {
 	return apply_filters(
-		'woocommerce_webhook_statuses',
+		'poocommerce_webhook_statuses',
 		array(
-			'active'   => __( 'Active', 'woocommerce' ),
-			'paused'   => __( 'Paused', 'woocommerce' ),
-			'disabled' => __( 'Disabled', 'woocommerce' ),
+			'active'   => __( 'Active', 'poocommerce' ),
+			'paused'   => __( 'Paused', 'poocommerce' ),
+			'disabled' => __( 'Disabled', 'poocommerce' ),
 		)
 	);
 }

@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain\Traits;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain\Traits;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -140,9 +140,9 @@ trait ProductReviewAbilityTrait {
 
 		if ( null === $review ) {
 			return new \WP_Error(
-				'woocommerce_ability_product_review_not_found',
+				'poocommerce_ability_product_review_not_found',
 				/* translators: %d: review ID. */
-				sprintf( __( 'Product review %d does not exist. Use the woocommerce/product-reviews-query ability to find the review ID.', 'woocommerce' ), $input['id'] ),
+				sprintf( __( 'Product review %d does not exist. Use the poocommerce/product-reviews-query ability to find the review ID.', 'poocommerce' ), $input['id'] ),
 				array( 'status' => 404 )
 			);
 		}
@@ -168,7 +168,7 @@ trait ProductReviewAbilityTrait {
 		 * @param int    $object_id   Review ID.
 		 * @param string $object_type Always 'product_review'.
 		 */
-		return (bool) apply_filters( 'woocommerce_rest_check_permissions', current_user_can( 'edit_products' ), $context, $review_id, 'product_review' );
+		return (bool) apply_filters( 'poocommerce_rest_check_permissions', current_user_can( 'edit_products' ), $context, $review_id, 'product_review' );
 	}
 
 	/**
@@ -193,7 +193,7 @@ trait ProductReviewAbilityTrait {
 				'review'            => array( 'type' => 'string' ),
 				'store_reply_count' => array(
 					'type'        => 'integer',
-					'description' => __( 'Approved and held replies from store staff. Replies from customers are not counted.', 'woocommerce' ),
+					'description' => __( 'Approved and held replies from store staff. Replies from customers are not counted.', 'poocommerce' ),
 				),
 			),
 		);

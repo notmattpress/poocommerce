@@ -1,13 +1,13 @@
 ---
-name: woocommerce-local-env
-description: Set up, start, stop, restart, verify, and troubleshoot the WooCommerce Core local development environment with wp-env and asset build watchers. Use when Codex is asked to run WooCommerce locally, prepare wp-env, watch WooCommerce builds, choose between full and targeted build/watch commands, diagnose localhost:8888, explain local environment setup commands, or test WooCommerce abilities over MCP against wp-env.
+name: poocommerce-local-env
+description: Set up, start, stop, restart, verify, and troubleshoot the PooCommerce Core local development environment with wp-env and asset build watchers. Use when Codex is asked to run PooCommerce locally, prepare wp-env, watch PooCommerce builds, choose between full and targeted build/watch commands, diagnose localhost:8888, explain local environment setup commands, or test PooCommerce abilities over MCP against wp-env.
 ---
 
-# WooCommerce Local Environment
+# PooCommerce Local Environment
 
 ## Overview
 
-Use this skill to get WooCommerce Core running locally without re-reading `plugins/woocommerce/README.md` and `.wp-env.json`.
+Use this skill to get PooCommerce Core running locally without re-reading `plugins/poocommerce/README.md` and `.wp-env.json`.
 
 Prefer short root scripts when present. Fall back to filtered package commands if the aliases are not available.
 
@@ -32,7 +32,7 @@ pnpm wc:env
 pnpm wc:env:stop
 pnpm wc:env:restart
 
-# Watch all WooCommerce Core build outputs.
+# Watch all PooCommerce Core build outputs.
 pnpm wc:watch
 
 # Watch targeted build outputs.
@@ -49,20 +49,20 @@ pnpm wc:build:classic-assets
 
 `pnpm wc:env:restart` destroys and recreates the wp-env containers, so use it only when a clean restart is intended.
 
-Fallback commands from the WooCommerce package:
+Fallback commands from the PooCommerce package:
 
 ```bash
-pnpm --filter='@woocommerce/plugin-woocommerce' env:dev
-pnpm --filter='@woocommerce/plugin-woocommerce' env:stop
-pnpm --filter='@woocommerce/plugin-woocommerce' env:restart
-pnpm --filter='@woocommerce/plugin-woocommerce' build
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:admin
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:blocks
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build:classic-assets
+pnpm --filter='@poocommerce/plugin-poocommerce' env:dev
+pnpm --filter='@poocommerce/plugin-poocommerce' env:stop
+pnpm --filter='@poocommerce/plugin-poocommerce' env:restart
+pnpm --filter='@poocommerce/plugin-poocommerce' build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:admin
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:blocks
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build:classic-assets
 ```
 
-From `plugins/woocommerce/`, run the package scripts directly, for example `pnpm env:dev` or `pnpm watch:build`.
+From `plugins/poocommerce/`, run the package scripts directly, for example `pnpm env:dev` or `pnpm watch:build`.
 
 ## Setup Workflow
 
@@ -106,10 +106,10 @@ Recommend targeted watchers for focused work to reduce noise and startup time:
 - Development URL: `http://localhost:8888/`
 - PHP test environment (`.wp-env.test.json`, used by `test:php:env*`): `http://localhost:8186/`
 - E2E environment (`.wp-env.e2e.json`, used by `wp-env:e2e` and the Playwright `BASE_URL` default): `http://localhost:8086/`
-- wp-env config: `plugins/woocommerce/.wp-env.json`
+- wp-env config: `plugins/poocommerce/.wp-env.json`
 - wp-env PHP version: `8.1`
-- WooCommerce package: `@woocommerce/plugin-woocommerce`
-- Source README: `plugins/woocommerce/README.md`
+- PooCommerce package: `@poocommerce/plugin-poocommerce`
+- Source README: `plugins/poocommerce/README.md`
 
 ## Verification
 
@@ -123,7 +123,7 @@ For browser-based verification, open `http://localhost:8888/` with the Browser p
 
 ## Testing Abilities over MCP
 
-When a change touches a WooCommerce ability, call it through MCP the way an AI client does. The MCP Adapter is not bundled, so add it with a gitignored `plugins/woocommerce/.wp-env.override.json` like the one below, then run `pnpm env:dev:start` from `plugins/woocommerce/`. If that file already exists, merge into it instead of replacing it: add the adapter URL to its `plugins` array, keeping its existing entries and `"."`, and add the `config` keys.
+When a change touches a PooCommerce ability, call it through MCP the way an AI client does. The MCP Adapter is not bundled, so add it with a gitignored `plugins/poocommerce/.wp-env.override.json` like the one below, then run `pnpm env:dev:start` from `plugins/poocommerce/`. If that file already exists, merge into it instead of replacing it: add the adapter URL to its `plugins` array, keeping its existing entries and `"."`, and add the `config` keys.
 
 ```json
 {
@@ -135,12 +135,12 @@ When a change touches a WooCommerce ability, call it through MCP the way an AI c
 }
 ```
 
-Call one ability headlessly from `plugins/woocommerce/`:
+Call one ability headlessly from `plugins/poocommerce/`:
 
 ```bash
 npx @modelcontextprotocol/inspector --cli \
   --method tools/call --tool-name mcp-adapter-execute-ability \
-  --tool-arg ability_name=woocommerce/products-query --tool-arg 'parameters={}' \
+  --tool-arg ability_name=poocommerce/products-query --tool-arg 'parameters={}' \
   -- pnpm exec wp-env run cli wp mcp-adapter serve --server=mcp-adapter-default-server --user=admin
 ```
 
@@ -156,4 +156,4 @@ The full workflow is in `docs/contribution/testing/mcp-abilities-testing.md`.
 - If `pnpm wc:env` fails after dependency changes, run `pnpm install`, then retry.
 - If `wp-env` containers look stale, run `pnpm wc:env:restart` only after confirming a destructive environment reset is acceptable.
 - If assets do not update, confirm the relevant watcher is running and use a targeted watcher for the changed area.
-- If the user only needs PHP unit tests, prefer the test commands from `woocommerce-dev-cycle`; do not start a full browser workflow unless needed.
+- If the user only needs PHP unit tests, prefer the test commands from `poocommerce-dev-cycle`; do not start a full browser workflow unless needed.

@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal;
+namespace Automattic\PooCommerce\Tests\Internal;
 
-use Automattic\WooCommerce\Internal\DownloadPermissionsAdjuster;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Internal\DownloadPermissionsAdjuster;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Tests for DownloadPermissionsAdjuster.
@@ -32,13 +32,13 @@ class DownloadPermissionsAdjusterTest extends \WC_Unit_Test_Case {
 
 		// This is needed for "product->set_downloads" to work without actual files.
 		add_filter(
-			'woocommerce_downloadable_file_allowed_mime_types',
+			'poocommerce_downloadable_file_allowed_mime_types',
 			function () {
 				return array( 'foo' => 'nonsense/foo' );
 			}
 		);
 		add_filter(
-			'woocommerce_downloadable_file_exists',
+			'poocommerce_downloadable_file_exists',
 			function () {
 				return true;
 			},

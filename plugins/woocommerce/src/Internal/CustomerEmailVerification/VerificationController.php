@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CustomerEmailVerification;
+namespace Automattic\PooCommerce\Internal\CustomerEmailVerification;
 
 /**
  * Drives the customer email-verification UI on My Account and processes its confirmation links.
@@ -26,7 +26,7 @@ class VerificationController {
 	/**
 	 * Nonce action used to protect the send-verification request.
 	 */
-	private const SEND_NONCE_ACTION = 'woocommerce-send-verification-email';
+	private const SEND_NONCE_ACTION = 'poocommerce-send-verification-email';
 
 	/**
 	 * Query param used to trigger the send-verification request.
@@ -56,7 +56,7 @@ class VerificationController {
 	/**
 	 * Nonce action used to protect the password confirmation form.
 	 */
-	private const CONFIRM_NONCE_ACTION = 'woocommerce-confirm-email';
+	private const CONFIRM_NONCE_ACTION = 'poocommerce-confirm-email';
 
 	/**
 	 * Password attempts allowed on the confirmation form before the delay applies.
@@ -93,8 +93,8 @@ class VerificationController {
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'maybe_process_request' ) );
 		// After the session notices (priority 5), before the account content (priority 10).
-		add_action( 'woocommerce_account_content', array( $this, 'print_result_notice' ), 6 );
-		add_action( 'woocommerce_before_account_orders', array( $this, 'render_prompt' ) );
+		add_action( 'poocommerce_account_content', array( $this, 'print_result_notice' ), 6 );
+		add_action( 'poocommerce_before_account_orders', array( $this, 'render_prompt' ) );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class VerificationController {
 				$this->redirect_with_result( 'expired' );
 			}
 
-			wc_add_notice( __( 'This confirmation link is invalid or has expired. Log in to request a new one.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'This confirmation link is invalid or has expired. Log in to request a new one.', 'poocommerce' ), 'error' );
 			return;
 		}
 
@@ -203,7 +203,7 @@ class VerificationController {
 	 * @return void
 	 */
 	private function handle_confirm_form( array $link, \WP_User $user ): void {
-		$nonce = isset( $_POST['woocommerce-confirm-email-nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['woocommerce-confirm-email-nonce'] ) ) : '';
+		$nonce = isset( $_POST['poocommerce-confirm-email-nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['poocommerce-confirm-email-nonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, self::CONFIRM_NONCE_ACTION ) ) {
 			return;
@@ -212,7 +212,7 @@ class VerificationController {
 		$rate_limit_id = 'confirm_email_' . $user->ID;
 
 		if ( \WC_Rate_Limiter::retried_too_soon( $rate_limit_id ) ) {
-			wc_add_notice( __( 'Please wait a few seconds before trying again.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'Please wait a few seconds before trying again.', 'poocommerce' ), 'error' );
 			return;
 		}
 
@@ -229,7 +229,7 @@ class VerificationController {
 		$password = isset( $_POST['wc_confirm_password'] ) && is_string( $_POST['wc_confirm_password'] ) ? $_POST['wc_confirm_password'] : '';
 
 		if ( ! $this->check_credentials( $user, $password ) ) {
-			wc_add_notice( __( 'The password you entered is incorrect. Please try again.', 'woocommerce' ), 'error' );
+			wc_add_notice( __( 'The password you entered is incorrect. Please try again.', 'poocommerce' ), 'error' );
 			return;
 		}
 
@@ -352,10 +352,10 @@ class VerificationController {
 			return false;
 		}
 
-		$email_setting = get_option( 'woocommerce_customer_verify_email_settings', array() );
+		$email_setting = get_option( 'poocommerce_customer_verify_email_settings', array() );
 		$email_enabled = 'yes' === ( $email_setting['enabled'] ?? 'yes' );
 
-		$should_show = $email_enabled && wc_string_to_bool( get_option( 'woocommerce_enable_guest_checkout' ) );
+		$should_show = $email_enabled && wc_string_to_bool( get_option( 'poocommerce_enable_guest_checkout' ) );
 
 		// Ask temporary-password accounts to set their password first. Once they do, the
 		// temporary-password notice clears and this separate email-confirmation prompt can appear.
@@ -369,7 +369,7 @@ class VerificationController {
 		 * @param bool $should_show Whether to show the prompt, before this filter runs.
 		 * @param int  $user_id     The WordPress user ID of the customer.
 		 */
-		return (bool) apply_filters( 'woocommerce_customer_email_verification_should_show_prompt', $should_show, $user_id );
+		return (bool) apply_filters( 'poocommerce_customer_email_verification_should_show_prompt', $should_show, $user_id );
 	}
 
 	/**
@@ -395,7 +395,7 @@ class VerificationController {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display-only, no state change.
 			if ( ! isset( $_GET[ self::NOTICE_PARAM ] ) ) {
 				wc_print_notice(
-					esc_html__( 'Confirm your email address to check for past orders. A confirmation link was sent recently — please check your inbox.', 'woocommerce' ),
+					esc_html__( 'Confirm your email address to check for past orders. A confirmation link was sent recently — please check your inbox.', 'poocommerce' ),
 					'notice'
 				);
 			}
@@ -409,9 +409,9 @@ class VerificationController {
 
 		$notice = sprintf(
 			'<a href="%2$s" class="button wc-forward">%3$s</a> %1$s',
-			esc_html__( 'Confirm your email address to check for past orders and link them to your account.', 'woocommerce' ),
+			esc_html__( 'Confirm your email address to check for past orders and link them to your account.', 'poocommerce' ),
 			esc_url( $send_url ),
-			esc_html__( 'Confirm email address', 'woocommerce' )
+			esc_html__( 'Confirm email address', 'poocommerce' )
 		);
 
 		wc_print_notice( $notice, 'notice' );
@@ -445,17 +445,17 @@ class VerificationController {
 	private function result_notice( string $code ): ?array {
 		switch ( $code ) {
 			case 'sent':
-				return array( __( 'A confirmation link has been sent to your email address. Please check your inbox.', 'woocommerce' ), 'success' );
+				return array( __( 'A confirmation link has been sent to your email address. Please check your inbox.', 'poocommerce' ), 'success' );
 			case 'throttled':
-				return array( __( 'A confirmation link was sent recently. Please check your inbox, or wait a moment before requesting a new one.', 'woocommerce' ), 'notice' );
+				return array( __( 'A confirmation link was sent recently. Please check your inbox, or wait a moment before requesting a new one.', 'poocommerce' ), 'notice' );
 			case 'confirmed':
-				return array( __( 'Your email address has been confirmed.', 'woocommerce' ), 'success' );
+				return array( __( 'Your email address has been confirmed.', 'poocommerce' ), 'success' );
 			case 'expired':
-				return array( __( 'This confirmation link is invalid or has expired. Please request a new one.', 'woocommerce' ), 'error' );
+				return array( __( 'This confirmation link is invalid or has expired. Please request a new one.', 'poocommerce' ), 'error' );
 			case 'mismatch':
-				return array( __( 'Unable to confirm this email while you are logged in to a different account. Please log out and open the link again.', 'woocommerce' ), 'error' );
+				return array( __( 'Unable to confirm this email while you are logged in to a different account. Please log out and open the link again.', 'poocommerce' ), 'error' );
 			case 'invalid':
-				return array( __( 'Invalid request. Please try again.', 'woocommerce' ), 'error' );
+				return array( __( 'Invalid request. Please try again.', 'poocommerce' ), 'error' );
 			default:
 				return null;
 		}
@@ -522,6 +522,6 @@ class VerificationController {
 		 *
 		 * @since 11.0.0
 		 */
-		do_action( 'woocommerce_customer_verify_email_notification', $user_id, $verify_url );
+		do_action( 'poocommerce_customer_verify_email_notification', $user_id, $verify_url );
 	}
 }

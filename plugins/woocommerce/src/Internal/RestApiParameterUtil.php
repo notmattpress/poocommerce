@@ -3,14 +3,14 @@
  * ApiUtil class file.
  */
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 /**
  * Helper methods for the REST API.
  *
  * Class ApiUtil
  *
- * @package Automattic\WooCommerce\Internal
+ * @package Automattic\PooCommerce\Internal
  */
 class RestApiParameterUtil {
 

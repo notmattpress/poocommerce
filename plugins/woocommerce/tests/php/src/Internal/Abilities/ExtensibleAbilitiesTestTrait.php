@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Turns the extensible abilities feature on for one test, and puts the registries back after it.
@@ -36,19 +36,19 @@ trait ExtensibleAbilitiesTestTrait {
 	/**
 	 * Turn the feature on with Core's resources registered, as a request does that starts with the feature on.
 	 *
-	 * @param callable|null $register Registers fields, validators, syncs or filters inside woocommerce_extensible_abilities_init.
+	 * @param callable|null $register Registers fields, validators, syncs or filters inside poocommerce_extensible_abilities_init.
 	 */
 	private function enable_extensible_abilities( ?callable $register = null ): void {
 		$this->isolate_extensible_abilities();
-		update_option( 'woocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', 'yes' );
+		update_option( 'poocommerce_feature_' . ExtensibleAbilities::FEATURE_ID . '_enabled', 'yes' );
 
-		add_action( 'woocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
+		add_action( 'poocommerce_extensible_abilities_resources_init', array( AbilitiesLoader::class, 'register_core_resources' ), 0 );
 		if ( $register ) {
-			add_action( 'woocommerce_extensible_abilities_init', $register );
+			add_action( 'poocommerce_extensible_abilities_init', $register );
 		}
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in AbilitiesLoader::init_extensions().
-		do_action( 'woocommerce_extensible_abilities_resources_init' );
-		do_action( 'woocommerce_extensible_abilities_init' );
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in AbilitiesLoader::init_extensions().
+		do_action( 'poocommerce_extensible_abilities_resources_init' );
+		do_action( 'poocommerce_extensible_abilities_init' );
 		// phpcs:enable
 	}
 

@@ -10,19 +10,19 @@ import {
 	waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 import { dispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
  */
-import * as actionCreators from '@woocommerce/block-data/validation/actions';
+import * as actionCreators from '@poocommerce/block-data/validation/actions';
 import FrontendBlock from '../frontend';
 
-jest.mock( '@woocommerce/block-data/validation/actions', () => {
+jest.mock( '@poocommerce/block-data/validation/actions', () => {
 	const actions = jest.requireActual(
-		'@woocommerce/block-data/validation/actions'
+		'@poocommerce/block-data/validation/actions'
 	);
 	return {
 		...actions,

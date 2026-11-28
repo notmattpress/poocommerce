@@ -15,7 +15,7 @@ class WC_My_Account_Payment_Methods_Template_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_labels_saved_methods_without_brand(): void {
 		add_filter(
-			'woocommerce_payment_token_class',
+			'poocommerce_payment_token_class',
 			static function ( $class_name, $type ) {
 				return FakeCustomPaymentToken::TYPE === $type ? FakeCustomPaymentToken::class : $class_name;
 			},
@@ -23,7 +23,7 @@ class WC_My_Account_Payment_Methods_Template_Test extends WC_Unit_Test_Case {
 			2
 		);
 		add_filter(
-			'woocommerce_payment_methods_list_item',
+			'poocommerce_payment_methods_list_item',
 			static function ( $item, $token ) {
 				if ( 'branded' === $token->get_token() ) {
 					$item['method']['brand'] = 'wallet';

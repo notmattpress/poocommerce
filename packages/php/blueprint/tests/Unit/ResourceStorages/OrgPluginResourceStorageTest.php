@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\ResourceStorages;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\ResourceStorages;
 
-use Automattic\WooCommerce\Blueprint\ResourceStorages\OrgPluginResourceStorage;
+use Automattic\PooCommerce\Blueprint\ResourceStorages\OrgPluginResourceStorage;
 use PHPUnit\Framework\TestCase;
 use Mockery;
 

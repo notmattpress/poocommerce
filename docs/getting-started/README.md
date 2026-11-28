@@ -2,7 +2,7 @@
 slug: /
 sidebar_position: 0
 sidebar_label: 'Getting started'
-title: 'WooCommerce Developer Docs'
+title: 'PooCommerce Developer Docs'
 hide_title: true
 hide_table_of_contents: true
 ---
@@ -18,9 +18,9 @@ import TabItem from '@theme/TabItem';
 
 <div className="woo-docs-homepage__intro">
 
-<h1>WooCommerce Developer Docs</h1>
+<h1>PooCommerce Developer Docs</h1>
 
-WooCommerce is a customizable, open-source eCommerce platform built on WordPress. It empowers businesses worldwide to sell anything from physical products and digital downloads to subscriptions, content, and even appointments.
+PooCommerce is a customizable, open-source eCommerce platform built on WordPress. It empowers businesses worldwide to sell anything from physical products and digital downloads to subscriptions, content, and even appointments.
 
 </div>
 
@@ -38,7 +38,7 @@ curl -fsSL https://wordpress.studio/install.sh | bash
 studio blueprint use woo-shop
 ```
 
-Studio starts the local site and gives you its URL. For setup details, other local environments, and working with WooCommerce Core, read [Set up your development environment](/docs/getting-started/development-environment/).
+Studio starts the local site and gives you its URL. For setup details, other local environments, and working with PooCommerce Core, read [Set up your development environment](/docs/getting-started/development-environment/).
 
 </TabItem>
 
@@ -47,7 +47,7 @@ Studio starts the local site and gives you its URL. For setup details, other loc
 Copy this prompt into a coding agent with terminal access.
 
 ```text
-Fetch the instructions from https://developer.woocommerce.com/docs/llms.txt.
+Fetch the instructions from https://developer.poocommerce.com/docs/llms.txt.
 ```
 
 </TabItem>
@@ -58,7 +58,7 @@ Fetch the instructions from https://developer.woocommerce.com/docs/llms.txt.
 
 </div>
 
-## Build and extend WooCommerce
+## Build and extend PooCommerce
 
 Choose a starting point for the work you want to do. Each guide has the full setup and implementation details.
 
@@ -78,7 +78,7 @@ Add functionality to a Woo store, such as store settings, payment methods, or sh
 
 ### Storefronts and themes
 
-Create and customize shopper-facing templates and styles with WooCommerce block themes or classic themes.
+Create and customize shopper-facing templates and styles with PooCommerce block themes or classic themes.
 
 [Develop a block theme](/docs/theming/block-theme-development/theming-woo-blocks/)
 
@@ -96,29 +96,29 @@ Use the REST API for store management data. Use the Store API for shopper-facing
 
 <section className="woo-docs-homepage__capability-card">
 
-### WooCommerce CLI
+### PooCommerce CLI
 
 Manage products, orders, and store settings from the command line with `wp wc`.
 
-[Explore WooCommerce CLI](/docs/wc-cli/cli-overview/)
+[Explore PooCommerce CLI](/docs/wc-cli/cli-overview/)
 
 </section>
 
 <section className="woo-docs-homepage__capability-card">
 
-### WooCommerce MCP
+### PooCommerce MCP
 
-Connect a compatible AI client to a running store through the WordPress MCP Adapter and WooCommerce abilities. This integration is a developer preview.
+Connect a compatible AI client to a running store through the WordPress MCP Adapter and PooCommerce abilities. This integration is a developer preview.
 
-[Set up WooCommerce MCP](/docs/features/mcp/)
+[Set up PooCommerce MCP](/docs/features/mcp/)
 
 </section>
 
 <section className="woo-docs-homepage__capability-card">
 
-### Contribute to WooCommerce
+### Contribute to PooCommerce
 
-Fix bugs, improve documentation, and help test WooCommerce in the open-source project.
+Fix bugs, improve documentation, and help test PooCommerce in the open-source project.
 
 [Read the contributor guide](/docs/contribution/contributing/)
 
@@ -132,9 +132,9 @@ Find releases, changes, and extensions.
 
 <div className="woo-docs-homepage__resource-list">
 
-- [Releases](https://developer.woocommerce.com/releases/) Find WooCommerce Core release downloads.
-- [Changelog](https://developer.woocommerce.com/changelog/) Read recent release notes.
-- [Woo Marketplace](https://woocommerce.com/product-category/woocommerce-extensions/) Browse extensions for your store.
+- [Releases](https://developer.poocommerce.com/releases/) Find PooCommerce Core release downloads.
+- [Changelog](https://developer.poocommerce.com/changelog/) Read recent release notes.
+- [Woo Marketplace](https://poocommerce.com/product-category/poocommerce-extensions/) Browse extensions for your store.
 
 </div>
 
@@ -187,7 +187,7 @@ The directory below keeps the broader guides, feature docs, examples, and refere
 - [Orders](/docs/features/orders/wc-get-orders/)
 - [Payments](/docs/features/payments/payment-gateway-api/)
 - [Shipping](/docs/features/shipping/shipping-method-api/)
-- [Analytics](/docs/features/analytics/extending-woocommerce-admin-reports/)
+- [Analytics](/docs/features/analytics/extending-poocommerce-admin-reports/)
 
 </section>
 
@@ -207,10 +207,10 @@ The directory below keeps the broader guides, feature docs, examples, and refere
 ### Code snippets and references
 
 - [Code snippets](/docs/code-snippets/)
-- [WooCommerce Code Reference](https://woocommerce.github.io/code-reference/)
+- [PooCommerce Code Reference](https://poocommerce.github.io/code-reference/)
 - [REST API v3](/docs/apis/rest-api/v3/)
 - [Store API endpoints](/docs/apis/store-api/resources-endpoints/products/)
-- [WooCommerce CLI](/docs/wc-cli/cli-overview/)
+- [PooCommerce CLI](/docs/wc-cli/cli-overview/)
 
 </section>
 
@@ -218,8 +218,8 @@ The directory below keeps the broader guides, feature docs, examples, and refere
 
 ## More ways to learn and contribute
 
-Start with the [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/) and [plugin basics](https://developer.wordpress.org/plugins/plugin-basics/) if you are new to WordPress development. Find the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce), [open issues](https://github.com/woocommerce/woocommerce/issues), [all WooCommerce repositories](https://woocommerce.github.io/), and [Woo community Slack](https://woo.com/community-slack/).
+Start with the [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/) and [plugin basics](https://developer.wordpress.org/plugins/plugin-basics/) if you are new to WordPress development. Find the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce), [open issues](https://github.com/poocommerce/poocommerce/issues), [all PooCommerce repositories](https://poocommerce.github.io/), and [Woo community Slack](https://woo.com/community-slack/).
 
-For store setup and merchant tasks, visit the [WooCommerce website](https://woocommerce.com/), [Woo Marketplace](https://woocommerce.com/marketplace), and [merchant documentation](https://woocommerce.com/documentation/woocommerce/).
+For store setup and merchant tasks, visit the [PooCommerce website](https://poocommerce.com/), [Woo Marketplace](https://poocommerce.com/marketplace), and [merchant documentation](https://poocommerce.com/documentation/poocommerce/).
 
 </div>

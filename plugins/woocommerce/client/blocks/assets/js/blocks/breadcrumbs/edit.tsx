@@ -18,7 +18,7 @@ export type Attributes = {
 
 const Edit = ( { attributes }: BlockEditProps< Attributes > ) => {
 	const blockProps = useBlockProps( {
-		className: 'woocommerce wc-block-breadcrumbs',
+		className: 'poocommerce wc-block-breadcrumbs',
 	} );
 
 	const themeFontSize = useBreadcrumbsThemeFontSize();
@@ -49,9 +49,9 @@ const Edit = ( { attributes }: BlockEditProps< Attributes > ) => {
 	return (
 		<div { ...blockProps }>
 			<Disabled>
-				<a href="/">{ __( 'Breadcrumbs', 'woocommerce' ) }</a>
+				<a href="/">{ __( 'Breadcrumbs', 'poocommerce' ) }</a>
 				{ /* eslint-disable-next-line @wordpress/i18n-no-flanking-whitespace */ }
-				{ __( ' / Navigation / Path', 'woocommerce' ) }
+				{ __( ' / Navigation / Path', 'poocommerce' ) }
 			</Disabled>
 		</div>
 	);

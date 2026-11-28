@@ -70,14 +70,14 @@ function RawSendPreviewEmail() {
 
 	// Read on every render, so callbacks added after the editor loaded still apply.
 	const filteredLink = applyFilters(
-		'woocommerce_email_editor_check_sending_method_configuration_link',
+		'poocommerce_email_editor_check_sending_method_configuration_link',
 		'',
 		postType
 	);
 	const sendingMethodConfigurationLink =
 		typeof filteredLink === 'string' ? filteredLink : '';
 	const filteredHelpItems = applyFilters(
-		'woocommerce_email_editor_send_preview_help_items',
+		'poocommerce_email_editor_send_preview_help_items',
 		[],
 		postType
 	);
@@ -90,13 +90,13 @@ function RawSendPreviewEmail() {
 
 	return (
 		<Modal
-			className="woocommerce-send-preview-email"
+			className="poocommerce-send-preview-email"
 			title={ __( 'Send a test email', __i18n_text_domain__ ) }
 			onRequestClose={ closeCallback }
 			focusOnMount={ false }
 		>
 			{ sendingPreviewStatus === SendingPreviewStatus.ERROR ? (
-				<div className="woocommerce-send-preview-modal-notice-error">
+				<div className="poocommerce-send-preview-modal-notice-error">
 					<p>
 						{ __(
 							'Sorry, we were unable to send this email.',
@@ -174,7 +174,7 @@ function RawSendPreviewEmail() {
 						);
 					}
 				} }
-				className="woocommerce-send-preview-email__send-to-field"
+				className="poocommerce-send-preview-email__send-to-field"
 				value={ previewToEmail }
 				type="email"
 				ref={ sendToRef }
@@ -183,7 +183,7 @@ function RawSendPreviewEmail() {
 				__nextHasNoMarginBottom
 			/>
 			{ sendingPreviewStatus === SendingPreviewStatus.SUCCESS ? (
-				<p className="woocommerce-send-preview-modal-notice-success">
+				<p className="poocommerce-send-preview-modal-notice-success">
 					<Icon icon={ check } style={ { fill: '#4AB866' } } />
 					{ __(
 						'Test email sent successfully!',
@@ -191,7 +191,7 @@ function RawSendPreviewEmail() {
 					) }
 				</p>
 			) : null }
-			<div className="woocommerce-send-preview-modal-footer">
+			<div className="poocommerce-send-preview-modal-footer">
 				<Button
 					variant="tertiary"
 					onClick={ () => {

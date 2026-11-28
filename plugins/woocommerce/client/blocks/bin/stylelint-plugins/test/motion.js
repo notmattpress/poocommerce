@@ -42,7 +42,7 @@ const guarded = ( declaration ) =>
 
 const fade = ( state ) => `.a { transition: motion-state(${ state }); }`;
 
-describe( 'woocommerce/motion-safe', () => {
+describe( 'poocommerce/motion-safe', () => {
 	describe( 'movement outside motion-safe', () => {
 		it.each( [
 			[ 'a fade', '.a { transition: opacity var(--d); }' ],

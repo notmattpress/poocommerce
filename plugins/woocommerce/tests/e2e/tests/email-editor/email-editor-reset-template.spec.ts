@@ -23,7 +23,7 @@ import { locks } from '../../fixtures/fixtures';
 async function switchToTemplateEditingMode( page: Page ) {
 	// Open the Settings panel if not already open
 	const settingsPanel = page.locator(
-		'.woocommerce-email-editor__settings-panel'
+		'.poocommerce-email-editor__settings-panel'
 	);
 	const isPanelExpanded = await settingsPanel.evaluate( ( elem ) =>
 		elem.classList.contains( 'is-opened' )
@@ -55,7 +55,7 @@ async function switchToTemplateEditingMode( page: Page ) {
 }
 
 test.describe(
-	'WooCommerce Email Editor Reset Template',
+	'PooCommerce Email Editor Reset Template',
 	{ lock: locks.EMAIL_FEATURE_FLAGS },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -77,7 +77,7 @@ test.describe(
 
 			// Wait for the editor to load
 			await expect(
-				page.locator( '#woocommerce-email-editor' )
+				page.locator( '#poocommerce-email-editor' )
 			).toBeVisible();
 
 			// Switch to template editing mode

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Exceptions;
+namespace Automattic\PooCommerce\StoreApi\Exceptions;
 
 /**
  * StockAvailabilityException class.
@@ -31,7 +31,7 @@ class StockAvailabilityException extends \Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string $error_code       Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+	 * @param string $error_code       Machine-readable error code, e.g `poocommerce_invalid_product_id`.
 	 * @param string $product_name     The name of the product that can only be purchased individually.
 	 * @param array  $additional_data  Extra data (key value pairs) to expose in the error response.
 	 */

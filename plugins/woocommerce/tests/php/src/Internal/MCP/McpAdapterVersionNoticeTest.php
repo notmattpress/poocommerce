@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\MCP;
+namespace Automattic\PooCommerce\Tests\Internal\MCP;
 
-use Automattic\WooCommerce\Internal\MCP\McpAdapterVersionNotice;
+use Automattic\PooCommerce\Internal\MCP\McpAdapterVersionNotice;
 use WC_Unit_Test_Case;
 
 /**

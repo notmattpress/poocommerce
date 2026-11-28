@@ -2,10 +2,10 @@
 /**
  * MockableLegacyProxy class file.
  *
- * @package Automattic\WooCommerce\Testing\Tools\DependencyManagement
+ * @package Automattic\PooCommerce\Testing\Tools\DependencyManagement
  */
 
-namespace Automattic\WooCommerce\Testing\Tools\DependencyManagement;
+namespace Automattic\PooCommerce\Testing\Tools\DependencyManagement;
 
 /**
  * Mockable version of LegacyProxy.
@@ -14,9 +14,9 @@ namespace Automattic\WooCommerce\Testing\Tools\DependencyManagement;
  * as well as mocking the instantiation of legacy classes, within unit tests.
  * By default, and unless any mock is registered, this class acts exactly as LegacyProxy does.
  *
- * @package Automattic\WooCommerce\Testing\Tools\DependencyManagement
+ * @package Automattic\PooCommerce\Testing\Tools\DependencyManagement
  */
-class MockableLegacyProxy extends \Automattic\WooCommerce\Proxies\LegacyProxy {
+class MockableLegacyProxy extends \Automattic\PooCommerce\Proxies\LegacyProxy {
 
 	/**
 	 * The currently registered mocks for classes.

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 require_once WC_ABSPATH . '/includes/class-wc-brands.php';
 
@@ -176,7 +176,7 @@ class QueryClausesTest extends AbstractProductFiltersTest {
 	 * @param bool     $lookup_enabled Whether to use the product attributes lookup table.
 	 */
 	public function test_attribute_clauses_with( $taxonomy, $terms, $query_type, $lookup_enabled = true ) {
-		update_option( 'woocommerce_attribute_lookup_enabled', $lookup_enabled ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', $lookup_enabled ? 'yes' : 'no' );
 
 		$chosen_attributes = array(
 			$taxonomy => array(
@@ -424,7 +424,7 @@ class QueryClausesTest extends AbstractProductFiltersTest {
 			$params['taxonomy']['product_brand'] = 'wc_brands';
 			return $params;
 		};
-		add_filter( 'woocommerce_product_filter_params', $taxonomy_params_filter );
+		add_filter( 'poocommerce_product_filter_params', $taxonomy_params_filter );
 
 		list( $where, $posts ) = $this->query_main_products( array( 'brands' => $brand_slug ) );
 
@@ -506,9 +506,9 @@ class QueryClausesTest extends AbstractProductFiltersTest {
 	 * @testdox Price clauses adjust for standard tax class when shop displays prices including tax.
 	 */
 	public function test_price_clauses_with_tax_inclusive_display(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		$clauses = $this->sut->add_price_clauses(
 			array(

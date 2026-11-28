@@ -2,62 +2,62 @@
 /**
  * Tax settings.
  *
- * @package WooCommerce\Admin\Settings.
+ * @package PooCommerce\Admin\Settings.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\TaxBasedOn;
-use Automattic\WooCommerce\Enums\TaxDisplayMode;
+use Automattic\PooCommerce\Enums\TaxBasedOn;
+use Automattic\PooCommerce\Enums\TaxDisplayMode;
 
 // Read-only estimate shown under "Calculate tax based on": what an un-addressed shopper is quoted,
 // how it follows the Default customer location setting, and the per-class rates at the store address.
 // Display only; it does not change how tax is calculated.
-$shop_base_tax_notice          = ( new Automattic\WooCommerce\Internal\Tax\ShopBaseTaxEstimateNotice() )->get_notice();
+$shop_base_tax_notice          = ( new Automattic\PooCommerce\Internal\Tax\ShopBaseTaxEstimateNotice() )->get_notice();
 $base_location_estimate_text   = $shop_base_tax_notice['estimate'];
 $base_location_no_rate_warning = $shop_base_tax_notice['warning'];
 
 $settings = array(
 
 	array(
-		'title' => __( 'Tax options', 'woocommerce' ),
+		'title' => __( 'Tax options', 'poocommerce' ),
 		'type'  => 'title',
 		'desc'  => '',
 		'id'    => 'tax_options',
 	),
 
 	array(
-		'title'     => __( 'Prices entered with tax', 'woocommerce' ),
-		'id'        => 'woocommerce_prices_include_tax',
+		'title'     => __( 'Prices entered with tax', 'poocommerce' ),
+		'id'        => 'poocommerce_prices_include_tax',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
 		),
 		'default'   => 'no',
 		'type'      => 'radio',
-		'desc_tip'  => __( 'This option is important as it will affect how you input prices. If you select "Yes", enter prices including your base location\'s tax rate, the baseline for tax calculations. Changing this option will not update existing products.', 'woocommerce' ),
+		'desc_tip'  => __( 'This option is important as it will affect how you input prices. If you select "Yes", enter prices including your base location\'s tax rate, the baseline for tax calculations. Changing this option will not update existing products.', 'poocommerce' ),
 		'options'   => array(
-			'yes' => __( 'Yes, I will enter prices inclusive of tax', 'woocommerce' ),
-			'no'  => __( 'No, I will enter prices exclusive of tax', 'woocommerce' ),
+			'yes' => __( 'Yes, I will enter prices inclusive of tax', 'poocommerce' ),
+			'no'  => __( 'No, I will enter prices exclusive of tax', 'poocommerce' ),
 		),
 	),
 
 	array(
-		'title'     => __( 'Calculate tax based on', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_based_on',
+		'title'     => __( 'Calculate tax based on', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_based_on',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
 		),
 		'desc'      => $base_location_estimate_text,
-		'desc_tip'  => __( 'This option determines which address is used to calculate tax.', 'woocommerce' ),
+		'desc_tip'  => __( 'This option determines which address is used to calculate tax.', 'poocommerce' ),
 		'default'   => TaxBasedOn::SHIPPING,
 		'type'      => 'select',
 		'class'     => 'wc-enhanced-select',
 		'options'   => array(
-			TaxBasedOn::SHIPPING => __( 'Customer shipping address', 'woocommerce' ),
-			TaxBasedOn::BILLING  => __( 'Customer billing address', 'woocommerce' ),
-			TaxBasedOn::BASE     => __( 'Shop base address', 'woocommerce' ),
+			TaxBasedOn::SHIPPING => __( 'Customer shipping address', 'poocommerce' ),
+			TaxBasedOn::BILLING  => __( 'Customer billing address', 'poocommerce' ),
+			TaxBasedOn::BASE     => __( 'Shop base address', 'poocommerce' ),
 		),
 	),
 
@@ -68,9 +68,9 @@ $settings = array(
 	),
 
 	'shipping-tax-class'                 => array(
-		'title'     => __( 'Shipping tax class', 'woocommerce' ),
-		'desc'      => __( 'Optionally control which tax class shipping gets, or leave it so shipping tax is based on the cart items themselves.', 'woocommerce' ),
-		'id'        => 'woocommerce_shipping_tax_class',
+		'title'     => __( 'Shipping tax class', 'poocommerce' ),
+		'desc'      => __( 'Optionally control which tax class shipping gets, or leave it so shipping tax is based on the cart items themselves.', 'poocommerce' ),
+		'id'        => 'poocommerce_shipping_tax_class',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
@@ -79,14 +79,14 @@ $settings = array(
 		'default'   => 'inherit',
 		'type'      => 'select',
 		'class'     => 'wc-enhanced-select',
-		'options'   => array( 'inherit' => __( 'Shipping tax class based on cart items', 'woocommerce' ) ) + wc_get_product_tax_class_options(),
+		'options'   => array( 'inherit' => __( 'Shipping tax class based on cart items', 'poocommerce' ) ) + wc_get_product_tax_class_options(),
 		'desc_tip'  => true,
 	),
 
 	array(
-		'title'     => __( 'Rounding', 'woocommerce' ),
-		'desc'      => __( 'Round tax at subtotal level, instead of rounding per line', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_round_at_subtotal',
+		'title'     => __( 'Rounding', 'poocommerce' ),
+		'desc'      => __( 'Round tax at subtotal level, instead of rounding per line', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_round_at_subtotal',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
@@ -96,9 +96,9 @@ $settings = array(
 	),
 
 	array(
-		'title'     => __( 'Additional tax classes', 'woocommerce' ),
-		'desc_tip'  => __( 'List additional tax classes you need below (1 per line, e.g. Reduced Rates). These are in addition to "Standard rate" which exists by default.', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_classes',
+		'title'     => __( 'Additional tax classes', 'poocommerce' ),
+		'desc_tip'  => __( 'List additional tax classes you need below (1 per line, e.g. Reduced Rates). These are in addition to "Standard rate" which exists by default.', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_classes',
 		'abilities' => array( 'read' => true ),
 		'css'       => 'height: 65px;',
 		'type'      => 'textarea',
@@ -108,8 +108,8 @@ $settings = array(
 	),
 
 	array(
-		'title'     => __( 'Display prices in the shop', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_display_shop',
+		'title'     => __( 'Display prices in the shop', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_display_shop',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
@@ -118,14 +118,14 @@ $settings = array(
 		'type'      => 'select',
 		'class'     => 'wc-enhanced-select',
 		'options'   => array(
-			TaxDisplayMode::INCLUSIVE => __( 'Including tax', 'woocommerce' ),
-			TaxDisplayMode::EXCLUSIVE => __( 'Excluding tax', 'woocommerce' ),
+			TaxDisplayMode::INCLUSIVE => __( 'Including tax', 'poocommerce' ),
+			TaxDisplayMode::EXCLUSIVE => __( 'Excluding tax', 'poocommerce' ),
 		),
 	),
 
 	array(
-		'title'     => __( 'Display prices during cart and checkout', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_display_cart',
+		'title'     => __( 'Display prices during cart and checkout', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_display_cart',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
@@ -134,8 +134,8 @@ $settings = array(
 		'type'      => 'select',
 		'class'     => 'wc-enhanced-select',
 		'options'   => array(
-			TaxDisplayMode::INCLUSIVE => __( 'Including tax', 'woocommerce' ),
-			TaxDisplayMode::EXCLUSIVE => __( 'Excluding tax', 'woocommerce' ),
+			TaxDisplayMode::INCLUSIVE => __( 'Including tax', 'poocommerce' ),
+			TaxDisplayMode::EXCLUSIVE => __( 'Excluding tax', 'poocommerce' ),
 		),
 	),
 
@@ -143,21 +143,21 @@ $settings = array(
 	array( 'type' => 'add_settings_slot' ), // React mount point for settings slotfill.
 
 	array(
-		'title'       => __( 'Price display suffix', 'woocommerce' ),
-		'id'          => 'woocommerce_price_display_suffix',
+		'title'       => __( 'Price display suffix', 'poocommerce' ),
+		'id'          => 'poocommerce_price_display_suffix',
 		'abilities'   => array(
 			'read'  => true,
 			'write' => true,
 		),
 		'default'     => '',
-		'placeholder' => __( 'N/A', 'woocommerce' ),
+		'placeholder' => __( 'N/A', 'poocommerce' ),
 		'type'        => 'text',
-		'desc_tip'    => __( 'Define text to show after your product prices. This could be, for example, "inc. Vat" to explain your pricing. You can also have prices substituted here using one of the following: {price_including_tax}, {price_excluding_tax}.', 'woocommerce' ),
+		'desc_tip'    => __( 'Define text to show after your product prices. This could be, for example, "inc. Vat" to explain your pricing. You can also have prices substituted here using one of the following: {price_including_tax}, {price_excluding_tax}.', 'poocommerce' ),
 	),
 
 	array(
-		'title'     => __( 'Display tax totals', 'woocommerce' ),
-		'id'        => 'woocommerce_tax_total_display',
+		'title'     => __( 'Display tax totals', 'poocommerce' ),
+		'id'        => 'poocommerce_tax_total_display',
 		'abilities' => array(
 			'read'  => true,
 			'write' => true,
@@ -166,8 +166,8 @@ $settings = array(
 		'type'      => 'select',
 		'class'     => 'wc-enhanced-select',
 		'options'   => array(
-			'single'   => __( 'As a single total', 'woocommerce' ),
-			'itemized' => __( 'Itemized', 'woocommerce' ),
+			'single'   => __( 'As a single total', 'poocommerce' ),
+			'itemized' => __( 'Itemized', 'poocommerce' ),
 		),
 		'autoload'  => false,
 	),
@@ -187,4 +187,4 @@ if ( '' === $base_location_no_rate_warning ) {
 	unset( $settings['base-location-tax-estimate-warning'] );
 }
 
-return apply_filters( 'woocommerce_tax_settings', $settings );
+return apply_filters( 'poocommerce_tax_settings', $settings );

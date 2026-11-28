@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useLayoutEffect, useRef } from '@wordpress/element';
-import { animateCollapse, collapseCopy } from '@woocommerce/base-utils';
+import { animateCollapse, collapseCopy } from '@poocommerce/base-utils';
 
 /**
  * For content that a control shows and hides, such as a checkbox that reveals a field. After a click or tap, the

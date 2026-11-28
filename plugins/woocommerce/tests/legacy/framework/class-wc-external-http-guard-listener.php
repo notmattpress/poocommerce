@@ -2,7 +2,7 @@
 /**
  * Fails a test that sent an HTTP request to an external host.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

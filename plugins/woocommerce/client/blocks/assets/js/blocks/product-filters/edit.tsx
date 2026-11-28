@@ -18,9 +18,9 @@ import {
 import { __ } from '@wordpress/i18n';
 import { Icon, close } from '@wordpress/icons';
 import { useState } from '@wordpress/element';
-import { filterThreeLines } from '@woocommerce/icons';
-import { getSetting } from '@woocommerce/settings';
-import { usePreviewMode } from '@woocommerce/base-hooks';
+import { filterThreeLines } from '@poocommerce/icons';
+import { getSetting } from '@poocommerce/settings';
+import { usePreviewMode } from '@poocommerce/base-hooks';
 import clsx from 'clsx';
 
 /**
@@ -44,23 +44,23 @@ const TEMPLATE: InnerBlockTemplate[] = [
 		'core/heading',
 		{
 			level: 2,
-			content: __( 'Filters', 'woocommerce' ),
+			content: __( 'Filters', 'poocommerce' ),
 			style: {
 				margin: { top: '0', bottom: '0' },
 				spacing: { margin: { top: '0', bottom: '0' } },
 			},
 		},
 	],
-	[ 'woocommerce/product-filter-active' ],
-	[ 'woocommerce/product-filter-price' ],
-	[ 'woocommerce/product-filter-rating' ],
+	[ 'poocommerce/product-filter-active' ],
+	[ 'poocommerce/product-filter-price' ],
+	[ 'poocommerce/product-filter-rating' ],
 	[
-		'woocommerce/product-filter-attribute',
+		'poocommerce/product-filter-attribute',
 		// Persist the ID: a block attribute equal to its default isn't saved.
 		DEFAULT_ATTRIBUTE_ID > 0 ? { attributeId: DEFAULT_ATTRIBUTE_ID } : {},
 	],
-	[ 'woocommerce/product-filter-taxonomy' ],
-	[ 'woocommerce/product-filter-status' ],
+	[ 'poocommerce/product-filter-taxonomy' ],
+	[ 'poocommerce/product-filter-status' ],
 ];
 
 export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
@@ -123,7 +123,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 					onClick={ () => setIsOpen( ! isOpen ) }
 				>
 					<Icon icon={ filterThreeLines } />
-					<span>{ __( 'Filter products', 'woocommerce' ) }</span>
+					<span>{ __( 'Filter products', 'poocommerce' ) }</span>
 				</button>
 
 				<div className="wc-block-product-filters__overlay">
@@ -149,7 +149,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 									onClick={ () => setIsOpen( ! isOpen ) }
 								>
 									<span>
-										{ __( 'Apply', 'woocommerce' ) }
+										{ __( 'Apply', 'poocommerce' ) }
 									</span>
 								</button>
 							</footer>
@@ -169,15 +169,15 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
 						isBlock
-						label={ __( 'Overlay', 'woocommerce' ) }
+						label={ __( 'Overlay', 'poocommerce' ) }
 						help={ __(
 							'When on, filters are hidden behind a button instead of showing on the page.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ overlayMode }
 						onChange={ ( value ) => {
@@ -188,15 +188,15 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 					>
 						<ToggleGroupControlOption
 							value="off"
-							label={ __( 'Off', 'woocommerce' ) }
+							label={ __( 'Off', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="mobile"
-							label={ __( 'Mobile', 'woocommerce' ) }
+							label={ __( 'Mobile', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="always"
-							label={ __( 'Always', 'woocommerce' ) }
+							label={ __( 'Always', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 					{ overlayMode !== 'off' && (
@@ -204,7 +204,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							isBlock
-							label={ __( 'Overlay position', 'woocommerce' ) }
+							label={ __( 'Overlay position', 'poocommerce' ) }
 							value={ overlayPosition }
 							onChange={ ( value ) => {
 								if ( value === 'left' || value === 'right' ) {
@@ -216,11 +216,11 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 						>
 							<ToggleGroupControlOption
 								value="left"
-								label={ __( 'Left', 'woocommerce' ) }
+								label={ __( 'Left', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="right"
-								label={ __( 'Right', 'woocommerce' ) }
+								label={ __( 'Right', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					) }
@@ -229,7 +229,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							isBlock
-							label={ __( 'Button style', 'woocommerce' ) }
+							label={ __( 'Button style', 'poocommerce' ) }
 							value={ overlayButtonStyle }
 							onChange={ ( value ) => {
 								if ( isOverlayButtonStyle( value ) ) {
@@ -241,11 +241,11 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 						>
 							<ToggleGroupControlOption
 								value="plain"
-								label={ __( 'Plain', 'woocommerce' ) }
+								label={ __( 'Plain', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="button"
-								label={ __( 'Button', 'woocommerce' ) }
+								label={ __( 'Button', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					) }

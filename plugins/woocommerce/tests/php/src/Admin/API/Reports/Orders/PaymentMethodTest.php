@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API\Reports\Orders;
+namespace Automattic\PooCommerce\Tests\Admin\API\Reports\Orders;
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Query as OrdersQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Query as OrdersQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Helper_Order;
 use WC_REST_Unit_Test_Case;
 use WP_Error;
@@ -124,7 +124,7 @@ class PaymentMethodTest extends WC_REST_Unit_Test_Case {
 		$order->save();
 		OrdersStatsDataStore::sync_order( $order->get_id() );
 
-		wp_cache_delete( OrdersDataStore::ORDERS_PAYMENT_METHODS_ALL_CACHE_KEY, 'woocommerce_analytics' );
+		wp_cache_delete( OrdersDataStore::ORDERS_PAYMENT_METHODS_ALL_CACHE_KEY, 'poocommerce_analytics' );
 
 		$this->assertSame( array( 'bacs', 'cheque', 'cod' ), OrdersDataStore::get_all_payment_methods() );
 	}
@@ -140,7 +140,7 @@ class PaymentMethodTest extends WC_REST_Unit_Test_Case {
 		$order->save();
 		OrdersStatsDataStore::sync_order( $order->get_id() );
 
-		$this->assertContains( 'a_new_gateway', wp_cache_get( OrdersDataStore::ORDERS_PAYMENT_METHODS_ALL_CACHE_KEY, 'woocommerce_analytics' ) );
+		$this->assertContains( 'a_new_gateway', wp_cache_get( OrdersDataStore::ORDERS_PAYMENT_METHODS_ALL_CACHE_KEY, 'poocommerce_analytics' ) );
 	}
 
 	/**

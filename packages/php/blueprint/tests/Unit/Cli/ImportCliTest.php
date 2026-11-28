@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Cli;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Cli;
 
-use Automattic\WooCommerce\Blueprint\Cli\ImportCli;
-use Automattic\WooCommerce\Blueprint\Tests\TestCase;
+use Automattic\PooCommerce\Blueprint\Cli\ImportCli;
+use Automattic\PooCommerce\Blueprint\Tests\TestCase;
 
 /**
  * Tests for ImportCli.

@@ -1,4 +1,4 @@
-# WooCommerce Transient Notices
+# PooCommerce Transient Notices
 
 Transient notices provide a way to display snackbar notices from the server.  This is useful for displaying temporary messages to users based on a recent PHP based event.
 
@@ -17,7 +17,7 @@ This method accepts an array with the following properties:
 * `user_id` => (int|null) User ID to show the notice to.
 
 ```php
-\Automattic\WooCommerce\Admin\Features\TransientNotices::add(
+\Automattic\PooCommerce\Admin\Features\TransientNotices::add(
     array(
         'id'      => 'my-notice',
         'status'  => 'success',
@@ -41,5 +41,5 @@ Removing a notice can be done prior to the `admin_enqueue_scripts` hook being ru
 * `id` - (string) The ID of the notice to remove. Required.
 
 ```php
-\Automattic\WooCommerce\Admin\Features\TransientNotices::remove( 'my-notice' );
+\Automattic\PooCommerce\Admin\Features\TransientNotices::remove( 'my-notice' );
 ```

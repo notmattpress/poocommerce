@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Caches\OrderCacheController;
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\Utilities\COTMigrationUtil;
+use Automattic\PooCommerce\Caches\OrderCacheController;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\Utilities\COTMigrationUtil;
 use WC_Order;
 use WC_Order_Item;
 use WP_Post;
@@ -280,8 +280,8 @@ final class OrderUtil {
 	 * @return bool
 	 */
 	public static function uses_new_full_refund_data() {
-		$db_version                = get_option( 'woocommerce_db_version', null );
-		$uses_old_full_refund_data = get_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		$db_version                = get_option( 'poocommerce_db_version', null );
+		$uses_old_full_refund_data = get_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 		if ( null === $db_version ) {
 			return 'no' === $uses_old_full_refund_data;
 		}
@@ -289,7 +289,7 @@ final class OrderUtil {
 	}
 
 	/**
-	 * Checks if the data store currently in use for orders is unknown (none of the ones managed by WooCommerce core).
+	 * Checks if the data store currently in use for orders is unknown (none of the ones managed by PooCommerce core).
 	 *
 	 * @return bool True if the data store currently in use for orders is neither the HPOS one nor the CPT one.
 	 */
@@ -301,14 +301,14 @@ final class OrderUtil {
 	/**
 	 * Get the current value of the deprecated backordered-item-meta-name filter for an order item.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @since 11.5.0
 	 * @param WC_Order_Item $item Order item.
 	 * @return string
 	 */
 	public static function get_legacy_backorder_meta_key( $item ): string {
-		$default_label = __( 'Backordered', 'woocommerce' );
+		$default_label = __( 'Backordered', 'poocommerce' );
 
 		/**
 		 * Filter the label shown for the backordered item meta.
@@ -317,7 +317,7 @@ final class OrderUtil {
 		 * @deprecated 11.5.0 This filter no longer sets the stored backorder meta key; it only customizes the displayed label.
 		 */
 		$filtered_label = apply_filters_deprecated(
-			'woocommerce_backordered_item_meta_name',
+			'poocommerce_backordered_item_meta_name',
 			array( $default_label, $item ),
 			'11.5.0',
 			'',

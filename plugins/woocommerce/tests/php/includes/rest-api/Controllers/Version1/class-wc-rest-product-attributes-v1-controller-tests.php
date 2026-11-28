@@ -125,7 +125,7 @@ class WC_REST_Product_Attributes_V1_Controller_Tests extends WC_REST_Unit_Test_C
 			$this->assertEquals( 200, $response->get_status() );
 			$this->assertSame( 'pa_width', $response->get_data()['slug'] );
 			$this->assertSame( 'name', $response->get_data()['order_by'] );
-			$this->assertSame( 'width', $wpdb->get_var( $wpdb->prepare( "SELECT attribute_name FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d", $attribute_id ) ) );
+			$this->assertSame( 'width', $wpdb->get_var( $wpdb->prepare( "SELECT attribute_name FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_id = %d", $attribute_id ) ) );
 		} finally {
 			wc_delete_attribute( $attribute_id );
 		}
@@ -142,7 +142,7 @@ class WC_REST_Product_Attributes_V1_Controller_Tests extends WC_REST_Unit_Test_C
 		global $wpdb;
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_attribute_taxonomies',
+			$wpdb->prefix . 'poocommerce_attribute_taxonomies',
 			array(
 				'attribute_label'   => $label,
 				'attribute_name'    => $slug,
@@ -152,7 +152,7 @@ class WC_REST_Product_Attributes_V1_Controller_Tests extends WC_REST_Unit_Test_C
 			)
 		);
 		delete_transient( 'wc_attribute_taxonomies' );
-		WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		return (int) $wpdb->insert_id;
 	}

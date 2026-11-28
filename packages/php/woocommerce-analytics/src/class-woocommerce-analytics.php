@@ -1,9 +1,9 @@
 <?php
 /**
- * Main class for the WooCommerce Analytics package.
+ * Main class for the PooCommerce Analytics package.
  * Originally ported from the Jetpack_Google_Analytics code.
  *
- * @package automattic/woocommerce-analytics
+ * @package automattic/poocommerce-analytics
  */
 
 namespace Automattic;
@@ -16,7 +16,7 @@ use Automattic\Woocommerce_Analytics\Universal;
 use Automattic\Woocommerce_Analytics\WC_Analytics_Tracking_Proxy;
 
 /**
- * Instantiate WooCommerce Analytics
+ * Instantiate PooCommerce Analytics
  */
 class Woocommerce_Analytics {
 	/**
@@ -30,14 +30,14 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_VERSION_OPTION = 'woocommerce_analytics_proxy_speed_module_version';
+	const PROXY_SPEED_MODULE_VERSION_OPTION = 'poocommerce_analytics_proxy_speed_module_version';
 
 	/**
 	 * Throttles the daily check for a leftover speed module MU-plugin.
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT = 'woocommerce_analytics_proxy_speed_module_version_check';
+	const PROXY_SPEED_MODULE_VERSION_CHECK_TRANSIENT = 'poocommerce_analytics_proxy_speed_module_version_check';
 
 	/**
 	 * Authorization read by the MU-plugin earlier package versions installed. Deleted at `init`, so that file cannot serve.
@@ -46,7 +46,7 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_AUTHORIZED_OPTION = 'woocommerce_analytics_proxy_speed_module_authorized';
+	const PROXY_SPEED_MODULE_AUTHORIZED_OPTION = 'poocommerce_analytics_proxy_speed_module_authorized';
 
 	/**
 	 * Whether proxy tracking was on at the last `init`, for the speed module, which runs before plugins register the filter.
@@ -55,17 +55,17 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_TRACKING_ENABLED_OPTION = 'woocommerce_analytics_proxy_tracking_enabled';
+	const PROXY_TRACKING_ENABLED_OPTION = 'poocommerce_analytics_proxy_tracking_enabled';
 
 	/**
-	 * What `jetpack_woocommerce_analytics_event_props` callbacks add to every event, recorded hourly for the
+	 * What `jetpack_poocommerce_analytics_event_props` callbacks add to every event, recorded hourly for the
 	 * speed module, which answers before they register.
 	 *
 	 * @since 0.19.1
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_EVENT_PROPS_OPTION = 'woocommerce_analytics_speed_module_event_props';
+	const PROXY_SPEED_MODULE_EVENT_PROPS_OPTION = 'poocommerce_analytics_speed_module_event_props';
 
 	/**
 	 * Hourly cron hook that records the event props the speed module replays.
@@ -74,7 +74,7 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_SPEED_MODULE_EVENT_PROPS_HOOK = 'woocommerce_analytics_record_speed_module_event_props';
+	const PROXY_SPEED_MODULE_EVENT_PROPS_HOOK = 'poocommerce_analytics_record_speed_module_event_props';
 
 	/**
 	 * Whether proxy tracking has ever been enabled on this site.
@@ -86,23 +86,23 @@ class Woocommerce_Analytics {
 	 *
 	 * @var string
 	 */
-	const PROXY_TRACKING_EVER_ENABLED_OPTION = 'woocommerce_analytics_proxy_tracking_ever_enabled';
+	const PROXY_TRACKING_EVER_ENABLED_OPTION = 'poocommerce_analytics_proxy_tracking_ever_enabled';
 
 	/**
 	 * Script handle for s.js, registered with no src when proxy tracking is enabled. WordPress prints its tag with the id `{handle}-js`.
 	 *
 	 * @var string
 	 */
-	private const TRACKING_SCRIPT_HANDLE = 'woocommerce-analytics';
+	private const TRACKING_SCRIPT_HANDLE = 'poocommerce-analytics';
 
 	/**
 	 * Initializer.
-	 * Used to configure the WooCommerce Analytics package.
+	 * Used to configure the PooCommerce Analytics package.
 	 *
 	 * @return void
 	 */
 	public static function init() {
-		if ( ! self::should_track_store() || did_action( 'woocommerce_analytics_init' ) ) {
+		if ( ! self::should_track_store() || did_action( 'poocommerce_analytics_init' ) ) {
 			return;
 		}
 
@@ -123,16 +123,16 @@ class Woocommerce_Analytics {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_rest_routes' ) );
 
 		/**
-		 * Fires after the WooCommerce Analytics package is initialized
+		 * Fires after the PooCommerce Analytics package is initialized
 		 *
 		 * @since 0.1.5
 		 */
-		do_action( 'woocommerce_analytics_init' );
+		do_action( 'poocommerce_analytics_init' );
 	}
 
 	/**
-	 * WooCommerce Analytics is only available to Jetpack connected WooCommerce stores
-	 * with WooCommerce version 3.0 or higher
+	 * PooCommerce Analytics is only available to Jetpack connected PooCommerce stores
+	 * with PooCommerce version 3.0 or higher
 	 *
 	 * @return bool
 	 */
@@ -147,16 +147,16 @@ class Woocommerce_Analytics {
 		}
 
 		/**
-		 * Make sure WooCommerce is installed and active
+		 * Make sure PooCommerce is installed and active
 		 *
-		 * This action is documented in https://docs.woocommerce.com/document/create-a-plugin
+		 * This action is documented in https://docs.poocommerce.com/document/create-a-plugin
 		 */
 		if ( ! defined( 'WC_PLUGIN_FILE' ) || ! is_plugin_active( plugin_basename( WC_PLUGIN_FILE ) ) ) {
 			return false;
 		}
-		// Ensure the WooCommerce class exists and is a valid version.
-		$minimum_woocommerce_active = class_exists( 'WooCommerce' ) && version_compare( \WC_VERSION, '3.0', '>=' );
-		if ( ! $minimum_woocommerce_active ) {
+		// Ensure the PooCommerce class exists and is a valid version.
+		$minimum_poocommerce_active = class_exists( 'PooCommerce' ) && version_compare( \WC_VERSION, '3.0', '>=' );
+		if ( ! $minimum_poocommerce_active ) {
 			return false;
 		}
 
@@ -253,8 +253,8 @@ class Woocommerce_Analytics {
 	 */
 	public static function enqueue_client_script() {
 		Assets::register_script(
-			'woocommerce-analytics-client',
-			'../build/woocommerce-analytics-client.js',
+			'poocommerce-analytics-client',
+			'../build/poocommerce-analytics-client.js',
 			__FILE__,
 			array(
 				'in_footer' => true,
@@ -356,7 +356,7 @@ class Woocommerce_Analytics {
 	}
 
 	/**
-	 * Record what `jetpack_woocommerce_analytics_event_props` callbacks add to every event, for the speed module to replay.
+	 * Record what `jetpack_poocommerce_analytics_event_props` callbacks add to every event, for the speed module to replay.
 	 *
 	 * Runs only from a cron request or WP-CLI, with no user logged in and no cookies, so nothing a visitor sent is
 	 * replayed onto other visitors' events. Only scalar properties within the client bounds are kept.
@@ -387,7 +387,7 @@ class Woocommerce_Analytics {
 				$base = \Automattic\Woocommerce_Analytics\WC_Analytics_Tracking::get_page_common_properties();
 
 				/** This filter is documented in src/class-wc-analytics-tracking.php */
-				$filtered = apply_filters( 'jetpack_woocommerce_analytics_event_props', $base, '', true );
+				$filtered = apply_filters( 'jetpack_poocommerce_analytics_event_props', $base, '', true );
 			} catch ( \Throwable $e ) {
 				$error = $e->getMessage();
 			}
@@ -401,7 +401,7 @@ class Woocommerce_Analytics {
 
 			if ( null !== $error ) {
 				// Keep the last record, and let the rest of the cron run continue.
-				error_log( 'WooCommerce Analytics: Could not record the event props for the proxy speed module: ' . $error ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+				error_log( 'PooCommerce Analytics: Could not record the event props for the proxy speed module: ' . $error ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				return;
 			}
 
@@ -491,12 +491,12 @@ class Woocommerce_Analytics {
 
 		global $wp_filesystem;
 
-		$file_path = trailingslashit( WPMU_PLUGIN_DIR ) . 'woocommerce-analytics-proxy-speed-module.php';
+		$file_path = trailingslashit( WPMU_PLUGIN_DIR ) . 'poocommerce-analytics-proxy-speed-module.php';
 
 		if ( $wp_filesystem->exists( $file_path )
 			&& ( ! $wp_filesystem->is_writable( $file_path ) || ! $wp_filesystem->delete( $file_path ) ) ) {
 			if ( function_exists( 'wc_get_logger' ) ) {
-				wc_get_logger()->error( 'Failed to delete WooCommerce Analytics proxy speed module file. The MU-plugin may continue running.', array( 'source' => 'woocommerce-analytics' ) );
+				wc_get_logger()->error( 'Failed to delete PooCommerce Analytics proxy speed module file. The MU-plugin may continue running.', array( 'source' => 'poocommerce-analytics' ) );
 			}
 			// Keep the version option, which is what schedules the next attempt.
 			return;

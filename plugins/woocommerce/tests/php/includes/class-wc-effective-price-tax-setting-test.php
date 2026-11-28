@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
 
 /**
  * Tests that checkout keeps the cart's price tax setting.
@@ -18,9 +18,9 @@ class WC_Effective_Price_Tax_Setting_Test extends WC_Unit_Test_Case {
 	 * @param bool   $expected Expected price tax setting.
 	 */
 	public function test_new_orders_use_effective_price_tax_setting( string $option, bool $filtered_setting, string $tax_enabled, bool $expected ): void {
-		update_option( 'woocommerce_calc_taxes', $tax_enabled );
-		update_option( 'woocommerce_prices_include_tax', $option );
-		add_filter( 'woocommerce_prices_include_tax', $filtered_setting ? '__return_true' : '__return_false' );
+		update_option( 'poocommerce_calc_taxes', $tax_enabled );
+		update_option( 'poocommerce_prices_include_tax', $option );
+		add_filter( 'poocommerce_prices_include_tax', $filtered_setting ? '__return_true' : '__return_false' );
 
 		$this->assertSame( $expected, ( new WC_Order() )->get_prices_include_tax(), 'New orders must use the effective setting.' );
 		$order = wc_create_order();
@@ -42,11 +42,11 @@ class WC_Effective_Price_Tax_Setting_Test extends WC_Unit_Test_Case {
 	 * @param string $expected_total Cart and order total.
 	 */
 	public function test_checkout_keeps_cart_price_tax_setting( string $path, string $option, bool $effective_setting, string $expected_subtotal, string $expected_tax, string $expected_total ): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'DE' );
-		update_option( 'woocommerce_prices_include_tax', $option );
-		update_option( 'woocommerce_price_num_decimals', 2 );
-		add_filter( 'woocommerce_prices_include_tax', $effective_setting ? '__return_true' : '__return_false' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'DE' );
+		update_option( 'poocommerce_prices_include_tax', $option );
+		update_option( 'poocommerce_price_num_decimals', 2 );
+		add_filter( 'poocommerce_prices_include_tax', $effective_setting ? '__return_true' : '__return_false' );
 		WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => 'DE',

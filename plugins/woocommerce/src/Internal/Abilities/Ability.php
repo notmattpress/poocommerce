@@ -5,12 +5,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The base class of the WooCommerce abilities.
+ * The base class of the PooCommerce abilities.
  *
  * WordPress 7.2 prepares the ability input with WP_Ability::prepare_input() before
  * the callbacks run. This class backports that method, so the callbacks get converted
@@ -29,7 +29,7 @@ class Ability extends \WP_Ability {
 	 *
 	 * Invalid input stays unchanged, so validate_input() refuses it as before.
 	 *
-	 * Remove when WooCommerce requires WordPress 7.2, together with prepare_input(),
+	 * Remove when PooCommerce requires WordPress 7.2, together with prepare_input(),
 	 * sanitize_input(), core_prepares_input() and get_input_error().
 	 *
 	 * @since 11.4.0
@@ -102,7 +102,7 @@ class Ability extends \WP_Ability {
 				'ability_invalid_input',
 				sprintf(
 					/* translators: %1$s: ability name, %2$s: error message. */
-					__( 'Ability "%1$s" has invalid input. Reason: %2$s', 'woocommerce' ),
+					__( 'Ability "%1$s" has invalid input. Reason: %2$s', 'poocommerce' ),
 					$this->name,
 					$error->get_error_message()
 				)
@@ -156,7 +156,7 @@ class Ability extends \WP_Ability {
 	 * original message, because they saved nothing.
 	 *
 	 * WordPress 7.2.1 returns its own error codes with this hint, so this override leaves them
-	 * unchanged. Remove this override when WooCommerce requires WordPress 7.2.1.
+	 * unchanged. Remove this override when PooCommerce requires WordPress 7.2.1.
 	 *
 	 * @since 11.4.0
 	 *
@@ -174,7 +174,7 @@ class Ability extends \WP_Ability {
 
 		$error->errors['ability_invalid_output'][0] = sprintf(
 			/* translators: %s: error message. */
-			__( '%s The ability ran, so its changes may already be saved. Check the current state before you run it again.', 'woocommerce' ),
+			__( '%s The ability ran, so its changes may already be saved. Check the current state before you run it again.', 'poocommerce' ),
 			$error->get_error_message()
 		);
 

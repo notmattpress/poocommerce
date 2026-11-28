@@ -120,9 +120,9 @@ export function* requestSendingNewsletterPreview( email: string ) {
 		const postId = select( storeName ).getEmailPostId();
 		const postType = select( storeName ).getEmailPostType();
 
-		const defaultPath = '/woocommerce-email-editor/v1/send_preview_email';
+		const defaultPath = '/poocommerce-email-editor/v1/send_preview_email';
 		const filteredPath = applyFilters(
-			'woocommerce_email_editor_send_preview_api_path',
+			'poocommerce_email_editor_send_preview_api_path',
 			defaultPath,
 			postType,
 			postId

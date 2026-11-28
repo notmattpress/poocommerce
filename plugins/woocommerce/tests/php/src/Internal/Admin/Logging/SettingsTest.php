@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController;
 use WC_Logger;
 use WC_Log_Handler_DB, WC_Log_Handler_Email;
 use WC_Unit_Test_Case;
@@ -93,12 +93,12 @@ class SettingsTest extends WC_Unit_Test_Case {
 		Constants::clear_constants();
 
 		$callback = fn() => '/a/test/path/filter';
-		add_filter( 'woocommerce_log_directory', $callback );
+		add_filter( 'poocommerce_log_directory', $callback );
 
 		$actual = Settings::get_log_directory();
 		$this->assertEquals( '/a/test/path/filter/', $actual );
 
-		remove_filter( 'woocommerce_log_directory', $callback );
+		remove_filter( 'poocommerce_log_directory', $callback );
 
 		$this->register_legacy_proxy_function_mocks(
 			array(
@@ -118,7 +118,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		$path       = $upload_dir['basedir'] . '/wc-logs-test/';
 
 		$callback = fn() => $path;
-		add_filter( 'woocommerce_log_directory', $callback );
+		add_filter( 'poocommerce_log_directory', $callback );
 
 		// First check that the test directory doesn't exist yet.
 		$this->assertFalse( wp_is_writable( $path ) );
@@ -133,7 +133,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		$this->assertEquals( $path, $actual_path );
 		$this->assertTrue( wp_is_writable( $actual_path ) );
 
-		remove_filter( 'woocommerce_log_directory', $callback );
+		remove_filter( 'poocommerce_log_directory', $callback );
 
 		// The GLOB_BRACE flag is not available in some environments.
 		$files = array_merge(
@@ -169,7 +169,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox Check that log entries cannot be recorded while logging is disabled.
 	 */
 	public function test_logs_not_created_while_logging_disabled(): void {
-		update_option( 'woocommerce_logs_logging_enabled', 'no' );
+		update_option( 'poocommerce_logs_logging_enabled', 'no' );
 		$this->assertFalse( $this->sut->logging_is_enabled() );
 
 		$files = $this->file_controller->get_files();
@@ -209,7 +209,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 *          valid handler class.
 	 */
 	public function test_default_handler_setting_with_option_value(): void {
-		update_option( 'woocommerce_logs_default_handler', WC_Log_Handler_Email::class );
+		update_option( 'poocommerce_logs_default_handler', WC_Log_Handler_Email::class );
 		$handler = $this->sut->get_default_handler();
 		$this->assertEquals( WC_Log_Handler_Email::class, $handler );
 
@@ -220,7 +220,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		Constants::clear_single_constant( 'WC_LOG_HANDLER' );
 
 		// Invalid handler.
-		update_option( 'woocommerce_logs_default_handler', 'Smorgasbord' );
+		update_option( 'poocommerce_logs_default_handler', 'Smorgasbord' );
 		$handler = $this->sut->get_default_handler();
 		$this->assertEquals( LogHandlerFileV2::class, $handler );
 	}
@@ -238,13 +238,13 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 *          it's a valid value.
 	 */
 	public function test_retention_period_setting_with_filter(): void {
-		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() => 45 );
+		add_filter( 'poocommerce_logger_days_to_retain_logs', fn() => 45 );
 		$retention = $this->sut->get_retention_period();
 		$this->assertEquals( 45, $retention );
-		remove_all_filters( 'woocommerce_logger_days_to_retain_logs' );
+		remove_all_filters( 'poocommerce_logger_days_to_retain_logs' );
 
 		// Invalid number.
-		add_filter( 'woocommerce_logger_days_to_retain_logs', '__return_zero' );
+		add_filter( 'poocommerce_logger_days_to_retain_logs', '__return_zero' );
 		$retention = $this->sut->get_retention_period();
 		$this->assertEquals( 30, $retention );
 	}
@@ -254,18 +254,18 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 *           valid value.
 	 */
 	public function test_retention_period_setting_with_option_value(): void {
-		update_option( 'woocommerce_logs_retention_period_days', 53 );
+		update_option( 'poocommerce_logs_retention_period_days', 53 );
 		$handler = $this->sut->get_retention_period();
 		$this->assertEquals( 53, $handler );
 
 		// Filter overrides option.
-		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() => 45 );
+		add_filter( 'poocommerce_logger_days_to_retain_logs', fn() => 45 );
 		$retention = $this->sut->get_retention_period();
 		$this->assertEquals( 45, $retention );
-		remove_all_filters( 'woocommerce_logger_days_to_retain_logs' );
+		remove_all_filters( 'poocommerce_logger_days_to_retain_logs' );
 
 		// Invalid number.
-		update_option( 'woocommerce_logs_retention_period_days', 'french toast' );
+		update_option( 'poocommerce_logs_retention_period_days', 'french toast' );
 		$handler = $this->sut->get_retention_period();
 		$this->assertEquals( 30, $handler );
 	}
@@ -298,7 +298,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 *          valid level.
 	 */
 	public function test_level_threshold_setting_with_option_value(): void {
-		update_option( 'woocommerce_logs_level_threshold', 'warning' );
+		update_option( 'poocommerce_logs_level_threshold', 'warning' );
 		$level = $this->sut->get_level_threshold();
 		$this->assertEquals( 'warning', $level );
 
@@ -309,7 +309,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		Constants::clear_single_constant( 'WC_LOG_THRESHOLD' );
 
 		// Invalid level.
-		update_option( 'woocommerce_logs_level_threshold', 123 );
+		update_option( 'poocommerce_logs_level_threshold', 123 );
 		$level = $this->sut->get_level_threshold();
 		$this->assertEquals( 'none', $level );
 	}
@@ -318,7 +318,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 	 * @testdox Check that the settings form does not contain other settings controls when logging is disabled.
 	 */
 	public function test_render_form_logging_disabled_no_other_settings(): void {
-		update_option( 'woocommerce_logs_logging_enabled', 'no' );
+		update_option( 'poocommerce_logs_logging_enabled', 'no' );
 
 		ob_start();
 		$this->sut->render_form();
@@ -340,7 +340,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		$content = ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'/name="woocommerce_logs_default_handler"[^>]+disabled/',
+			'/name="poocommerce_logs_default_handler"[^>]+disabled/',
 			$content
 		);
 		$this->assertStringContainsString(
@@ -351,21 +351,21 @@ class SettingsTest extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Check that the settings form retention period control is disabled when the
-	 *          woocommerce_logger_days_to_retain_logs hook has a filter.
+	 *          poocommerce_logger_days_to_retain_logs hook has a filter.
 	 */
 	public function test_render_form_retention_period_input_disabled_with_filter(): void {
-		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() => 45 );
+		add_filter( 'poocommerce_logger_days_to_retain_logs', fn() => 45 );
 
 		ob_start();
 		$this->sut->render_form();
 		$content = ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'/name="woocommerce_logs_retention_period_days"[^>]+disabled/',
+			'/name="poocommerce_logs_retention_period_days"[^>]+disabled/',
 			$content
 		);
 		$this->assertStringContainsString(
-			'This setting cannot be changed here because it is being set by a filter on the <code>woocommerce_logger_days_to_retain_logs</code> hook',
+			'This setting cannot be changed here because it is being set by a filter on the <code>poocommerce_logger_days_to_retain_logs</code> hook',
 			$content
 		);
 	}
@@ -381,7 +381,7 @@ class SettingsTest extends WC_Unit_Test_Case {
 		$content = ob_get_clean();
 
 		$this->assertMatchesRegularExpression(
-			'/name="woocommerce_logs_level_threshold"[^>]+disabled/',
+			'/name="poocommerce_logs_level_threshold"[^>]+disabled/',
 			$content
 		);
 		$this->assertStringContainsString(

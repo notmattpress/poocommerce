@@ -5,19 +5,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ActionableAbility;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Abilities\ActionableAbility;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\DomainAbilityHelpers;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\OrderAbilityTrait;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the WooCommerce order delete ability.
+ * Registers the PooCommerce order delete ability.
  *
  * The delete runs on the write pipeline of ActionableAbility, so the
  * validators of the order resource can refuse it, the syncs see the deleted
@@ -33,7 +33,7 @@ class OrderDelete extends ActionableAbility {
 	/**
 	 * Ability name.
 	 */
-	public const ABILITY_NAME = 'woocommerce/order-delete';
+	public const ABILITY_NAME = 'poocommerce/order-delete';
 
 	/**
 	 * The result status of a forced delete, which leaves nothing to restore.
@@ -91,12 +91,12 @@ class OrderDelete extends ActionableAbility {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Delete order', 'woocommerce' ),
+			'label'               => __( 'Delete order', 'poocommerce' ),
 			'description'         => __(
 				'Move an order to the trash, or delete it permanently.',
-				'woocommerce'
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => self::build_input_schema(),
 			'output_schema'       => self::build_output_schema(),
 			'permission_callback' => array( __CLASS__, 'can_delete_order' ),
@@ -154,28 +154,28 @@ class OrderDelete extends ActionableAbility {
 		}
 
 		/**
-		 * Filter whether an order supports trashing in WooCommerce domain abilities.
+		 * Filter whether an order supports trashing in PooCommerce domain abilities.
 		 *
 		 * @param bool      $supports_trash Whether the order supports trashing.
 		 * @param \WC_Order $order          The order being considered for trashing.
 		 *
 		 * @since 11.4.0
 		 */
-		$supports_trash = apply_filters( 'woocommerce_order_object_trashable', EMPTY_TRASH_DAYS > 0, $order );
+		$supports_trash = apply_filters( 'poocommerce_order_object_trashable', EMPTY_TRASH_DAYS > 0, $order );
 
 		if ( ! $this->force && ! $supports_trash ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_trash_not_supported',
-				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'woocommerce' ),
+				'poocommerce_ability_order_trash_not_supported',
+				__( 'Trash is disabled on this site. Pass force: true to permanently delete.', 'poocommerce' ),
 				array( 'status' => 501 )
 			);
 		}
 
 		if ( ! $this->force && OrderStatus::TRASH === $order->get_status( 'edit' ) ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_already_trashed',
+				'poocommerce_ability_order_already_trashed',
 				/* translators: %d: order ID. */
-				sprintf( __( 'Order %d is already in the trash. Pass force: true to delete it permanently.', 'woocommerce' ), $order->get_id() ),
+				sprintf( __( 'Order %d is already in the trash. Pass force: true to delete it permanently.', 'poocommerce' ), $order->get_id() ),
 				array( 'status' => 409 )
 			);
 		}
@@ -211,8 +211,8 @@ class OrderDelete extends ActionableAbility {
 	protected function save( $subject ) {
 		if ( $this->force && self::get_child_ids( $subject ) !== $this->child_ids ) {
 			return new \WP_Error(
-				'woocommerce_ability_order_children_changed',
-				__( 'The refunds or child orders of this order changed during the delete. Try again.', 'woocommerce' ),
+				'poocommerce_ability_order_children_changed',
+				__( 'The refunds or child orders of this order changed during the delete. Try again.', 'poocommerce' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -233,8 +233,8 @@ class OrderDelete extends ActionableAbility {
 			|| array_filter( $this->child_ids, static fn( int $child_id ) => false !== wc_get_order( $child_id ) )
 		) {
 			return new \WP_Error(
-				'woocommerce_ability_order_delete_failed',
-				__( 'Failed to delete order.', 'woocommerce' ),
+				'poocommerce_ability_order_delete_failed',
+				__( 'Failed to delete order.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -343,7 +343,7 @@ class OrderDelete extends ActionableAbility {
 					'type'        => 'boolean',
 					'description' => __(
 						'Permanently delete the order. Defaults to false, which moves the order to trash.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'default'     => false,
 				),
@@ -364,12 +364,12 @@ class OrderDelete extends ActionableAbility {
 			'properties'           => array(
 				'id'     => array(
 					'type'        => 'integer',
-					'description' => __( 'ID of the order.', 'woocommerce' ),
+					'description' => __( 'ID of the order.', 'poocommerce' ),
 				),
 				'status' => array(
 					'type'        => 'string',
 					'enum'        => array( OrderStatus::TRASH, self::STATUS_DELETED ),
-					'description' => __( 'What happened to the order. "trash": the order was moved to the trash, and can be restored. "deleted": the order was permanently deleted, and cannot be restored.', 'woocommerce' ),
+					'description' => __( 'What happened to the order. "trash": the order was moved to the trash, and can be restored. "deleted": the order was permanently deleted, and cannot be restored.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

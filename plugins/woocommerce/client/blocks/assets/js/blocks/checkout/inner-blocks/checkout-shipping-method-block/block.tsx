@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useShippingData } from '@woocommerce/base-context/hooks';
+import { useShippingData } from '@poocommerce/base-context/hooks';
 import clsx from 'clsx';
 import { Icon, store, shipping } from '@wordpress/icons';
 import {
@@ -12,15 +12,15 @@ import {
 	useState,
 } from '@wordpress/element';
 import type { CSSProperties, MouseEvent } from 'react';
-import { cartStore, validationStore } from '@woocommerce/block-data';
+import { cartStore, validationStore } from '@poocommerce/block-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	isPackageRateCollectable,
 	whenAnimationsEnd,
-} from '@woocommerce/base-utils';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/base-utils';
+import { getSetting } from '@poocommerce/settings';
 import { Button } from '@ariakit/react';
-import { shippingAddressHasValidationErrors } from '@woocommerce/block-data/cart/utils';
+import { shippingAddressHasValidationErrors } from '@poocommerce/block-data/cart/utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ import { defaultLocalPickupText, defaultShippingText } from './constants';
 
 const SHIPPING_RATE_ERROR = {
 	hidden: true,
-	message: __( 'Shipping options are not available', 'woocommerce' ),
+	message: __( 'Shipping options are not available', 'poocommerce' ),
 };
 
 const LocalPickupSelector = ( {
@@ -134,7 +134,7 @@ const ShippingSelector = ( {
 	const Price =
 		rate.min === undefined || rateShouldBeHidden ? (
 			<span className="wc-block-checkout__shipping-method-option-price">
-				{ __( 'calculated with an address', 'woocommerce' ) }
+				{ __( 'calculated with an address', 'poocommerce' ) }
 			</span>
 		) : (
 			<RatePrice minRate={ rate.min } maxRate={ rate.max } />
@@ -273,7 +273,7 @@ const Block = ( {
 			// components-button-group is here for backwards compatibility, in case themes or plugins rely on it.
 			className="components-button-group wc-block-checkout__shipping-method-container"
 			role="radiogroup"
-			aria-label={ __( 'Shipping method', 'woocommerce' ) }
+			aria-label={ __( 'Shipping method', 'poocommerce' ) }
 		>
 			<ShippingSelector
 				checked={ checked }

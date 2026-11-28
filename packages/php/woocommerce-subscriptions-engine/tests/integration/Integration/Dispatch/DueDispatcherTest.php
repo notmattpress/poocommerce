@@ -2,36 +2,36 @@
 /**
  * Integration tests for the DueDispatcher (find, lock, notify).
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Dispatch;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Integration\Dispatch;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use EngineIntegrationTestCase;
 use InvalidArgumentException;
 use RuntimeException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLock;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractLockedException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLock;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractLockedException;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\ContractStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\CycleStatus;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership\ConsumerRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Storage\SchemaInstaller;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher
  */
 class DueDispatcherTest extends EngineIntegrationTestCase {
 
 	private const OWNER = 'engine-tests';
 
-	private const SCHEDULE_CHECK_OPTION = 'woocommerce_subscriptions_engine_due_dispatch_scheduled_check';
+	private const SCHEDULE_CHECK_OPTION = 'poocommerce_subscriptions_engine_due_dispatch_scheduled_check';
 
 	/**
 	 * The System Under Test.
@@ -523,17 +523,17 @@ class DueDispatcherTest extends EngineIntegrationTestCase {
 
 		$messages = array();
 		$capture  = static function ( $message, $level, $context ) use ( &$messages ) {
-			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'woocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
+			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'poocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
 				$messages[] = $message;
 			}
 			return $message;
 		};
-		add_filter( 'woocommerce_logger_log_message', $capture, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $capture, 10, 3 );
 		$this->fail_next_query( '/^\s*SELECT id, extension_slug, next_payment_gmt/' );
 		try {
 			$this->assertSame( 0, $this->sut->run_batch( $this->now() ) );
 		} finally {
-			remove_filter( 'woocommerce_logger_log_message', $capture, 10 );
+			remove_filter( 'poocommerce_logger_log_message', $capture, 10 );
 		}
 
 		$this->assertNotSame( array(), $messages );
@@ -792,7 +792,7 @@ class DueDispatcherTest extends EngineIntegrationTestCase {
 		// The booted engine registers its own dispatcher; route the tick only to the SUT.
 		remove_all_actions( DueDispatcher::HOOK );
 		$this->sut->register_hooks();
-		do_action( DueDispatcher::HOOK ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( DueDispatcher::HOOK ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertCount( 1, $this->calls );
 	}

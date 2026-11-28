@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 use WC_Order;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,7 +35,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_paypal_gateway_available(): bool {
-		$settings    = get_option( 'woocommerce_paypal_settings', array() );
+		$settings    = get_option( 'poocommerce_paypal_settings', array() );
 		$enabled     = isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
 		$should_load = isset( $settings['_should_load'] ) && 'yes' === $settings['_should_load'];
 		return $enabled && $should_load;
@@ -47,7 +47,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_orders_v2_migration_eligible(): bool {
-		$settings = get_option( 'woocommerce_paypal_settings', array() );
+		$settings = get_option( 'poocommerce_paypal_settings', array() );
 
 		// If API keys are set, the merchant is not eligible for migration
 		// as they may be using features that cannot be seamlessly migrated.
@@ -319,23 +319,23 @@ class Helper {
 
 		$differences = array();
 		if ( ! $address_valid ) {
-			$differences[] = __( 'shipping address', 'woocommerce' );
+			$differences[] = __( 'shipping address', 'poocommerce' );
 		}
 		if ( ! $currency_valid ) {
-			$differences[] = __( 'payment currency', 'woocommerce' );
+			$differences[] = __( 'payment currency', 'poocommerce' );
 		}
 		if ( ! $amount_valid ) {
-			$differences[] = __( 'payment amount', 'woocommerce' );
+			$differences[] = __( 'payment amount', 'poocommerce' );
 		}
 		$note = sprintf(
 			/* translators: %s: comma-separated list of mismatched checkout details. */
-			__( 'PayPal checkout details differ from this order: %s. Review the payment and delivery address before fulfilling.', 'woocommerce' ),
+			__( 'PayPal checkout details differ from this order: %s. Review the payment and delivery address before fulfilling.', 'poocommerce' ),
 			implode( ', ', $differences )
 		);
 		if ( PayPalConstants::STATUS_COMPLETED === $order->get_meta( PayPalConstants::PAYPAL_ORDER_META_STATUS, true ) ) {
-			$note .= ' ' . __( 'PayPal reported this payment as captured. This hold does not issue a refund; verify the payment in PayPal.', 'woocommerce' );
+			$note .= ' ' . __( 'PayPal reported this payment as captured. This hold does not issue a refund; verify the payment in PayPal.', 'poocommerce' );
 		} else {
-			$note .= ' ' . __( 'WooCommerce will skip automatic capture while this order needs review. Verify the payment status in PayPal before fulfilling.', 'woocommerce' );
+			$note .= ' ' . __( 'PooCommerce will skip automatic capture while this order needs review. Verify the payment status in PayPal before fulfilling.', 'poocommerce' );
 		}
 		$order->update_meta_data( PayPalConstants::PAYPAL_ORDER_META_ADDRESS_REVIEW, 'yes' );
 		$order->update_meta_data( PayPalConstants::PAYPAL_ORDER_META_SHIPPING_CALLBACK_TOKEN, '' );

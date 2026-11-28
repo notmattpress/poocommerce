@@ -1,16 +1,16 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Privacy;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Privacy;
 
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsMetaDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsMetaDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Tests\Internal\StockNotifications\StockNotificationsFeatureTrait;
 
 /**
  * PrivacyEraser tests.
@@ -57,7 +57,7 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should fire woocommerce_privacy_before_remove_stock_notification_personal_data with the original email before anonymizing.
+	 * @testdox Should fire poocommerce_privacy_before_remove_stock_notification_personal_data with the original email before anonymizing.
 	 */
 	public function test_privacy_eraser_fires_before_remove_action_before_anonymizing(): void {
 		$notification = new Notification();
@@ -69,7 +69,7 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 
 		$erased = array();
 		add_action(
-			'woocommerce_privacy_before_remove_stock_notification_personal_data',
+			'poocommerce_privacy_before_remove_stock_notification_personal_data',
 			function ( $id, $original_email, $notification ) use ( &$erased ) {
 				$erased[] = array( $id, $original_email, $notification->get_user_email(), $notification->get_user_id(), $notification->get_status() );
 			},
@@ -78,7 +78,7 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 		);
 		$status_changes = array();
 		add_action(
-			'woocommerce_stock_notification_status_changed',
+			'poocommerce_stock_notification_status_changed',
 			function ( $id, $from, $to, $notification ) use ( &$status_changes ) {
 				$status_changes[] = array( $id, $from, $to, $notification->get_user_email() );
 			},
@@ -264,7 +264,7 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 		);
 
 		$item = $response['data'][0];
-		$this->assertSame( 'woocommerce_stock_notifications', $item['group_id'] );
+		$this->assertSame( 'poocommerce_stock_notifications', $item['group_id'] );
 
 		$values = array_column( $item['data'], 'value', 'name' );
 		$this->assertSame( $product->get_name(), $values['Product'] );
@@ -326,8 +326,8 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 
 		$exporters = apply_filters( 'wp_privacy_personal_data_exporters', array() );
 
-		$this->assertArrayHasKey( 'woocommerce-customer-stock-notifications', $exporters );
-		$callback = $exporters['woocommerce-customer-stock-notifications']['callback'];
+		$this->assertArrayHasKey( 'poocommerce-customer-stock-notifications', $exporters );
+		$callback = $exporters['poocommerce-customer-stock-notifications']['callback'];
 		$this->assertIsCallable( $callback );
 		$this->assertSame( array( $privacy, 'export_notification_data' ), $callback );
 	}
@@ -441,7 +441,7 @@ class PrivacyEraserTests extends \WC_Unit_Test_Case {
 			}
 		};
 		$store->init( wc_get_container()->get( StockNotificationsMetaDataStore::class ), wc_get_container()->get( DatabaseUtil::class ) );
-		add_filter( 'woocommerce_stock_notification_data_store', fn() => $store );
+		add_filter( 'poocommerce_stock_notification_data_store', fn() => $store );
 
 		$response = PrivacyEraser::export_notification_data( 'jon@doe.com' );
 		$this->assertSame( array( 'stock-notification-' . $mine_id ), array_column( $response['data'], 'item_id' ) );

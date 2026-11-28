@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WCUser } from '@woocommerce/data';
+import { WCUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ jest.mock( '@wordpress/element', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	/* eslint-disable @typescript-eslint/no-unused-vars */
 	withCurrentUserHydration: jest.fn(
 		( user ) => ( Component: React.ReactNode ) => Component
@@ -40,7 +40,7 @@ jest.mock( '../', () => ( {
 describe( 'embedded-layout', () => {
 	let mockEmbeddedRoot: HTMLDivElement;
 	const mockHydrateUser = {
-		woocommerce_meta: {},
+		poocommerce_meta: {},
 	} as WCUser;
 	const mockSettingsGroup = 'test-settings';
 
@@ -49,7 +49,7 @@ describe( 'embedded-layout', () => {
 		mockEmbeddedRoot = document.createElement( 'div' );
 		document.body.innerHTML = `
             <div id="wpbody-content">
-                <div class="wrap woocommerce"></div>
+                <div class="wrap poocommerce"></div>
             </div>
         `;
 	} );

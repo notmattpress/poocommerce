@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Controller;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Renderer;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
 use WC_Unit_Test_Case;
 
 /**
@@ -43,14 +43,14 @@ class ControllerTest extends WC_Unit_Test_Case {
 			}
 		};
 
-		wp_interactivity_config( 'woocommerce/product-filters', array( 'forcePageReload' => false ) );
+		wp_interactivity_config( 'poocommerce/product-filters', array( 'forcePageReload' => false ) );
 	}
 
 	/**
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		wp_interactivity_config( 'woocommerce/product-filters', array( 'forcePageReload' => false ) );
+		wp_interactivity_config( 'poocommerce/product-filters', array( 'forcePageReload' => false ) );
 
 		parent::tearDown();
 	}
@@ -65,7 +65,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 
 		$this->sut->add_support_for_filter_blocks( null, $parsed_block );
 
-		$config = wp_interactivity_config( 'woocommerce/product-filters' );
+		$config = wp_interactivity_config( 'poocommerce/product-filters' );
 
 		$this->assertTrue(
 			$config['forcePageReload'] ?? false,
@@ -85,7 +85,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_loop_shop_per_page_uses_store_wide_value( ?int $stored, int $expected ): void {
 		if ( null !== $stored ) {
-			update_option( 'woocommerce_catalog_products_per_page', $stored );
+			update_option( 'poocommerce_catalog_products_per_page', $stored );
 		}
 
 		$this->assertSame( $expected, $this->sut->handle_loop_shop_per_page( 16 ) );
@@ -99,17 +99,17 @@ class ControllerTest extends WC_Unit_Test_Case {
 		$this->sut->register_settings();
 
 		$request = new \WP_REST_Request( 'POST', '/wp/v2/settings' );
-		$request->set_body_params( array( 'woocommerce_catalog_products_per_page' => 24 ) );
+		$request->set_body_params( array( 'poocommerce_catalog_products_per_page' => 24 ) );
 		$response = rest_do_request( $request );
 		$this->assertSame( 200, $response->get_status() );
-		$this->assertSame( 24, (int) get_option( 'woocommerce_catalog_products_per_page' ) );
+		$this->assertSame( 24, (int) get_option( 'poocommerce_catalog_products_per_page' ) );
 
-		$request->set_body_params( array( 'woocommerce_catalog_products_per_page' => 101 ) );
+		$request->set_body_params( array( 'poocommerce_catalog_products_per_page' => 101 ) );
 		$this->assertSame( 400, rest_do_request( $request )->get_status(), 'The settings endpoint refuses values above 100.' );
 
-		$request->set_body_params( array( 'woocommerce_catalog_products_per_page' => null ) );
+		$request->set_body_params( array( 'poocommerce_catalog_products_per_page' => null ) );
 		rest_do_request( $request );
-		$this->assertFalse( get_option( 'woocommerce_catalog_products_per_page' ), 'Sending null deletes the option, so the store default comes back.' );
+		$this->assertFalse( get_option( 'poocommerce_catalog_products_per_page' ), 'Sending null deletes the option, so the store default comes back.' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 		$block_content = '<h2 class="wp-block-post-title"><a href="https://example.com/product">Product</a></h2>';
 		$instance      = $this->create_post_title_block(
 			array(
-				'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+				'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 				'isLink'                 => true,
 			)
 		);
@@ -128,7 +128,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertSame(
 			1,
-			substr_count( $rendered, 'data-wp-on--click="woocommerce/product-collection::actions.viewProduct"' ),
+			substr_count( $rendered, 'data-wp-on--click="poocommerce/product-collection::actions.viewProduct"' ),
 			'The linked Product Collection title should receive exactly one viewed-product action.'
 		);
 	}
@@ -160,21 +160,21 @@ class ControllerTest extends WC_Unit_Test_Case {
 		return array(
 			'wrong namespace' => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/single-product/product-title',
+					'__poocommerceNamespace' => 'poocommerce/single-product/product-title',
 					'isLink'                 => true,
 				),
 				$linked_title,
 			),
 			'link disabled'   => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+					'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 					'isLink'                 => false,
 				),
 				$linked_title,
 			),
 			'missing anchor'  => array(
 				array(
-					'__woocommerceNamespace' => 'woocommerce/product-collection/product-title',
+					'__poocommerceNamespace' => 'poocommerce/product-collection/product-title',
 					'isLink'                 => true,
 				),
 				'<h2 class="wp-block-post-title">Product</h2>',
@@ -191,7 +191,7 @@ class ControllerTest extends WC_Unit_Test_Case {
 	private function create_post_title_block( array $attributes ): \WP_Block {
 		$product_collection = new \WP_Block(
 			array(
-				'blockName'    => 'woocommerce/product-collection',
+				'blockName'    => 'poocommerce/product-collection',
 				'attrs'        => array(),
 				'innerBlocks'  => array(
 					array(

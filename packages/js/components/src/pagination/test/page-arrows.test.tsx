@@ -22,7 +22,7 @@ const mockedIsRTL = isRTL as jest.MockedFunction< typeof isRTL >;
 // the opposite; compare the rendered SVG path data to tell them apart.
 function getArrowPaths( container: HTMLElement ) {
 	const buttons = container.querySelectorAll(
-		'.woocommerce-pagination__link'
+		'.poocommerce-pagination__link'
 	);
 	return Array.from( buttons ).map(
 		( button ) => button.querySelector( 'path' )?.getAttribute( 'd' )

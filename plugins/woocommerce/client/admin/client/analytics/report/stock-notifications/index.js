@@ -20,7 +20,7 @@ class StockNotificationsReport extends Component {
 		const { isRequesting, query, path } = this.props;
 		const selectedChart = getSelectedChart( query.chart, charts );
 		/* translators: %d: number of sign-ups */
-		const itemsLabel = __( '%d sign-ups', 'woocommerce' );
+		const itemsLabel = __( '%d sign-ups', 'poocommerce' );
 
 		return (
 			<Fragment>

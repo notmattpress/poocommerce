@@ -2,9 +2,9 @@
 /**
  * Block content for the admin report export download email
  *
- * Used to render information for the email editor WooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
+ * Used to render information for the email editor PooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
  *
- * @package WooCommerce\Admin\Templates\Emails\Block
+ * @package PooCommerce\Admin\Templates\Emails\Block
  * @version 11.5.0
  *
  * @var string $report_name  Report name, e.g. "Orders".
@@ -23,17 +23,17 @@ wc_get_template(
 	array(
 		'url'   => $download_url,
 		/* translators: %s: report name */
-		'label' => sprintf( __( 'Download your %s Report', 'woocommerce' ), $report_name ),
+		'label' => sprintf( __( 'Download your %s Report', 'poocommerce' ), $report_name ),
 	)
 );
 
 if ( ! empty( $date_range ) ) : ?>
 <p><?php
 	/* translators: %s: the date range the report covers, e.g. "June 1, 2025 - June 30, 2025" */
-	echo esc_html( sprintf( __( 'Date range: %s', 'woocommerce' ), $date_range ) );
+	echo esc_html( sprintf( __( 'Date range: %s', 'poocommerce' ), $date_range ) );
 ?></p>
 <?php endif; ?>
 <p><?php
 	/* translators: %s: length of time the download link stays valid, e.g. "1 week" */
-	echo esc_html( sprintf( __( 'This link is available for %s.', 'woocommerce' ), $retention ) );
+	echo esc_html( sprintf( __( 'This link is available for %s.', 'poocommerce' ), $retention ) );
 ?></p>

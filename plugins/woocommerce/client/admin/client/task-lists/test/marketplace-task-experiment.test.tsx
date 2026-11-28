@@ -6,8 +6,8 @@ import { useSelect } from '@wordpress/data';
 import {
 	dangerouslyGetExperimentAssignment,
 	loadExperimentAssignment,
-} from '@woocommerce/explat';
-import type { TaskListType, TaskType } from '@woocommerce/data';
+} from '@poocommerce/explat';
+import type { TaskListType, TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -24,11 +24,11 @@ jest.mock( '@wordpress/data', () => ( {
 	useSelect: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/explat', () => ( {
+jest.mock( '@poocommerce/explat', () => ( {
 	dangerouslyGetExperimentAssignment: jest.fn(),
 	loadExperimentAssignment: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 
 jest.mock( '../components/task-list', () => ( {
 	TaskList: ( { tasks }: TaskListType ) => (

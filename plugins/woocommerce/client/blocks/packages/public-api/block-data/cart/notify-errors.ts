@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ApiErrorResponse, isApiErrorResponse } from '@woocommerce/types';
-import { createNotice } from '@woocommerce/base-utils';
+import { ApiErrorResponse, isApiErrorResponse } from '@poocommerce/types';
+import { createNotice } from '@poocommerce/base-utils';
 import { decodeEntities } from '@wordpress/html-entities';
 import { dispatch } from '@wordpress/data';
 
@@ -25,7 +25,7 @@ type CartErrorNotice = {
 
 /**
  * Gets a notice ID for each cart error. Errors often share a code (e.g. every wc_add_notice() error is
- * `woocommerce_rest_cart_item_error`), and notices with the same ID replace each other. So the first
+ * `poocommerce_rest_cart_item_error`), and notices with the same ID replace each other. So the first
  * error keeps the code as its ID, later ones with a different message get `code__2`, `code__3`, and
  * exact repeats reuse the earlier ID.
  */

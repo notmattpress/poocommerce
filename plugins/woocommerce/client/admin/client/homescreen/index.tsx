@@ -6,9 +6,9 @@ import { useDispatch, withSelect } from '@wordpress/data';
 import type { SelectFunction } from '@wordpress/data/build-types/types';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { onboardingStore, withOnboardingHydration } from '@woocommerce/data';
-import { getHistory, getNewPath, useQuery } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
+import { onboardingStore, withOnboardingHydration } from '@poocommerce/data';
+import { getHistory, getNewPath, useQuery } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -58,14 +58,14 @@ const Homescreen = ( {
 		createErrorNotice(
 			__(
 				'Your store location and currency were not saved. Set them in the general settings, since taxes and prices depend on them.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				id: STORE_LOCATION_NOT_SAVED_QUERY_ARG,
 				explicitDismiss: true,
 				actions: [
 					{
-						label: __( 'Go to settings', 'woocommerce' ),
+						label: __( 'Go to settings', 'poocommerce' ),
 						url: getAdminLink(
 							'admin.php?page=wc-settings&tab=general'
 						),

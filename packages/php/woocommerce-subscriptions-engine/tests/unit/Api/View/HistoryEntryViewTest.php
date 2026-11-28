@@ -2,19 +2,19 @@
 /**
  * Unit tests for the HistoryEntryView DTO.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Unit\Api\View;
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Entity\HistoryEntry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView
  */
 class HistoryEntryViewTest extends TestCase {
 

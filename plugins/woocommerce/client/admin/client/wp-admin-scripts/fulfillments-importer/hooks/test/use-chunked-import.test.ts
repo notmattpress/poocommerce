@@ -25,13 +25,13 @@ const MAPPING = {
 } as const;
 
 const CHUNK_IN_PROGRESS = {
-	code: 'woocommerce_fulfillments_import_chunk_in_progress',
+	code: 'poocommerce_fulfillments_import_chunk_in_progress',
 	message: 'Another chunk of this import is still being processed.',
 	data: { status: 409 },
 };
 
 const TOKEN_INVALID = {
-	code: 'woocommerce_fulfillments_import_token_invalid',
+	code: 'poocommerce_fulfillments_import_token_invalid',
 	message: 'Import session is missing or has expired.',
 	data: { status: 400 },
 };
@@ -369,7 +369,7 @@ describe( 'useChunkedImport', () => {
 		[
 			'a 500',
 			{
-				code: 'woocommerce_fulfillments_import_progress_failed',
+				code: 'poocommerce_fulfillments_import_progress_failed',
 				message: 'Could not save the import progress.',
 				data: { status: 500 },
 			},
@@ -402,7 +402,7 @@ describe( 'useChunkedImport', () => {
 		[
 			'a 409 that is not chunk-in-progress',
 			{
-				code: 'woocommerce_fulfillments_import_offset_mismatch',
+				code: 'poocommerce_fulfillments_import_offset_mismatch',
 				message: 'The offset does not match.',
 				data: { status: 409 },
 			},
@@ -410,7 +410,7 @@ describe( 'useChunkedImport', () => {
 		[
 			'a 400',
 			{
-				code: 'woocommerce_fulfillments_import_mapping_invalid',
+				code: 'poocommerce_fulfillments_import_mapping_invalid',
 				message: 'Mapping is missing required column(s).',
 				data: { status: 400 },
 			},
@@ -430,7 +430,7 @@ describe( 'useChunkedImport', () => {
 	it.each( [
 		TOKEN_INVALID,
 		{
-			code: 'woocommerce_fulfillments_import_file_changed',
+			code: 'poocommerce_fulfillments_import_file_changed',
 			message: 'The uploaded file changed since it was prepared.',
 			data: { status: 409 },
 		},
@@ -546,7 +546,7 @@ describe( 'useChunkedImport', () => {
 	it( 'reports an expired session normally when the last request had a clear answer', async () => {
 		mockedRunChunk
 			.mockRejectedValueOnce( {
-				code: 'woocommerce_fulfillments_import_mapping_invalid',
+				code: 'poocommerce_fulfillments_import_mapping_invalid',
 				message: 'Mapping is missing required column(s).',
 				data: { status: 400 },
 			} )
@@ -612,7 +612,7 @@ describe( 'useChunkedImport', () => {
 		[
 			'a 400',
 			{
-				code: 'woocommerce_fulfillments_import_mapping_invalid',
+				code: 'poocommerce_fulfillments_import_mapping_invalid',
 				message: 'Mapping is missing required column(s).',
 				data: { status: 400 },
 			},

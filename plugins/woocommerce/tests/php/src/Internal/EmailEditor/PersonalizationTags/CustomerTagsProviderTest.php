@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\CustomerTagsProvider;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\CustomerTagsProvider;
 use WC_Unit_Test_Case;
 
 /**
@@ -37,7 +37,7 @@ class CustomerTagsProviderTest extends WC_Unit_Test_Case {
 	 *           ["customer-full-name", "Ada Lovelace"]
 	 *           ["customer-country", "Germany"]
 	 *
-	 * @param string $tag      Tag name without the woocommerce/ prefix.
+	 * @param string $tag      Tag name without the poocommerce/ prefix.
 	 * @param string $expected Expected value.
 	 */
 	public function test_values_from_order( string $tag, string $expected ): void {
@@ -57,7 +57,7 @@ class CustomerTagsProviderTest extends WC_Unit_Test_Case {
 	 *           ["customer-full-name", "Grace Hopper"]
 	 *           ["customer-username", "grace"]
 	 *
-	 * @param string $tag      Tag name without the woocommerce/ prefix.
+	 * @param string $tag      Tag name without the poocommerce/ prefix.
 	 * @param string $expected Expected value.
 	 */
 	public function test_values_from_user( string $tag, string $expected ): void {
@@ -80,7 +80,7 @@ class CustomerTagsProviderTest extends WC_Unit_Test_Case {
 	 *           ["customer-username", ""]
 	 *           ["customer-country", ""]
 	 *
-	 * @param string $tag      Tag name without the woocommerce/ prefix.
+	 * @param string $tag      Tag name without the poocommerce/ prefix.
 	 * @param string $expected Expected value.
 	 */
 	public function test_values_without_order_or_user( string $tag, string $expected ): void {
@@ -88,7 +88,7 @@ class CustomerTagsProviderTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Shows the country code when WooCommerce doesn't know the country.
+	 * @testdox Shows the country code when PooCommerce doesn't know the country.
 	 */
 	public function test_unknown_country_shows_its_code(): void {
 		$order = wc_create_order();
@@ -100,10 +100,10 @@ class CustomerTagsProviderTest extends WC_Unit_Test_Case {
 	/**
 	 * Resolves a tag in the given context.
 	 *
-	 * @param string $tag     Tag name without the woocommerce/ prefix.
+	 * @param string $tag     Tag name without the poocommerce/ prefix.
 	 * @param array  $context Personalization context.
 	 */
 	private function value( string $tag, array $context ): string {
-		return $this->registry->get_by_token( "[woocommerce/{$tag}]" )->execute_callback( $context );
+		return $this->registry->get_by_token( "[poocommerce/{$tag}]" )->execute_callback( $context );
 	}
 }

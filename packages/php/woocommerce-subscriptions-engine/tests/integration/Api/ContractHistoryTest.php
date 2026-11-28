@@ -2,23 +2,23 @@
 /**
  * Integration tests for the contract history methods of the Contracts facade.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api;
 
 use EngineIntegrationTestCase;
 use InvalidArgumentException;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
-use Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\AssertsValidationErrors;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\HistoryEntryView;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ValidationErrorCode;
+use Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\AssertsValidationErrors;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts
  */
 class ContractHistoryTest extends EngineIntegrationTestCase {
 

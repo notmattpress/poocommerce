@@ -2,12 +2,12 @@
 /**
  * Product REST image upload cleanup.
  *
- * @package WooCommerce\Internal\RestApi
+ * @package PooCommerce\Internal\RestApi
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi;
+namespace Automattic\PooCommerce\Internal\RestApi;
 
 use WC_Product;
 use WP_Error;

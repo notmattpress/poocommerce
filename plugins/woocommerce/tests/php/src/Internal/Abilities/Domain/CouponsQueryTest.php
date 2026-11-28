@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\CouponsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CouponsQuery;
 
 /**
  * Tests coupon reads through the ability API.
@@ -42,7 +42,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_writes_preserve_usage(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -54,7 +54,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon = new \WC_Coupon( $result['coupon']['id'] );
 		$coupon->set_usage_count( 2 );
 		$coupon->save();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -72,7 +72,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_restriction_writes(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$class  = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class  = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$create = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result = $create->execute(
 			array(
@@ -85,7 +85,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$id = $result['coupon']['id'];
 		$this->assertSame( array( 'customer@example.test', 'other@example.test' ), ( new \WC_Coupon( $id ) )->get_email_restrictions() );
 
-		$class  = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class  = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$update = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result = $update->execute(
 			array(
@@ -131,7 +131,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_invalid_email_restrictions( array $emails ): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$class  = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class  = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$create = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result = $create->execute(
 			array(
@@ -140,7 +140,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_coupon_email_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_coupon_email_invalid', $result->get_error_code() );
 		$this->assertSame( 0, wc_get_coupon_id_by_code( 'invalid-email-create' ) );
 
 		$coupon = new \WC_Coupon();
@@ -149,7 +149,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_email_restrictions( array( 'original@example.test' ) );
 		$coupon->save();
 		$before = ( new \WC_Coupon( $coupon->get_id() ) )->get_data();
-		$class  = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class  = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$update = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result = $update->execute(
 			array(
@@ -159,7 +159,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_coupon_email_invalid', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_coupon_email_invalid', $result->get_error_code() );
 		$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
 	}
 
@@ -215,7 +215,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_status( 'draft' );
 		$coupon->set_date_created( time() + DAY_IN_SECONDS );
 		$coupon->save();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$before  = ( new \WC_Coupon( $coupon->get_id() ) )->get_data();
 		$result  = $ability->execute(
@@ -226,7 +226,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
 		$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
 	}
 
@@ -239,7 +239,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon = new \WC_Coupon();
 		$coupon->set_code( 'publication-status-change' );
 		$coupon->save();
-		$class = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$input = array(
 			'id'     => $coupon->get_id(),
 			'status' => 'publish',
@@ -251,7 +251,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute_change( $input );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
 		$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
 	}
 
@@ -261,7 +261,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	public function test_draft_creation_permission(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 		wp_get_current_user()->add_cap( 'publish_shop_coupons', false );
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -289,7 +289,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_date_expires( '2030-01-01' );
 		$coupon->save();
 		$before  = ( new \WC_Coupon( $coupon->get_id() ) )->get_data();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$this->assertWPError( $ability->execute( $input + array( 'id' => $coupon->get_id() ) ) );
 		$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
@@ -297,7 +297,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Should reject duplicate draft codes and unscheduled future creation.
-	 * @testWith [{"code":"existing-draft"}, "woocommerce_ability_coupon_code_exists"]
+	 * @testWith [{"code":"existing-draft"}, "poocommerce_ability_coupon_code_exists"]
 	 *           [{"code":"new-future","status":"future"}, "ability_invalid_input"]
 	 * @param array  $input Creation input.
 	 * @param string $error_code Expected rejection.
@@ -308,7 +308,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_code( 'existing-draft' );
 		$coupon->set_status( 'draft' );
 		$coupon->save();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute( $input );
 		$this->assertWPError( $result );
@@ -324,7 +324,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon = new \WC_Coupon();
 		$coupon->set_code( 'unchanged-status' );
 		$coupon->save();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -347,7 +347,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	public function test_expiry_normalization( string $expiry, int $timestamp ): void {
 		update_option( 'timezone_string', 'Europe/Madrid' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -397,14 +397,14 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			array( 'ID' => $coupon->get_id() )
 		);
 		clean_post_cache( $coupon->get_id() );
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$before  = ( new \WC_Coupon( $coupon->get_id() ) )->get_data();
 		$result  = $ability->execute( $input + array( 'id' => $coupon->get_id() ) );
 		$stored  = new \WC_Coupon( $coupon->get_id() );
 		if ( null === $expected_status ) {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_coupon_publish_forbidden', $result->get_error_code() );
 			$this->assertEquals( $before, $stored->get_data() );
 			return;
 		}
@@ -425,7 +425,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 				)
 			);
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_coupon_invalid_schedule', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_coupon_invalid_schedule', $result->get_error_code() );
 			$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
 		}
 	}
@@ -440,7 +440,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_date_created( time() + DAY_IN_SECONDS );
 		$coupon->set_status( 'future' );
 		$coupon->save();
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute(
 			array(
@@ -496,14 +496,14 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 		$coupon->set_maximum_amount( '20' );
 		$coupon->save();
 		$before = ( new \WC_Coupon( $coupon->get_id() ) )->get_data();
-		$class  = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+		$class  = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		$update = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result = $update->execute( $input + array( 'id' => $coupon->get_id() ) );
 		if ( $valid ) {
 			$this->assertNotWPError( $result );
 		} else {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_coupon_invalid_data', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_coupon_invalid_data', $result->get_error_code() );
 			$this->assertEquals( $before, ( new \WC_Coupon( $coupon->get_id() ) )->get_data() );
 		}
 		$stored = new \WC_Coupon( $coupon->get_id() );
@@ -555,7 +555,7 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_coupon_code_required', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_coupon_code_required', $result->get_error_code() );
 	}
 	/**
 	 * @testdox Should report the stored status when a creation filter changes it.
@@ -563,13 +563,13 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 	public function test_create_response_uses_saved_coupon(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
 		add_filter(
-			'woocommerce_new_coupon_data',
+			'poocommerce_new_coupon_data',
 			static function ( $data ) {
 				$data['post_status'] = 'draft';
 				return $data;
 			}
 		);
-		$class   = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+		$class   = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		$ability = new $class( $class::ABILITY_NAME, $class::get_registration_args() );
 		$result  = $ability->execute( array( 'code' => 'filtered-creation' ) );
 		$this->assertNotWPError( $result );
@@ -592,18 +592,18 @@ class CouponsQueryTest extends \WC_Unit_Test_Case {
 			$coupon->set_code( 'saved-real-coupon' );
 			$coupon->save();
 			$input['id'] = $coupon->get_id();
-			$class       = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
+			$class       = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponUpdate::class;
 		} else {
 			$input['code'] = 'saved-real-coupon';
-			$class         = \Automattic\WooCommerce\Internal\Abilities\Domain\CouponCreate::class;
+			$class         = \Automattic\PooCommerce\Internal\Abilities\Domain\CouponCreate::class;
 		}
 		$saved_id = 0;
 		add_action(
-			'create' === $operation ? 'woocommerce_new_coupon' : 'woocommerce_update_coupon',
+			'create' === $operation ? 'poocommerce_new_coupon' : 'poocommerce_update_coupon',
 			static function ( $id ) use ( &$saved_id ) {
 				$saved_id = $id;
 				add_filter(
-					'woocommerce_get_shop_coupon_data',
+					'poocommerce_get_shop_coupon_data',
 					static function ( $data, $code ) use ( $id ) {
 						return (string) $id === (string) $code ? array( 'amount' => '99' ) : $data;
 					},

@@ -2,7 +2,7 @@
 /**
  * Fake custom payment token helper.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );
@@ -12,7 +12,7 @@ declare( strict_types = 1 );
  *
  * Map the type to this class for the duration of a test:
  *
- *     add_filter( 'woocommerce_payment_token_class', fn( $class_name, $type ) => FakeCustomPaymentToken::TYPE === $type ? FakeCustomPaymentToken::class : $class_name, 10, 2 );
+ *     add_filter( 'poocommerce_payment_token_class', fn( $class_name, $type ) => FakeCustomPaymentToken::TYPE === $type ? FakeCustomPaymentToken::class : $class_name, 10, 2 );
  */
 class FakeCustomPaymentToken extends WC_Payment_Token {
 

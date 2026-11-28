@@ -10,16 +10,16 @@
  * Static (not instance state) because registration is a load-time, by-class-name
  * call - every consumer reaches the registry by class name.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership
+ * @package Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Integration\Ownership;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Integration\Ownership;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
+use Automattic\PooCommerce\SubscriptionsEngine\Core\Support\ArgumentValidator;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Dispatch\DueDispatcher;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Support\ArgumentFilter;
 
 defined( 'ABSPATH' ) || exit;
 

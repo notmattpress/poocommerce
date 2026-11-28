@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { numberFormat } from '@woocommerce/number';
+import { numberFormat } from '@poocommerce/number';
 
 /**
  * Internal dependencies

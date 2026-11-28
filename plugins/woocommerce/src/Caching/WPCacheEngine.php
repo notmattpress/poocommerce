@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Caching;
+namespace Automattic\PooCommerce\Caching;
 
 /**
  * Implementation of CacheEngine that uses the built-in WordPress cache.

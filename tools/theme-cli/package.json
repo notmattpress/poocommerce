@@ -1,6 +1,6 @@
 {
-	"name": "@woocommerce/theme-cli",
-	"description": "Shared development tools for WooCommerce themes.",
+	"name": "@poocommerce/theme-cli",
+	"description": "Shared development tools for PooCommerce themes.",
 	"private": true,
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -15,7 +15,7 @@
 		"wp-env": "node scripts/env.mjs"
 	},
 	"devDependencies": {
-		"@woocommerce/eslint-config": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
 		"@wordpress/env": "catalog:tooling",
 		"@wordpress/scripts": "catalog:tooling"
 	},

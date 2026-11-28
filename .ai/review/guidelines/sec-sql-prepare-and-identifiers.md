@@ -3,7 +3,7 @@
 **Source:**
 
 - #67544 / #67551 (11.0.1): SQL injection via `report_args.orderby` on CSV export.
-- #67546 / #67554: `woocommerce_date_type` injection.
+- #67546 / #67554: `poocommerce_date_type` injection.
 - #69236: Store API slug filter.
 - #58857 (9.9.4): admin report conditions.
 - #66060: double escaping in prepared queries; #67932.

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -79,21 +79,21 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function allowlisted_option_provider(): array {
 		return array(
-			'existing option'      => array( 'woocommerce_allow_tracking', 'no', 'yes' ),
+			'existing option'      => array( 'poocommerce_allow_tracking', 'no', 'yes' ),
 			'shipping options'     => array( 'wcshipping_options', array( 'tos_accepted' => false ), array( 'tos_accepted' => true ) ),
-			'mobile app dismissal' => array( 'woocommerce_admin_dismissed_mobile_app_modal', 'no', 'yes' ),
+			'mobile app dismissal' => array( 'poocommerce_admin_dismissed_mobile_app_modal', 'no', 'yes' ),
 		);
 	}
 
 	/**
-	 * @testdox Allowlisted options require manage_woocommerce.
+	 * @testdox Allowlisted options require manage_poocommerce.
 	 * @testWith ["shop_manager", 200]
 	 *           ["order_only", 403]
 	 *
 	 * @param string $user_type Tested user: a Shop Manager, or a user with only edit_others_shop_orders.
 	 * @param int    $expected_status Expected status for both the read and the write.
 	 */
-	public function test_allowlisted_options_require_manage_woocommerce( string $user_type, int $expected_status ): void {
+	public function test_allowlisted_options_require_manage_poocommerce( string $user_type, int $expected_status ): void {
 		if ( 'order_only' === $user_type ) {
 			$user = self::factory()->user->create_and_get( array( 'role' => 'subscriber' ) );
 			$user->add_cap( 'edit_others_shop_orders' );
@@ -103,14 +103,14 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $user->ID );
 		$original_value = array( array( 'account_number' => 'original' ) );
 		$new_value      = array( array( 'account_number' => 'changed' ) );
-		update_option( 'woocommerce_bacs_accounts', $original_value );
+		update_option( 'poocommerce_bacs_accounts', $original_value );
 
-		$read_response = $this->get_options( array( 'woocommerce_bacs_accounts' ) );
+		$read_response = $this->get_options( array( 'poocommerce_bacs_accounts' ) );
 		$this->assertSame( $expected_status, $read_response->get_status(), "Unexpected read status for {$user_type}." );
 
-		$write_response = $this->post_options( array( 'woocommerce_bacs_accounts' => $new_value ) );
+		$write_response = $this->post_options( array( 'poocommerce_bacs_accounts' => $new_value ) );
 		$this->assertSame( $expected_status, $write_response->get_status(), "Unexpected write status for {$user_type}." );
-		$this->assertSame( 200 === $expected_status ? $new_value : $original_value, get_option( 'woocommerce_bacs_accounts' ), "Unexpected stored value for {$user_type}." );
+		$this->assertSame( 200 === $expected_status ? $new_value : $original_value, get_option( 'poocommerce_bacs_accounts' ), "Unexpected stored value for {$user_type}." );
 	}
 
 	/**
@@ -124,8 +124,8 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 			$permissions[ self::UNLISTED_OPTION ] = true;
 			return $permissions;
 		};
-		add_filter( 'woocommerce_rest_api_option_permissions', $grant_permission );
-		$this->setExpectedDeprecated( 'woocommerce_rest_api_option_permissions' );
+		add_filter( 'poocommerce_rest_api_option_permissions', $grant_permission );
+		$this->setExpectedDeprecated( 'poocommerce_rest_api_option_permissions' );
 
 		$read_response = $this->get_options( array( self::UNLISTED_OPTION ) );
 		$this->assertSame( 200, $read_response->get_status(), 'A filtered option should be readable.' );
@@ -176,8 +176,8 @@ class OptionsPermissionsTest extends WC_REST_Unit_Test_Case {
 	 * Expect the deprecation notices emitted by unlisted option requests.
 	 */
 	private function expect_unlisted_option_deprecations(): void {
-		$this->setExpectedDeprecated( 'Automattic\\WooCommerce\\Admin\\API\\Options::get_options' );
-		$this->setExpectedDeprecated( 'Automattic\\WooCommerce\\Admin\\API\\Options::update_options' );
+		$this->setExpectedDeprecated( 'Automattic\\PooCommerce\\Admin\\API\\Options::get_options' );
+		$this->setExpectedDeprecated( 'Automattic\\PooCommerce\\Admin\\API\\Options::update_options' );
 	}
 
 	/**

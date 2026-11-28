@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { act, renderHook } from '@testing-library/react';
-import { animateCollapse } from '@woocommerce/base-utils';
+import { animateCollapse } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
  */
 import { usePresence } from '../use-presence';
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	animateCollapse: jest.fn(),
 } ) );
 

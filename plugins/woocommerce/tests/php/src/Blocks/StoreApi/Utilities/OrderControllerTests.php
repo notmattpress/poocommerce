@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
 use WC_Helper_Order;
 use WC_Helper_Product;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
 
 /**
  * OrderControllerTests class.
@@ -43,7 +43,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 		// phone field optional as other Store API test classes do. Without this
 		// the class only passes when run after a class that already did so.
 		// The per-test database rollback restores the option.
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
 
 		// The invalid-address tests need a shipping rate, and the flat rate only offers one for a
 		// country the store ships to. The cart ships to WC()->customer, so give it a US/CA location.
@@ -123,7 +123,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @testdox validate_order_before_payment() refuses an order whose shipping was withheld.
 	 */
 	public function test_validate_order_before_payment_refuses_withheld_shipping(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->add_flat_rate_to_default_zone();
 		$this->add_product_to_cart_without_rating_shipping();
 
@@ -141,7 +141,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @testdox validate_order_before_payment() allows an order whose cart has rated the address.
 	 */
 	public function test_validate_order_before_payment_allows_a_rated_cart(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->add_flat_rate_to_default_zone( '25.00' );
 
 		// A complete customer address, so the cart rates the package and picks the rate itself.
@@ -166,7 +166,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @testdox validate_order_before_payment() allows an unrated cart when the option is off.
 	 */
 	public function test_validate_order_before_payment_allows_an_unrated_cart_when_the_option_is_off(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 
 		// Deliberately no shipping method: with the option off that is the only way a cart that
 		// needs shipping reaches checkout with nothing rated.
@@ -179,7 +179,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @testdox validate_order_before_payment() allows a cart that does not need shipping.
 	 */
 	public function test_validate_order_before_payment_allows_a_cart_that_does_not_need_shipping(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->add_flat_rate_to_default_zone();
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -198,19 +198,19 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @testdox validate_order_before_payment() allows an order when the filter stops calculation.
 	 */
 	public function test_validate_order_before_payment_allows_shipping_calculation_disabled_by_filter(): void {
-		update_option( 'woocommerce_shipping_cost_requires_address', 'yes' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'yes' );
 		$this->add_flat_rate_to_default_zone();
 
 		$filter = function () {
 			return false;
 		};
-		add_filter( 'woocommerce_cart_ready_to_calc_shipping', $filter );
+		add_filter( 'poocommerce_cart_ready_to_calc_shipping', $filter );
 
 		try {
 			$this->add_product_to_cart_without_rating_shipping();
 			$this->assertNull( $this->sut->validate_order_before_payment( $this->create_order_with_full_shipping_address() ) );
 		} finally {
-			remove_filter( 'woocommerce_cart_ready_to_calc_shipping', $filter );
+			remove_filter( 'poocommerce_cart_ready_to_calc_shipping', $filter );
 		}
 	}
 
@@ -618,7 +618,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 			return $locales;
 		};
 
-		add_filter( 'woocommerce_get_country_locale', $hide_postcode );
+		add_filter( 'poocommerce_get_country_locale', $hide_postcode );
 
 		$errors = new \WP_Error();
 		$this->sut->validate_address_fields( $order, 'shipping', $errors );
@@ -626,10 +626,10 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox create_order_from_cart() removes its woocommerce_default_order_status filter even when the order update throws.
+	 * @testdox create_order_from_cart() removes its poocommerce_default_order_status filter even when the order update throws.
 	 */
 	public function test_create_order_from_cart_removes_default_order_status_filter_on_exception(): void {
-		$hook           = 'woocommerce_default_order_status';
+		$hook           = 'poocommerce_default_order_status';
 		$filters_before = has_filter( $hook );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -640,7 +640,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 		$thrower = static function () {
 			throw new \RuntimeException( 'Forced failure during totals calculation.' );
 		};
-		add_action( 'woocommerce_before_calculate_totals', $thrower );
+		add_action( 'poocommerce_before_calculate_totals', $thrower );
 
 		$threw = false;
 		try {
@@ -648,22 +648,22 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 		} catch ( \Throwable $e ) {
 			$threw = true;
 		} finally {
-			remove_action( 'woocommerce_before_calculate_totals', $thrower );
+			remove_action( 'poocommerce_before_calculate_totals', $thrower );
 		}
 
 		$this->assertTrue( $threw, 'The injected exception should propagate out of create_order_from_cart().' );
 		$this->assertSame(
 			$filters_before,
 			has_filter( $hook ),
-			'create_order_from_cart() must remove the woocommerce_default_order_status filter even when the order update throws.'
+			'create_order_from_cart() must remove the poocommerce_default_order_status filter even when the order update throws.'
 		);
 	}
 
 	/**
-	 * @testdox create_order_from_cart() leaves no woocommerce_default_order_status callbacks registered, so the filter chain does not grow across calls.
+	 * @testdox create_order_from_cart() leaves no poocommerce_default_order_status callbacks registered, so the filter chain does not grow across calls.
 	 */
 	public function test_create_order_from_cart_removes_default_order_status_filter(): void {
-		$hook           = 'woocommerce_default_order_status';
+		$hook           = 'poocommerce_default_order_status';
 		$filters_before = has_filter( $hook );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -677,7 +677,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 		$this->assertSame(
 			$filters_before,
 			has_filter( $hook ),
-			'create_order_from_cart() must remove its woocommerce_default_order_status filter; the chain must not grow across repeated calls.'
+			'create_order_from_cart() must remove its poocommerce_default_order_status filter; the chain must not grow across repeated calls.'
 		);
 	}
 
@@ -729,13 +729,13 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 		$add_fee = static function ( \WC_Cart $cart ) {
 			$cart->add_fee( 'Handling', 5 );
 		};
-		add_action( 'woocommerce_cart_calculate_fees', $add_fee );
+		add_action( 'poocommerce_cart_calculate_fees', $add_fee );
 
 		try {
 			$this->sut->update_order_from_cart( $order );
 			$order->save();
 		} finally {
-			remove_action( 'woocommerce_cart_calculate_fees', $add_fee );
+			remove_action( 'poocommerce_cart_calculate_fees', $add_fee );
 		}
 
 		$this->assertSame( $line_item_ids, array_keys( $order->get_items() ), 'Line items should be kept when the cart contents did not change.' );
@@ -806,12 +806,12 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 */
 	private function sync_order_from_cart_with_cod_enabled( ?string $chosen_payment_method ): \WC_Order {
 		$gateways_before         = WC()->payment_gateways()->payment_gateways;
-		$cod_settings            = (array) get_option( 'woocommerce_cod_settings', array() );
+		$cod_settings            = (array) get_option( 'poocommerce_cod_settings', array() );
 		$cod_settings['enabled'] = 'yes';
-		update_option( 'woocommerce_cod_settings', $cod_settings );
+		update_option( 'poocommerce_cod_settings', $cod_settings );
 		WC()->payment_gateways()->init();
 		WC()->session->set( 'chosen_payment_method', $chosen_payment_method );
-		add_filter( 'woocommerce_default_payment_method', '__return_empty_string' );
+		add_filter( 'poocommerce_default_payment_method', '__return_empty_string' );
 
 		try {
 			WC()->cart->empty_cart();
@@ -823,7 +823,7 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 			return $order;
 		} finally {
 			WC()->cart->empty_cart();
-			wp_cache_delete( 'woocommerce_cod_settings', 'options' );
+			wp_cache_delete( 'poocommerce_cod_settings', 'options' );
 			WC()->payment_gateways()->payment_gateways = $gateways_before;
 			WC()->session->set( 'chosen_payment_method', null );
 		}
@@ -837,8 +837,8 @@ class OrderControllerTests extends \WC_Unit_Test_Case {
 	 * @return \WC_Order
 	 */
 	private function create_order_for_us_only_store( array $method_ids, array $shipping_address = array() ): \WC_Order {
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'US' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'US' ) );
 		WC()->cart->empty_cart();
 
 		$order = WC_Helper_Order::create_order();

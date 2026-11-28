@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/cart-order-summary-taxes-block",
+	"name": "poocommerce/cart-order-summary-taxes-block",
 	"title": "Taxes",
 	"description": "Shows the cart taxes row.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -24,9 +24,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart-order-summary-totals-block"
+		"poocommerce/cart-order-summary-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G17A-v3",
-			"path": "plugins/woocommerce/includes/class-wc-cart-session.php",
+			"path": "plugins/poocommerce/includes/class-wc-cart-session.php",
 			"before": {
 				"file": "fixtures/G17A/before.php"
 			},
@@ -14,19 +14,19 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-cart-session.php",
+						"file": "plugins/poocommerce/includes/class-wc-cart-session.php",
 						"lines": [
 							5,
 							5
 						],
-						"anchor": "    $delete_user_meta( $user_id, '_woocommerce_persistent_cart_' . get_current_blog_id() );"
+						"anchor": "    $delete_user_meta( $user_id, '_poocommerce_persistent_cart_' . get_current_blog_id() );"
 					}
 				]
 			}
 		},
 		{
 			"id": "G17B-v3",
-			"path": "plugins/woocommerce/includes/class-wc-cart-session.php",
+			"path": "plugins/poocommerce/includes/class-wc-cart-session.php",
 			"before": {
 				"file": "fixtures/G17B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/includes/class-wc-cart-session.php",
+						"file": "plugins/poocommerce/includes/class-wc-cart-session.php",
 						"lines": [
 							4,
 							4
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G17C-v3",
-			"path": "plugins/woocommerce/includes/class-wc-cart-session.php",
+			"path": "plugins/poocommerce/includes/class-wc-cart-session.php",
 			"before": {
 				"file": "fixtures/G17C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G17D-v3",
-			"path": "plugins/woocommerce/includes/class-wc-cart-session.php",
+			"path": "plugins/poocommerce/includes/class-wc-cart-session.php",
 			"before": {
 				"file": "fixtures/G17D/before.php"
 			},

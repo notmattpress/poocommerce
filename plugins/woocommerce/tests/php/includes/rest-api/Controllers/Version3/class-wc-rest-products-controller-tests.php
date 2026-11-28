@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * class WC_REST_Products_Controller_Tests.
@@ -363,7 +363,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
 
-		$product  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -406,7 +406,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		}
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
-		$product                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() );
@@ -2107,7 +2107,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$failed_creation_response_data = $failed_creation_response->get_data();
 
 		$this->assertEquals( 400, $failed_creation_response->get_status(), 'Product creation attempt with duplicate SKU should return HTTP 400.' );
-		$this->assertEquals( 'woocommerce_rest_product_not_created', $failed_creation_response_data['code'] );
+		$this->assertEquals( 'poocommerce_rest_product_not_created', $failed_creation_response_data['code'] );
 
 		$attachments_after_failed_attempt = count(
 			get_posts(
@@ -2454,7 +2454,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * are properly updated when hide out of stock is disabled.
 	 */
 	public function test_batch_create_updates_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 		$term         = wp_insert_term( 'BatchTestCategory', 'product_cat' );
 		$term_id      = $term['term_id'];
 		$count_before = (int) get_term_meta( $term_id, 'product_count_product_cat', true );
@@ -2486,7 +2486,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * the term counts are not increased when hide out of stock is enabled.
 	 */
 	public function test_batch_create_out_of_stock_obeys_hide_setting() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 		$term         = wp_insert_term( 'BatchTestCategory', 'product_cat' );
 		$term_id      = $term['term_id'];
 		$count_before = (int) get_term_meta( $term_id, 'product_count_product_cat', true );
@@ -2518,7 +2518,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * decrements term counts when hide out of stock is enabled.
 	 */
 	public function test_batch_update_stock_status_affects_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );
@@ -2552,7 +2552,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * decrements term counts when products are changed to draft status.
 	 */
 	public function test_batch_update_status_affects_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );
@@ -2586,7 +2586,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	 * are properly decremented immediately.
 	 */
 	public function test_batch_delete_product_updates_term_counts() {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$term    = wp_insert_term( 'BatchTestCategory', 'product_cat' );
@@ -2702,7 +2702,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 404, $response->get_status(), 'Variations should be handled by the variations endpoint.' );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -2753,8 +2753,8 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$resolve_custom_product_type = static function ( $product_type, $queried_product_id ) use ( $product_id ) {
 			return $product_id === $queried_product_id ? ProductType::SIMPLE : $product_type;
 		};
-		add_filter( 'woocommerce_data_stores', $register_custom_data_store );
-		add_filter( 'woocommerce_product_type_query', $resolve_custom_product_type, 10, 2 );
+		add_filter( 'poocommerce_data_stores', $register_custom_data_store );
+		add_filter( 'poocommerce_product_type_query', $resolve_custom_product_type, 10, 2 );
 
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/' . $product_id );
 		$request->set_url_params( array( 'id' => $product_id ) );
@@ -2797,7 +2797,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$result = $this->invoke_prepare( $request, false );
 
 		$this->assertWPError( $result );
-		$this->assertEquals( 'woocommerce_rest_invalid_product_id', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_product_id', $result->get_error_code() );
 	}
 
 	/**
@@ -2811,7 +2811,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 			$stores['product'] = 'WC_Nonexistent_Data_Store';
 			return $stores;
 		};
-		add_filter( 'woocommerce_data_stores', $break_store );
+		add_filter( 'poocommerce_data_stores', $break_store );
 
 		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Invalid data store.' );
@@ -2832,7 +2832,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 				throw new WC_Data_Exception( 'custom_duplicate_block', 'Simulated typed failure.', 409 );
 			}
 		};
-		add_action( 'woocommerce_product_read', $throw_data_exception );
+		add_action( 'poocommerce_product_read', $throw_data_exception );
 
 		$request = new WP_REST_Request( 'POST', '/wc/v3/products/' . $product->get_id() . '/duplicate' );
 		$request->set_body_params( array( 'type' => 'simple' ) );
@@ -2870,7 +2870,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$this->assertEquals( 200, $response->get_status() );
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'error', $data['update'][0], 'A non-scalar type must be rejected, not coerced' );
-		$this->assertEquals( 'woocommerce_rest_invalid_product_type', $data['update'][0]['error']['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_product_type', $data['update'][0]['error']['code'] );
 		$this->assertInstanceOf( WC_Product_Variable::class, wc_get_product( $variable_product->get_id() ), 'The product type must not be rewritten' );
 	}
 
@@ -2893,7 +2893,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 			$data_stores['product-simple'] = $typed_store;
 			return $data_stores;
 		};
-		add_filter( 'woocommerce_data_stores', $register );
+		add_filter( 'poocommerce_data_stores', $register );
 
 		// Extension-backed product: the ID does not correspond to any WordPress post.
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/999999991' );
@@ -2925,7 +2925,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 			$data_stores['product-simple'] = $failing_store;
 			return $data_stores;
 		};
-		add_filter( 'woocommerce_data_stores', $register );
+		add_filter( 'poocommerce_data_stores', $register );
 
 		// Extension-backed product: the ID has no corresponding WordPress post.
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/999999992' );
@@ -2957,7 +2957,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 			$data_stores['product-simple'] = $mimicking_store;
 			return $data_stores;
 		};
-		add_filter( 'woocommerce_data_stores', $register );
+		add_filter( 'poocommerce_data_stores', $register );
 
 		// Extension-backed product: the ID has no corresponding WordPress post.
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/products/999999993' );
@@ -2979,8 +2979,8 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$variation_error = $error_method->invoke( $this->endpoint, true );
 		$generic_error   = $error_method->invoke( $this->endpoint, false );
 
-		$this->assertEquals( 'woocommerce_rest_invalid_product_id', $variation_error->get_error_code() );
-		$this->assertEquals( 'woocommerce_rest_invalid_product_id', $generic_error->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_product_id', $variation_error->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_product_id', $generic_error->get_error_code() );
 		$this->assertStringContainsString( 'variations', $variation_error->get_error_message() );
 		$this->assertStringNotContainsString( 'variations', $generic_error->get_error_message() );
 	}
@@ -3017,13 +3017,13 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A stored type whose class is registered only through woocommerce_product_class keeps that class.
+	 * @testdox A stored type whose class is registered only through poocommerce_product_class keeps that class.
 	 */
 	public function test_falsy_type_preserves_filter_registered_product_class(): void {
 		$product = WC_Helper_Product::create_simple_product();
 
 		add_filter(
-			'woocommerce_product_type_query',
+			'poocommerce_product_type_query',
 			static function ( $override, $product_id ) use ( $product ) {
 				return $product->get_id() === $product_id ? 'acme-widget' : $override;
 			},
@@ -3031,7 +3031,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 			2
 		);
 		add_filter(
-			'woocommerce_product_class',
+			'poocommerce_product_class',
 			static function ( $classname, $product_type ) {
 				return 'acme-widget' === $product_type ? WC_Product_Grouped::class : $classname;
 			},
@@ -3055,7 +3055,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 
 		add_filter(
-			'woocommerce_product_type_query',
+			'poocommerce_product_type_query',
 			static function ( $override, $product_id ) use ( $product ) {
 				return $product->get_id() === $product_id ? array( ProductType::SIMPLE ) : $override;
 			},
@@ -3087,7 +3087,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 				throw new Exception( 'Simulated unexpected read failure.' );
 			}
 		};
-		add_action( 'woocommerce_product_read', $throw_exception );
+		add_action( 'poocommerce_product_read', $throw_exception );
 
 		$this->expectException( Exception::class );
 		$this->expectExceptionMessage( 'Simulated unexpected read failure.' );
@@ -3108,7 +3108,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 404, $response->get_status(), 'Variations should be handled by the variations endpoint.' );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -3123,7 +3123,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 404, $response->get_status(), 'Duplicating a variation should return the variations endpoint error.' );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -3154,7 +3154,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertSame( 200, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_invalid_product_id', $data['update'][0]['error']['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_product_id', $data['update'][0]['error']['code'] );
 		$this->assertSame( 'Updated in batch', $data['update'][1]['name'] );
 		$this->assertSame( 'Updated in batch', wc_get_product( $product->get_id() )->get_name() );
 	}
@@ -3192,7 +3192,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$filter = static function () {
 			return '999999';
 		};
-		add_filter( 'woocommerce_product_get_customs_commodity_code', $filter );
+		add_filter( 'poocommerce_product_get_customs_commodity_code', $filter );
 
 		$view = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() ) )->get_data();
 		$edit = new WP_REST_Request( 'GET', '/wc/v3/products/' . $product->get_id() );
@@ -3259,7 +3259,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status(), 'Invalid customs input should return a 400 response.' );
-		$this->assertSame( 'woocommerce_product_invalid_' . $field, $response->get_data()['code'], 'The error code should name the invalid field.' );
+		$this->assertSame( 'poocommerce_product_invalid_' . $field, $response->get_data()['code'], 'The error code should name the invalid field.' );
 		$this->assertSame( 2, wc_get_product( $id )->get_menu_order(), 'Other product changes should not be saved.' );
 		$this->assertFalse( metadata_exists( 'post', $id, '_customs_country_of_origin' ), 'Valid customs values in the same request should not be saved.' );
 	}
@@ -3394,7 +3394,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_invalid_attribute_term_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_attribute_term_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -3449,7 +3449,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		);
 		$data = $this->server->dispatch( $request )->get_data();
 
-		$this->assertSame( 'woocommerce_rest_invalid_attribute_term_id', $data['update'][0]['error']['code'] ?? null, 'The invalid term ID should be rejected.' );
+		$this->assertSame( 'poocommerce_rest_invalid_attribute_term_id', $data['update'][0]['error']['code'] ?? null, 'The invalid term ID should be rejected.' );
 		$this->assertSame( array( $second_term_id ), wc_get_product_terms( $product->get_id(), $taxonomy, array( 'fields' => 'ids' ) ), 'The product terms should not change.' );
 	}
 
@@ -3502,7 +3502,7 @@ class WC_REST_Products_Controller_Tests extends WC_Unit_Test_Case {
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertCount( 3, $data['update'] );
 		$this->assertSame( $before->get_id(), $data['update'][0]['id'] );
-		$this->assertSame( 'woocommerce_rest_invalid_attribute', $data['update'][1]['error']['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_attribute', $data['update'][1]['error']['code'] );
 		$this->assertSame( 400, $data['update'][1]['error']['data']['status'] );
 		$this->assertSame( $after->get_id(), $data['update'][2]['id'] );
 		$this->assertSame( 'Updated before invalid item', wc_get_product( $before->get_id() )->get_name() );

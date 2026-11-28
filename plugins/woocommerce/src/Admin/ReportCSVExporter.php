@@ -3,14 +3,14 @@
  * Handles reports CSV export batches.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotifications;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotifications;
 
 /**
  * Include dependencies.
@@ -112,7 +112,7 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 	 */
 	public static function get_reports_directory() {
 		$upload_dir = wp_upload_dir();
-		return trailingslashit( $upload_dir['basedir'] ) . 'woocommerce_uploads/reports/';
+		return trailingslashit( $upload_dir['basedir'] ) . 'poocommerce_uploads/reports/';
 	}
 
 	/**
@@ -204,7 +204,7 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 	/**
 	 * Serve the export file.
 	 *
-	 * Unlike the parent, this keeps the file so that the download link WooCommerce emails to the
+	 * Unlike the parent, this keeps the file so that the download link PooCommerce emails to the
 	 * merchant works more than once. ReportExporter::delete_expired_exports() removes it later.
 	 *
 	 * @since 11.2.0
@@ -272,20 +272,20 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 	 */
 	private static function get_report_controller_map() {
 		$controller_map = array(
-			'products'   => 'Automattic\WooCommerce\Admin\API\Reports\Products\Controller',
-			'variations' => 'Automattic\WooCommerce\Admin\API\Reports\Variations\Controller',
-			'orders'     => 'Automattic\WooCommerce\Admin\API\Reports\Orders\Controller',
-			'categories' => 'Automattic\WooCommerce\Admin\API\Reports\Categories\Controller',
-			'taxes'      => 'Automattic\WooCommerce\Admin\API\Reports\Taxes\Controller',
-			'coupons'    => 'Automattic\WooCommerce\Admin\API\Reports\Coupons\Controller',
-			'stock'      => 'Automattic\WooCommerce\Admin\API\Reports\Stock\Controller',
-			'downloads'  => 'Automattic\WooCommerce\Admin\API\Reports\Downloads\Controller',
-			'customers'  => 'Automattic\WooCommerce\Admin\API\Reports\Customers\Controller',
-			'revenue'    => 'Automattic\WooCommerce\Admin\API\Reports\Revenue\Stats\Controller',
+			'products'   => 'Automattic\PooCommerce\Admin\API\Reports\Products\Controller',
+			'variations' => 'Automattic\PooCommerce\Admin\API\Reports\Variations\Controller',
+			'orders'     => 'Automattic\PooCommerce\Admin\API\Reports\Orders\Controller',
+			'categories' => 'Automattic\PooCommerce\Admin\API\Reports\Categories\Controller',
+			'taxes'      => 'Automattic\PooCommerce\Admin\API\Reports\Taxes\Controller',
+			'coupons'    => 'Automattic\PooCommerce\Admin\API\Reports\Coupons\Controller',
+			'stock'      => 'Automattic\PooCommerce\Admin\API\Reports\Stock\Controller',
+			'downloads'  => 'Automattic\PooCommerce\Admin\API\Reports\Downloads\Controller',
+			'customers'  => 'Automattic\PooCommerce\Admin\API\Reports\Customers\Controller',
+			'revenue'    => 'Automattic\PooCommerce\Admin\API\Reports\Revenue\Stats\Controller',
 		);
 
 		if ( StockNotifications::is_enabled_before_init() ) {
-			$controller_map['stock-notifications'] = 'Automattic\WooCommerce\Admin\API\Reports\StockNotifications\Controller';
+			$controller_map['stock-notifications'] = 'Automattic\PooCommerce\Admin\API\Reports\StockNotifications\Controller';
 		}
 
 		/**
@@ -294,7 +294,7 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 		 * @since 9.8.0
 		 * @param array $controller_map A report type to report controller class map.
 		 */
-		return apply_filters( 'woocommerce_export_report_controller_map', $controller_map );
+		return apply_filters( 'poocommerce_export_report_controller_map', $controller_map );
 	}
 
 	/**
@@ -437,7 +437,7 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 		 * @returns string The report's endpoint.
 		 */
 		$report_endpoint = apply_filters(
-			'woocommerce_export_report_data_endpoint',
+			'poocommerce_export_report_data_endpoint',
 			"/wc-analytics/reports/{$this->report_type}",
 			$this->report_type
 		);
@@ -476,7 +476,7 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 		// extended info are ours, not user input, so they must not be validated
 		// against the user-facing schema (e.g. per_page's maximum). The batch
 		// size in particular is filterable via
-		// woocommerce_{$export_type}_export_batch_limit and can legitimately
+		// poocommerce_{$export_type}_export_batch_limit and can legitimately
 		// exceed the schema's per_page maximum.
 		$request->set_param( 'per_page', $this->get_limit() );
 		$request->set_param( 'extended_info', true );
@@ -490,10 +490,10 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 		}
 
 		// Use WP_REST_Server::response_to_data() to embed links in data.
-		add_filter( 'woocommerce_rest_check_permissions', '__return_true' );
+		add_filter( 'poocommerce_rest_check_permissions', '__return_true' );
 		$rest_server = rest_get_server();
 		$report_data = $rest_server->response_to_data( $response, true );
-		remove_filter( 'woocommerce_rest_check_permissions', '__return_true' );
+		remove_filter( 'poocommerce_rest_check_permissions', '__return_true' );
 
 		$report_meta      = $response->get_headers();
 		$this->total_rows = $report_meta['X-WP-Total'];
@@ -523,9 +523,9 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 		foreach ( $columns as $column_id => $column_name ) {
 			$value = isset( $item[ $column_name ] ) ? $item[ $column_name ] : null;
 
-			if ( has_filter( "woocommerce_export_{$this->export_type}_column_{$column_name}" ) ) {
+			if ( has_filter( "poocommerce_export_{$this->export_type}_column_{$column_name}" ) ) {
 				// Filter for 3rd parties.
-				$value = apply_filters( "woocommerce_export_{$this->export_type}_column_{$column_name}", '', $item );
+				$value = apply_filters( "poocommerce_export_{$this->export_type}_column_{$column_name}", '', $item );
 
 			} elseif ( is_callable( array( $this, "get_column_value_{$column_name}" ) ) ) {
 				// Handle special columns which don't map 1:1 to item data.
@@ -557,6 +557,6 @@ class ReportCSVExporter extends \WC_CSV_Batch_Exporter {
 			$row = $this->get_raw_row_data( $item );
 		}
 
-		return apply_filters( "woocommerce_export_{$this->export_type}_row_data", $row, $item );
+		return apply_filters( "poocommerce_export_{$this->export_type}_row_data", $row, $item );
 	}
 }

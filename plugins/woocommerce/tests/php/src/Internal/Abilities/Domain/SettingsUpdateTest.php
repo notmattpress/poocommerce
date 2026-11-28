@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\TaxBasedOn;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\TaxBasedOn;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests opt-in setting writes.
@@ -27,7 +27,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		add_action( 'wp_abilities_api_init', array( AbilitiesLoader::class, 'register_abilities' ) );
 		do_action( 'wp_abilities_api_init' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'shop_manager' ) ) );
-		$this->sut = wp_get_ability( 'woocommerce/settings-update' );
+		$this->sut = wp_get_ability( 'poocommerce/settings-update' );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	private function add_general_field( array $field ): void {
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) use ( $field ) {
 				$settings[] = $field + array(
 					'id'        => 'extension_field',
@@ -79,15 +79,15 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should update an opted-in Core field and return the previous value.
 	 */
 	public function test_updates_core_field(): void {
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 
-		$result = $this->sut->execute( $this->input( 'general', array( 'woocommerce_currency' => 'EUR' ) ) );
+		$result = $this->sut->execute( $this->input( 'general', array( 'poocommerce_currency' => 'EUR' ) ) );
 
 		$this->assertSame(
 			array(
 				'settings' => array(
 					array(
-						'id'       => 'woocommerce_currency',
+						'id'       => 'poocommerce_currency',
 						'previous' => 'USD',
 						'value'    => 'EUR',
 					),
@@ -95,7 +95,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			),
 			$result
 		);
-		$this->assertSame( 'EUR', get_option( 'woocommerce_currency' ) );
+		$this->assertSame( 'EUR', get_option( 'poocommerce_currency' ) );
 	}
 
 	/**
@@ -122,7 +122,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'general', array( 'extension_field' => 'changed' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertSame( 403, $result->get_error_data()['status'] );
 		$this->assertSame( array( 'extension_field' ), $result->get_error_data()['ids'] );
 		$this->assertSame( 'secret-sentinel', get_option( 'extension_field' ) );
@@ -135,7 +135,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'general', array( 'missing_field' => 'value' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertSame( array( 'missing_field' ), $result->get_error_data()['ids'] );
 	}
 
@@ -152,7 +152,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'general', array( 'extension_field' => 'changed' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertSame( 'stored', get_option( 'extension_field' ) );
 	}
 
@@ -160,20 +160,20 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should refuse additional tax classes, which are not stored as an option.
 	 */
 	public function test_refuses_tax_classes(): void {
-		$result = $this->sut->execute( $this->input( 'tax', array( 'woocommerce_tax_classes' => 'Reduced' ) ) );
+		$result = $this->sut->execute( $this->input( 'tax', array( 'poocommerce_tax_classes' => 'Reduced' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should refuse personal data retention periods, which let a scheduled job trash orders, anonymize orders or delete accounts.
-	 * @testWith ["woocommerce_delete_inactive_accounts"]
-	 *           ["woocommerce_trash_pending_orders"]
-	 *           ["woocommerce_trash_failed_orders"]
-	 *           ["woocommerce_trash_cancelled_orders"]
-	 *           ["woocommerce_anonymize_refunded_orders"]
-	 *           ["woocommerce_anonymize_completed_orders"]
+	 * @testWith ["poocommerce_delete_inactive_accounts"]
+	 *           ["poocommerce_trash_pending_orders"]
+	 *           ["poocommerce_trash_failed_orders"]
+	 *           ["poocommerce_trash_cancelled_orders"]
+	 *           ["poocommerce_anonymize_refunded_orders"]
+	 *           ["poocommerce_anonymize_completed_orders"]
 	 *
 	 * @param string $id Retention setting ID.
 	 */
@@ -193,17 +193,17 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertFalse( get_option( $id ) );
 	}
 
 	/**
 	 * @testdox Should refuse toggles that enable irreversible personal data removal or share usage or shopper data.
-	 * @testWith ["account", "woocommerce_erasure_request_removes_order_data"]
-	 *           ["account", "woocommerce_erasure_request_removes_download_data"]
-	 *           ["account", "woocommerce_allow_bulk_remove_personal_data"]
-	 *           ["advanced", "woocommerce_allow_tracking"]
-	 *           ["general", "woocommerce_address_autocomplete_enabled"]
+	 * @testWith ["account", "poocommerce_erasure_request_removes_order_data"]
+	 *           ["account", "poocommerce_erasure_request_removes_download_data"]
+	 *           ["account", "poocommerce_allow_bulk_remove_personal_data"]
+	 *           ["advanced", "poocommerce_allow_tracking"]
+	 *           ["general", "poocommerce_address_autocomplete_enabled"]
 	 *
 	 * @param string $group Settings group.
 	 * @param string $id    Setting ID.
@@ -214,16 +214,16 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( $group, array( $id => 'yes' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertSame( 'no', get_option( $id ) );
 	}
 
 	/**
 	 * @testdox Should refuse settings that open paid downloads to anyone with the file URL.
-	 * @testWith ["woocommerce_file_download_method", "force", "redirect"]
-	 *           ["woocommerce_downloads_redirect_fallback_allowed", "no", "yes"]
-	 *           ["woocommerce_downloads_require_login", "yes", "no"]
-	 *           ["woocommerce_downloads_add_hash_to_filename", "yes", "no"]
+	 * @testWith ["poocommerce_file_download_method", "force", "redirect"]
+	 *           ["poocommerce_downloads_redirect_fallback_allowed", "no", "yes"]
+	 *           ["poocommerce_downloads_require_login", "yes", "no"]
+	 *           ["poocommerce_downloads_add_hash_to_filename", "yes", "no"]
 	 *
 	 * @param string $id     Setting ID.
 	 * @param string $stored Stored value.
@@ -235,7 +235,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'products', array( $id => $sent ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 		$this->assertSame( $stored, get_option( $id ) );
 	}
 
@@ -244,7 +244,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_updates_extension_group_field(): void {
 		add_filter(
-			'woocommerce_settings_groups',
+			'poocommerce_settings_groups',
 			static function ( $groups ) {
 				$groups[] = array(
 					'id'    => 'extension',
@@ -254,7 +254,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_settings-extension',
+			'poocommerce_settings-extension',
 			static function ( $settings ) {
 				$settings[] = array(
 					'id'         => 'mode',
@@ -287,7 +287,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_updates_extension_page_field(): void {
 		$this->add_general_field( array() );
-		add_filter( 'woocommerce_admin_settings_sanitize_option_extension_field', 'strtoupper' );
+		add_filter( 'poocommerce_admin_settings_sanitize_option_extension_field', 'strtoupper' );
 
 		$result = $this->sut->execute( $this->input( 'general', array( 'extension_field' => 'compact' ) ) );
 
@@ -318,7 +318,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'new', $result['settings'][0]['value'] );
 		$this->assertSame( $stored( 'new' ), get_option( $option ) );
 		$this->assertFalse( get_option( 'extension_field' ) );
-		$read = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$read = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
 				'include' => array( 'extension_field' ),
@@ -357,7 +357,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'general', array( 'extension_field' => $value ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 		$this->assertSame( array( 'extension_field' ), $result->get_error_data()['ids'] );
 		$this->assertSame( 'stored', get_option( 'extension_field' ) );
@@ -399,13 +399,13 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should turn off a checkbox that defaults to on when sent an empty value.
 	 */
 	public function test_saves_empty_checkbox_as_no(): void {
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 
-		$result = $this->sut->execute( $this->input( 'account', array( 'woocommerce_enable_guest_checkout' => '' ) ) );
+		$result = $this->sut->execute( $this->input( 'account', array( 'poocommerce_enable_guest_checkout' => '' ) ) );
 
 		$this->assertIsArray( $result );
 		$this->assertSame( 'no', $result['settings'][0]['value'] );
-		$this->assertSame( 'no', get_option( 'woocommerce_enable_guest_checkout' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_enable_guest_checkout' ) );
 	}
 
 	/**
@@ -429,7 +429,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'general', array( 'extension_field' => $values ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 		$this->assertSame( array( 'live' ), get_option( 'extension_field' ) );
 	}
 
@@ -475,25 +475,25 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			$this->assertSame( $value, get_option( 'extension_field' ) );
 		} else {
 			$this->assertWPError( $result );
-			$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 		}
 	}
 
 	/**
 	 * @testdox Should change nothing when any item in a batch is refused.
-	 * @testWith ["woocommerce_default_country", "invalid-country", "woocommerce_ability_settings_invalid_value"]
-	 *           ["missing_field", "Paris", "woocommerce_ability_settings_not_writable"]
+	 * @testWith ["poocommerce_default_country", "invalid-country", "poocommerce_ability_settings_invalid_value"]
+	 *           ["missing_field", "Paris", "poocommerce_ability_settings_not_writable"]
 	 * @param string $bad_id    ID of the refused item.
 	 * @param string $bad_value Value of the refused item.
 	 * @param string $code      Expected error code.
 	 */
 	public function test_batch_is_all_or_nothing( string $bad_id, string $bad_value, string $code ): void {
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_store_city', 'Berlin' );
-		update_option( 'woocommerce_default_country', 'DE' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_store_city', 'Berlin' );
+		update_option( 'poocommerce_default_country', 'DE' );
 		$values = array(
-			'woocommerce_currency'   => 'EUR',
-			'woocommerce_store_city' => 'Paris',
+			'poocommerce_currency'   => 'EUR',
+			'poocommerce_store_city' => 'Paris',
 			$bad_id                  => $bad_value,
 		);
 
@@ -503,10 +503,10 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$this->assertSame( $code, $result->get_error_code() );
 		$this->assertSame( array( $bad_id ), $result->get_error_data()['ids'] );
 		$this->assertStringContainsString( $bad_id, $result->get_error_message() );
-		$this->assertStringNotContainsString( 'woocommerce_currency', $result->get_error_message() );
-		$this->assertSame( 'USD', get_option( 'woocommerce_currency' ) );
-		$this->assertSame( 'Berlin', get_option( 'woocommerce_store_city' ) );
-		$this->assertSame( 'DE', get_option( 'woocommerce_default_country' ) );
+		$this->assertStringNotContainsString( 'poocommerce_currency', $result->get_error_message() );
+		$this->assertSame( 'USD', get_option( 'poocommerce_currency' ) );
+		$this->assertSame( 'Berlin', get_option( 'poocommerce_store_city' ) );
+		$this->assertSame( 'DE', get_option( 'poocommerce_default_country' ) );
 	}
 
 	/**
@@ -516,20 +516,20 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @param array $fields Value fields of the item.
 	 */
 	public function test_refuses_items_without_exactly_one_value_field( array $fields ): void {
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 
 		$result = $this->sut->execute(
 			array(
 				'group'    => 'general',
-				'settings' => array( array( 'id' => 'woocommerce_currency' ) + $fields ),
+				'settings' => array( array( 'id' => 'poocommerce_currency' ) + $fields ),
 			)
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
-		$this->assertSame( array( 'woocommerce_currency' ), $result->get_error_data()['ids'] );
-		$this->assertSame( 'These settings need exactly one of value or values: woocommerce_currency. Nothing was saved.', $result->get_error_message() );
-		$this->assertSame( 'USD', get_option( 'woocommerce_currency' ) );
+		$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
+		$this->assertSame( array( 'poocommerce_currency' ), $result->get_error_data()['ids'] );
+		$this->assertSame( 'These settings need exactly one of value or values: poocommerce_currency. Nothing was saved.', $result->get_error_message() );
+		$this->assertSame( 'USD', get_option( 'poocommerce_currency' ) );
 	}
 
 	/**
@@ -563,7 +563,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 		$this->assertSame( array( 'extension_field' => $expected ), $result->get_error_data()['expected'] );
 		$this->assertStringContainsString( "in {$expected}", $result->get_error_message() );
 		$this->assertStringContainsString( 'extension_field', $result->get_error_message() );
@@ -579,7 +579,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 				'group'    => 'general',
 				'settings' => array(
 					array(
-						'id'    => 'woocommerce_specific_allowed_countries',
+						'id'    => 'poocommerce_specific_allowed_countries',
 						'value' => array( 'DE' ),
 					),
 				),
@@ -594,14 +594,14 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should restore a list setting by sending its previous value back in values.
 	 */
 	public function test_restores_list_from_previous(): void {
-		update_option( 'woocommerce_specific_allowed_countries', array( 'DE', 'FR' ) );
-		$changed = $this->sut->execute( $this->input( 'general', array( 'woocommerce_specific_allowed_countries' => array( 'AT' ) ) ) );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'DE', 'FR' ) );
+		$changed = $this->sut->execute( $this->input( 'general', array( 'poocommerce_specific_allowed_countries' => array( 'AT' ) ) ) );
 		$this->assertIsArray( $changed );
 
-		$restored = $this->sut->execute( $this->input( 'general', array( 'woocommerce_specific_allowed_countries' => $changed['settings'][0]['previous'] ) ) );
+		$restored = $this->sut->execute( $this->input( 'general', array( 'poocommerce_specific_allowed_countries' => $changed['settings'][0]['previous'] ) ) );
 
 		$this->assertIsArray( $restored );
-		$this->assertSame( array( 'DE', 'FR' ), get_option( 'woocommerce_specific_allowed_countries' ) );
+		$this->assertSame( array( 'DE', 'FR' ), get_option( 'poocommerce_specific_allowed_countries' ) );
 	}
 
 	/**
@@ -616,22 +616,22 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			)
 		);
 		$product = self::factory()->post->create( array( 'post_type' => 'product' ) );
-		update_option( 'woocommerce_terms_page_id', '' );
+		update_option( 'poocommerce_terms_page_id', '' );
 
 		foreach ( array( 'abc', (string) $draft, (string) $product, '999999' ) as $value ) {
-			$result = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_terms_page_id' => $value ) ) );
+			$result = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_terms_page_id' => $value ) ) );
 			$this->assertWPError( $result, "{$value} should be refused." );
-			$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+			$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 		}
-		$this->assertSame( '', get_option( 'woocommerce_terms_page_id' ) );
+		$this->assertSame( '', get_option( 'poocommerce_terms_page_id' ) );
 
-		$result = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_terms_page_id' => $page ) ) );
+		$result = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_terms_page_id' => $page ) ) );
 		$this->assertIsArray( $result );
-		$this->assertSame( (string) $page, get_option( 'woocommerce_terms_page_id' ) );
+		$this->assertSame( (string) $page, get_option( 'poocommerce_terms_page_id' ) );
 
-		$result = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_terms_page_id' => '' ) ) );
+		$result = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_terms_page_id' => '' ) ) );
 		$this->assertIsArray( $result );
-		$this->assertSame( '', get_option( 'woocommerce_terms_page_id' ) );
+		$this->assertSame( '', get_option( 'poocommerce_terms_page_id' ) );
 	}
 
 	/**
@@ -639,31 +639,31 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_restores_unset_checkout_page_from_previous(): void {
 		$page = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		delete_option( 'woocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
 
-		$changed = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_checkout_page_id' => $page ) ) );
+		$changed = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_checkout_page_id' => $page ) ) );
 		$this->assertIsArray( $changed );
 		$this->assertSame( -1, $changed['settings'][0]['previous'] );
 
-		$restored = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_checkout_page_id' => $changed['settings'][0]['previous'] ) ) );
+		$restored = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_checkout_page_id' => $changed['settings'][0]['previous'] ) ) );
 		$this->assertIsArray( $restored );
-		$this->assertSame( '', get_option( 'woocommerce_checkout_page_id' ) );
+		$this->assertSame( '', get_option( 'poocommerce_checkout_page_id' ) );
 		$this->assertSame( -1, wc_get_page_id( 'checkout' ) );
 
-		$result = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_checkout_page_id' => '-2' ) ) );
+		$result = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_checkout_page_id' => '-2' ) ) );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_invalid_value', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_invalid_value', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should refuse page settings that would share a page, against both the batch and the stored pages.
-	 * @testWith ["woocommerce_checkout_page_id", "woocommerce_cart_page_id"]
-	 *           ["woocommerce_myaccount_page_id", "woocommerce_checkout_page_id"]
-	 *           ["woocommerce_terms_page_id", "woocommerce_checkout_page_id"]
-	 *           ["woocommerce_refund_returns_page_id", "woocommerce_cart_page_id"]
-	 *           ["woocommerce_refund_returns_page_id", "woocommerce_checkout_page_id"]
-	 *           ["woocommerce_refund_returns_page_id", "woocommerce_myaccount_page_id"]
-	 *           ["woocommerce_checkout_page_id", "woocommerce_refund_returns_page_id"]
+	 * @testWith ["poocommerce_checkout_page_id", "poocommerce_cart_page_id"]
+	 *           ["poocommerce_myaccount_page_id", "poocommerce_checkout_page_id"]
+	 *           ["poocommerce_terms_page_id", "poocommerce_checkout_page_id"]
+	 *           ["poocommerce_refund_returns_page_id", "poocommerce_cart_page_id"]
+	 *           ["poocommerce_refund_returns_page_id", "poocommerce_checkout_page_id"]
+	 *           ["poocommerce_refund_returns_page_id", "poocommerce_myaccount_page_id"]
+	 *           ["poocommerce_checkout_page_id", "poocommerce_refund_returns_page_id"]
 	 * @param string $requested Page setting the batch changes.
 	 * @param string $stored    Page setting that already uses the page.
 	 */
@@ -675,7 +675,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'advanced', array( $requested => $page ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_page_conflict', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_page_conflict', $result->get_error_code() );
 		$this->assertSame( array( $requested ), $result->get_error_data()['ids'] );
 		$this->assertSame( '', get_option( $requested ) );
 
@@ -691,7 +691,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_page_conflict', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_page_conflict', $result->get_error_code() );
 		$this->assertSame( $page, get_option( $stored ) );
 	}
 
@@ -700,55 +700,55 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_refuses_shop_page_as_refund_policy(): void {
 		$page = (string) self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_shop_page_id', $page );
-		update_option( 'woocommerce_refund_returns_page_id', '' );
+		update_option( 'poocommerce_shop_page_id', $page );
+		update_option( 'poocommerce_refund_returns_page_id', '' );
 
-		$result = $this->sut->execute( $this->input( 'advanced', array( 'woocommerce_refund_returns_page_id' => $page ) ) );
+		$result = $this->sut->execute( $this->input( 'advanced', array( 'poocommerce_refund_returns_page_id' => $page ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_page_conflict', $result->get_error_code() );
-		$this->assertSame( array( 'woocommerce_refund_returns_page_id' ), $result->get_error_data()['ids'] );
-		$this->assertSame( '', get_option( 'woocommerce_refund_returns_page_id' ) );
+		$this->assertSame( 'poocommerce_ability_settings_page_conflict', $result->get_error_code() );
+		$this->assertSame( array( 'poocommerce_refund_returns_page_id' ), $result->get_error_data()['ids'] );
+		$this->assertSame( '', get_option( 'poocommerce_refund_returns_page_id' ) );
 
 		$refund = (string) self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_refund_returns_page_id', $refund );
+		update_option( 'poocommerce_refund_returns_page_id', $refund );
 
-		$result = $this->sut->execute( $this->input( 'products', array( 'woocommerce_shop_page_id' => $refund ) ) );
+		$result = $this->sut->execute( $this->input( 'products', array( 'poocommerce_shop_page_id' => $refund ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_page_conflict', $result->get_error_code() );
-		$this->assertSame( $page, get_option( 'woocommerce_shop_page_id' ) );
+		$this->assertSame( 'poocommerce_ability_settings_page_conflict', $result->get_error_code() );
+		$this->assertSame( $page, get_option( 'poocommerce_shop_page_id' ) );
 	}
 
 	/**
 	 * @testdox Should queue a rewrite rules flush after every save, including endpoint slug and shop page changes, but not after a refused one.
 	 */
 	public function test_save_queues_rewrite_flush(): void {
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
-		$this->sut->execute( $this->input( 'advanced', array( 'woocommerce_myaccount_orders_endpoint' => 'my-orders' ) ) );
-		$this->assertSame( 'my-orders', get_option( 'woocommerce_myaccount_orders_endpoint' ) );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
+		$this->sut->execute( $this->input( 'advanced', array( 'poocommerce_myaccount_orders_endpoint' => 'my-orders' ) ) );
+		$this->assertSame( 'my-orders', get_option( 'poocommerce_myaccount_orders_endpoint' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
 		$shop = self::factory()->post->create( array( 'post_type' => 'page' ) );
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
-		$this->sut->execute( $this->input( 'products', array( 'woocommerce_shop_page_id' => $shop ) ) );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
+		$this->sut->execute( $this->input( 'products', array( 'poocommerce_shop_page_id' => $shop ) ) );
 		$this->assertSame( $shop, wc_get_page_id( 'shop' ) );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
-		$this->sut->execute( $this->input( 'general', array( 'woocommerce_currency' => 'EUR' ) ) );
-		$this->assertSame( 'yes', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
+		$this->sut->execute( $this->input( 'general', array( 'poocommerce_currency' => 'EUR' ) ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 
-		update_option( 'woocommerce_queue_flush_rewrite_rules', 'no' );
+		update_option( 'poocommerce_queue_flush_rewrite_rules', 'no' );
 		$this->assertWPError( $this->sut->execute( $this->input( 'general', array( 'missing_field' => 'value' ) ) ) );
-		$this->assertSame( 'no', get_option( 'woocommerce_queue_flush_rewrite_rules' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_queue_flush_rewrite_rules' ) );
 	}
 
 	/**
 	 * @testdox Should recount product terms when out of stock visibility changes, and only then.
 	 */
 	public function test_out_of_stock_visibility_change_recounts_terms(): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 		$term_id = (int) wp_insert_term( 'Recount category', 'product_cat' )['term_id'];
 		$product = \WC_Helper_Product::create_simple_product();
 		$product->set_category_ids( array( $term_id ) );
@@ -762,15 +762,15 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			++$recounts;
 			return $recount;
 		};
-		add_filter( 'woocommerce_product_recount_terms', $counter );
+		add_filter( 'poocommerce_product_recount_terms', $counter );
 
-		$this->sut->execute( $this->input( 'products', array( 'woocommerce_hide_out_of_stock_items' => false ) ) );
+		$this->sut->execute( $this->input( 'products', array( 'poocommerce_hide_out_of_stock_items' => false ) ) );
 		$this->assertSame( 0, $recounts );
 
-		$this->sut->execute( $this->input( 'products', array( 'woocommerce_hide_out_of_stock_items' => true ) ) );
-		remove_filter( 'woocommerce_product_recount_terms', $counter );
+		$this->sut->execute( $this->input( 'products', array( 'poocommerce_hide_out_of_stock_items' => true ) ) );
+		remove_filter( 'poocommerce_product_recount_terms', $counter );
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_hide_out_of_stock_items' ) );
 		$this->assertSame( 0, (int) get_term_meta( $term_id, 'product_count_product_cat', true ) );
 	}
 
@@ -779,19 +779,19 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_shipping_and_tax_changes_invalidate_shipping_rates(): void {
 		set_transient( 'shipping-transient-version', 'stale' );
-		$this->sut->execute( $this->input( 'shipping', array( 'woocommerce_shipping_hide_rates_when_free' => true ) ) );
+		$this->sut->execute( $this->input( 'shipping', array( 'poocommerce_shipping_hide_rates_when_free' => true ) ) );
 
-		$this->assertSame( 'yes', get_option( 'woocommerce_shipping_hide_rates_when_free' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_shipping_hide_rates_when_free' ) );
 		$this->assertNotSame( 'stale', \WC_Cache_Helper::get_transient_version( 'shipping' ) );
 
 		set_transient( 'shipping-transient-version', 'stale' );
-		$this->sut->execute( $this->input( 'tax', array( 'woocommerce_tax_based_on' => TaxBasedOn::BILLING ) ) );
+		$this->sut->execute( $this->input( 'tax', array( 'poocommerce_tax_based_on' => TaxBasedOn::BILLING ) ) );
 
-		$this->assertSame( TaxBasedOn::BILLING, get_option( 'woocommerce_tax_based_on' ) );
+		$this->assertSame( TaxBasedOn::BILLING, get_option( 'poocommerce_tax_based_on' ) );
 		$this->assertNotSame( 'stale', \WC_Cache_Helper::get_transient_version( 'shipping' ) );
 
 		set_transient( 'shipping-transient-version', 'stale' );
-		$this->sut->execute( $this->input( 'general', array( 'woocommerce_currency' => 'EUR' ) ) );
+		$this->sut->execute( $this->input( 'general', array( 'poocommerce_currency' => 'EUR' ) ) );
 
 		$this->assertSame( 'stale', \WC_Cache_Helper::get_transient_version( 'shipping' ) );
 	}
@@ -800,19 +800,19 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should refuse a batch that names the same setting twice.
 	 */
 	public function test_refuses_duplicate_ids(): void {
-		$input               = $this->input( 'general', array( 'woocommerce_currency' => 'EUR' ) );
+		$input               = $this->input( 'general', array( 'poocommerce_currency' => 'EUR' ) );
 		$input['settings'][] = array(
-			'id'    => 'woocommerce_currency',
+			'id'    => 'poocommerce_currency',
 			'value' => 'GBP',
 		);
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 
 		$result = $this->sut->execute( $input );
 
 		$this->assertWPError( $result );
-		$this->assertSame( array( 'woocommerce_currency' ), $result->get_error_data()['ids'] );
-		$this->assertSame( 'These settings are named more than once: woocommerce_currency. Send each setting once. Nothing was saved.', $result->get_error_message() );
-		$this->assertSame( 'USD', get_option( 'woocommerce_currency' ) );
+		$this->assertSame( array( 'poocommerce_currency' ), $result->get_error_data()['ids'] );
+		$this->assertSame( 'These settings are named more than once: poocommerce_currency. Send each setting once. Nothing was saved.', $result->get_error_message() );
+		$this->assertSame( 'USD', get_option( 'poocommerce_currency' ) );
 	}
 
 	/**
@@ -820,7 +820,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_updates_array_option_key(): void {
 		update_option(
-			'woocommerce_new_order_settings',
+			'poocommerce_new_order_settings',
 			array(
 				'subject'   => 'Old subject',
 				'recipient' => 'private@example.test',
@@ -836,7 +836,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 				'subject'   => 'New subject',
 				'recipient' => 'private@example.test',
 			),
-			get_option( 'woocommerce_new_order_settings' )
+			get_option( 'poocommerce_new_order_settings' )
 		);
 	}
 
@@ -844,14 +844,14 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 	 * @testdox Should keep the autoload flag the settings page declares, as the admin save does.
 	 */
 	public function test_keeps_declared_autoload(): void {
-		delete_option( 'woocommerce_enable_guest_checkout' );
-		add_option( 'woocommerce_enable_guest_checkout', 'yes', '', false );
+		delete_option( 'poocommerce_enable_guest_checkout' );
+		add_option( 'poocommerce_enable_guest_checkout', 'yes', '', false );
 
-		$result = $this->sut->execute( $this->input( 'account', array( 'woocommerce_enable_guest_checkout' => 'no' ) ) );
+		$result = $this->sut->execute( $this->input( 'account', array( 'poocommerce_enable_guest_checkout' => 'no' ) ) );
 
 		$this->assertIsArray( $result );
-		$this->assertSame( 'no', get_option( 'woocommerce_enable_guest_checkout' ) );
-		$this->assertArrayNotHasKey( 'woocommerce_enable_guest_checkout', wp_load_alloptions( true ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_enable_guest_checkout' ) );
+		$this->assertArrayNotHasKey( 'poocommerce_enable_guest_checkout', wp_load_alloptions( true ) );
 	}
 
 	/**
@@ -883,7 +883,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 
 		$this->sut->execute( $this->input( 'email_new_order', array( 'subject' => 'C:\Reports' ) ) );
 
-		$this->assertSame( 'C:\Reports', get_option( 'woocommerce_new_order_settings' )['subject'] );
+		$this->assertSame( 'C:\Reports', get_option( 'poocommerce_new_order_settings' )['subject'] );
 	}
 
 	/**
@@ -893,7 +893,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'email_new_order', array( 'recipient' => 'attacker@example.test' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_not_writable', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_not_writable', $result->get_error_code() );
 	}
 
 	/**
@@ -903,34 +903,34 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 		$result = $this->sut->execute( $this->input( 'missing', array( 'id' => 'value' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_group_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_group_not_found', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should refuse customers without changing the setting.
 	 */
 	public function test_refuses_customer(): void {
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
-		$result = $this->sut->execute( $this->input( 'general', array( 'woocommerce_currency' => 'EUR' ) ) );
+		$result = $this->sut->execute( $this->input( 'general', array( 'poocommerce_currency' => 'EUR' ) ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'USD', get_option( 'woocommerce_currency' ) );
+		$this->assertSame( 'USD', get_option( 'poocommerce_currency' ) );
 	}
 
 	/**
 	 * @testdox Should leave the settings query output unchanged by write opt-ins.
 	 */
 	public function test_settings_query_output_is_unchanged(): void {
-		update_option( 'woocommerce_currency', 'GBP' );
+		update_option( 'poocommerce_currency', 'GBP' );
 		$this->add_general_field( array( 'title' => 'Extension field' ) );
 		update_option( 'extension_field', 'stored' );
 
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
-				'include' => array( 'extension_field', 'woocommerce_currency' ),
+				'include' => array( 'extension_field', 'poocommerce_currency' ),
 			)
 		);
 
@@ -948,7 +948,7 @@ class SettingsUpdateTest extends \WC_Unit_Test_Case {
 			),
 			$settings['extension_field']
 		);
-		$this->assertSame( array( 'id', 'label', 'description', 'type', 'value', 'default', 'options' ), array_keys( $settings['woocommerce_currency'] ) );
-		$this->assertSame( 'GBP', $settings['woocommerce_currency']['value'] );
+		$this->assertSame( array( 'id', 'label', 'description', 'type', 'value', 'default', 'options' ), array_keys( $settings['poocommerce_currency'] ) );
+		$this->assertSame( 'GBP', $settings['poocommerce_currency']['value'] );
 	}
 }

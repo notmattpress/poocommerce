@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\SharedStores;
+namespace Automattic\PooCommerce\Blocks\SharedStores;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Package;
 use InvalidArgumentException;
 
 /**
- * Shared store that hydrates the `woocommerce/products` Interactivity API
+ * Shared store that hydrates the `poocommerce/products` Interactivity API
  * store with product and variation data in Store API format.
  *
  * The store exposes two planes:
@@ -37,14 +37,14 @@ class ProductsStore {
 	 *
 	 * @var string
 	 */
-	private static string $consent_statement = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	private static string $consent_statement = 'I acknowledge that using experimental APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The namespace for the store.
 	 *
 	 * @var string
 	 */
-	private static string $store_namespace = 'woocommerce/products';
+	private static string $store_namespace = 'poocommerce/products';
 
 	/**
 	 * Products that have been loaded into state.
@@ -100,7 +100,7 @@ class ProductsStore {
 	 * wp_interactivity_state() at call time, they only need to be
 	 * registered once regardless of how many products are added.
 	 *
-	 * It also makes the raw data readable from the `woocommerce` store as
+	 * It also makes the raw data readable from the `poocommerce` store as
 	 * `state.products` and `state.productVariations`, without a copy.
 	 *
 	 * @return void
@@ -112,10 +112,10 @@ class ProductsStore {
 
 		self::$getters_registered = true;
 
-		// Temporary: until every block reads product data from `woocommerce`,
-		// that store reads it from `woocommerce/products` through these views.
+		// Temporary: until every block reads product data from `poocommerce`,
+		// that store reads it from `poocommerce/products` through these views.
 		wp_interactivity_state(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'products'          => new ProductDataView( 'products' ),
 				'productVariations' => new ProductDataView( 'productVariations' ),

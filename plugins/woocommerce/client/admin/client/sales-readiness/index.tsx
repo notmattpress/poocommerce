@@ -18,7 +18,7 @@ import { FixFirstCard } from './components/fix-first';
 import { DeclaredCard, SectionCard } from './components/section-card';
 
 /**
- * WooCommerce > Sales readiness: when the store was last checked, Fix first, then a card per
+ * PooCommerce > Sales readiness: when the store was last checked, Fix first, then a card per
  * merchant question with the checks from the last scan, and what the store shares with agents.
  */
 export default function SalesReadiness() {
@@ -42,7 +42,7 @@ export default function SalesReadiness() {
 						{
 							label:
 								view?.title ??
-								__( 'AI shopping health', 'woocommerce' ),
+								__( 'AI shopping health', 'poocommerce' ),
 						},
 					] }
 				/>

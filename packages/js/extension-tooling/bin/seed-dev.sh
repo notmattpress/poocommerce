@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Seeds the wp-env development site (localhost:$WP_ENV_PORT) with a browsable store: store
-# address, admin and customer addresses, payment, shipping, tax and WooCommerce's sample
+# address, admin and customer addresses, payment, shipping, tax and PooCommerce's sample
 # products, then runs the supplied hook for the plugin's data.
 #
 # Runs inside the `cli` container via `pnpm run env:dev:seed`; `pnpm run env:dev:reset` wipes
@@ -42,15 +42,15 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 HTACCESS
-wp option update woocommerce_onboarding_profile --format=json '{"skipped":true}'
-wp option update woocommerce_coming_soon 'no'
-wp option update woocommerce_store_address '60 29th Street #343'
-wp option update woocommerce_store_city 'San Francisco'
-wp option update woocommerce_store_postcode '94110'
-wp option update woocommerce_default_country 'US:CA'
-wp option update woocommerce_default_customer_address 'geolocation'
-wp option update woocommerce_currency 'USD'
-wp option update woocommerce_currency_pos 'left'
+wp option update poocommerce_onboarding_profile --format=json '{"skipped":true}'
+wp option update poocommerce_coming_soon 'no'
+wp option update poocommerce_store_address '60 29th Street #343'
+wp option update poocommerce_store_city 'San Francisco'
+wp option update poocommerce_store_postcode '94110'
+wp option update poocommerce_default_country 'US:CA'
+wp option update poocommerce_default_customer_address 'geolocation'
+wp option update poocommerce_currency 'USD'
+wp option update poocommerce_currency_pos 'left'
 
 echo "Adding addresses and a customer..."
 address='"company":"Automattic","country":"US","address_1":"60 29th Street #343","city":"San Francisco","state":"CA","postcode":"94110","phone":"123456789"'
@@ -63,18 +63,18 @@ wp wc customer create --user=1 --email='customer@example.com' --username='custom
 	--shipping="{\"first_name\":\"Jane\",\"last_name\":\"Smith\",${address}}" --porcelain >/dev/null
 
 echo "Enabling payment, shipping and tax..."
-wp option update --format=json woocommerce_dummy_settings '{"enabled":"yes","title":"Dummy Payment","description":"The goods are yours. No money needed.","result":"success"}'
+wp option update --format=json poocommerce_dummy_settings '{"enabled":"yes","title":"Dummy Payment","description":"The goods are yours. No money needed.","result":"success"}'
 zone=$(wp wc shipping_zone create --user=1 --name='United States (US)' --porcelain)
-wp db query "INSERT INTO $(wp db prefix)woocommerce_shipping_zone_locations (zone_id, location_code, location_type) VALUES (${zone}, 'US', 'country')"
+wp db query "INSERT INTO $(wp db prefix)poocommerce_shipping_zone_locations (zone_id, location_code, location_type) VALUES (${zone}, 'US', 'country')"
 wp wc shipping_zone_method create "${zone}" --user=1 --method_id=flat_rate --enabled=true --settings='{"title":"Flat Rate","cost":"10"}' --porcelain >/dev/null
 wp wc shipping_zone_method create 0 --user=1 --method_id=flat_rate --enabled=true --settings='{"title":"Flat Rate","cost":"20"}' --porcelain >/dev/null
-wp option update woocommerce_calc_taxes 'yes'
+wp option update poocommerce_calc_taxes 'yes'
 wp wc tax create --user=1 --rate=10 --class=standard --porcelain >/dev/null
 
-echo "Importing WooCommerce sample products..."
+echo "Importing PooCommerce sample products..."
 wp plugin install wordpress-importer --activate --quiet
-# wp-env names the WooCommerce folder after its zip (e.g. woocommerce.latest-stable), so look it up by its main file.
-wc_dir="$(wp plugin path)/$(dirname "$(wp plugin list --field=file | grep '/woocommerce\.php$')")"
+# wp-env names the PooCommerce folder after its zip (e.g. poocommerce.latest-stable), so look it up by its main file.
+wc_dir="$(wp plugin path)/$(dirname "$(wp plugin list --field=file | grep '/poocommerce\.php$')")"
 wp import "${wc_dir}/sample-data/sample_products.xml" --authors=create --quiet
 
 # Plugin-specific products and fixtures.

@@ -10,7 +10,7 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests/src/util/index.js';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests/src/util/index.js';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 /**
@@ -26,7 +26,7 @@ const setHref = mockBrowserLocation( 'href' );
 
 const recordEventMock = jest.fn();
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: ( name: string, payload: Record< string, unknown > ) =>
 		recordEventMock( name, payload ),
 } ) );
@@ -76,7 +76,7 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: () => ( { createErrorNotice: createErrorNoticeMock } ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.com/wp-admin/${ path }`,
 } ) );
 

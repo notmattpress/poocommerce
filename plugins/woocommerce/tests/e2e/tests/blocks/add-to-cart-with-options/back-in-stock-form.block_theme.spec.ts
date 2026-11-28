@@ -9,7 +9,7 @@ import {
 	getProductAttributeIds,
 	guestFile,
 	wpCLI,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const test = base.extend< {
 				slug: `single-product-${ product.slug }`,
 				title: `Single Product ${ product.slug }`,
 				content:
-					'<!-- wp:woocommerce/store-notices /--><!-- wp:woocommerce/add-to-cart-with-options /-->',
+					'<!-- wp:poocommerce/store-notices /--><!-- wp:poocommerce/add-to-cart-with-options /-->',
 			} );
 			return product;
 		} );

@@ -23,7 +23,7 @@
 		this.skipped  = 0;
 
 		// Initial state.
-		this.$form.find('.woocommerce-importer-progress').val( 0 );
+		this.$form.find('.poocommerce-importer-progress').val( 0 );
 
 		this.run_import = this.run_import.bind( this );
 
@@ -41,7 +41,7 @@
 			type: 'POST',
 			url: ajaxurl,
 			data: {
-				action            : 'woocommerce_do_ajax_product_import',
+				action            : 'poocommerce_do_ajax_product_import',
 				position          : $this.position,
 				mapping           : $this.mapping,
 				file              : $this.file,
@@ -59,7 +59,7 @@
 					$this.failed   += response.data.failed;
 					$this.updated  += response.data.updated;
 					$this.skipped  += response.data.skipped;
-					$this.$form.find('.woocommerce-importer-progress').val( response.data.percentage );
+					$this.$form.find('.poocommerce-importer-progress').val( response.data.percentage );
 
 					if ( 'done' === response.data.position ) {
 						var file_name = wc_product_import_params.file.split( '/' ).pop();
@@ -94,6 +94,6 @@
 		return this;
 	};
 
-	$( '.woocommerce-importer' ).wc_product_importer();
+	$( '.poocommerce-importer' ).wc_product_importer();
 
 })( jQuery, window );

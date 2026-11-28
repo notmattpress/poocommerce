@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { AddressAutocompleteResult } from '@woocommerce/types';
+import { AddressAutocompleteResult } from '@poocommerce/types';
 import { decodeEntities } from '@wordpress/html-entities';
-import { sanitizeHTML } from '@woocommerce/sanitize';
-import { exitingProps } from '@woocommerce/base-hooks';
+import { sanitizeHTML } from '@poocommerce/sanitize';
+import { exitingProps } from '@poocommerce/base-hooks';
 
 /**
  * Get highlighted label parts based on matches returned by `search` results.
@@ -124,7 +124,7 @@ export const Suggestions = ( {
 			</ul>
 			{ branding ? (
 				<div
-					className="woocommerce-address-autocomplete-branding"
+					className="poocommerce-address-autocomplete-branding"
 					dangerouslySetInnerHTML={ {
 						__html: sanitizeHTML( branding, {
 							tags: [ 'a', 'img', 'span', 'br' ],

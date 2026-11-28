@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Tax_Rate_Importer class.
  *
- * @package WooCommerce\Tests\Admin\Importers
+ * @package PooCommerce\Tests\Admin\Importers
  */
 
 declare( strict_types = 1 );

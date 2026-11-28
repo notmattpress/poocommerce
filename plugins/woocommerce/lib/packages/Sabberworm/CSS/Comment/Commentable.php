@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment;
 
 interface Commentable
 {

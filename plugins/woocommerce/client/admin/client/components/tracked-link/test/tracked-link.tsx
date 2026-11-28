@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ import { TrackedLink } from '../tracked-link';
 
 const setHref = mockBrowserLocation( 'href' );
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 // Stop jsdom from following the link when Link leaves a modified click to the browser.
 const preventNavigation = ( event: Event ) => event.preventDefault();

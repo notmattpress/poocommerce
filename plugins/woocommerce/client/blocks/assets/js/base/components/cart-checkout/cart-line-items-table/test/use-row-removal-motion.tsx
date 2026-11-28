@@ -19,7 +19,7 @@ const Table = ( {
 	const tableRef = useRef< HTMLTableElement >( null );
 	useRowRemovalMotion( tableRef, keys );
 	return (
-		<div className="wp-block-woocommerce-cart">
+		<div className="wp-block-poocommerce-cart">
 			<table ref={ tableRef } style={ style }>
 				<tbody>
 					{ keys.map( ( key ) => (

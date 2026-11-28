@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for WC_Meta_Box_Order_Downloads::save().
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Meta_Box_Order_Downloads_Test extends WC_Unit_Test_Case {
 

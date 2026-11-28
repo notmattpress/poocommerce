@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\MCP;
+namespace Automattic\PooCommerce\Tests\Internal\MCP;
 
-use Automattic\WooCommerce\Internal\MCP\MCPAdapterProvider;
-use Automattic\WooCommerce\Internal\MCP\Transport\WooCommerceRestTransport;
+use Automattic\PooCommerce\Internal\MCP\MCPAdapterProvider;
+use Automattic\PooCommerce\Internal\MCP\Transport\PooCommerceRestTransport;
 use WC_Unit_Test_Case;
 use WP_Error;
 use WP_REST_Request;
 
 /**
- * Tests for the polyfills left in place of the removed WooCommerce MCP endpoint classes.
+ * Tests for the polyfills left in place of the removed PooCommerce MCP endpoint classes.
  */
 class RemovedMcpClassesTest extends WC_Unit_Test_Case {
 
@@ -42,9 +42,9 @@ class RemovedMcpClassesTest extends WC_Unit_Test_Case {
 				static fn() => MCPAdapterProvider::is_mcp_request(),
 				false,
 			),
-			'WooCommerceRestTransport::get_current_user_permissions' => array(
-				WooCommerceRestTransport::class . '::get_current_user_permissions',
-				static fn() => WooCommerceRestTransport::get_current_user_permissions(),
+			'PooCommerceRestTransport::get_current_user_permissions' => array(
+				PooCommerceRestTransport::class . '::get_current_user_permissions',
+				static fn() => PooCommerceRestTransport::get_current_user_permissions(),
 				null,
 			),
 		);
@@ -64,21 +64,21 @@ class RemovedMcpClassesTest extends WC_Unit_Test_Case {
 		$provider->initialize_mcp_server( new \stdClass() );
 
 		$this->assertFalse( $provider->is_initialized() );
-		$this->assertSame( 'woocommerce', MCPAdapterProvider::MCP_NAMESPACE );
+		$this->assertSame( 'poocommerce', MCPAdapterProvider::MCP_NAMESPACE );
 		$this->assertSame( 'mcp', MCPAdapterProvider::MCP_ROUTE );
 	}
 
 	/**
-	 * @testdox Should keep WooCommerceRestTransport instance methods callable while denying access.
+	 * @testdox Should keep PooCommerceRestTransport instance methods callable while denying access.
 	 */
 	public function test_transport_instance_methods_deny_access(): void {
-		$this->setExpectedIncorrectUsage( WooCommerceRestTransport::class . '::__construct' );
-		$this->setExpectedIncorrectUsage( WooCommerceRestTransport::class . '::check_permission' );
-		$this->setExpectedIncorrectUsage( WooCommerceRestTransport::class . '::validate_request' );
-		$this->setExpectedIncorrectUsage( WooCommerceRestTransport::class . '::check_ability_permission' );
+		$this->setExpectedIncorrectUsage( PooCommerceRestTransport::class . '::__construct' );
+		$this->setExpectedIncorrectUsage( PooCommerceRestTransport::class . '::check_permission' );
+		$this->setExpectedIncorrectUsage( PooCommerceRestTransport::class . '::validate_request' );
+		$this->setExpectedIncorrectUsage( PooCommerceRestTransport::class . '::check_ability_permission' );
 
-		$transport = new WooCommerceRestTransport( null );
-		$request   = new WP_REST_Request( 'POST', '/woocommerce/mcp' );
+		$transport = new PooCommerceRestTransport( null );
+		$request   = new WP_REST_Request( 'POST', '/poocommerce/mcp' );
 
 		$this->assertInstanceOf( WP_Error::class, $transport->check_permission( $request ) );
 		$this->assertInstanceOf( WP_Error::class, $transport->validate_request( $request ) );

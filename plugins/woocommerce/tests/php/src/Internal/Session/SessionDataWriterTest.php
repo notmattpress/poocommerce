@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Session;
+namespace Automattic\PooCommerce\Tests\Internal\Session;
 
-use Automattic\WooCommerce\Internal\Session\SessionDataWriter;
+use Automattic\PooCommerce\Internal\Session\SessionDataWriter;
 use WC_Unit_Test_Case;
 
 /**
@@ -33,7 +33,7 @@ class SessionDataWriterTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->sut   = new SessionDataWriter();
-		$this->table = $GLOBALS['wpdb']->prefix . 'woocommerce_sessions';
+		$this->table = $GLOBALS['wpdb']->prefix . 'poocommerce_sessions';
 	}
 
 	/**

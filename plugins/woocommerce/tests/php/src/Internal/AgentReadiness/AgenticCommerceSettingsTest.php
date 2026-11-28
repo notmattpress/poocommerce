@@ -1,19 +1,19 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgenticCommerceSettingsPage;
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessCopy;
-use Automattic\WooCommerce\Internal\AgentReadiness\ReadinessRule;
-use Automattic\WooCommerce\Internal\AgentReadiness\RemoteRules;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreConditions;
-use Automattic\WooCommerce\Internal\AgentReadiness\SupportReport;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettings;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgenticCommerceSettingsPage;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessCheckPage;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessCopy;
+use Automattic\PooCommerce\Internal\AgentReadiness\ReadinessRule;
+use Automattic\PooCommerce\Internal\AgentReadiness\RemoteRules;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreConditions;
+use Automattic\PooCommerce\Internal\AgentReadiness\SupportReport;
 use WC_Admin_Settings;
 use WC_Helper_Product;
 use WC_Unit_Test_Case;
@@ -52,7 +52,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			// On multisite only a super admin can choose the privacy policy page, as a single site's administrator can.
 			grant_super_admin( get_current_user_id() );
 		}
-		delete_option( 'woocommerce_feature_ucp_enabled' );
+		delete_option( 'poocommerce_feature_ucp_enabled' );
 		$this->sut = wc_get_container()->get( AgenticCommerceSettings::class );
 	}
 
@@ -74,10 +74,10 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox The AI tools tab is added in the admin.
 	 */
 	public function test_tab_added(): void {
-		remove_all_filters( 'woocommerce_get_settings_pages' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		remove_all_filters( 'poocommerce_get_settings_pages' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$this->sut->handle_init();
-		$pages = apply_filters( 'woocommerce_get_settings_pages', array() );
+		$pages = apply_filters( 'poocommerce_get_settings_pages', array() );
 
 		$this->assertCount( 1, $pages );
 		$this->assertInstanceOf( AgenticCommerceSettingsPage::class, $pages[0] );
@@ -92,7 +92,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$previous = $current_tab;
 		try {
 			$current_tab = AgenticCommerceSettings::TAB; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			$this->assertStringContainsString( 'woocommerce-settings-agentic-commerce-tab', $this->sut->handle_admin_body_class( 'wp-admin' ) );
+			$this->assertStringContainsString( 'poocommerce-settings-agentic-commerce-tab', $this->sut->handle_admin_body_class( 'wp-admin' ) );
 
 			$current_tab = 'checkout'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 			$this->assertSame( 'wp-admin', $this->sut->handle_admin_body_class( 'wp-admin' ) );
@@ -102,7 +102,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Sales readiness is added as a WooCommerce Admin page under WooCommerce, before Settings.
+	 * @testdox Sales readiness is added as a PooCommerce Admin page under PooCommerce, before Settings.
 	 */
 	public function test_readiness_page_added(): void {
 		$page = wc_get_container()->get( ReadinessCheckPage::class );
@@ -115,9 +115,9 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$saved   = array_map( static fn( string $name ) => $GLOBALS[ $name ] ?? null, array_combine( $globals, $globals ) );
 		try {
 			$GLOBALS['submenu'] = array(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Start from an empty menu; restored below.
-			add_menu_page( 'WooCommerce', 'WooCommerce', 'manage_woocommerce', 'woocommerce' );
+			add_menu_page( 'PooCommerce', 'PooCommerce', 'manage_poocommerce', 'poocommerce' );
 			$page->handle_admin_menu();
-			$this->assertSame( array( 'AI shopping health', 'manage_woocommerce', 'wc-admin&path=/sales-readiness' ), array_slice( end( $GLOBALS['submenu']['woocommerce'] ), 0, 3 ) );
+			$this->assertSame( array( 'AI shopping health', 'manage_poocommerce', 'wc-admin&path=/sales-readiness' ), array_slice( end( $GLOBALS['submenu']['poocommerce'] ), 0, 3 ) );
 		} finally {
 			foreach ( $saved as $name => $value ) {
 				$GLOBALS[ $name ] = $value; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Restoring what the test changed.
@@ -176,14 +176,14 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Only users who can manage WooCommerce can start a connection.
+	 * @testdox Only users who can manage PooCommerce can start a connection.
 	 */
-	public function test_connect_needs_manage_woocommerce(): void {
+	public function test_connect_needs_manage_poocommerce(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 		$_REQUEST['_wpnonce'] = wp_create_nonce( AgenticCommerceSettings::CONNECT_ACTION );
 		try {
 			$this->sut->handle_connect();
-			$this->fail( 'The connect action stops users who cannot manage WooCommerce' );
+			$this->fail( 'The connect action stops users who cannot manage PooCommerce' );
 		} catch ( \WPDieException $e ) {
 			$this->assertStringContainsString( 'not allowed to connect', $e->getMessage() );
 		} finally {
@@ -200,25 +200,25 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			add_query_arg( AgenticCommerceSettings::CONNECT_RESULT, 'error', AgenticCommerceSettings::url() ),
 			AgenticCommerceSettings::connect_redirect()
 		);
-		$this->assertSame( array( 'woocommerce', 'ai-tools' ), get_option( 'jetpack_activation_source' ) );
+		$this->assertSame( array( 'poocommerce', 'ai-tools' ), get_option( 'jetpack_activation_source' ) );
 	}
 
 	/**
 	 * @testdox An activation source Jetpack already stored is left as it is.
 	 */
 	public function test_connect_redirect_keeps_an_existing_activation_source(): void {
-		update_option( 'jetpack_activation_source', array( 'woocommerce', 'onboarding' ) );
+		update_option( 'jetpack_activation_source', array( 'poocommerce', 'onboarding' ) );
 		AgenticCommerceSettings::connect_redirect();
-		$this->assertSame( array( 'woocommerce', 'onboarding' ), get_option( 'jetpack_activation_source' ) );
+		$this->assertSame( array( 'poocommerce', 'onboarding' ), get_option( 'jetpack_activation_source' ) );
 	}
 
 	/**
 	 * @testdox A source that is not a pair is replaced, because Jetpack unpacks the first two items.
 	 */
 	public function test_connect_redirect_replaces_an_activation_source_that_is_not_a_pair(): void {
-		update_option( 'jetpack_activation_source', array( 'woocommerce' ) );
+		update_option( 'jetpack_activation_source', array( 'poocommerce' ) );
 		AgenticCommerceSettings::connect_redirect();
-		$this->assertSame( array( 'woocommerce', 'ai-tools' ), get_option( 'jetpack_activation_source' ) );
+		$this->assertSame( array( 'poocommerce', 'ai-tools' ), get_option( 'jetpack_activation_source' ) );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_output_with_report_and_failing_checks(): void {
 		remove_all_filters( 'pre_option_home' );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		update_option( 'home', 'http://example.org' );
 		WC_Helper_Product::create_simple_product();
 		WC_Helper_Product::create_external_product();
@@ -466,7 +466,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	public function test_required_step_left_reads_the_same_everywhere(): void {
 		$this->make_every_step_pass();
 		$this->turn_off_order_emails();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$shopping = $this->shopping( true );
 		$this->assertSame( array(), wc_get_container()->get( StoreConditions::class )->failing_required(), 'Order emails are shown as Required and don\'t block the switch' );
@@ -494,13 +494,13 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	public function test_shopping_scenarios( string $store, ?string $ucp, string $text, ?string $badge, string $button, string $checklist ): void {
 		if ( 'coming_soon' === $store ) {
 			remove_all_filters( 'pre_option_home' );
-			update_option( 'woocommerce_coming_soon', 'yes' );
+			update_option( 'poocommerce_coming_soon', 'yes' );
 			update_option( 'home', 'http://example.org' );
 		} else {
 			$this->make_every_step_pass();
 		}
 		if ( 'optional_left' === $store ) {
-			update_option( 'woocommerce_enable_guest_checkout', 'no' );
+			update_option( 'poocommerce_enable_guest_checkout', 'no' );
 		}
 		if ( 'policy_left' === $store ) {
 			delete_option( AgenticCommerceSettings::REFUND_RETURNS_PAGE_OPTION );
@@ -508,7 +508,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 
 		$page = $this->shopping( 'yes' === $ucp );
 		if ( 'no' === $ucp ) {
-			update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+			update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		}
 		$shopping = $this->view()['overview']['shopping'];
 
@@ -557,7 +557,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox In coming soon mode the switch card says so and links to Site visibility.
 	 */
 	public function test_output_coming_soon_notice_in_switch_card(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$shopping = $this->shopping();
 
@@ -740,7 +740,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		delete_option( ScheduledScan::DAILY_OPTION );
 		update_option( AgentReadiness::REPORT_OPTION, array( 'store_checks' => array( $launched( true ), $sitemap, array( 'ok' => null ) + $robots ) ), false );
 
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		$card = array_column( $this->view()['sections'], null, 'id' )['find'];
 		$this->assertSame( 'Your store is in coming soon mode', $card['rows'][0]['title'] );
 		$this->assertSame( 'These checks run once your store is live.', $card['rows'][0]['text'] );
@@ -748,7 +748,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $card['rows'][0]['waiting'], 'Screen readers hear Not checked yet' );
 
 		// Checked while coming soon, then launched: wait for the next check, don't blame hosting.
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		update_option( AgentReadiness::REPORT_OPTION, array( 'store_checks' => array( $launched( false ), $sitemap, array( 'ok' => null ) + $robots ) ), false );
 		$card = array_column( $this->view()['sections'], null, 'id' )['find'];
 		$this->assertSame( 'Your store wasn’t live at the last check', $card['rows'][0]['title'] );
@@ -821,7 +821,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		update_option( AgentReadiness::REPORT_OPTION, array( 'store_checks' => array( $launched( true ) ) ), false );
 		$this->assertNull( $this->view()['coming_soon'], 'A live store needs no notice' );
 
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		$notice = $this->view()['coming_soon'];
 		$this->assertSame( 'Your store is in coming soon mode, so AI assistants can’t find your products yet. These results are from when your store was live.', $notice['text'] );
 		$this->assertSame( 'Change site visibility', $notice['link']['text'], 'The same button as the AI shopping notice' );
@@ -842,7 +842,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_output_switch_on_with_failing_checks(): void {
 		remove_all_filters( 'pre_option_home' );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		update_option( 'home', 'http://example.org' );
 		$page = $this->shopping( true );
 
@@ -888,7 +888,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'conflict' => $conflict,
 		);
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(
@@ -941,7 +941,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$conflict = $sections['understand']['rows'][0];
 		$this->assertSame( 'Let AI assistants read your product details', $conflict['title'], 'A failing check is headed by what to do' );
 		$this->assertStringStartsWith( 'On the Blue mug page, the name, price, and stock aren’t in the page code', $conflict['text'], 'then why it matters and what the check found, naming the product from the stored report' );
-		$this->assertSame( 'A theme or plugin may have turned this off. Check their settings for WooCommerce structured data.', $conflict['fix'], 'and the fix, since it has one' );
+		$this->assertSame( 'A theme or plugin may have turned this off. Check their settings for PooCommerce structured data.', $conflict['fix'], 'and the fix, since it has one' );
 		$this->assertNull( $conflict['badge'], 'A likely conflict has no badge; the page it was seen on says where' );
 		$this->assertSame(
 			array(
@@ -951,10 +951,10 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			$conflict['seen_at'],
 			'A conflict names the page'
 		);
-		$report                               = get_option( 'woocommerce_agent_readiness_report' );
+		$report                               = get_option( 'poocommerce_agent_readiness_report' );
 		$report['store_checks'][0]['seen_at'] = 'javascript:alert(1)';
 		$report['store_checks'][0]['fix_url'] = 'javascript:alert(1)';
-		update_option( 'woocommerce_agent_readiness_report', $report );
+		update_option( 'poocommerce_agent_readiness_report', $report );
 		$row = array_column( $this->view()['sections'], null, 'id' )['understand']['rows'][0];
 		$this->assertNull( $row['seen_at'], 'A stored page that is not an http(s) URL is not linked' );
 		$this->assertNull( $row['link'], 'nor is a stored fix URL' );
@@ -983,7 +983,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	public function test_output_declared_block(): void {
 		$this->make_every_step_pass();
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(),
@@ -1042,19 +1042,19 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertNull( $groups['Couldn’t check'][0]['found'], 'Not read is neither found nor missing' );
 		$this->assertFalse( $view['declared']['waiting'], 'The store is live, so an unread item couldn\'t be checked' );
 
-		$report             = get_option( 'woocommerce_agent_readiness_report' );
+		$report             = get_option( 'poocommerce_agent_readiness_report' );
 		$report['declared'] = array(
 			array(
-				'id'    => 'llms-txt-woocommerce-guidance',
-				'name'  => 'WooCommerce store guidance',
+				'id'    => 'llms-txt-poocommerce-guidance',
+				'name'  => 'PooCommerce store guidance',
 				'found' => false,
 			),
 		);
-		update_option( 'woocommerce_agent_readiness_report', $report );
+		update_option( 'poocommerce_agent_readiness_report', $report );
 		$this->assertStringContainsString(
-			'WooCommerce caches its llms.txt briefly',
+			'PooCommerce caches its llms.txt briefly',
 			$this->view()['declared']['text'],
-			'Missing WooCommerce guidance notes the short llms.txt cache'
+			'Missing PooCommerce guidance notes the short llms.txt cache'
 		);
 		$this->assertSame(
 			array(
@@ -1071,7 +1071,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_output_declared_none_found_and_bad_entries(): void {
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(),
@@ -1089,7 +1089,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'Your store shares 0 of 1.', $this->view()['declared']['text'] );
 
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(),
@@ -1105,7 +1105,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'shares', $this->view()['declared']['text'], 'With nothing checked, as in coming soon mode, there is no count' );
 
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array(),
@@ -1640,7 +1640,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox With AI shopping off, Store access with checks to show keeps them and the note, and no Turn on AI shopping button.
 	 */
 	public function test_store_access_with_checks_keeps_the_ucp_off_note(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		$row    = static fn( string $id ): array => array(
 			'id'      => $id,
 			'ok'      => true,
@@ -1653,7 +1653,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'fix_url' => '',
 		);
 		update_option(
-			'woocommerce_agent_readiness_report',
+			'poocommerce_agent_readiness_report',
 			array(
 				'generated_at' => gmdate( 'c' ),
 				'store_checks' => array( $row( 'no_noindex_directives' ), $row( 'pages_public' ) ),
@@ -1664,7 +1664,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertNull( $access['empty'] );
 		$this->assertCount( 2, $access['folded'], 'The passed checks stay, as in the design' );
 
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		$this->assertNull( array_column( $this->view()['sections'], null, 'id' )['access']['note'], 'In coming soon mode the store has to go live first, so the AI shopping note waits' );
 	}
 
@@ -1859,11 +1859,11 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Guest checkout off is an Optional setup step, not Required in Fix first, including when this WooCommerce serves UCP checkout.
+	 * @testdox Guest checkout off is an Optional setup step, not Required in Fix first, including when this PooCommerce serves UCP checkout.
 	 */
 	public function test_guest_checkout_stays_optional(): void {
 		$this->make_every_step_pass();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 		update_option(
 			AgentReadiness::REPORT_OPTION,
 			array(
@@ -1918,7 +1918,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'Finish 3 required steps to get your store ready for AI shopping.', $fix_first['ranking'], 'With only setup steps nothing is ranked, so the card counts them as the Setup checklist does' );
 		$this->assertNull( $fix_first['link'], 'and offers no way to rank by sales' );
 
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 		$shopping = $this->shopping();
 		$this->assertStringStartsWith( 'Finish 3 required steps', $shopping['checklist']['summary'] );
 		$this->assertSame( '3 steps left', $shopping['checklist']['badge']['text'], 'The badge counts the required steps, as the summary does, not the optional one too' );
@@ -1993,7 +1993,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->make_every_step_pass();
 		$this->turn_off_order_emails();
 		update_option( AgentReadiness::REPORT_OPTION, $this->report_with_listing_issue( $with_sales ), false );
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 
 		$view  = $this->view();
 		$items = $view['fix_first']['items'];
@@ -2010,7 +2010,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertFalse( $shopping['ucp']['blocked'] );
 
 		$this->make_every_step_pass();
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 		$view = $this->view();
 		$this->assertSame( array( 'missing_images' ), array_column( $view['fix_first']['items'], 'id' ), 'Once the email is on, it leaves Fix first' );
 		$this->assertStringNotContainsString( 'Turn on order confirmation emails', (string) wp_json_encode( $view['sections'] ), 'nor does it fold into the buying card' );
@@ -2046,7 +2046,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'conflict' => false,
 		);
 		update_option( AgentReadiness::REPORT_OPTION, $this->report_with_listing_issue( $with_sales, array( $scanned ) ), false );
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 
 		$view = $this->view();
 		$buy  = array_column( $view['sections'], null, 'id' )['buy'];
@@ -2057,7 +2057,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertSame( 'Set up payments', $this->step( $this->shopping( $ucp_on ), 'payment_method' )['title'], 'And in the Setup checklist' );
 
 		$this->make_every_step_pass();
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 		$buy = array_column( $this->view()['sections'], null, 'id' )['buy'];
 		$this->assertSame( array( 'product_shipping_schema' ), array_column( $buy['rows'], 'id' ) );
 		$this->assertSame( '1 issue', $buy['badge']['text'] );
@@ -2083,7 +2083,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_failing_ucp_profile_is_required_and_endpoint_not(): void {
 		$this->make_every_step_pass();
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		$row = static fn( string $id ): array => array(
 			'id'       => $id,
 			'ok'       => false,
@@ -2283,7 +2283,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$this->assertSame( $published, (int) get_option( AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION ) );
 		$this->assertSame( '', (string) get_option( AgenticCommerceSettings::FAQ_PAGE_OPTION ), 'An empty choice clears a stored draft' );
 		$this->assertSame( $published, (int) get_option( AgenticCommerceSettings::WARRANTY_PAGE_OPTION ) );
-		$this->assertFalse( get_option( 'woocommerce_return_policy_summary' ), 'There is no return policy summary' );
+		$this->assertFalse( get_option( 'poocommerce_return_policy_summary' ), 'There is no return policy summary' );
 	}
 
 	/**
@@ -2296,7 +2296,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'post_status' => 'publish',
 			)
 		);
-		update_option( 'woocommerce_checkout_page_id', $checkout );
+		update_option( 'poocommerce_checkout_page_id', $checkout );
 		$terms_field = array();
 		foreach ( $this->page()->get_settings_for_section( AgenticCommerceSettings::SHOPPING_SECTION ) as $field ) {
 			if ( AgenticCommerceSettings::TERMS_PAGE_OPTION === ( $field['id'] ?? '' ) ) {
@@ -2324,7 +2324,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'post_title'  => 'Cart',
 			)
 		);
-		update_option( 'woocommerce_cart_page_id', $cart );
+		update_option( 'poocommerce_cart_page_id', $cart );
 		update_option( AgenticCommerceSettings::TERMS_PAGE_OPTION, $cart );
 
 		$settings = $this->page()->get_settings_for_section( AgenticCommerceSettings::SHOPPING_SECTION );
@@ -2404,18 +2404,18 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A discovery file WooCommerce didn't write shows the removal instruction, not a permalinks link.
+	 * @testdox A discovery file PooCommerce didn't write shows the removal instruction, not a permalinks link.
 	 */
 	public function test_ucp_file_in_the_way_shows_the_removal_instruction(): void {
 		StoreConditionsTest::make_store_ready();
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/.well-known/ucp';
 		wp_mkdir_p( dirname( $path ) );
 		file_put_contents( $path, '{}' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 
 		try {
 			$step = $this->step( $this->shopping(), 'ucp_discovery' );
-			$this->assertStringContainsString( 'that WooCommerce didn’t create is loading instead', implode( ' ', $step['lines'] ) );
+			$this->assertStringContainsString( 'that PooCommerce didn’t create is loading instead', implode( ' ', $step['lines'] ) );
 			$this->assertStringContainsString( $path, implode( ' ', $step['lines'] ) );
 			$this->assertNull( $step['link'], 'No permalinks link' );
 		} finally {
@@ -2438,7 +2438,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$locked = get_temp_dir() . uniqid( 'wc-ucp-locked-' );
 		mkdir( $locked ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_mkdir
 		chmod( $locked, 0555 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $locked . '/ucp' );
 
 		try {
 			if ( is_writable( $locked ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
@@ -2465,7 +2465,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * @testdox The switch stays disabled until the required checks pass.
 	 */
 	public function test_switch_disabled_until_required_checks_pass(): void {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$this->assertTrue( $this->shopping()['ucp']['blocked'] );
 
@@ -2482,7 +2482,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'id'      => 'ucp_discovery',
 				'label'   => 'Fix your connection URL',
 				'why'     => 'AI assistants use your connection URL to find your products, and it doesn\'t load your store\'s details.',
-				'fix'     => 'Remove the /tmp/ucp file that WooCommerce didn\'t write. It is being served instead of your store profile.',
+				'fix'     => 'Remove the /tmp/ucp file that PooCommerce didn\'t write. It is being served instead of your store profile.',
 				'fix_url' => '',
 			)
 		);
@@ -2502,7 +2502,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 				'id'      => 'ucp_discovery',
 				'label'   => 'Use a readable permalink structure',
 				'why'     => 'Any structure except Plain lets AI assistants reach your store.',
-				'fix'     => 'Choose any structure except Plain under Settings > Permalinks. Structures that start with index.php don\'t work either. Or make /tmp writable by the web server so WooCommerce can write the file.',
+				'fix'     => 'Choose any structure except Plain under Settings > Permalinks. Structures that start with index.php don\'t work either. Or make /tmp writable by the web server so PooCommerce can write the file.',
 				'fix_url' => admin_url( 'options-permalink.php' ),
 			)
 		);
@@ -2595,7 +2595,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		StoreConditionsTest::make_store_ready( $this );
 		update_option( AgenticCommerceSettings::SHIPPING_POLICY_PAGE_OPTION, get_option( AgenticCommerceSettings::TERMS_PAGE_OPTION ) );
 		update_option( 'blog_public', '1' );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 		$gateways = WC()->payment_gateways()->payment_gateways();
 		$email    = WC()->mailer()->get_emails()['WC_Email_Customer_Processing_Order'];
 		foreach ( array( reset( $gateways ), $email ) as $item ) {
@@ -2608,9 +2608,9 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 	 * A fresh settings page.
 	 */
 	private function page(): AgenticCommerceSettingsPage {
-		delete_option( 'woocommerce_feature_ucp_enabled' );
+		delete_option( 'poocommerce_feature_ucp_enabled' );
 		$this->sut->handle_init();
-		$pages = $this->sut->handle_woocommerce_get_settings_pages( array() );
+		$pages = $this->sut->handle_poocommerce_get_settings_pages( array() );
 		return $pages[0];
 	}
 
@@ -2680,10 +2680,10 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		global $current_section;
 		$page = $this->page();
 		if ( $ucp_on ) {
-			update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+			update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 		}
 		unset( $GLOBALS['hide_save_button'] );
-		$current_section = $section; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section WooCommerce sets from the URL; reset below.
+		$current_section = $section; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section PooCommerce sets from the URL; reset below.
 		try {
 			ob_start();
 			$page->output();
@@ -2776,12 +2776,12 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			);
 			return $settings;
 		};
-		add_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+		add_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 
 		try {
 			$shopping = $this->shopping();
 		} finally {
-			remove_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+			remove_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 		}
 
 		$this->assertSame( 'example_policy[page]', $this->policy( $shopping, 'example_policy_page_id' )['name'] );
@@ -2811,11 +2811,11 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			);
 			return $settings;
 		};
-		add_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+		add_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 		$_POST['example_policy']                             = array( 'page' => (string) $page );
 		$_POST[ AgenticCommerceSettings::TERMS_PAGE_OPTION ] = (string) $page;
 
-		$current_section = AgenticCommerceSettings::SHOPPING_SECTION; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section WooCommerce sets from the URL; reset below.
+		$current_section = AgenticCommerceSettings::SHOPPING_SECTION; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section PooCommerce sets from the URL; reset below.
 
 		try {
 			$this->page()->save();
@@ -2823,7 +2823,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		} finally {
 			$current_section = ''; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Reset after the save.
 			unset( $_POST['example_policy'], $_POST[ AgenticCommerceSettings::TERMS_PAGE_OPTION ] );
-			remove_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+			remove_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 		}
 
 		$this->assertSame( array( 'page' => (string) $page ), get_option( 'example_policy' ), 'save_fields writes the nested option' );
@@ -2842,7 +2842,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			);
 			return $settings;
 		};
-		add_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+		add_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 		update_option( 'example_agentic_checkbox', 'yes' );
 		$page = self::factory()->post->create(
 			array(
@@ -2851,14 +2851,14 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			)
 		);
 		$_POST[ AgenticCommerceSettings::TERMS_PAGE_OPTION ] = (string) $page;
-		$current_section                                     = AgenticCommerceSettings::SHOPPING_SECTION; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section WooCommerce sets from the URL; reset below.
+		$current_section                                     = AgenticCommerceSettings::SHOPPING_SECTION; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The section PooCommerce sets from the URL; reset below.
 
 		try {
 			$this->page()->save();
 		} finally {
 			$current_section = ''; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Reset after the save.
 			unset( $_POST[ AgenticCommerceSettings::TERMS_PAGE_OPTION ] );
-			remove_filter( 'woocommerce_get_settings_agentic-commerce', $add );
+			remove_filter( 'poocommerce_get_settings_agentic-commerce', $add );
 		}
 
 		$this->assertSame( (string) $page, (string) get_option( AgenticCommerceSettings::TERMS_PAGE_OPTION ), 'The posted policy field is saved' );
@@ -2872,7 +2872,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 		$shopping = $this->shopping();
 
 		$this->assertSame( 'Learn how it works', $shopping['ucp']['learn_more']['text'] );
-		$this->assertSame( 'https://woocommerce.com/document/woocommerce-ai/agentic-commerce/', $shopping['ucp']['learn_more']['href'], 'The doc for setting up AI shopping' );
+		$this->assertSame( 'https://poocommerce.com/document/poocommerce-ai/agentic-commerce/', $shopping['ucp']['learn_more']['href'], 'The doc for setting up AI shopping' );
 		$this->assertSame( '/wc/v3/agent-readiness/ucp', $shopping['ucp']['path'], 'The switch saves on its own, as before' );
 		$this->assertSame( 'Test the connection in UCP Playground', $shopping['connection']['test']['text'] );
 		$this->assertSame( 'https://ucpplayground.com', $shopping['connection']['test']['href'] );
@@ -3063,7 +3063,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'conflict' => false,
 		);
 		update_option( AgentReadiness::REPORT_OPTION, $this->report_with_listing_issue( $with_sales, array( $noindex ) ), false );
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 
 		$view     = $this->view();
 		$sections = array_column( $view['sections'], null, 'id' );
@@ -3108,7 +3108,7 @@ class AgenticCommerceSettingsTest extends WC_Unit_Test_Case {
 			'conflict' => false,
 		);
 		update_option( AgentReadiness::REPORT_OPTION, $this->report_with_listing_issue( $with_sales, array( $wall ) ), false );
-		update_option( 'woocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', $ucp_on ? 'yes' : 'no' );
 
 		$view  = $this->view();
 		$items = array_column( $view['fix_first']['items'], null, 'id' );

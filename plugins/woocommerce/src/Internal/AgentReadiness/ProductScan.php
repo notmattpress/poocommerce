@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\Checks\AbstractReadinessCheck;
+use Automattic\PooCommerce\Internal\AgentReadiness\Checks\AbstractReadinessCheck;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -362,7 +362,7 @@ class ProductScan {
 		 *
 		 * @param int[] $product_ids Product ids in this batch.
 		 */
-		do_action( 'woocommerce_agent_readiness_scan_batch', $product_ids );
+		do_action( 'poocommerce_agent_readiness_scan_batch', $product_ids );
 		self::prime_related( $product_ids );
 		$this->tested_callback = $on_tested;
 		try {

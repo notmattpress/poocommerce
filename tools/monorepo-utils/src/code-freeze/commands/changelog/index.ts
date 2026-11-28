@@ -20,13 +20,13 @@ export const changelogCommand = new Command( 'changelog' )
 	.description( 'Make changelog pull requests to trunk and release branch' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-d --dev-repo-path <devRepoPath>',
@@ -63,8 +63,8 @@ export const changelogCommand = new Command( 'changelog' )
 		);
 
 		const cloneOptions = {
-			owner: owner ? owner : 'woocommerce',
-			name: name ? name : 'woocommerce',
+			owner: owner ? owner : 'poocommerce',
+			name: name ? name : 'poocommerce',
 		};
 		// Use a supplied path, otherwise do a full clone of the repo, including history, so that changelogs can be created with links to PRs.
 		const tmpRepoPath = devRepoPath
@@ -80,7 +80,7 @@ export const changelogCommand = new Command( 'changelog' )
 		// When a devRepoPath is provided, assume that the dependencies are already installed.
 		if ( ! devRepoPath ) {
 			Logger.notice( `Installing dependencies in ${ tmpRepoPath }` );
-			execSync( 'pnpm install --filter woocommerce', {
+			execSync( 'pnpm install --filter poocommerce', {
 				cwd: tmpRepoPath,
 				stdio: 'inherit',
 			} );

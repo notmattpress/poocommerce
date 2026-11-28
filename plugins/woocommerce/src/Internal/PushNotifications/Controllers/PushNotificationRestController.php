@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
-use Automattic\WooCommerce\Internal\PushNotifications\Enums\AuthorizationFailureReason;
-use Automattic\WooCommerce\Internal\PushNotifications\Notifications\Notification;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
-use Automattic\WooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Dispatchers\InternalNotificationDispatcher;
+use Automattic\PooCommerce\Internal\PushNotifications\Enums\AuthorizationFailureReason;
+use Automattic\PooCommerce\Internal\PushNotifications\Notifications\Notification;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationProcessor;
+use Automattic\PooCommerce\Internal\PushNotifications\Services\NotificationStepLogger;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Exception;
 use WC_Rate_Limiter;
 use WP_Error;
@@ -174,7 +174,7 @@ class PushNotificationRestController {
 		$this->log_authorization_failure( $request, $reason );
 
 		return new WP_Error(
-			'woocommerce_rest_unauthorized',
+			'poocommerce_rest_unauthorized',
 			self::AUTH_FAILURE_MESSAGES[ $reason ],
 			array( 'status' => WP_Http::UNAUTHORIZED )
 		);

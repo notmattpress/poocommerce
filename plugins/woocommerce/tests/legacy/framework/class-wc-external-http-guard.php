@@ -2,7 +2,7 @@
 /**
  * Blocks HTTP requests from tests to external hosts.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

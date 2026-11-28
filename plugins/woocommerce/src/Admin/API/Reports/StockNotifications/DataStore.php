@@ -5,16 +5,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\Reports\StockNotifications;
+namespace Automattic\PooCommerce\Admin\API\Reports\StockNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
 
 /**
  * Stock notifications report, one row per product.
@@ -55,7 +55,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	/**
 	 * Transient version group for this report's cache, so sign-up changes don't clear other reports.
 	 */
-	const CACHE_VERSION_GROUP = 'woocommerce_reports_stock_notifications';
+	const CACHE_VERSION_GROUP = 'poocommerce_reports_stock_notifications';
 
 	/**
 	 * Data store context used to pass to filters.
@@ -407,7 +407,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				} else {
 					$extended_info = array(
 						/* translators: %s: product ID, e.g. #123 */
-						'name'      => sprintf( __( '%s (Deleted)', 'woocommerce' ), '#' . $row['product_id'] ),
+						'name'      => sprintf( __( '%s (Deleted)', 'poocommerce' ), '#' . $row['product_id'] ),
 						'permalink' => '',
 						'edit_url'  => '',
 					);

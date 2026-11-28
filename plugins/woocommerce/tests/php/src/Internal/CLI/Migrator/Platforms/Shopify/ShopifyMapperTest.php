@@ -2,15 +2,15 @@
 /**
  * Shopify Mapper Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
 
 /**
  * Test cases for ShopifyMapper implementation.

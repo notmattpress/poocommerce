@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class SystemStatusToolsQuery extends AbstractDomainAbility implements AbilityDef
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/system-status-tools-query';
+		return 'poocommerce/system-status-tools-query';
 	}
 
 	/**
@@ -37,18 +37,18 @@ class SystemStatusToolsQuery extends AbstractDomainAbility implements AbilityDef
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Query status tools', 'woocommerce' ),
+			'label'               => __( 'Query status tools', 'poocommerce' ),
 			'description'         => __(
-				'List the maintenance tools under WooCommerce > Status > Tools, in screen order, and what each does. Run a runnable one with woocommerce/system-status-tool-run.',
-				'woocommerce'
+				'List the maintenance tools under PooCommerce > Status > Tools, in screen order, and what each does. Run a runnable one with poocommerce/system-status-tool-run.',
+				'poocommerce'
 			),
-			'category'            => 'woocommerce',
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'include' => array(
 						'type'        => 'array',
-						'description' => __( 'Return only these tool IDs.', 'woocommerce' ),
+						'description' => __( 'Return only these tool IDs.', 'poocommerce' ),
 						'items'       => array(
 							'type'      => 'string',
 							'minLength' => 1,
@@ -140,7 +140,7 @@ class SystemStatusToolsQuery extends AbstractDomainAbility implements AbilityDef
 				'description' => array( 'type' => 'string' ),
 				'runnable'    => array(
 					'type'        => 'boolean',
-					'description' => __( 'Whether woocommerce/system-status-tool-run can run the tool.', 'woocommerce' ),
+					'description' => __( 'Whether poocommerce/system-status-tool-run can run the tool.', 'poocommerce' ),
 				),
 			),
 			'additionalProperties' => false,

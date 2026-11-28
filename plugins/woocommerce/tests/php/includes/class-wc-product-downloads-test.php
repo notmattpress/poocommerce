@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 /**
  * Class WC_Product_Download_Test
  */
@@ -63,16 +63,16 @@ class WC_Product_Download_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox The file type check reads the path the download handler opens for $path.
-	 * @testWith ["{site}/wp-content/plugins/woocommerce/woocommerce.php#.jpg", false]
-	 *           ["{site}/wp-content/plugins/woocommerce/woocommerce.php#x.jpg?y", false]
-	 *           ["{site}/wp-content/plugins/woocommerce/woocommerce.PHP#.JPG", false]
-	 *           ["{site}/wp-content/plugins/woocommerce/woocommerce.php?.jpg", false]
-	 *           ["{plugin_dir}/woocommerce/woocommerce.php#.jpg", false]
-	 *           ["wp-content/plugins/woocommerce/woocommerce.php#.jpg", false]
-	 *           ["{site}/wp-content/plugins/woocommerce/woocommerce.php%23.jpg", true]
-	 *           ["{site}/wp-content/plugins/woocommerce/woocommerce.php%3F.jpg", true]
-	 *           ["{site}/wp-content/plugins/woocommerce/assets/images/help.png#v2", true]
-	 *           ["{site}/wp-content/plugins/woocommerce/assets/images/help.png?v=2", true]
+	 * @testWith ["{site}/wp-content/plugins/poocommerce/poocommerce.php#.jpg", false]
+	 *           ["{site}/wp-content/plugins/poocommerce/poocommerce.php#x.jpg?y", false]
+	 *           ["{site}/wp-content/plugins/poocommerce/poocommerce.PHP#.JPG", false]
+	 *           ["{site}/wp-content/plugins/poocommerce/poocommerce.php?.jpg", false]
+	 *           ["{plugin_dir}/poocommerce/poocommerce.php#.jpg", false]
+	 *           ["wp-content/plugins/poocommerce/poocommerce.php#.jpg", false]
+	 *           ["{site}/wp-content/plugins/poocommerce/poocommerce.php%23.jpg", true]
+	 *           ["{site}/wp-content/plugins/poocommerce/poocommerce.php%3F.jpg", true]
+	 *           ["{site}/wp-content/plugins/poocommerce/assets/images/help.png#v2", true]
+	 *           ["{site}/wp-content/plugins/poocommerce/assets/images/help.png?v=2", true]
 	 *
 	 * @param string $path    File path; {site} is replaced with the site URL and {plugin_dir} with the plugins directory.
 	 * @param bool   $allowed Whether the file type should be allowed.

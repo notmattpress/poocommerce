@@ -7,7 +7,7 @@ import type {
 	Cart,
 	CartVariationItem,
 	ApiErrorResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ import {
 	getInfoNoticesFromCartUpdates,
 } from './notices';
 import { isCartItem, lineMatchesProduct } from './utils';
-import type { SelectedAttributes, WooCommerceConfig } from '../types';
+import type { SelectedAttributes, PooCommerceConfig } from '../types';
 import type {
 	AddCartItemOutcome,
 	CartUpdateOptions,
@@ -284,8 +284,8 @@ async function sendCartRequest(
 
 				if ( anyAdd ) {
 					const { messages } = getConfig(
-						'woocommerce'
-					) as WooCommerceConfig;
+						'poocommerce'
+					) as PooCommerceConfig;
 					const text = messages?.addedToCartText;
 					if ( text ) {
 						if ( speakFn ) {
@@ -313,9 +313,9 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 // Todo: export this store once the store is public.
-const { state } = store< Store >( 'woocommerce', {}, { lock: universalLock } );
+const { state } = store< Store >( 'poocommerce', {}, { lock: universalLock } );
 const { actions } = store< Store >(
-	'woocommerce',
+	'poocommerce',
 	{
 		state: {
 			findItemInCart( {

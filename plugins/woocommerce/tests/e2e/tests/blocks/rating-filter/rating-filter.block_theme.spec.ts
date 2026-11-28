@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, flushMacrotask } from '@woocommerce/e2e-utils';
+import { test, expect, flushMacrotask } from '@poocommerce/e2e-utils';
 
 // The Cap is the only seeded product in this bucket: its reviews are rated 1
 // and 2, averaging 1.5.
@@ -18,7 +18,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		await page.clock.install();
 		const post = await createPost( 'filters-with-product-collection' );
 		const productTitles = page.locator(
-			'.wp-block-woocommerce-product-template .wp-block-post-title'
+			'.wp-block-poocommerce-product-template .wp-block-post-title'
 		);
 
 		await page.goto( post.link );

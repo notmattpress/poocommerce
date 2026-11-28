@@ -1,18 +1,18 @@
 <?php
 /**
- * WooCommerce Product CSV importer
+ * PooCommerce Product CSV importer
  *
- * @package WooCommerce\Import
+ * @package PooCommerce\Import
  * @version 10.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController;
-use Automattic\WooCommerce\Internal\ProductCustoms\CustomsDataValidator;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController;
+use Automattic\PooCommerce\Internal\ProductCustoms\CustomsDataValidator;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -138,14 +138,14 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 */
 	protected function read_file() {
 		if ( ! WC_Product_CSV_Importer_Controller::is_file_valid_csv( $this->file ) ) {
-			wp_die( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'poocommerce' ) );
 		}
 
 		$handle = @fopen( $this->file, 'r' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- warning suppressed so a strict error handler cannot preempt the RuntimeException below.
 
 		if ( false === $handle ) {
 			// An exception rather than wp_die(), so callers in any context (admin, AJAX, REST, CLI) can catch and present it appropriately.
-			throw new RuntimeException( esc_html__( 'Unable to open the CSV file, please try again with a new file.', 'woocommerce' ) );
+			throw new RuntimeException( esc_html__( 'Unable to open the CSV file, please try again with a new file.', 'poocommerce' ) );
 		}
 
 		$headers = fgetcsv( $handle, 0, $this->params['delimiter'], $this->params['enclosure'], $this->params['escape'] ); // @codingStandardsIgnoreLine
@@ -424,21 +424,21 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 				if ( ! $id ) {
 					if ( 'parent_id' === $field ) {
 						return new WP_Error(
-							'woocommerce_product_importer_variation_parent_not_variable',
+							'poocommerce_product_importer_variation_parent_not_variable',
 							/* translators: %s: SKU of the product referenced by the CSV row. */
-							sprintf( esc_html__( 'No product was found with the SKU "%s".', 'woocommerce' ), esc_html( $sku ) )
+							sprintf( esc_html__( 'No product was found with the SKU "%s".', 'poocommerce' ), esc_html( $sku ) )
 						);
 					}
 
 					$labels     = array(
-						'children'       => __( 'Grouped products', 'woocommerce' ),
-						'upsell_ids'     => __( 'Upsells', 'woocommerce' ),
-						'cross_sell_ids' => __( 'Cross-sells', 'woocommerce' ),
+						'children'       => __( 'Grouped products', 'poocommerce' ),
+						'upsell_ids'     => __( 'Upsells', 'poocommerce' ),
+						'cross_sell_ids' => __( 'Cross-sells', 'poocommerce' ),
 					);
 					$warnings[] = new WP_Error(
-						'woocommerce_product_importer_unresolved_relationship_sku',
+						'poocommerce_product_importer_unresolved_relationship_sku',
 						/* translators: 1: CSV field name, 2: SKU of the product referenced by the CSV row. */
-						sprintf( esc_html__( 'Skipped the "%1$s" field because no product was found with the SKU "%2$s".', 'woocommerce' ), esc_html( $labels[ $field ] ), esc_html( $sku ) )
+						sprintf( esc_html__( 'Skipped the "%1$s" field because no product was found with the SKU "%2$s".', 'poocommerce' ), esc_html( $labels[ $field ] ), esc_html( $sku ) )
 					);
 					unset( $row[ $field ] );
 					continue 2;
@@ -930,7 +930,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		}
 
 		$images    = array();
-		$separator = apply_filters( 'woocommerce_product_import_image_separator', ',' );
+		$separator = apply_filters( 'poocommerce_product_import_image_separator', ',' );
 
 		foreach ( $this->explode_values( $value, $separator ) as $image ) {
 			if ( stristr( $image, '://' ) ) {
@@ -1276,7 +1276,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			$callbacks[] = $callback;
 		}
 
-		return apply_filters( 'woocommerce_product_importer_formatting_callbacks', $callbacks, $this );
+		return apply_filters( 'poocommerce_product_importer_formatting_callbacks', $callbacks, $this );
 	}
 
 	/**
@@ -1299,7 +1299,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 * @return array
 	 */
 	protected function expand_data( $data ) {
-		$data = apply_filters( 'woocommerce_product_importer_pre_expand_data', $data );
+		$data = apply_filters( 'poocommerce_product_importer_pre_expand_data', $data );
 
 		// Images field maps to image and gallery id fields.
 		if ( isset( $data['images'] ) ) {
@@ -1319,8 +1319,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			// (including one containing only separators) still leaves existing images
 			// untouched. Gating on the gallery values too keeps them imported when the
 			// featured-image slot is empty (e.g. a cell starting with a separator).
-			// See https://github.com/woocommerce/woocommerce/issues/34839
-			// and https://github.com/woocommerce/woocommerce/issues/66583.
+			// See https://github.com/poocommerce/poocommerce/issues/34839
+			// and https://github.com/poocommerce/poocommerce/issues/66583.
 			if ( ! empty( $data['raw_image_id'] ) || ! empty( $gallery ) ) {
 				$data['raw_gallery_image_ids'] = $gallery;
 			}
@@ -1502,7 +1502,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			$data          = array();
 			$relationships = array();
 
-			do_action( 'woocommerce_product_importer_before_set_parsed_data', $row, $mapped_keys );
+			do_action( 'poocommerce_product_importer_before_set_parsed_data', $row, $mapped_keys );
 
 			foreach ( $row as $id => $value ) {
 				// Skip ignored columns.
@@ -1542,7 +1542,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			 *
 			 * @since 3.1.0
 			 */
-			$parsed_row = apply_filters( 'woocommerce_product_importer_parsed_data', $row, $this );
+			$parsed_row = apply_filters( 'poocommerce_product_importer_parsed_data', $row, $this );
 			foreach ( $relationships as $field => $value ) {
 				$product_field = self::RELATIONSHIP_FIELDS[ $field ];
 				$filtered      = is_array( $parsed_row ) ? ( $parsed_row[ $product_field ] ?? null ) : null;
@@ -1574,15 +1574,15 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		}
 		if ( $id ) {
 			/* translators: %d: product ID */
-			$row_data[] = sprintf( __( 'ID %d', 'woocommerce' ), $id );
+			$row_data[] = sprintf( __( 'ID %d', 'poocommerce' ), $id );
 		}
 		if ( $sku ) {
 			/* translators: %s: product SKU */
-			$row_data[] = sprintf( __( 'SKU %s', 'woocommerce' ), $sku );
+			$row_data[] = sprintf( __( 'SKU %s', 'poocommerce' ), $sku );
 		}
 		if ( $global_unique_id ) {
 			/* translators: %s: product GTIN, UPC, EAN, or ISBN */
-			$row_data[] = sprintf( __( 'GTIN, UPC, EAN, or ISBN %s', 'woocommerce' ), $global_unique_id );
+			$row_data[] = sprintf( __( 'GTIN, UPC, EAN, or ISBN %s', 'poocommerce' ), $global_unique_id );
 		}
 
 		return implode( ', ', $row_data );
@@ -1601,8 +1601,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		// post's ID would corrupt that post, and a nonexistent ID cannot be assigned.
 		if ( ! empty( $parsed_data['id'] ) ) {
 			return new WP_Error(
-				'woocommerce_product_importer_variation_has_id',
-				esc_html__( 'A new variation cannot be created for a row that specifies an ID.', 'woocommerce' )
+				'poocommerce_product_importer_variation_has_id',
+				esc_html__( 'A new variation cannot be created for a row that specifies an ID.', 'poocommerce' )
 			);
 		}
 
@@ -1612,15 +1612,15 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		// is saved as blank and would leave the variation unmatchable.
 		if ( empty( $parsed_data['sku'] ) && '' === $this->normalize_global_unique_id( $parsed_data['global_unique_id'] ?? '' ) ) {
 			return new WP_Error(
-				'woocommerce_product_importer_variation_missing_sku',
-				esc_html__( 'A new variation cannot be created without a SKU or a GTIN, UPC, EAN, or ISBN.', 'woocommerce' )
+				'poocommerce_product_importer_variation_missing_sku',
+				esc_html__( 'A new variation cannot be created without a SKU or a GTIN, UPC, EAN, or ISBN.', 'poocommerce' )
 			);
 		}
 
 		if ( empty( $parsed_data['parent_id'] ) ) {
 			return new WP_Error(
-				'woocommerce_product_importer_variation_missing_parent',
-				esc_html__( 'A new variation cannot be created without a parent product.', 'woocommerce' )
+				'poocommerce_product_importer_variation_missing_parent',
+				esc_html__( 'A new variation cannot be created without a parent product.', 'poocommerce' )
 			);
 		}
 
@@ -1628,16 +1628,16 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 		if ( ! $parent || ! $parent->is_type( ProductType::VARIABLE ) ) {
 			return new WP_Error(
-				'woocommerce_product_importer_variation_parent_not_variable',
-				esc_html__( 'A new variation can only be created for a variable parent product.', 'woocommerce' )
+				'poocommerce_product_importer_variation_parent_not_variable',
+				esc_html__( 'A new variation can only be created for a variable parent product.', 'poocommerce' )
 			);
 		}
 
 		// A parent with the 'importing' status is a placeholder, meaning the parent does not exist either.
 		if ( in_array( $parent->get_status(), array( 'importing', ProductStatus::TRASH ), true ) ) {
 			return new WP_Error(
-				'woocommerce_product_importer_variation_parent_missing',
-				esc_html__( 'A new variation cannot be created for a parent product that does not exist.', 'woocommerce' )
+				'poocommerce_product_importer_variation_parent_missing',
+				esc_html__( 'A new variation cannot be created for a parent product that does not exist.', 'poocommerce' )
 			);
 		}
 
@@ -1681,10 +1681,10 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			// does not use for variations is allowed through: get_variation_parent_attributes() promotes it.
 			if ( ! isset( $parent_attributes[ $attribute_name ] ) ) {
 				return new WP_Error(
-					'woocommerce_product_importer_variation_unknown_attribute',
+					'poocommerce_product_importer_variation_unknown_attribute',
 					sprintf(
 						/* translators: %s: attribute name */
-						esc_html__( 'A new variation cannot be created because the parent product has no "%s" attribute.', 'woocommerce' ),
+						esc_html__( 'A new variation cannot be created because the parent product has no "%s" attribute.', 'poocommerce' ),
 						esc_html( $attribute['name'] )
 					)
 				);
@@ -1714,10 +1714,10 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( ! in_array( $value, $options, true ) ) {
 				return new WP_Error(
-					'woocommerce_product_importer_variation_unknown_attribute_value',
+					'poocommerce_product_importer_variation_unknown_attribute_value',
 					sprintf(
 						/* translators: 1: attribute value, 2: attribute name */
-						esc_html__( 'A new variation cannot be created because "%1$s" is not an option of the parent product\'s "%2$s" attribute.', 'woocommerce' ),
+						esc_html__( 'A new variation cannot be created because "%1$s" is not an option of the parent product\'s "%2$s" attribute.', 'poocommerce' ),
 						esc_html( $raw_value ),
 						esc_html( wc_attribute_label( $parent_attribute->get_name(), $parent_product ) )
 					)
@@ -1756,7 +1756,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 				$parsed_data = $relationships;
 			}
 
-			do_action( 'woocommerce_product_import_before_import', $parsed_data );
+			do_action( 'poocommerce_product_import_before_import', $parsed_data );
 
 			$id  = isset( $parsed_data['id'] ) ? absint( $parsed_data['id'] ) : 0;
 			$sku = isset( $parsed_data['sku'] ) ? $parsed_data['sku'] : '';
@@ -1795,8 +1795,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( $sku_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
-					'woocommerce_product_importer_error',
-					esc_html__( 'A product with this SKU already exists.', 'woocommerce' ),
+					'poocommerce_product_importer_error',
+					esc_html__( 'A product with this SKU already exists.', 'poocommerce' ),
 					array(
 						'sku' => esc_attr( $sku ),
 						'row' => $this->get_row_id( $parsed_data ),
@@ -1807,8 +1807,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( $id_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
-					'woocommerce_product_importer_error',
-					esc_html__( 'A product with this ID already exists.', 'woocommerce' ),
+					'poocommerce_product_importer_error',
+					esc_html__( 'A product with this ID already exists.', 'poocommerce' ),
 					array(
 						'id'  => $id,
 						'row' => $this->get_row_id( $parsed_data ),
@@ -1839,7 +1839,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 						 * @param bool  $create_variation Whether to create the new variation instead of skipping the row.
 						 * @param array $parsed_data      Parsed row data.
 						 */
-						$create_variation = apply_filters( 'woocommerce_product_import_create_variation_of_existing_product', true, $parsed_data );
+						$create_variation = apply_filters( 'poocommerce_product_import_create_variation_of_existing_product', true, $parsed_data );
 					}
 				}
 
@@ -1847,8 +1847,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 					// A refused variation row reports why it was refused; anything else is a row whose
 					// ID or SKU simply matches nothing on the site.
 					$data['skipped'][] = new WP_Error(
-						'woocommerce_product_importer_error',
-						$refusal ? $refusal->get_error_message() : esc_html__( 'No matching product exists to update.', 'woocommerce' ),
+						'poocommerce_product_importer_error',
+						$refusal ? $refusal->get_error_message() : esc_html__( 'No matching product exists to update.', 'poocommerce' ),
 						array(
 							'id'               => $id,
 							'sku'              => esc_attr( $sku ),
@@ -1910,13 +1910,13 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 * @return WP_Error
 	 */
 	private function add_sku_conflict_hint( WP_Error $error, int $id, string $sku, int $id_from_sku ): WP_Error {
-		if ( 'woocommerce_product_importer_invalid_type' === $error->get_error_code() ) {
+		if ( 'poocommerce_product_importer_invalid_type' === $error->get_error_code() ) {
 			return $error;
 		}
 
 		$message = sprintf(
 			/* translators: 1: original error message, 2: product ID matched by the row's ID, 3: SKU, 4: product ID that already uses the SKU */
-			__( '%1$s The ID of this row matches product #%2$d, but its SKU "%3$s" already belongs to product #%4$d. Point the ID and SKU at the same product, or remove one of them.', 'woocommerce' ),
+			__( '%1$s The ID of this row matches product #%2$d, but its SKU "%3$s" already belongs to product #%4$d. Point the ID and SKU at the same product, or remove one of them.', 'poocommerce' ),
 			$error->get_error_message(),
 			$id,
 			$sku,

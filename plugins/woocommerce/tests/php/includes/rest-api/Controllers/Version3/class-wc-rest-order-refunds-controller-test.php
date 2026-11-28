@@ -4,7 +4,7 @@
  * Class WC_REST_Order_Refunds_Controller_Test.
  */
 
-use Automattic\WooCommerce\Tests\Helpers\MetaDataAssertionTrait;
+use Automattic\PooCommerce\Tests\Helpers\MetaDataAssertionTrait;
 
 /**
  * Tests for the V3 Order Refunds REST API controller.
@@ -111,7 +111,7 @@ class WC_REST_Order_Refunds_Controller_Test extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 422, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_refund_total_exceeds_line', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_refund_total_exceeds_line', $response->get_data()['code'] );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -152,7 +152,7 @@ class WC_REST_Order_Refunds_Controller_Test extends WC_REST_Unit_Test_Case {
 		}
 
 		$this->assertSame( 422, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_refund_total_exceeds_remaining', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_refund_total_exceeds_remaining', $response->get_data()['code'] );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -180,7 +180,7 @@ class WC_REST_Order_Refunds_Controller_Test extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_invalid_refund_amount', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_invalid_refund_amount', $response->get_data()['code'] );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -266,7 +266,7 @@ class WC_REST_Order_Refunds_Controller_Test extends WC_REST_Unit_Test_Case {
 	/**
 	 * @testdox Should report refunded_by as 0 when no user issued the refund.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/36329
+	 * @see https://github.com/poocommerce/poocommerce/issues/36329
 	 */
 	public function test_refunded_by_is_zero_when_no_user_issued_the_refund(): void {
 		wp_set_current_user( 1 );

@@ -16,7 +16,7 @@ export default {
 		elementId: {
 			control: false,
 			description:
-				'The field id used to look up the store-derived message element id. Unused when `id` is set. [See `getValidationErrorId`](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/data-store/validation.md#getvalidationerrorid-errorid-)',
+				'The field id used to look up the store-derived message element id. Unused when `id` is set. [See `getValidationErrorId`](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/data-store/validation.md#getvalidationerrorid-errorid-)',
 			table: {
 				type: {
 					summary: 'string',

@@ -4,7 +4,7 @@ set -euo pipefail
 
 package_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 build_dir="$package_dir/build"
-mirror="woocommerce/extension-changelogger"
+mirror="poocommerce/extension-changelogger"
 mirror_dir="$build_dir/$mirror"
 
 rm -rf -- "$build_dir"

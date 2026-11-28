@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
 
 /**
  * Tests for the Cart block type

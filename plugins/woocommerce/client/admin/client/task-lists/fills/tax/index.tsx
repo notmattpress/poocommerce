@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 // eslint-disable-next-line @wordpress/use-recommended-components -- Keep the existing task card layout.
 import { Card, CardBody, Spinner } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { getAdminLink } from '@woocommerce/settings';
-import { optionsStore, settingsStore, TaskType } from '@woocommerce/data';
-import { queueRecordEvent, recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { optionsStore, settingsStore, TaskType } from '@poocommerce/data';
+import { queueRecordEvent, recordEvent } from '@poocommerce/tracks';
 import { registerPlugin } from '@wordpress/plugins';
 import {
 	useCallback,
@@ -16,23 +16,23 @@ import {
 	createElement,
 	useMemo,
 } from '@wordpress/element';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
  */
 import { redirectToTaxSettings } from './utils';
-import { Card as WooCommerceTaxCard } from './woocommerce-tax/card';
+import { Card as PooCommerceTaxCard } from './poocommerce-tax/card';
 import { Card as StripeTaxCard } from './stripe-tax/card';
 import { createNoticesFromResponse } from '../../../lib/notices';
 import { getCountryCode } from '~/dashboard/utils';
 import { ManualConfiguration } from './manual-configuration';
 import { Partners } from './components/partners';
-import { WooCommerceTax } from './woocommerce-tax';
+import { PooCommerceTax } from './poocommerce-tax';
 
 const TaskCard = ( { children }: { children: React.ReactNode } ) => {
 	return (
-		<Card className="woocommerce-task-card">
+		<Card className="poocommerce-task-card">
 			<CardBody>{ children }</CardBody>
 		</Card>
 	);
@@ -66,7 +66,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 
 	const onManual = useCallback( async () => {
 		setIsPending( true );
-		if ( generalSettings?.woocommerce_calc_taxes !== 'yes' ) {
+		if ( generalSettings?.poocommerce_calc_taxes !== 'yes' ) {
 			void updateAndPersistSettingsForGroup( 'tax', {
 				tax: {
 					...taxSettings,
@@ -76,7 +76,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 			updateAndPersistSettingsForGroup( 'general', {
 				general: {
 					...generalSettings,
-					woocommerce_calc_taxes: 'yes',
+					poocommerce_calc_taxes: 'yes',
 				},
 			} )
 				.then( () => redirectToTaxSettings() )
@@ -102,7 +102,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 				updateAndPersistSettingsForGroup( 'general', {
 					general: {
 						...generalSettings,
-						woocommerce_calc_taxes: 'yes',
+						poocommerce_calc_taxes: 'yes',
 					},
 				} ),
 			] );
@@ -112,7 +112,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 				'error',
 				__(
 					'There was a problem setting up automated taxes. Please try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			return;
@@ -122,7 +122,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 			'success',
 			__(
 				'You’re awesome! One less item on your to-do list ✅',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 		onComplete();
@@ -142,8 +142,8 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 		} );
 
 		void updateOptions( {
-			woocommerce_no_sales_tax: true,
-			woocommerce_calc_taxes: 'no',
+			poocommerce_no_sales_tax: true,
+			poocommerce_calc_taxes: 'no',
 		} ).then( () => {
 			window.location.href = getAdminLink( 'admin.php?page=wc-admin' );
 		} );
@@ -151,28 +151,28 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 
 	const partners = useMemo( () => {
 		const countryCode =
-			getCountryCode( generalSettings?.woocommerce_default_country ) ||
+			getCountryCode( generalSettings?.poocommerce_default_country ) ||
 			'';
 		const {
 			additionalData: {
-				woocommerceTaxCountries = [],
+				poocommerceTaxCountries = [],
 				stripeTaxCountries = [],
 				taxJarActivated,
-				woocommerceTaxActivated,
-				woocommerceShippingActivated,
+				poocommerceTaxActivated,
+				poocommerceShippingActivated,
 			} = {},
 		} = task;
 
 		const allPartners = [
 			{
-				id: 'woocommerce-tax',
-				card: WooCommerceTaxCard,
-				component: WooCommerceTax,
+				id: 'poocommerce-tax',
+				card: PooCommerceTaxCard,
+				component: PooCommerceTax,
 				isVisible:
 					! taxJarActivated && // WCS integration doesn't work with the official TaxJar plugin.
-					! woocommerceTaxActivated &&
-					! woocommerceShippingActivated &&
-					woocommerceTaxCountries.includes( countryCode ),
+					! poocommerceTaxActivated &&
+					! poocommerceShippingActivated &&
+					poocommerceTaxCountries.includes( countryCode ),
 			},
 			{
 				id: 'stripe-tax',
@@ -248,7 +248,7 @@ export const Tax = ( { onComplete, query, task }: TaxProps ) => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-tax', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="tax">
 			{ ( { onComplete, query, task } ) => (

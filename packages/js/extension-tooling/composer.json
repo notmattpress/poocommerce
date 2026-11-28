@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/extension-tooling",
-	"description": "Development tooling for WooCommerce extensions",
+	"name": "poocommerce/extension-tooling",
+	"description": "Development tooling for PooCommerce extensions",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

@@ -69,7 +69,7 @@ test.describe( 'Marketing page', () => {
 			// instead of being silently re-dismissed.
 			await page.addLocatorHandler(
 				page.locator(
-					'.woocommerce-marketing-introduction-banner-close-button'
+					'.poocommerce-marketing-introduction-banner-close-button'
 				),
 				async ( locator ) => {
 					await locator.click();
@@ -85,7 +85,7 @@ test.describe( 'Marketing page', () => {
 			// The introduction should be hidden (dismissed by the handler).
 			await expect(
 				page.getByText(
-					'Reach new customers and increase sales without leaving WooCommerce'
+					'Reach new customers and increase sales without leaving PooCommerce'
 				)
 			).toBeHidden();
 
@@ -95,7 +95,7 @@ test.describe( 'Marketing page', () => {
 			// The introduction should still be hidden.
 			await expect(
 				page.getByText(
-					'Reach new customers and increase sales without leaving WooCommerce'
+					'Reach new customers and increase sales without leaving PooCommerce'
 				)
 			).toBeHidden();
 		}

@@ -21,7 +21,7 @@ import type { RunChunkResponse } from '../../../data/types';
 const mockedRunChunk = runChunk as jest.MockedFunction< typeof runChunk >;
 
 const TOKEN_INVALID = {
-	code: 'woocommerce_fulfillments_import_token_invalid',
+	code: 'poocommerce_fulfillments_import_token_invalid',
 	message: 'Import session is missing or has expired.',
 	data: { status: 400 },
 };

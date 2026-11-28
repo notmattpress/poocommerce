@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
-use Automattic\WooCommerce\Internal\Checkout\DateFormatLimitParser;
-use Automattic\WooCommerce\Internal\Checkout\JavaScriptPattern;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Internal\Checkout\DateFormatLimitParser;
+use Automattic\PooCommerce\Internal\Checkout\JavaScriptPattern;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\Parsers\DefaultVocabulary;
@@ -144,11 +144,11 @@ class Validation {
 				return true;
 			}
 		} catch ( \Exception $e ) {
-			return new WP_Error( 'woocommerce_rest_checkout_validation_failed', __( 'Validation failed.', 'woocommerce' ) );
+			return new WP_Error( 'poocommerce_rest_checkout_validation_failed', __( 'Validation failed.', 'poocommerce' ) );
 		}
 
 		// Return generic error message.
-		return new WP_Error( 'woocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'woocommerce' ) );
+		return new WP_Error( 'poocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'poocommerce' ) );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Validation {
 	 */
 	public static function is_valid_schema( $rules ) {
 		if ( ! is_array( $rules ) ) {
-			return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', 'Rules must be defined as an array.' );
+			return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', 'Rules must be defined as an array.' );
 		}
 
 		if ( empty( $rules ) ) {
@@ -217,7 +217,7 @@ class Validation {
 
 		$error = $result->error();
 		if ( null !== $error ) {
-			return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', self::format_schema_error( $error ) );
+			return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', self::format_schema_error( $error ) );
 		}
 
 		return true;
@@ -229,7 +229,7 @@ class Validation {
 	 * This check is separate from meta-schema validation so PHP-valid rules can
 	 * remain registered and enforced on the server.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @since 11.4.0
 	 *
@@ -264,7 +264,7 @@ class Validation {
 
 				if ( null !== $unsupported ) {
 					return new WP_Error(
-						'woocommerce_rest_checkout_invalid_field_schema',
+						'poocommerce_rest_checkout_invalid_field_schema',
 						sprintf(
 							'At "%s": The pattern "%s" is not a valid JavaScript regular expression, %s. Patterns are compiled in the browser with the JavaScript `u` flag, so they must be valid ECMA-262.',
 							rawurldecode( $child_path ),

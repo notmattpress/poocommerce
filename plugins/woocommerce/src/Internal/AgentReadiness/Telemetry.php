@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,7 +44,7 @@ class Telemetry implements RegisterHooksInterface {
 	 * Register the tracker snapshot filter.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ) );
+		add_filter( 'poocommerce_tracker_data', array( $this, 'add_snapshot_to_tracker_data' ) );
 	}
 
 	/**

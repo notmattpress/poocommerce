@@ -1,22 +1,22 @@
 {
 	"private": true,
-	"name": "@woocommerce/plugin-woocommerce-beta-tester",
+	"name": "@poocommerce/plugin-poocommerce-beta-tester",
 	"description": "Setting up the local beta tester scripts.",
 	"license": "GPL-2.0-or-later",
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/woocommerce/woocommerce-beta-tester.git"
+		"url": "git://github.com/poocommerce/poocommerce-beta-tester.git"
 	},
-	"title": "WooCommerce Beta Tester",
+	"title": "PooCommerce Beta Tester",
 	"version": "4.0.0",
-	"homepage": "http://github.com/woocommerce/woocommerce-beta-tester",
+	"homepage": "http://github.com/poocommerce/poocommerce-beta-tester",
 	"devDependencies": {
 		"@types/prop-types": "catalog:types",
 		"@types/react": "catalog:types",
 		"@types/react-dom": "catalog:types",
-		"@woocommerce/dependency-extraction-webpack-plugin": "workspace:*",
-		"@woocommerce/eslint-config": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/dependency-extraction-webpack-plugin": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"@wordpress/env": "catalog:tooling",
 		"@wordpress/scripts": "catalog:tooling",
 		"eslint": "catalog:tooling",
@@ -30,8 +30,8 @@
 		"uglify-js": "^3.17.4"
 	},
 	"dependencies": {
-		"@woocommerce/data": "workspace:*",
-		"@woocommerce/remote-logging": "workspace:*",
+		"@poocommerce/data": "workspace:*",
+		"@poocommerce/remote-logging": "workspace:*",
 		"@wordpress/api-fetch": "catalog:wp-min",
 		"@wordpress/components": "catalog:wp-min",
 		"@wordpress/compose": "catalog:wp-min",

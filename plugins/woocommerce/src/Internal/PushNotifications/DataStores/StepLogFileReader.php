@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Internal\PushNotifications\DataStores;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\File;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\File;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
 use WC_Log_Levels;
 
 /**
- * Reads push notification step log lines back from the WooCommerce log files.
+ * Reads push notification step log lines back from the PooCommerce log files.
  *
  * Files are addressed by day, never by listing the directory: the file handler
  * names each file from its source and UTC date plus a hash of that name, so
@@ -195,7 +195,7 @@ class StepLogFileReader {
 	 *
 	 * A line whose context does not decode is still returned, with the raw
 	 * text in `raw` and no context, so a plugin reshaping the line through
-	 * `woocommerce_format_log_entry` degrades the row rather than the request.
+	 * `poocommerce_format_log_entry` degrades the row rather than the request.
 	 *
 	 * @param string $line The line.
 	 * @return array{timestamp: int, level: string, message: string, context: array|null, raw: string|null}|null Null for a line with no timestamp and level.

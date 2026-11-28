@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Helper Compat
+ * PooCommerce Admin Helper Compat
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_Compat Class
  *
- * Some level of compatibility with the legacy WooCommerce Helper plugin.
+ * Some level of compatibility with the legacy PooCommerce Helper plugin.
  */
 class WC_Helper_Compat {
 
@@ -20,11 +20,11 @@ class WC_Helper_Compat {
 	 * Loads the class, runs on init.
 	 */
 	public static function load() {
-		add_action( 'woocommerce_helper_loaded', array( __CLASS__, 'helper_loaded' ) );
+		add_action( 'poocommerce_helper_loaded', array( __CLASS__, 'helper_loaded' ) );
 	}
 
 	/**
-	 * Runs during woocommerce_helper_loaded
+	 * Runs during poocommerce_helper_loaded
 	 */
 	public static function helper_loaded() {
 		// Stop the nagging about WooThemes Updater
@@ -162,7 +162,7 @@ class WC_Helper_Compat {
 	public static function plugin_deactivation_notice() {
 		?>
 		<div id="message" class="error is-dismissible">
-			<p><?php printf( __( 'The WooCommerce Helper plugin is no longer needed. <a href="%s">Manage subscriptions</a> from the extensions tab instead.', 'woocommerce' ), esc_url( admin_url( 'admin.php?page=wc-addons&section=helper' ) ) ); ?></p>
+			<p><?php printf( __( 'The PooCommerce Helper plugin is no longer needed. <a href="%s">Manage subscriptions</a> from the extensions tab instead.', 'poocommerce' ), esc_url( admin_url( 'admin.php?page=wc-addons&section=helper' ) ) ); ?></p>
 		</div>
 		<?php
 	}
@@ -183,7 +183,7 @@ class WC_Helper_Compat {
 			return;
 		}
 
-		add_dashboard_page( __( 'WooCommerce Helper', 'woocommerce' ), __( 'WooCommerce Helper', 'woocommerce' ), 'manage_options', 'woothemes-helper', array( __CLASS__, 'render_compat_menu' ) );
+		add_dashboard_page( __( 'PooCommerce Helper', 'poocommerce' ), __( 'PooCommerce Helper', 'poocommerce' ), 'manage_options', 'woothemes-helper', array( __CLASS__, 'render_compat_menu' ) );
 	}
 
 	/**

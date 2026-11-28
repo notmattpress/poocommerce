@@ -22,7 +22,7 @@ const MobileSidebarToggle: React.FC< MobileSidebarToggleProps > = ( {
 		<Button
 			className="mobile-sidebar-toggle"
 			onClick={ onToggle }
-			aria-label={ __( 'Toggle sidebar', 'woocommerce' ) }
+			aria-label={ __( 'Toggle sidebar', 'poocommerce' ) }
 			icon={ <Icon icon={ menu } size={ 24 } /> }
 		/>
 	);

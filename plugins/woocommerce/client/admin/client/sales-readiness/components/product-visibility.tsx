@@ -55,7 +55,7 @@ export const ProductVisibility = ( {
 										>
 											{ __(
 												'More information',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</VisuallyHidden>
 										<Popover.Description>

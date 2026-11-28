@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\DataStores;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\DataStores;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\StepLogTableReader;
 use WC_Log_Handler_DB;
 use WC_Log_Levels;
 use WC_Unit_Test_Case;
@@ -110,7 +110,7 @@ class StepLogTableReaderTest extends WC_Unit_Test_Case {
 	private function next_free_log_id(): int {
 		global $wpdb;
 
-		return (int) $wpdb->get_var( "SELECT COALESCE( MAX(log_id), 0 ) FROM {$wpdb->prefix}woocommerce_log" ) + 1; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return (int) $wpdb->get_var( "SELECT COALESCE( MAX(log_id), 0 ) FROM {$wpdb->prefix}poocommerce_log" ) + 1; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 	/**
@@ -125,7 +125,7 @@ class StepLogTableReaderTest extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_log',
+			$wpdb->prefix . 'poocommerce_log',
 			array(
 				'log_id'    => $log_id,
 				'timestamp' => gmdate( 'Y-m-d H:i:s', $timestamp ),

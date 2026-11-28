@@ -1,5 +1,5 @@
 // Adjust padding and margins in the editor to improve selected block outlines.
-.wp-block-woocommerce-cart-express-payment-block {
+.wp-block-poocommerce-cart-express-payment-block {
 	.components-placeholder__label svg {
 		font-size: 1em;
 	}
@@ -13,22 +13,22 @@
 	}
 }
 
-.wp-block-woocommerce-proceed-to-checkout-block {
+.wp-block-poocommerce-proceed-to-checkout-block {
 	margin-bottom: 28px;
 	margin-top: 28px;
 }
 
-.wp-block-woocommerce-checkout-express-payment-block-placeholder {
+.wp-block-poocommerce-checkout-express-payment-block-placeholder {
 	* {
 		pointer-events: all; // Overrides parent disabled component in editor context
 	}
 
-	.wp-block-woocommerce-cart-express-payment-block &,
-	.wp-block-woocommerce-checkout-express-payment-block-placeholder__description {
+	.wp-block-poocommerce-cart-express-payment-block &,
+	.wp-block-poocommerce-checkout-express-payment-block-placeholder__description {
 		margin: 0 0 1em;
 	}
 
-	.wp-block-woocommerce-checkout-express-payment-block-placeholder__description {
+	.wp-block-poocommerce-checkout-express-payment-block-placeholder__description {
 		display: block;
 	}
 }

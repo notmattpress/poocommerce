@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests relating to the WC_Privacy class.
@@ -17,7 +17,7 @@ class WC_Privacy_Test extends WC_Unit_Test_Case {
 		update_user_meta( $customer->get_id(), 'wc_last_active', time() - YEAR_IN_SECONDS );
 
 		update_option(
-			'woocommerce_delete_inactive_accounts',
+			'poocommerce_delete_inactive_accounts',
 			array(
 				'number' => 1,
 				'unit'   => 'months',
@@ -133,10 +133,10 @@ class WC_Privacy_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_erasers_remove_download_logs_of_anonymized_orders( bool $registered ): void {
-		update_option( 'woocommerce_erasure_request_removes_order_data', 'yes' );
-		update_option( 'woocommerce_erasure_request_removes_download_data', 'yes' );
+		update_option( 'poocommerce_erasure_request_removes_order_data', 'yes' );
+		update_option( 'poocommerce_erasure_request_removes_download_data', 'yes' );
 
-		wc_get_container()->get( Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted' );
+		wc_get_container()->get( Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted' );
 		$product  = WC_Helper_Product::create_downloadable_product(
 			array(
 				array(
@@ -164,10 +164,10 @@ class WC_Privacy_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_erasers_remove_download_logs_of_guest_orders_of_registered_customer(): void {
-		update_option( 'woocommerce_erasure_request_removes_order_data', 'yes' );
-		update_option( 'woocommerce_erasure_request_removes_download_data', 'yes' );
+		update_option( 'poocommerce_erasure_request_removes_order_data', 'yes' );
+		update_option( 'poocommerce_erasure_request_removes_download_data', 'yes' );
 
-		wc_get_container()->get( Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted' );
+		wc_get_container()->get( Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->add_approved_directory( 'https://always.trusted' );
 		$product = WC_Helper_Product::create_downloadable_product(
 			array(
 				array(

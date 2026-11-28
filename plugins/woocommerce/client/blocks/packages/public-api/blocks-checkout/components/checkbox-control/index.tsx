@@ -1,1 +1,1 @@
-export { CheckboxControl } from '@woocommerce/blocks-components';
+export { CheckboxControl } from '@poocommerce/blocks-components';

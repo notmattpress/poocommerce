@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 // The Cap is the only seeded product in this bucket: its reviews are rated 1
 // and 2, averaging 1.5.
@@ -23,7 +23,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'rating-filter',
 				heading: 'Filter By Rating',
@@ -51,7 +51,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		);
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 		const products = legacyTemplate
 			.getByRole( 'list' )

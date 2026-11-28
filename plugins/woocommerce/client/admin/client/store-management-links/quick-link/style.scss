@@ -1,4 +1,4 @@
-.woocommerce-quick-links__item {
+.poocommerce-quick-links__item {
 	display: flex;
 	flex: 1 50%;
 
@@ -6,18 +6,18 @@
 		background-color: $gray-100;
 	}
 
-	.woocommerce-quick-links__item-link {
+	.poocommerce-quick-links__item-link {
 		width: 100%;
 		display: flex;
 		align-items: center;
 		text-decoration: none;
 		padding: 16px 27px 16px 24px;
 
-		.woocommerce-quick-links__item-link__icon {
+		.poocommerce-quick-links__item-link__icon {
 			fill: var(--wp-admin-theme-color);
 		}
 
-		.woocommerce-quick-links__item-link__text {
+		.poocommerce-quick-links__item-link__text {
 			margin-left: 16px;
 			flex: 1;
 			line-height: 16px;
@@ -27,8 +27,8 @@
 }
 
 // Modified styles for 2 column presentation.
-.woocommerce-homescreen.two-columns {
-	.woocommerce-quick-links__item {
+.poocommerce-homescreen.two-columns {
+	.poocommerce-quick-links__item {
 		flex: 1 100%;
 	}
 }

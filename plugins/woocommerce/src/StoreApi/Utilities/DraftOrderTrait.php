@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * DraftOrderTrait
@@ -192,7 +192,7 @@ trait DraftOrderTrait {
 
 		$readdressed->set_props( $props );
 
-		// get_taxable_location() is filtered (woocommerce_order_get_tax_location), so a callback can return a
+		// get_taxable_location() is filtered (poocommerce_order_get_tax_location), so a callback can return a
 		// non-array. Don't reuse rather than pass a bad value to the array-typed locations_match().
 		$order_location       = $order_object->get_taxable_location();
 		$readdressed_location = $readdressed->get_taxable_location();
@@ -261,7 +261,7 @@ trait DraftOrderTrait {
 	 * Whether a sync from the cart would keep the coupons the order counted. The cart hash does not cover coupons, and
 	 * a sync that swapped or dropped a counted coupon would leave it counted with no order carrying it. An order that
 	 * counted nothing, e.g. a failed one, may follow the cart. When the cart holds a coupon an extension supplies
-	 * without a stored record, such as the one WooCommerce Subscriptions puts in place of a parent order's coupons, the
+	 * without a stored record, such as the one PooCommerce Subscriptions puts in place of a parent order's coupons, the
 	 * order may follow the cart as long as the cart adds no stored coupon the order lacks. Compares formatted codes,
 	 * not `_coupons_hash`, which only the Store API sync writes. The flag is read through the data store, because
 	 * the order object may be one held since before its usage was counted.
@@ -369,7 +369,7 @@ trait DraftOrderTrait {
 		 * @param array     $valid_order_statuses Array of valid order statuses for payment.
 		 * @param \WC_Order $order                Order object.
 		 */
-		$payable_statuses = array_filter( (array) apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order_object ) );
+		$payable_statuses = array_filter( (array) apply_filters( 'poocommerce_valid_order_statuses_for_payment', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order_object ) );
 
 		return $order_object->has_status( $payable_statuses );
 	}

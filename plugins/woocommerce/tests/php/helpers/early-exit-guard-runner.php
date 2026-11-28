@@ -6,7 +6,7 @@
  * exit status and stderr. Usage: `php early-exit-guard-runner.php <scenario>`, where the scenario is `unfinished`
  * (the process ends while a test is running) or `finished` (the suite and test end first).
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );

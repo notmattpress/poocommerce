@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Domain\ProductsQuery;
-use Automattic\WooCommerce\Internal\Abilities\Ability;
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductTermsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Domain\ProductsQuery;
+use Automattic\PooCommerce\Internal\Abilities\Ability;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
 
 /**
  * Tests product term reads through the registered ability.
@@ -43,7 +43,7 @@ class ProductTermsQueryTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 		$this->isolate_extensible_abilities();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		wp_set_current_user( self::$administrator_id );
 	}
 
@@ -535,7 +535,7 @@ class ProductTermsQueryTest extends \WC_Unit_Test_Case {
 		);
 		$baseline = ProductTermsQuery::execute( $input );
 		$schema   = ProductTermsQuery::get_registration_args()['output_schema'];
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
 		$this->assertSame( $baseline, ProductTermsQuery::execute( $input ) );
 		$this->assertSame( $schema, ProductTermsQuery::get_registration_args()['output_schema'] );
 		$this->enable_extensible_abilities(
@@ -564,7 +564,7 @@ class ProductTermsQueryTest extends \WC_Unit_Test_Case {
 			$this->assertSame( $taxonomy, $term['extensions']['test-ext']['taxonomy'] );
 		}
 		$this->assertSame( 'string', $ability->get_output_schema()['properties']['terms']['items']['properties']['extensions']['properties']['test-ext']['properties']['taxonomy']['type'] );
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->assertSame( $baseline, ProductTermsQuery::execute( $input ) );
 		$this->assertSame( $schema, ProductTermsQuery::get_registration_args()['output_schema'] );
 	}
@@ -650,7 +650,7 @@ class ProductTermsQueryTest extends \WC_Unit_Test_Case {
 		$result = $ability->execute( array( 'taxonomy' => 'pa_missing' ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_product_term_taxonomy_unknown', $result->get_error_code() );
 	}
 
 	/**

@@ -1,25 +1,25 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { trackPluginNoticeLinks } from '../plugin-notice-tracking';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 const updateRow = ( id: string ) =>
-	`<tr class="plugin-update-tr" id="${ id }-update"><td><p><a href="#" class="woocommerce-renew-subscription" id="${ id }">Renew</a></p></td></tr>`;
+	`<tr class="plugin-update-tr" id="${ id }-update"><td><p><a href="#" class="poocommerce-renew-subscription" id="${ id }">Renew</a></p></td></tr>`;
 
 const noticeRow = ( id: string ) =>
-	`<tr class="plugin-update-tr" data-plugin-row-type="woo-subscription-notice"><td><p><a href="#" class="woocommerce-renew-subscription" id="${ id }">Renew</a></p></td></tr>`;
+	`<tr class="plugin-update-tr" data-plugin-row-type="woo-subscription-notice"><td><p><a href="#" class="poocommerce-renew-subscription" id="${ id }">Renew</a></p></td></tr>`;
 
 const render = ( rows: string ) => {
 	document.body.innerHTML = `<table><tbody id="the-list">${ rows }</tbody></table>`;
 	trackPluginNoticeLinks(
-		'.woocommerce-renew-subscription',
+		'.poocommerce-renew-subscription',
 		'woo_renew_subscription_in_plugins'
 	);
 };

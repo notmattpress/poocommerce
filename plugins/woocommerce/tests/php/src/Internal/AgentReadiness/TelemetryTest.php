@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\StoreOutputChecks;
-use Automattic\WooCommerce\Internal\AgentReadiness\Telemetry;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\StoreOutputChecks;
+use Automattic\PooCommerce\Internal\AgentReadiness\Telemetry;
 use WC_Unit_Test_Case;
 
 /**
@@ -85,12 +85,12 @@ class TelemetryTest extends WC_Unit_Test_Case {
 	public function test_adds_the_block_to_the_tracker_data(): void {
 		global $wp_filter;
 		$registered = false;
-		foreach ( $wp_filter['woocommerce_tracker_data']->callbacks ?? array() as $callbacks ) {
+		foreach ( $wp_filter['poocommerce_tracker_data']->callbacks ?? array() as $callbacks ) {
 			foreach ( $callbacks as $callback ) {
 				$registered = $registered || ( is_array( $callback['function'] ) && $callback['function'][0] instanceof Telemetry );
 			}
 		}
-		$this->assertTrue( $registered, 'WooCommerce registers the snapshot filter on load' );
+		$this->assertTrue( $registered, 'PooCommerce registers the snapshot filter on load' );
 
 		$data = $this->sut->add_snapshot_to_tracker_data( array( 'version' => '11.4.0' ) );
 
@@ -174,18 +174,18 @@ class TelemetryTest extends WC_Unit_Test_Case {
 	 * @testdox Without the usage tracking opt-in, the tracker never builds the snapshot.
 	 */
 	public function test_nothing_is_built_without_the_tracking_opt_in(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$this->store_report();
 		$built = 0;
 		$spy   = function ( $data ) use ( &$built ) {
 			++$built;
 			return $data;
 		};
-		add_filter( 'woocommerce_tracker_data', $spy );
+		add_filter( 'poocommerce_tracker_data', $spy );
 
-		WC()->add_woocommerce_tracker_send_event_wrapper();
+		WC()->add_poocommerce_tracker_send_event_wrapper();
 
-		remove_filter( 'woocommerce_tracker_data', $spy );
+		remove_filter( 'poocommerce_tracker_data', $spy );
 		$this->assertSame( 0, $built );
 	}
 }

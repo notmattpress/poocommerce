@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 

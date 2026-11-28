@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
 
 /**
  * Tests for the WCTransactionalEmails class.
@@ -16,7 +16,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function testGetTransactionalEmailsCanBeFiltered(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			function ( $emails ) {
 				$emails[] = 'custom_email';
 				return $emails;
@@ -56,7 +56,7 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 */
 	public function testGetCoreTransactionalEmailsIgnoresBlockEditorFilter(): void {
 		add_filter(
-			'woocommerce_transactional_emails_for_block_editor',
+			'poocommerce_transactional_emails_for_block_editor',
 			function ( $emails ) {
 				$emails[] = 'custom_email';
 				return $emails;
@@ -74,8 +74,8 @@ class WCTransactionalEmailsTest extends \WC_Unit_Test_Case {
 	 * @testdox The back-in-stock emails are listed on a site that still turns the feature on with the alpha constant.
 	 */
 	public function test_stock_notification_emails_are_listed_with_the_alpha_constant(): void {
-		update_option( 'woocommerce_feature_customer_stock_notifications_enabled', 'no' );
-		update_option( 'woocommerce_db_version', '11.1.0' );
+		update_option( 'poocommerce_feature_customer_stock_notifications_enabled', 'no' );
+		update_option( 'poocommerce_db_version', '11.1.0' );
 		Constants::set_constant( 'WOOCOMMERCE_BIS_ALPHA_ENABLED', true );
 
 		try {

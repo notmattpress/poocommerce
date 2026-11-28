@@ -2,12 +2,12 @@
 /**
  * Rules for capturing specific hook arguments in webhooks.
  *
- * @package WooCommerce\Internal\Webhooks
+ * @package PooCommerce\Internal\Webhooks
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Webhooks;
+namespace Automattic\PooCommerce\Internal\Webhooks;
 
 /**
  * Checks hook arguments before they enter the webhook queue.
@@ -21,43 +21,43 @@ final class WebhookCaptureRules {
 	 * Hooks that pass request internals or interfere with core processing when observed by a webhook.
 	 */
 	private const BLOCKED_HOOKS = array(
-		'woocommerce_deliver_webhook_async',
-		'woocommerce_form_field',
-		'woocommerce_form_field_hidden',
-		'woocommerce_form_field_password',
-		'woocommerce_logger_days_to_retain_logs',
-		'woocommerce_login_credentials',
-		'woocommerce_mail_callback_params',
-		'woocommerce_mail_content',
-		'woocommerce_mail_style_inline_callback',
-		'woocommerce_paypal_capture_request',
-		'woocommerce_paypal_refund_request',
-		'woocommerce_webhook_deliver_async',
-		'woocommerce_webhook_delivery',
-		'woocommerce_webhook_delivery_priority',
-		'woocommerce_webhook_delivery_url',
-		'woocommerce_webhook_http_args',
-		'woocommerce_webhook_loaded',
-		'woocommerce_webhook_payload',
-		'woocommerce_webhook_process_delivery',
-		'woocommerce_webhook_redact_additional_fields',
-		'woocommerce_webhook_secret',
-		'woocommerce_webhook_should_deliver',
+		'poocommerce_deliver_webhook_async',
+		'poocommerce_form_field',
+		'poocommerce_form_field_hidden',
+		'poocommerce_form_field_password',
+		'poocommerce_logger_days_to_retain_logs',
+		'poocommerce_login_credentials',
+		'poocommerce_mail_callback_params',
+		'poocommerce_mail_content',
+		'poocommerce_mail_style_inline_callback',
+		'poocommerce_paypal_capture_request',
+		'poocommerce_paypal_refund_request',
+		'poocommerce_webhook_deliver_async',
+		'poocommerce_webhook_delivery',
+		'poocommerce_webhook_delivery_priority',
+		'poocommerce_webhook_delivery_url',
+		'poocommerce_webhook_http_args',
+		'poocommerce_webhook_loaded',
+		'poocommerce_webhook_payload',
+		'poocommerce_webhook_process_delivery',
+		'poocommerce_webhook_redact_additional_fields',
+		'poocommerce_webhook_secret',
+		'poocommerce_webhook_should_deliver',
 	);
 
 	/**
 	 * Guards that need more than the first hook argument.
 	 */
 	private const FILTER_GUARDS = array(
-		'woocommerce_format_log_entry'   => array( 'allows_formatted_log', 2 ),
-		'woocommerce_logger_log_message' => array( 'allows_log_message', 3 ),
+		'poocommerce_format_log_entry'   => array( 'allows_formatted_log', 2 ),
+		'poocommerce_logger_log_message' => array( 'allows_log_message', 3 ),
 	);
 
 	/**
 	 * Guards for the first hook argument.
 	 */
 	private const ARGUMENT_GUARDS = array(
-		'woocommerce_mail_callback' => 'allows_mail_callback',
+		'poocommerce_mail_callback' => 'allows_mail_callback',
 	);
 
 	/**

@@ -6,7 +6,7 @@ import {
 	expect as baseExpect,
 	request as baseRequest,
 } from '@playwright/test';
-import { createClient, WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { createClient, WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -111,10 +111,10 @@ export const tags = {
  * Specs that share a lock never run at the same time, in any worker or project.
  */
 export const locks = {
-	// `woocommerce_analytics_scheduled_import`.
+	// `poocommerce_analytics_scheduled_import`.
 	ANALYTICS_IMPORT_MODE: 'analytics-import-mode',
-	// `woocommerce_feature_block_email_editor_enabled` and
-	// `woocommerce_feature_email_improvements_enabled`. One file's afterAll
+	// `poocommerce_feature_block_email_editor_enabled` and
+	// `poocommerce_feature_email_improvements_enabled`. One file's afterAll
 	// turns a flag off while another file still needs it. Specs that assert
 	// sent emails or the Email settings page also take it, since the flags
 	// change both.
@@ -123,9 +123,9 @@ export const locks = {
 	// visible product named to sort last shares it with tests that list
 	// products by title in descending order.
 	LAST_PRODUCT_BY_TITLE: 'last-product-by-title',
-	// `woocommerce_pickup_location_settings` and `pickup_location_pickup_locations`.
+	// `poocommerce_pickup_location_settings` and `pickup_location_pickup_locations`.
 	LOCAL_PICKUP: 'local-pickup',
-	// The Back in Stock feature flag and `woocommerce_customer_stock_notifications_*`.
+	// The Back in Stock feature flag and `poocommerce_customer_stock_notifications_*`.
 	// Concurrent writes of the same value make `e2e-options/update` return 400.
 	STOCK_NOTIFICATIONS: 'stock-notifications',
 	// The `taxonomy-product_cat`, `taxonomy-product_tag` and

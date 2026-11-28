@@ -1,25 +1,25 @@
 /**
  * External dependencies
  */
-import { test, expect, getProductAttributeIds } from '@woocommerce/e2e-utils';
+import { test, expect, getProductAttributeIds } from '@poocommerce/e2e-utils';
 import type { Page } from '@playwright/test';
 
 const blockData = {
 	name: 'Filter by Attribute',
-	slug: 'woocommerce/attribute-filter',
+	slug: 'poocommerce/attribute-filter',
 	urlSearchParamWhenFilterIsApplied: 'filter_size=small&query_type_size=or',
 };
 
 const getProductCollectionTitles = ( page: Page ) =>
 	page.locator(
-		'.wp-block-woocommerce-product-template .wp-block-post-title'
+		'.wp-block-poocommerce-product-template .wp-block-post-title'
 	);
 
 test.describe( `${ blockData.name } Block`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.createNewPost();
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'attribute-filter',
 				heading: 'Filter By Attribute',
@@ -37,7 +37,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		editor,
 	} ) => {
 		const textSelector =
-			'.wp-block-woocommerce-filter-wrapper .wp-block-heading';
+			'.wp-block-poocommerce-filter-wrapper .wp-block-heading';
 		const title = 'New Title';
 
 		await editor.canvas.locator( textSelector ).fill( title );

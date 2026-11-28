@@ -2,7 +2,7 @@
 /**
  * Product data meta box.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<span class="product-data-wrapper type_box hidden"> &mdash;
 		<label for="product-type">
 			<select id="product-type" name="product-type">
-				<optgroup label="<?php esc_attr_e( 'Product Type', 'woocommerce' ); ?>">
+				<optgroup label="<?php esc_attr_e( 'Product Type', 'poocommerce' ); ?>">
 				<?php foreach ( wc_get_product_types() as $value => $label ) : ?>
 					<option value="<?php echo esc_attr( $value ); ?>" <?php echo selected( $product_object->get_type(), $value, false ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
 				</optgroup>
 			</select>
-			<span class="woocommerce-product-type-tip"></span>
+			<span class="poocommerce-product-type-tip"></span>
 		</label>
 
 		<?php
@@ -42,21 +42,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<ul
 		class="product_data_tabs wc-tabs"
 		aria-orientation="vertical"
-		aria-label="<?php esc_attr_e( 'Product data', 'woocommerce' ); ?>"
+		aria-label="<?php esc_attr_e( 'Product data', 'poocommerce' ); ?>"
 	>
 		<?php foreach ( self::get_product_data_tabs() as $key => $tab ) : ?>
 			<li class="<?php echo esc_attr( $key ); ?>_options <?php echo esc_attr( $key ); ?>_tab <?php echo esc_attr( isset( $tab['class'] ) ? implode( ' ', (array) $tab['class'] ) : '' ); ?>">
 				<a href="#<?php echo esc_attr( $tab['target'] ); ?>"><span><?php echo esc_html( $tab['label'] ); ?></span></a>
 			</li>
 		<?php endforeach; ?>
-		<?php do_action( 'woocommerce_product_write_panel_tabs' ); ?>
+		<?php do_action( 'poocommerce_product_write_panel_tabs' ); ?>
 	</ul>
 
 	<?php
 		self::output_tabs();
 		self::output_variations();
-		do_action( 'woocommerce_product_data_panels' );
-		wc_do_deprecated_action( 'woocommerce_product_write_panels', array(), '2.6', 'Use woocommerce_product_data_panels action instead.' );
+		do_action( 'poocommerce_product_data_panels' );
+		wc_do_deprecated_action( 'poocommerce_product_write_panels', array(), '2.6', 'Use poocommerce_product_data_panels action instead.' );
 	?>
 	<div class="clear"></div>
 </div>

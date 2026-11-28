@@ -1,8 +1,8 @@
-# WooCommerce Analytics
+# PooCommerce Analytics
 
 ## Overview
 
-Enhanced analytics package for WooCommerce stores with comprehensive frontend tracking for Automattic based projects.
+Enhanced analytics package for PooCommerce stores with comprehensive frontend tracking for Automattic based projects.
 
 ### Key Features
 
@@ -31,25 +31,25 @@ add_action(
 
 The package only starts tracking when:
 
--   WooCommerce 3.0 or higher is active and installed
+-   PooCommerce 3.0 or higher is active and installed
 -   Jetpack is connected (Phase 1 requirement — will be decoupled in Phase 2)
 -   In site page context (not admin, ajax, xmlrpc, login, feed, cli, etc.)
 
 ### Requirements
 
 -   WordPress 5.0+
--   WooCommerce 3.0+
+-   PooCommerce 3.0+
 -   PHP 7.4+
 
 ### Package Installation
 
-This package lives in the WooCommerce monorepo at `packages/php/woocommerce-analytics/`.
-It is included as a Composer dependency of the WooCommerce plugin — no separate installation is needed.
+This package lives in the PooCommerce monorepo at `packages/php/poocommerce-analytics/`.
+It is included as a Composer dependency of the PooCommerce plugin — no separate installation is needed.
 
 For standalone use outside the monorepo, add to your `composer.json`:
 
 ```bash
-composer require automattic/woocommerce-analytics
+composer require automattic/poocommerce-analytics
 ```
 
 ## Configuration
@@ -62,17 +62,17 @@ Enable advanced features using WordPress filters:
 
 ```php
 // Enable ClickHouse event tracking
-add_filter( 'woocommerce_analytics_clickhouse_enabled', '__return_true' );
+add_filter( 'poocommerce_analytics_clickhouse_enabled', '__return_true' );
 ```
 
 #### Proxy Tracking (Experimental)
 
 ```php
 // Enable proxy tracking for enhanced privacy and performance
-add_filter( 'woocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
+add_filter( 'poocommerce_analytics_experimental_proxy_tracking_enabled', '__return_true' );
 ```
 
-This registers the unauthenticated `POST /wp-json/woocommerce-analytics/v1/track`
+This registers the unauthenticated `POST /wp-json/poocommerce-analytics/v1/track`
 endpoint. Sites that have never enabled proxy tracking do not get it. After it
 has been enabled, the route returns `403 proxy_tracking_disabled` while the
 filter is `false`, so cached pages fail visibly instead of receiving a `404`.
@@ -102,17 +102,17 @@ batch limit are ignored.
 Three options carry this state, because the speed module runs before plugins
 register filters and cannot read them:
 
--   `woocommerce_analytics_proxy_tracking_ever_enabled` is sticky and decides
+-   `poocommerce_analytics_proxy_tracking_ever_enabled` is sticky and decides
     whether the route is registered at all. Nothing in the package clears it:
     `Woocommerce_Analytics::reset_proxy_tracking_state()` is the only way, and it
     has no caller, so a host that wants the endpoint gone has to call it from its
     own deactivation or uninstall routine once the cached pages have expired.
--   `woocommerce_analytics_proxy_tracking_enabled` mirrors proxy tracking at each
+-   `poocommerce_analytics_proxy_tracking_enabled` mirrors proxy tracking at each
     `init` for the speed module (see "Server-Side Optimizations"). Only an explicit
     `yes` lets it serve; otherwise it falls through to the REST route rather than
     answering itself, so the `403` always comes from one place.
--   `woocommerce_analytics_speed_module_event_props` holds the scalar properties
-    that `jetpack_woocommerce_analytics_event_props` callbacks added at the last
+-   `poocommerce_analytics_speed_module_event_props` holds the scalar properties
+    that `jetpack_poocommerce_analytics_event_props` callbacks added at the last
     hourly cron run, for the speed module to replay. It is deleted once proxy
     tracking is off.
 
@@ -129,7 +129,7 @@ not from the filter, and the option is written there.
 
 The package integrates with [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) to ensure GDPR and privacy regulation compliance. Tracking only occurs when users have granted consent for statistics collection.
 
-With WP Consent API active, `stats.wp.com/s-*.js`, which sets the `tk_*` referrer cookies, prints as `type="text/plain"` and only runs after statistics consent. Dequeuing or filtering its `woocommerce-analytics` script handle works as before.
+With WP Consent API active, `stats.wp.com/s-*.js`, which sets the `tk_*` referrer cookies, prints as `type="text/plain"` and only runs after statistics consent. Dequeuing or filtering its `poocommerce-analytics` script handle works as before.
 
 Withdrawing statistics consent expires the `tk_*` cookies on the page and drops events not yet sent. A page loaded with statistics consent denied expires any `tk_*` cookies left from an earlier visit.
 
@@ -206,7 +206,7 @@ Each event includes contextual data such as:
 ### PHP Backend
 
 -   **`Woocommerce_Analytics`** - Main initialization class
--   **`Universal`** - Core tracking logic and WooCommerce hooks
+-   **`Universal`** - Core tracking logic and PooCommerce hooks
 -   **`My_Account`** - Account-specific event tracking
 -   **`WC_Analytics_Tracking`** - Event queuing and processing
 -   **`Features`** - Feature flag management
@@ -222,13 +222,13 @@ Each event includes contextual data such as:
 
 **PHP (Immediate)** events:
 
-1. WooCommerce action/hook triggers PHP method
+1. PooCommerce action/hook triggers PHP method
 2. `WC_Analytics_Tracking::record_event()` called directly
 3. Event sent immediately to Tracks and/or ClickHouse
 
 **PHP → JS Queue** events:
 
-1. WooCommerce action/hook triggers PHP method
+1. PooCommerce action/hook triggers PHP method
 2. Event queued via `enqueue_event()` method
 3. Queue injected into page via `window.wcAnalytics.eventQueue`
 4. Frontend JavaScript processes queue and sends to `_wca` tracking pixel if proxy tracking is disabled, otherwise sent to Proxy API endpoint
@@ -255,20 +255,20 @@ The package uses a hierarchical approach to identify users for analytics:
 
 **Session Management:**
 
--   Session cookies (`woocommerceanalytics_session`) expire after 30 minutes or at midnight UTC (whichever comes first)
+-   Session cookies (`poocommerceanalytics_session`) expire after 30 minutes or at midnight UTC (whichever comes first)
 -   Used for tracking user journey within a session (separate from user identification)
 -   Contains session ID, landing page, and engagement status
 
 ## Development
 
-This package is part of the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce).
+This package is part of the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce).
 
 ```bash
 # From the monorepo root
-pnpm --filter=@automattic/woocommerce-analytics run build
-pnpm --filter=@automattic/woocommerce-analytics run typecheck
+pnpm --filter=@automattic/poocommerce-analytics run build
+pnpm --filter=@automattic/poocommerce-analytics run typecheck
 
-# Or from within packages/php/woocommerce-analytics/
+# Or from within packages/php/poocommerce-analytics/
 pnpm run build
 pnpm run watch
 ```
@@ -286,7 +286,7 @@ When proxy tracking is enabled:
 
 #### API Endpoint
 
--   **URL**: `/wp-json/woocommerce-analytics/v1/track`
+-   **URL**: `/wp-json/poocommerce-analytics/v1/track`
 -   **Method**: POST
 -   **Permission**: No authentication required
 -   **Content-Type**: `application/json`
@@ -313,9 +313,9 @@ Called from an MU-plugin, it serves on `muplugins_loaded`, when a `wp_consent_co
 
 The module serves only while proxy tracking was on at the last `init`, and otherwise leaves the request to the REST route. A request from a shopper whose statistics consent cookie stores a deny is left to the REST route too, which applies the consent check.
 
-Plugin callbacks on `jetpack_woocommerce_analytics_event_props` have not registered when the module serves, so it adds the scalar properties they returned at the last hourly `woocommerce_analytics_record_speed_module_event_props` cron run, which has no user logged in and no cookies. A new or changed callback, or a value it returns, reaches these events after the next run that records, normally within the hour. A run where a callback throws or returns a non-array keeps the last record, and logs why. With `ALTERNATE_WP_CRON`, cron runs inside a visitor's request, so only a run from WP-CLI records. Whatever a callback returns for that run's empty event name is added to every one of these events, so a property meant only for some events, visitors or requests must be left out when the event name is empty. MU-plugin callbacks still run on each event and see its real name.
+Plugin callbacks on `jetpack_poocommerce_analytics_event_props` have not registered when the module serves, so it adds the scalar properties they returned at the last hourly `poocommerce_analytics_record_speed_module_event_props` cron run, which has no user logged in and no cookies. A new or changed callback, or a value it returns, reaches these events after the next run that records, normally within the hour. A run where a callback throws or returns a non-array keeps the last record, and logs why. With `ALTERNATE_WP_CRON`, cron runs inside a visitor's request, so only a run from WP-CLI records. Whatever a callback returns for that run's empty event name is added to every one of these events, so a property meant only for some events, visitors or requests must be left out when the event name is empty. MU-plugin callbacks still run on each event and see its real name.
 
-`woocommerce_analytics_auto_install_proxy_speed_module` is deprecated and has no effect.
+`poocommerce_analytics_auto_install_proxy_speed_module` is deprecated and has no effect.
 
 ### Debugging
 
@@ -332,4 +332,4 @@ Need to report a security vulnerability? Go to [https://automattic.com/security/
 
 ## License
 
-woocommerce-analytics is licensed under [GNU General Public License v2 (or later)](./LICENSE.txt)
+poocommerce-analytics is licensed under [GNU General Public License v2 (or later)](./LICENSE.txt)

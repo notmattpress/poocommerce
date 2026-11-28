@@ -2,18 +2,18 @@
 /**
  * Order Line Item (product)
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\MetaDataUtil;
-use Automattic\WooCommerce\Utilities\NumberUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\MetaDataUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -86,7 +86,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	 */
 	public function set_tax_class( $value ) {
 		if ( $value && ! in_array( $value, WC_Tax::get_tax_class_slugs(), true ) ) {
-			$this->error( 'order_item_product_invalid_tax_class', __( 'Invalid tax class', 'woocommerce' ) );
+			$this->error( 'order_item_product_invalid_tax_class', __( 'Invalid tax class', 'poocommerce' ) );
 		}
 		$this->set_prop( 'tax_class', $value );
 	}
@@ -98,7 +98,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	 */
 	public function set_product_id( $value ) {
 		if ( $value > 0 && 'product' !== get_post_type( absint( $value ) ) ) {
-			$this->error( 'order_item_product_invalid_product_id', __( 'Invalid product ID', 'woocommerce' ) );
+			$this->error( 'order_item_product_invalid_product_id', __( 'Invalid product ID', 'poocommerce' ) );
 		}
 		$this->set_prop( 'product_id', absint( $value ) );
 	}
@@ -112,7 +112,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		if ( $value > 0 && 'product_variation' !== get_post_type( $value ) ) {
 			$this->error(
 				'order_item_product_invalid_variation_id',
-				__( 'Invalid variation ID', 'woocommerce' ),
+				__( 'Invalid variation ID', 'poocommerce' ),
 				400,
 				array( 'variation_id' => $value )
 			);
@@ -212,11 +212,11 @@ class WC_Order_Item_Product extends WC_Order_Item {
 					wc_get_logger()->warning(
 						sprintf(
 							/* translators: %d: order item ID */
-							__( 'Order item #%d contains legacy tax data format. Tax rate ID information is unavailable.', 'woocommerce' ),
+							__( 'Order item #%d contains legacy tax data format. Tax rate ID information is unavailable.', 'poocommerce' ),
 							$this->get_id()
 						),
 						array(
-							'source'        => 'woocommerce-order-item-product',
+							'source'        => 'poocommerce-order-item-product',
 							'order_item_id' => $this->get_id(),
 							'order_id'      => $order ? $order->get_id() : 0,
 						)
@@ -234,7 +234,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		}
 		$this->set_prop( 'taxes', $tax_data );
 
-		if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 			$this->set_total_tax( NumberUtil::array_sum( $tax_data['total'] ) );
 			$this->set_subtotal_tax( NumberUtil::array_sum( $tax_data['subtotal'] ) );
 		} else {
@@ -264,7 +264,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 	 */
 	public function set_product( $product ) {
 		if ( ! ( $product instanceof \WC_Product ) ) {
-			$this->error( 'order_item_product_invalid_product', __( 'Invalid product', 'woocommerce' ) );
+			$this->error( 'order_item_product_invalid_product', __( 'Invalid product', 'poocommerce' ) );
 		}
 		if ( $product->is_type( ProductType::VARIATION ) ) {
 			$this->set_product_id( $product->get_parent_id() );
@@ -415,7 +415,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 
 		// Backwards compatible filter from WC_Order::get_product_from_item().
 		/** @var WC_Product|false $product */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
-		if ( has_filter( 'woocommerce_get_product_from_item' ) ) {
+		if ( has_filter( 'poocommerce_get_product_from_item' ) ) {
 			/**
 			 * Modifies the product object returned by \WC_Order_Item_Product::get_product.
 			 *
@@ -425,7 +425,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 			 * @param WC_Order_Item_Product $line_item Line item instance.
 			 * @param WC_Order              $order     Order Instance.
 			 */
-			$product = apply_filters( 'woocommerce_get_product_from_item', $product, $this, $this->get_order() );
+			$product = apply_filters( 'poocommerce_get_product_from_item', $product, $this, $this->get_order() );
 		}
 		/**
 		 * Modifies the product object returned by \WC_Order_Item_Product::get_product.
@@ -435,7 +435,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		 * @param WC_Product|false      $product   Product instance.
 		 * @param WC_Order_Item_Product $line_item Line item instance.
 		 */
-		$product = apply_filters( 'woocommerce_order_item_product', $product, $this );
+		$product = apply_filters( 'poocommerce_order_item_product', $product, $this );
 
 		return $product;
 	}
@@ -513,7 +513,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 		 * @param WC_Order_Item_Product $item  The order item product object.
 		 * @param WC_Order              $order The order object.
 		 */
-		$files = apply_filters( 'woocommerce_get_item_downloads', $files, $this, $order );
+		$files = apply_filters( 'poocommerce_get_item_downloads', $files, $this, $order );
 
 		if ( ! is_array( $files ) ) {
 			return array();
@@ -574,7 +574,7 @@ class WC_Order_Item_Product extends WC_Order_Item {
 				continue;
 			}
 
-			// Leave the label alone if woocommerce_order_item_display_meta_key already customized it. That filter gets the final say on the displayed label.
+			// Leave the label alone if poocommerce_order_item_display_meta_key already customized it. That filter gets the final say on the displayed label.
 			if ( self::BACKORDER_META_KEY === $meta->display_key ) {
 				$meta->display_key = OrderUtil::get_legacy_backorder_meta_key( $this );
 			}

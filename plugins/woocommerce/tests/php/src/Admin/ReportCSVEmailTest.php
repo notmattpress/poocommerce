@@ -2,21 +2,21 @@
 /**
  * Tests for the Analytics report export email.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\ReportCSVEmail;
-use Automattic\WooCommerce\Admin\ReportExporter;
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Admin\ReportCSVEmail;
+use Automattic\PooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
 use WC_Unit_Test_Case;
 
 /**
@@ -36,7 +36,7 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 
 		foreach ( array(
 			'report_type'  => 'Orders',
-			'download_url' => 'https://example.org/?action=woocommerce_admin_download_report_csv&filename=wc-orders-report-export',
+			'download_url' => 'https://example.org/?action=poocommerce_admin_download_report_csv&filename=wc-orders-report-export',
 		) as $name => $value ) {
 			$property = new \ReflectionProperty( ReportCSVEmail::class, $name );
 			$property->setAccessible( true );
@@ -172,7 +172,7 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 		$email->trigger(
 			$user_id,
 			$report_type,
-			"https://example.org/?action=woocommerce_admin_download_report_csv&filename=wc-{$report_type}-report-export"
+			"https://example.org/?action=poocommerce_admin_download_report_csv&filename=wc-{$report_type}-report-export"
 		);
 
 		$sent = end( $mailer->mock_sent );
@@ -189,7 +189,7 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 	 * @param bool   $expected_listed      Whether the email should be listed.
 	 */
 	public function test_email_is_listed_only_with_the_block_editor( string $block_editor_enabled, bool $expected_listed ): void {
-		update_option( 'woocommerce_feature_block_email_editor_enabled', $block_editor_enabled );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', $block_editor_enabled );
 
 		$emails = new \WC_Emails();
 
@@ -220,27 +220,27 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 	 * @param string $block_editor_enabled Value of the block email editor feature option.
 	 */
 	public function test_email_is_always_sent( string $block_editor_enabled ): void {
-		update_option( 'woocommerce_feature_block_email_editor_enabled', $block_editor_enabled );
-		update_option( 'woocommerce_admin_report_export_download_settings', array( 'enabled' => 'no' ) );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', $block_editor_enabled );
+		update_option( 'poocommerce_admin_report_export_download_settings', array( 'enabled' => 'no' ) );
 		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		$mailer  = tests_retrieve_phpmailer_instance();
 		$before  = count( $mailer->mock_sent );
 
-		( new ReportCSVEmail() )->trigger( $user_id, 'orders', 'https://example.org/?action=woocommerce_admin_download_report_csv&filename=wc-orders-report-export' );
+		( new ReportCSVEmail() )->trigger( $user_id, 'orders', 'https://example.org/?action=poocommerce_admin_download_report_csv&filename=wc-orders-report-export' );
 
 		$this->assertSame( 1, count( $mailer->mock_sent ) - $before );
 	}
 
 	/**
-	 * @testdox The email reports itself enabled, and extensions can still change that through the woocommerce_email_enabled_ filter.
+	 * @testdox The email reports itself enabled, and extensions can still change that through the poocommerce_email_enabled_ filter.
 	 */
 	public function test_is_enabled_runs_the_email_enabled_filter(): void {
 		$email = new ReportCSVEmail();
 		$this->assertTrue( $email->is_enabled() );
 
-		add_filter( 'woocommerce_email_enabled_admin_report_export_download', '__return_false' );
+		add_filter( 'poocommerce_email_enabled_admin_report_export_download', '__return_false' );
 		$enabled = $email->is_enabled();
-		remove_filter( 'woocommerce_email_enabled_admin_report_export_download', '__return_false' );
+		remove_filter( 'poocommerce_email_enabled_admin_report_export_download', '__return_false' );
 
 		$this->assertFalse( $enabled );
 	}
@@ -286,7 +286,7 @@ class ReportCSVEmailTest extends WC_Unit_Test_Case {
 	 * Turn on the block email editor and set it up, or skip when the environment can't run it.
 	 */
 	private function enable_block_email_editor(): void {
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		wc_get_container()->get( Package::class )->init();
 		wc_get_container()->get( Integration::class )->initialize();
 		Email_Editor_Container::container()->get( Bootstrap::class )->initialize();

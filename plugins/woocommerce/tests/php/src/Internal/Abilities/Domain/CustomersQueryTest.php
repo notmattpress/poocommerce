@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\ExtensibleAbilities;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Abilities\Domain\CustomersQuery;
-use Automattic\WooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
+use Automattic\PooCommerce\Abilities\ExtensibleAbilities;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Abilities\Domain\CustomersQuery;
+use Automattic\PooCommerce\Tests\Internal\Abilities\ExtensibleAbilitiesTestTrait;
 
 /**
  * Tests customer queries through the Abilities API.
@@ -246,7 +246,7 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 			}
 			return $expiration;
 		};
-		add_filter( 'woocommerce_reports_cache_expiration', $count, 10, 2 );
+		add_filter( 'poocommerce_reports_cache_expiration', $count, 10, 2 );
 
 		$this->sut->execute( array() );
 		// The report's default dates carry the UTC offset, so a key built from them would change with it, as it does with the clock.
@@ -292,7 +292,7 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 			'An email search matches the whole address, so it cannot spell one out.'
 		);
 		$this->assertSame(
-			'woocommerce_ability_customer_search_unsupported',
+			'poocommerce_ability_customer_search_unsupported',
 			$this->sut->execute(
 				array(
 					'search'    => $email . ',other@example.test',
@@ -306,7 +306,7 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 		$this->assertSame( array(), $result['customers'], 'A whitespace-only search matches no one, not everyone.' );
 		$this->assertSame( 0, $result['total'] );
 
-		$this->assertSame( 'woocommerce_ability_customer_search_unsupported', $this->sut->execute( array( 'search' => '0' ) )->get_error_code(), 'A search of "0" is refused rather than read as no search.' );
+		$this->assertSame( 'poocommerce_ability_customer_search_unsupported', $this->sut->execute( array( 'search' => '0' ) )->get_error_code(), 'A search of "0" is refused rather than read as no search.' );
 
 		$encoded_user = self::factory()->user->create(
 			array(
@@ -418,14 +418,14 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_extension_fields_and_filters(): void {
 		$this->isolate_extensible_abilities();
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$registered = array( $this->registered_customer(), $this->registered_customer() );
 		$guest      = $this->guest_customers( 1 )[0];
 		$input      = array( 'include' => array( $registered[0][0], $registered[1][0], $guest ) );
 		$baseline   = CustomersQuery::execute( $input );
 		$schema     = CustomersQuery::get_registration_args()['output_schema'];
 
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'yes' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'yes' );
 		$member = $registered[1][1];
 		$this->enable_extensible_abilities(
 			static function () use ( $member ) {
@@ -462,9 +462,9 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 
 		$members = static fn( bool $value ) => $input + array( 'filters' => array( 'extensions' => array( 'test-ext' => array( 'members' => $value ) ) ) );
 		$this->assertSame( array( $registered[1][0] ), array_column( $ability->execute( $members( true ) )['customers'], 'id' ), 'An extension filter narrows include instead of adding to it.' );
-		$this->assertSame( 'woocommerce_ability_extension_filter_failed', $ability->execute( $members( false ) )->get_error_code(), 'A customer filter can only include user IDs.' );
+		$this->assertSame( 'poocommerce_ability_extension_filter_failed', $ability->execute( $members( false ) )->get_error_code(), 'A customer filter can only include user IDs.' );
 
-		update_option( 'woocommerce_feature_extensible_abilities_enabled', 'no' );
+		update_option( 'poocommerce_feature_extensible_abilities_enabled', 'no' );
 		$this->assertSame( $baseline, CustomersQuery::execute( $input ) );
 		$this->assertSame( $schema, CustomersQuery::get_registration_args()['output_schema'] );
 	}
@@ -473,12 +473,12 @@ class CustomersQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should refuse to run while Analytics is off, because the lookup table is not kept in sync.
 	 */
 	public function test_refuses_without_analytics(): void {
-		update_option( 'woocommerce_analytics_enabled', 'no' );
+		update_option( 'poocommerce_analytics_enabled', 'no' );
 
 		$result = $this->sut->execute();
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_customer_analytics_disabled', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_customer_analytics_disabled', $result->get_error_code() );
 	}
 
 	/**

@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Tests for wc_update_coupon_usage_counts() when another request changes the same order while it runs.
@@ -135,13 +135,13 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_update_coupon_usage_invalid_statuses',
+			'poocommerce_update_coupon_usage_invalid_statuses',
 			function ( $statuses ) {
 				$statuses[] = 'expired';
 				return $statuses;
 			}
 		);
-		add_action( 'woocommerce_order_status_expired', 'wc_update_coupon_usage_counts' );
+		add_action( 'poocommerce_order_status_expired', 'wc_update_coupon_usage_counts' );
 		$order = $this->create_pending_order_with_counted_coupon( 'custom-status' );
 
 		$order->update_status( 'expired' );
@@ -160,7 +160,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 		clean_post_cache( $order_id );
 
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) {
 				$stores['test-order-without-conditional-clear'] = new class() extends Abstract_WC_Order_Data_Store_CPT {
 					/**
@@ -199,7 +199,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_order_class',
+			'poocommerce_order_class',
 			function () use ( $order_class ) {
 				return $order_class;
 			}
@@ -255,7 +255,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 
 		$has_run = false;
 		add_action(
-			'woocommerce_before_delete_order_item',
+			'poocommerce_before_delete_order_item',
 			function ( $deleted_item_id ) use ( $order, $item_id, &$has_run ) {
 				if ( ! $has_run && (int) $deleted_item_id === (int) $item_id ) {
 					$has_run = true;
@@ -288,7 +288,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 
 		$has_run = false;
 		add_action(
-			'woocommerce_delete_order_item',
+			'poocommerce_delete_order_item',
 			function ( $deleted_item_id ) use ( $order, $item_id, &$has_run ) {
 				if ( ! $has_run && (int) $deleted_item_id === (int) $item_id ) {
 					$has_run = true;
@@ -322,7 +322,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 
 		$has_run = false;
 		add_action(
-			'woocommerce_delete_order_item',
+			'poocommerce_delete_order_item',
 			function ( $deleted_item_id ) use ( $loser, $item_id, &$has_run ) {
 				if ( ! $has_run && (int) $deleted_item_id === (int) $item_id ) {
 					$has_run = true;
@@ -365,7 +365,7 @@ class WC_Update_Coupon_Usage_Counts_Test extends \WC_Unit_Test_Case {
 	private function run_once_between_flag_read_and_write( callable $callback ): void {
 		$has_run = false;
 		add_filter(
-			'woocommerce_update_coupon_usage_invalid_statuses',
+			'poocommerce_update_coupon_usage_invalid_statuses',
 			function ( $statuses ) use ( $callback, &$has_run ) {
 				if ( ! $has_run ) {
 					$has_run = true;

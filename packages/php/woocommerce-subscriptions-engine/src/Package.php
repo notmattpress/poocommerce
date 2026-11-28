@@ -1,22 +1,22 @@
 <?php
 /**
- * Main package class for the WooCommerce Subscriptions Engine.
+ * Main package class for the PooCommerce Subscriptions Engine.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine;
+namespace Automattic\PooCommerce\SubscriptionsEngine;
 
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Bootstrap;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Bootstrap;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Package entry point.
  *
- * The engine is a library bundled into WooCommerce core and consumed by the
+ * The engine is a library bundled into PooCommerce core and consumed by the
  * Lite and Premium packages; it is not a standalone, independently activated
  * plugin. Consumers call {@see self::init()} during their own boot to wire the
  * integration layer.

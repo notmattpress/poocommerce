@@ -1,5 +1,5 @@
 
-.woocommerce-timeline {
+.poocommerce-timeline {
 	ul {
 		margin: 0;
 		padding-left: 0;
@@ -10,8 +10,8 @@
 		}
 	}
 
-	.woocommerce-timeline-group {
-		.woocommerce-timeline-group__title {
+	.poocommerce-timeline-group {
+		.poocommerce-timeline-group__title {
 			color: $studio-gray-90;
 			font-size: 12px;
 			font-weight: 600;
@@ -36,14 +36,14 @@
 		}
 	}
 
-	.woocommerce-timeline-item {
-		.woocommerce-timeline-item__top-border {
+	.poocommerce-timeline-item {
+		.poocommerce-timeline-item__top-border {
 			min-height: 16px;
 			border-left: 1px solid $studio-gray-10;
 			margin: 0 $gap-small;
 		}
 
-		.woocommerce-timeline-item__title {
+		.poocommerce-timeline-item__title {
 			display: flex;
 			align-items: center;
 			flex-direction: row;
@@ -55,7 +55,7 @@
 			}
 		}
 
-		.woocommerce-timeline-item__headline {
+		.poocommerce-timeline-item__headline {
 			display: flex;
 			align-items: center;
 			flex-direction: row;
@@ -92,12 +92,12 @@
 			}
 		}
 
-		.woocommerce-timeline-item__timestamp {
+		.poocommerce-timeline-item__timestamp {
 			font-size: 14px;
 			line-height: 16px;
 		}
 
-		.woocommerce-timeline-item__body {
+		.poocommerce-timeline-item__body {
 			display: flex;
 			flex-direction: column;
 
@@ -117,6 +117,6 @@
 }
 
 // Hide last <hr /> element.
-.woocommerce-timeline ul :last-child.woocommerce-timeline-group hr:last-child {
+.poocommerce-timeline ul :last-child.poocommerce-timeline-group hr:last-child {
 	display: none;
 }

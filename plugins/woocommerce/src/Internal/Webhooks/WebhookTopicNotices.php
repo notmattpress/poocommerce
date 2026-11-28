@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Webhooks;
+namespace Automattic\PooCommerce\Internal\Webhooks;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Admin_Notices;
 use WC_Cache_Helper;
 
@@ -26,7 +26,7 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 	/**
 	 * Option holding the topic rules version the stored webhooks were last checked against.
 	 */
-	public const TOPIC_CHECK_OPTION = 'woocommerce_webhook_topic_check_version';
+	public const TOPIC_CHECK_OPTION = 'poocommerce_webhook_topic_check_version';
 
 	/**
 	 * Admin notice listing webhooks disabled because their topic is no longer allowed.
@@ -99,7 +99,7 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 					 * @since 11.4.0
 					 * @param int $webhook_id Webhook ID.
 					 */
-					do_action( 'woocommerce_webhook_updated', (int) $webhook['webhook_id'] );
+					do_action( 'poocommerce_webhook_updated', (int) $webhook['webhook_id'] );
 				}
 			}
 		}
@@ -128,7 +128,7 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 	 * @return bool
 	 */
 	private function is_newly_blocked_topic( string $topic ): bool {
-		return ( 0 === strpos( $topic, 'action.woocommerce_' ) || 0 === strpos( $topic, 'action.wc_' ) ) && ! wc_is_webhook_valid_topic( $topic );
+		return ( 0 === strpos( $topic, 'action.poocommerce_' ) || 0 === strpos( $topic, 'action.wc_' ) ) && ! wc_is_webhook_valid_topic( $topic );
 	}
 
 	/**
@@ -172,9 +172,9 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 	 * Clear caches after the status changes.
 	 */
 	private function clear_webhook_caches(): void {
-		delete_transient( 'woocommerce_webhook_ids' );
+		delete_transient( 'poocommerce_webhook_ids' );
 		foreach ( array_keys( wc_get_webhook_statuses() ) as $status ) {
-			delete_transient( 'woocommerce_webhook_ids_status_' . $status );
+			delete_transient( 'poocommerce_webhook_ids_status_' . $status );
 		}
 		WC_Cache_Helper::invalidate_cache_group( 'webhooks' );
 	}
@@ -192,8 +192,8 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 
 		WC_Admin_Notices::add_custom_notice(
 			self::BLOCKED_TOPICS_NOTICE,
-			'<p><strong>' . esc_html__( 'Some webhooks use topics that are no longer supported.', 'woocommerce' ) . '</strong></p>' .
-			'<p>' . esc_html__( 'These webhooks are disabled. To activate them again, switch to a supported topic and set its status to Active.', 'woocommerce' ) . '</p>' .
+			'<p><strong>' . esc_html__( 'Some webhooks use topics that are no longer supported.', 'poocommerce' ) . '</strong></p>' .
+			'<p>' . esc_html__( 'These webhooks are disabled. To activate them again, switch to a supported topic and set its status to Active.', 'poocommerce' ) . '</p>' .
 			'<ul>' . implode( '', $items ) . '</ul>' .
 			'<p>' . $this->get_webhooks_settings_link() . '</p>'
 		);
@@ -210,7 +210,7 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 	 */
 	private function get_webhook_label( int $webhook_id, string $name ): string {
 		/* translators: 1: webhook name, 2: webhook ID. */
-		return sprintf( __( '%1$s (ID %2$d)', 'woocommerce' ), '' !== $name ? $name : __( 'Unnamed webhook', 'woocommerce' ), $webhook_id );
+		return sprintf( __( '%1$s (ID %2$d)', 'poocommerce' ), '' !== $name ? $name : __( 'Unnamed webhook', 'poocommerce' ), $webhook_id );
 	}
 
 	/**
@@ -222,7 +222,7 @@ class WebhookTopicNotices implements RegisterHooksInterface {
 		return sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks' ) ),
-			esc_html__( 'Review webhooks', 'woocommerce' )
+			esc_html__( 'Review webhooks', 'poocommerce' )
 		);
 	}
 }

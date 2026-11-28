@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/components",
+	"name": "@poocommerce/components",
 	"version": "14.1.0",
-	"description": "UI components for WooCommerce.",
+	"description": "UI components for PooCommerce.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -9,16 +9,16 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"components"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/components/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/components/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"exports": {
 		".": {
@@ -77,11 +77,11 @@
 		"@automattic/interpolate-components": "^1.2.1",
 		"@automattic/tour-kit": "^1.1.3",
 		"@types/react-window": "^1.8.8",
-		"@woocommerce/currency": "workspace:*",
-		"@woocommerce/data": "workspace:*",
-		"@woocommerce/date": "workspace:*",
-		"@woocommerce/navigation": "workspace:*",
-		"@woocommerce/sanitize": "workspace:*",
+		"@poocommerce/currency": "workspace:*",
+		"@poocommerce/data": "workspace:*",
+		"@poocommerce/date": "workspace:*",
+		"@poocommerce/navigation": "workspace:*",
+		"@poocommerce/sanitize": "workspace:*",
 		"@wordpress/a11y": "catalog:wp-min",
 		"@wordpress/api-fetch": "catalog:wp-min",
 		"@wordpress/base-styles": "catalog:wp-bundled",
@@ -153,10 +153,10 @@
 		"@types/prop-types": "catalog:types",
 		"@types/testing-library__jest-dom": "^5.14.9",
 		"@types/wordpress__viewport": "catalog:wp-min",
-		"@woocommerce/eslint-config": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-build": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-config": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-build": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"@wordpress/babel-preset-default": "next",
 		"@wordpress/browserslist-config": "catalog:tooling",
 		"css-loader": "catalog:tooling",

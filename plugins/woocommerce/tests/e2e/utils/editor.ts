@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page } from '@playwright/test';
-import { getCanvas } from '@woocommerce/e2e-utils-playwright';
+import { getCanvas } from '@poocommerce/e2e-utils-playwright';
 
 const fillPageTitle = async ( page: Page, title: string ) => {
 	// Close the Block Inserter if it's open.

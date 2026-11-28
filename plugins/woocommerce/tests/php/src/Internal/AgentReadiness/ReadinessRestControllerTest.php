@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Tests\Internal\AgentReadiness;
 
-use Automattic\WooCommerce\Internal\AgentReadiness\AgentReadiness;
-use Automattic\WooCommerce\Internal\AgentReadiness\ProductScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\ScheduledScan;
-use Automattic\WooCommerce\Internal\AgentReadiness\UcpSwitch;
-use Automattic\WooCommerce\Internal\Ucp\UcpDiscovery;
+use Automattic\PooCommerce\Internal\AgentReadiness\AgentReadiness;
+use Automattic\PooCommerce\Internal\AgentReadiness\ProductScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\ScheduledScan;
+use Automattic\PooCommerce\Internal\AgentReadiness\UcpSwitch;
+use Automattic\PooCommerce\Internal\Ucp\UcpDiscovery;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -86,7 +86,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	public function test_get_reads_store_checks_now(): void {
 		StoreConditionsTest::make_store_ready( $this );
 		wc_get_container()->get( AgentReadiness::class )->refresh_report();
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/agent-readiness' ) );
 		$checks   = array_column( $response->get_data()['report']['store_checks'], 'ok', 'id' );
@@ -124,9 +124,9 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A user without manage_woocommerce can't read the report or queue a scan.
+	 * @testdox A user without manage_poocommerce can't read the report or queue a scan.
 	 */
-	public function test_requires_manage_woocommerce(): void {
+	public function test_requires_manage_poocommerce(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
 		$this->assertSame( 403, $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/agent-readiness' ) )->get_status() );
@@ -146,7 +146,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertMatchesRegularExpression( '/^AIShoppingHealth_[a-z0-9.-]+_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.txt$/', $data['filename'] );
 		$this->assertStringContainsString( 'Site: ' . home_url(), $data['text'] );
-		$this->assertStringContainsString( 'WooCommerce version: ' . WC_VERSION, $data['text'] );
+		$this->assertStringContainsString( 'PooCommerce version: ' . WC_VERSION, $data['text'] );
 		$this->assertStringContainsString( 'Last checked: Not checked yet', $data['text'] );
 		$this->assertStringContainsString( "\nDaily checks: On\n", $data['text'], 'Support sees whether the store is checked each day' );
 		update_option( ScheduledScan::DAILY_OPTION, 'no' );
@@ -195,7 +195,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		$cap    = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Red cap' ) );
 		$hoodie = \WC_Helper_Product::create_simple_product( true, array( 'name' => 'Blue hoodie' ) );
 		update_option( 'blog_public', '0' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		update_option(
 			AgentReadiness::REPORT_OPTION,
 			array(
@@ -501,7 +501,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	public function test_support_report_has_no_personal_data_or_secrets(): void {
 		global $wpdb;
 		update_option( 'admin_email', 'owner-secret@example.com' );
-		update_option( 'woocommerce_email_from_address', 'from-secret@example.com' );
+		update_option( 'poocommerce_email_from_address', 'from-secret@example.com' );
 		self::factory()->user->create(
 			array(
 				'role'       => 'customer',
@@ -514,7 +514,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		$order->set_billing_address_1( '42 Secret Street' );
 		$order->save();
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_api_keys',
+			$wpdb->prefix . 'poocommerce_api_keys',
 			array(
 				'user_id'         => get_current_user_id(),
 				'description'     => 'Support test',
@@ -538,16 +538,16 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_ucp_switch_blocked_by_failing_check(): void {
 		StoreConditionsTest::make_store_ready();
-		update_option( 'woocommerce_coming_soon', 'yes' );
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 
 		$response = $this->dispatch_ucp( true );
 		$data     = $response->get_data();
 
 		$this->assertSame( 409, $response->get_status() );
-		$this->assertSame( 'woocommerce_ucp_required_checks_failing', $data['code'] );
+		$this->assertSame( 'poocommerce_ucp_required_checks_failing', $data['code'] );
 		$this->assertSame( array( 'launched' ), $data['data']['failing_checks'] );
-		$this->assertSame( 'no', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_feature_ucp_enabled' ) );
 	}
 
 	/**
@@ -560,12 +560,12 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertTrue( $response->get_data()['enabled'] );
 		$this->assertSame( UcpSwitch::STATUS_ACTIVE, $response->get_data()['status'] );
-		$this->assertSame( 'yes', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_feature_ucp_enabled' ) );
 
 		$response = $this->dispatch_ucp( false );
 		$this->assertSame( 200, $response->get_status() );
 		$this->assertSame( UcpSwitch::STATUS_OFF, $response->get_data()['status'] );
-		$this->assertSame( 'no', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_feature_ucp_enabled' ) );
 	}
 
 	/**
@@ -573,26 +573,26 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_ucp_switch_reports_a_failed_save(): void {
 		StoreConditionsTest::make_store_ready();
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
-		add_filter( 'pre_update_option_woocommerce_feature_ucp_enabled', static fn( $value, $old_value ) => $old_value, 10, 2 );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
+		add_filter( 'pre_update_option_poocommerce_feature_ucp_enabled', static fn( $value, $old_value ) => $old_value, 10, 2 );
 
 		$response = $this->dispatch_ucp( true );
 
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_ucp_not_changed', $response->get_data()['code'] );
-		$this->assertSame( 'no', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'poocommerce_ucp_not_changed', $response->get_data()['code'] );
+		$this->assertSame( 'no', get_option( 'poocommerce_feature_ucp_enabled' ) );
 	}
 
 	/**
 	 * @testdox Turning UCP off works while a required check fails.
 	 */
 	public function test_ucp_switch_off_with_failing_check(): void {
-		update_option( 'woocommerce_feature_ucp_enabled', 'yes' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'yes' );
 
 		$response = $this->dispatch_ucp( false );
 
 		$this->assertSame( 200, $response->get_status() );
-		$this->assertSame( 'no', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_feature_ucp_enabled' ) );
 	}
 
 	/**
@@ -603,7 +603,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		StoreConditionsTest::make_store_ready();
 		$wp_rewrite->set_permalink_structure( '' );
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/ucp';
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 
 		try {
 			$response = $this->dispatch_ucp( true );
@@ -639,7 +639,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 		// A folder where the file goes: its parent is writable, so the switch is allowed, but the write fails.
 		$path = get_temp_dir() . uniqid( 'wc-ucp-' ) . '/ucp';
 		wp_mkdir_p( $path );
-		add_filter( 'woocommerce_ucp_discovery_file_path', fn() => $path );
+		add_filter( 'poocommerce_ucp_discovery_file_path', fn() => $path );
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- The failed write warns, as on a real server.
 		set_error_handler( static fn( int $severity ): bool => E_WARNING === $severity );
 
@@ -661,15 +661,15 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox A user without manage_woocommerce can't switch UCP.
+	 * @testdox A user without manage_poocommerce can't switch UCP.
 	 */
-	public function test_ucp_switch_requires_manage_woocommerce(): void {
+	public function test_ucp_switch_requires_manage_poocommerce(): void {
 		StoreConditionsTest::make_store_ready();
-		update_option( 'woocommerce_feature_ucp_enabled', 'no' );
+		update_option( 'poocommerce_feature_ucp_enabled', 'no' );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
 		$this->assertSame( 403, $this->dispatch_ucp( true )->get_status() );
-		$this->assertSame( 'no', get_option( 'woocommerce_feature_ucp_enabled' ) );
+		$this->assertSame( 'no', get_option( 'poocommerce_feature_ucp_enabled' ) );
 	}
 
 	/**
@@ -696,7 +696,7 @@ class ReadinessRestControllerTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Before the first check, turning daily checks on queues nothing, and a user without manage_woocommerce can't change the setting.
+	 * @testdox Before the first check, turning daily checks on queues nothing, and a user without manage_poocommerce can't change the setting.
 	 */
 	public function test_daily_checks_switch_before_first_check_and_permission(): void {
 		delete_option( AgentReadiness::REPORT_OPTION );

@@ -4,9 +4,9 @@
 # reproduced without any other tool:
 #
 #   pnpm test:js:ci <project> [test runner args...]
-#   pnpm test:js:ci @woocommerce/components -- --maxWorkers=4
+#   pnpm test:js:ci @poocommerce/components -- --maxWorkers=4
 #
-# The three steps mirror .github/actions/setup-woocommerce-monorepo/action.yml
+# The three steps mirror .github/actions/setup-poocommerce-monorepo/action.yml
 # (install, then build-type "dependencies") and the "Run tests" step of
 # .github/workflows/ci.yml. The dependency build is the step people skip
 # locally, and the reason some packages only fail on a laptop. The test
@@ -19,7 +19,7 @@ set -euo pipefail
 
 usage() {
 	echo "usage: pnpm test:js:ci <project> [test runner args...]" >&2
-	echo "       e.g. pnpm test:js:ci @woocommerce/number" >&2
+	echo "       e.g. pnpm test:js:ci @poocommerce/number" >&2
 	exit 2
 }
 

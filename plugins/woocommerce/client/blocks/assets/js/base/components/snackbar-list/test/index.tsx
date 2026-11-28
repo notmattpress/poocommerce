@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fireEvent, render, screen } from '@testing-library/react';
-import type { NoticeType } from '@woocommerce/types';
+import type { NoticeType } from '@poocommerce/types';
 
 /**
  * Internal dependencies

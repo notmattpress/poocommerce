@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class TaxRateUpdate extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/tax-rate-update';
+		return 'poocommerce/tax-rate-update';
 	}
 
 	/**
@@ -39,9 +39,9 @@ class TaxRateUpdate extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Update tax rate', 'woocommerce' ),
-			'description'         => __( 'Change a tax rate. Send its id from tax-rates-query and only the fields to change. An empty postcodes or cities list makes the rate apply to every postcode or city.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Update tax rate', 'poocommerce' ),
+			'description'         => __( 'Change a tax rate. Send its id from tax-rates-query and only the fields to change. An empty postcodes or cities list makes the rate apply to every postcode or city.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array_merge(

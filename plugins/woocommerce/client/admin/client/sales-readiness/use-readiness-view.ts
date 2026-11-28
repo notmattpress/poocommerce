@@ -86,7 +86,7 @@ export function useReadinessView(
 			setError(
 				__(
 					'Your check results didn’t load. Reload the page to try again.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {
@@ -147,7 +147,7 @@ export function useReadinessView(
 			setError(
 				__(
 					'The check didn’t start. Try again in a few minutes.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		} finally {
@@ -187,11 +187,11 @@ export function useReadinessView(
 					enabled
 						? __(
 								'Automatic daily checks weren’t turned on. Try again in a few minutes.',
-								'woocommerce'
+								'poocommerce'
 							)
 						: __(
 								'Automatic daily checks weren’t turned off. Try again in a few minutes.',
-								'woocommerce'
+								'poocommerce'
 							)
 				);
 			} finally {

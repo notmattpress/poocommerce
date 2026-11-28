@@ -16,7 +16,7 @@ class WC_WCCOM_Site_Installation_Step_Move_Product_Test extends WC_Unit_Test_Cas
 	private $unpacked_path;
 
 	/**
-	 * Load the installer classes, which WooCommerce only loads for WooCommerce.com requests.
+	 * Load the installer classes, which PooCommerce only loads for PooCommerce.com requests.
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();

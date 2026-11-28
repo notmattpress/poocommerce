@@ -5,17 +5,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Order;
 use WP_Post;
 
 /**
- * Routes `/review-order/{id}/?key={order_key}` to the WooCommerce-managed
+ * Routes `/review-order/{id}/?key={order_key}` to the PooCommerce-managed
  * Review Order page and renders the read-only landing page through the
- * `[woocommerce_review_order]` shortcode.
+ * `[poocommerce_review_order]` shortcode.
  *
  * The page is intentionally hosted outside the checkout/my-account family:
  *
@@ -25,7 +25,7 @@ use WP_Post;
  *   so guest customers reach it without logging in. An order that belongs to a
  *   registered customer requires that customer's session, the same default
  *   `order_received` and the Store API order route apply. The opt-out is this
- *   route's own filter; `woocommerce_order_received_verify_known_shoppers` does
+ *   route's own filter; `poocommerce_order_received_verify_known_shoppers` does
  *   not carry over.
  *
  * The route uses the same wp_posts-backed page pattern as the checkout
@@ -57,7 +57,7 @@ class Endpoint {
 	/**
 	 * Shortcode tag that renders the page body inside the WC page content.
 	 */
-	public const SHORTCODE = 'woocommerce_review_order';
+	public const SHORTCODE = 'poocommerce_review_order';
 
 	/**
 	 * Query arg carried to the login page so signing in returns here.
@@ -86,9 +86,9 @@ class Endpoint {
 		add_filter( 'display_post_states', array( $this, 'add_post_state_label' ), 10, 2 );
 		// Inject our entry into every `WC_Install::create_pages()` invocation so
 		// Status → Tools "Create default pages" and any other repair caller see it too.
-		add_filter( 'woocommerce_create_pages', array( $this, 'inject_review_order_page' ) );
+		add_filter( 'poocommerce_create_pages', array( $this, 'inject_review_order_page' ) );
 		add_shortcode( self::SHORTCODE, array( $this, 'render_shortcode' ) );
-		add_filter( 'woocommerce_login_redirect', array( $this, 'maybe_return_to_review' ) );
+		add_filter( 'poocommerce_login_redirect', array( $this, 'maybe_return_to_review' ) );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class Endpoint {
 			$needs_save = false;
 
 			if ( $option_id !== (int) $canonical->ID ) {
-				update_option( 'woocommerce_review_order_page_id', (int) $canonical->ID );
+				update_option( 'poocommerce_review_order_page_id', (int) $canonical->ID );
 				$needs_save = true;
 			}
 			if ( 'publish' !== $canonical->post_status ) {
@@ -171,11 +171,11 @@ class Endpoint {
 			return array_intersect_key( $pages, array( self::PAGE_KEY => true ) );
 		};
 
-		add_filter( 'woocommerce_create_pages', $create_review_order_page_only, PHP_INT_MAX );
+		add_filter( 'poocommerce_create_pages', $create_review_order_page_only, PHP_INT_MAX );
 		try {
 			\WC_Install::create_pages();
 		} finally {
-			remove_filter( 'woocommerce_create_pages', $create_review_order_page_only, PHP_INT_MAX );
+			remove_filter( 'poocommerce_create_pages', $create_review_order_page_only, PHP_INT_MAX );
 		}
 
 		// Defer the rewrite flush to wp_loaded; rewrite_rule fires later on init.
@@ -202,8 +202,8 @@ class Endpoint {
 			return $pages;
 		}
 		$pages[ self::PAGE_KEY ] = array(
-			'name'    => _x( 'review-order', 'Page slug', 'woocommerce' ),
-			'title'   => _x( 'Review your order', 'Page title', 'woocommerce' ),
+			'name'    => _x( 'review-order', 'Page slug', 'poocommerce' ),
+			'title'   => _x( 'Review your order', 'Page title', 'poocommerce' ),
 			'content' => '<!-- wp:shortcode -->[' . self::SHORTCODE . ']<!-- /wp:shortcode -->',
 		);
 		return $pages;
@@ -219,7 +219,7 @@ class Endpoint {
 	 * @return WP_Post|null
 	 */
 	private function find_canonical_host_page(): ?WP_Post {
-		$page = get_page_by_path( _x( 'review-order', 'Page slug', 'woocommerce' ), OBJECT, 'page' );
+		$page = get_page_by_path( _x( 'review-order', 'Page slug', 'poocommerce' ), OBJECT, 'page' );
 		if ( ! $page instanceof WP_Post || 'trash' === $page->post_status ) {
 			return null;
 		}
@@ -248,7 +248,7 @@ class Endpoint {
 		}
 		$page_id = (int) wc_get_page_id( self::PAGE_KEY );
 		if ( $page_id > 0 && $page_id === (int) $post->ID ) {
-			$post_states['wc_page_for_review_order'] = __( 'Review Order Page', 'woocommerce' );
+			$post_states['wc_page_for_review_order'] = __( 'Review Order Page', 'poocommerce' );
 		}
 		return $post_states;
 	}
@@ -370,7 +370,7 @@ class Endpoint {
 	 * transitions are unaffected.
 	 *
 	 * Compares by slug rather than by stored option id so it also fires on
-	 * the very first install — before `woocommerce_review_order_page_id`
+	 * the very first install — before `poocommerce_review_order_page_id`
 	 * is written.
 	 *
 	 * @param string   $new_status New post status.
@@ -387,7 +387,7 @@ class Endpoint {
 		// shortcode in its content (during install, before the option
 		// exists). Don't compare $post->post_name to 'review-order' alone:
 		// WP appends -2/-3/... if the slug already exists.
-		$stored_id  = (int) get_option( 'woocommerce_review_order_page_id' );
+		$stored_id  = (int) get_option( 'poocommerce_review_order_page_id' );
 		$is_by_id   = $stored_id > 0 && $stored_id === (int) $post->ID;
 		$is_by_slug = '' === $post->post_name
 			? false
@@ -412,7 +412,7 @@ class Endpoint {
 	 * republished.
 	 *
 	 * `maybe_create_host_page()` runs on `init` priority 4 and queues the
-	 * flush by setting `woocommerce_review_order_flush_rewrite_pending`;
+	 * flush by setting `poocommerce_review_order_flush_rewrite_pending`;
 	 * `add_rewrite_rule()` doesn't fire until `init` priority 10, so the
 	 * flush has to happen later. `wp_loaded` runs after every `init`
 	 * callback, which is the earliest safe moment. Installing requests and
@@ -421,12 +421,12 @@ class Endpoint {
 	 * is available.
 	 */
 	public function maybe_flush_pending_rewrite(): void {
-		if ( wp_installing() || $this->wp_cli_skips_active_theme() || 'yes' !== get_option( 'woocommerce_review_order_flush_rewrite_pending' ) ) {
+		if ( wp_installing() || $this->wp_cli_skips_active_theme() || 'yes' !== get_option( 'poocommerce_review_order_flush_rewrite_pending' ) ) {
 			return;
 		}
 
 		flush_rewrite_rules( false );
-		delete_option( 'woocommerce_review_order_flush_rewrite_pending' );
+		delete_option( 'poocommerce_review_order_flush_rewrite_pending' );
 	}
 
 	/**
@@ -463,10 +463,10 @@ class Endpoint {
 	 * be cached, mirroring `WC_Post_Types::flush_rewrite_rules()`.
 	 */
 	private function queue_pending_rewrite_flush(): void {
-		update_option( 'woocommerce_review_order_flush_rewrite_pending', 'yes' );
+		update_option( 'poocommerce_review_order_flush_rewrite_pending', 'yes' );
 
 		if ( wp_installing() ) {
-			wp_cache_delete( 'woocommerce_review_order_flush_rewrite_pending', 'options' );
+			wp_cache_delete( 'poocommerce_review_order_flush_rewrite_pending', 'options' );
 			wp_cache_delete( 'alloptions', 'options' );
 		}
 	}
@@ -592,7 +592,7 @@ class Endpoint {
 	/**
 	 * Render the Review Order page body for the WC-managed page.
 	 *
-	 * Called by `the_content` on the page that hosts `[woocommerce_review_order]`.
+	 * Called by `the_content` on the page that hosts `[poocommerce_review_order]`.
 	 * Confirms the current page and order key before rendering.
 	 *
 	 * @return string
@@ -630,7 +630,7 @@ class Endpoint {
 	private function render_body( WC_Order $order ): string {
 		if ( self::viewer_is_another_customer( $order ) ) {
 			ob_start();
-			echo '<div class="woocommerce"><div class="woocommerce-notices-wrapper">' . wc_print_notice( __( 'This order belongs to a different account, so you cannot review it.', 'woocommerce' ), 'error', array(), true ) . '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_print_notice() returns kses-filtered markup.
+			echo '<div class="poocommerce"><div class="poocommerce-notices-wrapper">' . wc_print_notice( __( 'This order belongs to a different account, so you cannot review it.', 'poocommerce' ), 'error', array(), true ) . '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_print_notice() returns kses-filtered markup.
 			return (string) ob_get_clean();
 		}
 
@@ -669,7 +669,7 @@ class Endpoint {
 
 		$this->maybe_mark_no_actionable_rows( $order );
 
-		echo $this->render_body( $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_get_template(), wc_print_notice() and woocommerce_login_form() output, escaped at source.
+		echo $this->render_body( $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_get_template(), wc_print_notice() and poocommerce_login_form() output, escaped at source.
 	}
 
 	/**
@@ -697,8 +697,8 @@ class Endpoint {
 			return;
 		}
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- documented on customer-review-order.php template.
-		$items = (array) apply_filters( 'woocommerce_review_order_eligible_items', $order->get_items(), $order );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- documented on customer-review-order.php template.
+		$items = (array) apply_filters( 'poocommerce_review_order_eligible_items', $order->get_items(), $order );
 		ItemEligibility::preload_for_items( $items, $order );
 
 		foreach ( $items as $item ) {
@@ -727,7 +727,7 @@ class Endpoint {
 			wc_get_logger()->warning(
 				sprintf(
 					/* translators: 1: order ID, 2: error message */
-					__( 'Could not stamp Review Order completion meta on order %1$d: %2$s.', 'woocommerce' ),
+					__( 'Could not stamp Review Order completion meta on order %1$d: %2$s.', 'poocommerce' ),
 					$order->get_id(),
 					$e->getMessage()
 				),
@@ -772,7 +772,7 @@ class Endpoint {
 		 * @param string   $url   The review-order URL.
 		 * @param WC_Order $order The order object.
 		 */
-		return (string) apply_filters( 'woocommerce_review_order_url', $url, $order );
+		return (string) apply_filters( 'poocommerce_review_order_url', $url, $order );
 	}
 
 	/**
@@ -816,7 +816,7 @@ class Endpoint {
 		 * @param WC_Order $order             The order being reviewed.
 		 */
 		$eligible_statuses = (array) apply_filters(
-			'woocommerce_review_order_eligible_statuses',
+			'poocommerce_review_order_eligible_statuses',
 			array( OrderStatus::COMPLETED ),
 			$order
 		);
@@ -858,7 +858,7 @@ class Endpoint {
 		 * @param bool     $required Whether a session is required.
 		 * @param WC_Order $order    The order being reviewed.
 		 */
-		return (bool) apply_filters( 'woocommerce_review_order_verify_known_shoppers', true, $order );
+		return (bool) apply_filters( 'poocommerce_review_order_verify_known_shoppers', true, $order );
 	}
 
 	/**
@@ -883,7 +883,7 @@ class Endpoint {
 	 *
 	 * @internal
 	 *
-	 * @param string $redirect Where WooCommerce intends to send the customer.
+	 * @param string $redirect Where PooCommerce intends to send the customer.
 	 * @return string
 	 */
 	public function maybe_return_to_review( $redirect ): string {
@@ -957,8 +957,8 @@ class Endpoint {
 		$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$version    = Constants::get_constant( 'WC_VERSION' );
 		$asset_url  = static function ( string $path ) use ( $plugin_url ): string {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- documented in includes/class-wc-frontend-scripts.php.
-			return (string) apply_filters( 'woocommerce_get_asset_url', $plugin_url . $path, $path );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- documented in includes/class-wc-frontend-scripts.php.
+			return (string) apply_filters( 'poocommerce_get_asset_url', $plugin_url . $path, $path );
 		};
 
 		wp_enqueue_style( 'wc-order-review', $asset_url( '/assets/css/order-review.css' ), array(), $version );
@@ -981,11 +981,11 @@ class Endpoint {
 			'wcOrderReview',
 			array(
 				'i18n' => array(
-					'ok'                 => __( 'Thanks, your review is live.', 'woocommerce' ),
-					'pending_moderation' => __( 'Thanks, your review is pending approval.', 'woocommerce' ),
-					'error'              => __( 'Something went wrong, please try again.', 'woocommerce' ),
-					'rating_required'    => __( 'Please rate this product before submitting your review.', 'woocommerce' ),
-					'submit_hint'        => __( 'Add or change a rating or review to submit.', 'woocommerce' ),
+					'ok'                 => __( 'Thanks, your review is live.', 'poocommerce' ),
+					'pending_moderation' => __( 'Thanks, your review is pending approval.', 'poocommerce' ),
+					'error'              => __( 'Something went wrong, please try again.', 'poocommerce' ),
+					'rating_required'    => __( 'Please rate this product before submitting your review.', 'poocommerce' ),
+					'submit_hint'        => __( 'Add or change a rating or review to submit.', 'poocommerce' ),
 				),
 			)
 		);
@@ -1014,7 +1014,7 @@ class Endpoint {
 		// page so the response body isn't empty.
 		printf(
 			'<!doctype html><html><head><meta charset="utf-8"><title>%1$s</title></head><body><h1>%1$s</h1></body></html>',
-			esc_html__( 'Page not found', 'woocommerce' )
+			esc_html__( 'Page not found', 'poocommerce' )
 		);
 	}
 }

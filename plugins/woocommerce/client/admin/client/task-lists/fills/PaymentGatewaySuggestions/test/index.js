@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import { useSelect } from '@wordpress/data';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 /**
  * Internal dependencies
  */
@@ -21,7 +21,7 @@ jest.mock( '@wordpress/data', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( '~/utils/features', () => ( {
 	isFeatureEnabled: jest.fn(),
@@ -33,8 +33,8 @@ const paymentGatewaySuggestions = [
 		title: 'Stripe',
 		content:
 			'Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/stripe.png',
-		plugins: [ 'woocommerce-gateway-stripe' ],
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/stripe.png',
+		plugins: [ 'poocommerce-gateway-stripe' ],
 		is_visible: true,
 		recommendation_priority: 3,
 		category_other: [ 'US' ],
@@ -45,8 +45,8 @@ const paymentGatewaySuggestions = [
 		title: 'PayPal Payments',
 		content:
 			"Safe and secure payments using credit cards or your customer's PayPal account.",
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/paypal.png',
-		plugins: [ 'woocommerce-paypal-payments' ],
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/paypal.png',
+		plugins: [ 'poocommerce-paypal-payments' ],
 		is_visible: true,
 		category_other: [ 'US' ],
 		category_additional: [ 'US' ],
@@ -55,7 +55,7 @@ const paymentGatewaySuggestions = [
 		id: 'cod',
 		title: 'Cash on delivery',
 		content: 'Take payments in cash upon delivery.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce-admin/images/onboarding/cod.svg',
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce-admin/images/onboarding/cod.svg',
 		is_visible: true,
 		is_offline: true,
 	},
@@ -63,29 +63,29 @@ const paymentGatewaySuggestions = [
 		id: 'bacs',
 		title: 'Direct bank transfer',
 		content: 'Take payments via bank transfer.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce-admin/images/onboarding/bacs.svg',
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce-admin/images/onboarding/bacs.svg',
 		is_visible: true,
 		is_offline: true,
 	},
 	{
-		id: 'woocommerce_payments:non-us',
+		id: 'poocommerce_payments:non-us',
 		title: 'WooPayments',
 		content:
 			'Manage transactions without leaving your WordPress Dashboard. Only with WooPayments.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce-admin/images/onboarding/wcpay.svg',
-		plugins: [ 'woocommerce-payments' ],
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce-admin/images/onboarding/wcpay.svg',
+		plugins: [ 'poocommerce-payments' ],
 		description:
 			'With WooPayments, you can securely accept major cards, Apple Pay, and payments in over 100 currencies. Track cash flow and manage recurring revenue directly from your store’s dashboard - with no setup costs or monthly fees.',
 		is_visible: true,
 		recommendation_priority: 1,
 	},
 	{
-		id: 'woocommerce_payments:bnpl',
+		id: 'poocommerce_payments:bnpl',
 		title: 'Activate BNPL instantly on WooPayments',
 		content:
 			'The world’s favorite buy now, pay later options and many more are right at your fingertips with WooPayments — all from one dashboard, without needing multiple extensions and logins.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce-admin/images/onboarding/wcpay-bnpl.svg',
-		plugins: [ 'woocommerce-payments' ],
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce-admin/images/onboarding/wcpay-bnpl.svg',
+		plugins: [ 'poocommerce-payments' ],
 		is_visible: true,
 		recommendation_priority: 1,
 	},
@@ -93,9 +93,9 @@ const paymentGatewaySuggestions = [
 		id: 'eway',
 		title: 'Eway',
 		content:
-			'The Eway extension for WooCommerce allows you to take credit card payments directly on your store without redirecting your customers to a third party site to make payment.',
-		image: 'http://localhost:8888/wp-content/plugins/woocommerce-admin/images/onboarding/eway.png',
-		plugins: [ 'woocommerce-gateway-eway' ],
+			'The Eway extension for PooCommerce allows you to take credit card payments directly on your store without redirecting your customers to a third party site to make payment.',
+		image: 'http://localhost:8888/wp-content/plugins/poocommerce-admin/images/onboarding/eway.png',
+		plugins: [ 'poocommerce-gateway-eway' ],
 		is_visible: true,
 		category_other: [ 'US' ],
 		category_additional: [ 'US' ],
@@ -103,7 +103,7 @@ const paymentGatewaySuggestions = [
 ];
 
 const paymentGatewaySuggestionsWithoutWCPay = paymentGatewaySuggestions.filter(
-	( p ) => ! p.id.startsWith( 'woocommerce_payments' )
+	( p ) => ! p.id.startsWith( 'poocommerce_payments' )
 );
 
 describe( 'PaymentGatewaySuggestions', () => {
@@ -126,7 +126,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		);
 
 		const paymentTitleElements = container.querySelectorAll(
-			'.woocommerce-task-payment__title'
+			'.poocommerce-task-payment__title'
 		);
 
 		const paymentTitles = Array.from( paymentTitleElements ).map(
@@ -144,14 +144,14 @@ describe( 'PaymentGatewaySuggestions', () => {
 		expect(
 			container
 				.querySelector(
-					'.woocommerce-recommended-payments-banner__footer'
+					'.poocommerce-recommended-payments-banner__footer'
 				)
 				.textContent.includes( 'WooPayments' )
 		).toBe( true );
 
 		// WCPay BNPL suggestion should not be shown since WCPay is shown.
 		expect(
-			container.querySelector( '.woocommerce-wcpay-bnpl-suggestion' )
+			container.querySelector( '.poocommerce-wcpay-bnpl-suggestion' )
 		).toBeFalsy();
 	} );
 
@@ -178,7 +178,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		).toBeInTheDocument();
 
 		const paymentTitleElements = container.querySelectorAll(
-			'.woocommerce-task-payment__title > span:first-child'
+			'.poocommerce-task-payment__title > span:first-child'
 		);
 
 		const paymentTitles = Array.from( paymentTitleElements ).map(
@@ -212,7 +212,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		);
 
 		const paymentTitles = container.querySelectorAll(
-			'.woocommerce-task-payment__title'
+			'.poocommerce-task-payment__title'
 		);
 
 		expect( paymentTitles[ paymentTitles.length - 1 ].textContent ).toBe(
@@ -234,8 +234,8 @@ describe( 'PaymentGatewaySuggestions', () => {
 					title: 'PayPal Payments',
 					content:
 						"Safe and secure payments using credit cards or your customer's PayPal account.",
-					image: 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/paypal.png',
-					plugins: [ 'woocommerce-paypal-payments' ],
+					image: 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/paypal.png',
+					plugins: [ 'poocommerce-paypal-payments' ],
 					is_visible: true,
 					settings_url: 'http://example.com',
 				},
@@ -261,9 +261,9 @@ describe( 'PaymentGatewaySuggestions', () => {
 			paymentGatewaySuggestions,
 			installedPaymentGateways: [
 				{
-					id: 'woocommerce_payments',
+					id: 'poocommerce_payments',
 					title: 'WooPayments',
-					plugins: [ 'woocommerce-payments' ],
+					plugins: [ 'poocommerce-payments' ],
 					is_visible: true,
 					needs_setup: false,
 					settings_url: 'http://example.com',
@@ -284,7 +284,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		).toBeInTheDocument();
 
 		const paymentTitleElements = container.querySelectorAll(
-			'.woocommerce-task-payment__title'
+			'.poocommerce-task-payment__title'
 		);
 
 		const paymentTitles = Array.from( paymentTitleElements ).map(
@@ -300,7 +300,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 
 		// WCPay BNPL suggestion should be shown.
 		expect(
-			container.querySelector( '.woocommerce-wcpay-bnpl-suggestion' )
+			container.querySelector( '.poocommerce-wcpay-bnpl-suggestion' )
 		).toBeInTheDocument();
 	} );
 
@@ -317,8 +317,8 @@ describe( 'PaymentGatewaySuggestions', () => {
 					title: 'PayPal Payments',
 					content:
 						"Safe and secure payments using credit cards or your customer's PayPal account.",
-					image: 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/paypal.png',
-					plugins: [ 'woocommerce-paypal-payments' ],
+					image: 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/paypal.png',
+					plugins: [ 'poocommerce-paypal-payments' ],
 					is_visible: true,
 					settings_url: 'http://example.com',
 				},
@@ -338,7 +338,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		).toBeInTheDocument();
 
 		const paymentTitleElements = container.querySelectorAll(
-			'.woocommerce-task-payment__title'
+			'.poocommerce-task-payment__title'
 		);
 
 		const paymentTitles = Array.from( paymentTitleElements ).map(
@@ -367,8 +367,8 @@ describe( 'PaymentGatewaySuggestions', () => {
 					title: 'PayPal Payments',
 					content:
 						"Safe and secure payments using credit cards or your customer's PayPal account.",
-					image: 'http://localhost:8888/wp-content/plugins/woocommerce/assets/images/paypal.png',
-					plugins: [ 'woocommerce-paypal-payments' ],
+					image: 'http://localhost:8888/wp-content/plugins/poocommerce/assets/images/paypal.png',
+					plugins: [ 'poocommerce-paypal-payments' ],
 					is_visible: true,
 					settings_url: 'http://example.com',
 				},
@@ -407,7 +407,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		);
 
 		fireEvent.click( screen.getByText( 'Other payment providers' ) );
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 		expect(
 			recordEvent.mock.calls[ recordEvent.mock.calls.length - 1 ]
 		).toEqual( [ 'tasklist_payment_see_more', {} ] );
@@ -422,9 +422,9 @@ describe( 'PaymentGatewaySuggestions', () => {
 			paymentGatewaySuggestions,
 			installedPaymentGateways: [
 				{
-					id: 'woocommerce_payments',
+					id: 'poocommerce_payments',
 					title: 'WooPayments',
-					plugins: [ 'woocommerce-payments' ],
+					plugins: [ 'poocommerce-payments' ],
 					is_visible: true,
 					needs_setup: false,
 					settings_url: 'http://example.com',
@@ -442,7 +442,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 
 		fireEvent.click(
 			container.querySelector(
-				'.woocommerce-wcpay-bnpl-suggestion__button'
+				'.poocommerce-wcpay-bnpl-suggestion__button'
 			)
 		);
 		expect(
@@ -450,7 +450,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 		).toEqual( [ 'tasklist_payments_wcpay_bnpl_click' ] );
 	} );
 
-	test( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	test( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		isFeatureEnabled.mockReturnValue( true );
 
@@ -458,7 +458,7 @@ describe( 'PaymentGatewaySuggestions', () => {
 			<PaymentGatewaySuggestions onComplete={ () => {} } query={ {} } />
 		);
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 		expect( setHref ).toHaveBeenCalledWith(
 			expect.stringContaining(
 				'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=payment-gateways'

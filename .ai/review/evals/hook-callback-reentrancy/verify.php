@@ -89,7 +89,7 @@ function get_post_meta( $id, $key, $single = false ) {
     if ( null !== $value ) {
         return $single && is_array( $value ) ? reset( $value ) : $value;
     }
-    $stored = 101 === $id ? 'woocommerce_uploads/private.pdf' : '2026/photo.jpg';
+    $stored = 101 === $id ? 'poocommerce_uploads/private.pdf' : '2026/photo.jpg';
     return $single ? $stored : array( $stored );
 }
 

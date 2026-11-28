@@ -15,7 +15,7 @@ const connect = {
 	connected: false as const,
 	notice: '' as const,
 	url: 'https://example.com/wp-admin/admin-post.php',
-	action: 'woocommerce_ai_tools_connect',
+	action: 'poocommerce_ai_tools_connect',
 	nonce: 'abc',
 };
 

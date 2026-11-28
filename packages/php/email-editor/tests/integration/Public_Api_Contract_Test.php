@@ -1,37 +1,37 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
-use Automattic\WooCommerce\EmailEditor\Engine\Patterns\Abstract_Pattern;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\HTML_Tag_Processor;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Html2Text;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Send_Preview_Email;
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Template;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\User_Theme;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Column;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Columns;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Image;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Initializer as WooCommerce_Initializer;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\EmailEditor\Engine\Patterns\Abstract_Pattern;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\HTML_Tag_Processor;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Html2Text;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Send_Preview_Email;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Template;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\User_Theme;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Column;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Columns;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Image;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Initializer as PooCommerce_Initializer;
 
 /**
  * Pins the parts of this package that MailPoet uses: the services it takes from the container,
@@ -69,7 +69,7 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 			User_Theme::class,
 			Renderer::class,
 			Process_Manager::class,
-			WooCommerce_Initializer::class,
+			PooCommerce_Initializer::class,
 		);
 		return array_combine( $services, array_map( fn( $service ) => array( $service ), $services ) );
 	}
@@ -145,7 +145,7 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 			array( Abstract_Pattern::class, 'get_name', 0 ),
 			array( Abstract_Pattern::class, 'get_namespace', 0 ),
 			array( Abstract_Pattern::class, 'get_properties', 0 ),
-			array( WooCommerce_Initializer::class, 'render_block', 3 ),
+			array( PooCommerce_Initializer::class, 'render_block', 3 ),
 			array( Image::class, 'render', 3 ),
 			array( Column::class, 'render', 3 ),
 			array( Columns::class, 'render', 3 ),
@@ -264,7 +264,7 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 		$templates_registry = $this->di_container->get( Templates_Registry::class );
 		$tags_registry      = $this->di_container->get( Personalization_Tags_Registry::class );
 		$received           = array();
-		foreach ( array( 'woocommerce_email_editor_register_templates', 'woocommerce_email_editor_register_personalization_tags' ) as $hook ) {
+		foreach ( array( 'poocommerce_email_editor_register_templates', 'poocommerce_email_editor_register_personalization_tags' ) as $hook ) {
 			add_filter(
 				$hook,
 				function ( $registry ) use ( &$received, $hook ) {
@@ -277,8 +277,8 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 		$templates_registry->initialize();
 		$tags_registry->initialize();
 
-		$this->assertSame( $templates_registry, $received['woocommerce_email_editor_register_templates'] ?? null );
-		$this->assertSame( $tags_registry, $received['woocommerce_email_editor_register_personalization_tags'] ?? null );
+		$this->assertSame( $templates_registry, $received['poocommerce_email_editor_register_templates'] ?? null );
+		$this->assertSame( $tags_registry, $received['poocommerce_email_editor_register_personalization_tags'] ?? null );
 	}
 
 	/**
@@ -287,7 +287,7 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 	public function testPreviewEmailFiltersItsPersonalizerContext(): void {
 		$seen = null;
 		add_filter(
-			'woocommerce_email_editor_send_preview_email_personalizer_context',
+			'poocommerce_email_editor_send_preview_email_personalizer_context',
 			function ( $context ) use ( &$seen ) {
 				$seen = $context;
 				return array_merge( $context, array( 'mailpoet_value' => 'set by MailPoet' ) );
@@ -307,9 +307,9 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test initializing the editor fires the hooks MailPoet uses to set itself up.
 	 */
 	public function testInitializingFiresMailPoetSetupHooks(): void {
-		$initialized_count = did_action( 'woocommerce_email_editor_initialized' );
+		$initialized_count = did_action( 'poocommerce_email_editor_initialized' );
 		$filtered          = array();
-		foreach ( array( 'woocommerce_email_editor_post_types', 'woocommerce_is_email_editor_page' ) as $hook ) {
+		foreach ( array( 'poocommerce_email_editor_post_types', 'poocommerce_is_email_editor_page' ) as $hook ) {
 			add_filter(
 				$hook,
 				function ( $value ) use ( &$filtered, $hook ) {
@@ -321,9 +321,9 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 
 		$this->di_container->get( Email_Editor::class )->initialize();
 
-		$this->assertSame( $initialized_count + 1, did_action( 'woocommerce_email_editor_initialized' ) );
-		$this->assertArrayHasKey( 'woocommerce_email_editor_post_types', $filtered );
-		$this->assertArrayHasKey( 'woocommerce_is_email_editor_page', $filtered );
+		$this->assertSame( $initialized_count + 1, did_action( 'poocommerce_email_editor_initialized' ) );
+		$this->assertArrayHasKey( 'poocommerce_email_editor_post_types', $filtered );
+		$this->assertArrayHasKey( 'poocommerce_is_email_editor_page', $filtered );
 	}
 
 	/**
@@ -337,9 +337,9 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 		$this->assertInstanceOf( \WP_Post::class, $post );
 		$args  = array();
 		$hooks = array(
-			'woocommerce_email_editor_rendering_email_context' => 3,
-			'woocommerce_email_blocks_renderer_parsed_blocks' => 1,
-			'woocommerce_email_content_renderer_styles' => 2,
+			'poocommerce_email_editor_rendering_email_context' => 3,
+			'poocommerce_email_blocks_renderer_parsed_blocks' => 1,
+			'poocommerce_email_content_renderer_styles' => 2,
 		);
 		foreach ( $hooks as $hook => $accepted ) {
 			add_filter(
@@ -352,16 +352,16 @@ class Public_Api_Contract_Test extends \Email_Editor_Integration_Test_Case {
 				$accepted
 			);
 		}
-		$render_start_count = did_action( 'woocommerce_email_editor_render_start' );
+		$render_start_count = did_action( 'poocommerce_email_editor_render_start' );
 
 		$this->di_container->get( Renderer::class )->render( $post, 'Subject', '', 'en_US' );
 
-		$this->assertSame( $render_start_count + 1, did_action( 'woocommerce_email_editor_render_start' ) );
-		$this->assertIsArray( $args['woocommerce_email_editor_rendering_email_context'][0] ?? null, 'Context array' );
-		$this->assertSame( $post, $args['woocommerce_email_editor_rendering_email_context'][1] ?? null, 'Rendered post' );
-		$this->assertInstanceOf( \WP_Block_Template::class, $args['woocommerce_email_editor_rendering_email_context'][2] ?? null, 'Template' );
-		$this->assertIsArray( $args['woocommerce_email_blocks_renderer_parsed_blocks'][0] ?? null, 'Parsed blocks' );
-		$this->assertIsString( $args['woocommerce_email_content_renderer_styles'][0] ?? null, 'Styles' );
-		$this->assertSame( $post, $args['woocommerce_email_content_renderer_styles'][1] ?? null, 'Post for styles' );
+		$this->assertSame( $render_start_count + 1, did_action( 'poocommerce_email_editor_render_start' ) );
+		$this->assertIsArray( $args['poocommerce_email_editor_rendering_email_context'][0] ?? null, 'Context array' );
+		$this->assertSame( $post, $args['poocommerce_email_editor_rendering_email_context'][1] ?? null, 'Rendered post' );
+		$this->assertInstanceOf( \WP_Block_Template::class, $args['poocommerce_email_editor_rendering_email_context'][2] ?? null, 'Template' );
+		$this->assertIsArray( $args['poocommerce_email_blocks_renderer_parsed_blocks'][0] ?? null, 'Parsed blocks' );
+		$this->assertIsString( $args['poocommerce_email_content_renderer_styles'][0] ?? null, 'Styles' );
+		$this->assertSame( $post, $args['poocommerce_email_content_renderer_styles'][1] ?? null, 'Post for styles' );
 	}
 }

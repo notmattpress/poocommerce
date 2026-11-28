@@ -6,8 +6,8 @@ import {
 	AttributeObjectForDisplay,
 	AttributeQuery,
 	AttributeTerm,
-} from '@woocommerce/types';
-import { compareStrings } from '@woocommerce/utils/compare-strings';
+} from '@poocommerce/types';
+import { compareStrings } from '@poocommerce/utils/compare-strings';
 
 /**
  * Given a query object, removes an attribute filter by a single slug.

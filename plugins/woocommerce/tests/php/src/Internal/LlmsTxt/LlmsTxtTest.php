@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\LlmsTxt;
+namespace Automattic\PooCommerce\Tests\Internal\LlmsTxt;
 
-use Automattic\WooCommerce\Internal\LlmsTxt\LlmsTxt;
+use Automattic\PooCommerce\Internal\LlmsTxt\LlmsTxt;
 
 /**
  * Tests for the llms.txt readiness check.
@@ -21,9 +21,9 @@ class LlmsTxtTest extends \WC_Unit_Test_Case {
 		$llms_txt = wc_get_container()->get( LlmsTxt::class );
 		$result   = $llms_txt->get_status();
 		$this->assertSame( 'unknown', $result['status'] );
-		$this->assertStringContainsString( 'WooCommerce Store API', $result['section'] );
+		$this->assertStringContainsString( 'PooCommerce Store API', $result['section'] );
 
-		add_filter( 'woocommerce_enable_llms_txt', '__return_false' );
+		add_filter( 'poocommerce_enable_llms_txt', '__return_false' );
 		$this->assertSame(
 			array(
 				'status'  => 'disabled',

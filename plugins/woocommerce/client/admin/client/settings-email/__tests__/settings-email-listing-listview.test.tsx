@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests/src/util/index.js';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests/src/util/index.js';
 import { render } from '@testing-library/react';
 import type { ComponentType } from 'react';
 
@@ -59,7 +59,7 @@ jest.mock( '../settings-email-listing-data', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getAdminLink: ( path: string ) => `https://example.test/wp-admin/${ path }`,
 } ) );
 

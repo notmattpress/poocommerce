@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class TaxRateCreate extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/tax-rate-create';
+		return 'poocommerce/tax-rate-create';
 	}
 
 	/**
@@ -40,9 +40,9 @@ class TaxRateCreate extends AbstractDomainAbility implements AbilityDefinition {
 	 */
 	public static function get_registration_args(): array {
 		return array(
-			'label'               => __( 'Create tax rate', 'woocommerce' ),
-			'description'         => __( 'Add a tax rate to a tax class. Takes the fields that tax-rates-query returns, so check there first that no rate already covers the location.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Create tax rate', 'poocommerce' ),
+			'description'         => __( 'Add a tax rate to a tax class. Takes the fields that tax-rates-query returns, so check there first that no rate already covers the location.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => self::get_rate_write_input_properties(),
@@ -101,12 +101,12 @@ class TaxRateCreate extends AbstractDomainAbility implements AbilityDefinition {
 			'tax_rate_class'    => '',
 		);
 
-		$last_order                = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(tax_rate_order) FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_class = %s", $columns['tax_rate_class'] ) );
+		$last_order                = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(tax_rate_order) FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_class = %s", $columns['tax_rate_class'] ) );
 		$columns['tax_rate_order'] = null === $last_order ? 0 : (int) $last_order + 1;
 
 		$rate_id = (int) \WC_Tax::_insert_tax_rate( $columns );
 		if ( ! $rate_id ) {
-			return new \WP_Error( 'woocommerce_ability_tax_rate_create_failed', __( 'The tax rate could not be saved.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'poocommerce_ability_tax_rate_create_failed', __( 'The tax rate could not be saved.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$locations_error = self::write_rate_locations( $rate_id, $locations );

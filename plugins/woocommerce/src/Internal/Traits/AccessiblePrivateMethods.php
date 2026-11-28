@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Traits;
+namespace Automattic\PooCommerce\Internal\Traits;
 
 /**
- * DON'T USE THIS TRAIT. It's DEPRECATED and will be REMOVED in a future version of WooCommerce.
+ * DON'T USE THIS TRAIT. It's DEPRECATED and will be REMOVED in a future version of PooCommerce.
  *
  * If you have class methods that are public solely because they are the target of WordPress hooks,
  * make the methods public and mark them with an @internal annotation.
  *
- * @deprecated 9.6.0 Make the hook target methods public and mark them with an @internal annotation. This trait will be REMOVED in a future version of WooCommerce.
+ * @deprecated 9.6.0 Make the hook target methods public and mark them with an @internal annotation. This trait will be REMOVED in a future version of PooCommerce.
  */
 trait AccessiblePrivateMethods {
     // phpcs:disable

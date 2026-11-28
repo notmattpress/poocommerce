@@ -1,15 +1,15 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Fulfillments;
 
-use Automattic\WooCommerce\Admin\Features\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
-use Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
-use Automattic\WooCommerce\Tests\Admin\Features\Fulfillments\Helpers\ShippingProviderMock;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentsManager;
+use Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Tests\Admin\Features\Fulfillments\Helpers\ShippingProviderMock;
 use WC_Order;
 
 /**
@@ -43,7 +43,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 * Test hooks.
 	 */
 	public function test_hooks() {
-		$this->assertNotFalse( has_filter( 'woocommerce_fulfillment_translate_meta_key', array( $this->manager, 'translate_fulfillment_meta_key' ) ) );
+		$this->assertNotFalse( has_filter( 'poocommerce_fulfillment_translate_meta_key', array( $this->manager, 'translate_fulfillment_meta_key' ) ) );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	public function test_translate_fulfillment_meta_key() {
 		// Test with a known meta key.
 		$translated_key = $this->manager->translate_fulfillment_meta_key( 'fulfillment_status' );
-		$this->assertEquals( __( 'Fulfillment Status', 'woocommerce' ), $translated_key );
+		$this->assertEquals( __( 'Fulfillment Status', 'poocommerce' ), $translated_key );
 
 		// Test with an unknown meta key.
 		$translated_key = $this->manager->translate_fulfillment_meta_key( 'unknown_meta_key' );
@@ -65,16 +65,16 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	public function test_extend_translate_fulfillment_meta_key() {
 		// Extend the translations.
 		add_filter(
-			'woocommerce_fulfillment_meta_key_translations',
+			'poocommerce_fulfillment_meta_key_translations',
 			function ( $translations ) {
-				$translations['custom_meta_key'] = __( 'Custom Meta Key', 'woocommerce' );
+				$translations['custom_meta_key'] = __( 'Custom Meta Key', 'poocommerce' );
 				return $translations;
 			}
 		);
 
 		// Test the extended translation.
 		$translated_key = $this->manager->translate_fulfillment_meta_key( 'custom_meta_key' );
-		$this->assertEquals( __( 'Custom Meta Key', 'woocommerce' ), $translated_key );
+		$this->assertEquals( __( 'Custom Meta Key', 'poocommerce' ), $translated_key );
 	}
 
 	/**
@@ -84,9 +84,9 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 
 		// Add a filter to modify the translations.
 		add_filter(
-			'woocommerce_fulfillment_meta_key_translations',
+			'poocommerce_fulfillment_meta_key_translations',
 			function ( $translations ) {
-				$translations['custom_meta_key'] = __( 'Custom Meta Key', 'woocommerce' );
+				$translations['custom_meta_key'] = __( 'Custom Meta Key', 'poocommerce' );
 				return $translations;
 			}
 		);
@@ -96,8 +96,8 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		 *
 		 * @since 10.1.0
 		 */
-		$translated_key = apply_filters( 'woocommerce_fulfillment_translate_meta_key', 'custom_meta_key' );
-		$this->assertEquals( __( 'Custom Meta Key', 'woocommerce' ), $translated_key );
+		$translated_key = apply_filters( 'poocommerce_fulfillment_translate_meta_key', 'custom_meta_key' );
+		$this->assertEquals( __( 'Custom Meta Key', 'poocommerce' ), $translated_key );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		 *
 		 * @since 10.1.0
 		 */
-		$shipping_providers = apply_filters( 'woocommerce_fulfillment_shipping_providers', array() );
+		$shipping_providers = apply_filters( 'poocommerce_fulfillment_shipping_providers', array() );
 		// Check if the shipping providers are loaded correctly.
 		$this->assertIsArray( $shipping_providers );
 		$this->assertNotEmpty( $shipping_providers );
@@ -126,11 +126,11 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 			$providers[] = $mock_provider;
 			return $providers;
 		};
-		add_filter( 'woocommerce_fulfillment_shipping_providers', $filter );
+		add_filter( 'poocommerce_fulfillment_shipping_providers', $filter );
 
-		$shipping_providers = \Automattic\WooCommerce\Admin\Features\Fulfillments\FulfillmentUtils::get_shipping_providers();
+		$shipping_providers = \Automattic\PooCommerce\Admin\Features\Fulfillments\FulfillmentUtils::get_shipping_providers();
 
-		remove_filter( 'woocommerce_fulfillment_shipping_providers', $filter );
+		remove_filter( 'poocommerce_fulfillment_shipping_providers', $filter );
 
 		// Check if the mock provider is included, keyed by its key.
 		$this->assertArrayHasKey( $mock_provider->get_key(), $shipping_providers );
@@ -142,9 +142,9 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 * Test that the fulfillment status hooks are initialized correctly.
 	 */
 	public function test_init_fulfillment_status_hooks() {
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_create', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_update', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_fulfillment_after_delete', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_create', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_update', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_fulfillment_after_delete', array( $this->manager, 'update_order_fulfillment_status_on_fulfillment_update' ) ) );
 	}
 
 	/**
@@ -156,7 +156,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$order        = OrderHelper::create_order( get_current_user_id(), $product );
 		$this->assertEmpty( $order->get_meta( '_fulfillment_status' ) );
 
-		$create_count_before = did_action( 'woocommerce_fulfillment_after_create' );
+		$create_count_before = did_action( 'poocommerce_fulfillment_after_create' );
 		$fulfillments[]      = FulfillmentsHelper::create_fulfillment(
 			array(
 				'entity_type'  => WC_Order::class,
@@ -173,21 +173,21 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 				),
 			)
 		);
-		$this->assertGreaterThan( $create_count_before, did_action( 'woocommerce_fulfillment_after_create' ) );
+		$this->assertGreaterThan( $create_count_before, did_action( 'poocommerce_fulfillment_after_create' ) );
 		$order = wc_get_order( $order->get_id() );
 		$this->assertEquals( 'unfulfilled', $order->get_meta( '_fulfillment_status', true ) );
 
-		$update_count_before = did_action( 'woocommerce_fulfillment_after_update' );
+		$update_count_before = did_action( 'poocommerce_fulfillment_after_update' );
 		$fulfillments[0]->set_status( 'fulfilled' );
 		$fulfillments[0]->save();
 
-		$this->assertGreaterThan( $update_count_before, did_action( 'woocommerce_fulfillment_after_update' ) );
+		$this->assertGreaterThan( $update_count_before, did_action( 'poocommerce_fulfillment_after_update' ) );
 		$order = wc_get_order( $order->get_id() );
 		$this->assertEquals( 'partially_fulfilled', $order->get_meta( '_fulfillment_status' ) );
 
-		$delete_count_before = did_action( 'woocommerce_fulfillment_after_delete' );
+		$delete_count_before = did_action( 'poocommerce_fulfillment_after_delete' );
 		$fulfillments[0]->delete();
-		$this->assertGreaterThan( $delete_count_before, did_action( 'woocommerce_fulfillment_after_delete' ) );
+		$this->assertGreaterThan( $delete_count_before, did_action( 'poocommerce_fulfillment_after_delete' ) );
 		$order = wc_get_order( $order->get_id() );
 		$this->assertEquals( '', $order->get_meta( '_fulfillment_status' ) );
 	}
@@ -207,7 +207,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$mock_provider = $this->getMockBuilder( ShippingProviderMock::class )->onlyMethods( array( 'try_parse_tracking_number' ) )->getMock();
 		$container->replace( ShippingProviderMock::class, $mock_provider );
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) {
 				$providers = array(
 					'custom_provider' => ShippingProviderMock::class,
@@ -246,7 +246,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$mock_provider = $this->getMockBuilder( ShippingProviderMock::class )->onlyMethods( array( 'try_parse_tracking_number' ) )->getMock();
 		$container->replace( ShippingProviderMock::class, $mock_provider );
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) {
 				$providers = array(
 					'custom_provider' => ShippingProviderMock::class,
@@ -268,7 +268,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 * @testdox Should register order deletion hooks.
 	 */
 	public function test_order_deletion_hooks_registered(): void {
-		$this->assertNotFalse( has_action( 'woocommerce_before_delete_order', array( $this->manager, 'delete_order_fulfillments' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_before_delete_order', array( $this->manager, 'delete_order_fulfillments' ) ) );
 		$this->assertNotFalse( has_action( 'before_delete_post', array( $this->manager, 'delete_order_fulfillments' ) ) );
 	}
 
@@ -324,7 +324,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 * @testdox Should register the custom shipping providers filter hook.
 	 */
 	public function test_custom_shipping_providers_hook_registered(): void {
-		$this->assertNotFalse( has_filter( 'woocommerce_fulfillment_shipping_providers', array( $this->manager, 'get_custom_shipping_providers' ) ) );
+		$this->assertNotFalse( has_filter( 'poocommerce_fulfillment_shipping_providers', array( $this->manager, 'get_custom_shipping_providers' ) ) );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 
 		$found = false;
 		foreach ( $providers as $provider ) {
-			if ( $provider instanceof \Automattic\WooCommerce\Admin\Features\Fulfillments\Providers\CustomShippingProvider && 'test-custom-provider' === $provider->get_key() ) {
+			if ( $provider instanceof \Automattic\PooCommerce\Admin\Features\Fulfillments\Providers\CustomShippingProvider && 'test-custom-provider' === $provider->get_key() ) {
 				$found = true;
 				$this->assertSame( 'Test Custom Provider', $provider->get_name() );
 				$this->assertSame( 'https://example.com/icon.png', $provider->get_icon() );
@@ -379,7 +379,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$tracking_number = '1234567890';
 
 		add_filter(
-			'woocommerce_fulfillment_shipping_providers',
+			'poocommerce_fulfillment_shipping_providers',
 			function ( $providers ) {
 				unset( $providers );
 				return array();
@@ -403,8 +403,8 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 
 		foreach ( $email_ids as $email_id ) {
 			$this->assertNotFalse(
-				has_action( 'woocommerce_update_options_email_' . $email_id ),
-				"Tracking hook should be registered for woocommerce_update_options_email_{$email_id}"
+				has_action( 'poocommerce_update_options_email_' . $email_id ),
+				"Tracking hook should be registered for poocommerce_update_options_email_{$email_id}"
 			);
 		}
 	}
@@ -414,7 +414,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_completed_order_email_hook_is_registered(): void {
 		$this->assertNotFalse(
-			has_filter( 'woocommerce_email_enabled_customer_completed_order', array( $this->manager, 'maybe_suppress_completed_order_email' ) ),
+			has_filter( 'poocommerce_email_enabled_customer_completed_order', array( $this->manager, 'maybe_suppress_completed_order_email' ) ),
 			'The "Completed order" email check should be hooked.'
 		);
 	}
@@ -488,7 +488,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_completed_order_email_sends_when_the_filter_returns_a_truthy_value(): void {
 		$order = $this->create_order_with_fulfilled_quantity( 4 );
-		add_filter( 'woocommerce_fulfillment_suppress_completed_order_email', fn() => 'no' );
+		add_filter( 'poocommerce_fulfillment_suppress_completed_order_email', fn() => 'no' );
 
 		$this->assertTrue( $this->complete_order_and_email_sent( $order ), 'Only true should skip the email.' );
 	}
@@ -540,7 +540,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		// Named rather than removed, because an unknown data store silently falls back to the one
 		// for orders instead of failing.
 		add_filter(
-			'woocommerce_data_stores',
+			'poocommerce_data_stores',
 			function ( $stores ) {
 				$stores['order-fulfillment'] = 'A_Fulfillments_Data_Store_That_Is_Not_Installed';
 				return $stores;
@@ -608,11 +608,11 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$probe   = function () use ( &$enabled ) {
 			$enabled = $this->manager->maybe_suppress_completed_order_email( true, null );
 		};
-		add_action( 'woocommerce_order_status_completed', $probe );
+		add_action( 'poocommerce_order_status_completed', $probe );
 		try {
 			$order->update_status( OrderStatus::COMPLETED );
 		} finally {
-			remove_action( 'woocommerce_order_status_completed', $probe );
+			remove_action( 'poocommerce_order_status_completed', $probe );
 		}
 
 		$this->assertTrue( $enabled, 'Without an order the email setting should be reported as it is.' );
@@ -626,7 +626,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 		$received_orders = array();
 
 		add_filter(
-			'woocommerce_fulfillment_suppress_completed_order_email',
+			'poocommerce_fulfillment_suppress_completed_order_email',
 			function ( $suppress, $filtered_order ) use ( &$received_orders ) {
 				$received_orders[] = $filtered_order;
 				return $suppress;
@@ -664,7 +664,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 * Opt the store out of the "Completed order" email for fully fulfilled orders.
 	 */
 	private function opt_out_of_the_completed_order_email(): void {
-		add_filter( 'woocommerce_fulfillment_suppress_completed_order_email', '__return_true' );
+		add_filter( 'poocommerce_fulfillment_suppress_completed_order_email', '__return_true' );
 	}
 
 	/**
@@ -676,7 +676,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	private function complete_order_and_email_sent( WC_Order $order, string $setting = 'yes' ): bool {
 		// Pinned off so the email is sent in this request instead of being queued for later.
-		add_filter( 'woocommerce_defer_transactional_emails', '__return_false' );
+		add_filter( 'poocommerce_defer_transactional_emails', '__return_false' );
 
 		return $this->completed_order_email_sent(
 			function () use ( $order ) {
@@ -696,7 +696,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	private function resend_completed_order_email( WC_Order $order ): bool {
 		return $this->completed_order_email_sent(
 			function () use ( $order ) {
-				do_action( 'woocommerce_order_status_completed_notification', $order->get_id(), $order );
+				do_action( 'poocommerce_order_status_completed_notification', $order->get_id(), $order );
 			}
 		);
 	}
@@ -711,7 +711,7 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 	private function send_queued_completed_order_email( WC_Order $order ): bool {
 		return $this->completed_order_email_sent(
 			function () use ( $order ) {
-				do_action( 'woocommerce_send_queued_transactional_email', 'woocommerce_order_status_completed', array( $order->get_id(), $order ), '' );
+				do_action( 'poocommerce_send_queued_transactional_email', 'poocommerce_order_status_completed', array( $order->get_id(), $order ), '' );
 			}
 		);
 	}
@@ -737,12 +737,12 @@ class FulfillmentsManagerTest extends \WC_Unit_Test_Case {
 				$sent = (bool) $result;
 			}
 		};
-		add_action( 'woocommerce_email_sent', $capture, 10, 2 );
+		add_action( 'poocommerce_email_sent', $capture, 10, 2 );
 
 		try {
 			$dispatch();
 		} finally {
-			remove_action( 'woocommerce_email_sent', $capture, 10 );
+			remove_action( 'poocommerce_email_sent', $capture, 10 );
 		}
 
 		return $sent;

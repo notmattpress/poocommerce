@@ -41,7 +41,7 @@ export interface UseChunkedImportArgs {
 // Waits before resending a chunk the server refused without running it.
 const RETRY_BACKOFFS_MS = [ 1000, 3000, 6000 ];
 
-const TOKEN_INVALID_CODE = 'woocommerce_fulfillments_import_token_invalid';
+const TOKEN_INVALID_CODE = 'poocommerce_fulfillments_import_token_invalid';
 
 /**
  * Reads the chunk size from the localized settings as an integer the /run
@@ -85,7 +85,7 @@ function isSafeToResend( error: unknown ): boolean {
 	return (
 		errorStatus( error ) === 409 &&
 		errorCode( error ) ===
-			'woocommerce_fulfillments_import_chunk_in_progress'
+			'poocommerce_fulfillments_import_chunk_in_progress'
 	);
 }
 
@@ -107,7 +107,7 @@ function isSessionEnded( error: unknown ): boolean {
 	const code = errorCode( error );
 	return (
 		code === TOKEN_INVALID_CODE ||
-		code === 'woocommerce_fulfillments_import_file_changed'
+		code === 'poocommerce_fulfillments_import_file_changed'
 	);
 }
 
@@ -244,7 +244,7 @@ export function useChunkedImport( args: UseChunkedImportArgs ) {
 					fail(
 						__(
 							'The server sent an unexpected response. Please try again.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 					return;
@@ -261,7 +261,7 @@ export function useChunkedImport( args: UseChunkedImportArgs ) {
 					fail(
 						__(
 							'The import stopped making progress. Please try again.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 					return;
@@ -279,7 +279,7 @@ export function useChunkedImport( args: UseChunkedImportArgs ) {
 						fail(
 							__(
 								'The import finished, but its summary could not be loaded. Check your orders to see what was imported.',
-								'woocommerce'
+								'poocommerce'
 							),
 							true
 						);
@@ -291,7 +291,7 @@ export function useChunkedImport( args: UseChunkedImportArgs ) {
 					fail(
 						__(
 							'The import did not finish. Please try again.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 					return;
@@ -312,7 +312,7 @@ export function useChunkedImport( args: UseChunkedImportArgs ) {
 				fail(
 					__(
 						'The import session ended before the last batch of rows was confirmed, so the import may have finished. Check your orders before you upload the file again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					true
 				);

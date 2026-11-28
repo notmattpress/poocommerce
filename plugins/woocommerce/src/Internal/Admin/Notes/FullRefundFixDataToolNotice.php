@@ -1,21 +1,21 @@
 <?php
 /**
- * WooCommerce Admin Full Refund Fix Data Tool Notice Provider.
+ * PooCommerce Admin Full Refund Fix Data Tool Notice Provider.
  *
  * Adds a note to the merchant's inbox pointing to the full refund fix tool on
- * the WooCommerce > Status > Tools page.
+ * the PooCommerce > Status > Tools page.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * FullRefundFixDataToolNotice
@@ -45,7 +45,7 @@ class FullRefundFixDataToolNotice {
 		}
 
 		// The notice follows the underlying data state, not the tool-row
-		// visibility flag (`woocommerce_analytics_show_old_refund_data_tool`),
+		// visibility flag (`poocommerce_analytics_show_old_refund_data_tool`),
 		// so it auto-hides once the fix has been applied.
 		return ! OrderUtil::uses_new_full_refund_data();
 	}
@@ -62,18 +62,18 @@ class FullRefundFixDataToolNotice {
 
 		$note = new Note();
 
-		$note->set_title( __( 'Fix your refund data in Analytics', 'woocommerce' ) );
+		$note->set_title( __( 'Fix your refund data in Analytics', 'poocommerce' ) );
 		$note->set_content(
-			__( 'We found some refunded orders where the full refund amount was not recorded correctly in your Analytics reports. Use the full refund fix tool on the Status page to re-import the affected data.', 'woocommerce' )
+			__( 'We found some refunded orders where the full refund amount was not recorded correctly in your Analytics reports. Use the full refund fix tool on the Status page to re-import the affected data.', 'poocommerce' )
 		);
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_WARNING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 
 		$note->add_action(
 			'full-refund-fix-data-tool_view',
-			__( 'Fix refund data', 'woocommerce' ),
+			__( 'Fix refund data', 'poocommerce' ),
 			admin_url( 'admin.php?page=wc-status&tab=tools' ),
 			Note::E_WC_ADMIN_NOTE_UNACTIONED,
 			true

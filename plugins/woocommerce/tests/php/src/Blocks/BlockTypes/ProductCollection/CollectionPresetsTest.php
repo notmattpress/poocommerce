@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
 use WC_Product;
 use WP_Query;
 
@@ -87,7 +87,7 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				);
 				$expected_ids                              = array( $recent->get_id() );
 				$distractor_id                             = $old->get_id();
-				$parsed_block['attrs']['collection']       = 'woocommerce/product-collection/new-arrivals';
+				$parsed_block['attrs']['collection']       = 'poocommerce/product-collection/new-arrivals';
 				$parsed_block['attrs']['query']['orderBy'] = 'date';
 				$parsed_block['attrs']['query']['order']   = 'desc';
 				$parsed_block['attrs']['query']['timeFrame'] = array(
@@ -105,7 +105,7 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				$this->set_rating( $distractor, 1.0, 1 );
 				$expected_ids                              = array( $highest->get_id(), $second->get_id() );
 				$distractor_id                             = $distractor->get_id();
-				$parsed_block['attrs']['collection']       = 'woocommerce/product-collection/top-rated';
+				$parsed_block['attrs']['collection']       = 'poocommerce/product-collection/top-rated';
 				$parsed_block['attrs']['query']['orderBy'] = 'rating';
 				$parsed_block['attrs']['query']['order']   = 'desc';
 				$parsed_block['attrs']['query']['perPage'] = 2;
@@ -120,7 +120,7 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				$this->set_total_sales( $distractor, 1 );
 				$expected_ids                              = array( $highest->get_id(), $second->get_id() );
 				$distractor_id                             = $distractor->get_id();
-				$parsed_block['attrs']['collection']       = 'woocommerce/product-collection/best-sellers';
+				$parsed_block['attrs']['collection']       = 'poocommerce/product-collection/best-sellers';
 				$parsed_block['attrs']['query']['orderBy'] = 'popularity';
 				$parsed_block['attrs']['query']['order']   = 'desc';
 				$parsed_block['attrs']['query']['perPage'] = 2;
@@ -138,8 +138,8 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				$distractor                          = $this->create_product( $products, array( 'name' => 'Preset regular-price distractor' ) );
 				$expected_ids                        = array( $on_sale->get_id() );
 				$distractor_id                       = $distractor->get_id();
-				$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/on-sale';
-				$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
+				$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/on-sale';
+				$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
 				delete_transient( 'wc_products_onsale' );
 				break;
 
@@ -150,7 +150,7 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				$distractor                                 = $this->create_product( $products, array( 'name' => 'Preset ordinary distractor' ) );
 				$expected_ids                               = array( $featured->get_id() );
 				$distractor_id                              = $distractor->get_id();
-				$parsed_block['attrs']['collection']        = 'woocommerce/product-collection/featured';
+				$parsed_block['attrs']['collection']        = 'poocommerce/product-collection/featured';
 				$parsed_block['attrs']['query']['featured'] = true;
 				break;
 
@@ -170,7 +170,7 @@ class CollectionPresetsTest extends \WP_UnitTestCase {
 				wp_set_object_terms( $related->get_id(), array( $term_id ), $taxonomy );
 				$expected_ids                                       = array( $related->get_id() );
 				$distractor_id                                      = $distractor->get_id();
-				$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/related';
+				$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/related';
 				$parsed_block['attrs']['query']['productReference'] = $reference->get_id();
 				$parsed_block['attrs']['query']['relatedBy']        = array(
 					'categories' => 'product_cat' === $taxonomy,

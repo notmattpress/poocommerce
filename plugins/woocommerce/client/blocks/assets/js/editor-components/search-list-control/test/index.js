@@ -11,7 +11,7 @@ import { SearchListControl } from '../';
 const noop = () => {};
 
 const SELECTORS = {
-	listItems: '.woocommerce-search-list__list > li',
+	listItems: '.poocommerce-search-list__list > li',
 	searchInput: '.components-text-control__input[type="search"]',
 };
 
@@ -134,7 +134,7 @@ describe( 'SearchListControl', () => {
 		expect( $listItems ).toHaveLength( 2 );
 	} );
 
-	// @see https://github.com/woocommerce/woocommerce-blocks/issues/6524
+	// @see https://github.com/poocommerce/poocommerce-blocks/issues/6524
 	test( "should render search results in their original case regardless of user's input case", () => {
 		const EXPECTED = [ 'Elderberry', 'Mulberry' ];
 

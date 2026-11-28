@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions\Incentives;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
 use WC_Unit_Test_Case;
 
 /**
@@ -492,7 +492,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->method( 'is_extension_active' );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut
@@ -527,7 +527,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => false );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => false );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut
@@ -562,7 +562,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut
@@ -597,7 +597,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut
@@ -650,7 +650,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut
@@ -703,7 +703,7 @@ class IncentiveTest extends WC_Unit_Test_Case {
 			->willReturn( false );
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
-		$filter_callback = fn( $caps ) => array( 'manage_woocommerce' => true );
+		$filter_callback = fn( $caps ) => array( 'manage_poocommerce' => true );
 		add_filter( 'user_has_cap', $filter_callback );
 
 		$this->sut

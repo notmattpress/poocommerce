@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -77,7 +77,7 @@ class CartTokenUtilsTests extends TestCase {
 			'iss'     => 'store-api',
 		];
 		$secret  = '@' . wp_salt();
-		$token   = \Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken::create( $payload, $secret );
+		$token   = \Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken::create( $payload, $secret );
 		$this->assertFalse( CartTokenUtils::validate_cart_token( $token ) );
 	}
 
@@ -107,7 +107,7 @@ class CartTokenUtilsTests extends TestCase {
 	public function test_invalid_tokens_are_rejected_as_cart_link_tokens() {
 		$secret = '@' . wp_salt();
 
-		$expired = \Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken::create(
+		$expired = \Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken::create(
 			[
 				'user_id' => 't_expired',
 				'exp'     => time() - 100,
@@ -115,7 +115,7 @@ class CartTokenUtilsTests extends TestCase {
 			],
 			$secret
 		);
-		$other   = \Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken::create(
+		$other   = \Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken::create(
 			[
 				'user_id' => 't_other',
 				'exp'     => time() + 100,

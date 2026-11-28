@@ -80,7 +80,7 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 				<Card.Title className="wc-sales-readiness-card__title">
 					{ __(
 						'Manage your store from your own agent',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Card.Title>
 			</Card.Header>
@@ -88,12 +88,12 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 				{ notice === 'connected' && (
 					<Notice status="success" onRemove={ dismissNotice }>
 						<strong>
-							{ __( 'Connection successful', 'woocommerce' ) }
+							{ __( 'Connection successful', 'poocommerce' ) }
 						</strong>
 						<br />
 						{ __(
 							'Your store is connected to WordPress.com.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				) }
@@ -101,7 +101,7 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 					<Notice status="error" onRemove={ dismissNotice }>
 						{ __(
 							'Your store couldn’t connect to WordPress.com. Try again.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				) }
@@ -112,7 +112,7 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 					>
 						{ __(
 							'Supported AI apps can now connect to this store through MCP. To get started, add WordPress in the AI app you want to use and select this store.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				) : (
@@ -122,8 +122,8 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 							className="wc-sales-readiness__muted"
 						>
 							{ __(
-								'Connect this store to WordPress.com so supported AI apps can access your WooCommerce store.',
-								'woocommerce'
+								'Connect this store to WordPress.com so supported AI apps can access your PooCommerce store.',
+								'poocommerce'
 							) }
 						</Text>
 						<div className="wc-sales-readiness-card__actions">
@@ -134,7 +134,7 @@ export const AgentConnect = ( { connect }: { connect: ConnectView } ) => {
 							>
 								{ __(
 									'Connect to WordPress.com',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Button>
 						</div>

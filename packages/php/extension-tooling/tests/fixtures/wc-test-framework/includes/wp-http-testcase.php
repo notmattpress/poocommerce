@@ -1,11 +1,11 @@
 <?php
 /**
- * Stub for the WooCommerce legacy tests directory.
+ * Stub for the PooCommerce legacy tests directory.
  *
- * @package WooCommerce\ExtensionTools
+ * @package PooCommerce\ExtensionTools
  */
 
 /**
- * Stand-in for WooCommerce's HTTP test case.
+ * Stand-in for PooCommerce's HTTP test case.
  */
 class WP_HTTP_TestCase {}

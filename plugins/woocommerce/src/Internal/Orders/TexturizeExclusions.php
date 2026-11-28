@@ -5,11 +5,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\OrderReviews\Endpoint;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalEndpoint;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\OrderReviews\Endpoint;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalEndpoint;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Stops wptexturize() changing customer details, such as emails like `o'neil--shop@48x17.com`.
@@ -25,7 +25,7 @@ class TexturizeExclusions implements RegisterHooksInterface {
 	 *
 	 * Only a queued notice with this class turns on the skip, so an address in another plugin's notice does not.
 	 */
-	public const VERIFICATION_EMAIL_CLASS = 'woocommerce-verification-email';
+	public const VERIFICATION_EMAIL_CLASS = 'poocommerce-verification-email';
 
 	/**
 	 * Register hooks and filters.
@@ -63,7 +63,7 @@ class TexturizeExclusions implements RegisterHooksInterface {
 			return true;
 		}
 
-		// The withdrawal form renders on the endpoint key, which WooCommerce also fills from the slug.
+		// The withdrawal form renders on the endpoint key, which PooCommerce also fills from the slug.
 		if ( isset( $wp->query_vars[ OrderWithdrawalEndpoint::ENDPOINT_KEY ] ) ) {
 			return true;
 		}

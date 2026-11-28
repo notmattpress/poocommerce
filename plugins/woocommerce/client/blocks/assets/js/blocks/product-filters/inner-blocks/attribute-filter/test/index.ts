@@ -8,8 +8,8 @@ import { createBlock, parse, serialize } from '@wordpress/blocks';
  */
 import '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest.fn( ( key: string, defaultValue: unknown ) =>
 		key === 'defaultProductFilterAttribute'
 			? { attribute_id: '5' }
@@ -17,7 +17,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 	),
 } ) );
 
-const BLOCK = 'woocommerce/product-filter-attribute';
+const BLOCK = 'poocommerce/product-filter-attribute';
 
 describe( 'Attribute filter block', () => {
 	it( 'saves the attribute ID when it is the store default', () => {
@@ -28,7 +28,7 @@ describe( 'Attribute filter block', () => {
 
 	it( 'sets the store default on saved blocks that have no attribute ID', () => {
 		const [ block ] = parse(
-			`<!-- wp:${ BLOCK } {"showCounts":true} -->\n<div class="wp-block-woocommerce-product-filter-attribute"></div>\n<!-- /wp:${ BLOCK } -->`
+			`<!-- wp:${ BLOCK } {"showCounts":true} -->\n<div class="wp-block-poocommerce-product-filter-attribute"></div>\n<!-- /wp:${ BLOCK } -->`
 		);
 
 		expect( block.isValid ).toBe( true );

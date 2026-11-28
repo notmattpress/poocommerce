@@ -3,19 +3,19 @@
 /**
  * Orders helper.
  *
- * @package Automattic\WooCommerce\RestApi\UnitTests\Helpers
+ * @package Automattic\PooCommerce\RestApi\UnitTests\Helpers
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests\Helpers;
+namespace Automattic\PooCommerce\RestApi\UnitTests\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Data_Store;
 use WC_Mock_Payment_Gateway;
 use WC_Order;
@@ -44,7 +44,7 @@ class OrderHelper {
 
 		// Delete all products in the order.
 		foreach ( $order->get_items() as $item ) {
-			\Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::delete_product( $item['product_id'] );
+			\Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::delete_product( $item['product_id'] );
 		}
 
 		ShippingHelper::delete_simple_flat_rate();
@@ -67,7 +67,7 @@ class OrderHelper {
 	public static function create_order( $customer_id = 1, $product = null ) {
 
 		if ( ! is_a( $product, 'WC_Product' ) ) {
-			$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+			$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		}
 
 		ShippingHelper::create_simple_flat_rate();
@@ -188,8 +188,8 @@ class OrderHelper {
 	public static function create_complex_wp_post_order() {
 		$current_cot_state = OrderUtil::custom_orders_table_usage_is_enabled();
 		self::toggle_cot_feature_and_usage( false );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$uniq_cust_id = wp_generate_password( 10, false );
 		$customer     = CustomerHelper::create_customer( "user$uniq_cust_id", $uniq_cust_id, "user$uniq_cust_id@example.com" );
 		$tax_rate     = array(
@@ -301,7 +301,7 @@ class OrderHelper {
 		}
 		self::switch_data_store( $order, $data_store );
 
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$order->set_status( OrderStatus::PENDING );
 		$order->set_created_via( 'unit-tests' );

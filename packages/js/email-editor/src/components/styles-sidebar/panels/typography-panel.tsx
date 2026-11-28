@@ -84,7 +84,7 @@ export function TypographyPanel() {
 		<Stack
 			direction="column"
 			gap="md"
-			className="woocommerce-email-editor-styles-screen-body"
+			className="poocommerce-email-editor-styles-screen-body"
 		>
 			<Text variant="heading-sm" render={ <h3 /> }>
 				{ __( 'Elements', __i18n_text_domain__ ) }

@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,8 +24,8 @@ jest.mock( '../utils', () => ( {
 	redirectToWCSSettings: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		__esModule: true,
@@ -50,7 +50,7 @@ jest.mock( '@wordpress/data', () => ( {
 			isPluginsRequesting: jest.fn().mockReturnValue( false ),
 			getSettings: () => ( {
 				general: {
-					woocommerce_default_country: 'US',
+					poocommerce_default_country: 'US',
 				},
 			} ),
 			getCountries: () => [],
@@ -62,14 +62,14 @@ jest.mock( '@wordpress/data', () => ( {
 					wcshipping_options: {
 						tos_accepted: true,
 					},
-					woocommerce_setup_jetpack_opted_in: 1,
+					poocommerce_setup_jetpack_opted_in: 1,
 				}[ key ];
 			},
 		} ) )
 	),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -90,7 +90,7 @@ const ShippingRecommendation = ( props: ShippingRecommendationProps ) => {
 };
 
 describe( 'ShippingRecommendation', () => {
-	test( 'should show plugins step when woocommerce-shipping is not installed and activated', () => {
+	test( 'should show plugins step when poocommerce-shipping is not installed and activated', () => {
 		const { getByText } = render(
 			<ShippingRecommendation
 				isJetpackConnected={ false }
@@ -101,12 +101,12 @@ describe( 'ShippingRecommendation', () => {
 		expect( getByText( 'MockedPlugins' ) ).toBeInTheDocument();
 	} );
 
-	test( 'should show connect step when WooCommerce Shipping is activated but not yet connected', () => {
+	test( 'should show connect step when PooCommerce Shipping is activated but not yet connected', () => {
 		const { getByRole } = render(
 			<ShippingRecommendation
 				isJetpackConnected={ false }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-shipping' ] }
+				activePlugins={ [ 'poocommerce-shipping' ] }
 			/>
 		);
 		expect(
@@ -114,12 +114,12 @@ describe( 'ShippingRecommendation', () => {
 		).toBeInTheDocument();
 	} );
 
-	test( 'should show "complete task" button when WooCommerce Shipping is activated and Jetpack is connected', () => {
+	test( 'should show "complete task" button when PooCommerce Shipping is activated and Jetpack is connected', () => {
 		const { getByRole } = render(
 			<ShippingRecommendation
 				isJetpackConnected={ true }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-shipping' ] }
+				activePlugins={ [ 'poocommerce-shipping' ] }
 			/>
 		);
 		expect(
@@ -132,7 +132,7 @@ describe( 'ShippingRecommendation', () => {
 			<ShippingRecommendation
 				isJetpackConnected={ true }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-shipping' ] }
+				activePlugins={ [ 'poocommerce-shipping' ] }
 			/>
 		);
 
@@ -152,10 +152,10 @@ describe( 'ShippingRecommendation', () => {
 		expect( getByText( 'Address' ) ).toBeInTheDocument();
 	} );
 
-	test( 'should trigger event tasklist_shipping_recommendation_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+	test( 'should trigger event tasklist_shipping_recommendation_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 		render( <ShippingRecommendation /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'tasklist_shipping_recommendation_visit_marketplace_click',
@@ -163,13 +163,13 @@ describe( 'ShippingRecommendation', () => {
 		);
 	} );
 
-	test( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	test( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
 		render( <ShippingRecommendation /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( setHref ).toHaveBeenCalledWith(
 			expect.stringContaining(

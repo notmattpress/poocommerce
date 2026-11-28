@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Formatters;
+namespace Automattic\PooCommerce\StoreApi\Formatters;
 
-use Automattic\WooCommerce\Enums\CurrencyPosition;
-use Automattic\WooCommerce\Internal\Utilities\CurrencySymbol;
-use Automattic\WooCommerce\Internal\Utilities\PriceSeparators;
+use Automattic\PooCommerce\Enums\CurrencyPosition;
+use Automattic\PooCommerce\Internal\Utilities\CurrencySymbol;
+use Automattic\PooCommerce\Internal\Utilities\PriceSeparators;
 
 /**
  * Currency Formatter.
@@ -42,7 +42,7 @@ class CurrencyFormatter implements FormatterInterface {
 		return array_merge(
 			(array) $value,
 			[
-				'currency_code'               => get_woocommerce_currency(),
+				'currency_code'               => get_poocommerce_currency(),
 				'currency_symbol'             => $symbol,
 				'currency_minor_unit'         => wc_get_price_decimals(),
 				'currency_decimal_separator'  => PriceSeparators::get_decimal(),

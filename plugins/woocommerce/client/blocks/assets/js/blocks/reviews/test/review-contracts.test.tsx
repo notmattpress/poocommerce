@@ -9,7 +9,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -28,15 +28,15 @@ type FrontendRegistration = {
 
 let mockFrontendRegistration: FrontendRegistration | undefined;
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	renderFrontend: jest.fn( ( registration ) => {
 		mockFrontendRegistration = registration;
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest
 		.fn()
 		.mockImplementation( ( setting, defaultValue ) => defaultValue ),
@@ -288,19 +288,19 @@ describe( 'Product Reviews contracts', () => {
 		it.each( [
 			[
 				'category block',
-				'wp-block-woocommerce-reviews-by-category has-content',
+				'wp-block-poocommerce-reviews-by-category has-content',
 				{ 'data-category-ids': '7', 'data-offset': '3' },
 				{ categoryIds: '7', isFilteredReviewsBlock: true, offset: 3 },
 			],
 			[
 				'product block',
-				'wp-block-woocommerce-reviews-by-product',
+				'wp-block-poocommerce-reviews-by-product',
 				{ 'data-product-id': '9', 'data-offset': '-1' },
 				{ productId: '9', isFilteredReviewsBlock: true, offset: 0 },
 			],
 			[
 				'all reviews block',
-				'wp-block-woocommerce-all-reviews',
+				'wp-block-poocommerce-all-reviews',
 				{ 'data-offset': '1.5' },
 				{ isFilteredReviewsBlock: false, offset: 0 },
 			],
@@ -319,8 +319,8 @@ describe( 'Product Reviews contracts', () => {
 		);
 
 		it.each( [
-			'wp-block-woocommerce-reviews-by-category',
-			'wp-block-woocommerce-reviews-by-product',
+			'wp-block-poocommerce-reviews-by-category',
+			'wp-block-poocommerce-reviews-by-product',
 		] )( 'does not request reviews for an empty %s', ( className ) => {
 			mockGetReviews.mockResolvedValue( {
 				reviews: [],
@@ -348,7 +348,7 @@ describe( 'Product Reviews contracts', () => {
 			} );
 			const attributes = createAttributes( { categoryIds: [] } );
 			const element = createFrontendElement(
-				'wp-block-woocommerce-reviews-by-category',
+				'wp-block-poocommerce-reviews-by-category',
 				getDataAttrs( attributes )
 			);
 			const { container } = render(
@@ -415,13 +415,13 @@ describe( 'Product Reviews contracts', () => {
 		it.each( [
 			[
 				'category',
-				'wp-block-woocommerce-reviews-by-category',
+				'wp-block-poocommerce-reviews-by-category',
 				{ categoryIds: [ 9 ] },
 				{ category_id: 9 },
 			],
 			[
 				'product',
-				'wp-block-woocommerce-reviews-by-product',
+				'wp-block-poocommerce-reviews-by-product',
 				{ productId: 9 },
 				{ product_id: '9' },
 			],

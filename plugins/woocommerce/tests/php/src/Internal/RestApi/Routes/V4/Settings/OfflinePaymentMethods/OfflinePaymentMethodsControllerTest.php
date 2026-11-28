@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Controller;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\OfflinePaymentMethods\Schema\OfflinePaymentMethodSchema;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -233,7 +233,7 @@ class OfflinePaymentMethodsControllerTest extends WC_REST_Unit_Test_Case {
 
 		// Assert.
 		$this->assertSame( 500, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_payment_providers_error', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_payment_providers_error', $response->get_data()['code'] );
 	}
 
 	/**
@@ -349,8 +349,8 @@ class OfflinePaymentMethodsControllerTest extends WC_REST_Unit_Test_Case {
 				'supports'    => array( 'products' ),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce.php',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce.php',
 					'status' => 'active',
 				),
 				'icon'        => 'http://example.com/bacs.svg',
@@ -391,8 +391,8 @@ class OfflinePaymentMethodsControllerTest extends WC_REST_Unit_Test_Case {
 				'supports'    => array( 'products' ),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce.php',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce.php',
 					'status' => 'active',
 				),
 				'icon'        => 'http://example.com/cheque.svg',
@@ -433,8 +433,8 @@ class OfflinePaymentMethodsControllerTest extends WC_REST_Unit_Test_Case {
 				'supports'    => array( 'products' ),
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
-					'file'   => 'woocommerce/woocommerce.php',
+					'slug'   => 'poocommerce',
+					'file'   => 'poocommerce/poocommerce.php',
 					'status' => 'active',
 				),
 				'icon'        => 'http://example.com/cod.svg',

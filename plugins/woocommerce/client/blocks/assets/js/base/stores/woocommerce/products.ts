@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { store } from '@wordpress/interactivity';
-import type { ProductResponseItem } from '@woocommerce/types';
-import '@woocommerce/stores/woocommerce/products';
-import type { ProductsStore } from '@woocommerce/stores/woocommerce/products';
+import type { ProductResponseItem } from '@poocommerce/types';
+import '@poocommerce/stores/poocommerce/products';
+import type { ProductsStore } from '@poocommerce/stores/poocommerce/products';
 
 /**
- * Product and variation data in the `woocommerce` store, keyed by ID, in
+ * Product and variation data in the `poocommerce` store, keyed by ID, in
  * Store API format. Read-only: product data is loaded from PHP.
  */
 export type ProductDataState = {
@@ -22,16 +22,16 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productsState } = store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{},
 	{ lock: universalLock }
 );
 
-// Temporary: until every block reads product data from `woocommerce`, these
-// getters return the `woocommerce/products` data instead of a copy. The store
+// Temporary: until every block reads product data from `poocommerce`, these
+// getters return the `poocommerce/products` data instead of a copy. The store
 // then holds the data itself, and code that reads it doesn't change.
 store< { state: ProductDataState } >(
-	'woocommerce',
+	'poocommerce',
 	{
 		state: {
 			get products() {

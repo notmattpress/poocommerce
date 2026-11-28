@@ -4,7 +4,7 @@
 import { createElement } from '@wordpress/element';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockBrowserLocation } from '@woocommerce/internal-js-tests';
+import { mockBrowserLocation } from '@poocommerce/internal-js-tests';
 
 /**
  * Internal dependencies

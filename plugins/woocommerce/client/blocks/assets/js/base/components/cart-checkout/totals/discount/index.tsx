@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
-import { RemovableChip, TotalsItem } from '@woocommerce/blocks-components';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { getSetting } from '@woocommerce/settings';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
+import { RemovableChip, TotalsItem } from '@poocommerce/blocks-components';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { getSetting } from '@poocommerce/settings';
 import {
 	CartResponseCouponItemWithLabel,
 	CartTotalsItem,
 	Currency,
 	LooselyMustHave,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -81,7 +81,7 @@ const TotalsDiscount = ( {
 					<LoadingMask
 						screenReaderLabel={ __(
 							'Removing coupon…',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isLoading={ isRemovingCoupon }
 						showSpinner={ false }
@@ -95,7 +95,7 @@ const TotalsDiscount = ( {
 										text={ cartCoupon.label }
 										screenReaderText={ sprintf(
 											/* translators: %s Coupon code. */
-											__( 'Coupon: %s', 'woocommerce' ),
+											__( 'Coupon: %s', 'poocommerce' ),
 											cartCoupon.label
 										) }
 										disabled={
@@ -109,7 +109,7 @@ const TotalsDiscount = ( {
 											/* translators: %s is a coupon code. */
 											__(
 												'Remove coupon "%s"',
-												'woocommerce'
+												'poocommerce'
 											),
 											cartCoupon.label
 										) }
@@ -122,8 +122,8 @@ const TotalsDiscount = ( {
 			}
 			label={
 				!! discountTotalValue
-					? __( 'Discount', 'woocommerce' )
-					: __( 'Coupons', 'woocommerce' )
+					? __( 'Discount', 'poocommerce' )
+					: __( 'Coupons', 'poocommerce' )
 			}
 			value={ discountTotalValue ? discountTotalValue * -1 : '-' }
 			showSkeleton={ isLoading }

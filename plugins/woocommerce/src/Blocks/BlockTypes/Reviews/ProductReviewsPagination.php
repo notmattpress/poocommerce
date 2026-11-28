@@ -1,8 +1,8 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * ProductReviewsPagination class.
@@ -38,7 +38,7 @@ class ProductReviewsPagination extends AbstractBlock {
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'class'               => $classes,
-				'data-wp-interactive' => 'woocommerce/product-reviews',
+				'data-wp-interactive' => 'poocommerce/product-reviews',
 			)
 		);
 

@@ -13,26 +13,26 @@ import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
 export const EMAIL_STATUSES = [
 	{
 		value: 'enabled',
-		label: __( 'Active', 'woocommerce' ),
+		label: __( 'Active', 'poocommerce' ),
 		icon: published,
 		description: __(
 			'Email would be sent if trigger is met',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	{
 		value: 'disabled',
-		label: __( 'Inactive', 'woocommerce' ),
+		label: __( 'Inactive', 'poocommerce' ),
 		icon: cancelCircleFilled,
-		description: __( 'Email would not be sent', 'woocommerce' ),
+		description: __( 'Email would not be sent', 'poocommerce' ),
 	},
 	{
 		value: 'manual',
-		label: __( 'Manually sent', 'woocommerce' ),
+		label: __( 'Manually sent', 'poocommerce' ),
 		icon: scheduled,
 		description: __(
 			'Email can only be sent manually from the order screen',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 ];
@@ -48,10 +48,10 @@ export const Status = ( { slug }: { slug: string | undefined } ) => {
 		<HStack
 			alignment="left"
 			spacing={ 0 }
-			className="woocommerce-email-listing-status"
+			className="poocommerce-email-listing-status"
 		>
 			<Icon icon={ status.icon } size={ 24 } />
-			<span className="woocommerce-email-listing-status-label">
+			<span className="poocommerce-email-listing-status-label">
 				{ status.label }
 			</span>
 		</HStack>

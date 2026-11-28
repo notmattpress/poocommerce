@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ApiErrorResponse } from '@woocommerce/types';
-import { createNotice } from '@woocommerce/base-utils';
+import { ApiErrorResponse } from '@poocommerce/types';
+import { createNotice } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ jest.mock( '@wordpress/notices', () => ( {
 	createNotice: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/base-utils', () => ( {
-	...jest.requireActual( '@woocommerce/base-utils' ),
+jest.mock( '@poocommerce/base-utils', () => ( {
+	...jest.requireActual( '@poocommerce/base-utils' ),
 	createNotice: jest.fn(),
 } ) );
 

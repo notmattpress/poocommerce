@@ -2,14 +2,14 @@
 declare( strict_types = 1 );
 
 /**
- * Tests for the WooCommerce.com settings WC_Helper_Admin adds to wcSettings.
+ * Tests for the PooCommerce.com settings WC_Helper_Admin adds to wcSettings.
  */
 class WC_Helper_Admin_Test extends WC_Unit_Test_Case {
 
 	private const ACCESS_TOKEN = 'test-access-token';
 
 	/**
-	 * @testdox Should build the full marketplace settings only for users who can manage WooCommerce.
+	 * @testdox Should build the full marketplace settings only for users who can manage PooCommerce.
 	 *
 	 * @testWith ["contributor", false, false]
 	 *           ["shop_manager", true, false]
@@ -20,7 +20,7 @@ class WC_Helper_Admin_Test extends WC_Unit_Test_Case {
 	 * @param bool   $gets_install_url     Whether the user should get the install link.
 	 */
 	public function test_add_marketplace_settings_by_capability( string $role, bool $gets_connection, bool $gets_install_url ): void {
-		// Connecting refreshes subscription notes, which fetches subscriptions from WooCommerce.com.
+		// Connecting refreshes subscription notes, which fetches subscriptions from PooCommerce.com.
 		add_filter(
 			'pre_http_request',
 			static fn() => array(
@@ -53,7 +53,7 @@ class WC_Helper_Admin_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should give users who can't manage WooCommerce only the minimal marketplace settings.
+	 * @testdox Should give users who can't manage PooCommerce only the minimal marketplace settings.
 	 */
 	public function test_add_marketplace_settings_minimal_keys(): void {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'contributor' ) ) );

@@ -1,7 +1,7 @@
 # local-ci-receipt
 
 Decides, at the start of each `project-test-jobs` matrix job on a pull
-request, whether a receipt published by [`gh local-ci`](https://github.com/woocommerce/gh-local-ci)
+request, whether a receipt published by [`gh local-ci`](https://github.com/poocommerce/gh-local-ci)
 lets the job skip `Install Monorepo` and `Run tests`. A receipt is a check
 run created on the head commit by the Woo Local CI Checks GitHub App.
 
@@ -56,7 +56,7 @@ result: CI's own test run already decides it.
 2. Compare the receipt's log (the check run's output) with the CI log.
 3. Run the job again locally with `gh local-ci run --fresh`, then with
    `--docker`. A failure only outside Docker points at the local toolchain.
-4. Open an issue on [gh-local-ci](https://github.com/woocommerce/gh-local-ci)
+4. Open an issue on [gh-local-ci](https://github.com/poocommerce/gh-local-ci)
    with the run URL.
 
 If mismatches repeat, set `LOCAL_CI_RECEIPTS_DISABLED=1` until the cause is

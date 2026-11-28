@@ -2,7 +2,7 @@
 declare( strict_types = 1 );
 
 /**
- * Tests for how WC_WCCOM_Site recognizes and authenticates WooCommerce.com REST requests.
+ * Tests for how WC_WCCOM_Site recognizes and authenticates PooCommerce.com REST requests.
  */
 class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 
@@ -78,7 +78,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Connect the site to WooCommerce.com and sign the current request with its credentials.
+	 * Connect the site to PooCommerce.com and sign the current request with its credentials.
 	 *
 	 * @param int    $user_id     User the connection belongs to.
 	 * @param string $request_uri Request URI as the signer saw it, without token and signature.
@@ -111,7 +111,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should recognize a WooCommerce.com REST request only by the route WordPress dispatches.
+	 * @testdox Should recognize a PooCommerce.com REST request only by the route WordPress dispatches.
 	 *
 	 * @testWith ["/wp-json/wccom-site/v3/status", false, null, false]
 	 *           ["/wp-json/wccom-site/v3/status", true, "/wccom-site/v3/status", true]
@@ -190,7 +190,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should authenticate a request signed the way WooCommerce.com signs it, with credentials in the headers or only in the query.
+	 * @testdox Should authenticate a request signed the way PooCommerce.com signs it, with credentials in the headers or only in the query.
 	 *
 	 * @testWith ["/", true]
 	 *           ["/", false]
@@ -199,7 +199,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	 * @param string $site_path    Path of the store's URL.
 	 * @param bool   $with_headers Whether the token and signature are also sent as headers.
 	 */
-	public function test_authentication_fallback_accepts_request_signed_by_woocommerce_com( string $site_path, bool $with_headers ): void {
+	public function test_authentication_fallback_accepts_request_signed_by_poocommerce_com( string $site_path, bool $with_headers ): void {
 		$user_id    = self::factory()->user->create( array( 'role' => 'administrator' ) );
 		$signed_uri = add_query_arg(
 			array(
@@ -338,7 +338,7 @@ class WC_WCCOM_Site_Test extends WC_Unit_Test_Case {
 	 *           ["/?rest_route=/wccom-site/v3/status&cron=1", "/?rest_route=/wccom-site/v3/status", "/wccom-site/v3/status", false]
 	 *
 	 * @param string $received_uri Request URI the site receives.
-	 * @param string $signed_uri   Request URI WooCommerce.com signed.
+	 * @param string $signed_uri   Request URI PooCommerce.com signed.
 	 * @param string $route        Route WordPress resolved.
 	 * @param bool   $expected     Whether the connected user is authenticated.
 	 */

@@ -2,12 +2,12 @@
 /**
  * Marketing notes tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooCommercePayments;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Internal\Admin\Notes\PooCommercePayments;
 
 /**
  * Class WC_Admin_Tests_Marketing_Notes
@@ -38,8 +38,8 @@ class WC_Admin_Tests_Marketing_Notes extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 1, count( $notes ) );
 
-		// Opt out of WooCommerce marketing.
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		// Opt out of PooCommerce marketing.
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
 		// Reload all marketing notes to verify they have been removed.
 		$notes = $data_store->get_notes(
@@ -56,12 +56,12 @@ class WC_Admin_Tests_Marketing_Notes extends WC_Unit_Test_Case {
 	 */
 	public function test_prevent_add_marketing_note() {
 		// Update settings so that note should be added.
-		update_option( 'woocommerce_default_country', 'US:GA' );
-		update_option( 'woocommerce_admin_install_timestamp', time() - WEEK_IN_SECONDS );
+		update_option( 'poocommerce_default_country', 'US:GA' );
+		update_option( 'poocommerce_admin_install_timestamp', time() - WEEK_IN_SECONDS );
 		// Set user preferences to disallow marketing suggestions.
-		update_option( 'woocommerce_show_marketplace_suggestions', 'no' );
+		update_option( 'poocommerce_show_marketplace_suggestions', 'no' );
 
-		WooCommercePayments::possibly_add_note();
+		PooCommercePayments::possibly_add_note();
 
 		// Load all marketing notes and check that the note was not added.
 		$data_store = Notes::load_data_store();

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\PaymentGatewayFeature;
-use Automattic\WooCommerce\Internal\Abilities\Domain\OrderRefundCreate;
-use Automattic\WooCommerce\Internal\RestApi\Refunds\DataUtils;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseTransaction;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\PaymentGatewayFeature;
+use Automattic\PooCommerce\Internal\Abilities\Domain\OrderRefundCreate;
+use Automattic\PooCommerce\Internal\RestApi\Refunds\DataUtils;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseTransaction;
 use WC_Helper_Order;
 use WC_Unit_Test_Case;
 
@@ -21,11 +21,11 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	 * Hooks of a refund, in the order they fire.
 	 */
 	private const REFUND_HOOKS = array(
-		'woocommerce_create_refund',
-		'woocommerce_order_partially_refunded',
-		'woocommerce_order_fully_refunded',
-		'woocommerce_refund_created',
-		'woocommerce_order_refunded',
+		'poocommerce_create_refund',
+		'poocommerce_order_partially_refunded',
+		'poocommerce_order_fully_refunded',
+		'poocommerce_refund_created',
+		'poocommerce_order_refunded',
 	);
 
 	/**
@@ -230,13 +230,13 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should pass woocommerce_create_refund callbacks a refund that already has its ID, as wc_create_refund() does.
+	 * @testdox Should pass poocommerce_create_refund callbacks a refund that already has its ID, as wc_create_refund() does.
 	 */
 	public function test_create_refund_hook_gets_refund_id(): void {
 		$order   = $this->create_order_without_lines();
 		$hook_id = null;
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function ( $refund ) use ( &$hook_id ) {
 				$hook_id = $refund->get_id();
 			}
@@ -260,7 +260,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$order    = $this->create_order_without_lines();
 		$declined = null;
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function ( $refund ) use ( &$declined ) {
 				$declined = $refund;
 				throw new \Exception( 'Team seats are still in use.' );
@@ -275,7 +275,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_declined', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_declined', $result->get_error_code() );
 		$this->assertSame( 'Team seats are still in use.', $result->get_error_message() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 		$this->assertInstanceOf( \WC_Order_Refund::class, $declined );
@@ -298,7 +298,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $first, is_wp_error( $first ) ? $first->get_error_message() : '' );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( 409, $second->get_error_data()['status'] );
 		$this->assertSame( $first['refund']['id'], $second->get_error_data()['refund']['id'] );
 		$this->assertSame( array( '10' ), $this->gateway->refunded );
@@ -334,7 +334,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $first, is_wp_error( $first ) ? $first->get_error_message() : '' );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( $first['refund']['id'], $second->get_error_data()['refund']['id'] );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 	}
@@ -354,7 +354,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $first, is_wp_error( $first ) ? $first->get_error_message() : '' );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( 409, $second->get_error_data()['status'] );
 		$this->assertSame( $first['refund']['id'], $second->get_error_data()['refund']['id'] );
 	}
@@ -423,7 +423,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$this->assertIsArray( $repeat, is_wp_error( $repeat ) ? $repeat->get_error_message() : '' );
 		$this->assertNotSame( $first['refund']['id'], $repeat['refund']['id'] );
 		$this->assertWPError( $retry );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
 		$this->assertSame( $repeat['refund']['id'], $retry->get_error_data()['refund']['id'] );
 		$this->assertCount( 2, wc_get_order( $order->get_id() )->get_refunds() );
 
@@ -490,7 +490,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate_mismatch', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate_mismatch', $result->get_error_code() );
 		$this->assertStringStartsWith( 'Refund ' . $named['refund']['id'] . ' is not a refund of this order with the same amount and lines,', $result->get_error_message() );
 		$this->assertCount( $count, wc_get_order( $order->get_id() )->get_refunds() );
 	}
@@ -516,7 +516,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		}
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_invalid_request', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_invalid_request', $result->get_error_code() );
 		$this->assertSame( 'Engine refused.', $result->get_error_message() );
 		$this->assertSame( 422, $result->get_error_data()['status'] );
 		$this->assertSame( 'new_engine_check', $result->get_error_data()['engine_code'] );
@@ -533,10 +533,10 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$result = $this->refund( array( 'id' => $order->get_id() ) );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_missing_amount', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_missing_amount', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 		$this->assertStringContainsString( 'Send amount, line_items, or both.', $result->get_error_message() );
-		$this->assertNull( $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", 'woocommerce_ability_order_refund_lock_' . $order->get_id() ) ) );
+		$this->assertNull( $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", 'poocommerce_ability_order_refund_lock_' . $order->get_id() ) ) );
 	}
 
 	/**
@@ -558,15 +558,15 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_refund_total_exceeds_line', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_refund_total_exceeds_line', $result->get_error_code() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
 	/**
 	 * @testdox Should refuse allow_duplicate_of when the input does not repeat that refund, and not copy the refund from its ID.
-	 * @testWith [{"amount":"5"}, 0, "woocommerce_ability_order_refund_duplicate_mismatch"]
-	 *           [{"amount":"10"}, 99999999, "woocommerce_ability_order_refund_duplicate_mismatch"]
-	 *           [{}, 0, "woocommerce_ability_order_refund_missing_amount"]
+	 * @testWith [{"amount":"5"}, 0, "poocommerce_ability_order_refund_duplicate_mismatch"]
+	 *           [{"amount":"10"}, 99999999, "poocommerce_ability_order_refund_duplicate_mismatch"]
+	 *           [{}, 0, "poocommerce_ability_order_refund_missing_amount"]
 	 *
 	 * @param array  $input      Input sent with allow_duplicate_of.
 	 * @param int    $allowed_id Refund ID to send, or 0 for the ID of the refund made first.
@@ -611,7 +611,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$refused                      = $this->refund( $input );
 
 		$this->assertWPError( $refused );
-		$this->assertSame( 'woocommerce_ability_order_refund_gateway_failed', $refused->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_gateway_failed', $refused->get_error_code() );
 		$this->assertCount( 1, $this->gateway->refunded );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 
@@ -628,7 +628,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_refuses_refund_while_order_is_locked(): void {
 		$order = $this->create_order_without_lines();
-		add_option( 'woocommerce_ability_order_refund_lock_' . $order->get_id(), time() + MINUTE_IN_SECONDS, '', false );
+		add_option( 'poocommerce_ability_order_refund_lock_' . $order->get_id(), time() + MINUTE_IN_SECONDS, '', false );
 
 		$result = $this->refund(
 			array(
@@ -638,7 +638,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_in_progress', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_in_progress', $result->get_error_code() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -656,7 +656,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		wp_cache_delete( 'notoptions', 'options' );
-		$this->assertFalse( get_option( 'woocommerce_ability_order_refund_lock_' . $order->get_id() ) );
+		$this->assertFalse( get_option( 'poocommerce_ability_order_refund_lock_' . $order->get_id() ) );
 	}
 
 	/**
@@ -666,15 +666,15 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		$order     = $this->create_order_without_lines();
-		$lock_name = 'woocommerce_ability_order_refund_lock_' . $order->get_id();
+		$lock_name = 'poocommerce_ability_order_refund_lock_' . $order->get_id();
 		$taken     = (string) ( time() + HOUR_IN_SECONDS );
 		$hook      = null;
 		$hook      = static function ( $results ) use ( $wpdb, $lock_name, $taken, &$hook ) {
-			remove_filter( 'woocommerce_order_query', $hook );
+			remove_filter( 'poocommerce_order_query', $hook );
 			$wpdb->update( $wpdb->options, array( 'option_value' => $taken ), array( 'option_name' => $lock_name ) );
 			return $results;
 		};
-		add_filter( 'woocommerce_order_query', $hook );
+		add_filter( 'poocommerce_order_query', $hook );
 
 		$result = $this->refund(
 			array(
@@ -685,7 +685,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lock_lost', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lock_lost', $result->get_error_code() );
 		$this->assertSame( 409, $result->get_error_data()['status'] );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 		$this->assertSame( array(), $this->gateway->refunded );
@@ -693,7 +693,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should finish the outer refund against its own order when a woocommerce_create_refund callback refunds another order without transactions.
+	 * @testdox Should finish the outer refund against its own order when a poocommerce_create_refund callback refunds another order without transactions.
 	 */
 	public function test_nested_refund_keeps_outer_refund_state(): void {
 		Constants::set_constant( 'WC_USE_TRANSACTIONS', false );
@@ -702,7 +702,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$started = false;
 		$nested  = null;
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			function () use ( $other, &$started, &$nested ) {
 				if ( ! $started ) {
 					$started = true;
@@ -745,7 +745,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	public function test_reports_lost_refund_when_a_hook_fails_after_the_gateway(): void {
 		$order = $this->create_order_without_lines();
 		add_action(
-			'woocommerce_order_partially_refunded',
+			'poocommerce_order_partially_refunded',
 			static function () {
 				throw new \Exception( 'Loyalty points service is down.' );
 			}
@@ -760,7 +760,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lost', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lost', $result->get_error_code() );
 		$this->assertStringContainsString( 'The payment gateway refunded the payment', $result->get_error_message() );
 		$this->assertStringContainsString( 'Do not refund again.', $result->get_error_message() );
 		$this->assertStringContainsString( 'Loyalty points service is down.', $result->get_error_message() );
@@ -769,19 +769,19 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should report an incomplete refund, and say not to refund again, when the save after woocommerce_create_refund fails, as wc_create_refund() goes on to the gateway.
+	 * @testdox Should report an incomplete refund, and say not to refund again, when the save after poocommerce_create_refund fails, as wc_create_refund() goes on to the gateway.
 	 */
 	public function test_reports_incomplete_when_the_save_after_the_create_hook_fails(): void {
 		$order    = $this->create_order_without_lines();
 		$hook_ran = false;
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function () use ( &$hook_ran ) {
 				$hook_ran = true;
 			}
 		);
 		add_action(
-			'woocommerce_before_order_refund_object_save',
+			'poocommerce_before_order_refund_object_save',
 			static function () use ( &$hook_ran ) {
 				if ( $hook_ran ) {
 					throw new \Exception( 'Refund table is read-only.' );
@@ -798,7 +798,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_incomplete', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_incomplete', $result->get_error_code() );
 		$this->assertStringContainsString( 'Refund table is read-only.', $result->get_error_message() );
 		$this->assertStringContainsString( 'Do not refund again.', $result->get_error_message() );
 		$this->assertTrue( $result->get_error_data()['refunded_payment'] );
@@ -826,10 +826,10 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$override = $this->refund( array_merge( $input, array( 'allow_duplicate_of' => $first['refund']['id'] ) ) );
 
 		$this->assertWPError( $retry );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
 		$this->assertStringContainsString( 'may have refunded the payment', $retry->get_error_message() );
 		$this->assertWPError( $override );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $override->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $override->get_error_code() );
 		$this->assertSame( array( '10' ), $this->gateway->refunded );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 	}
@@ -867,7 +867,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -903,7 +903,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_exceeds_remaining', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_exceeds_remaining', $result->get_error_code() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 		$this->assertSame( array(), $this->fired );
 	}
@@ -923,7 +923,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_gateway_unsupported', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_gateway_unsupported', $result->get_error_code() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -943,10 +943,10 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_gateway_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_gateway_failed', $result->get_error_code() );
 		$this->assertStringContainsString( 'Card issuer declined the refund.', $result->get_error_message() );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
-		$this->assertNotContains( 'woocommerce_order_refunded', $this->fired );
+		$this->assertNotContains( 'poocommerce_order_refunded', $this->fired );
 	}
 
 	/**
@@ -964,7 +964,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 		$this->assertSame( OrderStatus::REFUNDED, wc_get_order( $order->get_id() )->get_status() );
-		$this->assertContains( 'woocommerce_order_fully_refunded', $this->fired );
+		$this->assertContains( 'poocommerce_order_fully_refunded', $this->fired );
 	}
 
 	/**
@@ -1000,7 +1000,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	 */
 	public function test_matches_wc_create_refund(): void {
 		$args = array();
-		foreach ( array( 'woocommerce_create_refund', 'woocommerce_refund_created' ) as $hook ) {
+		foreach ( array( 'poocommerce_create_refund', 'poocommerce_refund_created' ) as $hook ) {
 			add_action(
 				$hook,
 				static function ( $refund, $hook_args ) use ( $hook, &$args ) {
@@ -1018,7 +1018,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 				'order_id'   => $legacy_order->get_id(),
 				'amount'     => 10,
 				'reason'     => 'Parity',
-				'line_items' => wc_get_container()->get( \Automattic\WooCommerce\Internal\RestApi\Refunds\DataUtils::class )->prepare_refund_creation_or_error(
+				'line_items' => wc_get_container()->get( \Automattic\PooCommerce\Internal\RestApi\Refunds\DataUtils::class )->prepare_refund_creation_or_error(
 					$legacy_order,
 					array(
 						array(
@@ -1094,7 +1094,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 				'date_created' => '2026-01-02 10:00:00',
 			)
 		);
-		$query  = wp_get_ability( 'woocommerce/order-refunds-query' );
+		$query  = wp_get_ability( 'poocommerce/order-refunds-query' );
 
 		$all      = $query->execute( array( 'id' => $order->get_id() ) );
 		$included = $query->execute(
@@ -1129,7 +1129,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			)->get_id();
 		}
 
-		$result = wp_get_ability( 'woocommerce/order-refunds-query' )->execute( array( 'id' => $order->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/order-refunds-query' )->execute( array( 'id' => $order->get_id() ) );
 
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 		$this->assertSame( array( $ids[2], $ids[1], $ids[0], $ids[3] ), array_column( $result['refunds'], 'id' ) );
@@ -1167,7 +1167,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
@@ -1205,7 +1205,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$repeat = $this->refund( $quantity );
 
 		$this->assertWPError( $repeat );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $repeat->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $repeat->get_error_code() );
 		$this->assertStringContainsString( 'allow_duplicate_of set to ' . $second['refund']['id'] . '.', $repeat->get_error_message() );
 		$confirmed = $this->refund( $quantity + array( 'allow_duplicate_of' => $second['refund']['id'] ) );
 		$this->assertIsArray( $confirmed, is_wp_error( $confirmed ) ? $confirmed->get_error_message() : '' );
@@ -1218,7 +1218,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	public function test_refuses_refund_without_refund_create_permission(): void {
 		$order = $this->create_order_without_lines();
 		add_filter(
-			'woocommerce_rest_check_permissions',
+			'poocommerce_rest_check_permissions',
 			static function ( $permission, $context, $object_id, $post_type ) {
 				unset( $object_id );
 				return 'shop_order_refund' === $post_type && 'create' === $context ? false : $permission;
@@ -1244,19 +1244,19 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should name the refund that is still on the order, and not ask to record it manually, when an extension stops its deletion after a failure.
 	 *
-	 * @testWith ["woocommerce_order_partially_refunded", true]
-	 *           ["woocommerce_after_order_refund_object_save", false]
+	 * @testWith ["poocommerce_order_partially_refunded", true]
+	 *           ["poocommerce_after_order_refund_object_save", false]
 	 *
 	 * @param string $hook           Hook that fails.
 	 * @param bool   $refund_payment Whether the call refunds the payment.
 	 */
 	public function test_names_the_kept_refund_when_its_deletion_is_stopped( string $hook, bool $refund_payment ): void {
 		$order = $this->create_order_without_lines();
-		add_filter( 'woocommerce_pre_delete_order_refund', '__return_false' );
+		add_filter( 'poocommerce_pre_delete_order_refund', '__return_false' );
 		add_action(
 			$hook,
 			static function () use ( $hook ) {
-				if ( 'woocommerce_order_partially_refunded' === $hook ) {
+				if ( 'poocommerce_order_partially_refunded' === $hook ) {
 					throw new \Exception( 'Loyalty points service is down.' );
 				}
 				throw new \Error( 'Loyalty points service is down.' );
@@ -1274,7 +1274,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$refunds = wc_get_order( $order->get_id() )->get_refunds();
 		$this->assertCount( 1, $refunds );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_incomplete', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_incomplete', $result->get_error_code() );
 		$this->assertSame( $refunds[0]->get_id(), $result->get_error_data()['refund_id'] );
 		$this->assertStringContainsString( 'Refund ' . $refunds[0]->get_id() . ' is still on the order', $result->get_error_message() );
 		$this->assertStringContainsString( 'Loyalty points service is down.', $result->get_error_message() );
@@ -1288,7 +1288,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		global $wpdb;
 		$order  = $this->create_order_without_lines();
 		$break  = static function ( string $query ) use ( $wpdb ): string {
-			return 0 === strpos( $query, "INSERT IGNORE INTO {$wpdb->options}" ) && false !== strpos( $query, 'woocommerce_ability_order_refund_lock_' )
+			return 0 === strpos( $query, "INSERT IGNORE INTO {$wpdb->options}" ) && false !== strpos( $query, 'poocommerce_ability_order_refund_lock_' )
 				? "INSERT IGNORE INTO {$wpdb->prefix}no_such_table (a) VALUES (1)"
 				: $query;
 		};
@@ -1305,7 +1305,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		remove_filter( 'query', $break );
 		$wpdb->suppress_errors( $errors );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lock_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lock_failed', $result->get_error_code() );
 		$this->assertSame( 500, $result->get_error_data()['status'] );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
@@ -1317,7 +1317,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		global $wpdb;
 		$order  = $this->create_order_without_lines();
 		$break  = static function ( string $query ) use ( $wpdb ): string {
-			return 0 === strpos( $query, "SELECT option_value FROM {$wpdb->options}" ) && false !== strpos( $query, 'woocommerce_ability_order_refund_lock_' )
+			return 0 === strpos( $query, "SELECT option_value FROM {$wpdb->options}" ) && false !== strpos( $query, 'poocommerce_ability_order_refund_lock_' )
 				? "SELECT option_value FROM {$wpdb->prefix}no_such_table"
 				: $query;
 		};
@@ -1335,25 +1335,25 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		remove_filter( 'query', $break );
 		$wpdb->suppress_errors( $errors );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lock_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lock_failed', $result->get_error_code() );
 		$this->assertSame( array(), $this->gateway->refunded );
 		$this->assertCount( 0, wc_get_order( $order->get_id() )->get_refunds() );
 	}
 
 	/**
-	 * @testdox Should delete the refund and say nothing was refunded when an Error is thrown while the refund is saved before woocommerce_create_refund.
+	 * @testdox Should delete the refund and say nothing was refunded when an Error is thrown while the refund is saved before poocommerce_create_refund.
 	 */
 	public function test_reports_failed_refund_when_a_save_before_the_create_hook_crashes(): void {
 		$order    = $this->create_order_without_lines();
 		$hook_ran = false;
 		add_action(
-			'woocommerce_after_order_refund_object_save',
+			'poocommerce_after_order_refund_object_save',
 			static function () {
 				throw new \Error( 'Extension save hook crashed.' );
 			}
 		);
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function () use ( &$hook_ran ) {
 				$hook_ran = true;
 			}
@@ -1368,7 +1368,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_failed', $result->get_error_code() );
 		$this->assertStringContainsString( 'before it was sent to the payment gateway, so no refund was created and no money was returned', $result->get_error_message() );
 		$this->assertStringContainsString( 'ask the merchant to check it before you refund again', $result->get_error_message() );
 		$this->assertStringContainsString( 'Extension save hook crashed.', $result->get_error_message() );
@@ -1378,7 +1378,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Should delete only the new refund, not an older one that a callback saved during the call, when an Error is thrown before woocommerce_create_refund.
+	 * @testdox Should delete only the new refund, not an older one that a callback saved during the call, when an Error is thrown before poocommerce_create_refund.
 	 */
 	public function test_crash_before_the_create_hook_keeps_an_older_refund_saved_during_the_call(): void {
 		$order = $this->create_order_without_lines();
@@ -1392,7 +1392,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$older_id = $older['refund']['id'];
 		$resaved  = false;
 		add_filter(
-			'woocommerce_order_get_items',
+			'poocommerce_order_get_items',
 			static function ( $items, $refund ) use ( $order, $older_id, &$resaved ) {
 				if ( ! $resaved && $refund instanceof \WC_Order_Refund && 0 === $refund->get_id() && $refund->get_parent_id() === $order->get_id() ) {
 					$resaved = true;
@@ -1406,7 +1406,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			2
 		);
 		add_action(
-			'woocommerce_after_order_refund_object_save',
+			'poocommerce_after_order_refund_object_save',
 			static function ( $refund ) use ( $older_id ) {
 				if ( $refund->get_id() !== $older_id ) {
 					throw new \Error( 'Extension save hook crashed.' );
@@ -1423,7 +1423,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertTrue( $resaved );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_failed', $result->get_error_code() );
 		$refunds = wc_get_order( $order->get_id() )->get_refunds();
 		$this->assertCount( 1, $refunds );
 		$this->assertSame( $older_id, $refunds[0]->get_id() );
@@ -1438,13 +1438,13 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$crashed = false;
 		$hooked  = false;
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function ( $refund ) use ( &$hooked ) {
 				$hooked = $hooked || '5' === (string) $refund->get_amount();
 			}
 		);
 		add_action(
-			'woocommerce_after_order_refund_object_save',
+			'poocommerce_after_order_refund_object_save',
 			static function ( $refund ) use ( $order, &$nested, &$crashed, &$hooked ) {
 				if ( null === $nested && '5' === (string) $refund->get_amount() ) {
 					$nested = wc_create_refund(
@@ -1473,13 +1473,13 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$this->assertInstanceOf( \WC_Order_Refund::class, $nested );
 		$this->assertTrue( $crashed );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lost', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lost', $result->get_error_code() );
 		$this->assertSame( array( '2' ), $this->gateway->refunded );
 		$refunds = wc_get_order( $order->get_id() )->get_refunds();
 		$this->assertCount( 1, $refunds );
 		$this->assertSame( $nested->get_id(), $refunds[0]->get_id() );
 		$this->assertTrue( $refunds[0]->get_refunded_payment() );
-		$this->assertSame( '', (string) $refunds[0]->get_meta( '_woocommerce_ability_refund_fingerprint' ) );
+		$this->assertSame( '', (string) $refunds[0]->get_meta( '_poocommerce_ability_refund_fingerprint' ) );
 	}
 
 	/**
@@ -1488,7 +1488,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	 * @testWith [false]
 	 *           [true]
 	 *
-	 * @param bool $crash Whether an Error follows before woocommerce_create_refund of the call's refund.
+	 * @param bool $crash Whether an Error follows before poocommerce_create_refund of the call's refund.
 	 */
 	public function test_keeps_a_same_amount_refund_made_before_the_first_save( bool $crash ): void {
 		$order   = $this->create_order_without_lines();
@@ -1496,7 +1496,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$inside  = false;
 		$crashed = false;
 		add_filter(
-			'woocommerce_order_get_items',
+			'poocommerce_order_get_items',
 			static function ( $items, $refund ) use ( $order, &$nested, &$inside ) {
 				if ( ! $inside && null === $nested && $refund instanceof \WC_Order_Refund && 0 === $refund->get_id() ) {
 					$inside = true;
@@ -1515,7 +1515,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			2
 		);
 		add_action(
-			'woocommerce_after_order_refund_object_save',
+			'poocommerce_after_order_refund_object_save',
 			static function ( $refund ) use ( $crash, &$nested, &$inside, &$crashed ) {
 				if ( $crash && ! $crashed && ! $inside && null !== $nested && $refund !== $nested ) {
 					$crashed = true;
@@ -1537,7 +1537,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$kept = wc_get_order( $nested->get_id() );
 		$this->assertInstanceOf( \WC_Order_Refund::class, $kept );
 		$this->assertTrue( $kept->get_refunded_payment() );
-		$this->assertSame( '', (string) $kept->get_meta( '_woocommerce_ability_refund_fingerprint' ) );
+		$this->assertSame( '', (string) $kept->get_meta( '_poocommerce_ability_refund_fingerprint' ) );
 		$refunds = wc_get_order( $order->get_id() )->get_refunds();
 		if ( $crash ) {
 			$this->assertWPError( $result );
@@ -1546,7 +1546,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		}
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 		$this->assertCount( 2, $refunds );
-		$this->assertNotSame( '', (string) wc_get_order( $result['refund']['id'] )->get_meta( '_woocommerce_ability_refund_fingerprint' ) );
+		$this->assertNotSame( '', (string) wc_get_order( $result['refund']['id'] )->get_meta( '_poocommerce_ability_refund_fingerprint' ) );
 	}
 
 	/**
@@ -1556,7 +1556,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$order = $this->create_order_without_lines();
 		$built = null;
 		add_filter(
-			'woocommerce_order_get_items',
+			'poocommerce_order_get_items',
 			static function ( $items, $refund ) use ( $order, &$built ) {
 				if ( null === $built && $refund instanceof \WC_Order_Refund && 0 === $refund->get_id() ) {
 					$built = new \WC_Order_Refund();
@@ -1571,7 +1571,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			2
 		);
 		add_action(
-			'woocommerce_after_order_refund_object_save',
+			'poocommerce_after_order_refund_object_save',
 			static function ( $refund ) use ( &$built ) {
 				if ( null !== $built && $refund !== $built ) {
 					throw new \Error( 'Extension save hook crashed.' );
@@ -1587,7 +1587,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_failed', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_failed', $result->get_error_code() );
 		$this->assertSame( $built->get_id(), $result->get_error_data()['refund_id'] );
 		$this->assertStringContainsString( 'could not confirm that it made it', $result->get_error_message() );
 		$this->assertStringNotContainsString( 'no money was returned', $result->get_error_message() );
@@ -1602,7 +1602,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$order  = $this->create_order_without_lines();
 		$thrown = false;
 		add_filter(
-			'woocommerce_order_get_items',
+			'poocommerce_order_get_items',
 			static function ( $items, $refund ) {
 				if ( $refund instanceof \WC_Order_Refund && 0 === $refund->get_id() ) {
 					$refund->set_reason( 'Normalized by an extension.' );
@@ -1613,7 +1613,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			2
 		);
 		add_action(
-			'woocommerce_order_partially_refunded',
+			'poocommerce_order_partially_refunded',
 			static function () use ( &$thrown ) {
 				if ( ! $thrown ) {
 					$thrown = true;
@@ -1635,19 +1635,19 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$this->assertCount( 1, $refunds );
 		$this->assertTrue( $refunds[0]->get_refunded_payment() );
 		$this->assertWPError( $first );
-		$this->assertSame( 'woocommerce_ability_order_refund_incomplete', $first->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_incomplete', $first->get_error_code() );
 		$this->assertSame( $refunds[0]->get_id(), $first->get_error_data()['refund_id'] );
 		$this->assertStringNotContainsString( 'no money was returned', $first->get_error_message() );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( array( '5' ), $this->gateway->refunded );
 	}
 
 	/**
 	 * @testdox Should refuse the retry of a gateway refund when a filter changes what the refund getters return.
 	 *
-	 * @testWith ["woocommerce_order_refund_get_reason", "Redacted"]
-	 *           ["woocommerce_order_refund_get_refunded_by", 0]
+	 * @testWith ["poocommerce_order_refund_get_reason", "Redacted"]
+	 *           ["poocommerce_order_refund_get_refunded_by", 0]
 	 *
 	 * @param string     $hook  Getter filter.
 	 * @param int|string $value Value the filter returns.
@@ -1667,7 +1667,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $first, is_wp_error( $first ) ? $first->get_error_message() : '' );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( array( '5' ), $this->gateway->refunded );
 	}
 
@@ -1677,7 +1677,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	public function test_refuses_retry_when_an_extension_changes_the_refund_before_its_first_save(): void {
 		$order = $this->create_order_without_lines();
 		add_filter(
-			'woocommerce_order_get_items',
+			'poocommerce_order_get_items',
 			static function ( $items, $refund ) {
 				if ( $refund instanceof \WC_Order_Refund && 0 === $refund->get_id() ) {
 					$refund->set_reason( 'Normalized by an extension.' );
@@ -1699,17 +1699,17 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 
 		$this->assertIsArray( $first, is_wp_error( $first ) ? $first->get_error_message() : '' );
 		$this->assertWPError( $second );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $second->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $second->get_error_code() );
 		$this->assertSame( array( '5' ), $this->gateway->refunded );
 	}
 
 	/**
-	 * @testdox Should tell the client not to refund again when the call fails after woocommerce_create_refund ran and the refund is rolled back.
+	 * @testdox Should tell the client not to refund again when the call fails after poocommerce_create_refund ran and the refund is rolled back.
 	 */
 	public function test_reports_lost_refund_when_the_call_fails_after_the_create_hook(): void {
 		$order = $this->create_order_without_lines();
 		add_action(
-			'woocommerce_create_refund',
+			'poocommerce_create_refund',
 			static function () {
 				throw new \Error( 'Payment provider SDK crashed.' );
 			}
@@ -1724,7 +1724,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_lost', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_lost', $result->get_error_code() );
 		$this->assertStringContainsString( 'Do not refund again.', $result->get_error_message() );
 		$this->assertStringContainsString( 'Payment provider SDK crashed.', $result->get_error_message() );
 		$this->assertSame( array(), $this->gateway->refunded );
@@ -1738,14 +1738,14 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	 * @return array|\WP_Error
 	 */
 	private function refund( array $input ) {
-		return wp_get_ability( 'woocommerce/order-refund-create' )->execute( $input );
+		return wp_get_ability( 'poocommerce/order-refund-create' )->execute( $input );
 	}
 
 	/**
 	 * @testdox Should tell a caller that passes a refund ID as the order ID which order the refund belongs to.
 	 *
-	 * @testWith ["woocommerce/order-refund-create", {"amount": "1"}]
-	 *           ["woocommerce/order-refunds-query", {}]
+	 * @testWith ["poocommerce/order-refund-create", {"amount": "1"}]
+	 *           ["poocommerce/order-refunds-query", {}]
 	 *
 	 * @param string $ability_name Ability that gets the refund ID.
 	 * @param array  $input        Rest of the ability input.
@@ -1762,7 +1762,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$result = wp_get_ability( $ability_name )->execute( array( 'id' => $refund->get_id() ) + $input );
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_order_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_order_not_found', $result->get_error_code() );
 		$this->assertStringContainsString( 'Use order ID ' . $order->get_id() . '.', $result->get_error_message() );
 		$this->assertCount( 1, wc_get_order( $order->get_id() )->get_refunds() );
 		$this->assertInstanceOf( \WC_Order_Refund::class, wc_get_order( $refund->get_id() ) );
@@ -1782,8 +1782,8 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'customer' ) ) );
 
 		$inputs = array(
-			'woocommerce/order-refunds-query' => array(),
-			'woocommerce/order-refund-create' => array( 'amount' => '1' ),
+			'poocommerce/order-refunds-query' => array(),
+			'poocommerce/order-refund-create' => array( 'amount' => '1' ),
 		);
 
 		foreach ( $inputs as $ability_name => $input ) {
@@ -1797,8 +1797,8 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox Should not name the order of a refund to a user who cannot act on that order, even if they can act on others.
 	 *
-	 * @testWith ["woocommerce/order-refund-create", {"amount": "1"}]
-	 *           ["woocommerce/order-refunds-query", {}]
+	 * @testWith ["poocommerce/order-refund-create", {"amount": "1"}]
+	 *           ["poocommerce/order-refunds-query", {}]
 	 *
 	 * @param string $ability_name Ability that gets the refund ID.
 	 * @param array  $input        Rest of the ability input.
@@ -1812,7 +1812,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			)
 		);
 		add_filter(
-			'woocommerce_rest_check_permissions',
+			'poocommerce_rest_check_permissions',
 			static function ( $permission, $context, $object_id ) use ( $order ) {
 				unset( $context );
 				return $order->get_id() === (int) $object_id ? false : $permission;
@@ -1904,11 +1904,11 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 				'reason'   => 'Late delivery',
 			)
 		);
-		add_filter( 'woocommerce_order_refund_get_reason', '__return_null' );
+		add_filter( 'poocommerce_order_refund_get_reason', '__return_null' );
 
-		$result = wp_get_ability( 'woocommerce/order-refunds-query' )->execute( array( 'id' => $order->get_id() ) );
+		$result = wp_get_ability( 'poocommerce/order-refunds-query' )->execute( array( 'id' => $order->get_id() ) );
 
-		remove_filter( 'woocommerce_order_refund_get_reason', '__return_null' );
+		remove_filter( 'poocommerce_order_refund_get_reason', '__return_null' );
 		$this->assertIsArray( $result, is_wp_error( $result ) ? $result->get_error_message() : '' );
 		$this->assertArrayNotHasKey( 'reason', $result['refunds'][0] );
 	}
@@ -1919,7 +1919,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 	public function test_reports_incomplete_when_paid_refund_save_fails(): void {
 		$order = $this->create_order_without_lines();
 		add_action(
-			'woocommerce_before_order_refund_object_save',
+			'poocommerce_before_order_refund_object_save',
 			static function ( $refund ) {
 				if ( $refund->get_refunded_payment() ) {
 					throw new \Exception( 'Refund storage is read-only.' );
@@ -1936,7 +1936,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_order_refund_incomplete', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_incomplete', $result->get_error_code() );
 		$this->assertStringContainsString( 'The payment gateway refunded the payment', $result->get_error_message() );
 		$this->assertStringContainsString( 'Refund storage is read-only.', $result->get_error_message() );
 		$this->assertSame( array( '10' ), $this->gateway->refunded );
@@ -1949,7 +1949,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 			)
 		);
 		$this->assertWPError( $retry );
-		$this->assertSame( 'woocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_order_refund_duplicate', $retry->get_error_code() );
 		$this->assertStringContainsString( 'may have refunded the payment', $retry->get_error_message() );
 		$this->assertSame( array( '10' ), $this->gateway->refunded );
 	}
@@ -1961,7 +1961,7 @@ class OrderRefundAbilitiesTest extends WC_Unit_Test_Case {
 		$order  = $this->create_order_without_lines();
 		$thrown = false;
 		add_action(
-			'woocommerce_before_order_object_save',
+			'poocommerce_before_order_object_save',
 			static function ( $saved ) use ( $order, &$thrown ) {
 				if ( ! $thrown && $saved->get_id() === $order->get_id() && OrderStatus::REFUNDED === $saved->get_status() ) {
 					$thrown = true;

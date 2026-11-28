@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Caches;
+namespace Automattic\PooCommerce\Internal\Caches;
 
 use WC_Cache_Helper;
 

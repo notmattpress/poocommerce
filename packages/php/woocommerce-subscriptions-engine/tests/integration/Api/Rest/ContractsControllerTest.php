@@ -2,26 +2,26 @@
 /**
  * Integration tests for the contracts REST controller.
  *
- * @package Automattic\WooCommerce\SubscriptionsEngine
+ * @package Automattic\PooCommerce\SubscriptionsEngine
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
+namespace Automattic\PooCommerce\SubscriptionsEngine\Tests\Integration\Api\Rest;
 
 use EngineIntegrationTestCase;
 use RuntimeException;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\ContractActions;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Contracts;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
-use Automattic\WooCommerce\SubscriptionsEngine\Api\View\ContractView;
-use Automattic\WooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\ContractActions;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Contracts;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\ContractsController;
+use Automattic\PooCommerce\SubscriptionsEngine\Api\View\ContractView;
+use Automattic\PooCommerce\SubscriptionsEngine\Integration\Rest\ContractActionRegistry;
 
 /**
- * @covers \Automattic\WooCommerce\SubscriptionsEngine\Api\Rest\ContractsController
+ * @covers \Automattic\PooCommerce\SubscriptionsEngine\Api\Rest\ContractsController
  */
 class ContractsControllerTest extends EngineIntegrationTestCase {
 
@@ -144,7 +144,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		$response = $this->get( 999999 );
 
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_contract_not_found', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_contract_not_found', $this->response_data( $response )['code'] );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->create_user( 'customer' ) );
 		$response = $this->get( $contract->get_id() );
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_contract_not_found', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_contract_not_found', $this->response_data( $response )['code'] );
 	}
 
 	/**
@@ -175,12 +175,12 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->create_user( 'administrator' ) );
 
 		$capture = function ( $message, $level, $context ) {
-			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'woocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
+			if ( 'error' === $level && is_string( $message ) && is_array( $context ) && 'poocommerce-subscriptions-engine' === ( $context['source'] ?? null ) ) {
 				$this->logged_errors[] = $message;
 			}
 			return $message;
 		};
-		add_filter( 'woocommerce_logger_log_message', $capture, 10, 3 );
+		add_filter( 'poocommerce_logger_log_message', $capture, 10, 3 );
 
 		try {
 			$responses = array();
@@ -192,12 +192,12 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 				$logged[ $route ]    = array_slice( $this->logged_errors, $logged_before );
 			}
 		} finally {
-			remove_filter( 'woocommerce_logger_log_message', $capture, 10 );
+			remove_filter( 'poocommerce_logger_log_message', $capture, 10 );
 		}
 
 		foreach ( $responses as $route => $response ) {
 			$this->assertSame( 500, $response->get_status(), "The {$route} route answers 500." );
-			$this->assertSame( 'woocommerce_subscriptions_engine_contract_read_failed', $this->response_data( $response )['code'] );
+			$this->assertSame( 'poocommerce_subscriptions_engine_contract_read_failed', $this->response_data( $response )['code'] );
 			$this->assertStringNotContainsString( 'table_that_does_not_exist', (string) wp_json_encode( $response->get_data() ), 'Database details stay out of the response.' );
 			$this->assertNotEmpty( $logged[ $route ], "The {$route} route logs the failed read." );
 			$this->assertStringContainsString( 'table_that_does_not_exist', $logged[ $route ][0], "The {$route} route's log carries the database error." );
@@ -217,7 +217,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 			$response = $this->get( $contract_id );
 
 			$this->assertSame( 500, $response->get_status() );
-			$this->assertSame( 'woocommerce_subscriptions_engine_contract_read_failed', $this->response_data( $response )['code'] );
+			$this->assertSame( 'poocommerce_subscriptions_engine_contract_read_failed', $this->response_data( $response )['code'] );
 		}
 	}
 
@@ -329,7 +329,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		);
 
 		$not_found = $this->response_data( $responses[0] );
-		$this->assertSame( 'woocommerce_subscriptions_engine_contract_not_found', $not_found['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_contract_not_found', $not_found['code'] );
 		foreach ( $responses as $response ) {
 			$this->assertSame( 404, $response->get_status() );
 			$this->assertSame( $not_found, $response->get_data() );
@@ -341,7 +341,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 	 * Only the contract owner's action runs, even when another extension registered the same name.
 	 */
 	public function test_dispatches_only_to_the_contract_owner(): void {
-		$this->register_action( 'pause', 'manage_woocommerce' );
+		$this->register_action( 'pause', 'manage_poocommerce' );
 		ContractActions::register(
 			'other-extension',
 			'pause',
@@ -350,7 +350,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 					$this->calls[] = array( 'other-extension', $contract->get_id(), array() );
 					return $contract;
 				},
-				'permission' => 'manage_woocommerce',
+				'permission' => 'manage_poocommerce',
 			)
 		);
 		$contract = $this->create_contract( null, 'other-extension' );
@@ -362,13 +362,13 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 	}
 
 	/**
-	 * A capability permission is checked for the current user: `manage_woocommerce` admits store
+	 * A capability permission is checked for the current user: `manage_poocommerce` admits store
 	 * managers and hides the contract from its own customer.
 	 */
 	public function test_capability_permission(): void {
 		$customer_id = $this->create_user( 'customer' );
 		$contract    = $this->create_contract( $customer_id );
-		$this->register_action( 'pause', 'manage_woocommerce' );
+		$this->register_action( 'pause', 'manage_poocommerce' );
 
 		wp_set_current_user( $customer_id );
 		$this->assertSame( 404, $this->run_action( $contract->get_id(), 'pause' )->get_status() );
@@ -407,7 +407,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		$contract = $this->create_contract( null );
 		$this->register_action(
 			'pause',
-			'manage_woocommerce',
+			'manage_poocommerce',
 			array(
 				'is_available' => static function ( ContractView $view ): bool {
 					return 'on-hold' !== $view->get_status();
@@ -420,7 +420,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		$response = $this->run_action( $contract->get_id(), 'pause' );
 
 		$this->assertSame( 409, $response->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_action_not_available', $this->response_data( $response )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_action_not_available', $this->response_data( $response )['code'] );
 		$this->assertCount( 1, $this->calls );
 	}
 
@@ -432,7 +432,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		$contract = $this->create_contract( null );
 		$this->register_action(
 			'cancel',
-			'manage_woocommerce',
+			'manage_poocommerce',
 			array(
 				'args' => array(
 					'at_period_end' => array(
@@ -450,7 +450,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 
 		$missing = $this->run_action( $contract->get_id(), 'cancel' );
 		$this->assertSame( 400, $missing->get_status() );
-		$this->assertSame( 'woocommerce_subscriptions_engine_invalid_action_args', $this->response_data( $missing )['code'] );
+		$this->assertSame( 'poocommerce_subscriptions_engine_invalid_action_args', $this->response_data( $missing )['code'] );
 
 		$mistyped = $this->run_action(
 			$contract->get_id(),
@@ -501,7 +501,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		$contract = $this->create_contract( null );
 		$this->register_action(
 			'cancel',
-			'manage_woocommerce',
+			'manage_poocommerce',
 			array(
 				'args' => static function ( ContractView $view ): array {
 					return array(
@@ -550,7 +550,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 				'callback'   => static function (): WP_Error {
 					return new WP_Error( 'teapot', 'Short and stout.', array( 'status' => 418 ) );
 				},
-				'permission' => 'manage_woocommerce',
+				'permission' => 'manage_poocommerce',
 			)
 		);
 		ContractActions::register(
@@ -560,7 +560,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 				'callback'   => static function (): WP_Error {
 					return new WP_Error( 'refused', 'No.' );
 				},
-				'permission' => 'manage_woocommerce',
+				'permission' => 'manage_poocommerce',
 			)
 		);
 		wp_set_current_user( $this->create_user( 'administrator' ) );
@@ -587,17 +587,17 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 			'callback',
 			array(
 				'callback'   => $throw,
-				'permission' => 'manage_woocommerce',
+				'permission' => 'manage_poocommerce',
 			)
 		);
-		$this->register_action( 'availability', 'manage_woocommerce', array( 'is_available' => $throw ) );
+		$this->register_action( 'availability', 'manage_poocommerce', array( 'is_available' => $throw ) );
 		$this->register_action( 'permission', $throw );
 		wp_set_current_user( $this->create_user( 'administrator' ) );
 
 		foreach ( array( 'callback', 'availability', 'permission' ) as $action ) {
 			$response = $this->run_action( $contract->get_id(), $action );
 			$this->assertSame( 500, $response->get_status(), $action );
-			$this->assertSame( 'woocommerce_subscriptions_engine_action_failed', $this->response_data( $response )['code'] );
+			$this->assertSame( 'poocommerce_subscriptions_engine_action_failed', $this->response_data( $response )['code'] );
 		}
 	}
 
@@ -644,7 +644,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 	public function test_discovery_needs_read_subscription_contract(): void {
 		$customer_id = $this->create_user( 'customer' );
 		$contract    = $this->create_contract( $customer_id );
-		$this->register_action( 'pause', 'manage_woocommerce' );
+		$this->register_action( 'pause', 'manage_poocommerce' );
 
 		$this->assertSame( 401, $this->list_actions( $contract->get_id() )->get_status() );
 
@@ -667,7 +667,7 @@ class ContractsControllerTest extends EngineIntegrationTestCase {
 		wp_set_current_user( $this->create_user( 'administrator' ) );
 		$this->assertSame( 404, $this->run_action( $contract->get_id(), 'pause' )->get_status() );
 
-		$this->register_action( 'pause', 'manage_woocommerce' );
+		$this->register_action( 'pause', 'manage_poocommerce' );
 
 		$this->assertSame( 200, $this->run_action( $contract->get_id(), 'pause' )->get_status() );
 	}

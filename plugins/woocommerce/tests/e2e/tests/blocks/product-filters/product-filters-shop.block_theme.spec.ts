@@ -6,7 +6,7 @@ import {
 	test as base,
 	expect,
 	getProductAttributeIds,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const GRAY_PRODUCT_TITLES = [ 'T-Shirt', 'T-Shirt with Logo' ];
 // Default `count-desc` order. Only serial runs keep the term counts stable.
@@ -42,10 +42,10 @@ test( 'Product Filters filter the shop page and clear the filters', async ( {
 	const grayCheckbox = page.getByRole( 'checkbox', { name: 'Gray' } );
 	const clearButton = page.getByRole( 'button', { name: 'Clear filters' } );
 	const attributeLabels = page
-		.locator( '.wp-block-woocommerce-product-filter-attribute' )
+		.locator( '.wp-block-poocommerce-product-filter-attribute' )
 		.locator( 'label' );
 	const productTitles = page.locator(
-		'.wp-block-woocommerce-product-template .wp-block-post-title'
+		'.wp-block-poocommerce-product-template .wp-block-post-title'
 	);
 	const expectFilterParams = ( expected: string | null ) =>
 		expect

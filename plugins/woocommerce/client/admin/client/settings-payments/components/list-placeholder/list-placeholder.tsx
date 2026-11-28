@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { List } from '@woocommerce/components';
+import { List } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ export const ListPlaceholder = ( {
 		return {
 			content: <div className="list-placeholder__content" />,
 			className:
-				'woocommerce-item__payment-gateway-placeholder transitions-disabled',
+				'poocommerce-item__payment-gateway-placeholder transitions-disabled',
 			title: <div className="list-placeholder__title" />,
 			after: <div className="list-placeholder__after" />,
 			before: (

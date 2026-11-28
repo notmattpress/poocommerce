@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Main } from '@woocommerce/base-components/sidebar-layout';
+import { Main } from '@poocommerce/base-components/sidebar-layout';
 import clsx from 'clsx';
 
 const FrontendBlock = ( {

@@ -3,7 +3,7 @@
  * Handles emailing users CSV Export download links.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -56,8 +56,8 @@ class ReportCSVEmail extends \WC_Email {
 		$this->placeholders['{report_date_range}'] = '';
 
 		$this->id                     = 'admin_report_export_download';
-		$this->title                  = __( 'Analytics report download', 'woocommerce' );
-		$this->description            = __( 'Sent to the person who exports an Analytics report, with a link to download it.', 'woocommerce' );
+		$this->title                  = __( 'Analytics report download', 'poocommerce' );
+		$this->description            = __( 'Sent to the person who exports an Analytics report, with a link to download it.', 'poocommerce' );
 		$this->supports_cc_bcc        = false;
 		$this->manual                 = true;
 		$this->template_base          = WC()->plugin_path() . '/includes/react-admin/emails/';
@@ -75,19 +75,19 @@ class ReportCSVEmail extends \WC_Email {
 		 * @return string[] An Array of labels.
 		 */
 		$this->report_labels = apply_filters(
-			'woocommerce_report_export_email_labels',
+			'poocommerce_report_export_email_labels',
 			array(
-				'categories'          => __( 'Categories', 'woocommerce' ),
-				'coupons'             => __( 'Coupons', 'woocommerce' ),
-				'customers'           => __( 'Customers', 'woocommerce' ),
-				'downloads'           => __( 'Downloads', 'woocommerce' ),
-				'orders'              => __( 'Orders', 'woocommerce' ),
-				'products'            => __( 'Products', 'woocommerce' ),
-				'revenue'             => __( 'Revenue', 'woocommerce' ),
-				'stock'               => __( 'Stock', 'woocommerce' ),
-				'stock-notifications' => __( 'Stock notifications', 'woocommerce' ),
-				'taxes'               => __( 'Taxes', 'woocommerce' ),
-				'variations'          => __( 'Variations', 'woocommerce' ),
+				'categories'          => __( 'Categories', 'poocommerce' ),
+				'coupons'             => __( 'Coupons', 'poocommerce' ),
+				'customers'           => __( 'Customers', 'poocommerce' ),
+				'downloads'           => __( 'Downloads', 'poocommerce' ),
+				'orders'              => __( 'Orders', 'poocommerce' ),
+				'products'            => __( 'Products', 'poocommerce' ),
+				'revenue'             => __( 'Revenue', 'poocommerce' ),
+				'stock'               => __( 'Stock', 'poocommerce' ),
+				'stock-notifications' => __( 'Stock notifications', 'poocommerce' ),
+				'taxes'               => __( 'Taxes', 'poocommerce' ),
+				'variations'          => __( 'Variations', 'poocommerce' ),
 			)
 		);
 
@@ -121,7 +121,7 @@ class ReportCSVEmail extends \WC_Email {
 		 * @param mixed     $object  The object the email is about.
 		 * @param \WC_Email $email   The email.
 		 */
-		return apply_filters( 'woocommerce_email_enabled_' . $this->id, true, $this->object, $this );
+		return apply_filters( 'poocommerce_email_enabled_' . $this->id, true, $this->object, $this );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class ReportCSVEmail extends \WC_Email {
 	 * @return void
 	 */
 	public function prepare_for_preview() {
-		$this->report_type                   = $this->report_labels['orders'] ?? __( 'Orders', 'woocommerce' );
+		$this->report_type                   = $this->report_labels['orders'] ?? __( 'Orders', 'poocommerce' );
 		$this->placeholders['{report_name}'] = $this->report_type;
 		$this->download_url                  = 'https://example.com/report-download';
 		$this->set_report_date_range(
@@ -159,7 +159,7 @@ class ReportCSVEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Your Report Download', 'woocommerce' );
+		return __( 'Your Report Download', 'poocommerce' );
 	}
 
 	/**
@@ -172,10 +172,10 @@ class ReportCSVEmail extends \WC_Email {
 	 */
 	public function get_default_subject() {
 		if ( '' !== $this->report_date_range ) {
-			return __( '[{site_title}]: Your {report_name} Report for {report_date_range} is ready', 'woocommerce' );
+			return __( '[{site_title}]: Your {report_name} Report for {report_date_range} is ready', 'poocommerce' );
 		}
 
-		return __( '[{site_title}]: Your {report_name} Report download is ready', 'woocommerce' );
+		return __( '[{site_title}]: Your {report_name} Report download is ready', 'poocommerce' );
 	}
 
 	/**

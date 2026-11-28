@@ -15,7 +15,7 @@ import { AutoCompleter } from './types';
 
 const completer: AutoCompleter = {
 	name: 'categories',
-	className: 'woocommerce-search__product-result',
+	className: 'poocommerce-search__product-result',
 	options( search ) {
 		const query = search
 			? {
@@ -37,11 +37,11 @@ const completer: AutoCompleter = {
 	},
 	getFreeTextOptions( query ) {
 		const label = (
-			<span key="name" className="woocommerce-search__result-name">
+			<span key="name" className="poocommerce-search__result-name">
 				{ interpolateComponents( {
 					mixedString: __(
 						'All categories with titles that include {{query /}}',
-						'woocommerce'
+						'poocommerce'
 					),
 					components: {
 						query: (
@@ -67,7 +67,7 @@ const completer: AutoCompleter = {
 		return (
 			<span
 				key="name"
-				className="woocommerce-search__result-name"
+				className="poocommerce-search__result-name"
 				aria-label={ cat.name }
 			>
 				{ match?.suggestionBeforeMatch }

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Utilities\Ucp;
 
 /**
  * Maps a Store API cart response and the checkout state kept beside it onto the UCP checkout shape.
@@ -55,8 +55,8 @@ class CheckoutMapper {
 				'code'         => 'ESCALATION_REQUIRED',
 				// Without an order the hand-off is the cart alone: the store checkout asks the buyer's details again.
 				'content'      => empty( $state['order_id'] )
-					? __( 'There is nothing to pay, so the buyer must place the order on the store, starting from the cart at continue_url.', 'woocommerce' )
-					: __( 'Payment must be completed by the buyer at continue_url.', 'woocommerce' ),
+					? __( 'There is nothing to pay, so the buyer must place the order on the store, starting from the cart at continue_url.', 'poocommerce' )
+					: __( 'Payment must be completed by the buyer at continue_url.', 'poocommerce' ),
 				'severity'     => 'requires_buyer_review',
 				'path'         => '$',
 				'content_type' => 'plain',
@@ -85,13 +85,13 @@ class CheckoutMapper {
 		$missing = array();
 
 		if ( '' === (string) ( $cart['billing_address']['email'] ?? '' ) ) {
-			$missing['$.buyer.email'] = __( 'A buyer email is required.', 'woocommerce' );
+			$missing['$.buyer.email'] = __( 'A buyer email is required.', 'poocommerce' );
 		}
 
 		$billing_fields = $this->missing_address_fields( (array) ( $cart['billing_address'] ?? array() ) );
 		if ( ! empty( $billing_fields ) ) {
 			/* translators: %s: comma-separated list of address field labels. */
-			$missing['$.billing_address'] = sprintf( __( 'The billing address is missing: %s.', 'woocommerce' ), implode( ', ', $billing_fields ) );
+			$missing['$.billing_address'] = sprintf( __( 'The billing address is missing: %s.', 'poocommerce' ), implode( ', ', $billing_fields ) );
 		}
 
 		if ( ! empty( $cart['needs_shipping'] ) ) {
@@ -99,9 +99,9 @@ class CheckoutMapper {
 
 			if ( ! empty( $shipping_fields ) ) {
 				/* translators: %s: comma-separated list of address field labels. */
-				$missing['$.shipping_address'] = sprintf( __( 'The shipping address is missing: %s.', 'woocommerce' ), implode( ', ', $shipping_fields ) );
+				$missing['$.shipping_address'] = sprintf( __( 'The shipping address is missing: %s.', 'poocommerce' ), implode( ', ', $shipping_fields ) );
 			} elseif ( ! $this->has_shipping_option( $cart ) ) {
-				$missing['$.shipping_address'] = __( 'No shipping option is available for this shipping address.', 'woocommerce' );
+				$missing['$.shipping_address'] = __( 'No shipping option is available for this shipping address.', 'poocommerce' );
 			}
 		}
 
@@ -190,15 +190,15 @@ class CheckoutMapper {
 	 */
 	private function policy_links(): array {
 		$pages = array(
-			'privacy_policy'   => array( (int) get_option( 'wp_page_for_privacy_policy' ), __( 'Privacy policy', 'woocommerce' ) ),
-			'terms_of_service' => array( wc_terms_and_conditions_page_id(), __( 'Terms and conditions', 'woocommerce' ) ),
-			'refund_policy'    => array( wc_get_page_id( 'refund_returns' ), __( 'Refund and returns policy', 'woocommerce' ) ),
+			'privacy_policy'   => array( (int) get_option( 'wp_page_for_privacy_policy' ), __( 'Privacy policy', 'poocommerce' ) ),
+			'terms_of_service' => array( wc_terms_and_conditions_page_id(), __( 'Terms and conditions', 'poocommerce' ) ),
+			'refund_policy'    => array( wc_get_page_id( 'refund_returns' ), __( 'Refund and returns policy', 'poocommerce' ) ),
 		);
 
 		$links = array();
 		foreach ( $pages as $type => list( $page_id, $title ) ) {
 			// Unlike wc_get_page_permalink(), never falls back to the home page or links a draft:
-			// WooCommerce creates the refund page as a draft.
+			// PooCommerce creates the refund page as a draft.
 			$url = $page_id > 0 && 'publish' === get_post_status( $page_id ) ? get_permalink( $page_id ) : false;
 			if ( is_string( $url ) && '' !== $url ) {
 				$links[] = array(

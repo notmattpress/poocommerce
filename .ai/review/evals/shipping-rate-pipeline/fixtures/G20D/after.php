@@ -23,7 +23,7 @@ class WC_Shipping_Rate {
         $this->set_cost( $cost );
     }
     public function set_cost( $cost ) { $this->cost = $cost; }
-    public function get_cost() { return apply_filters( 'woocommerce_shipping_rate_cost', $this->cost, $this ); }
+    public function get_cost() { return apply_filters( 'poocommerce_shipping_rate_cost', $this->cost, $this ); }
 }
 
 // Core decimal formatter.

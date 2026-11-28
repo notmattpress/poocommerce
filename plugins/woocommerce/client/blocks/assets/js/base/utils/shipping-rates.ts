@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { LOCAL_PICKUP_ENABLED } from '@woocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
+import { LOCAL_PICKUP_ENABLED } from '@poocommerce/block-settings';
 import type {
 	CartShippingPackageShippingRate,
 	CartShippingRate,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Get the number of packages in a shippingRates array.

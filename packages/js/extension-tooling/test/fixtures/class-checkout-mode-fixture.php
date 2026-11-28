@@ -2,10 +2,10 @@
 /**
  * Exercise checkout switching with the options and theme APIs stubbed.
  *
- * @package WooCommerce\ExtensionTooling
+ * @package PooCommerce\ExtensionTooling
  */
 
-use Automattic\WooCommerce\ExtensionTooling\Checkout_Mode;
+use Automattic\PooCommerce\ExtensionTooling\Checkout_Mode;
 
 require dirname( __DIR__, 2 ) . '/bin/checkout-mode.php';
 
@@ -55,8 +55,8 @@ $pages = static function () {
 
 $unseeded = $pages();
 $options  = array(
-	'tests_legacy_woocommerce_cart_page_id'     => '12',
-	'tests_legacy_woocommerce_checkout_page_id' => '13',
+	'tests_legacy_poocommerce_cart_page_id'     => '12',
+	'tests_legacy_poocommerce_checkout_page_id' => '13',
 );
 $initial  = $pages();
 Checkout_Mode_Fixture::switch_test_mode( 'blocks' );

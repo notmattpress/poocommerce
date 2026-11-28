@@ -3,7 +3,7 @@
  * WC Queue
  *
  * @version 3.5.0
- * @package WooCommerce\Interface
+ * @package PooCommerce\Interface
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -60,7 +60,7 @@ class WC_Queue {
 			wc_doing_it_wrong( __FUNCTION__, 'This function should not be called before plugins_loaded.', '3.5.0' );
 		}
 
-		return apply_filters( 'woocommerce_queue_class', self::$default_cass );
+		return apply_filters( 'poocommerce_queue_class', self::$default_cass );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class WC_Queue {
 	protected static function validate_instance( $instance ) {
 		if ( false === ( $instance instanceof WC_Queue_Interface ) ) {
 			$default_class = self::$default_cass;
-			wc_doing_it_wrong( __FUNCTION__, sprintf( 'The class attached to the "woocommerce_queue_class" does not implement the WC_Queue_Interface interface. The default %s class will be used instead.', $default_class ), '3.5.0' );
+			wc_doing_it_wrong( __FUNCTION__, sprintf( 'The class attached to the "poocommerce_queue_class" does not implement the WC_Queue_Interface interface. The default %s class will be used instead.', $default_class ), '3.5.0' );
 			$instance = new $default_class();
 		}
 

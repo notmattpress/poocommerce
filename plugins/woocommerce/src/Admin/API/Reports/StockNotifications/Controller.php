@@ -7,13 +7,13 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\Reports\StockNotifications;
+namespace Automattic\PooCommerce\Admin\API\Reports\StockNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -84,7 +84,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param array            $report   The original report item.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_stock_notifications', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_stock_notifications', $response, $report, $request );
 	}
 
 	/**
@@ -113,25 +113,25 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'product_id'         => array(
-					'description' => __( 'ID of the product or variation customers signed up for.', 'woocommerce' ),
+					'description' => __( 'ID of the product or variation customers signed up for.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'signups'            => array(
-					'description' => __( 'Sign-ups created in the period. Excludes unconfirmed (pending) sign-ups.', 'woocommerce' ),
+					'description' => __( 'Sign-ups created in the period. Excludes unconfirmed (pending) sign-ups.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'notifications_sent' => array(
-					'description' => __( 'Back-in-stock emails sent in the period.', 'woocommerce' ),
+					'description' => __( 'Back-in-stock emails sent in the period.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'customers'          => array(
-					'description' => __( 'Distinct customers, by email, who signed up in the period.', 'woocommerce' ),
+					'description' => __( 'Distinct customers, by email, who signed up in the period.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -141,19 +141,19 @@ class Controller extends GenericController implements ExportableInterface {
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product name.', 'woocommerce' ),
+						'description' => __( 'Product name.', 'poocommerce' ),
 					),
 					'permalink' => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product link.', 'woocommerce' ),
+						'description' => __( 'Product link.', 'poocommerce' ),
 					),
 					'edit_url'  => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product edit link.', 'woocommerce' ),
+						'description' => __( 'Product edit link.', 'poocommerce' ),
 					),
 				),
 			),
@@ -179,7 +179,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['products']           = array(
-			'description'       => __( 'Limit result to items with specified product ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified product ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -188,7 +188,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['extended_info']      = array(
-			'description'       => __( 'Add additional piece of info about each product to the report.', 'woocommerce' ),
+			'description'       => __( 'Add additional piece of info about each product to the report.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
@@ -205,10 +205,10 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'product_name'       => __( 'Product', 'woocommerce' ),
-			'signups'            => __( 'Sign-ups', 'woocommerce' ),
-			'notifications_sent' => __( 'Notifications sent', 'woocommerce' ),
-			'customers'          => __( 'Customers', 'woocommerce' ),
+			'product_name'       => __( 'Product', 'poocommerce' ),
+			'signups'            => __( 'Sign-ups', 'poocommerce' ),
+			'notifications_sent' => __( 'Notifications sent', 'poocommerce' ),
+			'customers'          => __( 'Customers', 'poocommerce' ),
 		);
 
 		/**
@@ -218,7 +218,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 *
 		 * @param array $export_columns Key value pair of Column ID => Label.
 		 */
-		return apply_filters( 'woocommerce_report_stock_notifications_export_columns', $export_columns );
+		return apply_filters( 'poocommerce_report_stock_notifications_export_columns', $export_columns );
 	}
 
 	/**
@@ -243,6 +243,6 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param array $export_item Key value pair of Column ID => Row Value.
 		 * @param array $item        Single report item/row.
 		 */
-		return apply_filters( 'woocommerce_report_stock_notifications_prepare_export_item', $export_item, $item );
+		return apply_filters( 'poocommerce_report_stock_notifications_prepare_export_item', $export_item, $item );
 	}
 }

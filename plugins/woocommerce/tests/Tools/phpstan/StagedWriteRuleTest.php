@@ -2,12 +2,12 @@
 /**
  * StagedWriteRuleTest class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Testing\Tools\phpstan;
+namespace Automattic\PooCommerce\Testing\Tools\phpstan;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
@@ -35,8 +35,8 @@ final class StagedWriteRuleTest extends RuleTestCase {
 		$this->assert_errors(
 			'stage-refusal.php',
 			array(
-				array( 'woocommerce.stagedTwinRefusal', 'Method Stage_Refusal_Fixture::stage_late() must start with $this->refuse_unstaged_override().', 9 ),
-				array( 'woocommerce.stagedTwinRefusal', 'Method Stage_Refusal_Fixture::stage_missing() must start with $this->refuse_unstaged_override().', 14 ),
+				array( 'poocommerce.stagedTwinRefusal', 'Method Stage_Refusal_Fixture::stage_late() must start with $this->refuse_unstaged_override().', 9 ),
+				array( 'poocommerce.stagedTwinRefusal', 'Method Stage_Refusal_Fixture::stage_missing() must start with $this->refuse_unstaged_override().', 14 ),
 			)
 		);
 	}
@@ -48,12 +48,12 @@ final class StagedWriteRuleTest extends RuleTestCase {
 		$this->assert_errors(
 			'writes.php',
 			array(
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_data_store_property' ), 4 ),
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_loaded_data_store' ), 8 ),
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_get_data_store' ), 13 ),
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_wpdb' ), 17 ),
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_function' ), 22 ),
-				array( 'woocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_save' ), 26 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_data_store_property' ), 4 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_loaded_data_store' ), 8 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_get_data_store' ), 13 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_wpdb' ), 17 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_function' ), 22 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Writes_Fixture', 'through_save' ), 26 ),
 			)
 		);
 	}
@@ -65,7 +65,7 @@ final class StagedWriteRuleTest extends RuleTestCase {
 		$this->assert_errors(
 			'twins.php',
 			array(
-				array( 'woocommerce.stagedWrite', self::write_message( 'Twins_Fixture', 'add_note' ), 28 ),
+				array( 'poocommerce.stagedWrite', self::write_message( 'Twins_Fixture', 'add_note' ), 28 ),
 			)
 		);
 	}
@@ -93,7 +93,7 @@ final class StagedWriteRuleTest extends RuleTestCase {
 	}
 
 	/**
-	 * Message of a woocommerce.stagedWrite error.
+	 * Message of a poocommerce.stagedWrite error.
 	 *
 	 * @param string $class_name  Class name.
 	 * @param string $method_name Method name.

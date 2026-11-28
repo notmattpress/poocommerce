@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Abilities\AbilityDefinition;
-use Automattic\WooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
+use Automattic\PooCommerce\Abilities\AbilityDefinition;
+use Automattic\PooCommerce\Internal\Abilities\Domain\Traits\TaxRateAbilityTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class TaxRatesQuery extends AbstractDomainAbility implements AbilityDefinition {
 	 * @since 11.4.0
 	 */
 	public static function get_name(): string {
-		return 'woocommerce/tax-rates-query';
+		return 'poocommerce/tax-rates-query';
 	}
 
 	/**
@@ -42,19 +42,19 @@ class TaxRatesQuery extends AbstractDomainAbility implements AbilityDefinition {
 		$output_schema                        = self::get_collection_output_schema( 'rates', self::get_rate_output_schema() );
 		$output_schema['properties']['total'] = array(
 			'type'        => 'integer',
-			'description' => __( 'Total number of matching rates across all pages.', 'woocommerce' ),
+			'description' => __( 'Total number of matching rates across all pages.', 'poocommerce' ),
 		);
 
 		return array(
-			'label'               => __( 'Query tax rates', 'woocommerce' ),
-			'description'         => __( 'List the tax rates of every tax class, in the order of the tax settings.', 'woocommerce' ),
-			'category'            => 'woocommerce',
+			'label'               => __( 'Query tax rates', 'poocommerce' ),
+			'description'         => __( 'List the tax rates of every tax class, in the order of the tax settings.', 'poocommerce' ),
+			'category'            => 'poocommerce',
 			'input_schema'        => array(
 				'type'                 => 'object',
 				'properties'           => array(
 					'include'  => array(
 						'type'        => 'array',
-						'description' => __( 'Return only these tax rate IDs.', 'woocommerce' ),
+						'description' => __( 'Return only these tax rate IDs.', 'poocommerce' ),
 						'minItems'    => 1,
 						'items'       => array(
 							'type'    => 'integer',
@@ -63,12 +63,12 @@ class TaxRatesQuery extends AbstractDomainAbility implements AbilityDefinition {
 					),
 					'country'  => array(
 						'type'        => 'string',
-						'description' => __( 'Two-letter country code. Rates for every country are included too.', 'woocommerce' ),
+						'description' => __( 'Two-letter country code. Rates for every country are included too.', 'poocommerce' ),
 						'pattern'     => '^[A-Za-z]{2}$',
 					),
 					'class'    => array(
 						'type'        => 'string',
-						'description' => __( 'Tax class slug; standard for the standard rates.', 'woocommerce' ),
+						'description' => __( 'Tax class slug; standard for the standard rates.', 'poocommerce' ),
 					),
 					'page'     => array(
 						'type'    => 'integer',
@@ -153,12 +153,12 @@ class TaxRatesQuery extends AbstractDomainAbility implements AbilityDefinition {
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Each condition and the class order are prepared above.
 		$rows  = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_tax_rates WHERE {$where} ORDER BY {$class_order}, tax_rate_order, tax_rate_id LIMIT %d, %d",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_tax_rates WHERE {$where} ORDER BY {$class_order}, tax_rate_order, tax_rate_id LIMIT %d, %d",
 				( $page - 1 ) * $per_page,
 				$per_page
 			)
 		);
-		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_tax_rates WHERE {$where}" );
+		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_tax_rates WHERE {$where}" );
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		$locations = self::get_locations( array_map( 'intval', wp_list_pluck( $rows, 'tax_rate_id' ) ) );

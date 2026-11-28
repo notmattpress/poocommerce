@@ -82,7 +82,7 @@ describe( 'createNoticesFromResponse', () => {
 	} );
 
 	test( 'should create an error notice when the response is a thrown Error', () => {
-		// Mirrors the PluginError thrown by @woocommerce/data's plugin actions: an
+		// Mirrors the PluginError thrown by @poocommerce/data's plugin actions: an
 		// Error subclass carrying a message and data, but no code.
 		class PluginError extends Error {
 			constructor( message, data ) {

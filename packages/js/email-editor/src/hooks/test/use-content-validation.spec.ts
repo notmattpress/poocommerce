@@ -21,7 +21,7 @@ jest.mock( '../use-validation-notices', () => ( {
 	useValidationNotices: jest.fn(),
 } ) );
 
-const HOOK = 'woocommerce_email_editor_content_validation_rules';
+const HOOK = 'poocommerce_email_editor_content_validation_rules';
 
 function notices( existing: string[] = [] ) {
 	return {

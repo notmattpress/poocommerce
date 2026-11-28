@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_WCCOM_Site_Installation_Step_Activate_Product.
  *
- * @package WooCommerce\Tests\WCCOM_Site
+ * @package PooCommerce\Tests\WCCOM_Site
  */
 
 declare( strict_types = 1 );
@@ -13,7 +13,7 @@ declare( strict_types = 1 );
 class WC_WCCOM_Site_Installation_Step_Activate_Product_Test extends WC_Unit_Test_Case {
 
 	/**
-	 * The WooCommerce.com product ID of the installed fixture.
+	 * The PooCommerce.com product ID of the installed fixture.
 	 */
 	private const PRODUCT_ID = 9999901;
 
@@ -25,7 +25,7 @@ class WC_WCCOM_Site_Installation_Step_Activate_Product_Test extends WC_Unit_Test
 	private $fixture_dirs = array();
 
 	/**
-	 * Load the installer classes, which WooCommerce only loads for WooCommerce.com REST requests.
+	 * Load the installer classes, which PooCommerce only loads for PooCommerce.com REST requests.
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
@@ -40,7 +40,7 @@ class WC_WCCOM_Site_Installation_Step_Activate_Product_Test extends WC_Unit_Test
 	}
 
 	/**
-	 * Remove the fixture product from disk, and the WooCommerce and WordPress caches that list it.
+	 * Remove the fixture product from disk, and the PooCommerce and WordPress caches that list it.
 	 */
 	public function tearDown(): void {
 		try {
@@ -57,7 +57,7 @@ class WC_WCCOM_Site_Installation_Step_Activate_Product_Test extends WC_Unit_Test
 	}
 
 	/**
-	 * @testdox Activation finds a product installed after the list of WooCommerce.com products was cached in the same request.
+	 * @testdox Activation finds a product installed after the list of PooCommerce.com products was cached in the same request.
 	 *
 	 * @testWith ["plugin"]
 	 *           ["theme"]
@@ -86,7 +86,7 @@ class WC_WCCOM_Site_Installation_Step_Activate_Product_Test extends WC_Unit_Test
 	}
 
 	/**
-	 * Write a WooCommerce.com plugin or theme to disk, as the move_product step does.
+	 * Write a PooCommerce.com plugin or theme to disk, as the move_product step does.
 	 *
 	 * @param string $product_type The product type, plugin or theme.
 	 */

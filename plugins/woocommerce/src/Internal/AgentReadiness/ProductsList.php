@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\AgentReadiness;
+namespace Automattic\PooCommerce\Internal\AgentReadiness;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,13 +69,13 @@ class ProductsList {
 	 * Register the hooks.
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_before_product_object_save', array( $this, 'handle_before_save' ) );
-		add_action( 'woocommerce_after_product_object_save', array( $this, 'handle_after_save' ) );
+		add_action( 'poocommerce_before_product_object_save', array( $this, 'handle_before_save' ) );
+		add_action( 'poocommerce_after_product_object_save', array( $this, 'handle_after_save' ) );
 		add_action( 'wp_trash_post', array( $this, 'handle_trash' ) );
 		add_action( 'untrashed_post', array( $this, 'handle_untrash' ) );
-		add_action( 'woocommerce_trash_product_variation', array( $this, 'handle_variation_removed' ) );
-		add_action( 'woocommerce_before_delete_product_variation', array( $this, 'handle_before_variation_delete' ) );
-		add_action( 'woocommerce_delete_product_variation', array( $this, 'handle_variation_removed' ) );
+		add_action( 'poocommerce_trash_product_variation', array( $this, 'handle_variation_removed' ) );
+		add_action( 'poocommerce_before_delete_product_variation', array( $this, 'handle_before_variation_delete' ) );
+		add_action( 'poocommerce_delete_product_variation', array( $this, 'handle_variation_removed' ) );
 		add_action( 'pre_get_posts', array( $this, 'apply_filter' ) );
 		add_action( 'admin_notices', array( $this, 'filter_notice' ) );
 	}
@@ -186,7 +186,7 @@ class ProductsList {
 		}
 		ProductFields::forget_variations( $product_id );
 		delete_transient( 'wc_product_children_' . $product_id );
-		$cache = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\ProductCache::class );
+		$cache = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\ProductCache::class );
 		foreach ( $ids as $id ) {
 			$cache->remove( (int) $id );
 		}
@@ -329,9 +329,9 @@ class ProductsList {
 		}
 		printf(
 			'<div class="notice notice-info"><p>%s <a href="%s">%s</a></p></div>',
-			esc_html__( 'Showing only products from AI shopping health.', 'woocommerce' ),
+			esc_html__( 'Showing only products from AI shopping health.', 'poocommerce' ),
 			esc_url( admin_url( 'edit.php?post_type=product' ) ),
-			esc_html__( 'Show all products', 'woocommerce' )
+			esc_html__( 'Show all products', 'poocommerce' )
 		);
 	}
 }

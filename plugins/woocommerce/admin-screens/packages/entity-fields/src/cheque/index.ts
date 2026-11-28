@@ -1,5 +1,5 @@
 /**
- * Script module of the `cheque` collection: `@woocommerce/entity-fields/cheque`.
+ * Script module of the `cheque` collection: `@poocommerce/entity-fields/cheque`.
  *
  * The fields' data is in their `field.php` files. This module adds the parts PHP can't describe.
  */

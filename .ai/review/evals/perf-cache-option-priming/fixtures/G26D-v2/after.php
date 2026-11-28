@@ -1,6 +1,6 @@
 <?php
 /* Order line items are first loaded here through native WC_Order::get_items. The fixture’s product filter is shown. */
-add_filter( 'woocommerce_order_item_product', static function ( $product, $item ) {
+add_filter( 'poocommerce_order_item_product', static function ( $product, $item ) {
     if ( 103 === $item->get_id() ) { return array( 'legacy_reference' => true ); }
     return $product;
 }, 10, 2 );

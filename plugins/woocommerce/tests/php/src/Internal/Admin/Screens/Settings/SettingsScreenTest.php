@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Screens\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Screens\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Screens\Settings\SettingsScreen;
+use Automattic\PooCommerce\Internal\Admin\Screens\Settings\SettingsScreen;
 use WC_Unit_Test_Case;
 
 /**

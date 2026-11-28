@@ -5,11 +5,11 @@ import { __, _x } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 
 const STOCK_NOTIFICATIONS_REPORT_CHARTS_FILTER =
-	'woocommerce_admin_stock_notifications_report_charts';
+	'poocommerce_admin_stock_notifications_report_charts';
 const STOCK_NOTIFICATIONS_REPORT_FILTERS_FILTER =
-	'woocommerce_admin_stock_notifications_report_filters';
+	'poocommerce_admin_stock_notifications_report_filters';
 const STOCK_NOTIFICATIONS_REPORT_ADVANCED_FILTERS_FILTER =
-	'woocommerce_admin_stock_notifications_report_advanced_filters';
+	'poocommerce_admin_stock_notifications_report_advanced_filters';
 
 /**
  * @typedef {import('../index.js').chart} chart
@@ -18,33 +18,33 @@ const STOCK_NOTIFICATIONS_REPORT_ADVANCED_FILTERS_FILTER =
 /**
  * Stock Notifications Report charts filter.
  *
- * @filter woocommerce_admin_stock_notifications_report_charts
+ * @filter poocommerce_admin_stock_notifications_report_charts
  * @param {Array.<chart>} charts Report charts.
  */
 export const charts = applyFilters( STOCK_NOTIFICATIONS_REPORT_CHARTS_FILTER, [
 	{
 		key: 'signups',
-		label: __( 'Sign-ups', 'woocommerce' ),
+		label: __( 'Sign-ups', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'signups',
 		type: 'number',
 	},
 	{
 		key: 'notifications_sent',
-		label: __( 'Notifications sent', 'woocommerce' ),
+		label: __( 'Notifications sent', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'notifications_sent',
 		type: 'number',
 	},
 	{
 		key: 'customers',
-		label: __( 'Customers', 'woocommerce' ),
+		label: __( 'Customers', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'customers',
 		type: 'number',
 		labelTooltipText: __(
 			'Unique customers who signed up in the selected period.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 ] );
@@ -52,7 +52,7 @@ export const charts = applyFilters( STOCK_NOTIFICATIONS_REPORT_CHARTS_FILTER, [
 /**
  * Stock Notifications Report Advanced Filters.
  *
- * @filter woocommerce_admin_stock_notifications_report_advanced_filters
+ * @filter poocommerce_admin_stock_notifications_report_advanced_filters
  * @param {Object} advancedFilters         Report Advanced Filters.
  * @param {string} advancedFilters.title   Interpolated component string for Advanced Filters title.
  * @param {Object} advancedFilters.filters An object specifying a report's Advanced Filters.
@@ -64,7 +64,7 @@ export const advancedFilters = applyFilters(
 		title: _x(
 			'Stock notifications match <select/> filters',
 			'A sentence describing filters for Stock notifications. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ',
-			'woocommerce'
+			'poocommerce'
 		),
 	}
 );
@@ -73,11 +73,11 @@ const filterValues = [];
 
 if ( Object.keys( advancedFilters.filters ).length ) {
 	filterValues.push( {
-		label: __( 'All products', 'woocommerce' ),
+		label: __( 'All products', 'poocommerce' ),
 		value: 'all',
 	} );
 	filterValues.push( {
-		label: __( 'Advanced filters', 'woocommerce' ),
+		label: __( 'Advanced filters', 'poocommerce' ),
 		value: 'advanced',
 	} );
 }
@@ -89,14 +89,14 @@ if ( Object.keys( advancedFilters.filters ).length ) {
 /**
  * Stock Notifications Report Filters.
  *
- * @filter woocommerce_admin_stock_notifications_report_filters
+ * @filter poocommerce_admin_stock_notifications_report_filters
  * @param {Array.<filter>} filters Report filters.
  */
 export const filters = applyFilters(
 	STOCK_NOTIFICATIONS_REPORT_FILTERS_FILTER,
 	[
 		{
-			label: __( 'Show', 'woocommerce' ),
+			label: __( 'Show', 'poocommerce' ),
 			staticParams: [ 'chartType', 'paged', 'per_page' ],
 			param: 'filter',
 			showFilters: () => filterValues.length > 0,

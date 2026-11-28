@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Integrations;
+namespace Automattic\PooCommerce\Internal\Integrations;
 
 /**
  * Class WPPostsImporter

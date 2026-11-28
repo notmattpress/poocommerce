@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { act, render, screen } from '@testing-library/react';
-import { animateCollapse, collapseCopy } from '@woocommerce/base-utils';
+import { animateCollapse, collapseCopy } from '@poocommerce/base-utils';
 import { useState } from '@wordpress/element';
 
 /**
@@ -10,7 +10,7 @@ import { useState } from '@wordpress/element';
  */
 import { useToggleCollapse } from '../use-toggle-collapse';
 
-jest.mock( '@woocommerce/base-utils', () => ( {
+jest.mock( '@poocommerce/base-utils', () => ( {
 	animateCollapse: jest.fn(),
 	collapseCopy: jest.fn(),
 } ) );

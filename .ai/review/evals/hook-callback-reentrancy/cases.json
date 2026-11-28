@@ -3,7 +3,7 @@
 	"cases": [
 		{
 			"id": "G41A-v2",
-			"path": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+			"path": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 			"before": {
 				"file": "fixtures/G41A/before.php"
 			},
@@ -14,7 +14,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+						"file": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 						"lines": [
 							13,
 							13
@@ -26,7 +26,7 @@
 		},
 		{
 			"id": "G41B-v2",
-			"path": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+			"path": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 			"before": {
 				"file": "fixtures/G41B/before.php"
 			},
@@ -37,7 +37,7 @@
 				"outcome": "finding",
 				"locations": [
 					{
-						"file": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+						"file": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 						"lines": [
 							13,
 							16
@@ -49,7 +49,7 @@
 		},
 		{
 			"id": "G41C-v2",
-			"path": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+			"path": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 			"before": {
 				"file": "fixtures/G41C/before.php"
 			},
@@ -62,7 +62,7 @@
 		},
 		{
 			"id": "G41D-v1",
-			"path": "plugins/woocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
+			"path": "plugins/poocommerce/src/Internal/ProductDownloads/DownloadableFileAttachments.php",
 			"before": {
 				"file": "fixtures/G41D/before.php"
 			},

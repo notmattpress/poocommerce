@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Ucp;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Ucp;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute as StoreApiCartRoute;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\CartMapper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\IdempotencyClaim;
-use Automattic\WooCommerce\StoreApi\Utilities\Ucp\Utils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute as StoreApiCartRoute;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\CartMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\CheckoutMapper;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\IdempotencyClaim;
+use Automattic\PooCommerce\StoreApi\Utilities\Ucp\Utils;
 
 /**
  * Shared behaviour of the UCP cart routes.
@@ -139,14 +139,14 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 
 		$inherited_token        = CartTokenUtils::get_request_cart_token();
 		$this->disabled_coupons = array();
-		add_filter( 'woocommerce_coupon_get_usage_count', array( $this, 'usage_count_without_own_order' ), 10, 2 );
+		add_filter( 'poocommerce_coupon_get_usage_count', array( $this, 'usage_count_without_own_order' ), 10, 2 );
 
 		try {
 			return parent::get_response( $request );
 		} finally {
-			remove_filter( 'woocommerce_coupon_get_usage_count', array( $this, 'usage_count_without_own_order' ), 10 );
+			remove_filter( 'poocommerce_coupon_get_usage_count', array( $this, 'usage_count_without_own_order' ), 10 );
 			$this->restore_request_cart_token( $inherited_token );
-			remove_filter( 'woocommerce_session_handler', array( self::class, 'session_handler_class' ) );
+			remove_filter( 'poocommerce_session_handler', array( self::class, 'session_handler_class' ) );
 		}
 	}
 
@@ -204,12 +204,12 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 */
 	private function restore_request_cart_token( string $token ): void {
 		if ( '' === $token ) {
-			// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobal -- Clearing the slot, not reading the token from it.
+			// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobal -- Clearing the slot, not reading the token from it.
 			unset( $_SERVER['HTTP_CART_TOKEN'] );
 			return;
 		}
 
-		// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Restoring the value the request arrived with, already validated by whatever read it.
+		// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Restoring the value the request arrived with, already validated by whatever read it.
 		$_SERVER['HTTP_CART_TOKEN'] = $token;
 	}
 
@@ -248,13 +248,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		}
 
 		$request->set_header( 'Cart-Token', $cart_id );
-		// phpcs:ignore WooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Either the route's own path segment, signature checked in validated_cart_id(), or a token minted just above; promoted to the slot PHP would have filled from a Cart-Token header.
+		// phpcs:ignore PooCommerceStoreApi.StoreApi.CartTokenSource.ServerSuperglobalWrite -- Either the route's own path segment, signature checked in validated_cart_id(), or a token minted just above; promoted to the slot PHP would have filled from a Cart-Token header.
 		$_SERVER['HTTP_CART_TOKEN'] = $cart_id;
 
 		// The parent promotes the token handler only for a request that carries a token,
 		// which would leave cart creation on the cookie handler. UCP has no cookie to
 		// trust: the id is the only credential, so the handler is fixed for every route.
-		add_filter( 'woocommerce_session_handler', array( self::class, 'session_handler_class' ) );
+		add_filter( 'poocommerce_session_handler', array( self::class, 'session_handler_class' ) );
 
 		// An extension that calls wc_load_cart() on init leaves a session already in memory, so
 		// load_cart() below keeps it and the filter above never binds: the request would act on
@@ -312,7 +312,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		WC()->customer = null; // @phpstan-ignore assign.propertyType (Same.)
 		WC()->cart     = null; // @phpstan-ignore assign.propertyType (Same.)
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Clears the per-process marker so load_cart() reloads.
-		unset( $GLOBALS['wp_actions']['woocommerce_load_cart_from_session'] );
+		unset( $GLOBALS['wp_actions']['poocommerce_load_cart_from_session'] );
 	}
 
 	/**
@@ -370,7 +370,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			}
 
 			if ( null !== $checkout && 'GET' !== $request->get_method() ) {
-				return $this->ucp_error( 'CONFLICT', __( 'This cart has become a checkout session, which the checkout routes manage.', 'woocommerce' ), 'recoverable', 409, '$.id' );
+				return $this->ucp_error( 'CONFLICT', __( 'This cart has become a checkout session, which the checkout routes manage.', 'poocommerce' ), 'recoverable', 409, '$.id' );
 			}
 		}
 
@@ -508,9 +508,9 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		// Added here, not through cart validation, which stops at the first failing check and would drop them.
 		foreach ( $this->disabled_coupons as $code ) {
 			$cart['errors'][] = array(
-				'code'    => 'woocommerce_rest_cart_coupon_error',
+				'code'    => 'poocommerce_rest_cart_coupon_error',
 				/* translators: %s: coupon code. */
-				'message' => sprintf( __( 'The "%s" coupon has been removed from your cart: coupons are disabled.', 'woocommerce' ), $code ),
+				'message' => sprintf( __( 'The "%s" coupon has been removed from your cart: coupons are disabled.', 'poocommerce' ), $code ),
 			);
 		}
 
@@ -554,7 +554,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 
 		return $this->ucp_error(
 			Utils::cart_error_code( (string) $error->get_error_code(), 'TRANSPORT_ERROR' ),
-			'' !== $message ? $message : __( 'The cart could not be loaded. Please try again.', 'woocommerce' ),
+			'' !== $message ? $message : __( 'The cart could not be loaded. Please try again.', 'poocommerce' ),
 			$status >= 500 ? 'unrecoverable' : 'recoverable',
 			$status
 		);
@@ -569,7 +569,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 * @return \WP_REST_Response
 	 */
 	protected function ucp_not_found(): \WP_REST_Response {
-		return Utils::error_response( Utils::CAPABILITY_CART, 'not_found', __( 'Cart not found.', 'woocommerce' ), 'unrecoverable', 200, '$.id' );
+		return Utils::error_response( Utils::CAPABILITY_CART, 'not_found', __( 'Cart not found.', 'poocommerce' ), 'unrecoverable', 200, '$.id' );
 	}
 
 	/**
@@ -587,14 +587,14 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	 */
 	protected function parse_line_items( $line_items ) {
 		if ( ! is_array( $line_items ) ) {
-			return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items must be an array.', 'woocommerce' ), 'recoverable', 400, '$.line_items' );
+			return $this->ucp_error( 'VALIDATION_ERROR', __( 'line_items must be an array.', 'poocommerce' ), 'recoverable', 400, '$.line_items' );
 		}
 
 		if ( count( $line_items ) > self::LINE_ITEMS_MAX ) {
 			return $this->ucp_error(
 				'VALIDATION_ERROR',
 				/* translators: %d: maximum number of line items accepted in one request. */
-				sprintf( __( 'line_items may hold at most %d entries.', 'woocommerce' ), self::LINE_ITEMS_MAX ),
+				sprintf( __( 'line_items may hold at most %d entries.', 'poocommerce' ), self::LINE_ITEMS_MAX ),
 				'recoverable',
 				400,
 				'$.line_items'
@@ -611,13 +611,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			$path = sprintf( '$.line_items[%d]', (int) $index );
 
 			if ( ! is_array( $line_item ) || ! isset( $line_item['item']['id'] ) || ! is_scalar( $line_item['item']['id'] ) ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each line item requires item.id.', 'woocommerce' ), 'recoverable', 400, $path . '.item.id' );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each line item requires item.id.', 'poocommerce' ), 'recoverable', 400, $path . '.item.id' );
 			}
 
 			$quantity = isset( $line_item['quantity'] ) ? (int) $line_item['quantity'] : 1;
 
 			if ( $quantity < 1 ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Line item quantity must be at least 1.', 'woocommerce' ), 'recoverable', 400, $path . '.quantity' );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Line item quantity must be at least 1.', 'poocommerce' ), 'recoverable', 400, $path . '.quantity' );
 			}
 
 			$item_key = isset( $line_item['id'] ) && is_scalar( $line_item['id'] ) ? (string) $line_item['id'] : '';
@@ -638,13 +638,13 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			// variable parent, grouped, external or otherwise unpurchasable — exists but is
 			// unavailable.
 			if ( ! $product instanceof \WC_Product ) {
-				return $this->ucp_error( 'not_found', __( 'Product not found.', 'woocommerce' ), 'unrecoverable', 200, $path . '.item.id' );
+				return $this->ucp_error( 'not_found', __( 'Product not found.', 'poocommerce' ), 'unrecoverable', 200, $path . '.item.id' );
 			}
 
 			if ( $product instanceof \WC_Product_Variable || ! $product->is_purchasable() ) {
 				$message = $product instanceof \WC_Product_Variable
-					? __( 'This product is only orderable as one of its variants. Use a variant id from the catalog.', 'woocommerce' )
-					: __( 'This product cannot be added to a cart.', 'woocommerce' );
+					? __( 'This product is only orderable as one of its variants. Use a variant id from the catalog.', 'poocommerce' )
+					: __( 'This product cannot be added to a cart.', 'poocommerce' );
 
 				return $this->ucp_error( 'item_unavailable', $message, 'recoverable', 200, $path . '.item.id' );
 			}
@@ -719,7 +719,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 	}
 
 	/**
-	 * Read the request's `discounts.codes`, normalized as WooCommerce stores coupon codes.
+	 * Read the request's `discounts.codes`, normalized as PooCommerce stores coupon codes.
 	 *
 	 * @param \WP_REST_Request $request Request object.
 	 *
@@ -740,7 +740,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 			return $this->ucp_error(
 				'VALIDATION_ERROR',
 				/* translators: %d: maximum number of discount codes accepted in one request. */
-				sprintf( __( 'discounts.codes must be an array of at most %d strings.', 'woocommerce' ), self::DISCOUNT_CODES_MAX ),
+				sprintf( __( 'discounts.codes must be an array of at most %d strings.', 'poocommerce' ), self::DISCOUNT_CODES_MAX ),
 				'recoverable',
 				400,
 				'$.discounts.codes'
@@ -749,7 +749,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 
 		foreach ( $codes as $index => $code ) {
 			if ( ! is_string( $code ) ) {
-				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each discount code must be a string.', 'woocommerce' ), 'recoverable', 400, sprintf( '$.discounts.codes[%d]', $index ) );
+				return $this->ucp_error( 'VALIDATION_ERROR', __( 'Each discount code must be a string.', 'poocommerce' ), 'recoverable', 400, sprintf( '$.discounts.codes[%d]', $index ) );
 			}
 
 			$codes[ $index ] = wc_format_coupon_code( trim( $code ) );
@@ -775,7 +775,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 
 		if ( ! wc_coupons_enabled() ) {
 			foreach ( $codes as $index => $code ) {
-				$messages[] = $this->discount_warning( 'discount_code_invalid', __( 'Coupons are disabled.', 'woocommerce' ), $index );
+				$messages[] = $this->discount_warning( 'discount_code_invalid', __( 'Coupons are disabled.', 'poocommerce' ), $index );
 			}
 
 			return array( 'messages' => $messages );
@@ -802,7 +802,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 				$reason = (int) $error_code;
 				return $message;
 			};
-			add_filter( 'woocommerce_coupon_error', $capture, PHP_INT_MAX, 2 );
+			add_filter( 'poocommerce_coupon_error', $capture, PHP_INT_MAX, 2 );
 
 			try {
 				$this->cart_controller->apply_coupon( $code );
@@ -810,7 +810,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 				$rejected[ $code ] = true;
 				$messages[]        = $this->discount_warning( $this->discount_error_code( $code, $reason ), wp_specialchars_decode( $error->getMessage(), ENT_QUOTES ), $index );
 			} finally {
-				remove_filter( 'woocommerce_coupon_error', $capture, PHP_INT_MAX );
+				remove_filter( 'poocommerce_coupon_error', $capture, PHP_INT_MAX );
 			}
 		}
 
@@ -818,7 +818,7 @@ abstract class AbstractCartRoute extends StoreApiCartRoute {
 		foreach ( $codes as $index => $code ) {
 			if ( ! isset( $rejected[ $code ] ) && ! $this->cart_controller->has_coupon( $code ) ) {
 				/* translators: %s: coupon code. */
-				$messages[] = $this->discount_warning( 'discount_code_combination_disallowed', sprintf( __( 'Coupon code "%s" cannot be used together with the other coupons applied.', 'woocommerce' ), $code ), $index );
+				$messages[] = $this->discount_warning( 'discount_code_combination_disallowed', sprintf( __( 'Coupon code "%s" cannot be used together with the other coupons applied.', 'poocommerce' ), $code ), $index );
 			}
 		}
 

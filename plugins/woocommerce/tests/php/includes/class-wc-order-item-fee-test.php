@@ -2,7 +2,7 @@
 /**
  * Unit tests for the WC_Order_Item_Fee class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
@@ -74,7 +74,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 	 * as floats instead of arrays, causing:
 	 * "TypeError: array_map(): Argument #2 ($array) must be of type array, float given"
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/60233
+	 * @see https://github.com/poocommerce/poocommerce/issues/60233
 	 */
 	public function test_set_taxes_with_legacy_float_values_does_not_throw_error() {
 		$order = WC_Helper_Order::create_order();
@@ -118,7 +118,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$item = new WC_Order_Item_Fee();
 		$item->set_order_id( $order->get_id() );
 
-		// Serialized legacy data with float (as stored in wp_woocommerce_order_itemmeta).
+		// Serialized legacy data with float (as stored in wp_poocommerce_order_itemmeta).
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- Testing legacy serialized data format.
 		$serialized_legacy_data = serialize(
 			array(
@@ -252,7 +252,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 			unset( $converted );
 			return array( 999 => $value );
 		};
-		add_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
+		add_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback, 10, 2 );
 
 		// Legacy tax data as float.
 		$legacy_tax_data = array(
@@ -268,7 +268,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 50.00, (float) $taxes['total'][999] );
 
 		// Clean up filter.
-		remove_filter( 'woocommerce_order_item_legacy_tax_conversion', $filter_callback );
+		remove_filter( 'poocommerce_order_item_legacy_tax_conversion', $filter_callback );
 
 		// Clean up order.
 		$order->delete( true );
@@ -287,7 +287,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_calculate_taxes_with_blank_fee_total_is_treated_as_zero() {
 		// Enable taxes and add a standard rate.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',
@@ -308,7 +308,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$fee = new WC_Order_Item_Fee();
 		$fee->set_name( 'Blank fee' );
 		$fee->set_total( '' );
-		$fee->set_tax_status( \Automattic\WooCommerce\Enums\ProductTaxStatus::TAXABLE );
+		$fee->set_tax_status( \Automattic\PooCommerce\Enums\ProductTaxStatus::TAXABLE );
 		$order->add_item( $fee );
 		$order->save();
 
@@ -319,7 +319,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 0.0, (float) $fee->get_total_tax() );
 
 		WC_Tax::_delete_tax_rate( $tax_rate_id );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$order->delete( true );
 	}
 
@@ -332,7 +332,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 	 * in full and taxed at 20%, yielding -$2 of fee tax.
 	 */
 	public function test_calculate_taxes_apportions_negative_fee_across_taxable_costs() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate_id = WC_Tax::_insert_tax_rate(
 			array(
 				'tax_rate_country'  => '',
@@ -352,7 +352,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$fee = new WC_Order_Item_Fee();
 		$fee->set_name( 'Negative fee' );
 		$fee->set_total( '-10' );
-		$fee->set_tax_status( \Automattic\WooCommerce\Enums\ProductTaxStatus::TAXABLE );
+		$fee->set_tax_status( \Automattic\PooCommerce\Enums\ProductTaxStatus::TAXABLE );
 		$order->add_item( $fee );
 		$order->save();
 
@@ -361,7 +361,7 @@ class WC_Order_Item_Fee_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( -2.0, (float) $fee->get_total_tax() );
 
 		WC_Tax::_delete_tax_rate( $tax_rate_id );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$order->delete( true );
 	}
 

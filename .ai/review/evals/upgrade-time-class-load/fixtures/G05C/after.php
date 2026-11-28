@@ -7,8 +7,8 @@ spl_autoload_register( static function ( $class ) use ( $boot_classmap ) {
 // The updater has replaced files on disk; footer callbacks still run in this request.
 function wc_upgrade_footer_settings() {
     $default = 'base';
-    if ( class_exists( '\Automattic\WooCommerce\Enums\DefaultCustomerAddress' ) ) {
-        $default = \Automattic\WooCommerce\Enums\DefaultCustomerAddress::BASE;
+    if ( class_exists( '\Automattic\PooCommerce\Enums\DefaultCustomerAddress' ) ) {
+        $default = \Automattic\PooCommerce\Enums\DefaultCustomerAddress::BASE;
     }
     return array( 'default_customer_address' => $default );
 }

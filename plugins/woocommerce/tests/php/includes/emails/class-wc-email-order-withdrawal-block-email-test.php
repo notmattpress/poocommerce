@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\Package;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Package;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\OrderWithdrawal\OrderWithdrawalFormProcessor;
 
 /**
  * Block email editor versions of the order withdrawal emails.
@@ -23,8 +23,8 @@ class WC_Email_Order_Withdrawal_Block_Email_Test extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
-		update_option( 'woocommerce_feature_order_withdrawal_enabled', 'yes' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
+		update_option( 'poocommerce_feature_order_withdrawal_enabled', 'yes' );
 
 		$bootstrap = \WC_Unit_Tests_Bootstrap::instance();
 		require_once $bootstrap->plugin_dir . '/includes/emails/class-wc-email.php';
@@ -45,7 +45,7 @@ class WC_Email_Order_Withdrawal_Block_Email_Test extends \WC_Unit_Test_Case {
 	 * @param bool   $expected_listed Whether the withdrawal emails should be listed.
 	 */
 	public function test_withdrawal_emails_are_listed_with_the_feature( string $feature_enabled, bool $expected_listed ): void {
-		update_option( 'woocommerce_feature_order_withdrawal_enabled', $feature_enabled );
+		update_option( 'poocommerce_feature_order_withdrawal_enabled', $feature_enabled );
 
 		$emails = WCTransactionalEmails::get_core_transactional_emails();
 
@@ -92,8 +92,8 @@ class WC_Email_Order_Withdrawal_Block_Email_Test extends \WC_Unit_Test_Case {
 
 	/**
 	 * @testdox The admin email is sent in the block design and says whether the request was matched to an order.
-	 * @testWith [true, "WooCommerce matched this request to an order and added an order note."]
-	 *           [false, "WooCommerce could not match this request to an order automatically, so no order note was added."]
+	 * @testWith [true, "PooCommerce matched this request to an order and added an order note."]
+	 *           [false, "PooCommerce could not match this request to an order automatically, so no order note was added."]
 	 *
 	 * @param bool   $matched       Whether the request was matched to an order.
 	 * @param string $expected_text Sentence the email should contain.

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { SelectedAttributes } from '@woocommerce/stores/woocommerce';
+import type { SelectedAttributes } from '@poocommerce/stores/poocommerce';
 
 /**
  * Internal dependencies
@@ -21,14 +21,14 @@ jest.mock(
 	'@wordpress/interactivity',
 	() => ( {
 		store: jest.fn( ( namespace, definition ) => {
-			if ( namespace === 'woocommerce/products' ) {
+			if ( namespace === 'poocommerce/products' ) {
 				return { state: mockProductsState };
 			}
 			mockRegisteredStore = definition;
 			return definition;
 		} ),
 		getContext: jest.fn( ( namespace?: string ) =>
-			namespace === 'woocommerce/add-to-cart-with-options'
+			namespace === 'poocommerce/add-to-cart-with-options'
 				? mockBlockContext
 				: { attribute: 'Size' }
 		),
@@ -36,7 +36,7 @@ jest.mock(
 	{ virtual: true }
 );
 
-jest.mock( '@woocommerce/stores/woocommerce/products', () => ( {} ) );
+jest.mock( '@poocommerce/stores/poocommerce/products', () => ( {} ) );
 
 describe( 'Back in Stock form store', () => {
 	beforeEach( () => {

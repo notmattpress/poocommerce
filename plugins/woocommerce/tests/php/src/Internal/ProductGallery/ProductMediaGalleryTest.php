@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductGallery;
+namespace Automattic\PooCommerce\Tests\Internal\ProductGallery;
 
-use Automattic\WooCommerce\Internal\ProductGallery\ProductMediaGallery;
+use Automattic\PooCommerce\Internal\ProductGallery\ProductMediaGallery;
 use WC_Product_Simple;
 use WC_Unit_Test_Case;
 

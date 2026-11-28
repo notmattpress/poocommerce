@@ -2,7 +2,7 @@
 /**
  * Tests for downloadable product uploads.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 declare( strict_types = 1 );
@@ -49,12 +49,12 @@ class WC_Test_Admin_Post_Types extends WC_Unit_Test_Case {
 
 	/**
 	 * @testdox Uploads keep their filename unless the type, folder and setting all require a suffix.
-	 * @testWith ["image", "/uploads/woocommerce_uploads", "yes"]
-	 *           [null, "/uploads/woocommerce_uploads", "yes"]
-	 *           [["downloadable_product"], "/uploads/woocommerce_uploads", "yes"]
-	 *           ["", "/uploads/woocommerce_uploads", "yes"]
+	 * @testWith ["image", "/uploads/poocommerce_uploads", "yes"]
+	 *           [null, "/uploads/poocommerce_uploads", "yes"]
+	 *           [["downloadable_product"], "/uploads/poocommerce_uploads", "yes"]
+	 *           ["", "/uploads/poocommerce_uploads", "yes"]
 	 *           ["downloadable_product", "/uploads/2026/10", "yes"]
-	 *           ["downloadable_product", "/uploads/woocommerce_uploads", "no"]
+	 *           ["downloadable_product", "/uploads/poocommerce_uploads", "no"]
 	 *
 	 * @param mixed  $upload_type Request type, or null to omit it.
 	 * @param string $directory Destination directory.
@@ -64,7 +64,7 @@ class WC_Test_Admin_Post_Types extends WC_Unit_Test_Case {
 		if ( null !== $upload_type ) {
 			$_POST['type'] = $upload_type;
 		}
-		update_option( 'woocommerce_downloads_add_hash_to_filename', $add_suffix );
+		update_option( 'poocommerce_downloads_add_hash_to_filename', $add_suffix );
 
 		$result = $this->sut->update_filename( 'release-notes.csv', '.csv', $directory );
 
@@ -76,9 +76,9 @@ class WC_Test_Admin_Post_Types extends WC_Unit_Test_Case {
 	 */
 	public function test_update_filename_hashes_downloadable_product(): void {
 		$_POST['type'] = 'downloadable_product';
-		update_option( 'woocommerce_downloads_add_hash_to_filename', 'yes' );
+		update_option( 'poocommerce_downloads_add_hash_to_filename', 'yes' );
 
-		$result = $this->sut->update_filename( 'download-guide.csv', '.csv', '/uploads/woocommerce_uploads' );
+		$result = $this->sut->update_filename( 'download-guide.csv', '.csv', '/uploads/poocommerce_uploads' );
 
 		$this->assertMatchesRegularExpression( '/^download-guide-[a-z0-9]{6}\.csv$/', $result, 'A genuine product download should retain the existing filename protection.' );
 	}

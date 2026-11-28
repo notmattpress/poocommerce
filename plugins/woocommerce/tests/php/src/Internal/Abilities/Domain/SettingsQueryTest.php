@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Abilities\Domain;
+namespace Automattic\PooCommerce\Tests\Internal\Abilities\Domain;
 
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesLoader;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesLoader;
 
 /**
  * Tests settings discovery and safe value reads.
@@ -28,7 +28,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should discover groups without input and paginate by string IDs.
 	 */
 	public function test_groups(): void {
-		$ability = wp_get_ability( 'woocommerce/settings-groups-query' );
+		$ability = wp_get_ability( 'poocommerce/settings-groups-query' );
 		$result  = $ability->execute();
 		$this->assertIsArray( $result );
 		$this->assertGreaterThan( 0, $result['total'] );
@@ -47,12 +47,12 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should read a single setting and count filtered results before paging.
 	 */
 	public function test_settings(): void {
-		update_option( 'woocommerce_currency', 'GBP' );
-		$ability = wp_get_ability( 'woocommerce/settings-query' );
+		update_option( 'poocommerce_currency', 'GBP' );
+		$ability = wp_get_ability( 'poocommerce/settings-query' );
 		$result  = $ability->execute(
 			array(
 				'group'   => 'general',
-				'include' => array( 'woocommerce_currency' ),
+				'include' => array( 'poocommerce_currency' ),
 			)
 		);
 		$this->assertIsArray( $result );
@@ -60,7 +60,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 		$this->assertSame( 'GBP', $result['settings'][0]['value'] );
 		$this->assertSame( 'USD', $result['settings'][0]['default'] );
 		$this->assertArrayHasKey( 'GBP', (array) $result['settings'][0]['options'] );
-		$this->assertSame( 'woocommerce_currency', $result['settings'][0]['id'] );
+		$this->assertSame( 'poocommerce_currency', $result['settings'][0]['id'] );
 		$result = $ability->execute(
 			array(
 				'group'    => 'general',
@@ -84,7 +84,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_country_choices( string $type, $value, bool $has_choices ): void {
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) use ( $type, $value ) {
 				$settings[] = array(
 					'id'        => 'extension_country',
@@ -96,7 +96,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 				return $settings;
 			}
 		);
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
 				'include' => array( 'extension_country' ),
@@ -121,7 +121,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_secret_fields( string $group ): void {
 		add_filter(
-			'woocommerce_settings_groups',
+			'poocommerce_settings_groups',
 			static function ( $groups ) {
 				$groups[] = array(
 					'id'    => 'extension',
@@ -131,7 +131,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_settings-' . $group,
+			'poocommerce_settings-' . $group,
 			static function ( $settings ) {
 				$settings[] = array(
 					'id'         => 'api_key',
@@ -157,7 +157,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 		);
 		update_option( 'test_secret', 'secret-sentinel' );
 		update_option( 'test_mode', 'sandbox' );
-		$ability = wp_get_ability( 'woocommerce/settings-query' );
+		$ability = wp_get_ability( 'poocommerce/settings-query' );
 		$result  = $ability->execute(
 			array(
 				'group'    => $group,
@@ -188,7 +188,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_omitted_settings( array $included_ids, array $omitted, int $total ): void {
 		add_filter(
-			'woocommerce_settings-general',
+			'poocommerce_settings-general',
 			static function () {
 				return array(
 					array(
@@ -236,7 +236,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 				$this->fail( 'Withheld option values must not be read.' );
 			}
 		);
-		$ability = wp_get_ability( 'woocommerce/settings-query' );
+		$ability = wp_get_ability( 'poocommerce/settings-query' );
 		$input   = array(
 			'group'    => 'general',
 			'include'  => $included_ids,
@@ -261,10 +261,10 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_core_setting_can_opt_out(): void {
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) {
 				foreach ( $settings as &$setting ) {
-					if ( 'woocommerce_currency' === $setting['id'] ) {
+					if ( 'poocommerce_currency' === $setting['id'] ) {
 						$setting['abilities']['read'] = false;
 					}
 				}
@@ -272,15 +272,15 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 			},
 			20
 		);
-		update_option( 'woocommerce_currency', 'GBP' );
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		update_option( 'poocommerce_currency', 'GBP' );
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
-				'include' => array( 'woocommerce_currency' ),
+				'include' => array( 'poocommerce_currency' ),
 			)
 		);
 		$this->assertSame( 0, $result['total'] );
-		$summary = wp_get_ability( 'woocommerce/store-settings-get' )->execute();
+		$summary = wp_get_ability( 'poocommerce/store-settings-get' )->execute();
 		$this->assertArrayNotHasKey( 'code', $summary['currency'] );
 		$this->assertArrayNotHasKey( 'symbol', $summary['currency'] );
 	}
@@ -299,7 +299,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_definition_opt_in( $abilities, bool $expected ): void {
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) use ( $abilities ) {
 				$settings[] = array(
 					'id'        => 'extension_mode',
@@ -311,7 +311,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 				return $settings;
 			}
 		);
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
 				'include' => array( 'extension_mode' ),
@@ -350,7 +350,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) use ( $metadata ) {
 				$settings[] = $metadata + array(
 					'id'        => 'extension_value',
@@ -360,7 +360,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 				return $settings;
 			}
 		);
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
 				'include' => array( 'extension_value' ),
@@ -392,7 +392,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 		);
 		update_option( 'extension_image', $stored );
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) {
 				$settings[] = array(
 					'id'          => 'extension_image',
@@ -409,7 +409,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 			}
 		);
 		add_filter(
-			'woocommerce_settings-general',
+			'poocommerce_settings-general',
 			static function ( $settings ) {
 				foreach ( array( 'title', 'sectionend' ) as $type ) {
 					$settings[] = array(
@@ -438,13 +438,13 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should read additional tax classes from their definition rather than a missing option.
 	 */
 	public function test_additional_tax_classes(): void {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		delete_option( 'woocommerce_tax_classes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		delete_option( 'poocommerce_tax_classes' );
 		\WC_Tax::create_tax_class( 'Ability fixture' );
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'tax',
-				'include' => array( 'woocommerce_tax_classes' ),
+				'include' => array( 'poocommerce_tax_classes' ),
 			)
 		);
 		$this->assertSame( 1, $result['total'] );
@@ -464,7 +464,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_supplied_values_do_not_bypass_exclusions( string $type, bool $read, $value ): void {
 		add_filter(
-			'woocommerce_general_settings',
+			'poocommerce_general_settings',
 			static function ( $settings ) use ( $type, $read, $value ) {
 				$settings[] = array(
 					'id'          => 'extension_secret',
@@ -476,7 +476,7 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 				return $settings;
 			}
 		);
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
 				'include' => array( 'extension_secret' ),
@@ -489,11 +489,11 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should omit unexpected associative values that could contain nested secrets.
 	 */
 	public function test_unexpected_value_shape(): void {
-		update_option( 'woocommerce_currency', array( 'api_key' => 'secret-sentinel' ) );
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		update_option( 'poocommerce_currency', array( 'api_key' => 'secret-sentinel' ) );
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'general',
-				'include' => array( 'woocommerce_currency' ),
+				'include' => array( 'poocommerce_currency' ),
 			)
 		);
 		$this->assertIsArray( $result );
@@ -505,14 +505,14 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_option_members(): void {
 		update_option(
-			'woocommerce_new_order_settings',
+			'poocommerce_new_order_settings',
 			array(
 				'enabled'   => 'yes',
 				'api_key'   => 'secret-sentinel',
 				'recipient' => 'private@example.test',
 			)
 		);
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute( array( 'group' => 'email_new_order' ) );
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute( array( 'group' => 'email_new_order' ) );
 		$this->assertIsArray( $result );
 		$this->assertContains( 'enabled', array_column( $result['settings'], 'id' ) );
 		$this->assertStringNotContainsString( 'secret-sentinel', wp_json_encode( $result ) );
@@ -529,8 +529,8 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_email_subject_and_heading_variants( string $email_id, array $fields ): void {
 		$values = array_fill_keys( $fields, 'Custom email text' );
-		update_option( 'woocommerce_' . $email_id . '_settings', $values );
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute(
+		update_option( 'poocommerce_' . $email_id . '_settings', $values );
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute(
 			array(
 				'group'   => 'email_' . $email_id,
 				'include' => $fields,
@@ -549,15 +549,15 @@ class SettingsQueryTest extends \WC_Unit_Test_Case {
 	 * @testdox Should return a stable error for unknown groups.
 	 */
 	public function test_unknown_group(): void {
-		$result = wp_get_ability( 'woocommerce/settings-query' )->execute( array( 'group' => 'missing' ) );
+		$result = wp_get_ability( 'poocommerce/settings-query' )->execute( array( 'group' => 'missing' ) );
 		$this->assertWPError( $result );
-		$this->assertSame( 'woocommerce_ability_settings_group_not_found', $result->get_error_code() );
+		$this->assertSame( 'poocommerce_ability_settings_group_not_found', $result->get_error_code() );
 	}
 
 	/**
 	 * @testdox Should refuse callers without settings access.
-	 * @testWith ["woocommerce/settings-query", {"group":"general"}]
-	 *           ["woocommerce/settings-groups-query", {}]
+	 * @testWith ["poocommerce/settings-query", {"group":"general"}]
+	 *           ["poocommerce/settings-groups-query", {}]
 	 * @param string $name Ability name.
 	 * @param array  $input Input.
 	 */

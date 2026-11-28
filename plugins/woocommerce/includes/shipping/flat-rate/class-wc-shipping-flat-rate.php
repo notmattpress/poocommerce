@@ -3,13 +3,13 @@
  * Flat Rate Shipping Method.
  *
  * @version 2.6.0
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Shipping\FlatRate\WeightPlaceholder;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\Shipping\FlatRate\WeightPlaceholder;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * WC_Shipping_Flat_Rate class.
@@ -45,8 +45,8 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 	public function __construct( $instance_id = 0 ) {
 		$this->id                 = 'flat_rate';
 		$this->instance_id        = absint( $instance_id );
-		$this->method_title       = __( 'Flat rate', 'woocommerce' );
-		$this->method_description = __( 'Lets you charge a fixed rate for shipping.', 'woocommerce' );
+		$this->method_title       = __( 'Flat rate', 'poocommerce' );
+		$this->method_description = __( 'Lets you charge a fixed rate for shipping.', 'poocommerce' );
 		$this->supports           = array(
 			'shipping-zones',
 			'instance-settings',
@@ -54,7 +54,7 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 		);
 		$this->init();
 
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 		include_once WC()->plugin_path() . '/includes/libraries/class-wc-eval-math.php';
 
 		// Allow 3rd parties to process shipping cost arguments.
-		$args           = apply_filters( 'woocommerce_evaluate_shipping_cost_args', $args, $sum, $this );
+		$args           = apply_filters( 'poocommerce_evaluate_shipping_cost_args', $args, $sum, $this );
 		$locale         = localeconv();
 		$decimals       = array( wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'], ',' );
 		$this->fee_cost = $args['cost'];
@@ -154,7 +154,7 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 		if ( $atts['percent'] ) {
 			$calculated_fee = $this->fee_cost * ( floatval( $atts['percent'] ) / 100 );
 			// Round at the store's price decimals first, as cart totals do, so a fee stored just below a half (15% of 16.90 is 2.53499…) still rounds up.
-			// @see https://github.com/woocommerce/woocommerce/issues/70187.
+			// @see https://github.com/poocommerce/poocommerce/issues/70187.
 			$calculated_fee = wc_remove_number_precision(
 				NumberUtil::round(
 					wc_add_number_precision( $calculated_fee )
@@ -261,7 +261,7 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 		 * Previously there were (overly complex) options to add additional rates however this was not user.
 		 * friendly and goes against what Flat Rate Shipping was originally intended for.
 		 */
-		do_action( 'woocommerce_' . $this->id . '_shipping_add_rate', $this, $rate );
+		do_action( 'poocommerce_' . $this->id . '_shipping_add_rate', $this, $rate );
 	}
 
 	/**
@@ -342,12 +342,12 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 		$value = is_null( $value ) ? '' : $value;
 		$value = wp_kses_post( trim( wp_unslash( $value ) ) );
 		$this->get_weight_placeholder()->validate( $value );
-		$value = str_replace( array( get_woocommerce_currency_symbol(), html_entity_decode( get_woocommerce_currency_symbol() ) ), '', $value );
+		$value = str_replace( array( get_poocommerce_currency_symbol(), html_entity_decode( get_poocommerce_currency_symbol() ) ), '', $value );
 
 		$contains_shortcodes = false !== strpos( $value, '[' ) || false !== strpos( $value, ']' );
 
 		if ( ! $contains_shortcodes && ! $this->is_math_expression( $value ) ) {
-			$value = \Automattic\WooCommerce\Utilities\NumberUtil::sanitize_cost_in_current_locale( $value );
+			$value = \Automattic\PooCommerce\Utilities\NumberUtil::sanitize_cost_in_current_locale( $value );
 		}
 
 		// Thrown an error on the front end if the evaluate_cost will fail.
@@ -374,7 +374,7 @@ class WC_Shipping_Flat_Rate extends WC_Shipping_Method {
 			)
 		);
 		if ( false === $zero_weight_cost ) {
-			throw new Exception( esc_html__( 'This cost can\'t be calculated when no item in the cart has a weight. Use [weight min="1"] to set a minimum billable weight.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'This cost can\'t be calculated when no item in the cart has a weight. Use [weight min="1"] to set a minimum billable weight.', 'poocommerce' ) );
 		}
 
 		return $value;

@@ -2,12 +2,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\StockNotificationsRestController;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\StockNotificationsRestController;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -186,7 +186,7 @@ class StockNotificationsRestControllerTests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', self::ROUTE . '/999999' ) );
 
 		$this->assertSame( 404, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_stock_notification_invalid_id', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_stock_notification_invalid_id', $response->get_data()['code'] );
 		$this->assertSame( 404, $this->server->dispatch( new WP_REST_Request( 'GET', self::ROUTE . '/0' ) )->get_status() );
 	}
 
@@ -203,10 +203,10 @@ class StockNotificationsRestControllerTests extends WC_REST_Unit_Test_Case {
 			$response->set_data( $data );
 			return $response;
 		};
-		add_filter( 'woocommerce_rest_prepare_stock_notification', $filter, 10, 3 );
+		add_filter( 'poocommerce_rest_prepare_stock_notification', $filter, 10, 3 );
 
 		$data = $this->server->dispatch( new WP_REST_Request( 'GET', self::ROUTE . '/' . $notification->get_id() ) )->get_data();
-		remove_filter( 'woocommerce_rest_prepare_stock_notification', $filter );
+		remove_filter( 'poocommerce_rest_prepare_stock_notification', $filter );
 
 		$this->assertSame( 'yes', $data['extra'] );
 	}
@@ -215,14 +215,14 @@ class StockNotificationsRestControllerTests extends WC_REST_Unit_Test_Case {
 	 * @testdox A prepare filter that returns something other than a response is ignored and flagged as incorrect usage.
 	 */
 	public function test_prepare_filter_invalid_return(): void {
-		$this->setExpectedIncorrectUsage( 'woocommerce_rest_prepare_stock_notification' );
+		$this->setExpectedIncorrectUsage( 'poocommerce_rest_prepare_stock_notification' );
 		$notification = $this->create_notification();
 		$filter       = fn() => new \WP_Error( 'broken', 'Broken.' );
-		add_filter( 'woocommerce_rest_prepare_stock_notification', $filter );
+		add_filter( 'poocommerce_rest_prepare_stock_notification', $filter );
 
 		$item       = $this->server->dispatch( new WP_REST_Request( 'GET', self::ROUTE . '/' . $notification->get_id() ) );
 		$collection = $this->get_collection();
-		remove_filter( 'woocommerce_rest_prepare_stock_notification', $filter );
+		remove_filter( 'poocommerce_rest_prepare_stock_notification', $filter );
 
 		$this->assertSame( 200, $item->get_status() );
 		$this->assertSame( $notification->get_id(), $item->get_data()['id'] );
@@ -410,7 +410,7 @@ class StockNotificationsRestControllerTests extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Users without manage_woocommerce are rejected on both routes.
+	 * @testdox Users without manage_poocommerce are rejected on both routes.
 	 */
 	public function test_permissions(): void {
 		$notification = $this->create_notification();
@@ -418,7 +418,7 @@ class StockNotificationsRestControllerTests extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( 0 );
 		$response = $this->get_collection();
 		$this->assertSame( 401, $response->get_status() );
-		$this->assertSame( 'woocommerce_rest_cannot_view', $response->get_data()['code'] );
+		$this->assertSame( 'poocommerce_rest_cannot_view', $response->get_data()['code'] );
 
 		wp_set_current_user( $this->factory->user->create( array( 'role' => 'customer' ) ) );
 		$this->assertSame( 403, $this->get_collection()->get_status() );

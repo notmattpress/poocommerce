@@ -7,8 +7,8 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { useContext } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { removeQueryArgs } from '@wordpress/url';
-import { recordEvent } from '@woocommerce/tracks';
-import { useUser } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { useUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -85,7 +85,7 @@ export default function Install( props: InstallProps ) {
 
 			let errorMessage = sprintf(
 				// translators: %s is the product name.
-				__( '%s couldn’t be installed.', 'woocommerce' ),
+				__( '%s couldn’t be installed.', 'poocommerce' ),
 				props.subscription.product_name
 			);
 			if ( error?.success === false && error?.data.message ) {
@@ -100,7 +100,7 @@ export default function Install( props: InstallProps ) {
 						{
 							label: __(
 								'Download and install manually',
-								'woocommerce'
+								'poocommerce'
 							),
 							url: MARKETPLACE_RENEW_SUBSCRIPTION_PATH,
 							onClick: () => {},
@@ -144,7 +144,7 @@ export default function Install( props: InstallProps ) {
 								// translators: %s is the product name.
 								__(
 									'%s successfully installed.',
-									'woocommerce'
+									'poocommerce'
 								),
 								props.subscription.product_name
 							),
@@ -204,7 +204,7 @@ export default function Install( props: InstallProps ) {
 			disabled={ loading }
 			onClick={ install }
 		>
-			{ __( 'Install', 'woocommerce' ) }
+			{ __( 'Install', 'poocommerce' ) }
 		</Button>
 	);
 }

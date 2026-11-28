@@ -6,6 +6,6 @@ spl_autoload_register( static function ( $class ) use ( $boot_classmap ) {
 } );
 // The updater has replaced files on disk; footer callbacks still run in this request.
 function wc_upgrade_footer_settings() {
-    return array( 'default_customer_address' => \Automattic\WooCommerce\Enums\DefaultCustomerAddress::BASE );
+    return array( 'default_customer_address' => \Automattic\PooCommerce\Enums\DefaultCustomerAddress::BASE );
 }
 add_action( 'admin_print_footer_scripts', 'wc_upgrade_footer_settings' );

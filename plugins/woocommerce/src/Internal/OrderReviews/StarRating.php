@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\OrderReviews;
+namespace Automattic\PooCommerce\Internal\OrderReviews;
 
 /**
  * Server-side renderer for the accessible 5-star rating control used on the
@@ -71,7 +71,7 @@ class StarRating {
 	/**
 	 * Default rating labels, indexed 1-5, after the customer-facing filter.
 	 *
-	 * Defaults match the long-standing WooCommerce product-review labels in
+	 * Defaults match the long-standing PooCommerce product-review labels in
 	 * `templates/single-product-reviews.php` so customers see consistent
 	 * wording across the two review entry points.
 	 *
@@ -81,11 +81,11 @@ class StarRating {
 	 */
 	public static function get_labels(): array {
 		$labels = array(
-			1 => __( 'Very poor', 'woocommerce' ),
-			2 => __( 'Not that bad', 'woocommerce' ),
-			3 => __( 'Average', 'woocommerce' ),
-			4 => __( 'Good', 'woocommerce' ),
-			5 => __( 'Perfect', 'woocommerce' ),
+			1 => __( 'Very poor', 'poocommerce' ),
+			2 => __( 'Not that bad', 'poocommerce' ),
+			3 => __( 'Average', 'poocommerce' ),
+			4 => __( 'Good', 'poocommerce' ),
+			5 => __( 'Perfect', 'poocommerce' ),
 		);
 
 		/**
@@ -95,7 +95,7 @@ class StarRating {
 		 *
 		 * @param array<int, string> $labels Map of rating value (1-5) to label.
 		 */
-		$filtered = (array) apply_filters( 'woocommerce_review_order_rating_labels', $labels );
+		$filtered = (array) apply_filters( 'poocommerce_review_order_rating_labels', $labels );
 
 		// Keep only known 1-5 keys; fall back to defaults for any the filter dropped.
 		return array_replace( $labels, array_intersect_key( $filtered, $labels ) );

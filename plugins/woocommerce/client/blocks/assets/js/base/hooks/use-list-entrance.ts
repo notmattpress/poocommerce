@@ -8,7 +8,7 @@ import {
 	useRef,
 } from '@wordpress/element';
 import type { RefObject } from 'react';
-import { whenAnimationsEnd } from '@woocommerce/base-utils';
+import { whenAnimationsEnd } from '@poocommerce/base-utils';
 
 /**
  * Lets the rows of a list stagger in once, the first time the list shows. Call the returned function when the rows

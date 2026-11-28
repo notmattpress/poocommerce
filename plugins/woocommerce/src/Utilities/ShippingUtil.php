@@ -4,7 +4,7 @@
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * The ShippingUtil class provides utilities for working with shipping and shipping packages.
@@ -93,8 +93,8 @@ class ShippingUtil {
 			ARRAY_FILTER_USE_BOTH
 		);
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in WC_Abstract_Order::get_tax_location().
-		$pickup_method_ids = apply_filters( 'woocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- Documented in WC_Abstract_Order::get_tax_location().
+		$pickup_method_ids = apply_filters( 'poocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
 		$pickup_method_ids = is_array( $pickup_method_ids ) ? $pickup_method_ids : array();
 		$package_keys      = null;
 
@@ -124,8 +124,8 @@ class ShippingUtil {
 									$customer->get_shipping_address_1(),
 									$customer->get_shipping_address_2(),
 								) : array(),
-								did_action( 'woocommerce_before_calculate_totals' ),
-								did_action( 'woocommerce_after_calculate_totals' ),
+								did_action( 'poocommerce_before_calculate_totals' ),
+								did_action( 'poocommerce_after_calculate_totals' ),
 							)
 						)
 					);

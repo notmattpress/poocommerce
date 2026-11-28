@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ for ( const { testTitle, templateTitle, slug, frontendPage } of routes ) {
 			} );
 			await editor.setContent( '' );
 			await insertProductsQuery( editor );
-			await editor.insertBlock( { name: 'woocommerce/legacy-template' } );
+			await editor.insertBlock( { name: 'poocommerce/legacy-template' } );
 			await editor.canvas.locator( 'body' ).click();
 
 			await editor.saveSiteEditorEntities( {
@@ -48,7 +48,7 @@ for ( const { testTitle, templateTitle, slug, frontendPage } of routes ) {
 
 			await page.goto( frontendPage );
 			await expect(
-				page.locator( '.woocommerce-loop-product__title' ).first()
+				page.locator( '.poocommerce-loop-product__title' ).first()
 			).toBeVisible();
 
 			const classicProducts =

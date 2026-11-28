@@ -51,7 +51,7 @@ const reporter = [
 			outputFile: `ctrf-report-${ Date.now() }.json`,
 			branchName: process.env.GITHUB_REF_NAME || '',
 			commit: process.env.GITHUB_SHA || '',
-			appName: 'woocommerce-core',
+			appName: 'poocommerce-core',
 			repositoryName: process.env.GITHUB_REPOSITORY || '',
 		},
 	],
@@ -113,8 +113,8 @@ const blocksSetupProject = {
  * does not help when a spec changes a setting that unlocked specs read.
  */
 const serialRunSpecs = [
-	// Flips the global `woocommerce_default_customer_address` (geolocation) and
-	// `woocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
+	// Flips the global `poocommerce_default_customer_address` (geolocation) and
+	// `poocommerce_enable_ajax_add_to_cart` settings, which change add-to-cart
 	// behavior for every other worker. (`cart.spec.ts` runs in core-parallel — it
 	// scopes its tax rate to a dedicated tax class instead of toggling global tax.)
 	'**/tests/cart/add-to-cart.spec.ts',
@@ -126,7 +126,7 @@ const serialRunSpecs = [
 	// Mutate the global onboarding profile/options, site-visibility options and
 	// the active theme.
 	'**/tests/onboarding/**/*.spec.ts',
-	// Toggles the global `woocommerce_downloads_grant_access_after_payment` setting.
+	// Toggles the global `poocommerce_downloads_grant_access_after_payment` setting.
 	'**/tests/order/order-edit.spec.ts',
 	// Submits and deletes product reviews via the Review Order form while it runs;
 	// that concurrent churn on the shared reviews list makes `product-reviews`'
@@ -139,24 +139,24 @@ const serialRunSpecs = [
 	// Toggles the global out-of-stock catalog visibility setting while verifying
 	// that converted external products remain visible on the storefront.
 	'**/tests/product/product-grouped-stock-status.spec.ts',
-	// Mutate global WooCommerce settings (store address/currency/country, tax)
+	// Mutate global PooCommerce settings (store address/currency/country, tax)
 	// that other workers' cart/checkout/storefront specs depend on.
 	'**/tests/settings/settings-general.spec.ts',
-	// Mutates the global woocommerce_permalinks option (the product base) and
+	// Mutates the global poocommerce_permalinks option (the product base) and
 	// restores it in teardown.
 	'**/tests/settings/product-permalinks.spec.ts',
 	'**/tests/settings/settings-tax.spec.ts',
 	// Toggles the global `settings-ui` feature flag and resets all e2e feature flags
 	// in afterAll.
 	'**/tests/settings/settings-ui-feature-flag.spec.ts',
-	// Toggles the global `woocommerce_cart_redirect_after_add` setting, which
+	// Toggles the global `poocommerce_cart_redirect_after_add` setting, which
 	// changes add-to-cart behavior for every other worker — not parallel-safe.
 	'**/tests/shop/cart-redirection.spec.ts',
 ];
 
 /**
  * Spec folders owned by other Playwright projects — excluded from both core projects.
- * PayPal tests don't run well in parallel (https://github.com/woocommerce/woocommerce/pull/63068);
+ * PayPal tests don't run well in parallel (https://github.com/poocommerce/poocommerce/pull/63068);
  * blocks specs need the `blocks setup` project and its storage state.
  */
 const nonCoreSpecs = [
@@ -202,10 +202,10 @@ const blocksSerialSpecs = [
 	// Activates `theme-with-woo-templates` and saves its template for one
 	// product.
 	'**/tests/blocks/templates/single-product-template.block_theme_with_templates.spec.ts',
-	// Saves each site-wide WooCommerce template and template part. The
+	// Saves each site-wide PooCommerce template and template part. The
 	// template part priority tests also activate `theme-with-woo-templates`.
 	'**/tests/blocks/templates/template-customization.block_theme.spec.ts',
-	// Activates `theme-with-woo-templates` and saves each of its WooCommerce
+	// Activates `theme-with-woo-templates` and saves each of its PooCommerce
 	// templates.
 	'**/tests/blocks/templates/template-customization.block_theme_with_templates.spec.ts',
 	// Activates a Storefront child theme that has block template parts, and
@@ -245,8 +245,8 @@ const blocksSerialSpecs = [
 	// then has the classic template block.
 	'**/tests/blocks/classic-template/classic-template-blockified-option.block_theme.spec.ts',
 	// Saves the header template part, creates a visible $10 product, and
-	// changes the tax settings `woocommerce_prices_include_tax` and
-	// `woocommerce_tax_display_cart`.
+	// changes the tax settings `poocommerce_prices_include_tax` and
+	// `poocommerce_tax_display_cart`.
 	'**/tests/blocks/mini-cart/mini-cart-block.shopper.block_theme.spec.ts',
 	// Saves the header template part, which every frontend page shows. Its
 	// only test is skipped.

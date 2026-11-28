@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Report a failure on WooCommerce > Status > Tools when the coupons lookup table to repair does not exist.
+Report a failure on PooCommerce > Status > Tools when the coupons lookup table to repair does not exist.

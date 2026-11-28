@@ -2,13 +2,13 @@
 /**
  * Unit tests for cart item removal functionality.
  *
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Class WC_Cart_Item_Removal_Test
@@ -90,18 +90,18 @@ class WC_Cart_Item_Removal_Test extends \WC_Unit_Test_Case {
 		$hooks_fired = array();
 
 		add_action(
-			'woocommerce_remove_cart_item',
+			'poocommerce_remove_cart_item',
 			function ( $cart_item_key, $cart ) use ( &$hooks_fired ) {
-				$hooks_fired['woocommerce_remove_cart_item'] = array( $cart_item_key, $cart );
+				$hooks_fired['poocommerce_remove_cart_item'] = array( $cart_item_key, $cart );
 			},
 			10,
 			2
 		);
 
 		add_action(
-			'woocommerce_cart_item_removed',
+			'poocommerce_cart_item_removed',
 			function ( $cart_item_key, $cart ) use ( &$hooks_fired ) {
-				$hooks_fired['woocommerce_cart_item_removed'] = array( $cart_item_key, $cart );
+				$hooks_fired['poocommerce_cart_item_removed'] = array( $cart_item_key, $cart );
 			},
 			10,
 			2
@@ -111,10 +111,10 @@ class WC_Cart_Item_Removal_Test extends \WC_Unit_Test_Case {
 
 		$this->cart->remove_cart_item( $cart_item_key );
 
-		$this->assertArrayHasKey( 'woocommerce_remove_cart_item', $hooks_fired );
-		$this->assertArrayHasKey( 'woocommerce_cart_item_removed', $hooks_fired );
-		$this->assertEquals( $cart_item_key, $hooks_fired['woocommerce_remove_cart_item'][0] );
-		$this->assertEquals( $cart_item_key, $hooks_fired['woocommerce_cart_item_removed'][0] );
+		$this->assertArrayHasKey( 'poocommerce_remove_cart_item', $hooks_fired );
+		$this->assertArrayHasKey( 'poocommerce_cart_item_removed', $hooks_fired );
+		$this->assertEquals( $cart_item_key, $hooks_fired['poocommerce_remove_cart_item'][0] );
+		$this->assertEquals( $cart_item_key, $hooks_fired['poocommerce_cart_item_removed'][0] );
 	}
 
 	/**
@@ -146,18 +146,18 @@ class WC_Cart_Item_Removal_Test extends \WC_Unit_Test_Case {
 		$hooks_fired = array();
 
 		add_action(
-			'woocommerce_restore_cart_item',
+			'poocommerce_restore_cart_item',
 			function ( $cart_item_key, $cart ) use ( &$hooks_fired ) {
-				$hooks_fired['woocommerce_restore_cart_item'] = array( $cart_item_key, $cart );
+				$hooks_fired['poocommerce_restore_cart_item'] = array( $cart_item_key, $cart );
 			},
 			10,
 			2
 		);
 
 		add_action(
-			'woocommerce_cart_item_restored',
+			'poocommerce_cart_item_restored',
 			function ( $cart_item_key, $cart ) use ( &$hooks_fired ) {
-				$hooks_fired['woocommerce_cart_item_restored'] = array( $cart_item_key, $cart );
+				$hooks_fired['poocommerce_cart_item_restored'] = array( $cart_item_key, $cart );
 			},
 			10,
 			2
@@ -168,10 +168,10 @@ class WC_Cart_Item_Removal_Test extends \WC_Unit_Test_Case {
 
 		$this->cart->restore_cart_item( $cart_item_key );
 
-		$this->assertArrayHasKey( 'woocommerce_restore_cart_item', $hooks_fired );
-		$this->assertArrayHasKey( 'woocommerce_cart_item_restored', $hooks_fired );
-		$this->assertEquals( $cart_item_key, $hooks_fired['woocommerce_restore_cart_item'][0] );
-		$this->assertEquals( $cart_item_key, $hooks_fired['woocommerce_cart_item_restored'][0] );
+		$this->assertArrayHasKey( 'poocommerce_restore_cart_item', $hooks_fired );
+		$this->assertArrayHasKey( 'poocommerce_cart_item_restored', $hooks_fired );
+		$this->assertEquals( $cart_item_key, $hooks_fired['poocommerce_restore_cart_item'][0] );
+		$this->assertEquals( $cart_item_key, $hooks_fired['poocommerce_cart_item_restored'][0] );
 	}
 
 	/**

@@ -67,41 +67,41 @@ const ImportStep: React.FC< StepComponentProps > = ( { state, dispatch } ) => {
 			'Processed %1$s of %2$s row',
 			'Processed %1$s of %2$s rows',
 			state.total,
-			'woocommerce'
+			'poocommerce'
 		),
 		state.processed.toLocaleString(),
 		state.total.toLocaleString()
 	);
 
 	return (
-		<div className="woocommerce-fulfillment-importer-step woocommerce-fulfillment-importer-step--import">
-			<Card.Root className="woocommerce-fulfillment-importer-step__card">
+		<div className="poocommerce-fulfillment-importer-step poocommerce-fulfillment-importer-step--import">
+			<Card.Root className="poocommerce-fulfillment-importer-step__card">
 				<Card.Content>
 					<Stack
 						direction="column"
 						gap="lg"
-						className="woocommerce-fulfillment-importer-step__card-body"
+						className="poocommerce-fulfillment-importer-step__card-body"
 					>
 						<Text
 							variant="heading-md"
 							render={ <h2 ref={ headingRef } tabIndex={ -1 } /> }
 						>
-							{ __( 'Importing fulfillments', 'woocommerce' ) }
+							{ __( 'Importing fulfillments', 'poocommerce' ) }
 						</Text>
 
 						<ProgressBar
-							className="woocommerce-fulfillment-importer-progress"
+							className="poocommerce-fulfillment-importer-progress"
 							value={ percent }
 							aria-label={ __(
 								'Import progress',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 
 						<Text
 							render={ <p /> }
 							role="status"
-							className="woocommerce-fulfillment-importer-step__status"
+							className="poocommerce-fulfillment-importer-step__status"
 						>
 							{ statusLabel }
 						</Text>
@@ -130,7 +130,7 @@ const ImportStep: React.FC< StepComponentProps > = ( { state, dispatch } ) => {
 											isBusy={ isRunning }
 											disabled={ isRunning }
 										>
-											{ __( 'Retry', 'woocommerce' ) }
+											{ __( 'Retry', 'poocommerce' ) }
 										</Button>
 									) }
 									{ /* Also offered next to Retry, for an error that repeats on every retry. */ }
@@ -145,7 +145,7 @@ const ImportStep: React.FC< StepComponentProps > = ( { state, dispatch } ) => {
 										}
 										disabled={ isRunning }
 									>
-										{ __( 'Start over', 'woocommerce' ) }
+										{ __( 'Start over', 'poocommerce' ) }
 									</Button>
 								</Stack>
 							</Notice>

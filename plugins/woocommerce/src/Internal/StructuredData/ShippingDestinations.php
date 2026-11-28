@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StructuredData;
+namespace Automattic\PooCommerce\Internal\StructuredData;
 
 use WC_Shipping_Zone;
 use WC_Shipping_Zones;
@@ -27,7 +27,7 @@ class ShippingDestinations {
 	 * @return array Shipping details.
 	 */
 	public function get_shipping_details(): array {
-		if ( ! wc_shipping_enabled() || has_filter( 'woocommerce_get_zone_criteria' ) ) {
+		if ( ! wc_shipping_enabled() || has_filter( 'poocommerce_get_zone_criteria' ) ) {
 			return array();
 		}
 
@@ -262,7 +262,7 @@ class ShippingDestinations {
 			}
 			if ( $claim['patterns'] ) {
 				if ( null === $candidates ) {
-					// Use the same postcode candidates as WooCommerce's zone matcher.
+					// Use the same postcode candidates as PooCommerce's zone matcher.
 					$candidates = array_map( 'wc_clean', wc_get_wildcard_postcodes( wc_normalize_postcode( $postcode ), $country ) );
 				}
 				foreach ( $candidates as $candidate ) {
@@ -289,7 +289,7 @@ class ShippingDestinations {
 	 */
 	private function get_postcode_restriction( string $postcode, string $country, int &$range_count, int $state_count ): array {
 		$postcode = trim( $postcode );
-		if ( ! has_filter( 'woocommerce_format_postcode' ) ) {
+		if ( ! has_filter( 'poocommerce_format_postcode' ) ) {
 			if ( in_array( $country, array( 'US', 'PR', 'MN' ), true ) && preg_match( '/^([0-9]{1,5})\*$/D', $postcode, $matches ) ) {
 				return array( 'postalCodePrefix' => $matches[1] );
 			}
@@ -301,7 +301,7 @@ class ShippingDestinations {
 			$start = (int) $matches[1];
 			$end   = (int) $matches[2];
 			$count = $end - $start + 1;
-			if ( $count > 1 && $range_count + $count * $state_count > self::MAX_RANGE_POSTCODES && in_array( $country, array( 'AU', 'NZ' ), true ) && 4 === strlen( $matches[1] ) && 4 === strlen( $matches[2] ) && ! has_filter( 'woocommerce_format_postcode' ) ) {
+			if ( $count > 1 && $range_count + $count * $state_count > self::MAX_RANGE_POSTCODES && in_array( $country, array( 'AU', 'NZ' ), true ) && 4 === strlen( $matches[1] ) && 4 === strlen( $matches[2] ) && ! has_filter( 'poocommerce_format_postcode' ) ) {
 				return array(
 					'postalCodeRange' => array(
 						'@type'           => 'PostalCodeRangeSpecification',

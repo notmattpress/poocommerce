@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags\StoreTagsProvider;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags\StoreTagsProvider;
 use WC_Unit_Test_Case;
 
 /**
@@ -67,11 +67,11 @@ class StoreTagsProviderTest extends WC_Unit_Test_Case {
 	/**
 	 * Resolves a tag in the given context.
 	 *
-	 * @param string $tag     Tag name without the woocommerce/ prefix.
+	 * @param string $tag     Tag name without the poocommerce/ prefix.
 	 * @param array  $context Personalization context.
 	 */
 	private function value( string $tag, array $context ): string {
-		return $this->registry->get_by_token( "[woocommerce/{$tag}]" )->execute_callback( $context );
+		return $this->registry->get_by_token( "[poocommerce/{$tag}]" )->execute_callback( $context );
 	}
 
 	/**

@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEditorContext, noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import { checkoutStore, paymentStore } from '@woocommerce/block-data';
+import { useEditorContext, noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import { checkoutStore, paymentStore } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
-import { useDelayedSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
+import { useDelayedSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
 import clsx from 'clsx';
 
 /**
@@ -116,7 +116,7 @@ const CheckoutExpressPayment = () => {
 					'aria-busy': true,
 					'aria-label': __(
 						'Processing express checkout',
-						'woocommerce'
+						'poocommerce'
 					),
 				} ) }
 			>
@@ -128,12 +128,12 @@ const CheckoutExpressPayment = () => {
 								height="20px"
 								ariaMessage={ __(
 									'Loading express payment area…',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						) : (
 							// eslint-disable-next-line @wordpress/i18n-no-flanking-whitespace
-							__( ' Express Checkout', 'woocommerce' )
+							__( ' Express Checkout', 'poocommerce' )
 						) }
 					</h2>
 				</div>
@@ -151,7 +151,7 @@ const CheckoutExpressPayment = () => {
 										height="48px"
 										ariaMessage={ __(
 											'Loading express payment method…',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</li>
@@ -163,7 +163,7 @@ const CheckoutExpressPayment = () => {
 				</div>
 			</div>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--checkout">
-				{ __( 'Or continue below', 'woocommerce' ) }
+				{ __( 'Or continue below', 'poocommerce' ) }
 			</div>
 		</>
 	);
